@@ -1,0 +1,61 @@
+body,
+html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  font-family: "Helvetica Neue", "Helvetica", sans-serif;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  -webkit-font-smoothing: antialiased;
+}
+
+#app {
+  display: flex;
+  min-height: 100%;
+}
+
+.container {
+  width: 100%;
+  padding: 40px 80px 40px 80px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+/* Media Queries */
+
+/* ≥ 568px */
+@media screen and (min-width: 35.5em) {
+
+}
+
+/* ≥ 768px */
+@media screen and (min-width: 48em) {
+}
+
+/* ≥ 960px */
+@media screen and (min-width: 60em) {
+
+}
+
+/* ≥ 1024px */
+@media screen and (min-width: 64em) {
+
+}
+
+/* ≥ 1280px */
+@media screen and (min-width: 80em) {
+  .container {
+    &.full {
+      max-width: none;
+    }
+  }
+}
+
+.hidden {
+  display: none;
+}

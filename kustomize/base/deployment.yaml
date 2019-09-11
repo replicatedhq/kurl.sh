@@ -1,0 +1,18 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kurl-sh
+spec:
+  selector:
+    matchLabels:
+      app: kurl-sh
+  template:
+    metadata:
+      labels:
+        app: kurl-sh
+    spec:
+      containers:
+        - name: kurl-sh
+          image: replicated-kurl-sh
+          imagePullPolicy: IfNotPresent
+
