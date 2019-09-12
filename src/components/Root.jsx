@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import "../scss/index.scss"
-import Main from "./Main.jsx";
+import Kurlsh from "./Kurlsh.jsx";
 import Footer from "./Footer.jsx";
 
 class Root extends React.Component {
@@ -15,7 +15,7 @@ class Root extends React.Component {
               <Route
                 exact
                 path="/"
-                render={() => <Main />}
+                render={() => <Kurlsh />}
               />
             </Switch>
             <div className="flex-auto Footer-wrapper u-width--full">

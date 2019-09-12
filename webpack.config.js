@@ -67,7 +67,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebPackPlugin({
-      template: "dist/index.html",
+      template: "src/index.html",
       filename: "./index.html"
     }),
     new webpack.LoaderOptionsPlugin({
@@ -95,8 +95,6 @@ module.exports = {
   ],
   devServer: {
     port: 8072,
-    hot: true,
-    hotOnly: true,
     host: "0.0.0.0",
     historyApiFallback: {
       verbose: true,

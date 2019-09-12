@@ -15,5 +15,5 @@ serve: deps
 		node --max_old_space_size=6144 \
 		./node_modules/webpack-dev-server/bin/webpack-dev-server.js \
 		--config webpack.config.js \
-		--progress -w --debug --color --env skaffold --mode development --hot \
+		--progress -w --debug --color --env skaffold --mode development \
 		--host 0.0.0.0
