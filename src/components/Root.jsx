@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import "../scss/index.scss"
 import Kurlsh from "./Kurlsh.jsx";
-import Footer from "./Footer.jsx";
+import Footer from "./shared/Footer.jsx";
 
 class Root extends React.Component {
   render() {

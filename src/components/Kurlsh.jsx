@@ -1,9 +1,12 @@
+import "isomorphic-fetch";
 import * as React from "react";
 import autoBind from "react-autobind";
 import { withRouter } from "react-router-dom";
 
 import MonacoEditor from "react-monaco-editor";
 import Select from "react-select";
+
+import CodeSnippet from "./shared/CodeSnippet.jsx";
 
 import "../scss/components/Kurlsh";
 
@@ -13,10 +16,10 @@ class Kurlsh extends React.Component {
     this.state = {
       versions: {
         kubernetes: [
-          {version: "0.15.0"},
-          {version: "0.15.1"},
-          {version: "0.15.2"},
-          {version: "0.15.3"},
+          {version: "1.15.0"},
+          {version: "1.15.1"},
+          {version: "1.15.2"},
+          {version: "1.15.3"},
           {version: "latest"},
         ],
         weave: [
@@ -40,7 +43,8 @@ class Kurlsh extends React.Component {
         weave: {version: "latest"},
         contour: {version: "latest"},
         rook: {version: "latest"}
-      }
+      },
+      installerSha: "latest"
     };
     autoBind(this);
   }
@@ -69,7 +73,9 @@ spec:
   }
 
   onVersionChange = name => value => {
-    this.setState({ selectedVersions: { ...this.state.selectedVersions, [name]: value }});
+    this.setState({ selectedVersions: { ...this.state.selectedVersions, [name]: value }}, () => {
+      this.postToKurlInstaller(this.getYaml());
+     })
   }
 
   getLabel = ({ version }) => {
@@ -80,7 +86,33 @@ spec:
     );
   }
 
+  postToKurlInstaller = async (yaml) => {
+    const url = "http://kurl.sh/installer";
+    try {
+      const response = await fetch(url, {
+        method: "POST",
+        body: yaml,
+        headers: {
+          "Content-Type": "text/yaml",
+        },
+      });
+      if (response.ok) {
+        const res = await response.text();
+        const splittedRes = res.split("/");
+        const installerSha = splittedRes[splittedRes.length - 1];
+        this.setState({ installerSha });
+      }
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+
   render() {
+    const { versions, selectedVersions, installerSha } = this.state;
+
+    const installCommand = `curl https://kurl.sh/${installerSha} | sudo bash`
+
     return (
       <div className="u-minHeight--full u-width--full u-overflow--auto container flex-column flex1 alignItems--center">
         <div className="flex-auto u-width--full">
@@ -103,10 +135,10 @@ spec:
                     <div className="flex1 u-paddingLeft--60 alignSelf--center"> 
                       <div>
                         <Select
-                          options={this.state.versions.kubernetes}
+                          options={versions.kubernetes}
                           getOptionLabel={this.getLabel}
                           getOptionValue={(kubernetes) => kubernetes}
-                          value={this.state.selectedVersions.kubernetes}
+                          value={selectedVersions.kubernetes}
                           onChange={this.onVersionChange("kubernetes")}
                           matchProp="value"
                           isOptionSelected={() => false}
@@ -125,10 +157,10 @@ spec:
                     <div className="flex1 u-paddingLeft--60 alignSelf--center">
                       <div>
                           <Select
-                            options={this.state.versions.weave}
+                            options={versions.weave}
                             getOptionLabel={this.getLabel}
                             getOptionValue={(weave) => weave}
-                            value={this.state.selectedVersions.weave}
+                            value={selectedVersions.weave}
                             onChange={this.onVersionChange("weave")}
                             matchProp="value"
                             isOptionSelected={() => false}
@@ -147,10 +179,10 @@ spec:
                     <div className="flex1 u-paddingLeft--60 alignSelf--center">
                       <div>
                           <Select
-                            options={this.state.versions.contour}
+                            options={versions.contour}
                             getOptionLabel={this.getLabel}
                             getOptionValue={(contour) => contour}
-                            value={this.state.selectedVersions.contour}
+                            value={selectedVersions.contour}
                             onChange={this.onVersionChange("contour")}
                             matchProp="value"
                             isOptionSelected={() => false}
@@ -169,16 +201,33 @@ spec:
                     <div className="flex1 u-paddingLeft--60 alignSelf--center">
                       <div>
                           <Select
-                            options={this.state.versions.rook}
+                            options={versions.rook}
                             getOptionLabel={this.getLabel}
                             getOptionValue={(rook) => rook}
-                            value={this.state.selectedVersions.rook}
+                            value={selectedVersions.rook}
                             onChange={this.onVersionChange("rook")}
                             matchProp="value"
                             isOptionSelected={() => false}
                           />
                         </div>
                     </div>  
+                  </div>
+                </div>
+
+                <div className="flex-column installationUrlForm u-marginTop--normal">
+                  <div className="FormLabel"> Installation URL </div>
+                  <div className="u-fontWeight--normal u-color--dustyGray u-lineHeight--normal">
+                    As your make changes to your YAML spec a new URL will be generated. To create custom URL’s or make changes to this one 
+                    <a href="https://vendor.replicated.com/login" target="_blank" rel="noopener noreferrer" className="u-color--astral"> log in to vendor.replicated.com</a>.
+                  </div>
+                  <div className="flex flex-column u-marginTop--normal">
+                    <CodeSnippet
+                      language="bash"
+                      canCopy={true}
+                      onCopyText={<span className="u-color--vidaLoca">URL has been copied to your clipboard</span>}
+                      >
+                      {installCommand}
+                    </CodeSnippet>
                   </div>
                 </div>
               </div>

@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, withRouter } from "react-router-dom";
-import "../scss/components/Footer.scss";
+import "../../scss/components/shared/Footer.scss";
 
 export class Footer extends React.Component {
 
@@ -8,11 +8,11 @@ export class Footer extends React.Component {
     return [
       {
         label: "Terms",
-        linkTo: "/terms",
+        href: "http://replicated.com/terms",
       },
       {
         label: "Privacy",
-        linkTo: "/privacy",
+        href: "http://replicated.com/privacy",
       },
     ];
   }
