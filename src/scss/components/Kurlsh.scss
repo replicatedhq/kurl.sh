@@ -17,24 +17,3 @@
     right: auto;
   }
 }
-
-.FormLabel {
-  font-size: 16px;
-  font-weight: 600;
-  color: #323232;
-  margin-bottom: 12px;
-}
-
-.installationUrlForm {
-  border: 1px solid #C4C7CA;
-  border-radius: 4px;
-  padding: 18px 20px;
-  background-color: #F5F8FC;
-}
-
-.hidden-input {
-  position: absolute;
-  left: -1000px;
-  top: -1000px;
-  opacity: 0;
-}

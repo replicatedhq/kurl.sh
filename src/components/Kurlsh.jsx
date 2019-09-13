@@ -1,7 +1,7 @@
 import "isomorphic-fetch";
 import * as React from "react";
 import autoBind from "react-autobind";
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 
 import MonacoEditor from "react-monaco-editor";
 import Select from "react-select";
@@ -112,6 +112,7 @@ spec:
     const { versions, selectedVersions, installerSha } = this.state;
 
     const installCommand = `curl https://kurl.sh/${installerSha} | sudo bash`
+    console.log("1eees")
 
     return (
       <div className="u-minHeight--full u-width--full u-overflow--auto container flex-column flex1 alignItems--center">
@@ -214,7 +215,7 @@ spec:
                   </div>
                 </div>
 
-                <div className="flex-column installationUrlForm u-marginTop--normal">
+                <div className="flex-column wrapperForm u-marginTop--normal">
                   <div className="FormLabel"> Installation URL </div>
                   <div className="u-fontWeight--normal u-color--dustyGray u-lineHeight--normal">
                     As your make changes to your YAML spec a new URL will be generated. To create custom URL’s or make changes to this one 
@@ -222,9 +223,10 @@ spec:
                   </div>
                   <div className="flex flex-column u-marginTop--normal">
                     <CodeSnippet
-                      language="bash"
                       canCopy={true}
                       onCopyText={<span className="u-color--vidaLoca">URL has been copied to your clipboard</span>}
+                      downloadAirgapLink={true}
+                      downloadAirgapHtml={<Link to={`/${installerSha}/download`} className="u-color--astral u-lineHeight--normal u-fontSize--small u-textDecoration--underlineOnHover"> Download airgap installer </Link> }
                       >
                       {installCommand}
                     </CodeSnippet>

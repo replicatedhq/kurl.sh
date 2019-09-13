@@ -18,14 +18,14 @@ class CodeSnippet extends Component {
     copyText: PropTypes.string,
     onCopyText: PropTypes.node,
     preText: PropTypes.node,
-    language: PropTypes.string,
     copyDelay: PropTypes.number,
-    variant: PropTypes.string
+    variant: PropTypes.string,
+    downloadAirgapLink: PropTypes.bool,
+    downloadAirgapHtml: PropTypes.node
   }
 
   static defaultProps = {
     variant: "plain",
-    language: "bash",
     copyText: "Copy URL",
     onCopyText: "Copied!",
     copyDelay: 3000
@@ -64,12 +64,13 @@ class CodeSnippet extends Component {
     const {
       className,
       children,
-      language,
       preText,
       canCopy,
       copyText,
       onCopyText,
-      variant
+      variant,
+      downloadAirgapLink,
+      downloadAirgapHtml
     } = this.props;
 
     const { didCopy } = this.state;
@@ -99,7 +100,15 @@ class CodeSnippet extends Component {
               {didCopy
                 ? onCopyText
                 : copyText
-              }
+              } 
+            </span>
+          )}
+          <span className="u-color--dustyGray u-fontSize--small u-marginLeft--small u-marginRight--small"> | </span>
+          {downloadAirgapLink && (
+            <span
+              className="CodeSnippet-copy u-fontWeight--bold"
+            >
+            {downloadAirgapHtml} 
             </span>
           )}
         </div>

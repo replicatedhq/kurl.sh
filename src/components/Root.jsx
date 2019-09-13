@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import "../scss/index.scss"
 import Kurlsh from "./Kurlsh.jsx";
+import DownloadAirgapBundle from "./DownloadAirgapBundle.jsx";
 import Footer from "./shared/Footer.jsx";
 
 class Root extends React.Component {
@@ -16,6 +17,10 @@ class Root extends React.Component {
                 exact
                 path="/"
                 render={() => <Kurlsh />}
+              />
+              <Route
+                path="/:sha/download"
+                render={() => <DownloadAirgapBundle />}
               />
             </Switch>
             <div className="flex-auto Footer-wrapper u-width--full">
