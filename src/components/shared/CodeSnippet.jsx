@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import classNames from "classnames";
 import PropTypes from "prop-types";
-import Prism from "@maji/react-prism";
 
 import "../../scss/components/shared/CodeSnippet.scss";
 
