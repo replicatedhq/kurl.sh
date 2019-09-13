@@ -116,8 +116,8 @@ spec:
     return (
       <div className="u-minHeight--full u-width--full u-overflow--auto container flex-column flex1 alignItems--center">
         <div className="flex-auto u-width--full">
-          <span className="u-fontSize--header2 u-fontWeight--bold u-color--tarawera">kurl</span>
-          <span className="u-fontSize--header2 u-fontWeight--bold u-color--dustyGray">.sh</span>
+          <span className="u-fontSize--header2 u-fontWeight--bold u-color--tarawera u-lineHeight--more">kurl</span>
+          <span className="u-fontSize--header2 u-fontWeight--bold u-color--dustyGray u-lineHeight--more">.sh</span>
         </div>
         <div className="u-flexTabletReflow flex-1-auto u-width--full">
           <div className="flex1 flex-column">
@@ -218,7 +218,7 @@ spec:
                   <div className="FormLabel"> Installation URL </div>
                   <div className="u-fontWeight--normal u-color--dustyGray u-lineHeight--normal">
                     As your make changes to your YAML spec a new URL will be generated. To create custom URL’s or make changes to this one 
-                    <a href="https://vendor.replicated.com/login" target="_blank" rel="noopener noreferrer" className="u-color--astral"> log in to vendor.replicated.com</a>.
+                    <a href="https://vendor.replicated.com/login" target="_blank" rel="noopener noreferrer" className="replicated-link"> log in to vendor.replicated.com</a>.
                   </div>
                   <div className="flex flex-column u-marginTop--normal">
                     <CodeSnippet
@@ -231,6 +231,7 @@ spec:
                   </div>
                 </div>
               </div>
+              <span className="u-fontWeight--normal u-color--dustyGray u-lineHeight--normal u-marginTop--small"> Want to add a new component to kurl? <a href="https://github.com/replicatedhq/kurl#contributing" target="_blank" rel="noopener noreferrer" className="replicated-link">Read our contributing guide.</a> </span>
             </div>
           <div className="u-paddingLeft--60 flex1 flex-column">
             <div className="MonacoEditor--wrapper helm-values flex1 flex u-height--full u-width--full u-marginTop--20">
