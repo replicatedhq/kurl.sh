@@ -87,7 +87,7 @@ spec:
   }
 
   postToKurlInstaller = async (yaml) => {
-    const url = "http://kurl.sh/installer";
+    const url = "https://kurl.sh/installer";
     try {
       const response = await fetch(url, {
         method: "POST",
