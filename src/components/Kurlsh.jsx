@@ -112,7 +112,7 @@ spec:
     const { versions, selectedVersions, installerSha } = this.state;
 
     const installCommand = `curl https://kurl.sh/${installerSha} | sudo bash`
-    console.log("1eees")
+    console.log("asaas")
 
     return (
       <div className="u-minHeight--full u-width--full u-overflow--auto container flex-column flex1 alignItems--center">
@@ -130,7 +130,7 @@ spec:
                 <div className="flex u-marginTop--30">
                   <div className="flex flex1">
                     <div className="flex1"> 
-                      <div className="FormLabel"> Kubernetes version </div>
+                      <div className="FormLabel u-marginBottom--normal"> Kubernetes version </div>
                       <div className="u-fontWeight--normal u-color--dustyGray u-lineHeight--normal u-marginBottom--more"> What version of Kubernetes are you using? </div>
                     </div>  
                     <div className="flex1 u-paddingLeft--60 alignSelf--center"> 
@@ -152,7 +152,7 @@ spec:
                 <div className="flex u-marginTop--30">
                   <div className="flex flex1">
                     <div className="flex1"> 
-                      <div className="FormLabel"> Weave version </div>
+                      <div className="FormLabel u-marginBottom--normal"> Weave version </div>
                       <div className="u-fontWeight--normal u-color--dustyGray u-lineHeight--normal u-marginBottom--more"> What version of Weave are you using? </div>
                     </div>  
                     <div className="flex1 u-paddingLeft--60 alignSelf--center">
@@ -174,7 +174,7 @@ spec:
                 <div className="flex u-marginTop--30">
                   <div className="flex flex1">
                     <div className="flex1"> 
-                      <div className="FormLabel"> Contour version </div>
+                      <div className="FormLabel u-marginBottom--normal"> Contour version </div>
                       <div className="u-fontWeight--normal u-color--dustyGray u-lineHeight--normal u-marginBottom--more"> What version of Contour are you using? </div>
                     </div>  
                     <div className="flex1 u-paddingLeft--60 alignSelf--center">
@@ -196,7 +196,7 @@ spec:
                 <div className="flex u-marginTop--30">
                   <div className="flex flex1">
                     <div className="flex1"> 
-                      <div className="FormLabel"> Rook version </div>
+                      <div className="FormLabel u-marginBottom--normal"> Rook version </div>
                       <div className="u-fontWeight--normal u-color--dustyGray u-lineHeight--normal u-marginBottom--more"> What version of Rook are you using? </div>
                     </div>  
                     <div className="flex1 u-paddingLeft--60 alignSelf--center">
@@ -216,7 +216,7 @@ spec:
                 </div>
 
                 <div className="flex-column wrapperForm u-marginTop--normal">
-                  <div className="FormLabel"> Installation URL </div>
+                  <div className="FormLabel u-marginBottom--normal"> Installation URL </div>
                   <div className="u-fontWeight--normal u-color--dustyGray u-lineHeight--normal">
                     As your make changes to your YAML spec a new URL will be generated. To create custom URL’s or make changes to this one 
                     <a href="https://vendor.replicated.com/login" target="_blank" rel="noopener noreferrer" className="replicated-link"> log in to vendor.replicated.com</a>.
