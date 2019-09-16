@@ -22,7 +22,7 @@ class DownloadAirgapBundle extends React.Component {
   }
 
   checkS3Response = async (sha) => {
-    const url = `https://cors-anywhere.herokuapp.com/https://staging.kurl.sh/bundle/${sha}.tar.gz`
+    const url = `https://cors-anywhere.herokuapp.com/${window.env.KURL_BUNDLE_URL}/${sha}.tar.gz`
     try {
       const response = await fetch(url, {
         method: "GET",
