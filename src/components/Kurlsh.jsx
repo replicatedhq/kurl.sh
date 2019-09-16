@@ -112,7 +112,6 @@ spec:
     const { versions, selectedVersions, installerSha } = this.state;
 
     const installCommand = `curl https://kurl.sh/${installerSha} | sudo bash`
-    console.log("asaas")
 
     return (
       <div className="u-minHeight--full u-width--full u-overflow--auto container flex-column flex1 alignItems--center">
