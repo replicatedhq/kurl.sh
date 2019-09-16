@@ -1,6 +1,4 @@
-import "isomorphic-fetch";
 import * as React from "react";
-import autoBind from "react-autobind";
 import { withRouter, Link } from "react-router-dom";
 
 import MonacoEditor from "react-monaco-editor";
@@ -11,43 +9,39 @@ import CodeSnippet from "./shared/CodeSnippet.jsx";
 import "../scss/components/Kurlsh";
 
 class Kurlsh extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      versions: {
-        kubernetes: [
-          {version: "1.15.0"},
-          {version: "1.15.1"},
-          {version: "1.15.2"},
-          {version: "1.15.3"},
-          {version: "latest"},
-        ],
-        weave: [
-          {version: "2.5.2"},
-          {version: "latest"},
-          {version: "None"},
-        ],
-        contour: [
-          {version: "0.14.0"},
-          {version: "latest"},
-          {version: "None"},
-        ],
-        rook: [
-          {version: "1.0.4"},
-          {version: "latest"},
-          {version: "None"},
-        ]
-      },
-      selectedVersions: {
-        kubernetes: {version: "latest"},
-        weave: {version: "latest"},
-        contour: {version: "latest"},
-        rook: {version: "latest"}
-      },
-      installerSha: "latest"
-    };
-    autoBind(this);
-  }
+  state = {
+    versions: {
+      kubernetes: [
+        {version: "1.15.0"},
+        {version: "1.15.1"},
+        {version: "1.15.2"},
+        {version: "1.15.3"},
+        {version: "latest"},
+      ],
+      weave: [
+        {version: "2.5.2"},
+        {version: "latest"},
+        {version: "None"},
+      ],
+      contour: [
+        {version: "0.14.0"},
+        {version: "latest"},
+        {version: "None"},
+      ],
+      rook: [
+        {version: "1.0.4"},
+        {version: "latest"},
+        {version: "None"},
+      ]
+    },
+    selectedVersions: {
+      kubernetes: {version: "latest"},
+      weave: {version: "latest"},
+      contour: {version: "latest"},
+      rook: {version: "latest"}
+    },
+    installerSha: "latest"
+  };
 
   getYaml = () => {
     const required = 
@@ -87,7 +81,7 @@ spec:
   }
 
   postToKurlInstaller = async (yaml) => {
-    const url = "https://kurl.sh/installer";
+    const url = "https://staging.kurl.sh/installer";
     try {
       const response = await fetch(url, {
         method: "POST",

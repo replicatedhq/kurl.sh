@@ -1,6 +1,4 @@
-import "isomorphic-fetch";
 import * as React from "react";
-import autoBind from "react-autobind";
 import { withRouter } from "react-router-dom";
 
 
@@ -8,14 +6,10 @@ import CodeSnippet from "./shared/CodeSnippet.jsx";
 import Loader from "./shared/Loader.jsx";
 
 class DownloadAirgapBundle extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isDownloadingBundle: false,
-      responseStatusCode: null
-    };
-    autoBind(this);
-  }
+  state = {
+    isDownloadingBundle: false,
+    responseStatusCode: null
+  };
 
   onBundleDownload = () => {
     this.setState({ isDownloadingBundle: !this.state.isDownloadingBundle });
