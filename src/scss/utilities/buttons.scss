@@ -1,0 +1,22 @@
+.Button {
+  border-radius: 5px;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 7px 12px 8px 12px;
+  font-size: 14px;
+  display: inline-block;
+  border: 0;
+  transition: all .2s;
+  outline: none;
+  position: relative;
+}
+
+.Button.primary {
+  background-color: #073551;
+  border: 1px solid #073551;
+  color: #ffffff;
+}
+
+.Button.primary:hover {
+  background-color: #235784;
+}

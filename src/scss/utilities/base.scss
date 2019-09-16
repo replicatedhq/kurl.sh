@@ -37,6 +37,26 @@ body a {
   cursor: pointer;
   font-weight: 500;
 }
+
+.wrapperForm {
+  border: 1px solid #C4C7CA;
+  border-radius: 4px;
+  padding: 18px 20px;
+  background-color: #F5F8FC;
+}
+
+.FormLabel {
+  font-size: 16px;
+  font-weight: 600;
+  color: #323232;
+}
+
+.hidden-input {
+  position: absolute;
+  left: -1000px;
+  top: -1000px;
+  opacity: 0;
+}
 /* Media Queries */
 
 /* ≥ 568px */

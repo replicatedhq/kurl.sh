@@ -1,7 +1,5 @@
-import "isomorphic-fetch";
 import * as React from "react";
-import autoBind from "react-autobind";
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 
 import MonacoEditor from "react-monaco-editor";
 import Select from "react-select";
@@ -11,43 +9,39 @@ import CodeSnippet from "./shared/CodeSnippet.jsx";
 import "../scss/components/Kurlsh";
 
 class Kurlsh extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      versions: {
-        kubernetes: [
-          {version: "1.15.0"},
-          {version: "1.15.1"},
-          {version: "1.15.2"},
-          {version: "1.15.3"},
-          {version: "latest"},
-        ],
-        weave: [
-          {version: "2.5.2"},
-          {version: "latest"},
-          {version: "None"},
-        ],
-        contour: [
-          {version: "0.14.0"},
-          {version: "latest"},
-          {version: "None"},
-        ],
-        rook: [
-          {version: "1.0.4"},
-          {version: "latest"},
-          {version: "None"},
-        ]
-      },
-      selectedVersions: {
-        kubernetes: {version: "latest"},
-        weave: {version: "latest"},
-        contour: {version: "latest"},
-        rook: {version: "latest"}
-      },
-      installerSha: "latest"
-    };
-    autoBind(this);
-  }
+  state = {
+    versions: {
+      kubernetes: [
+        {version: "1.15.0"},
+        {version: "1.15.1"},
+        {version: "1.15.2"},
+        {version: "1.15.3"},
+        {version: "latest"},
+      ],
+      weave: [
+        {version: "2.5.2"},
+        {version: "latest"},
+        {version: "None"},
+      ],
+      contour: [
+        {version: "0.14.0"},
+        {version: "latest"},
+        {version: "None"},
+      ],
+      rook: [
+        {version: "1.0.4"},
+        {version: "latest"},
+        {version: "None"},
+      ]
+    },
+    selectedVersions: {
+      kubernetes: {version: "latest"},
+      weave: {version: "latest"},
+      contour: {version: "latest"},
+      rook: {version: "latest"}
+    },
+    installerSha: "latest"
+  };
 
   getYaml = () => {
     const required = 
@@ -87,7 +81,7 @@ spec:
   }
 
   postToKurlInstaller = async (yaml) => {
-    const url = "https://kurl.sh/installer";
+    const url = "https://staging.kurl.sh/installer";
     try {
       const response = await fetch(url, {
         method: "POST",
@@ -129,7 +123,7 @@ spec:
                 <div className="flex u-marginTop--30">
                   <div className="flex flex1">
                     <div className="flex1"> 
-                      <div className="FormLabel"> Kubernetes version </div>
+                      <div className="FormLabel u-marginBottom--normal"> Kubernetes version </div>
                       <div className="u-fontWeight--normal u-color--dustyGray u-lineHeight--normal u-marginBottom--more"> What version of Kubernetes are you using? </div>
                     </div>  
                     <div className="flex1 u-paddingLeft--60 alignSelf--center"> 
@@ -151,7 +145,7 @@ spec:
                 <div className="flex u-marginTop--30">
                   <div className="flex flex1">
                     <div className="flex1"> 
-                      <div className="FormLabel"> Weave version </div>
+                      <div className="FormLabel u-marginBottom--normal"> Weave version </div>
                       <div className="u-fontWeight--normal u-color--dustyGray u-lineHeight--normal u-marginBottom--more"> What version of Weave are you using? </div>
                     </div>  
                     <div className="flex1 u-paddingLeft--60 alignSelf--center">
@@ -173,7 +167,7 @@ spec:
                 <div className="flex u-marginTop--30">
                   <div className="flex flex1">
                     <div className="flex1"> 
-                      <div className="FormLabel"> Contour version </div>
+                      <div className="FormLabel u-marginBottom--normal"> Contour version </div>
                       <div className="u-fontWeight--normal u-color--dustyGray u-lineHeight--normal u-marginBottom--more"> What version of Contour are you using? </div>
                     </div>  
                     <div className="flex1 u-paddingLeft--60 alignSelf--center">
@@ -195,7 +189,7 @@ spec:
                 <div className="flex u-marginTop--30">
                   <div className="flex flex1">
                     <div className="flex1"> 
-                      <div className="FormLabel"> Rook version </div>
+                      <div className="FormLabel u-marginBottom--normal"> Rook version </div>
                       <div className="u-fontWeight--normal u-color--dustyGray u-lineHeight--normal u-marginBottom--more"> What version of Rook are you using? </div>
                     </div>  
                     <div className="flex1 u-paddingLeft--60 alignSelf--center">
@@ -214,17 +208,18 @@ spec:
                   </div>
                 </div>
 
-                <div className="flex-column installationUrlForm u-marginTop--normal">
-                  <div className="FormLabel"> Installation URL </div>
+                <div className="flex-column wrapperForm u-marginTop--normal">
+                  <div className="FormLabel u-marginBottom--normal"> Installation URL </div>
                   <div className="u-fontWeight--normal u-color--dustyGray u-lineHeight--normal">
                     As your make changes to your YAML spec a new URL will be generated. To create custom URL’s or make changes to this one 
                     <a href="https://vendor.replicated.com/login" target="_blank" rel="noopener noreferrer" className="replicated-link"> log in to vendor.replicated.com</a>.
                   </div>
                   <div className="flex flex-column u-marginTop--normal">
                     <CodeSnippet
-                      language="bash"
                       canCopy={true}
                       onCopyText={<span className="u-color--vidaLoca">URL has been copied to your clipboard</span>}
+                      downloadAirgapLink={true}
+                      downloadAirgapHtml={<Link to={`/${installerSha}/download`} className="u-color--astral u-lineHeight--normal u-fontSize--small u-textDecoration--underlineOnHover"> Download airgap installer </Link> }
                       >
                       {installCommand}
                     </CodeSnippet>
