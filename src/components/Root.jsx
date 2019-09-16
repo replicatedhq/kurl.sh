@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import "../scss/index.scss"
 import Kurlsh from "./Kurlsh.jsx";
 import DownloadAirgapBundle from "./DownloadAirgapBundle.jsx";

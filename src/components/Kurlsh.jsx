@@ -81,7 +81,7 @@ spec:
   }
 
   postToKurlInstaller = async (yaml) => {
-    const url = "https://staging.kurl.sh/installer";
+    const url = `${window.env.KURL_INSTALLER_URL}`
     try {
       const response = await fetch(url, {
         method: "POST",
