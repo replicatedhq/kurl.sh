@@ -67,6 +67,11 @@ module.exports = function (env) {
           test: /\.less$/,
           include: modulePath,
           use: ["less-loader"],
+        },
+        {
+          test: /\.(png|jpg|svg|ico)$/,
+          include: srcPath,
+          use: ["file-loader"],
         }
       ]
     },
