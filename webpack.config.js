@@ -2,6 +2,7 @@ const webpack = require("webpack");
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const HtmlWebpackTemplate = require("html-webpack-template");
 const MonacoWebpackPlugin = require("monaco-editor-webpack-plugin");
+const CopyWebpackPlugin = require("copy-webpack-plugin");
 const path = require("path");
 
 module.exports = function (env) {
@@ -104,6 +105,7 @@ module.exports = function (env) {
           ]
         },
       }),
+      new CopyWebpackPlugin([{ from: "./_redirects" }]),
       new MonacoWebpackPlugin({
         languages: [
           "yaml",
