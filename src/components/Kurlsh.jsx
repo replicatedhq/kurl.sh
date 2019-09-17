@@ -116,7 +116,7 @@ spec:
             <div className="left-content-wrap flex-column">
               <div className="u-marginTop--more u-fontSize--larger u-fontWeight--medium u-lineHeight--more u-color--tuna">
                   Kurl is a Kubernetes installer for airgapped and online clusters. 
-                  This form allows you to quickly build an installer and will provide you with a URL that it can be installed at.
+                  This form allows you to quickly build an installer and will provide you with a URL that it can be installed at.
                 </div>
                 <div className="flex u-marginTop--30">
                   <div className="flex flex1">
