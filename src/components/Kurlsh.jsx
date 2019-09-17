@@ -108,26 +108,24 @@ spec:
     const installCommand = `curl https://kurl.sh/${installerSha} | sudo bash`
 
     return (
-      <div className="u-minHeight--full u-width--full u-overflow--auto container flex-column flex1 alignItems--center">
-        <div className="flex-auto u-width--full">
-          <span className="u-fontSize--header2 u-fontWeight--bold u-color--tarawera u-lineHeight--more">kurl</span>
-          <span className="u-fontSize--header2 u-fontWeight--bold u-color--dustyGray u-lineHeight--more">.sh</span>
+      <div className="u-minHeight--full u-width--full u-overflow--auto container flex-column flex1">
+        <div className="logo flex-auto u-width--full">
         </div>
         <div className="u-flexTabletReflow flex-1-auto u-width--full">
           <div className="flex1 flex-column">
             <div className="left-content-wrap flex-column">
               <div className="u-marginTop--more u-fontSize--larger u-fontWeight--medium u-lineHeight--more u-color--tuna">
                   Kurl is a Kubernetes installer for airgapped and online clusters. 
-                  This form allows you to quickly build an installer and will provide you with a URL that it can be installed at.
+                  This form allows you to quickly build an installer and will provide you with a URL that it can be installed at.
                 </div>
                 <div className="flex u-marginTop--30">
                   <div className="flex flex1">
                     <div className="flex1"> 
-                      <div className="FormLabel u-marginBottom--normal"> Kubernetes version </div>
-                      <div className="u-fontWeight--normal u-color--dustyGray u-lineHeight--normal u-marginBottom--more"> What version of Kubernetes are you using? </div>
+                      <div className="FormLabel u-marginBottom--10"> Kubernetes version </div>
+                      <div className="u-fontSize--small u-fontWeight--normal u-color--dustyGray u-lineHeight--normal u-marginBottom--more"> What version of Kubernetes are you using? </div>
                     </div>  
-                    <div className="flex1 u-paddingLeft--60 alignSelf--center"> 
-                      <div>
+                    <div className="flex1 u-paddingLeft--50 alignSelf--center"> 
+                      <div className="u-width--120">
                         <Select
                           options={versions.kubernetes}
                           getOptionLabel={this.getLabel}
@@ -145,11 +143,11 @@ spec:
                 <div className="flex u-marginTop--30">
                   <div className="flex flex1">
                     <div className="flex1"> 
-                      <div className="FormLabel u-marginBottom--normal"> Weave version </div>
-                      <div className="u-fontWeight--normal u-color--dustyGray u-lineHeight--normal u-marginBottom--more"> What version of Weave are you using? </div>
+                      <div className="FormLabel u-marginBottom--10"> Weave version </div>
+                      <div className="u-fontSize--small u-fontWeight--normal u-color--dustyGray u-lineHeight--normal u-marginBottom--more"> What version of Weave are you using? </div>
                     </div>  
-                    <div className="flex1 u-paddingLeft--60 alignSelf--center">
-                      <div>
+                    <div className="flex1 u-paddingLeft--50 alignSelf--center">
+                      <div className="u-width--120">
                           <Select
                             options={versions.weave}
                             getOptionLabel={this.getLabel}
@@ -167,11 +165,11 @@ spec:
                 <div className="flex u-marginTop--30">
                   <div className="flex flex1">
                     <div className="flex1"> 
-                      <div className="FormLabel u-marginBottom--normal"> Contour version </div>
-                      <div className="u-fontWeight--normal u-color--dustyGray u-lineHeight--normal u-marginBottom--more"> What version of Contour are you using? </div>
+                      <div className="FormLabel u-marginBottom--10"> Contour version </div>
+                      <div className="u-fontSize--small u-fontWeight--normal u-color--dustyGray u-lineHeight--normal u-marginBottom--more"> What version of Contour are you using? </div>
                     </div>  
-                    <div className="flex1 u-paddingLeft--60 alignSelf--center">
-                      <div>
+                    <div className="flex1 u-paddingLeft--50 alignSelf--center">
+                      <div className="u-width--120">
                           <Select
                             options={versions.contour}
                             getOptionLabel={this.getLabel}
@@ -189,11 +187,11 @@ spec:
                 <div className="flex u-marginTop--30">
                   <div className="flex flex1">
                     <div className="flex1"> 
-                      <div className="FormLabel u-marginBottom--normal"> Rook version </div>
-                      <div className="u-fontWeight--normal u-color--dustyGray u-lineHeight--normal u-marginBottom--more"> What version of Rook are you using? </div>
+                      <div className="FormLabel u-marginBottom--10"> Rook version </div>
+                      <div className="u-fontSize--small u-fontWeight--normal u-color--dustyGray u-lineHeight--normal"> What version of Rook are you using? </div>
                     </div>  
-                    <div className="flex1 u-paddingLeft--60 alignSelf--center">
-                      <div>
+                    <div className="flex1 u-paddingLeft--50 alignSelf--center">
+                      <div className="u-width--120">
                           <Select
                             options={versions.rook}
                             getOptionLabel={this.getLabel}
@@ -208,9 +206,9 @@ spec:
                   </div>
                 </div>
 
-                <div className="flex-column wrapperForm u-marginTop--normal">
+                <div className="flex-column wrapperForm u-marginTop--30">
                   <div className="FormLabel u-marginBottom--normal"> Installation URL </div>
-                  <div className="u-fontWeight--normal u-color--dustyGray u-lineHeight--normal">
+                  <div className="u-fontSize--small u-fontWeight--normal u-color--dustyGray u-lineHeight--normal">
                     As your make changes to your YAML spec a new URL will be generated. To create custom URL’s or make changes to this one 
                     <a href="https://vendor.replicated.com/login" target="_blank" rel="noopener noreferrer" className="replicated-link"> log in to vendor.replicated.com</a>.
                   </div>
@@ -226,10 +224,10 @@ spec:
                   </div>
                 </div>
               </div>
-              <span className="u-fontWeight--normal u-color--dustyGray u-lineHeight--normal u-marginTop--small"> Want to add a new component to kurl? <a href="https://github.com/replicatedhq/kurl#contributing" target="_blank" rel="noopener noreferrer" className="replicated-link">Read our contributing guide.</a> </span>
+              <span className="u-fontSize--small u-fontWeight--medium u-color--dustyGray u-lineHeight--normal u-marginTop--small"> Want to add a new component to kurl? <a href="https://github.com/replicatedhq/kurl#contributing" target="_blank" rel="noopener noreferrer" className="replicated-link">Read our contributing</a> guide.</span>
             </div>
           <div className="u-paddingLeft--60 flex1 flex-column">
-            <div className="MonacoEditor--wrapper helm-values flex1 flex u-height--full u-width--full u-marginTop--20">
+            <div className="MonacoEditor--wrapper helm-values flex1 flex u-width--full u-marginTop--20">
                 <div className="flex u-width--full u-overflow--hidden">
                   <MonacoEditor
                     ref={(editor) => { this.monacoEditor = editor }}
