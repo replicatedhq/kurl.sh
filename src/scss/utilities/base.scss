@@ -38,6 +38,14 @@ body a {
   font-weight: 500;
 }
 
+.logo {
+  background-image: url("../images/kurl.png");
+  background-repeat: no-repeat;
+  background-size: 110px 30px;
+  width: 110px;
+  height: 30px;
+}
+
 .wrapperForm {
   border: 1px solid #C4C7CA;
   border-radius: 4px;
@@ -46,7 +54,7 @@ body a {
 }
 
 .FormLabel {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 600;
   color: #323232;
 }
