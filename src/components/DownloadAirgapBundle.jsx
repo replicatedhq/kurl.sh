@@ -7,13 +7,9 @@ import Loader from "./shared/Loader.jsx";
 
 class DownloadAirgapBundle extends React.Component {
   state = {
-    isDownloadingBundle: false,
-    responseStatusCode: null
+    responseStatusCode: null,
+    bundleUrl: ""
   };
-
-  onBundleDownload = () => {
-    this.setState({ isDownloadingBundle: !this.state.isDownloadingBundle });
-  }
 
   componentDidMount() {
     if (this.props.match.params.sha) {
@@ -32,15 +28,28 @@ class DownloadAirgapBundle extends React.Component {
         },
         mode: "cors"
       });
-      this.setState({ responseStatusCode: response.status })
+      this.setState({ responseStatusCode: response.status, bundleUrl: `${window.env.KURL_BUNDLE_URL}/${sha}.tar.gz` })
     } catch (error) {
       console.log(error);
       return;
     }
   }
 
+  handleDownloadBundle = () => {
+    const hiddenIFrameID = "hiddenDownloader";
+    let iframe = document.getElementById(hiddenIFrameID);
+    const url = this.state.bundleUrl;
+    if (iframe === null) {
+      iframe = document.createElement("iframe");
+      iframe.id = hiddenIFrameID;
+      iframe.style.display = "none";
+      document.body.appendChild(iframe);
+    }
+    iframe.src = url;
+  }
+
   render() {
-    const { isDownloadingBundle, responseStatusCode } = this.state;
+    const { responseStatusCode } = this.state;
     const { sha } = this.props.match.params;
     const bundleUrl = `curl -LO https://kurl.sh/bundle/${sha}.tar.gz`
     const installBundleCommand = `
@@ -68,42 +77,37 @@ cat install.sh | sudo bash
                     <button
                       type="button"
                       className="Button primary"
-                      onClick={() => this.onBundleDownload()}
+                      onClick={() => this.handleDownloadBundle()}
                     >
                       Download airgap bundle
-                                    </button>
+                    </button>
                   </div>
                 </div>
-                {isDownloadingBundle ?
-                  <div>
                     <div className="u-marginTop--normal u-borderTop--gray">
-                      <div className="flex flex-column u-marginTop--normal">
-                        <CodeSnippet
-                          canCopy={true}
-                          onCopyText={<span className="u-color--vidaLoca">URL has been copied to your clipboard</span>}
-                        >
-                          {bundleUrl}
-                        </CodeSnippet>
-                      </div>
-                    </div>
-                    <div className="u-marginTop--40">
-                      <div className="flex1">
-                        <div className="FormLabel u-marginBottom--5"> Install airgap bundle </div>
-                        <span className="u-fontSize--small u-fontWeight--normal u-color--dustyGray u-lineHeight--normal u-marginBottom--more"> After copying the archive to your host, untar it and run the install script. </span>
-                      </div>
-                      <div className="flex flex-column u-marginTop--normal">
-                        <CodeSnippet
-                          canCopy={true}
-                          isCommand={true}
-                          onCopyText={<span className="u-color--vidaLoca">Command has been copied to your clipboard</span>}
-                        >
-                          {installBundleCommand}
-                        </CodeSnippet>
-                      </div>
-                    </div>
+                  <div className="flex flex-column u-marginTop--normal">
+                    <CodeSnippet
+                      canCopy={true}
+                      onCopyText={<span className="u-color--vidaLoca">URL has been copied to your clipboard</span>}
+                    >
+                      {bundleUrl}
+                    </CodeSnippet>
                   </div>
-                  : null
-                }
+                </div>
+                <div className="u-marginTop--40">
+                  <div className="flex1">
+                    <div className="FormLabel u-marginBottom--5"> Install airgap bundle </div>
+                    <span className="u-fontSize--small u-fontWeight--normal u-color--dustyGray u-lineHeight--normal u-marginBottom--more"> After copying the archive to your host, untar it and run the install script. </span>
+                  </div>
+                  <div className="flex flex-column u-marginTop--normal">
+                    <CodeSnippet
+                      canCopy={true}
+                      isCommand={true}
+                      onCopyText={<span className="u-color--vidaLoca">Command has been copied to your clipboard</span>}
+                    >
+                      {installBundleCommand}
+                    </CodeSnippet>
+                  </div>
+                </div>
               </div>
               <div className="flex1">
                 <span className="u-fontSize--small u-fontWeight--medium u-color--dustyGray u-lineHeight--normal u-marginTop--small">Need more help? <a href="https://github.com/replicatedhq/kurl#airgapped-usage" target="_blank" rel="noopener noreferrer" className="replicated-link">Check out our docs.</a> </span>
