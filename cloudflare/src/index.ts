@@ -1,3 +1,5 @@
+import * as url from "url";
+
 if (typeof addEventListener === 'function') {
   addEventListener('fetch', (e: Event): void => {
     // work around as strict typescript check doesn't allow e to be of type FetchEvent
@@ -7,26 +9,36 @@ if (typeof addEventListener === 'function') {
 }
 
 async function proxyRequest(r: Request): Promise<Response> {
-  const url = new URL(r.url);
+  try {
+    const requestUrl = new URL(r.url);
+    let userAgent = r.headers.get("user-agent");
+    if (!userAgent) {
+      userAgent = "";
+    }
 
-  if (!isTerminalRequest(r)) {
-    return fetch(`https://kurlsh.netlify.com/${url.pathname}`);
+    if (isTerminalRequest(r.url, userAgent)) {
+      return fetch(`__BACKEND__${requestUrl.pathname}`);
+    } else {
+      return fetch(`__FRONTEND__${requestUrl.pathname}`);
+    }
+  } catch (err) {
+    // Return the error stack as the response
+    return new Response(err.stack || err)
   }
-
-  return fetch(r);
 }
 
-function isTerminalRequest(r: Request): boolean {
-  const isTermRe = new RegExp(`(?i)^(curl|wget)\/`);
-  if (isTermRe.test(r.headers["user-agent"])) {
+export function isTerminalRequest(requestUrl: string, userAgent: string): boolean {
+  if (userAgent.includes("curl")) {
     return true;
   }
-  
-  const urlParams = new URLSearchParams(r.url);
-  if (urlParams.has("type")) {
-    if (urlParams.get("type") === "script") {
-      return true;
-    }
+
+  if (userAgent.includes("wget")) {
+    return true;
+  }
+
+  const parsed = url.parse(requestUrl, true);
+  if (parsed.query["type"] === "script") {
+    return true;
   }
 
   return false;
