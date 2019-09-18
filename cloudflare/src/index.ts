@@ -1,4 +1,7 @@
 import * as url from "url";
+import * as process from "process";
+
+var frontend = "";
 
 if (typeof addEventListener === 'function') {
   addEventListener('fetch', (e: Event): void => {
@@ -9,14 +12,22 @@ if (typeof addEventListener === 'function') {
 }
 
 async function proxyRequest(r: Request): Promise<Response> {
-  const requestUrl = new URL(r.url);
-  const userAgent = r.headers["user-agent"];
+  try {
+    const requestUrl = new URL(r.url);
+    let userAgent = r.headers.get("user-agent");
+    if (!userAgent) {
+      userAgent = "";
+    }
 
-  if (!isTerminalRequest(r.url, userAgent)) {
-    return fetch(`https://kurlsh.netlify.com/${requestUrl.pathname}`);
+    if (isTerminalRequest(r.url, userAgent)) {
+      return fetch(`__BACKEND__${requestUrl.pathname}`);
+    } else {
+      return fetch(`__FRONTEND__${requestUrl.pathname}`);
+    }
+  } catch (err) {
+    // Return the error stack as the response
+    return new Response(err.stack || err)
   }
-
-  return fetch(r);
 }
 
 export function isTerminalRequest(requestUrl: string, userAgent: string): boolean {
