@@ -1,7 +1,4 @@
 import * as url from "url";
-import * as process from "process";
-
-var frontend = "";
 
 if (typeof addEventListener === 'function') {
   addEventListener('fetch', (e: Event): void => {
