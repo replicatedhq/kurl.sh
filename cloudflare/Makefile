@@ -20,3 +20,7 @@ build: prebuild
 .PHONY: preview
 preview: build
 	`yarn bin`/workers-preview < dist/bundle.js
+
+.PHONY: test
+test:
+	yarn run test
