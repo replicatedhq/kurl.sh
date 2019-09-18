@@ -1,4 +1,3 @@
-import * as useragent from "useragent";
 import * as url from "url";
 
 if (typeof addEventListener === 'function') {
@@ -21,8 +20,11 @@ async function proxyRequest(r: Request): Promise<Response> {
 }
 
 export function isTerminalRequest(requestUrl: string, userAgent: string): boolean {
-  const ua = useragent.parse(userAgent);
-  if (ua.family === "curl" || ua.family === "wget") {
+  if (userAgent.includes("curl")) {
+    return true;
+  }
+
+  if (userAgent.includes("wget")) {
     return true;
   }
 

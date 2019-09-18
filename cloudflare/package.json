@@ -28,7 +28,6 @@
   "dependencies": {
     "mocha": "^6.2.0",
     "moment": "^2.24.0",
-    "parse-duration": "^0.1.1",
-    "useragent": "^2.3.0"
+    "parse-duration": "^0.1.1"
   }
 }
