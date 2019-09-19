@@ -1,0 +1,21 @@
+.icon {
+  background-image: url("../images/main_spritesheet.svg");
+  background-repeat: no-repeat;
+  background-size: initial;
+  display: inline-block;
+  cursor: default;
+  position: relative;
+}
+.icon.clickable {
+  cursor: pointer;
+}
+.icon.u-kurl {
+  background-position: -5px -7px;
+  width: 31px;
+  height: 30px;
+}
+.icon.u-questionMarkCircle {
+  background-position: -6px -48px;
+  width: 15px;
+  height: 15px;
+}

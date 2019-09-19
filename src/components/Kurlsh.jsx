@@ -12,40 +12,47 @@ class Kurlsh extends React.Component {
   state = {
     versions: {
       kubernetes: [
-        {version: "1.15.0"},
-        {version: "1.15.1"},
-        {version: "1.15.2"},
-        {version: "1.15.3"},
-        {version: "latest"},
+        { version: "1.15.0" },
+        { version: "1.15.1" },
+        { version: "1.15.2" },
+        { version: "1.15.3" },
+        { version: "latest" },
       ],
       weave: [
-        {version: "2.5.2"},
-        {version: "latest"},
-        {version: "None"},
+        { version: "2.5.2" },
+        { version: "latest" },
+        { version: "None" },
       ],
       contour: [
-        {version: "0.14.0"},
-        {version: "latest"},
-        {version: "None"},
+        { version: "0.14.0" },
+        { version: "latest" },
+        { version: "None" },
       ],
       rook: [
-        {version: "1.0.4"},
-        {version: "latest"},
-        {version: "None"},
+        { version: "1.0.4" },
+        { version: "latest" },
+        { version: "None" },
       ]
     },
     selectedVersions: {
-      kubernetes: {version: "latest"},
-      weave: {version: "latest"},
-      contour: {version: "latest"},
-      rook: {version: "latest"}
+      kubernetes: { version: "latest" },
+      weave: { version: "latest" },
+      contour: { version: "latest" },
+      rook: { version: "latest" }
     },
-    installerSha: "latest"
+    installerSha: "latest",
+    showAdvancedOptions: {
+      "kubernetes": false,
+      "weave": false,
+      "contour": false,
+      "rook": false
+    },
+    bootstrapToken: false
   };
 
   getYaml = () => {
-    const required = 
-`apiVersion: kurl.sh/v1beta1
+    const required =
+      `apiVersion: kurl.sh/v1beta1
 kind: Installer
 metadata:
   name: ""
@@ -61,15 +68,15 @@ spec:
     const optionalContour = `        
   contour:
     version: "${this.state.selectedVersions.contour.version}"`;
-    return required + (this.state.selectedVersions.weave.version !== "None" ? optionalWeave : "") + 
-    (this.state.selectedVersions.contour.version !== "None" ? optionalContour : "") +
-    (this.state.selectedVersions.rook.version !== "None" ? optionalRook : "")
+    return required + (this.state.selectedVersions.weave.version !== "None" ? optionalWeave : "") +
+      (this.state.selectedVersions.contour.version !== "None" ? optionalContour : "") +
+      (this.state.selectedVersions.rook.version !== "None" ? optionalRook : "")
   }
 
   onVersionChange = name => value => {
-    this.setState({ selectedVersions: { ...this.state.selectedVersions, [name]: value }}, () => {
+    this.setState({ selectedVersions: { ...this.state.selectedVersions, [name]: value } }, () => {
       this.postToKurlInstaller(this.getYaml());
-     })
+    })
   }
 
   getLabel = ({ version }) => {
@@ -101,30 +108,125 @@ spec:
     }
   }
 
+  onToggleShowAdvancedOptions = (version) => {
+    this.setState({ showAdvancedOptions: { ...this.state.showAdvancedOptions, [version]: !this.state.showAdvancedOptions[version] } })
+  }
+
+  handleOnChangeAdvancedOptions = (field, e) => {
+    let nextState = {};
+    let val;
+    if (field === "bootstrapToken" || field === "loadBalancer" || field === "reset") {
+      val = e.target.checked;
+    } else {
+      val = e.target.value;
+    }
+    nextState[field] = val;
+    this.setState(nextState);
+  }
+
+  renderAdvancedOptions = () => {
+    return (
+      <div className="wrapperForm u-marginTop--small">
+        <div className="u-position--relative flex">
+          <div className="flex-column">
+            <div className="flex alignItems--center">
+              <div className="flex">
+                <input
+                  type="checkbox"
+                  id="bootstrapToken"
+                  checked={this.state.bootstrapToken}
+                  onChange={(e) => { this.handleOnChangeAdvancedOptions("bootstrapToken", e) }}
+                />
+                <label htmlFor="bootstrapToken" className="flex1 u-width--full u-position--relative u-marginLeft--small u-cursor--pointer">
+                  <span className="u-fontWeight--medium u-color--tuna u-fontSize--small u-lineHeight--normal alignSelf--center alignItems--center flex">bootstrap-token</span>
+                </label>
+              </div>
+              <div className="u-marginLeft--10">
+                <input
+                  className={`Input ${!this.state.bootstrapToken ? "is-disabled" : ""}`}
+                  value={this.state.bootstrapTokenValue}
+                  onChange={(e) => { this.handleFormChange("bootstrapTokenValue", e) }}
+                />
+              </div>
+              <span className="icon u-questionMarkCircle u-marginLeft--normal"></span>
+            </div>
+
+            <div className="flex u-marginTop--20 justifyContent--center alignItems--center alignSelf--center">
+              <div className="flex">
+                <input
+                  type="checkbox"
+                  id="loadBalancer"
+                  checked={this.state.loadBalancer}
+                  onChange={(e) => { this.handleOnChangeAdvancedOptions("loadBalancer", e) }}
+                />
+                <label htmlFor="loadBalancer" className="flex1 u-width--full u-position--relative u-marginLeft--small u-cursor--pointer">
+                  <span className="u-fontWeight--medium u-color--tuna u-fontSize--small u-lineHeight--normal alignSelf--center alignItems--center flex">load-balancer-address</span>
+                </label>
+              </div>
+              <div className="u-marginLeft--10">
+                <input
+                  className={`Input ${!this.state.loadBalancer ? "is-disabled" : ""}`}
+                  placeholder="127.0.0.1"
+                  value={this.state.loadBalancerValue}
+                  onChange={(e) => { this.handleFormChange("loadBalancerValue", e) }}
+                />
+              </div>
+              <span className="icon u-questionMarkCircle u-marginLeft--normal"></span>
+            </div>
+
+            <div className="flex u-marginTop--20">
+              <div className="flex justifyContent--center alignItems--center alignSelf--center">
+                <input
+                  type="checkbox"
+                  id="reset"
+                  checked={this.state.reset}
+                  onChange={(e) => { this.handleOnChangeAdvancedOptions("reset", e) }}
+                />
+                <label htmlFor="reset" className="flex1 u-width--full u-position--relative u-marginLeft--small u-cursor--pointer">
+                  <span className="u-fontWeight--medium u-color--tuna u-fontSize--small u-lineHeight--normal alignSelf--center alignItems--center flex">reset</span>
+                </label>
+                <span className="icon u-questionMarkCircle u-marginLeft--normal"></span>
+              </div>
+              {/* <div className="u-marginLeft--10">
+                <input
+                  className="Input"
+                  value={this.state.loadBalancerValue}
+                  onChange={(e) => { this.handleFormChange("loadBalancerValue", e) }}
+                />
+              </div> */}
+            </div>
+
+          </div>
+        </div>
+      </div>
+    )
+  }
+
 
   render() {
-    const { versions, selectedVersions, installerSha } = this.state;
+    const { versions, selectedVersions, installerSha, showAdvancedOptions } = this.state;
 
     const installCommand = `curl https://kurl.sh/${installerSha} | sudo bash`
 
     return (
-      <div className="u-minHeight--full u-width--full u-overflow--auto container flex-column flex1">
+      <div className="u-minHeight--full u-width--full u-overflow--auto container flex-column flex1 u-marginBottom---40">
         <div className="logo flex-auto u-width--full">
         </div>
         <div className="u-flexTabletReflow flex-1-auto u-width--full">
           <div className="flex1 flex-column">
             <div className="left-content-wrap flex-column">
               <div className="u-marginTop--more u-fontSize--larger u-fontWeight--medium u-lineHeight--more u-color--tuna">
-                  Kurl is a Kubernetes installer for airgapped and online clusters. 
-                  This form allows you to quickly build an installer and will provide you with a URL that it can be installed at.
+                Kurl is a Kubernetes installer for airgapped and online clusters.
+                This form allows you to quickly build an installer and will provide you with a URL that it can be installed at.
                 </div>
-                <div className="flex u-marginTop--30">
+              <div className="flex u-marginTop--30">
+                <div className="flex-column flex flex1">
                   <div className="flex flex1">
-                    <div className="flex1"> 
+                    <div className="flex1">
                       <div className="FormLabel u-marginBottom--10"> Kubernetes version </div>
-                      <div className="u-fontSize--small u-fontWeight--normal u-color--dustyGray u-lineHeight--normal u-marginBottom--more"> What version of Kubernetes are you using? </div>
-                    </div>  
-                    <div className="flex1 u-paddingLeft--50 alignSelf--center"> 
+                      <div className="u-fontSize--small u-fontWeight--normal u-color--dustyGray u-lineHeight--normal"> What version of Kubernetes are you using? </div>
+                    </div>
+                    <div className="flex1 u-paddingLeft--50 alignSelf--center">
                       <div className="u-width--120">
                         <Select
                           options={versions.kubernetes}
@@ -136,116 +238,140 @@ spec:
                           isOptionSelected={() => false}
                         />
                       </div>
-                    </div>  
+                      <div>
+                      </div>
+                    </div>
                   </div>
-                </div>
-
-                <div className="flex u-marginTop--30">
-                  <div className="flex flex1">
-                    <div className="flex1"> 
-                      <div className="FormLabel u-marginBottom--10"> Weave version </div>
-                      <div className="u-fontSize--small u-fontWeight--normal u-color--dustyGray u-lineHeight--normal u-marginBottom--more"> What version of Weave are you using? </div>
-                    </div>  
-                    <div className="flex1 u-paddingLeft--50 alignSelf--center">
-                      <div className="u-width--120">
-                          <Select
-                            options={versions.weave}
-                            getOptionLabel={this.getLabel}
-                            getOptionValue={(weave) => weave}
-                            value={selectedVersions.weave}
-                            onChange={this.onVersionChange("weave")}
-                            matchProp="value"
-                            isOptionSelected={() => false}
-                          />
-                        </div>
-                    </div>  
+                  <div className="flex u-fontSize--small u-color--royalBlue u-marginTop--small" onClick={() => this.onToggleShowAdvancedOptions("kubernetes")}>
+                    {showAdvancedOptions["kubernetes"] ? "Hide advanced options" : "Show advanced options"}
                   </div>
-                </div>
-
-                <div className="flex u-marginTop--30">
-                  <div className="flex flex1">
-                    <div className="flex1"> 
-                      <div className="FormLabel u-marginBottom--10"> Contour version </div>
-                      <div className="u-fontSize--small u-fontWeight--normal u-color--dustyGray u-lineHeight--normal u-marginBottom--more"> What version of Contour are you using? </div>
-                    </div>  
-                    <div className="flex1 u-paddingLeft--50 alignSelf--center">
-                      <div className="u-width--120">
-                          <Select
-                            options={versions.contour}
-                            getOptionLabel={this.getLabel}
-                            getOptionValue={(contour) => contour}
-                            value={selectedVersions.contour}
-                            onChange={this.onVersionChange("contour")}
-                            matchProp="value"
-                            isOptionSelected={() => false}
-                          />
-                        </div>
-                    </div>  
-                  </div>
-                </div>
-
-                <div className="flex u-marginTop--30">
-                  <div className="flex flex1">
-                    <div className="flex1"> 
-                      <div className="FormLabel u-marginBottom--10"> Rook version </div>
-                      <div className="u-fontSize--small u-fontWeight--normal u-color--dustyGray u-lineHeight--normal"> What version of Rook are you using? </div>
-                    </div>  
-                    <div className="flex1 u-paddingLeft--50 alignSelf--center">
-                      <div className="u-width--120">
-                          <Select
-                            options={versions.rook}
-                            getOptionLabel={this.getLabel}
-                            getOptionValue={(rook) => rook}
-                            value={selectedVersions.rook}
-                            onChange={this.onVersionChange("rook")}
-                            matchProp="value"
-                            isOptionSelected={() => false}
-                          />
-                        </div>
-                    </div>  
-                  </div>
-                </div>
-
-                <div className="flex-column wrapperForm u-marginTop--30">
-                  <div className="FormLabel u-marginBottom--normal"> Installation URL </div>
-                  <div className="u-fontSize--small u-fontWeight--normal u-color--dustyGray u-lineHeight--normal">
-                    As your make changes to your YAML spec a new URL will be generated. To create custom URL’s or make changes to this one 
-                    <a href="https://vendor.replicated.com/login" target="_blank" rel="noopener noreferrer" className="replicated-link"> log in to vendor.replicated.com</a>.
-                  </div>
-                  <div className="flex flex-column u-marginTop--normal">
-                    <CodeSnippet
-                      canCopy={true}
-                      onCopyText={<span className="u-color--vidaLoca">URL has been copied to your clipboard</span>}
-                      downloadAirgapLink={true}
-                      downloadAirgapHtml={<Link to={`/${installerSha}/download`} className="u-color--astral u-lineHeight--normal u-fontSize--small u-textDecoration--underlineOnHover"> Download airgap installer </Link> }
-                      >
-                      {installCommand}
-                    </CodeSnippet>
-                  </div>
+                  {showAdvancedOptions["kubernetes"] && this.renderAdvancedOptions()}
                 </div>
               </div>
-              <span className="u-fontSize--small u-fontWeight--medium u-color--dustyGray u-lineHeight--normal u-marginTop--small"> Want to add a new component to kurl? <a href="https://github.com/replicatedhq/kurl#contributing" target="_blank" rel="noopener noreferrer" className="replicated-link">Read our contributing</a> guide.</span>
-            </div>
-          <div className="u-paddingLeft--60 flex1 flex-column">
-            <div className="MonacoEditor--wrapper helm-values flex1 flex u-width--full u-marginTop--20">
-                <div className="flex u-width--full u-overflow--hidden">
-                  <MonacoEditor
-                    ref={(editor) => { this.monacoEditor = editor }}
-                    language="yaml"
-                    value={this.getYaml()}
-                    height="100%"
-                    width="100%"
-                    options={{
-                      readOnly: true,
-                      minimap: {
-                        enabled: false
-                      }, 
-                    scrollBeyondLastLine: false,
-                    lineNumbers:"off"
-                  }}
-                  />
+
+              <div className="flex u-marginTop--30">
+                <div className="flex-column flex flex1">
+                  <div className="flex flex1">
+                    <div className="flex1">
+                      <div className="FormLabel u-marginBottom--10"> Weave version </div>
+                      <div className="u-fontSize--small u-fontWeight--normal u-color--dustyGray u-lineHeight--normal"> What version of Weave are you using? </div>
+                    </div>
+                    <div className="flex1 u-paddingLeft--50 alignSelf--center">
+                      <div className="u-width--120">
+                        <Select
+                          options={versions.weave}
+                          getOptionLabel={this.getLabel}
+                          getOptionValue={(weave) => weave}
+                          value={selectedVersions.weave}
+                          onChange={this.onVersionChange("weave")}
+                          matchProp="value"
+                          isOptionSelected={() => false}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex u-fontSize--small u-color--royalBlue u-marginTop--small" onClick={() => this.onToggleShowAdvancedOptions("weave")}>
+                    {showAdvancedOptions["weave"] ? "Hide advanced options" : "Show advanced options"}
+                  </div>
+                  {showAdvancedOptions["weave"] && this.renderAdvancedOptions()}
+                </div>
+              </div>
+
+              <div className="flex u-marginTop--30">
+                <div className="flex-column flex flex1">
+                  <div className="flex flex1">
+                    <div className="flex1">
+                      <div className="FormLabel u-marginBottom--10"> Contour version </div>
+                      <div className="u-fontSize--small u-fontWeight--normal u-color--dustyGray u-lineHeight--normal"> What version of Contour are you using? </div>
+                    </div>
+                    <div className="flex1 u-paddingLeft--50 alignSelf--center">
+                      <div className="u-width--120">
+                        <Select
+                          options={versions.contour}
+                          getOptionLabel={this.getLabel}
+                          getOptionValue={(contour) => contour}
+                          value={selectedVersions.contour}
+                          onChange={this.onVersionChange("contour")}
+                          matchProp="value"
+                          isOptionSelected={() => false}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex u-fontSize--small u-color--royalBlue u-marginTop--small" onClick={() => this.onToggleShowAdvancedOptions("contour")}>
+                    {showAdvancedOptions["contour"] ? "Hide advanced options" : "Show advanced options"}
+                  </div>
+                  {showAdvancedOptions["contour"] && this.renderAdvancedOptions()}
+                </div>
+              </div>
+
+              <div className="flex u-marginTop--30">
+                <div className="flex-column flex flex1">
+                  <div className="flex flex1">
+                    <div className="flex1">
+                      <div className="FormLabel u-marginBottom--10"> Rook version </div>
+                      <div className="u-fontSize--small u-fontWeight--normal u-color--dustyGray u-lineHeight--normal"> What version of Rook are you using? </div>
+                    </div>
+                    <div className="flex1 u-paddingLeft--50 alignSelf--center">
+                      <div className="u-width--120">
+                        <Select
+                          options={versions.rook}
+                          getOptionLabel={this.getLabel}
+                          getOptionValue={(rook) => rook}
+                          value={selectedVersions.rook}
+                          onChange={this.onVersionChange("rook")}
+                          matchProp="value"
+                          isOptionSelected={() => false}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex u-fontSize--small u-color--royalBlue u-marginTop--small" onClick={() => this.onToggleShowAdvancedOptions("rook")}>
+                    {showAdvancedOptions["rook"] ? "Hide advanced options" : "Show advanced options"}
+                  </div>
+                  {showAdvancedOptions["rook"] && this.renderAdvancedOptions()}
+                </div>
+              </div>
             </div>
           </div>
+          <div className="FixedWrapper u-paddingLeft--60 flex1 flex-column">
+            <div className="MonacoEditor--wrapper helm-values flex1 flex u-width--full u-marginTop--20">
+              <div className="flex u-width--full u-overflow--hidden">
+                <MonacoEditor
+                  ref={(editor) => { this.monacoEditor = editor }}
+                  language="yaml"
+                  value={this.getYaml()}
+                  height="100%"
+                  width="100%"
+                  options={{
+                    readOnly: true,
+                    minimap: {
+                      enabled: false
+                    },
+                    scrollBeyondLastLine: false,
+                    lineNumbers: "off"
+                  }}
+                />
+              </div>
+            </div>
+            <div className="flex-column wrapperForm u-marginTop--30">
+              <div className="FormLabel u-marginBottom--normal"> Installation URL </div>
+              <div className="u-fontSize--small u-fontWeight--normal u-color--dustyGray u-lineHeight--normal">
+                As your make changes to your YAML spec a new URL will be generated. To create custom URL’s or make changes to this one
+                    <a href="https://vendor.replicated.com/login" target="_blank" rel="noopener noreferrer" className="replicated-link"> log in to vendor.replicated.com</a>.
+                  </div>
+              <div className="flex flex-column u-marginTop--normal">
+                <CodeSnippet
+                  canCopy={true}
+                  onCopyText={<span className="u-color--vidaLoca">URL has been copied to your clipboard</span>}
+                  downloadAirgapLink={true}
+                  downloadAirgapHtml={<Link to={`/${installerSha}/download`} className="u-color--astral u-lineHeight--normal u-fontSize--small u-textDecoration--underlineOnHover"> Download airgap installer </Link>}
+                >
+                  {installCommand}
+                </CodeSnippet>
+              </div>
+            </div>
+            <span className="u-fontSize--small u-fontWeight--medium u-color--dustyGray u-lineHeight--normal u-marginTop--small"> Want to add a new component to kurl? <a href="https://github.com/replicatedhq/kurl#contributing" target="_blank" rel="noopener noreferrer" className="replicated-link">Read our contributing</a> guide.</span>
           </div>
         </div>
       </div>
