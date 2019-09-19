@@ -1,6 +1,6 @@
 import { describe, it } from "mocha";
 import { expect } from "chai";
-import { isTerminalRequest } from "./";
+import { isTerminalRequest, isAPIRequest } from "./";
 
 const chrome = `Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.75 Safari/537.36`;
 
@@ -23,4 +23,23 @@ describe("isTerminalRequest", () => {
     });
 
   });
+});
+
+describe("isAPIRequest", () => {
+
+  it("is a request to installer", async () => {
+
+    expect(isAPIRequest("https://kurl.sh/installer")).to.equal(true);
+  });
+
+  it("is not an api request", async () => {
+
+    expect(isAPIRequest("https://kurl.sh/latest")).to.equal(false);
+  });
+
+  it("is staging api", async () => {
+
+    expect(isAPIRequest("https://staging.kurl.sh/installer")).to.equal(true);
+  });
+
 });

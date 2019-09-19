@@ -16,6 +16,14 @@ async function proxyRequest(r: Request): Promise<Response> {
       userAgent = "";
     }
 
+    if (isAPIRequest(r.url)) {
+      const init = {
+        method: r.method,
+        headers: r.headers,
+        body: r.body,
+      };
+      return fetch(`__BACKEND__${requestUrl.pathname}`, init);
+    }
     if (isTerminalRequest(r.url, userAgent)) {
       return fetch(`__BACKEND__${requestUrl.pathname}`);
     } else {
@@ -25,6 +33,15 @@ async function proxyRequest(r: Request): Promise<Response> {
     // Return the error stack as the response
     return new Response(err.stack || err)
   }
+}
+
+export function isAPIRequest(requestUrl: string): boolean {
+  const parsed = url.parse(requestUrl, true);
+  if (parsed.path === '/installer') {
+    return true;
+  }
+
+  return false;
 }
 
 export function isTerminalRequest(requestUrl: string, userAgent: string): boolean {
