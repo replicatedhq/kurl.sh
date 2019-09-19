@@ -10,7 +10,7 @@ if (appEnv === "dev") {
   backend = "https://backend.staging.kurl.sh";
   frontend = "https://kurlsh-staging.netlify.com";
 } else if (appEnv === "staging") {
-  backend = "https://backend.staging.kurl.sh";
+  backend = "https://tf-kurl-eks-1849153707.us-east-1.elb.amazonaws.com"; //change back to "https://backend.staging.kurl.sh" once we figure out what's broken in cf
   frontend = "https://kurlsh-staging.netlify.com";
 } else if (appEnv === "prod") {
   backend = "https://backend.kurl.sh";
