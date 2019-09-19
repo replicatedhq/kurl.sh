@@ -17,6 +17,7 @@ lint:
 build: prebuild
 	KURL_ENV=staging `yarn bin`/webpack
 	KURL_ENV=prod `yarn bin`/webpack
+	KURL_ENV=dev `yarn bin`/webpack
 
 .PHONY: preview
 preview: build
@@ -28,4 +29,4 @@ test:
 
 .PHONY: serve
 serve: build
-	`yarn bin`/cloudworker dist/bundle.js
+	`yarn bin`/cloudworker dist/bundle-dev.js
