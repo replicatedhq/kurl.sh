@@ -17,7 +17,12 @@ async function proxyRequest(r: Request): Promise<Response> {
     }
 
     if (isAPIRequest(r.url)) {
-      return fetch(`__BACKEND__${requestUrl.pathname}`);
+      const init = {
+        method: r.method,
+        headers: r.headers,
+        body: r.body,
+      };
+      return fetch(`__BACKEND__${requestUrl.pathname}`, init);
     }
     if (isTerminalRequest(r.url, userAgent)) {
       return fetch(`__BACKEND__${requestUrl.pathname}`);
