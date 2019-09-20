@@ -37,7 +37,6 @@ class DownloadAirgapBundle extends React.Component {
 
   handleDownloadBundle = () => {
     const hiddenIFrameID = "hiddenDownloader";
-    console.log(1, this.state.bundleUrl)
     let iframe = document.getElementById(hiddenIFrameID);
     const url = this.state.bundleUrl;
     if (iframe === null) {
