@@ -1,5 +1,5 @@
 import * as React from "react";
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 
 
 import CodeSnippet from "./shared/CodeSnippet.jsx";
@@ -58,7 +58,7 @@ cat install.sh | sudo bash
     `
 
     return (
-      <div className="u-minHeight--full u-width--full u-overflow--auto container flex-column flex alignItems--center">
+      <div className="u-minHeight--full u-width--full u-overflow--auto container flex-column flex1 u-marginBottom---40">
         <div className="flex-1-auto flex u-width--full justifyContent--center alignItems--center">
           {!responseStatusCode || responseStatusCode >= 400 ?
             <div className="flex-column flex-1-auto u-overflow--hidden justifyContent--center alignItems--center">
@@ -69,6 +69,9 @@ cat install.sh | sudo bash
             </div>
             :
             <div>
+              <div className="flex1">
+                <span className="u-fontSize--small u-fontWeight--medium u-color--dustyGray u-lineHeight--normal u-marginTop--small"><Link to="/" className="replicated-link">kurl.sh</Link> > {sha} > download airgap bundle </span>
+              </div>
               <div className="flex-column wrapperForm u-marginTop--normal">
                 <div className="flex1">
                   <div className="FormLabel u-marginBottom--5"> Download airgap installer </div>
@@ -83,7 +86,7 @@ cat install.sh | sudo bash
                     </button>
                   </div>
                 </div>
-                    <div className="u-marginTop--normal u-borderTop--gray">
+                <div className="u-marginTop--normal u-borderTop--gray">
                   <div className="flex flex-column u-marginTop--normal">
                     <CodeSnippet
                       canCopy={true}
@@ -111,6 +114,9 @@ cat install.sh | sudo bash
               </div>
               <div className="flex1">
                 <span className="u-fontSize--small u-fontWeight--medium u-color--dustyGray u-lineHeight--normal u-marginTop--small">Need more help? <a href="https://github.com/replicatedhq/kurl#airgapped-usage" target="_blank" rel="noopener noreferrer" className="replicated-link">Check out our docs.</a> </span>
+              </div>
+              <div className="flex justifyContent--center u-marginTop--30">
+                <Link to="/" className="Button secondary"> Back to install URL builder </Link>
               </div>
             </div>
           }

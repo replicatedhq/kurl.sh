@@ -4,14 +4,17 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import "../scss/index.scss"
 import Kurlsh from "./Kurlsh.jsx";
 import DownloadAirgapBundle from "./DownloadAirgapBundle.jsx";
+import SupportedAddOns from "./SupportedAddOns.jsx";
+import NavBar from "./shared/NavBar";
 import Footer from "./shared/Footer.jsx";
 
 class Root extends React.Component {
   render() {
     return (
-      <div className="flex-column flex1">
+      <div className="u-minHeight--full flex-column flex1">
         <div className="flex-column flex1">
           <BrowserRouter>
+            <NavBar />
             <Switch>
               <Route
                 exact
@@ -21,6 +24,10 @@ class Root extends React.Component {
               <Route
                 path="/:sha/download"
                 render={() => <DownloadAirgapBundle />}
+              />
+              <Route
+                path="/add-ons"
+                render={() => <SupportedAddOns />}
               />
             </Switch>
             <div className="flex-auto Footer-wrapper u-width--full">
