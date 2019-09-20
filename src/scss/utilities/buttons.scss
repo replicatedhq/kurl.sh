@@ -26,3 +26,12 @@
   border: 1px solid #326DE6;
   color: #326DE6;
 }
+
+.Button.secondary-white {
+  border: 1px solid #ffffff;
+  color: #ffffff;
+}
+
+.Button.Button.secondary-white:hover {
+  background-color: #ffffff;
+}

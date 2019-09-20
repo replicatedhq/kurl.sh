@@ -47,7 +47,24 @@ class Kurlsh extends React.Component {
       "contour": false,
       "rook": false
     },
-    bootstrapToken: false
+    bootstrapToken: {
+      "kubernetes": false,
+      "weave": false,
+      "contour": false,
+      "rook": false
+    },
+    loadBalancer: {
+      "kubernetes": false,
+      "weave": false,
+      "contour": false,
+      "rook": false
+    },
+    reset: {
+      "kubernetes": false,
+      "weave": false,
+      "contour": false,
+      "rook": false
+    }
   };
 
   getYaml = () => {
@@ -112,19 +129,22 @@ spec:
     this.setState({ showAdvancedOptions: { ...this.state.showAdvancedOptions, [version]: !this.state.showAdvancedOptions[version] } })
   }
 
-  handleOnChangeAdvancedOptions = (field, e) => {
-    let nextState = {};
+  handleOnChangeAdvancedOptions = (field, version, e) => {
+    let nextState = {
+      [field]: {...this.state[field]}
+    };
     let val;
     if (field === "bootstrapToken" || field === "loadBalancer" || field === "reset") {
       val = e.target.checked;
     } else {
       val = e.target.value;
     }
-    nextState[field] = val;
+
+    nextState[field][version] = val;
     this.setState(nextState);
   }
 
-  renderAdvancedOptions = () => {
+  renderAdvancedOptions = (version) => {
     return (
       <div className="wrapperForm u-marginTop--small">
         <div className="u-position--relative flex">
@@ -134,8 +154,8 @@ spec:
                 <input
                   type="checkbox"
                   id="bootstrapToken"
-                  checked={this.state.bootstrapToken}
-                  onChange={(e) => { this.handleOnChangeAdvancedOptions("bootstrapToken", e) }}
+                  checked={this.state.bootstrapToken[version]}
+                  onChange={(e) => { this.handleOnChangeAdvancedOptions("bootstrapToken", version, e) }}
                 />
                 <label htmlFor="bootstrapToken" className="flex1 u-width--full u-position--relative u-marginLeft--small u-cursor--pointer">
                   <span className="u-fontWeight--medium u-color--tuna u-fontSize--small u-lineHeight--normal alignSelf--center alignItems--center flex">bootstrap-token</span>
@@ -143,9 +163,9 @@ spec:
               </div>
               <div className="u-marginLeft--10">
                 <input
-                  className={`Input ${!this.state.bootstrapToken ? "is-disabled" : ""}`}
+                  className={`Input ${!this.state.bootstrapToken[version] ? "is-disabled" : ""}`}
                   value={this.state.bootstrapTokenValue}
-                  onChange={(e) => { this.handleFormChange("bootstrapTokenValue", e) }}
+                  onChange={(e) => { this.handleFormChange("bootstrapTokenValue", version, e) }}
                 />
               </div>
               <span className="icon u-questionMarkCircle u-marginLeft--normal"></span>
@@ -156,8 +176,8 @@ spec:
                 <input
                   type="checkbox"
                   id="loadBalancer"
-                  checked={this.state.loadBalancer}
-                  onChange={(e) => { this.handleOnChangeAdvancedOptions("loadBalancer", e) }}
+                  checked={this.state.loadBalancer[version]}
+                  onChange={(e) => { this.handleOnChangeAdvancedOptions("loadBalancer", version, e) }}
                 />
                 <label htmlFor="loadBalancer" className="flex1 u-width--full u-position--relative u-marginLeft--small u-cursor--pointer">
                   <span className="u-fontWeight--medium u-color--tuna u-fontSize--small u-lineHeight--normal alignSelf--center alignItems--center flex">load-balancer-address</span>
@@ -165,7 +185,7 @@ spec:
               </div>
               <div className="u-marginLeft--10">
                 <input
-                  className={`Input ${!this.state.loadBalancer ? "is-disabled" : ""}`}
+                  className={`Input ${!this.state.loadBalancer[version] ? "is-disabled" : ""}`}
                   placeholder="127.0.0.1"
                   value={this.state.loadBalancerValue}
                   onChange={(e) => { this.handleFormChange("loadBalancerValue", e) }}
@@ -179,21 +199,14 @@ spec:
                 <input
                   type="checkbox"
                   id="reset"
-                  checked={this.state.reset}
-                  onChange={(e) => { this.handleOnChangeAdvancedOptions("reset", e) }}
+                  checked={this.state.reset[version]}
+                  onChange={(e) => { this.handleOnChangeAdvancedOptions("reset", version, e) }}
                 />
                 <label htmlFor="reset" className="flex1 u-width--full u-position--relative u-marginLeft--small u-cursor--pointer">
                   <span className="u-fontWeight--medium u-color--tuna u-fontSize--small u-lineHeight--normal alignSelf--center alignItems--center flex">reset</span>
                 </label>
                 <span className="icon u-questionMarkCircle u-marginLeft--normal"></span>
               </div>
-              {/* <div className="u-marginLeft--10">
-                <input
-                  className="Input"
-                  value={this.state.loadBalancerValue}
-                  onChange={(e) => { this.handleFormChange("loadBalancerValue", e) }}
-                />
-              </div> */}
             </div>
 
           </div>
@@ -245,7 +258,7 @@ spec:
                   <div className="flex u-fontSize--small u-color--royalBlue u-marginTop--small" onClick={() => this.onToggleShowAdvancedOptions("kubernetes")}>
                     {showAdvancedOptions["kubernetes"] ? "Hide advanced options" : "Show advanced options"}
                   </div>
-                  {showAdvancedOptions["kubernetes"] && this.renderAdvancedOptions()}
+                  {showAdvancedOptions["kubernetes"] && this.renderAdvancedOptions("kubernetes")}
                 </div>
               </div>
 
@@ -273,7 +286,7 @@ spec:
                   <div className="flex u-fontSize--small u-color--royalBlue u-marginTop--small" onClick={() => this.onToggleShowAdvancedOptions("weave")}>
                     {showAdvancedOptions["weave"] ? "Hide advanced options" : "Show advanced options"}
                   </div>
-                  {showAdvancedOptions["weave"] && this.renderAdvancedOptions()}
+                  {showAdvancedOptions["weave"] && this.renderAdvancedOptions("weave")}
                 </div>
               </div>
 
@@ -301,7 +314,7 @@ spec:
                   <div className="flex u-fontSize--small u-color--royalBlue u-marginTop--small" onClick={() => this.onToggleShowAdvancedOptions("contour")}>
                     {showAdvancedOptions["contour"] ? "Hide advanced options" : "Show advanced options"}
                   </div>
-                  {showAdvancedOptions["contour"] && this.renderAdvancedOptions()}
+                  {showAdvancedOptions["contour"] && this.renderAdvancedOptions("contour")}
                 </div>
               </div>
 
@@ -329,13 +342,13 @@ spec:
                   <div className="flex u-fontSize--small u-color--royalBlue u-marginTop--small" onClick={() => this.onToggleShowAdvancedOptions("rook")}>
                     {showAdvancedOptions["rook"] ? "Hide advanced options" : "Show advanced options"}
                   </div>
-                  {showAdvancedOptions["rook"] && this.renderAdvancedOptions()}
+                  {showAdvancedOptions["rook"] && this.renderAdvancedOptions("rook")}
                 </div>
               </div>
             </div>
           </div>
           <div className="FixedWrapper u-paddingLeft--60 flex1 flex-column">
-            <div className="MonacoEditor--wrapper helm-values flex1 flex u-width--full u-marginTop--20">
+            <div className="MonacoEditor--wrapper flex flex1 u-width--full u-marginTop--20">
               <div className="flex u-width--full u-overflow--hidden">
                 <MonacoEditor
                   ref={(editor) => { this.monacoEditor = editor }}
