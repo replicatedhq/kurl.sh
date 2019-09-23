@@ -225,8 +225,8 @@ spec:
       <div className="u-minHeight--full u-width--full u-overflow--auto container flex-column flex1 u-marginBottom---40">
         <div className="logo flex-auto u-width--full">
         </div>
-        <div className="u-flexTabletReflow flex-1-auto u-width--full">
-          <div className="flex1 flex-column">
+        <div className="u-flexTabletReflow flex1 u-width--full">
+          <div className="flex">
             <div className="left-content-wrap flex-column">
               <div className="u-marginTop--more u-fontSize--larger u-fontWeight--medium u-lineHeight--more u-color--tuna">
                 Kurl is a Kubernetes installer for airgapped and online clusters.
@@ -347,8 +347,8 @@ spec:
               </div>
             </div>
           </div>
-          <div className="FixedWrapper u-paddingLeft--60 flex1 flex-column">
-            <div className="MonacoEditor--wrapper flex flex1 u-width--full u-marginTop--20">
+          <div className="FixedWrapper u-paddingLeft--60 flex-column">
+            <div className="MonacoEditor--wrapper flex u-width--full u-marginTop--20">
               <div className="flex u-width--full u-overflow--hidden">
                 <MonacoEditor
                   ref={(editor) => { this.monacoEditor = editor }}
