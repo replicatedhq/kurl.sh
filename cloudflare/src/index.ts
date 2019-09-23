@@ -37,7 +37,7 @@ async function proxyRequest(r: Request): Promise<Response> {
 
 export function isAPIRequest(requestUrl: string): boolean {
   const parsed = url.parse(requestUrl, true);
-  if (parsed.path === '/installer') {
+  if (parsed.path.startsWith('/installer')) {
     return true;
   }
 

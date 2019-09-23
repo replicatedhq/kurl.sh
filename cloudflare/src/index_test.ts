@@ -32,6 +32,11 @@ describe("isAPIRequest", () => {
     expect(isAPIRequest("https://kurl.sh/installer")).to.equal(true);
   });
 
+  it("is a request for an installer hash", async () => {
+
+    expect(isAPIRequest("https://kurl.sh/installer/badf00d")).to.equal(true);
+  });
+
   it("is not an api request", async () => {
 
     expect(isAPIRequest("https://kurl.sh/latest")).to.equal(false);
