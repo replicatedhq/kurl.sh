@@ -255,7 +255,7 @@ spec:
                       </div>
                     </div>
                   </div>
-                  <div className="flex u-fontSize--small u-color--royalBlue u-marginTop--small" onClick={() => this.onToggleShowAdvancedOptions("kubernetes")}>
+                  <div className="flex u-fontSize--small u-color--royalBlue u-marginTop--small u-cursor--pointer" onClick={() => this.onToggleShowAdvancedOptions("kubernetes")}>
                     {showAdvancedOptions["kubernetes"] ? "Hide advanced options" : "Show advanced options"}
                   </div>
                   {showAdvancedOptions["kubernetes"] && this.renderAdvancedOptions("kubernetes")}
@@ -283,7 +283,7 @@ spec:
                       </div>
                     </div>
                   </div>
-                  <div className="flex u-fontSize--small u-color--royalBlue u-marginTop--small" onClick={() => this.onToggleShowAdvancedOptions("weave")}>
+                  <div className="flex u-fontSize--small u-color--royalBlue u-marginTop--small u-cursor--pointer" onClick={() => this.onToggleShowAdvancedOptions("weave")}>
                     {showAdvancedOptions["weave"] ? "Hide advanced options" : "Show advanced options"}
                   </div>
                   {showAdvancedOptions["weave"] && this.renderAdvancedOptions("weave")}
@@ -311,7 +311,7 @@ spec:
                       </div>
                     </div>
                   </div>
-                  <div className="flex u-fontSize--small u-color--royalBlue u-marginTop--small" onClick={() => this.onToggleShowAdvancedOptions("contour")}>
+                  <div className="flex u-fontSize--small u-color--royalBlue u-marginTop--small u-cursor--pointer" onClick={() => this.onToggleShowAdvancedOptions("contour")}>
                     {showAdvancedOptions["contour"] ? "Hide advanced options" : "Show advanced options"}
                   </div>
                   {showAdvancedOptions["contour"] && this.renderAdvancedOptions("contour")}
@@ -339,7 +339,7 @@ spec:
                       </div>
                     </div>
                   </div>
-                  <div className="flex u-fontSize--small u-color--royalBlue u-marginTop--small" onClick={() => this.onToggleShowAdvancedOptions("rook")}>
+                  <div className="flex u-fontSize--small u-color--royalBlue u-marginTop--small u-cursor--pointer" onClick={() => this.onToggleShowAdvancedOptions("rook")}>
                     {showAdvancedOptions["rook"] ? "Hide advanced options" : "Show advanced options"}
                   </div>
                   {showAdvancedOptions["rook"] && this.renderAdvancedOptions("rook")}
@@ -378,7 +378,7 @@ spec:
                   canCopy={true}
                   onCopyText={<span className="u-color--vidaLoca">URL has been copied to your clipboard</span>}
                   downloadAirgapLink={true}
-                  downloadAirgapHtml={<Link to={`/${installerSha}/download`} className="u-color--astral u-lineHeight--normal u-fontSize--small u-textDecoration--underlineOnHover"> Download airgap installer </Link>}
+                  downloadAirgapHtml={<Link to={`/${installerSha}/download`} className="u-color--royalBlue u-lineHeight--normal u-fontSize--small u-textDecoration--underlineOnHover"> Download airgap installer </Link>}
                 >
                   {installCommand}
                 </CodeSnippet>
