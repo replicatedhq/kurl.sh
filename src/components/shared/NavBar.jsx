@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import GitHubButton from "react-github-button";
 
 import "../../scss/components/shared/NavBar.scss";
+require("react-github-button/assets/style.css");
 
 export class NavBar extends PureComponent {
 
@@ -53,8 +54,8 @@ export class NavBar extends PureComponent {
                   <div className="flex-column flex-auto u-marginRight--20 justifyContent--center">
                     <a href="https://kurl.sh/docs" target="_blank" rel="noopener noreferrer" className="u-fontWeight--medium  u-color--royalBlue u-lineHeight--normal u-fontSize--normal u-textDecoration--underlineOnHover"> Docs </a>
                   </div>
-                  <div className="flex-column flex-auto justifyContent--center u-marginLeft--10">
-                    <GitHubButton href="https://github.com/replicatedhq/kurl" data-icon="octicon-star" data-show-count="true" aria-label="Star replicatedhq/kurl on GitHub">Star</GitHubButton>
+                  <div className="flex-column flex-auto justifyContent--center">
+                    <GitHubButton type="stargazers" repo="kurl" namespace="replicatedhq" />
                   </div>
                 </div>
               </div>
