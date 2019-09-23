@@ -1,19 +1,32 @@
 import React, { PureComponent } from "react";
-import classNames from "classnames";
 import { Link } from "react-router-dom";
 import GitHubButton from "react-github-button";
 
 import "../../scss/components/shared/NavBar.scss";
 
 export class NavBar extends PureComponent {
-  constructor() {
-    super();
-    this.state = {}
+
+  componentDidMount() {
+    window.addEventListener("scroll", this.shrinkNavbarOnScroll, true);
   }
 
+  shrinkNavbarOnScroll = () => {
+    const scrollTop = Math.max(window.pageYOffset, document.documentElement.scrollTop, document.body.scrollTop)
+    const distanceY = scrollTop,
+      shrinkOn = 100,
+      headerEl = document.getElementById("nav-header");
+
+    if (distanceY > shrinkOn) {
+      headerEl.classList.add("smaller");
+    } else {
+      headerEl.classList.remove("smaller");
+    }
+  }
+
+  
   render() {
     return (
-      <div className={classNames("NavBarWrapper flex flex-auto")} id="header">
+      <div className="NavBarWrapper flex flex-auto" id="nav-header">
         <div className="KurlHeader flex flex1">
           <div className="NavBarContainer flex flex1">
             <div className="flex1 justifyContent--flexStart">
