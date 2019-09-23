@@ -6,10 +6,16 @@
   background-color: #F5F8FC;
   margin-bottom: 0;
   min-height: 50px;
+  transition: height 0.3s;
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+	left: 0;
+	z-index: 999;
 }
 
 .NavBarWrapper.smaller {
-  height: 75px;
+  height: 45px;
 }
 
 .KurlHeader {
