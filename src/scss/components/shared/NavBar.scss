@@ -26,6 +26,14 @@
   background-size: auto 80px;
 }
 
+.KurlHeader.smaller {
+  padding: 0;
+  min-height: auto !important;
+  background: url("../../../images/kurl-header@2x.png");
+  background-repeat: repeat;
+  background-size: auto 50px;
+}
+
 .NavBarContainer {
   width: 100%;
   padding: 0 20px;
@@ -47,6 +55,14 @@
   background-size: 52px 50px;
   width: 52px;
   height: 50px;
+}
+
+.HeaderLogo.smaller .logo  {
+  background-image: url("../../../images/kurl_logo_small.png");
+  background-repeat: no-repeat;
+  background-size: 32px 30px;
+  width: 32px;
+  height: 30px;
 }
 .HeaderLogo .text {
   font-size: 16px;

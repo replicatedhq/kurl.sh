@@ -14,12 +14,18 @@ export class NavBar extends PureComponent {
     const scrollTop = Math.max(window.pageYOffset, document.documentElement.scrollTop, document.body.scrollTop)
     const distanceY = scrollTop,
       shrinkOn = 100,
-      headerEl = document.getElementById("nav-header");
+      headerEl = document.getElementById("nav-header"),
+      kurlHeaderEl = document.getElementById("kurl-header"),
+      logoEl = document.getElementById("logo-header");
 
     if (distanceY > shrinkOn) {
       headerEl.classList.add("smaller");
+      kurlHeaderEl.classList.add("smaller");
+      logoEl.classList.add("smaller");
     } else {
       headerEl.classList.remove("smaller");
+      kurlHeaderEl.classList.remove("smaller");
+      logoEl.classList.remove("smaller");
     }
   }
 
@@ -27,13 +33,13 @@ export class NavBar extends PureComponent {
   render() {
     return (
       <div className="NavBarWrapper flex flex-auto" id="nav-header">
-        <div className="KurlHeader flex flex1">
+        <div className="KurlHeader flex flex1" id="kurl-header">
           <div className="NavBarContainer flex flex1">
             <div className="flex1 justifyContent--flexStart">
               <div className="flex1 flex u-height--full">
                 <div className="flex flex-auto">
                   <div className="flex alignItems--center flex1 flex-verticalCenter u-position--relative u-marginRight--20">
-                    <div className="HeaderLogo">
+                    <div className="HeaderLogo" id="logo-header">
                       <Link to="/" tabIndex="-1">
                         <span className="logo"></span>
                       </Link>
