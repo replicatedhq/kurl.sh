@@ -9,7 +9,7 @@ export class Footer extends React.Component {
       {
         label: "View on GitHub",
         icon: true,
-        href: "http://replicated.com/terms",
+        href: "https://github.com/replicatedhq/kurl",
       },
       {
         label: "Documentation",
