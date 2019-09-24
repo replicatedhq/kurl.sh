@@ -12,7 +12,7 @@ deps:
 
 .PHONY: serve
 serve: deps
-	gatsby develop --env local
+	yarn start
 
 .PHONY: build-staging
 build-staging: 
