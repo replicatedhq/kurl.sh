@@ -37,7 +37,7 @@ class SupportedAddOns extends React.Component {
             <h3> Supported Add-ons</h3>
           </div>
           <div className="flex u-marginTop--30 wrapperForm">
-            <div className="flex flex1">
+            <div className="flex flex-1-auto">
               <span className="u-fontWeight--medium u-color--tuna u-fontSize--large u-lineHeight--more">
                 It all starts with Kubernetes. Kurl uses <a href="https://kustomize.io/" target="_blank" rel="noopener noreferrer" className="u-color--royalBlue">Kustomize </a> to assist in the automation of tasks enabling any
                 user to deploy to a Kubernetes cluster with a single script.
@@ -45,7 +45,7 @@ class SupportedAddOns extends React.Component {
               </span>
             </div>
             <div className="flex flex1 u-marginLeft--30 justifyContent--flexEnd alignItems--center">
-              <div className="u-width--half">
+              <div className="u-width--400">
                 <Select
                   options={kubernetesVersions}
                   getOptionLabel={this.getLabel}
