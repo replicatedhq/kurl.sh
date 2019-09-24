@@ -370,7 +370,7 @@ spec:
             <div className="flex-column wrapperForm u-marginTop--30">
               <div className="FormLabel u-marginBottom--normal"> Installation URL </div>
               <div className="u-fontSize--small u-fontWeight--normal u-color--dustyGray u-lineHeight--normal">
-                As your make changes to your YAML spec a new URL will be generated. To create custom URL’s or make changes to this one
+                As your make changes to your YAML spec a new URL will be generated. To create custom URLs or make changes to this one
                     <a href="https://vendor.replicated.com/login" target="_blank" rel="noopener noreferrer" className="replicated-link"> log in to vendor.replicated.com</a>.
                   </div>
               <div className="flex flex-column u-marginTop--normal">
