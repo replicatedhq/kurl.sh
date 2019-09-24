@@ -1,9 +1,9 @@
 import * as React from "react";
 import { withRouter, Link } from "react-router-dom";
 
+import CodeSnippet from "./shared/CodeSnippet";
+import Loader from "./shared/Loader";
 
-import CodeSnippet from "./shared/CodeSnippet.jsx";
-import Loader from "./shared/Loader.jsx";
 
 class DownloadAirgapBundle extends React.Component {
   state = {
@@ -56,6 +56,8 @@ class DownloadAirgapBundle extends React.Component {
 tar xvf ${sha}.tar.gz
 cat install.sh | sudo bash
     `
+
+    console.log(111111)
 
     return (
       <div className="u-minHeight--full u-width--full u-overflow--auto container flex-column flex1 u-marginBottom---40">

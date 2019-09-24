@@ -2,7 +2,7 @@ import * as React from "react";
 import { withRouter } from "react-router-dom";
 import Select from "react-select";
 
-import "../scss/components/SupportedAddOns";
+import ("../scss/components/SupportedAddOns.scss");
 
 class SupportedAddOns extends React.Component {
   state = {

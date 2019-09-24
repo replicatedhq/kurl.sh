@@ -1,12 +1,12 @@
 import * as React from "react";
-import { withRouter, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import MonacoEditor from "react-monaco-editor";
 import Select from "react-select";
 
-import CodeSnippet from "./shared/CodeSnippet.jsx";
+import CodeSnippet from "./shared/CodeSnippet";
 
-import "../scss/components/Kurlsh";
+import ("../scss/components/Kurlsh.scss");
 
 class Kurlsh extends React.Component {
   state = {
@@ -392,4 +392,4 @@ spec:
   }
 }
 
-export default withRouter(Kurlsh);
+export default Kurlsh;
