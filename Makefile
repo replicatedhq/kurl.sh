@@ -12,7 +12,7 @@ deps:
 
 .PHONY: serve
 serve: deps
-	`yarn bin`/webpack-dev-server --config webpack.config.js --progress -w --debug --env local
+	gatsby develop --env local
 
 .PHONY: build-staging
 build-staging: 
