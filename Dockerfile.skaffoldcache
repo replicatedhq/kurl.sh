@@ -1,7 +1,0 @@
-FROM node:8
-EXPOSE 8072 9229
-
-ADD ./package.json 
-ADD ./yarn.lock
-WORKDIR /src
-RUN yarn install --silent
