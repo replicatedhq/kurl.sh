@@ -22,10 +22,15 @@ body a {
   outline: none;
 }
 
-#app {
+#___gatsby {
   display: flex;
   height:100%;
   min-height: 100vh;
+}
+
+#gatsby-focus-wrapper {
+  display: flex;
+  flex: 1;
 }
 
 .container {
@@ -42,7 +47,7 @@ body a {
 }
 
 .logo {
-  background-image: url("../images/kurl.png");
+  background-image: url("../../images/kurl.png");
   background-repeat: no-repeat;
   background-size: 110px 30px;
   width: 110px;

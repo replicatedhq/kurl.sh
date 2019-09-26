@@ -12,12 +12,12 @@ deps:
 
 .PHONY: serve
 serve: deps
-	`yarn bin`/webpack-dev-server --config webpack.config.js --progress -w --debug --env local
+	yarn start
 
 .PHONY: build-staging
 build-staging: 
-	`yarn bin`/webpack --config webpack.config.js --env staging
+	yarn build-staging
 
 .PHONY: build-production
 build-production: 
-	`yarn bin`/webpack --config webpack.config.js --env prod
+	yarn build

@@ -1,6 +1,13 @@
 node_modules
 dist
 
+# gatsby files
+cache
+public
+
+# dotenv environment variables file
+.env
+
 *.DS_Store
 
 # Yarn Integrity file
