@@ -11,7 +11,8 @@
   position: fixed;
   top: 0;
 	left: 0;
-	z-index: 999;
+  z-index: 999;
+  box-shadow: 0 1px 4px rgba(0,0,0,.16);
 }
 
 .NavBarWrapper.smaller {
@@ -50,7 +51,7 @@
   flex-direction: row;
 }
 .HeaderLogo .logo {
-  background-image: url("../../../images/kurl_logo.png");
+  background-image: url("../../../images/kurl_logo@2x.png");
   background-repeat: no-repeat;
   background-size: 52px 50px;
   width: 52px;
@@ -58,7 +59,7 @@
 }
 
 .HeaderLogo.smaller .logo  {
-  background-image: url("../../../images/kurl_logo_small.png");
+  background-image: url("../../../images/kurl_logo_small@2x.png");
   background-repeat: no-repeat;
   background-size: 32px 30px;
   width: 32px;

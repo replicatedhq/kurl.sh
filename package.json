@@ -16,6 +16,7 @@
     "gatsby-cli": "^2.7.50",
     "gatsby-plugin-create-client-paths": "^2.1.11",
     "gatsby-plugin-env-variables": "^1.0.1",
+    "gatsby-plugin-netlify": "^2.1.17",
     "gatsby-plugin-react-helmet": "^3.1.8",
     "gatsby-plugin-sass": "^2.1.15",
     "gatsby-source-filesystem": "^2.1.26",

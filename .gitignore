@@ -2,7 +2,7 @@ node_modules
 dist
 
 # gatsby files
-cache
+.cache/
 public
 
 # dotenv environment variables file
