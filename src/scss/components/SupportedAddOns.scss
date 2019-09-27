@@ -1,3 +1,8 @@
+.Select--wrapper {
+  position: relative;
+  z-index: 100 !important;
+}
+
 .AddOns--wrapper {
   border: solid 1px #DFDFDF;
   background-color: #ffffff;
@@ -8,6 +13,10 @@
   box-sizing: border-box;
   transition: box-shadow .3s;
 
+  &:nth-child(3n) {
+    margin-right: 0;
+  }
+
   .text-wrapper {
     font-weight: 600;
     color: #6D7278;
@@ -16,13 +25,23 @@
   }
 }
 
+.Wrapper .item{
+  border-right: 1px solid #DFDFDF;
+  line-height: 15px;
+  
+}
+
 .addOnsBackground {
   background: linear-gradient(rgba(245,248,252,0) 0%, rgba(245,248,252,93) 100%);
-  padding: 20px;
+  padding: 30px 0px 20px 0px;
 }
 
 .AddOns--footer {
   background-color: #326DE6;
+
+  .AddOns--background {
+    background: url("../../images/kurl-footer@2x.png");
+  }
 
   .title {
     color: #ffffff;

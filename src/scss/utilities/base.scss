@@ -46,12 +46,8 @@ body a {
   font-weight: 500;
 }
 
-.logo {
-  background-image: url("../../images/kurl.png");
-  background-repeat: no-repeat;
-  background-size: 110px 30px;
-  width: 110px;
-  height: 30px;
+.replicated-link:hover {
+  text-decoration: underline;
 }
 
 .wrapperForm {

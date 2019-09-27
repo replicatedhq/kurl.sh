@@ -259,8 +259,6 @@ spec:
 
     return (
       <div className="u-minHeight--full u-width--full u-overflow--auto container flex-column flex1 u-marginBottom---40">
-        <div className="logo flex-auto u-width--full">
-        </div>
         <div className="u-flexTabletReflow flex1 u-width--full">
           <div className="flex">
             <div className="left-content-wrap flex-column">

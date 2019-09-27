@@ -20,13 +20,13 @@ export class NavBar extends React.Component {
       logoEl = document.getElementById("logo-header");
 
     if (distanceY > shrinkOn) {
-      headerEl.classList.add("smaller");
-      kurlHeaderEl.classList.add("smaller");
-      logoEl.classList.add("smaller");
+      headerEl && headerEl.classList.add("smaller");
+      kurlHeaderEl && kurlHeaderEl.classList.add("smaller");
+      logoEl && logoEl.classList.add("smaller");
     } else {
-      headerEl.classList.remove("smaller");
-      kurlHeaderEl.classList.remove("smaller");
-      logoEl.classList.remove("smaller");
+      headerEl && headerEl.classList.remove("smaller");
+      kurlHeaderEl && kurlHeaderEl.classList.remove("smaller");
+      logoEl && logoEl.classList.remove("smaller");
     }
   }
 
@@ -55,7 +55,7 @@ export class NavBar extends React.Component {
                     <a href="https://kurl.sh/docs" target="_blank" rel="noopener noreferrer" className="u-fontWeight--medium  u-color--royalBlue u-lineHeight--normal u-fontSize--normal u-textDecoration--underlineOnHover"> Docs </a>
                   </div>
                   <div className="flex-column flex-auto justifyContent--center">
-                    <GitHubButton type="stargazers" repo="kurl" namespace="replicatedhq" />
+                    <GitHubButton type="stargazers" size="large" repo="kurl" namespace="replicatedhq" />
                   </div>
                 </div>
               </div>
