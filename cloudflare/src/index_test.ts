@@ -47,4 +47,9 @@ describe("isAPIRequest", () => {
     expect(isAPIRequest("https://staging.kurl.sh/installer")).to.equal(true);
   });
 
+  it("is a request for an airgap bundle", async () => {
+
+    expect(isAPIRequest("https://kurl.sh/bundle/latest.tar.gz")).to.equal(true);
+  });
+
 });
