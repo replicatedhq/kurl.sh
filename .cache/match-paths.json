@@ -1,1 +1,6 @@
-[]
+[
+    {
+        "path": "/download/",
+        "matchPath": "/download/*"
+    }
+]
