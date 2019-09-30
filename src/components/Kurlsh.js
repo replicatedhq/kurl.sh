@@ -403,7 +403,7 @@ spec:
                   canCopy={true}
                   onCopyText={<span className="u-color--vidaLoca">URL has been copied to your clipboard</span>}
                   downloadAirgapLink={true}
-                  downloadAirgapHtml={<Link to={`/download`} state={{ sha: installerSha }} className="u-color--royalBlue u-lineHeight--normal u-fontSize--small u-textDecoration--underlineOnHover"> Download airgap installer </Link>}
+                  downloadAirgapHtml={<Link to={`/download/${installerSha}`}  className="u-color--royalBlue u-lineHeight--normal u-fontSize--small u-textDecoration--underlineOnHover"> Download airgap installer </Link>}
                 >
                   {installCommand}
                 </CodeSnippet>

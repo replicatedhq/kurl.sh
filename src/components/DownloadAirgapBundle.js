@@ -12,10 +12,8 @@ class DownloadAirgapBundle extends React.Component {
   };
 
   componentDidMount() {
-    if (typeof window !== "undefined") {
-      if (window.history.state.sha) {
-        this.checkS3Response(window.history.state.sha);
-      }
+    if (this.props.sha) {
+      this.checkS3Response(this.props.sha);
     }
   }
 
@@ -52,10 +50,7 @@ class DownloadAirgapBundle extends React.Component {
 
   render() {
     const { responseStatusCode } = this.state;
-    let sha;
-    if (typeof window !== "undefined") {
-      sha = window.history.state.sha;
-    }
+    const sha = this.props.sha;
     const bundleUrl = `curl -LO https://kurl.sh/bundle/${sha}.tar.gz`
     const installBundleCommand = `
 tar xvf ${sha}.tar.gz
