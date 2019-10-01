@@ -1,6 +1,18 @@
-.Select--wrapper {
+.SelectKubernetes--wrapper {
   position: relative;
   z-index: 100 !important;
+
+  .css-1hwfws3 {
+    padding:10px;
+  }
+
+  .css-yk16xz-control {
+    border-radius: 20px;
+  }
+
+  .css-1pahdxg-control {
+    border-radius: 20px;
+  }
 }
 
 .AddOns--wrapper {
