@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import classNames from "classnames";
 import PropTypes from "prop-types";
 
-import "../../scss/components/shared/CodeSnippet.scss";
+import ("../../scss/components/shared/CodeSnippet.scss");
 
 class CodeSnippet extends Component {
   state = {

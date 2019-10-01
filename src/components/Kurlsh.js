@@ -1,71 +1,75 @@
 import * as React from "react";
-import { withRouter, Link } from "react-router-dom";
+import { Link } from "@reach/router";
 
-import MonacoEditor from "react-monaco-editor";
 import Select from "react-select";
+import CodeSnippet from "./shared/CodeSnippet";
+import Loader from "./shared/Loader";
 
-import CodeSnippet from "./shared/CodeSnippet.jsx";
-
-import "../scss/components/Kurlsh";
+import("../scss/components/Kurlsh.scss");
 
 class Kurlsh extends React.Component {
-  state = {
-    versions: {
-      kubernetes: [
-        { version: "1.15.0" },
-        { version: "1.15.1" },
-        { version: "1.15.2" },
-        { version: "1.15.3" },
-        { version: "latest" },
-      ],
-      weave: [
-        { version: "2.5.2" },
-        { version: "latest" },
-        { version: "None" },
-      ],
-      contour: [
-        { version: "0.14.0" },
-        { version: "latest" },
-        { version: "None" },
-      ],
-      rook: [
-        { version: "1.0.4" },
-        { version: "latest" },
-        { version: "None" },
-      ]
-    },
-    selectedVersions: {
-      kubernetes: { version: "latest" },
-      weave: { version: "latest" },
-      contour: { version: "latest" },
-      rook: { version: "latest" }
-    },
-    installerSha: "latest",
-    showAdvancedOptions: {
-      "kubernetes": false,
-      "weave": false,
-      "contour": false,
-      "rook": false
-    },
-    bootstrapToken: {
-      "kubernetes": false,
-      "weave": false,
-      "contour": false,
-      "rook": false
-    },
-    loadBalancer: {
-      "kubernetes": false,
-      "weave": false,
-      "contour": false,
-      "rook": false
-    },
-    reset: {
-      "kubernetes": false,
-      "weave": false,
-      "contour": false,
-      "rook": false
-    }
-  };
+  constructor() {
+    super();
+    this.state = {
+      versions: {
+        kubernetes: [
+          { version: "1.15.0" },
+          { version: "1.15.1" },
+          { version: "1.15.2" },
+          { version: "1.15.3" },
+          { version: "latest" },
+        ],
+        weave: [
+          { version: "2.5.2" },
+          { version: "latest" },
+          { version: "None" },
+        ],
+        contour: [
+          { version: "0.14.0" },
+          { version: "latest" },
+          { version: "None" },
+        ],
+        rook: [
+          { version: "1.0.4" },
+          { version: "latest" },
+          { version: "None" },
+        ]
+      },
+      selectedVersions: {
+        kubernetes: { version: "latest" },
+        weave: { version: "latest" },
+        contour: { version: "latest" },
+        rook: { version: "latest" }
+      },
+      installerSha: "latest",
+      showAdvancedOptions: {
+        "kubernetes": false,
+        "weave": false,
+        "contour": false,
+        "rook": false
+      },
+      bootstrapToken: {
+        "kubernetes": false,
+        "weave": false,
+        "contour": false,
+        "rook": false
+      },
+      loadBalancer: {
+        "kubernetes": false,
+        "weave": false,
+        "contour": false,
+        "rook": false
+      },
+      reset: {
+        "kubernetes": false,
+        "weave": false,
+        "contour": false,
+        "rook": false
+      },
+      isLoading: false
+    };
+  }
+
 
   getYaml = () => {
     const required =
@@ -105,7 +109,7 @@ spec:
   }
 
   postToKurlInstaller = async (yaml) => {
-    const url = `${window.env.KURL_INSTALLER_URL}`
+    const url = `${process.env.KURL_INSTALLER_URL}`
     try {
       const response = await fetch(url, {
         method: "POST",
@@ -131,7 +135,7 @@ spec:
 
   handleOnChangeAdvancedOptions = (field, version, e) => {
     let nextState = {
-      [field]: {...this.state[field]}
+      [field]: { ...this.state[field] }
     };
     let val;
     if (field === "bootstrapToken" || field === "loadBalancer" || field === "reset") {
@@ -142,6 +146,38 @@ spec:
 
     nextState[field][version] = val;
     this.setState(nextState);
+  }
+
+  renderMonacoEditor = () => {
+    import("monaco-editor").then(monaco => {
+      window.monacoEditor = monaco.editor.create(document.getElementById("monaco"), {
+        value: this.getYaml(),
+        language: "yaml",
+        readOnly: true,
+        minimap: {
+          enabled: false
+        },
+        scrollBeyondLastLine: false,
+        lineNumbers: "off",
+      });
+      this.setState({ isLoading: false });
+    });
+  }
+
+  componentDidMount() {
+    this.setState({
+      isLoading: true
+    }, () => {
+      this.renderMonacoEditor();
+    })
+  }
+
+  componentDidUpdate(lastProps, lastState) {
+    if (typeof window !== "undefined") {
+      if (this.state.selectedVersions !== lastState.selectedVersions) {
+        window.monacoEditor.setValue(this.getYaml());
+      }
+    }
   }
 
   renderAdvancedOptions = (version) => {
@@ -217,14 +253,12 @@ spec:
 
 
   render() {
-    const { versions, selectedVersions, installerSha, showAdvancedOptions } = this.state;
+    const { versions, selectedVersions, installerSha, showAdvancedOptions, isLoading } = this.state;
 
     const installCommand = `curl https://kurl.sh/${installerSha} | sudo bash`
 
     return (
       <div className="u-minHeight--full u-width--full u-overflow--auto container flex-column flex1 u-marginBottom---40">
-        <div className="logo flex-auto u-width--full">
-        </div>
         <div className="u-flexTabletReflow flex1 u-width--full">
           <div className="flex">
             <div className="left-content-wrap flex-column">
@@ -349,22 +383,13 @@ spec:
           </div>
           <div className="FixedWrapper u-paddingLeft--60 flex-column">
             <div className="MonacoEditor--wrapper flex u-width--full u-marginTop--20">
-              <div className="flex u-width--full u-overflow--hidden">
-                <MonacoEditor
-                  ref={(editor) => { this.monacoEditor = editor }}
-                  language="yaml"
-                  value={this.getYaml()}
-                  height="100%"
-                  width="100%"
-                  options={{
-                    readOnly: true,
-                    minimap: {
-                      enabled: false
-                    },
-                    scrollBeyondLastLine: false,
-                    lineNumbers: "off"
-                  }}
-                />
+              <div className="flex u-width--full u-overflow--hidden" id="monaco">
+                {isLoading &&
+                  <div className="flex-column flex-1-auto u-overflow--hidden justifyContent--center alignItems--center">
+                    <Loader
+                      size="70"
+                    />
+                  </div>}
               </div>
             </div>
             <div className="flex-column wrapperForm u-marginTop--30">
@@ -378,7 +403,7 @@ spec:
                   canCopy={true}
                   onCopyText={<span className="u-color--vidaLoca">URL has been copied to your clipboard</span>}
                   downloadAirgapLink={true}
-                  downloadAirgapHtml={<Link to={`/${installerSha}/download`} className="u-color--royalBlue u-lineHeight--normal u-fontSize--small u-textDecoration--underlineOnHover"> Download airgap installer </Link>}
+                  downloadAirgapHtml={<Link to={`/download/${installerSha}`}  className="u-color--royalBlue u-lineHeight--normal u-fontSize--small u-textDecoration--underlineOnHover"> Download airgap installer </Link>}
                 >
                   {installCommand}
                 </CodeSnippet>
@@ -392,4 +417,4 @@ spec:
   }
 }
 
-export default withRouter(Kurlsh);
+export default Kurlsh;

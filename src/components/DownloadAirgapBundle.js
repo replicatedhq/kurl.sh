@@ -1,9 +1,9 @@
 import * as React from "react";
-import { withRouter, Link } from "react-router-dom";
+import { Link } from "@reach/router";
 
+import CodeSnippet from "./shared/CodeSnippet";
+import Loader from "./shared/Loader";
 
-import CodeSnippet from "./shared/CodeSnippet.jsx";
-import Loader from "./shared/Loader.jsx";
 
 class DownloadAirgapBundle extends React.Component {
   state = {
@@ -12,13 +12,13 @@ class DownloadAirgapBundle extends React.Component {
   };
 
   componentDidMount() {
-    if (this.props.match.params.sha) {
-      this.checkS3Response(this.props.match.params.sha);
+    if (this.props.sha) {
+      this.checkS3Response(this.props.sha);
     }
   }
 
   checkS3Response = async (sha) => {
-    const url = `https://cors-anywhere.herokuapp.com/${window.env.KURL_BUNDLE_URL}/${sha}.tar.gz`
+    const url = `https://cors-anywhere.herokuapp.com/${process.env.KURL_BUNDLE_URL}/${sha}.tar.gz`
     try {
       const response = await fetch(url, {
         method: "GET",
@@ -28,7 +28,7 @@ class DownloadAirgapBundle extends React.Component {
         },
         mode: "cors"
       });
-      this.setState({ responseStatusCode: response.status, bundleUrl: `${window.env.KURL_BUNDLE_URL}/${sha}.tar.gz` })
+      this.setState({ responseStatusCode: response.status, bundleUrl: `${process.env.KURL_BUNDLE_URL}/${sha}.tar.gz` })
     } catch (error) {
       console.log(error);
       return;
@@ -50,12 +50,13 @@ class DownloadAirgapBundle extends React.Component {
 
   render() {
     const { responseStatusCode } = this.state;
-    const { sha } = this.props.match.params;
+    const sha = this.props.sha;
     const bundleUrl = `curl -LO https://kurl.sh/bundle/${sha}.tar.gz`
     const installBundleCommand = `
 tar xvf ${sha}.tar.gz
 cat install.sh | sudo bash
     `
+
 
     return (
       <div className="u-minHeight--full u-width--full u-overflow--auto container flex-column flex1 u-marginBottom---40">
@@ -126,4 +127,4 @@ cat install.sh | sudo bash
   }
 }
 
-export default withRouter(DownloadAirgapBundle);
+export default DownloadAirgapBundle;
