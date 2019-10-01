@@ -44,16 +44,8 @@ class SupportedAddOns extends React.Component {
               </span>
             </div>
             <div className="flex flex1 u-marginLeft--40 justifyContent--flexEnd alignItems--center">
-              <div className="u-width--400">
+              <div className="SelectKubernetes--wrapper u-width--400">
                 <Select
-                  styles={{
-                    control: (base, state) => ({
-                      ...base,
-                      '&:hover': { borderColor: 'gray' }, // border style on hover
-                      border: '1px solid lightgray', // default border color
-                      boxShadow: 'none', // no box-shadow
-                    }),
-                  }}
                   options={kubernetesVersions}
                   getOptionLabel={this.getLabel}
                   getOptionValue={(version) => version}
@@ -61,6 +53,7 @@ class SupportedAddOns extends React.Component {
                   onChange={this.onVersionChange}
                   matchProp="value"
                   isOptionSelected={() => false}
+                  isSearchable={false}
                 />
               </div>
             </div>
