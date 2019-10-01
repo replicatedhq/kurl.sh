@@ -6,10 +6,6 @@ dist
 **/.cache
 public
 
-# dotenv environment variables file
-.env
-.env.*
-
 *.DS_Store
 
 # Yarn Integrity file
