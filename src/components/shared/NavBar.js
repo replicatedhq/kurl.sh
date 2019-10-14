@@ -46,6 +46,7 @@ export class NavBar extends React.Component {
                       </Link>
                     </div>
                   </div>
+                  <div className="HeaderText">Kubernetes URL Creator</div>
                 </div>
                 <div className="flex flex1 justifyContent--flexEnd right-items">
                 <div className="flex-column flex-auto u-marginRight--20 justifyContent--center">
