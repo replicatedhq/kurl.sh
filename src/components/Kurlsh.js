@@ -260,12 +260,13 @@ spec:
     return (
       <div className="u-minHeight--full u-width--full u-overflow--auto container flex-column flex1 u-marginBottom---40">
         <div className="u-flexTabletReflow flex1 u-width--full">
-          <div className="flex">
+          <div className="flex u-width--70">
             <div className="left-content-wrap flex-column">
               <div className="u-marginTop--more u-fontSize--larger u-fontWeight--medium u-lineHeight--more u-color--tuna">
-                Kurl is a Kubernetes installer for airgapped and online clusters.
-                This form allows you to quickly build an installer and will provide you with a URL that it can be installed at.
-                </div>
+                <p> Kurl is a custom Kubernetes distro creator that uses Kustomize to package add-ons into the cluster installer. </p>
+                <p> Kurl is a link shortener for your favorite Kubernetes base components (aka add-ons). It creates a unique URL for your specific components that can be installed with curl on a modern Linux server. Kurl installation packages can be run online or download and executed in a completely airgapped environment. </p>
+                <p> Kurl is open source and easily extensible by contributing additional add-ons as Kustomization overlays.</p>
+              </div>
               <div className="flex u-marginTop--30">
                 <div className="flex-column flex flex1">
                   <div className="flex flex1">
