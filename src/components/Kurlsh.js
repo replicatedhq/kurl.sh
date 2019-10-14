@@ -262,10 +262,11 @@ spec:
         <div className="u-flexTabletReflow flex1 u-width--full">
           <div className="flex u-width--70">
             <div className="left-content-wrap flex-column">
-              <div className="u-marginTop--more u-fontSize--larger u-fontWeight--medium u-lineHeight--more u-color--tuna">
-                <p> Kurl is a custom Kubernetes distro creator that uses Kustomize to package add-ons into the cluster installer. </p>
-                <p> Kurl is a link shortener for your favorite Kubernetes base components (aka add-ons). It creates a unique URL for your specific components that can be installed with curl on a modern Linux server. Kurl installation packages can be run online or download and executed in a completely airgapped environment. </p>
-                <p> Kurl is open source and easily extensible by contributing additional add-ons as Kustomization overlays.</p>
+              <div className="u-fontSize--larger u-fontWeight--medium u-lineHeight--more u-color--tuna">
+                Kurl is a custom Kubernetes distro creator. Think of Kurl as a link shortener for your favorite Kubernetes base components (aka add-ons). 
+                It creates a unique URL for your specific components that can be installed with <code>curl</code> on a modern Linux server. 
+                Kurl installation packages can be run online or download and executed in a completely airgapped environment.
+                Kurl is <a href="https://github.com/replicatedhq/kurl/" target="_blank" rel="noopener noreferrer" className="replicated-link">open source</a> and easily extensible by contributing additional add-ons as Kustomization overlays.
               </div>
               <div className="flex u-marginTop--30">
                 <div className="flex-column flex flex1">
@@ -383,7 +384,7 @@ spec:
             </div>
           </div>
           <div className="FixedWrapper u-paddingLeft--60 flex-column">
-            <div className="MonacoEditor--wrapper flex u-width--full u-marginTop--20">
+            <div className="MonacoEditor--wrapper flex u-width--full">
               <div className="flex u-width--full u-overflow--hidden" id="monaco">
                 {isLoading &&
                   <div className="flex-column flex-1-auto u-overflow--hidden justifyContent--center alignItems--center">
