@@ -262,7 +262,7 @@ spec:
         <div className="u-flexTabletReflow flex1 u-width--full">
           <div className="flex u-width--70">
             <div className="left-content-wrap flex-column">
-              <div className="u-fontSize--larger u-fontWeight--medium u-lineHeight--more u-color--tuna">
+              <div className="u-fontSize--large u-fontWeight--medium u-lineHeight--more u-color--tuna">
                 Kurl is a custom Kubernetes distro creator. Think of Kurl as a link shortener for your favorite Kubernetes base components (aka add-ons). 
                 It creates a unique URL for your specific components that can be installed with <code>curl</code> on a modern Linux server. 
                 Kurl installation packages can be run online or download and executed in a completely airgapped environment.
