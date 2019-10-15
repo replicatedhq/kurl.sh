@@ -260,7 +260,7 @@ spec:
     return (
       <div className="u-minHeight--full u-width--full u-overflow--auto container flex-column flex1 u-marginBottom---40">
         <div className="u-flexTabletReflow flex1 u-width--full">
-          <div className="flex u-width--70">
+          <div className="flex u-width--70 u-paddingRight--60">
             <div className="left-content-wrap flex-column">
               <div className="u-fontSize--large u-fontWeight--medium u-lineHeight--more u-color--tuna">
                 Kurl is a custom Kubernetes distro creator. Think of Kurl as a link shortener for your favorite Kubernetes base components (aka add-ons). 
@@ -383,7 +383,7 @@ spec:
               </div>
             </div>
           </div>
-          <div className="FixedWrapper u-paddingLeft--60 flex-column">
+          <div className="FixedWrapper flex-column">
             <div className="MonacoEditor--wrapper flex u-width--full">
               <div className="flex u-width--full u-overflow--hidden" id="monaco">
                 {isLoading &&

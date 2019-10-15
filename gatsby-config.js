@@ -16,10 +16,18 @@ module.exports = {
     { 
       resolve: `gatsby-source-filesystem`,
       options: {
-          name: `images`,
-          path: `${__dirname}/src/images`,
+        name: `images`,
+        path: `${__dirname}/src/images`
       },
     },
+    { 
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `markdown-pages`,
+        path: `${__dirname}/src/markdown-pages`,
+      },
+    },
+    `gatsby-transformer-remark`,
     {
       resolve: `gatsby-plugin-sass`,
       options: {
@@ -41,7 +49,7 @@ module.exports = {
     },
     {
       resolve: `gatsby-plugin-create-client-paths`,
-      options: { prefixes: [`/download/*`] },
+      options: { prefixes: [`/download/*`, `/docs/*`] },
     },
   ],
 }
