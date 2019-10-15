@@ -53,7 +53,7 @@ export class NavBar extends React.Component {
                     <Link to="/add-ons" className="u-fontWeight--medium u-color--royalBlue u-lineHeight--normal u-fontSize--normal u-textDecoration--underlineOnHover"> Supported add-ons </Link>
                   </div>
                   <div className="flex-column flex-auto u-marginRight--20 justifyContent--center">
-                    <a href="https://kurl.sh/docs" target="_blank" rel="noopener noreferrer" className="u-fontWeight--medium  u-color--royalBlue u-lineHeight--normal u-fontSize--normal u-textDecoration--underlineOnHover"> Docs </a>
+                    <Link to="/docs" className="u-fontWeight--medium  u-color--royalBlue u-lineHeight--normal u-fontSize--normal u-textDecoration--underlineOnHover"> Docs </Link>
                   </div>
                   <div className="flex-column flex-auto justifyContent--center">
                     <GitHubButton type="stargazers" size="large" repo="kurl" namespace="replicatedhq" />
