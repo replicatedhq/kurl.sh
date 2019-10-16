@@ -1,5 +1,6 @@
 import React from "react"
 import { graphql } from "gatsby"
+import DocumentationLayout from "../components/shared/DocumentationLayout";
 
 export default function Template({
   data, // this prop will be injected by the GraphQL query below.
@@ -7,16 +8,18 @@ export default function Template({
   const { markdownRemark } = data // data.markdownRemark holds our post data
   const { frontmatter, html } = markdownRemark
   return (
-    <div className="docs-container">
-      <div className="doc">
-        <h1>{frontmatter.title}</h1>
-        <h2>{frontmatter.date}</h2>
-        <div
-          className="docs-content"
-          dangerouslySetInnerHTML={{ __html: html }}
-        />
+    <DocumentationLayout>
+      <div className="ContentArea flex-column flex1 u-height--auto u-overflow--auto">
+        <div className="container">
+          <h1>{frontmatter.title}</h1>
+          <h2>{frontmatter.date}</h2>
+          <div
+            className="docs-content"
+            dangerouslySetInnerHTML={{ __html: html }}
+          />
+        </div>
       </div>
-    </div>
+    </DocumentationLayout>
   )
 }
 

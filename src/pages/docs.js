@@ -1,12 +1,12 @@
 import React from "react";
-import Layout from "../components/Layout";
+import DocumentationLayout from "../components/shared/DocumentationLayout";
 import DocsPage from "../components/DocsPage";
 
 const Docs = () => {
   return (
-    <Layout>
+    <DocumentationLayout>
       <DocsPage />
-    </Layout>
+    </DocumentationLayout>
   )
 };
 
