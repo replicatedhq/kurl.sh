@@ -1,0 +1,78 @@
+/*--- Sidebar ---**/
+.Sidebar {
+  width: 240px;
+  height: 100%;
+  max-height: 100%;
+  background-color: #F5F8FC;
+  border-right: 1px solid #C4C8CA;
+  position: fixed;
+  top: 50px !important;
+  left: 0;
+  margin: 0 !important;
+  padding: 1em;
+  -webkit-transform: translateX(-250px);
+  transform: translateX(-250px);
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  will-change: transform;
+  transition-duration: .2s;
+  transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+  transition-property: transform;
+  transition-property: transform, -webkit-transform;
+  z-index: 5;
+
+
+  .SidebarElements {
+    padding-top: 25px;
+  }
+
+  .SidebarItem-wrapper {
+    font-size: 16px;
+    font-weight: normal;
+    color: #9B9B9B;
+    transition: color .2s;
+    display: block;
+
+    .SidebarItem a {
+      color: #9B9B9B;
+      padding: 15px 20px;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .SidebarItem:hover {
+      background-color: #E4EFFE;
+    }
+  }
+
+  #sidebarToggle {
+    display: inline-block;
+  }
+}
+
+@media screen and (min-width: 1025px) {
+  .Sidebar {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+  }
+
+  #sidebarToggle {
+    display: none;
+  }
+}
+
+/*--- Content Area ---**/
+.ContentArea {
+  margin-left: 240px !important;
+  min-height: calc(100vh);
+}
+
+.ContentArea>.content {
+  padding: 1em;
+}
+
+@media screen and (max-width: 1024px) {
+  .ContentArea {
+    margin-left: 0 !important;
+  }
+}
