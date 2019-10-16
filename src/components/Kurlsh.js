@@ -254,15 +254,16 @@ spec:
 
   render() {
     const { versions, selectedVersions, installerSha, showAdvancedOptions, isLoading } = this.state;
+    const { isMobile } = this.props;
 
-    const installCommand = `curl https://kurl.sh/${installerSha} | sudo bash`
+    const installCommand = `curl https://kurl.sh/${installerSha} | sudo bash`;
 
     return (
-      <div className="u-minHeight--full u-width--full u-overflow--auto container flex-column flex1 u-marginBottom---40">
+      <div className={`u-minHeight--full u-width--full u-overflow--auto flex-column flex1 u-marginBottom---40 ${isMobile ? "mobile-container" : "container"}`}>
         <div className="u-flexTabletReflow flex1 u-width--full">
           <div className="flex u-width--70 u-paddingRight--60">
             <div className="left-content-wrap flex-column">
-              <div className="u-fontSize--large u-fontWeight--medium u-lineHeight--more u-color--tuna">
+              <div className={`${isMobile ? "u-fontSize--normal" : "u-fontSize--large"} u-fontWeight--medium u-lineHeight--more u-color--tuna`}>
                 Kurl is a custom Kubernetes distro creator. Think of Kurl as a link shortener for your favorite Kubernetes base components (aka add-ons). 
                 It creates a unique URL for your specific components that can be installed with <code>curl</code> on a modern Linux server. 
                 Kurl installation packages can be run online or download and executed in a completely airgapped environment.
@@ -383,7 +384,7 @@ spec:
               </div>
             </div>
           </div>
-          <div className="FixedWrapper flex-column">
+          <div className={`FixedWrapper flex-column ${isMobile ? "u-marginTop--30" : ""}`}>
             <div className="MonacoEditor--wrapper flex u-width--full">
               <div className="flex u-width--full u-overflow--hidden" id="monaco">
                 {isLoading &&

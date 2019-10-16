@@ -11,6 +11,7 @@
   "author": "Jelena <jelena.gruica@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "@babel/plugin-proposal-decorators": "^7.6.0",
     "classnames": "^2.2.6",
     "gatsby": "^2.15.22",
     "gatsby-cli": "^2.7.50",
@@ -21,6 +22,7 @@
     "gatsby-plugin-sass": "^2.1.15",
     "gatsby-source-filesystem": "^2.1.26",
     "gatsby-transformer-remark": "^2.6.30",
+    "lodash": "^4.17.15",
     "monaco-editor": "^0.18.1",
     "monaco-editor-webpack-plugin": "^1.7.0",
     "node-sass": "^4.12.0",
