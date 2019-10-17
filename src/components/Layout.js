@@ -5,15 +5,15 @@ import Footer from "./shared/Footer";
 
 import "../scss/index.scss";
 
-const Layout = ({ children }) => {
+const Layout = ({ children, isMobile }) => {
 
   return (
     <>
-      <NavBar />
+      <NavBar isMobile={isMobile} />
       <div className="u-minHeight--full flex-column flex1">
         <main className="flex-column flex1">{children}</main>
         <div className="flex-auto Footer-wrapper u-width--full">
-          <Footer />
+          <Footer isMobile={isMobile} />
         </div>
       </div>
     </>

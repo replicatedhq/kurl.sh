@@ -8,18 +8,38 @@ require("dotenv").config({
 module.exports = {
   siteMetadata: {
     title: "Kurl.sh",
-    apiUrl: process.env.API_URL
+    apiUrl: process.env.API_URL,
+    sidebar: {
+      pages: [
+        {
+          slug: '/docs/creating-an-installer',
+          title: 'Creating An Installer',
+        },
+        {
+          slug: '/docs/supporting-installations',
+          title: 'Supporting Installations',
+        },
+      ],
+    }
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-netlify`,
-    { 
+    {
       resolve: `gatsby-source-filesystem`,
       options: {
-          name: `images`,
-          path: `${__dirname}/src/images`,
+        name: `images`,
+        path: `${__dirname}/src/images`
       },
     },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `markdown-pages`,
+        path: `${__dirname}/src/markdown-pages`,
+      },
+    },
+    `gatsby-transformer-remark`,
     {
       resolve: `gatsby-plugin-sass`,
       options: {
@@ -41,7 +61,7 @@ module.exports = {
     },
     {
       resolve: `gatsby-plugin-create-client-paths`,
-      options: { prefixes: [`/download/*`] },
+      options: { prefixes: [`/download/*`, `/docs/*`] },
     },
   ],
 }

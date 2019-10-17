@@ -40,6 +40,13 @@ body a {
   box-sizing: border-box;
 }
 
+.mobile-container {
+  width: 100%;
+  padding: 110px 80px 40px 40px;
+  margin: 0 auto;
+  box-sizing: border-box;
+} 
+
 .replicated-link {
   color: #326DE6;
   cursor: pointer;
@@ -48,6 +55,10 @@ body a {
 
 .replicated-link:hover {
   text-decoration: underline;
+}
+
+.code {
+  font-family: monospace;
 }
 
 .wrapperForm {
