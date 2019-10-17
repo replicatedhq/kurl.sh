@@ -1,13 +1,20 @@
 import React from "react";
 import Layout from "../components/Layout";
 import SupportedAddOns from "../components/SupportedAddOns";
+import { Resizer } from "../components/shared/Resize";
+import { BreakpointConfig } from "../services/breakpoints";
 
-const AddOns = () => {
-  return (
-    <Layout>
-      <SupportedAddOns />
-    </Layout>
-  )
+@Resizer(BreakpointConfig)
+class AddOns extends React.Component {
+  render() {
+    const isMobile = this.props.breakpoint === "mobile";
+
+    return (
+      <Layout isMobile={isMobile}>
+        <SupportedAddOns />
+      </Layout>
+    )
+  }
 };
 
 export default AddOns;

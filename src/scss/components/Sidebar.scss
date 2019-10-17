@@ -50,6 +50,28 @@
   }
 }
 
+.MobileSidebar {
+  width: 240px;
+  height: 100%;
+  max-height: 100%;
+  background-color: #FFFFFF;
+  position: fixed;
+  top: 80px !important;
+  left: 250px;
+  margin: 0 !important;
+  padding: 1em;
+  -webkit-transform: translateX(-250px);
+  transform: translateX(-250px);
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  will-change: transform;
+  transition-duration: .2s;
+  transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+  transition-property: transform;
+  transition-property: transform, -webkit-transform;
+  z-index: 5;
+}
+
 @media screen and (min-width: 1025px) {
   .Sidebar {
     -webkit-transform: translateX(0);
@@ -75,4 +97,44 @@
   .ContentArea {
     margin-left: 0 !important;
   }
+}
+
+.ToggleSidebar {
+  position: absolute;
+  left: 20px;
+  top: 110px;
+  color: #323232;
+  z-index: 100;
+  transform: translateX(0);
+  transition: transform .2s ease-in-out; 
+}
+
+.ToggleSidebar.sidebar-open {
+  position: absolute;
+  left: 0px;
+  top: 90px;
+  transform: translateX(240px);
+  transition: transform .2s ease-in-out; 
+}
+
+.TransformContainer {
+  transform: translateX(-240px);
+  transition: transform .2s ease-in-out; 
+}
+
+.TransformContainer.show-sidebar {
+  transform: translateX(0);
+}
+.TransformContainer .Sidebar-wrapper {
+  min-width: 240px;
+}
+
+.hidden-sidebar-trigger {
+  position: fixed;
+  top: 0;
+  left: 240px;
+  bottom: 0;
+  right: 0;
+  background: transparent;
+  z-index: 110;
 }

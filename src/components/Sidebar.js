@@ -3,10 +3,10 @@ import { Link } from "gatsby";
 
 import("../scss/components/Sidebar.scss");
 
-const Sidebar = ({ sidebarPages }) => {
+const Sidebar = ({ sidebarPages, isMobile }) => {
 
   return (
-    <nav className="Sidebar flex-column flex1">
+    <nav className={`${isMobile ? "MobileSidebar" : "Sidebar"} flex-column flex1`}>
       {sidebarPages
         ? sidebarPages.map((sidebarPage, i) => (
           <div className="SidebarElements" key={`${sidebarPage.slug}-${i}`}>
