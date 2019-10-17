@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "@reach/router";
 import ("../../scss/components/shared/Footer.scss");
 
 const Footer = ({isMobile}) => {
@@ -12,7 +13,7 @@ const Footer = ({isMobile}) => {
       {
         label: "Documentation",
         icon: false,
-        href: "https://kurl.sh/docs",
+        linkTo: "/docs",
       },
     ];
   }
@@ -39,6 +40,10 @@ const Footer = ({isMobile}) => {
                     <span className="github u-marginRight--small"> </span>
                     <a href={item.href} target="_blank" rel="noopener noreferrer" className="FooterItem u-marginTop--4">{item.label}</a>
                   </div>
+                );
+              } else if (item.linkTo) {
+                node = (
+                  <Link to={item.linkTo} target="_blank" rel="noopener noreferrer" className="FooterItem">{item.label}</Link>
                 );
               } else {
                 node = (
