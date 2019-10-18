@@ -19,6 +19,10 @@ module.exports = {
           slug: '/docs/supporting-installations',
           title: 'Supporting Installations',
         },
+        {
+          slug: '/docs/addon-author/contributing-an-addon',
+          title: 'Contributing An Addon',
+        },
       ],
     }
   },
