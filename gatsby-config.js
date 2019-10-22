@@ -8,23 +8,7 @@ require("dotenv").config({
 module.exports = {
   siteMetadata: {
     title: "Kurl.sh",
-    apiUrl: process.env.API_URL,
-    sidebar: {
-      pages: [
-        {
-          slug: '/docs/creating-an-installer',
-          title: 'Creating An Installer',
-        },
-        {
-          slug: '/docs/supporting-installations',
-          title: 'Supporting Installations',
-        },
-        {
-          slug: '/docs/addon-author/contributing-an-addon',
-          title: 'Contributing An Addon',
-        },
-      ],
-    }
+    apiUrl: process.env.API_URL
   },
   plugins: [
     `gatsby-plugin-react-helmet`,

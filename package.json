@@ -12,6 +12,8 @@
   "license": "MIT",
   "dependencies": {
     "@babel/plugin-proposal-decorators": "^7.6.0",
+    "@progress/kendo-react-animation": "^3.6.0",
+    "@progress/kendo-react-treeview": "^3.6.0",
     "classnames": "^2.2.6",
     "gatsby": "^2.15.22",
     "gatsby-cli": "^2.7.50",
