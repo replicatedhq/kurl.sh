@@ -27,15 +27,9 @@ export default class DocumentationLayout extends React.Component {
           site {
             siteMetadata {
               title
-              sidebar {
-                pages {
-                  slug
-                  title
-                }
-              }
             }
           }
-        }
+        }  
       `}
         render={data => (
           <>
@@ -58,8 +52,6 @@ export default class DocumentationLayout extends React.Component {
                 } ${isMobile && this.state.showSiderbar ? "show-sidebar" : ""}`}>
                 <div className="Sidebar-wrapper">
                   <Sidebar
-                    className="flex"
-                    sidebarPages={data.site.siteMetadata.sidebar.pages}
                     isMobile={isMobile}
                   />
                 </div>
