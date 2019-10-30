@@ -1,12 +1,9 @@
 import React, { Component } from "react";
-import { Redirect } from "@reach/router";
+
 export default class DocsRedirect extends Component {
 
-  componentDidMount() {
-
-  }
-
   render() {
+    // this redirects to /docs/introductions. This is just a stub
     return <div></div>;
   }
 }
