@@ -1,11 +1,15 @@
 ---
 path: "/docs/support-installations/supporting-installations"
 date: "2019-10-15"
+weight: 1
 linktitle: "Installation Support"
 title: "Supporting Installation"
 ---
-You can support installations by running this awesome piece of code!
-
+If you need support, install the `support-bundle` tool from Replicated.
 ```sh
-$ telnet towel.blinkenlights.nl
+curl https://krew.sh/support-bundle | bash
 ```
+
+* First
+* Second
+* Third

@@ -11,7 +11,7 @@ const Sidebar = ({ isMobile }) => (
   <StaticQuery
     query={graphql`
       {
-        allMarkdownRemark(sort: { fields: [frontmatter___path], order: ASC }) {
+        allMarkdownRemark(sort: { fields: [frontmatter___weight], order: ASC }) {
           edges {
             node {
               frontmatter {

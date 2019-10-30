@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import classNames from "classnames";
-import { Link } from "@reach/router";
+import { Link } from "gatsby";
 import "../../scss/components/shared/SidebarFileTree.scss";
 
 function titleize(string) {
@@ -42,7 +42,7 @@ export default class SidebarFileTree extends Component {
         .links[0] // /
         .links; // docs
     }
-    // console.log(dataToRender);
+    console.log(dataToRender && dataToRender.sort( (a,b) => a.weight > b.weight));
     return (
       <div
         className={classNames(`SidebarFileTree depth-${depth}`, className)}
@@ -50,7 +50,7 @@ export default class SidebarFileTree extends Component {
         data-type={type}
       >
         { children }
-        {(open || depth === 0) && dataToRender.map( (entry, idx) => {
+        {(open || depth === 0) && dataToRender && dataToRender.sort( (a,b) => a.weight > b.weight ).map( (entry, idx) => {
           if (entry.directory) {
             return (
               <SidebarFileTree
@@ -70,7 +70,7 @@ export default class SidebarFileTree extends Component {
                 type="file"
                 data-type={type}
               >
-                <Link to={entry.path}>
+                <Link to={entry.path} activeClassName="active">
                   {entry.linktitle || entry.title}
                 </Link>
               </SidebarFileTree>

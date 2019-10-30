@@ -34,7 +34,7 @@ exports.onCreateWebpackConfig = ({ stage, loaders, actions }) => {
 };
 
 exports.createPages = async ({ actions, graphql, reporter }) => {
-  const { createPage } = actions
+  const { createPage, createRedirect } = actions
   const docsTemplate = path.resolve(__dirname, 'src/templates/DocsTemplate.js/');
   const result = await graphql(`
     {
@@ -54,6 +54,21 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
       }
     }
   `)
+
+  createRedirect({
+    isPermanant: true,
+    redirectInBrowser: true,
+    fromPath: "/docs/",
+    toPath: "/docs/introduction"
+  });
+
+  createRedirect({
+    isPermanant: true,
+    redirectInBrowser: true,
+    fromPath: "/docs",
+    toPath: "/docs/introduction"
+  });
+
   // Handle errors
   if (result.errors) {
     reporter.panicOnBuild(`Error while running GraphQL query.`)
@@ -83,8 +98,4 @@ exports.onCreatePage = async ({ page, actions }) => {
     createPage(page)
   }
 
-  if (page.path === `/docs`) {
-    page.matchPath = `/docs/*`
-    createPage(page)
-  }
 }

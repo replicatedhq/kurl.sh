@@ -30,6 +30,12 @@
     display: block;
   }
 
+  ul {
+    list-style-type: none;
+    margin: 0 auto;
+    padding-left: 5px;
+  }
+
   .SideBarItem {
     a {
       color: #9B9B9B;
@@ -145,8 +151,4 @@
   z-index: 110;
 }
 
-ul {
-  list-style-type: none;
-  margin: 0 auto;
-  padding-left: 5px;
-}
+
