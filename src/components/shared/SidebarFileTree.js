@@ -33,7 +33,7 @@ export default class SidebarFileTree extends Component {
   render() {
     const { depth = 0, data, type, className, children } = this.props;
     const { open } = this.state;
-    // console.log(data);
+
     let dataToRender = data;
 
     if (depth === 0) {
@@ -42,7 +42,7 @@ export default class SidebarFileTree extends Component {
         .links[0] // /
         .links; // docs
     }
-    console.log(dataToRender && dataToRender.sort( (a,b) => a.weight > b.weight));
+
     return (
       <div
         className={classNames(`SidebarFileTree depth-${depth}`, className)}
@@ -50,7 +50,7 @@ export default class SidebarFileTree extends Component {
         data-type={type}
       >
         { children }
-        {(open || depth === 0) && dataToRender && dataToRender.sort( (a,b) => a.weight > b.weight ).map( (entry, idx) => {
+        {(open || depth === 0) && dataToRender && dataToRender.map( (entry, idx) => {
           if (entry.directory) {
             return (
               <SidebarFileTree
@@ -68,7 +68,6 @@ export default class SidebarFileTree extends Component {
                 key={`${depth}-${idx}`}
                 depth={depth + 1}
                 type="file"
-                data-type={type}
               >
                 <Link to={entry.path} activeClassName="active">
                   {entry.linktitle || entry.title}

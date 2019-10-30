@@ -1,10 +1,8 @@
 import React from "react";
 import { StaticQuery, graphql } from "gatsby";
 import SidebarFileTree from "./shared/SidebarFileTree";
-
 import { parseLinksToTree } from "../utils/parse-links-to-tree";
 
-// import { NavTree } from "./NavTree";
 import "../scss/components/Sidebar.scss";
 
 const Sidebar = ({ isMobile }) => (
