@@ -42,7 +42,6 @@ export default class SidebarFileTree extends Component {
           }
         }
       }
-      console.log("Goin up!", this.props.depth);
       this.props.onDirectoryClick(mockEvent);
     } else {
       const dirpath = untitleize(path);
