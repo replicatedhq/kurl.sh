@@ -10,6 +10,7 @@
   left: 0;
   margin: 0 !important;
   padding: 1em;
+  padding-top: 50px;
   -webkit-transform: translateX(-250px);
   transform: translateX(-250px);
   -webkit-transform-style: preserve-3d;
@@ -21,29 +22,40 @@
   transition-property: transform, -webkit-transform;
   z-index: 5;
 
-
-  .SidebarElements {
-    padding-top: 25px;
-  }
-
   .SidebarItem-wrapper {
     font-size: 16px;
     font-weight: normal;
     color: #9B9B9B;
     transition: color .2s;
     display: block;
+  }
 
-    .SidebarItem a {
+  ul {
+    list-style-type: none;
+    margin: 0 auto;
+    padding-left: 5px;
+  }
+
+  .SideBarItem {
+    a {
       color: #9B9B9B;
       padding: 15px 20px;
       position: relative;
       cursor: pointer;
     }
-
-    .SidebarItem:hover {
+    &:active, &:focus {
+      outline: none;
+    }
+    &:hover {
       background-color: #E4EFFE;
     }
   }
+
+  .SidebarElements {
+    padding-top: 25px;
+  }
+
+
 
   #sidebarToggle {
     display: inline-block;
@@ -106,7 +118,7 @@
   color: #323232;
   z-index: 100;
   transform: translateX(0);
-  transition: transform .2s ease-in-out; 
+  transition: transform .2s ease-in-out;
 }
 
 .ToggleSidebar.sidebar-open {
@@ -114,12 +126,12 @@
   left: 0px;
   top: 90px;
   transform: translateX(240px);
-  transition: transform .2s ease-in-out; 
+  transition: transform .2s ease-in-out;
 }
 
 .TransformContainer {
   transform: translateX(-240px);
-  transition: transform .2s ease-in-out; 
+  transition: transform .2s ease-in-out;
 }
 
 .TransformContainer.show-sidebar {
@@ -139,8 +151,4 @@
   z-index: 110;
 }
 
-ul {
-  list-style-type: none;
-  margin: 0 auto;
-  padding-left: 5px;
-}
+

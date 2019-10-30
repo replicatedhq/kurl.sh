@@ -1,20 +1,9 @@
-import React from "react";
-import DocumentationLayout from "../components/shared/DocumentationLayout";
-import DocsPage from "../components/DocsPage";
-import { Resizer } from "../components/shared/Resize";
-import { BreakpointConfig } from "../services/breakpoints";
+import React, { Component } from "react";
 
-@Resizer(BreakpointConfig)
-class Docs extends React.Component {
+export default class DocsRedirect extends Component {
+
   render() {
-    const isMobile = this.props.breakpoint === "mobile";
-
-    return (
-      <DocumentationLayout isMobile={isMobile}>
-        <DocsPage isMobile={isMobile} />
-      </DocumentationLayout>
-    )
+    // this redirects to /docs/introductions. This is just a stub
+    return <div></div>;
   }
-};
-
-export default Docs;
+}

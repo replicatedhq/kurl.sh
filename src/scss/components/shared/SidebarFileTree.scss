@@ -1,0 +1,30 @@
+$base-padding: 8px;
+
+.SidebarFileTree {
+  width: 100%;
+  color: #4a4a4a;
+  padding-top: $base-padding;
+  padding-bottom: $base-padding;
+
+  &:hover {
+    color: #323232;
+    cursor: pointer;
+  }
+
+  a {
+   &:visited{
+     color: #4a4a4a;
+   }
+
+   &.active {
+     font-weight: bold;
+   }
+  }
+
+  @for $spacing from 0 through 4 {
+    .depth-#{$spacing} {
+      padding-left: ($base-padding * $spacing) + $base-padding;
+    }
+  }
+
+}

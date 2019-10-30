@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "@reach/router";
+import { Link } from "gatsby";
 import GitHubButton from "react-github-button";
 import MobileNavBar from "./MobileNavBar";
 
@@ -34,14 +34,13 @@ export class NavBar extends React.Component {
     }
   }
 
-
   render() {
     const { mobileNavIsOpen } = this.state;
     const { isMobile } = this.props;
-    const navBarItems = [ 
+    const navBarItems = [
       {linkTo: "/", label: "Kurl"},
       {linkTo: "/add-ons", label: "Supported add-ons"},
-      {linkTo: "/docs", label: "Documentation"},
+      {linkTo: "/docs/introduction", label: "Documentation"},
       {href: "https://github.com/replicatedhq/kurl.sh", label: "Github"}
     ];
 
@@ -82,7 +81,7 @@ export class NavBar extends React.Component {
                       <Link to="/add-ons" className="u-fontWeight--medium u-color--royalBlue u-lineHeight--normal u-fontSize--normal u-textDecoration--underlineOnHover"> Supported add-ons </Link>
                     </div>
                     <div className="flex-column flex-auto u-marginRight--20 justifyContent--center">
-                      <Link to="/docs" className="u-fontWeight--medium  u-color--royalBlue u-lineHeight--normal u-fontSize--normal u-textDecoration--underlineOnHover"> Docs </Link>
+                      <Link to="/docs/introduction" className="u-fontWeight--medium  u-color--royalBlue u-lineHeight--normal u-fontSize--normal u-textDecoration--underlineOnHover"> Docs </Link>
                     </div>
                     <div className="flex-column flex-auto justifyContent--center">
                       <GitHubButton type="stargazers" size="large" repo="kurl" namespace="replicatedhq" />
