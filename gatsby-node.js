@@ -46,6 +46,8 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
           node {
             frontmatter {
               path
+              linktitle
+              title
             }
           }
         }
@@ -58,10 +60,16 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
     return
   }
   result.data.allMarkdownRemark.edges.forEach(({ node }) => {
+    const { path, linktitle, title } = node.frontmatter;
+    const { html } = node;
     createPage({
-      path: node.frontmatter.path,
-      component: docsTemplate,
-      context: {}, // additional data can be passed via context
+      path,
+      linktitle,
+      title,
+      html,
+      component: docsTemplate
+
+      // context: {}, // additional data can be passed via context
     })
   })
 }

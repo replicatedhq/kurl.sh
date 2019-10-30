@@ -1,10 +1,11 @@
 import React from "react";
 import { StaticQuery, graphql } from "gatsby";
+import SidebarFileTree from "./shared/SidebarFileTree";
 
 import { parseLinksToTree } from "../utils/parse-links-to-tree";
 
-import { NavTree } from "./NavTree";
-import("../scss/components/Sidebar.scss");
+// import { NavTree } from "./NavTree";
+import "../scss/components/Sidebar.scss";
 
 const Sidebar = ({ isMobile }) => (
   <StaticQuery
@@ -15,6 +16,7 @@ const Sidebar = ({ isMobile }) => (
             node {
               frontmatter {
                 path
+                linktitle
                 title
               }
             }
@@ -22,11 +24,14 @@ const Sidebar = ({ isMobile }) => (
         }
       }
     `}
-    render={({ allMarkdownRemark: { edges: pages } }) => (
-      <div className={`${isMobile ? "MobileSidebar" : "Sidebar"} flex-column flex1`}>
-        <NavTree tree={parseLinksToTree(pages)} />
-      </div>
-    )}
+    render={({ allMarkdownRemark: { edges: pages } }) => {
+      const tree = parseLinksToTree(pages);
+      return (
+        <div className={`${isMobile ? "MobileSidebar" : "Sidebar"} flex-column flex1`}>
+          <SidebarFileTree data={tree} />
+        </div>
+      );
+    }}
   />
 );
 

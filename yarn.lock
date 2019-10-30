@@ -1036,31 +1036,6 @@
     string-width "^2.0.0"
     strip-ansi "^3"
 
-"@progress/kendo-react-animation@^3.6.0":
-  version "3.6.0"
-  resolved "https://registry.yarnpkg.com/@progress/kendo-react-animation/-/kendo-react-animation-3.6.0.tgz#1f5bc6893f771af92ead342a14cec4b66b8d6c26"
-  integrity sha512-P+F5/LceqQT/nH8au+J6xGO+4qnjVkrI725VJL58U+1KlhdN+UQQcDU3pKMEm8q0Ltk/0CTT1LQv7G+1XO8D6Q==
-  dependencies:
-    "@progress/kendo-react-common" "3.6.0"
-    prop-types "^15.6.0"
-    react-transition-group "^2.2.0"
-
-"@progress/kendo-react-common@3.6.0":
-  version "3.6.0"
-  resolved "https://registry.yarnpkg.com/@progress/kendo-react-common/-/kendo-react-common-3.6.0.tgz#2a067ec3fe1a60a79d09602802ff723b9c1cdebd"
-  integrity sha512-PfJesHYr7f7hCAwCP8iUQc06EWri03KQtjrEKjO91Oueo/t0syztTBFIkVE+B+AemtocoHnsv8QlPIZBu/OeKw==
-  dependencies:
-    "@telerik/kendo-draggable" "1.9.2"
-    prop-types "^15.6.0"
-
-"@progress/kendo-react-treeview@^3.6.0":
-  version "3.6.0"
-  resolved "https://registry.yarnpkg.com/@progress/kendo-react-treeview/-/kendo-react-treeview-3.6.0.tgz#8e9ce74c47ce3ac7e484dc7928e5677037f36514"
-  integrity sha512-XSXnJkpy5x1iSyR2+rzNxYiGglLQx1PwS/vFkduvepKRHVsqO8mANITuz8dp7EyyZpizQKqJNJ45jvMabrsKcA==
-  dependencies:
-    "@progress/kendo-react-common" "3.6.0"
-    prop-types "^15.6.0"
-
 "@reach/router@^1.2.1":
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/@reach/router/-/router-1.2.1.tgz#34ae3541a5ac44fa7796e5506a5d7274a162be4e"
@@ -1076,11 +1051,6 @@
   version "0.7.0"
   resolved "https://registry.yarnpkg.com/@sindresorhus/is/-/is-0.7.0.tgz#9a06f4f137ee84d7df0460c1fdb1135ffa6c50fd"
   integrity sha512-ONhaKPIufzzrlNbqtWFFd+jlnemX6lJAgq9ZeiZtS7I1PIf/la7CW4m83rTXRnVnsMbW2k56pGYu7AUFJD9Pow==
-
-"@telerik/kendo-draggable@1.9.2":
-  version "1.9.2"
-  resolved "https://registry.yarnpkg.com/@telerik/kendo-draggable/-/kendo-draggable-1.9.2.tgz#191cb2fa1051d1c727d570d24e732872d64541ae"
-  integrity sha512-6TqfyPMFibX2kAcLyXYcsZAFmJFRxpQtizoL6YZNdFb4/YRkgijbwXsVJs7nMecTzrmroc0fieixt2XdJXgicA==
 
 "@types/anymatch@*":
   version "1.3.1"
@@ -9861,7 +9831,7 @@ react-side-effect@^1.1.0:
   dependencies:
     shallowequal "^1.0.1"
 
-react-transition-group@^2.2.0, react-transition-group@^2.2.1:
+react-transition-group@^2.2.1:
   version "2.9.0"
   resolved "https://registry.yarnpkg.com/react-transition-group/-/react-transition-group-2.9.0.tgz#df9cdb025796211151a436c69a8f3b97b5b07c8d"
   integrity sha512-+HzNTCHpeQyl4MJ/bdE0u6XRMe9+XG/+aL4mCxVN4DnPBQ0/5bfHWPDuOZUzYdMj94daZaZdCCc1Dzt9R/xSSg==
