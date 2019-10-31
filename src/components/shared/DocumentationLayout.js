@@ -6,18 +6,7 @@ import Sidebar from "../Sidebar";
 import Navbar from "./NavBar";
 
 export default class DocumentationLayout extends Component {
-  state = {
-    showSiderbar: false
-  }
-
-  toggleSidebar = () => {
-    this.setState({
-      showSiderbar: !this.state.showSiderbar
-    });
-  };
-
   render() {
-    const { showSiderbar } = this.state;
     const { children, isMobile } = this.props;
 
     return (
@@ -35,24 +24,11 @@ export default class DocumentationLayout extends Component {
           <>
             <Navbar isMobile={isMobile} />
             <div className="u-minHeight--full flex-column flex1">
-              {isMobile ? (
-                <div
-                  className={`ToggleSidebar ${showSiderbar ? "sidebar-open" : ""}`}
-                  onClick={this.toggleSidebar}
-                >
-                  <span
-                    className={`icon clickable ${
-                      showSiderbar ? "u-closeIcon" : "u-hamburgerMenu"
-                      }`}
-                  ></span>
-                </div>
-              ) : null}
-              <div className={`${
-                isMobile ? "TransformContainer" : ""
-                } ${isMobile && this.state.showSiderbar ? "show-sidebar" : ""}`}>
+              <div>
                 <div className="Sidebar-wrapper">
                   <Sidebar
                     isMobile={isMobile}
+                    slideOpen={true}
                   />
                 </div>
               </div>

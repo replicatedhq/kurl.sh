@@ -11,8 +11,8 @@
   margin: 0 !important;
   padding: 1em;
   padding-top: 50px;
-  -webkit-transform: translateX(-250px);
-  transform: translateX(-250px);
+  -webkit-transform: translateX(-220px);
+  transform: translateX(-220px);
   -webkit-transform-style: preserve-3d;
   transform-style: preserve-3d;
   will-change: transform;
@@ -21,6 +21,16 @@
   transition-property: transform;
   transition-property: transform, -webkit-transform;
   z-index: 5;
+
+  &.isOpen {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+  }
+
+  .Sidebar-toggle {
+    top: 0px;
+    right: 5px;
+  }
 
   .SidebarItem-wrapper {
     font-size: 16px;
@@ -90,6 +100,10 @@
     transform: translateX(0);
   }
 
+  .Sidebar-toggle {
+    visibility: hidden;
+  }
+
   #sidebarToggle {
     display: none;
   }
@@ -110,6 +124,8 @@
     margin-left: 0 !important;
   }
 }
+
+
 
 .ToggleSidebar {
   position: absolute;
