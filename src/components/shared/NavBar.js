@@ -11,6 +11,10 @@ export class NavBar extends React.Component {
     mobileNavIsOpen: false
   }
 
+  componentWillUnmount() {
+    window.removeEventListener("scroll", this.shrinkNavbarOnScroll, true);
+  }
+
   componentDidMount() {
     window.addEventListener("scroll", this.shrinkNavbarOnScroll, true);
   }
