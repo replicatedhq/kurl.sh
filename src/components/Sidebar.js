@@ -1,25 +1,43 @@
-import React from "react";
-import { Link } from "gatsby";
+import React, { Component } from "react";
+import { StaticQuery, graphql } from "gatsby";
+import SidebarFileTree from "./shared/SidebarFileTree";
+import { parseLinksToTree } from "../utils/parse-links-to-tree";
 
-import("../scss/components/Sidebar.scss");
+import "../scss/components/Sidebar.scss";
 
-const Sidebar = ({ sidebarPages, isMobile }) => {
+export default class Sidebar extends Component {
 
-  return (
-    <nav className={`${isMobile ? "MobileSidebar" : "Sidebar"} flex-column flex1`}>
-      {sidebarPages
-        ? sidebarPages.map((sidebarPage, i) => (
-          <div className="SidebarElements" key={`${sidebarPage.slug}-${i}`}>
-            <div className="SidebarItem-wrapper u-position--relative is-active">
-              <div className="SidebarItem">
-                <Link to={sidebarPage.slug}>{sidebarPage.title}</Link>
-              </div>
+  render() {
+    const { isMobile } = this.props;
+    return (
+      <StaticQuery
+        query={graphql`
+      {
+        allMarkdownRemark(sort: { fields: [frontmatter___weight], order: ASC }) {
+          edges {
+            node {
+              frontmatter {
+                path
+                linktitle
+                title
+              }
+            }
+          }
+        }
+      }
+    `}
+        render={({ allMarkdownRemark: { edges: pages } }) => {
+          const tree = parseLinksToTree(pages);
+
+          return (
+            <div className={`${isMobile ? "MobileSidebar" : "Sidebar"} flex-column flex1`}>
+              <SidebarFileTree
+                data={tree}
+              />
             </div>
-          </div>
-        ))
-        : ""}
-    </nav>
-  )
+          );
+        }}
+      />
+    );
+  }
 }
-
-export default Sidebar;

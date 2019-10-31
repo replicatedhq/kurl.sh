@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { StaticQuery, graphql } from 'gatsby';
 
 import Sidebar from "../Sidebar";
 import Navbar from "./NavBar";
 
-export default class DocumentationLayout extends React.Component {
+export default class DocumentationLayout extends Component {
   state = {
     showSiderbar: false
   }
@@ -27,12 +27,6 @@ export default class DocumentationLayout extends React.Component {
           site {
             siteMetadata {
               title
-              sidebar {
-                pages {
-                  slug
-                  title
-                }
-              }
             }
           }
         }
@@ -58,8 +52,6 @@ export default class DocumentationLayout extends React.Component {
                 } ${isMobile && this.state.showSiderbar ? "show-sidebar" : ""}`}>
                 <div className="Sidebar-wrapper">
                   <Sidebar
-                    className="flex"
-                    sidebarPages={data.site.siteMetadata.sidebar.pages}
                     isMobile={isMobile}
                   />
                 </div>

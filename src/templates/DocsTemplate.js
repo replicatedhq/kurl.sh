@@ -10,9 +10,8 @@ export default function Template({
   return (
     <DocumentationLayout>
       <div className="ContentArea flex-column flex1 u-height--auto u-overflow--auto">
-        <div className="container">
+        <div className="container markdown-body">
           <h1>{frontmatter.title}</h1>
-          <h2>{frontmatter.date}</h2>
           <div
             className="docs-content"
             dangerouslySetInnerHTML={{ __html: html }}
@@ -34,4 +33,4 @@ export const pageQuery = graphql`
       }
     }
   }
-`
+`;
