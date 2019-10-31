@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import classNames from "classnames";
 import { StaticQuery, graphql } from "gatsby";
 import SidebarFileTree from "./shared/SidebarFileTree";
 import { parseLinksToTree } from "../utils/parse-links-to-tree";
@@ -6,9 +7,16 @@ import { parseLinksToTree } from "../utils/parse-links-to-tree";
 import "../scss/components/Sidebar.scss";
 
 export default class Sidebar extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      openSidebar: false
+    };
+  }
 
   render() {
-    const { isMobile } = this.props;
+
     return (
       <StaticQuery
         query={graphql`
@@ -28,12 +36,35 @@ export default class Sidebar extends Component {
     `}
         render={({ allMarkdownRemark: { edges: pages } }) => {
           const tree = parseLinksToTree(pages);
-
+          const { openSidebar } = this.state;
+          const closeSidebar = () => {
+            this.setState({
+              openSidebar: false
+            });
+          }
           return (
-            <div className={`${isMobile ? "MobileSidebar" : "Sidebar"} flex-column flex1`}>
-              <SidebarFileTree
-                data={tree}
-              />
+            <div className={classNames("Sidebar flex-column flex1", {
+              isOpen: openSidebar
+            })}>
+              <div className="Sidebar-content u-position--relative">
+                <SidebarFileTree
+                  data={tree}
+                  onLinkClick={closeSidebar}
+                />
+                <div className="Sidebar-toggle u-position--absolute">
+                  <span
+                    className={classNames("icon clickable", {
+                      "u-closeIcon": openSidebar,
+                      "u-hamburgerMenu": !openSidebar
+                    })}
+                    onClick={() => {
+                      this.setState({
+                        openSidebar: !openSidebar
+                      });
+                    }}
+                  />
+                </div>
+              </div>
             </div>
           );
         }}
