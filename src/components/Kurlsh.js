@@ -190,6 +190,16 @@ spec:
   
   handleOptionChange = (path, event) => {
     console.log(path, event);
+    let value = event.currentTarget.value;
+    const [ field, key ] = path.split('.');
+    if (event.currentTarget.type === "checkbox") {
+      value = !!value
+    }
+    this.setState({
+      [field]: {
+        [key]: value
+      }
+    });
   }
   
 
@@ -257,7 +267,31 @@ spec:
         );
       }
       case "weave": {
-        return null;
+        return (
+          <div className="wrapperForm">
+            <div className="u-position--relative flex">
+              <div className="flex-column">
+                <div className="flex alignItems--center">
+                  <div className="flex">
+                    <input
+                      type="checkbox"
+                      name="serviceCIDR"
+                      onChange={e => this.handleOptionChange("kubernetes.serviceCIDR", e.currentTarget)}
+                      value={!!selectedAdvancedOptions[version].serviceCIDR}
+                    />
+                    <label
+                      className="flex1 u-width--full u-position--relative u-marginLeft--small u-cursor--pointer"
+                      htmlFor="serviceCIDR">
+                      <span className="flex u-fontWeight--medium u-color--tuna u-fontSize--small u-lineHeight--normal alignSelf--center alignItems--center">
+                        Service CIDR
+                      </span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
         
       }
       
