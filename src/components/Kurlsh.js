@@ -4,6 +4,7 @@ import { Link } from "@reach/router";
 import Select from "react-select";
 import CodeSnippet from "./shared/CodeSnippet";
 import Loader from "./shared/Loader";
+import OptionWrapper from "./shared/OptionWrapper";
 
 import("../scss/components/Kurlsh.scss");
 
@@ -62,7 +63,7 @@ class Kurlsh extends React.Component {
         "contour": false,
         "rook": false
       },
-      selectedAdvancedOptions: {
+      advancedOptions: {
         kubernetes: {
           ...OPTION_DEFAULTS.kubernetes
         },
@@ -169,8 +170,8 @@ spec:
     }
   }
 
-  onToggleShowAdvancedOptions = (version) => {
-    this.setState({ showAdvancedOptions: { ...this.state.showAdvancedOptions, [version]: !this.state.showAdvancedOptions[version] } })
+  onToggleShowAdvancedOptions = (addOn) => {
+    this.setState({ showAdvancedOptions: { ...this.state.showAdvancedOptions, [addOn]: !this.state.showAdvancedOptions[addOn] } })
   }
 
   // handleOnChangeAdvancedOptions = (field, version, e) => {
@@ -188,16 +189,31 @@ spec:
   //   this.setState(nextState);
   // }
   
-  handleOptionChange = (path, event) => {
-    console.log(path, event);
-    let value = event.currentTarget.value;
+  handleOptionChange = (path, currentTarget) => {
+    const { advancedOptions } = this.state;
+    let value = currentTarget.value;
+    let elementToFocus;
     const [ field, key ] = path.split('.');
-    if (event.currentTarget.type === "checkbox") {
-      value = !!value
+    if (currentTarget.type === "checkbox") {
+      value = currentTarget.checked;
+      if (value && currentTarget.dataset.focusId) {
+        elementToFocus = currentTarget.dataset.focusId;
+        value = "";
+      } else {
+        value = OPTION_DEFAULTS[field][key];
+      }
     }
     this.setState({
-      [field]: {
-        [key]: value
+      advancedOptions: {
+        ...this.state.advancedOptions,
+        [field]: {
+          [key]: value
+        }  
+      }
+    }, () => {
+      if (elementToFocus) {
+        const el = document.getElementById(elementToFocus);
+        el.focus();
       }
     });
   }
@@ -235,64 +251,71 @@ spec:
     }
   }
 
-  renderAdvancedOptions = version => {
+  renderAdvancedOptions = addOn => {
     
-    const { selectedAdvancedOptions } = this.state;
-    switch(version) {
+    const { advancedOptions } = this.state;
+    switch(addOn) {
       case "kubernetes": {
         return (
-          <div className="wrapperForm">
-            <div className="u-position--relative flex">
-              <div className="flex-column">
-                <div className="flex alignItems--center">
-                  <div className="flex">
-                    <input 
-                      type="checkbox"
-                      name="serviceCIDR"
-                      onChange={e => this.handleOptionChange("kubernetes.serviceCIDR", e.currentTarget)}
-                      value={!!selectedAdvancedOptions[version].serviceCIDR}
-                    />
-                    <label 
-                      className="flex1 u-width--full u-position--relative u-marginLeft--small u-cursor--pointer"
-                      htmlFor="serviceCIDR">
-                      <span className="flex u-fontWeight--medium u-color--tuna u-fontSize--small u-lineHeight--normal alignSelf--center alignItems--center">
-                        Service CIDR
-                      </span>
-                    </label>
-                  </div>
-                </div>
-              </div>
+          <OptionWrapper>
+            <div className="flex">
+              <input
+                type="checkbox"
+                name="serviceCIDR"
+                data-focus-id="kubernetes_serviceCIDR"
+                onChange={e => this.handleOptionChange("kubernetes.serviceCIDR", e.currentTarget)}
+                value={!!advancedOptions[addOn].serviceCIDR}
+              />
+              <label
+                className="flex1 u-position--relative u-marginLeft--small u-cursor--pointer"
+                htmlFor="kubernetes_serviceCIDR">
+                <span className="flex u-fontWeight--medium u-color--tuna u-fontSize--small u-lineHeight--normal alignSelf--center alignItems--center">
+                  Service CIDR
+                </span>
+                <input
+                  id="kubernetes_serviceCIDR"
+                  className="flex2"
+                  type="text"
+                  onChange={e => this.handleOptionChange("kubernetes.serviceCIDR", e.currentTarget)}
+                  placeholder={OPTION_DEFAULTS.kubernetes.serviceCIDR}
+                  disabled={this.state.advancedOptions.kubernetes.serviceCIDR === OPTION_DEFAULTS.kubernetes.serviceCIDR}
+                  value={this.state.advancedOptions.kubernetes.serviceCIDR}
+                />
+              </label>
             </div>
-          </div>
+          </OptionWrapper>
         );
       }
       case "weave": {
         return (
-          <div className="wrapperForm">
-            <div className="u-position--relative flex">
-              <div className="flex-column">
-                <div className="flex alignItems--center">
-                  <div className="flex">
-                    <input
-                      type="checkbox"
-                      name="serviceCIDR"
-                      onChange={e => this.handleOptionChange("kubernetes.serviceCIDR", e.currentTarget)}
-                      value={!!selectedAdvancedOptions[version].serviceCIDR}
-                    />
-                    <label
-                      className="flex1 u-width--full u-position--relative u-marginLeft--small u-cursor--pointer"
-                      htmlFor="serviceCIDR">
-                      <span className="flex u-fontWeight--medium u-color--tuna u-fontSize--small u-lineHeight--normal alignSelf--center alignItems--center">
-                        Service CIDR
-                      </span>
-                    </label>
-                  </div>
-                </div>
-              </div>
+          <OptionWrapper>
+            <div className="flex">
+              <input
+                type="checkbox"
+                name="IPAllocRange"
+                data-focus-id="weave_IPAllocRange"
+                onChange={e => this.handleOptionChange("weave.IPAllocRange", e.currentTarget)}
+                checked={advancedOptions.weave.IPAllocRange !== OPTION_DEFAULTS.weave.IPAllocRange}
+              />
+              <label
+                className="flex1 u-width--full u-position--relative u-marginLeft--small u-cursor--pointer"
+                htmlFor="weave_IPAllocRange">
+                <span className="flex u-fontWeight--medium u-color--tuna u-fontSize--small u-lineHeight--normal alignSelf--center alignItems--center">
+                  IP Allocation Range
+                </span>
+              </label>
+              <input
+                id="weave_IPAllocRange"
+                className="flex2"
+                type="text"
+                onChange={e => this.handleOptionChange("weave.IPAllocRange", e.currentTarget)}
+                placeholder={OPTION_DEFAULTS.weave.IPAllocRange}
+                disabled={this.state.advancedOptions.weave.IPAllocRange === OPTION_DEFAULTS.weave.IPAllocRange}
+                value={this.state.advancedOptions.weave.IPAllocRange}
+              />
             </div>
-          </div>
+          </OptionWrapper>
         );
-        
       }
       
       case "rook": {
@@ -315,8 +338,8 @@ spec:
                 <input
                   type="checkbox"
                   id="bootstrapToken"
-                  checked={this.state.bootstrapToken[version]}
-                  onChange={(e) => { this.handleOnChangeAdvancedOptions("bootstrapToken", version, e) }}
+                  checked={this.state.bootstrapToken[addOn]}
+                  onChange={(e) => { this.handleOnChangeAdvancedOptions("bootstrapToken", addOn, e) }}
                 />
                 <label htmlFor="bootstrapToken" className="flex1 u-width--full u-position--relative u-marginLeft--small u-cursor--pointer"> 
                   <span className="u-fontWeight--medium u-color--tuna u-fontSize--small u-lineHeight--normal alignSelf--center alignItems--center flex">bootstrap-token</span>
@@ -324,9 +347,9 @@ spec:
               </div>
               <div className="u-marginLeft--10">
                 <input
-                  className={`Input ${!this.state.bootstrapToken[version] ? "is-disabled" : ""}`}
+                  className={`Input ${!this.state.bootstrapToken[addOn] ? "is-disabled" : ""}`}
                   value={this.state.bootstrapTokenValue}
-                  onChange={(e) => { this.handleFormChange("bootstrapTokenValue", version, e) }}
+                  onChange={(e) => { this.handleFormChange("bootstrapTokenValue", addOn, e) }}
                 />
               </div>
               <span className="icon u-questionMarkCircle u-marginLeft--normal"></span>
@@ -337,8 +360,8 @@ spec:
                 <input
                   type="checkbox"
                   id="loadBalancer"
-                  checked={this.state.loadBalancer[version]}
-                  onChange={(e) => { this.handleOnChangeAdvancedOptions("loadBalancer", version, e) }}
+                  checked={this.state.loadBalancer[addOn]}
+                  onChange={(e) => { this.handleOnChangeAdvancedOptions("loadBalancer", addOn, e) }}
                 />
                 <label htmlFor="loadBalancer" className="flex1 u-width--full u-position--relative u-marginLeft--small u-cursor--pointer">
                   <span className="u-fontWeight--medium u-color--tuna u-fontSize--small u-lineHeight--normal alignSelf--center alignItems--center flex">load-balancer-address</span>
@@ -346,7 +369,7 @@ spec:
               </div>
               <div className="u-marginLeft--10">
                 <input
-                  className={`Input ${!this.state.loadBalancer[version] ? "is-disabled" : ""}`}
+                  className={`Input ${!this.state.loadBalancer[addOn] ? "is-disabled" : ""}`}
                   placeholder="127.0.0.1"
                   value={this.state.loadBalancerValue}
                   onChange={(e) => { this.handleFormChange("loadBalancerValue", e) }}
@@ -360,8 +383,8 @@ spec:
                 <input
                   type="checkbox"
                   id="reset"
-                  checked={this.state.reset[version]}
-                  onChange={(e) => { this.handleOnChangeAdvancedOptions("reset", version, e) }}
+                  checked={this.state.reset[addOn]}
+                  onChange={(e) => { this.handleOnChangeAdvancedOptions("reset", addOn, e) }}
                 />
                 <label htmlFor="reset" className="flex1 u-width--full u-position--relative u-marginLeft--small u-cursor--pointer">
                   <span className="u-fontWeight--medium u-color--tuna u-fontSize--small u-lineHeight--normal alignSelf--center alignItems--center flex">reset</span>
