@@ -7,6 +7,20 @@ import Loader from "./shared/Loader";
 
 import("../scss/components/Kurlsh.scss");
 
+const OPTION_DEFAULTS = {
+  kubernetes: {
+    serviceCIDR: "10.96.0.0/12"
+  },
+  weave: {
+    IPAllocRange: "10.32.0.0/12",
+    encryptNetwork: true
+  },
+  rook: {
+    storageClass: "default",
+    cephPoolReplicas: 3
+  }
+};
+
 class Kurlsh extends React.Component {
   constructor() {
     super();
@@ -47,6 +61,32 @@ class Kurlsh extends React.Component {
         "weave": false,
         "contour": false,
         "rook": false
+      },
+      selectedAdvancedOptions: {
+        kubernetes: {
+          ...OPTION_DEFAULTS.kubernetes
+        },
+        weave: {
+          ...OPTION_DEFAULTS.weave
+        },
+        // contour: {
+          
+        // },
+        rook: {
+          ...OPTION_DEFAULTS.rook
+        },
+        // docker: {
+
+        // },
+        // registry: {
+
+        // },
+        // prometheus: {
+          
+        // },
+        // kotsadm: {
+          
+        // }
       },
       bootstrapToken: {
         "kubernetes": false,
@@ -133,20 +173,25 @@ spec:
     this.setState({ showAdvancedOptions: { ...this.state.showAdvancedOptions, [version]: !this.state.showAdvancedOptions[version] } })
   }
 
-  handleOnChangeAdvancedOptions = (field, version, e) => {
-    let nextState = {
-      [field]: { ...this.state[field] }
-    };
-    let val;
-    if (field === "bootstrapToken" || field === "loadBalancer" || field === "reset") {
-      val = e.target.checked;
-    } else {
-      val = e.target.value;
-    }
+  // handleOnChangeAdvancedOptions = (field, version, e) => {
+  //   let nextState = {
+  //     [field]: { ...this.state[field] }
+  //   };
+  //   let val;
+  //   if (field === "bootstrapToken" || field === "loadBalancer" || field === "reset") {
+  //     val = e.target.checked;
+  //   } else {
+  //     val = e.target.value;
+  //   }
 
-    nextState[field][version] = val;
-    this.setState(nextState);
+  //   nextState[field][version] = val;
+  //   this.setState(nextState);
+  // }
+  
+  handleOptionChange = (path, event) => {
+    console.log(path, event);
   }
+  
 
   renderMonacoEditor = () => {
     import("monaco-editor").then(monaco => {
@@ -180,7 +225,53 @@ spec:
     }
   }
 
-  renderAdvancedOptions = (version) => {
+  renderAdvancedOptions = version => {
+    
+    const { selectedAdvancedOptions } = this.state;
+    switch(version) {
+      case "kubernetes": {
+        return (
+          <div className="wrapperForm">
+            <div className="u-position--relative flex">
+              <div className="flex-column">
+                <div className="flex alignItems--center">
+                  <div className="flex">
+                    <input 
+                      type="checkbox"
+                      name="serviceCIDR"
+                      onChange={e => this.handleOptionChange("kubernetes.serviceCIDR", e.currentTarget)}
+                      value={!!selectedAdvancedOptions[version].serviceCIDR}
+                    />
+                    <label 
+                      className="flex1 u-width--full u-position--relative u-marginLeft--small u-cursor--pointer"
+                      htmlFor="serviceCIDR">
+                      <span className="flex u-fontWeight--medium u-color--tuna u-fontSize--small u-lineHeight--normal alignSelf--center alignItems--center">
+                        Service CIDR
+                      </span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      }
+      case "weave": {
+        return null;
+        
+      }
+      
+      case "rook": {
+        return null;
+        
+      }
+      default: {
+        return null;
+      }
+    }
+    return null;
+    
+    // This is unreachable and purely for reference
     return (
       <div className="wrapperForm u-marginTop--small">
         <div className="u-position--relative flex">
@@ -193,7 +284,7 @@ spec:
                   checked={this.state.bootstrapToken[version]}
                   onChange={(e) => { this.handleOnChangeAdvancedOptions("bootstrapToken", version, e) }}
                 />
-                <label htmlFor="bootstrapToken" className="flex1 u-width--full u-position--relative u-marginLeft--small u-cursor--pointer">
+                <label htmlFor="bootstrapToken" className="flex1 u-width--full u-position--relative u-marginLeft--small u-cursor--pointer"> 
                   <span className="u-fontWeight--medium u-color--tuna u-fontSize--small u-lineHeight--normal alignSelf--center alignItems--center flex">bootstrap-token</span>
                 </label>
               </div>
@@ -348,10 +439,6 @@ spec:
                       </div>
                     </div>
                   </div>
-                  <div className="flex u-fontSize--small u-color--royalBlue u-marginTop--small u-cursor--pointer" onClick={() => this.onToggleShowAdvancedOptions("contour")}>
-                    {showAdvancedOptions["contour"] ? "Hide advanced options" : "Show advanced options"}
-                  </div>
-                  {showAdvancedOptions["contour"] && this.renderAdvancedOptions("contour")}
                 </div>
               </div>
 
