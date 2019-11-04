@@ -21,49 +21,80 @@ const OPTION_DEFAULTS = {
   rook: {
     storageClass: "default",
     cephPoolReplicas: 3
+  },
+  docker: {
+    bypassStorageDriverWarnings: false,
+    hardFailOnLoopback: false,
+    noCEOnEE: false
+  },
+  kotsadm: {
+    applicationSlug: "",
+    uiBindPort: 8800
   }
 };
+function versionToState(version) {
+  return {
+    version
+  };
+}
 
 class Kurlsh extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+    const { installerData } = props;
+    console.log(installerData);
+    const kubernetesVersions = installerData.kubernetes.map(versionToState);
+    
+    const contourVersions = installerData.contour.map(versionToState);
+    contourVersions.push({ version: "None" });
+    
+    const weaveVersions = installerData.weave.map(versionToState);
+    weaveVersions.push({ version: "None" });
+    
+    const rookVersions = installerData.rook.map(versionToState);
+    rookVersions.push({ version: "None" });
+    
+    const dockerVersions = installerData.docker.map(versionToState);
+    dockerVersions.push({ version: "None" });
+    
+    const prometheusVersions = installerData.prometheus.map(versionToState);
+    prometheusVersions.push({ version: "None" });
+    
+    const registryVersions = installerData.registry.map(versionToState);
+    registryVersions.push({ version: "None" });
+    
+    const kotsadmVersions = installerData.kotsadm.map(versionToState);
+    kotsadmVersions.push({ version: "None" });
+    
     this.state = {
       versions: {
-        kubernetes: [
-          { version: "1.15.0" },
-          { version: "1.15.1" },
-          { version: "1.15.2" },
-          { version: "1.15.3" },
-          { version: "latest" },
-        ],
-        weave: [
-          { version: "2.5.2" },
-          { version: "latest" },
-          { version: "None" },
-        ],
-        contour: [
-          { version: "0.14.0" },
-          { version: "latest" },
-          { version: "None" },
-        ],
-        rook: [
-          { version: "1.0.4" },
-          { version: "latest" },
-          { version: "None" },
-        ]
+        kubernetes: kubernetesVersions,
+        weave: weaveVersions,
+        contour: contourVersions,
+        rook: rookVersions,
+        docker: dockerVersions,
+        prometheus: prometheusVersions,
+        registry: registryVersions,
+        kotsadm: kotsadmVersions
       },
       selectedVersions: {
         kubernetes: { version: "latest" },
         weave: { version: "latest" },
         contour: { version: "latest" },
-        rook: { version: "latest" }
+        rook: { version: "latest" },
+        docker: { version: "latest" },
+        prometheus: { version: "latest" },
+        registry: { version: "latest" },
+        kotsadm: { version: "None" }
       },
       installerSha: "latest",
       showAdvancedOptions: {
         "kubernetes": false,
         "weave": false,
         "contour": false,
-        "rook": false
+        "rook": false,
+        "docker": false,
+        "kotsadm": false
       },
       advancedOptions: {
         kubernetes: {
@@ -73,41 +104,24 @@ class Kurlsh extends React.Component {
           ...OPTION_DEFAULTS.weave
         },
         // contour: {
-          
+          // contour has no advanced options
         // },
         rook: {
           ...OPTION_DEFAULTS.rook
         },
-        // docker: {
-
-        // },
+        docker: {
+          ...OPTION_DEFAULTS.docker
+        },
         // registry: {
-
+          // Registry has no advanced options
         // },
         // prometheus: {
-          
+          // Prometheus has no advanced options
         // },
-        // kotsadm: {
-          
-        // }
-      },
-      bootstrapToken: {
-        "kubernetes": false,
-        "weave": false,
-        "contour": false,
-        "rook": false
-      },
-      loadBalancer: {
-        "kubernetes": false,
-        "weave": false,
-        "contour": false,
-        "rook": false
-      },
-      reset: {
-        "kubernetes": false,
-        "weave": false,
-        "contour": false,
-        "rook": false
+        kotsadm: {
+          applicationSlug: "",
+          uiBindPort: 8800
+        }
       },
       isLoading: false
     };
@@ -187,6 +201,48 @@ class Kurlsh extends React.Component {
       generatedInstaller.spec.contour = {
         version: selectedVersions.contour.version
       };
+      
+      // No advanced options for Contour!
+    }
+     
+    if (selectedVersions.docker.version !== "None") {
+      const diff = getDiff(OPTION_DEFAULTS.docker, advancedOptions.docker);
+      generatedInstaller.spec.docker = {
+        version: selectedVersions.docker.version
+      };
+      
+      if (Object.keys(diff).length) {
+        generatedInstaller.spec.docker = {
+          ...generatedInstaller.spec.docker,
+          ...diff
+        };
+      }
+    }
+    
+    if (selectedVersions.prometheus.version !== "None") {
+      generatedInstaller.spec.prometheus = {
+        version: selectedVersions.prometheus.version
+      };
+    }
+    
+    if (selectedVersions.registry.version !== "None") {
+      generatedInstaller.spec.registry = {
+        version: selectedVersions.registry.version
+      };
+    }
+    
+    if (selectedVersions.kotsadm.version !== "None") {
+      const diff = getDiff(OPTION_DEFAULTS.kotsadm, advancedOptions.kotsadm);
+      generatedInstaller.spec.kotsadm = {
+        version: selectedVersions.kotsadm.version
+      };
+
+      if (Object.keys(diff).length) {
+        generatedInstaller.spec.kotsadm = {
+          ...generatedInstaller.spec.kotsadm,
+          ...diff
+        };
+      }
     }
     
     return json2yaml.stringify(generatedInstaller).replace("---\n", "");
@@ -232,7 +288,6 @@ class Kurlsh extends React.Component {
   }
   
   handleOptionChange = (path, currentTarget) => {
-    const { advancedOptions } = this.state;
     let value = currentTarget.value;
     let elementToFocus;
     const [ field, key ] = path.split('.');
@@ -249,6 +304,10 @@ class Kurlsh extends React.Component {
     if (currentTarget.type === "number") {
       value = parseInt(value, 10) || 0;
     }
+    
+    // TODO: Handle this edge case
+    // EDGE CASE if defaultValue and value are both "", keep focus
+    // and don't lock the input. 
     
     this.setState({
       advancedOptions: {
@@ -302,7 +361,6 @@ class Kurlsh extends React.Component {
   }
 
   renderAdvancedOptions = addOn => {
-    
     const { advancedOptions } = this.state;
     switch(addOn) {
       case "kubernetes": {
@@ -390,10 +448,7 @@ class Kurlsh extends React.Component {
                   <ReactTooltip id="tt_weave_encryptNetwork">
                     Encrypt Network
                   </ReactTooltip>
-                  
                 </label>
-                
-                
               </div>
             </div>
           </OptionWrapper>
@@ -468,6 +523,146 @@ class Kurlsh extends React.Component {
         );
         
       }
+      
+      case "docker": {
+        return (
+          <OptionWrapper>
+            <div className="flex-column">
+              <div className="flex alignItems--center">
+                <input
+                  type="checkbox"
+                  name="bypassStorageDriverWarnings"
+                  onChange={e => this.handleOptionChange("docker.bypassStorageDriverWarnings", e.currentTarget)}
+                  checked={advancedOptions.docker.bypassStorageDriverWarnings !== OPTION_DEFAULTS.docker.bypassStorageDriverWarnings}
+                />
+                <label
+                  className="flex1 u-width--full u-position--relative u-marginLeft--small u-cursor--pointer"
+                  htmlFor="docker_bypassStorageDriverWarnings">
+                  <span className="flex u-fontWeight--medium u-color--tuna u-fontSize--small u-lineHeight--normal alignSelf--center alignItems--center">
+                    Bypass Storage Driver Warnings
+                    <span data-tip data-for="tt_docker_bypassStorageDriverWarnings" className="icon clickable u-questionMarkCircle u-marginLeft--normal"></span>
+                  </span>
+                  <ReactTooltip id="tt_docker_bypassStorageDriverWarnings">
+                    Bypass Storage Driver Warnings
+                  </ReactTooltip>
+                </label>
+              </div>
+              <div className="flex u-marginTop--15">
+                <input
+                  type="checkbox"
+                  name="hardFailOnLoopback"
+                  onChange={e => this.handleOptionChange("docker.hardFailOnLoopback", e.currentTarget)}
+                  checked={advancedOptions.docker.hardFailOnLoopback}
+                />
+                <label
+                  className="flex1 u-width--full u-position--relative u-marginLeft--small u-cursor--pointer"
+                  htmlFor="docker_hardFailOnLoopback">
+                  <span className="flex u-fontWeight--medium u-color--tuna u-fontSize--small u-lineHeight--normal alignSelf--center alignItems--center">
+                    Hard Fail on Loopback
+                    <span data-tip data-for="tt_docker_hardFailOnLoopback" className="icon clickable u-questionMarkCircle u-marginLeft--normal"></span>
+                  </span>
+                  <ReactTooltip id="tt_docker_hardFailOnLoopback">
+                    Hard Fail on Loopback
+                  </ReactTooltip>
+                </label>
+              </div>
+              <div className="flex u-marginTop--15">
+                <input
+                  type="checkbox"
+                  name="noCEOnEE"
+                  onChange={e => this.handleOptionChange("docker.noCEOnEE", e.currentTarget)}
+                  checked={advancedOptions.docker.noCEOnEE}
+                />
+                <label
+                  className="flex1 u-width--full u-position--relative u-marginLeft--small u-cursor--pointer"
+                  htmlFor="docker_noCEOnEE">
+                  <span className="flex u-fontWeight--medium u-color--tuna u-fontSize--small u-lineHeight--normal alignSelf--center alignItems--center">
+                    no CEOnEE 
+                    <span data-tip data-for="tt_docker_noCEOnEE" className="icon clickable u-questionMarkCircle u-marginLeft--normal"></span>
+                  </span>
+                  <ReactTooltip id="tt_docker_noCEOnEE">
+                    no CEOnEE 
+                  </ReactTooltip>
+                </label>
+              </div>
+            </div>
+          </OptionWrapper>
+        );
+      }
+      
+      case "prometheus": {
+        // no advanced options for Prometheus!
+        return null;
+      }
+      
+      case "kotsadm": {
+        return (
+          <OptionWrapper>
+            <div className="flex-column">
+              <div className="flex alignItems--center">
+                <input
+                  type="checkbox"
+                  name="applicationSlug"
+                  data-focus-id="kotsadm_applicationSlug"
+                  onChange={e => this.handleOptionChange("kotsadm.applicationSlug", e.currentTarget)}
+                  value={advancedOptions.kotsadm.applicationSlug !== OPTION_DEFAULTS.kotsadm.applicationSlug}
+                />
+                <label
+                  className="flex1 u-width--full u-position--relative u-marginLeft--small u-cursor--pointer"
+                  htmlFor="kotsadm_applicationSlug">
+                  <span className="flex u-fontWeight--medium u-color--tuna u-fontSize--small u-lineHeight--normal alignSelf--center alignItems--center">
+                    Application Slug
+                  </span>
+                </label>
+                <ReactTooltip id="tt_kotsadm_applicationSlug">
+                  What slug prefix would you like?
+                </ReactTooltip>
+                <span data-tip data-for="tt_kotsadm_applicationSlug" className="icon clickable u-questionMarkCircle u-marginRight--normal"></span>
+                {/* TODO: Edge case here. Value of #kotsadm_applicationSlug needs to account for an empty string */}
+                <input
+                  id="kotsadm_applicationSlug"
+                  className="flex2"
+                  type="text"
+                  onChange={e => this.handleOptionChange("kotsadm.applicationSlug", e.currentTarget)}
+                  placeholder={OPTION_DEFAULTS.kotsadm.applicationSlug}
+                  disabled={advancedOptions.kotsadm.applicationSlug === OPTION_DEFAULTS.kotsadm.applicationSlug}
+                  value={advancedOptions.kotsadm.applicationSlug}
+                />
+              </div>
+              <div className="flex alignItems--center u-marginTop--15">
+                <input
+                  type="checkbox"
+                  name="uiBindPort"
+                  data-focus-id="kotsadm_uiBindPort"
+                  onChange={e => this.handleOptionChange("kotsadm.uiBindPort", e.currentTarget)}
+                  value={advancedOptions.kotsadm.uiBindPort !== OPTION_DEFAULTS.kotsadm.uiBindPort}
+                />
+                <label
+                  className="flex1 u-width--full u-position--relative u-marginLeft--small u-cursor--pointer"
+                  htmlFor="kotsadm_uiBindPort">
+                  <span className="flex u-fontWeight--medium u-color--tuna u-fontSize--small u-lineHeight--normal alignSelf--center alignItems--center">
+                    UI Bind Port
+                  </span>
+                </label>
+                <ReactTooltip id="tt_kotsadm_uiBindPort">
+                  What port would you like Kotsadm to be visible on?
+                </ReactTooltip>
+                <span data-tip data-for="tt_kotsadm_uiBindPort" className="icon clickable u-questionMarkCircle u-marginRight--normal"></span>
+                <input
+                  id="kotsadm_uiBindPort"
+                  className="flex2"
+                  type="text"
+                  onChange={e => this.handleOptionChange("kotsadm.uiBindPort", e.currentTarget)}
+                  placeholder={OPTION_DEFAULTS.kotsadm.uiBindPort}
+                  disabled={this.state.advancedOptions.kotsadm.uiBindPort === OPTION_DEFAULTS.kotsadm.uiBindPort}
+                  value={this.state.advancedOptions.kotsadm.uiBindPort}
+                />
+              </div>
+            </div>
+          </OptionWrapper>
+        );
+      }
+      
       default: {
         return null;
       }
@@ -599,6 +794,106 @@ class Kurlsh extends React.Component {
                     {showAdvancedOptions["rook"] ? "Hide advanced options" : "Show advanced options"}
                   </div>
                   {showAdvancedOptions["rook"] && this.renderAdvancedOptions("rook")}
+                </div>
+              </div>
+              <div className="flex u-marginTop--30">
+                <div className="flex-column flex flex1">
+                  <div className="flex flex1">
+                    <div className="flex1">
+                      <div className="FormLabel u-marginBottom--10"> Docker version </div>
+                      <div className="u-fontSize--small u-fontWeight--normal u-color--dustyGray u-lineHeight--normal"> What version of Docker are you using? </div>
+                    </div>
+                    <div className="flex1 u-paddingLeft--50 alignSelf--center">
+                      <div className="u-width--120">
+                        <Select
+                          options={versions.docker}
+                          getOptionLabel={this.getLabel}
+                          getOptionValue={(docker) => docker}
+                          value={selectedVersions.docker}
+                          onChange={this.onVersionChange("docker")}
+                          matchProp="value"
+                          isOptionSelected={() => false}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex u-fontSize--small u-color--royalBlue u-marginTop--small u-cursor--pointer" onClick={() => this.onToggleShowAdvancedOptions("docker")}>
+                    {showAdvancedOptions["docker"] ? "Hide advanced options" : "Show advanced options"}
+                  </div>
+                  {showAdvancedOptions["docker"] && this.renderAdvancedOptions("docker")}
+                </div>
+              </div>
+              <div className="flex u-marginTop--30">
+                <div className="flex-column flex flex1">
+                  <div className="flex flex1">
+                    <div className="flex1">
+                      <div className="FormLabel u-marginBottom--10"> Prometheus version </div>
+                      <div className="u-fontSize--small u-fontWeight--normal u-color--dustyGray u-lineHeight--normal"> What version of Prometheus are you using? </div>
+                    </div>
+                    <div className="flex1 u-paddingLeft--50 alignSelf--center">
+                      <div className="u-width--120">
+                        <Select
+                          options={versions.prometheus}
+                          getOptionLabel={this.getLabel}
+                          getOptionValue={(prometheus) => prometheus}
+                          value={selectedVersions.prometheus}
+                          onChange={this.onVersionChange("prometheus")}
+                          matchProp="value"
+                          isOptionSelected={() => false}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="flex u-marginTop--30">
+                <div className="flex-column flex flex1">
+                  <div className="flex flex1">
+                    <div className="flex1">
+                      <div className="FormLabel u-marginBottom--10"> Registry version </div>
+                      <div className="u-fontSize--small u-fontWeight--normal u-color--dustyGray u-lineHeight--normal"> What version of Registry are you using? </div>
+                    </div>
+                    <div className="flex1 u-paddingLeft--50 alignSelf--center">
+                      <div className="u-width--120">
+                        <Select
+                          options={versions.registry}
+                          getOptionLabel={this.getLabel}
+                          getOptionValue={(registry) => registry}
+                          value={selectedVersions.registry}
+                          onChange={this.onVersionChange("registry")}
+                          matchProp="value"
+                          isOptionSelected={() => false}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="flex u-marginTop--30">
+                <div className="flex-column flex flex1">
+                  <div className="flex flex1">
+                    <div className="flex1">
+                      <div className="FormLabel u-marginBottom--10"> Kotsadm version </div>
+                      <div className="u-fontSize--small u-fontWeight--normal u-color--dustyGray u-lineHeight--normal"> What version of Kotsadm are you using? </div>
+                    </div>
+                    <div className="flex1 u-paddingLeft--50 alignSelf--center">
+                      <div className="u-width--120">
+                        <Select
+                          options={versions.kotsadm}
+                          getOptionLabel={this.getLabel}
+                          getOptionValue={(kotsadm) => kotsadm}
+                          value={selectedVersions.kotsadm}
+                          onChange={this.onVersionChange("kotsadm")}
+                          matchProp="value"
+                          isOptionSelected={() => false}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex u-fontSize--small u-color--royalBlue u-marginTop--small u-cursor--pointer" onClick={() => this.onToggleShowAdvancedOptions("kotsadm")}>
+                    {showAdvancedOptions["kotsadm"] ? "Hide advanced options" : "Show advanced options"}
+                  </div>
+                  {showAdvancedOptions["kotsadm"] && this.renderAdvancedOptions("kotsadm")}
                 </div>
               </div>
             </div>
