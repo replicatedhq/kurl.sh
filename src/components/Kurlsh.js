@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Link } from "@reach/router";
 
+import ReactTooltip from "react-tooltip";
 import json2yaml from "json2yaml";
 import Select from "react-select";
 import CodeSnippet from "./shared/CodeSnippet";
@@ -245,6 +246,10 @@ class Kurlsh extends React.Component {
       } 
     }
     
+    if (currentTarget.type === "number") {
+      value = parseInt(value, 10) || 0;
+    }
+    
     this.setState({
       advancedOptions: {
         ...this.state.advancedOptions,
@@ -314,11 +319,14 @@ class Kurlsh extends React.Component {
               <label
                 className="flex1 u-width--full u-position--relative u-marginLeft--small u-cursor--pointer"
                 htmlFor="kubernetes_serviceCIDR">
-                <span className="flex u-fontWeight--medium u-color--tuna u-fontSize--small u-lineHeight--normal alignSelf--center alignItems--center">
+                <span  className="flex u-fontWeight--medium u-color--tuna u-fontSize--small u-lineHeight--normal alignSelf--center alignItems--center">
                   Service CIDR
                 </span>
               </label>
-              <span className="icon clickable u-questionMarkCircle u-marginRight--normal"></span>
+              <ReactTooltip id="tt_kubernetes_serviceCIDR">
+                Set ServiceCIDR here
+              </ReactTooltip>
+              <span data-tip data-for="tt_kubernetes_serviceCIDR" className="icon clickable u-questionMarkCircle u-marginRight--normal"></span>
               <input
                 id="kubernetes_serviceCIDR"
                 className="flex2"
@@ -351,7 +359,10 @@ class Kurlsh extends React.Component {
                     IP Allocation Range
                   </span>
                 </label>
-                <span className="icon clickable u-questionMarkCircle u-marginRight--normal"></span>
+                <ReactTooltip id="tt_weave_IPAllocRange">
+                  IP Allocation Range for Weave
+                </ReactTooltip>
+                <span data-tip data-for="tt_weave_IPAllocRange" className="icon clickable u-questionMarkCircle u-marginRight--normal"></span>
                 <input
                   id="weave_IPAllocRange"
                   className="flex2"
@@ -374,9 +385,14 @@ class Kurlsh extends React.Component {
                   htmlFor="weave_encryptNetwork">
                   <span className="flex u-fontWeight--medium u-color--tuna u-fontSize--small u-lineHeight--normal alignSelf--center alignItems--center">
                     Encrypt Network
-                    <span className="icon clickable u-questionMarkCircle u-marginLeft--normal"></span>
+                    <span data-tip data-for="tt_weave_encryptNetwork" className="icon clickable u-questionMarkCircle u-marginLeft--normal"></span>
                   </span>
+                  <ReactTooltip id="tt_weave_encryptNetwork">
+                    Encrypt Network
+                  </ReactTooltip>
+                  
                 </label>
+                
                 
               </div>
             </div>
@@ -403,7 +419,10 @@ class Kurlsh extends React.Component {
                     Storage <br/>Class
                   </span>
                 </label>
-                <span className="flex-auto icon clickable u-questionMarkCircle u-marginRight--normal"></span>
+                <span data-tip data-for="tt_rook_storageClass" className="flex-auto icon clickable u-questionMarkCircle u-marginRight--normal"></span>
+                <ReactTooltip id="tt_rook_storageClass">
+                  Name of storage volume
+                </ReactTooltip>
                 <input
                   id="rook_storageClass"
                   className="flex2"
@@ -414,7 +433,7 @@ class Kurlsh extends React.Component {
                   value={advancedOptions.rook.storageClass}
                 />
               </div>
-              <div className="flex u-marginTop--15">
+              <div className="flex alignItems--center u-marginTop--15">
                 <input
                   type="checkbox"
                   name="cephPoolReplicas"
@@ -424,12 +443,15 @@ class Kurlsh extends React.Component {
                 />
                 <label
                   className="flex1 u-width--full u-position--relative u-marginLeft--small u-cursor--pointer"
-                  htmlFor="weave_encryptNetwork">
+                  htmlFor="weave_cephPoolReplicas">
                   <span className="flex u-fontWeight--medium u-color--tuna u-fontSize--small u-lineHeight--normal alignSelf--center alignItems--center">
                     Ceph Pool Replicas
                   </span>
                 </label>
-                <span className="flex-auto icon clickable u-questionMarkCircle u-marginRight--normal"></span>
+                <ReactTooltip id="tt_rook_cephPoolReplicas">
+                  Minimum Ceph Pool replicas
+                </ReactTooltip>
+                <span data-tip data-for="tt_rook_cephPoolReplicas" className="flex-auto icon clickable u-questionMarkCircle u-marginRight--normal"></span>
                 <input
                   id="rook_cephPoolReplicas"
                   className="flex2"

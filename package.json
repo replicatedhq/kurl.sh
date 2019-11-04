@@ -34,7 +34,8 @@
     "react-helmet": "^5.2.1",
     "react-monaco-editor": "^0.31.0",
     "react-router-dom": "^5.0.1",
-    "react-select": "^3.0.5"
+    "react-select": "^3.0.5",
+    "react-tooltip": "^3.11.1"
   },
   "devDependencies": {
     "@babel/plugin-proposal-class-properties": "^7.5.5",
