@@ -1,6 +1,7 @@
 import React from "react";
 import Layout from "../components/Layout";
 import Kurlsh from "../components/Kurlsh";
+import Loader from "../components/shared/Loader";
 import { Resizer } from "../components/shared/Resize";
 import { BreakpointConfig } from "../services/breakpoints";
 
@@ -34,12 +35,12 @@ class Kurl extends React.Component {
   render() {
     const isMobile = this.props.breakpoint === "mobile";
     const { installerData } = this.state;
-    // TODO: Replace "loading..." with a spinner or something else
+
     return (
       <Layout isMobile={isMobile}>
         { installerData 
           ? <Kurlsh isMobile={isMobile} installerData={installerData} />
-          : "Loading..."
+          : <Loader size="70" />
         }
       </Layout>
     )

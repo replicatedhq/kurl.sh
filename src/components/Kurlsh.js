@@ -28,7 +28,7 @@ const OPTION_DEFAULTS = {
     noCEOnEE: false
   },
   kotsadm: {
-    applicationSlug: "",
+    applicationSlug: "Application Slug",
     uiBindPort: 8800
   }
 };
@@ -42,7 +42,7 @@ class Kurlsh extends React.Component {
   constructor(props) {
     super(props);
     const { installerData } = props;
-    console.log(installerData);
+
     const kubernetesVersions = installerData.kubernetes.map(versionToState);
     
     const contourVersions = installerData.contour.map(versionToState);
@@ -119,8 +119,7 @@ class Kurlsh extends React.Component {
           // Prometheus has no advanced options
         // },
         kotsadm: {
-          applicationSlug: "",
-          uiBindPort: 8800
+          ...OPTION_DEFAULTS.kotsadm
         }
       },
       isLoading: false
@@ -305,10 +304,6 @@ class Kurlsh extends React.Component {
       value = parseInt(value, 10) || 0;
     }
     
-    // TODO: Handle this edge case
-    // EDGE CASE if defaultValue and value are both "", keep focus
-    // and don't lock the input. 
-    
     this.setState({
       advancedOptions: {
         ...this.state.advancedOptions,
@@ -391,8 +386,8 @@ class Kurlsh extends React.Component {
                 type="text"
                 onChange={e => this.handleOptionChange("kubernetes.serviceCIDR", e.currentTarget)}
                 placeholder={OPTION_DEFAULTS.kubernetes.serviceCIDR}
-                disabled={this.state.advancedOptions.kubernetes.serviceCIDR === OPTION_DEFAULTS.kubernetes.serviceCIDR}
-                value={this.state.advancedOptions.kubernetes.serviceCIDR}
+                disabled={advancedOptions.kubernetes.serviceCIDR === OPTION_DEFAULTS.kubernetes.serviceCIDR}
+                value={advancedOptions.kubernetes.serviceCIDR}
               />
             </div>
           </OptionWrapper>
@@ -427,8 +422,8 @@ class Kurlsh extends React.Component {
                   type="text"
                   onChange={e => this.handleOptionChange("weave.IPAllocRange", e.currentTarget)}
                   placeholder={OPTION_DEFAULTS.weave.IPAllocRange}
-                  disabled={this.state.advancedOptions.weave.IPAllocRange === OPTION_DEFAULTS.weave.IPAllocRange}
-                  value={this.state.advancedOptions.weave.IPAllocRange}
+                  disabled={advancedOptions.weave.IPAllocRange === OPTION_DEFAULTS.weave.IPAllocRange}
+                  value={advancedOptions.weave.IPAllocRange}
                 />
               </div>
               <div className="flex u-marginTop--15">
@@ -618,7 +613,6 @@ class Kurlsh extends React.Component {
                   What slug prefix would you like?
                 </ReactTooltip>
                 <span data-tip data-for="tt_kotsadm_applicationSlug" className="icon clickable u-questionMarkCircle u-marginRight--normal"></span>
-                {/* TODO: Edge case here. Value of #kotsadm_applicationSlug needs to account for an empty string */}
                 <input
                   id="kotsadm_applicationSlug"
                   className="flex2"
