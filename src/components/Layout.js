@@ -8,10 +8,10 @@ import "../scss/index.scss";
 const Layout = ({ children, isMobile }) => {
 
   return (
-    <div>
-      <div class="suite-banner">
-        <div class="flex flex-row justifyContent--spaceBetween">
-          <div class="repl-logo-white"></div>
+    <div className="flex flex1">
+      <div className="suite-banner">
+        <div className="flex flex-row justifyContent--spaceBetween">
+          <div className="repl-logo-white"></div>
           <div>
             <a href="https://blog.replicated.com/announcing-kots/" target="_blank" rel="noopener noreferrer">Learn more about Replicated to operationalize your KOTS app <span class="banner-arrow"></span></a>
           </div>
