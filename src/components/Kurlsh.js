@@ -44,28 +44,28 @@ class Kurlsh extends React.Component {
     const { installerData } = props;
 
     const kubernetesVersions = installerData.kubernetes.map(versionToState);
-    
+
     const contourVersions = installerData.contour.map(versionToState);
     contourVersions.push({ version: "None" });
-    
+
     const weaveVersions = installerData.weave.map(versionToState);
     weaveVersions.push({ version: "None" });
-    
+
     const rookVersions = installerData.rook.map(versionToState);
     rookVersions.push({ version: "None" });
-    
+
     const dockerVersions = installerData.docker.map(versionToState);
     dockerVersions.push({ version: "None" });
-    
+
     const prometheusVersions = installerData.prometheus.map(versionToState);
     prometheusVersions.push({ version: "None" });
-    
+
     const registryVersions = installerData.registry.map(versionToState);
     registryVersions.push({ version: "None" });
-    
+
     const kotsadmVersions = installerData.kotsadm.map(versionToState);
     kotsadmVersions.push({ version: "None" });
-    
+
     this.state = {
       versions: {
         kubernetes: kubernetesVersions,
@@ -104,7 +104,7 @@ class Kurlsh extends React.Component {
           ...OPTION_DEFAULTS.weave
         },
         // contour: {
-          // contour has no advanced options
+        // contour has no advanced options
         // },
         rook: {
           ...OPTION_DEFAULTS.rook
@@ -113,10 +113,10 @@ class Kurlsh extends React.Component {
           ...OPTION_DEFAULTS.docker
         },
         // registry: {
-          // Registry has no advanced options
+        // Registry has no advanced options
         // },
         // prometheus: {
-          // Prometheus has no advanced options
+        // Prometheus has no advanced options
         // },
         kotsadm: {
           ...OPTION_DEFAULTS.kotsadm
@@ -128,11 +128,11 @@ class Kurlsh extends React.Component {
 
 
   getYaml = () => {
-    const { 
-      selectedVersions, 
+    const {
+      selectedVersions,
       advancedOptions
     } = this.state;
-    
+
     const generatedInstaller = {
       apiVersion: "kurl.sh/v1beta1",
       kind: "Installer",
@@ -145,21 +145,21 @@ class Kurlsh extends React.Component {
         }
       }
     };
-    
+
     const getDiff = (defaults, modified) => {
       const diff = {};
-      Object.entries(modified).forEach( ([key, value]) => {
+      Object.entries(modified).forEach(([key, value]) => {
         if (defaults[key] !== modified[key]) {
           diff[key] = value;
         }
       });
-      
+
       return diff;
     }
-    
+
     if (advancedOptions.kubernetes) {
       const diff = getDiff(OPTION_DEFAULTS.kubernetes, advancedOptions.kubernetes);
-      
+
       if (Object.keys(diff).length) {
         generatedInstaller.spec.kubernetes = {
           ...generatedInstaller.spec.kubernetes,
@@ -167,27 +167,27 @@ class Kurlsh extends React.Component {
         };
       }
     }
-    
+
     if (selectedVersions.weave.version !== "None") {
       const diff = getDiff(OPTION_DEFAULTS.weave, advancedOptions.weave);
       generatedInstaller.spec.weave = {
         version: selectedVersions.weave.version
       };
-      
+
       if (Object.keys(diff).length) {
         generatedInstaller.spec.weave = {
-            ...generatedInstaller.spec.weave,
-            ...diff
+          ...generatedInstaller.spec.weave,
+          ...diff
         };
       }
     }
-    
+
     if (selectedVersions.rook.version !== "None") {
       const diff = getDiff(OPTION_DEFAULTS.rook, advancedOptions.rook);
       generatedInstaller.spec.rook = {
         version: selectedVersions.rook.version
       };
-      
+
       if (Object.keys(diff).length) {
         generatedInstaller.spec.rook = {
           ...generatedInstaller.spec.rook,
@@ -195,21 +195,21 @@ class Kurlsh extends React.Component {
         };
       }
     }
-    
+
     if (selectedVersions.contour.version !== "None") {
       generatedInstaller.spec.contour = {
         version: selectedVersions.contour.version
       };
-      
+
       // No advanced options for Contour!
     }
-     
+
     if (selectedVersions.docker.version !== "None") {
       const diff = getDiff(OPTION_DEFAULTS.docker, advancedOptions.docker);
       generatedInstaller.spec.docker = {
         version: selectedVersions.docker.version
       };
-      
+
       if (Object.keys(diff).length) {
         generatedInstaller.spec.docker = {
           ...generatedInstaller.spec.docker,
@@ -217,19 +217,19 @@ class Kurlsh extends React.Component {
         };
       }
     }
-    
+
     if (selectedVersions.prometheus.version !== "None") {
       generatedInstaller.spec.prometheus = {
         version: selectedVersions.prometheus.version
       };
     }
-    
+
     if (selectedVersions.registry.version !== "None") {
       generatedInstaller.spec.registry = {
         version: selectedVersions.registry.version
       };
     }
-    
+
     if (selectedVersions.kotsadm.version !== "None") {
       const diff = getDiff(OPTION_DEFAULTS.kotsadm, advancedOptions.kotsadm);
       generatedInstaller.spec.kotsadm = {
@@ -243,7 +243,7 @@ class Kurlsh extends React.Component {
         };
       }
     }
-    
+
     return json2yaml.stringify(generatedInstaller).replace("---\n", "");
   }
 
@@ -285,11 +285,11 @@ class Kurlsh extends React.Component {
   onToggleShowAdvancedOptions = (addOn) => {
     this.setState({ showAdvancedOptions: { ...this.state.showAdvancedOptions, [addOn]: !this.state.showAdvancedOptions[addOn] } })
   }
-  
+
   handleOptionChange = (path, currentTarget) => {
     let value = currentTarget.value;
     let elementToFocus;
-    const [ field, key ] = path.split('.');
+    const [field, key] = path.split('.');
     if (currentTarget.type === "checkbox") {
       value = currentTarget.checked;
       if (value && currentTarget.dataset.focusId) {
@@ -297,20 +297,20 @@ class Kurlsh extends React.Component {
         value = "";
       } else if (currentTarget.dataset.focusId) {
         value = OPTION_DEFAULTS[field][key];
-      } 
+      }
     }
-    
+
     if (currentTarget.type === "number") {
       value = parseInt(value, 10) || 0;
     }
-    
+
     this.setState({
       advancedOptions: {
         ...this.state.advancedOptions,
         [field]: {
           ...this.state.advancedOptions[field],
           [key]: value
-        }  
+        }
       }
     }, () => {
       if (elementToFocus) {
@@ -321,7 +321,7 @@ class Kurlsh extends React.Component {
       this.postToKurlInstaller(this.getYaml());
     });
   }
-  
+
 
   renderMonacoEditor = () => {
     import("monaco-editor").then(monaco => {
@@ -357,38 +357,43 @@ class Kurlsh extends React.Component {
 
   renderAdvancedOptions = addOn => {
     const { advancedOptions } = this.state;
-    switch(addOn) {
+
+    switch (addOn) {
       case "kubernetes": {
         return (
           <OptionWrapper>
-            <div className="flex alignItems--center">
-              <input
-                type="checkbox"
-                name="serviceCIDR"
-                data-focus-id="kubernetes_serviceCIDR"
-                onChange={e => this.handleOptionChange("kubernetes.serviceCIDR", e.currentTarget)}
-                value={advancedOptions.kubernetes.serviceCIDR !== OPTION_DEFAULTS.kubernetes.serviceCIDR}
-              />
-              <label
-                className="flex1 u-width--full u-position--relative u-marginLeft--small u-cursor--pointer"
-                htmlFor="kubernetes_serviceCIDR">
-                <span  className="flex u-fontWeight--medium u-color--tuna u-fontSize--small u-lineHeight--normal alignSelf--center alignItems--center">
-                  Service CIDR
+            <div className="flex flex1 alignItems--center">
+              <div className="flex">
+                <input
+                  type="checkbox"
+                  name="serviceCIDR"
+                  data-focus-id="kubernetes_serviceCIDR"
+                  onChange={e => this.handleOptionChange("kubernetes.serviceCIDR", e.currentTarget)}
+                  value={advancedOptions.kubernetes.serviceCIDR !== OPTION_DEFAULTS.kubernetes.serviceCIDR}
+                />
+                <label
+                  className="flex1 u-width--full u-position--relative u-marginLeft--small u-cursor--pointer"
+                  htmlFor="kubernetes_serviceCIDR">
+                  <span className="flex u-fontWeight--medium u-color--tuna u-fontSize--small u-lineHeight--normal alignSelf--center alignItems--center">
+                    Service CIDR
                 </span>
-              </label>
-              <ReactTooltip id="tt_kubernetes_serviceCIDR">
-                Set ServiceCIDR here
+                </label>
+                <ReactTooltip id="tt_kubernetes_serviceCIDR">
+                  Set ServiceCIDR here
               </ReactTooltip>
-              <span data-tip data-for="tt_kubernetes_serviceCIDR" className="icon clickable u-questionMarkCircle u-marginRight--normal"></span>
-              <input
-                id="kubernetes_serviceCIDR"
-                className="flex2"
-                type="text"
-                onChange={e => this.handleOptionChange("kubernetes.serviceCIDR", e.currentTarget)}
-                placeholder={OPTION_DEFAULTS.kubernetes.serviceCIDR}
-                disabled={advancedOptions.kubernetes.serviceCIDR === OPTION_DEFAULTS.kubernetes.serviceCIDR}
-                value={advancedOptions.kubernetes.serviceCIDR}
-              />
+                <span data-tip data-for="tt_kubernetes_serviceCIDR" className="icon clickable u-questionMarkCircle u-marginLeft--normal u-marginRight--normal"></span>
+              </div>
+              <div>
+                <input
+                  id="kubernetes_serviceCIDR"
+                  className="flex2"
+                  type="text"
+                  onChange={e => this.handleOptionChange("kubernetes.serviceCIDR", e.currentTarget)}
+                  placeholder={OPTION_DEFAULTS.kubernetes.serviceCIDR}
+                  disabled={advancedOptions.kubernetes.serviceCIDR === OPTION_DEFAULTS.kubernetes.serviceCIDR}
+                  value={advancedOptions.kubernetes.serviceCIDR}
+                />
+              </div>
             </div>
           </OptionWrapper>
         );
@@ -397,128 +402,141 @@ class Kurlsh extends React.Component {
         return (
           <OptionWrapper>
             <div className="flex-column">
-              <div className="flex alignItems--center">
-                <input
-                  type="checkbox"
-                  name="IPAllocRange"
-                  data-focus-id="weave_IPAllocRange"
-                  onChange={e => this.handleOptionChange("weave.IPAllocRange", e.currentTarget)}
-                  checked={advancedOptions.weave.IPAllocRange !== OPTION_DEFAULTS.weave.IPAllocRange}
-                />
-                <label
-                  className="flex1 u-width--full u-position--relative u-marginLeft--small u-cursor--pointer"
-                  htmlFor="weave_IPAllocRange">
-                  <span className="flex u-fontWeight--medium u-color--tuna u-fontSize--small u-lineHeight--normal alignSelf--center alignItems--center">
-                    IP Allocation Range
+              <div className="flex flex1 alignItems--center">
+                <div className="flex">
+                  <input
+                    type="checkbox"
+                    name="IPAllocRange"
+                    data-focus-id="weave_IPAllocRange"
+                    onChange={e => this.handleOptionChange("weave.IPAllocRange", e.currentTarget)}
+                    checked={advancedOptions.weave.IPAllocRange !== OPTION_DEFAULTS.weave.IPAllocRange}
+                  />
+                  <label
+                    className="flex1 u-width--full u-position--relative u-marginLeft--small u-cursor--pointer"
+                    htmlFor="weave_IPAllocRange">
+                    <span className="flex u-fontWeight--medium u-color--tuna u-fontSize--small u-lineHeight--normal alignSelf--center alignItems--center">
+                      IP Allocation Range
                   </span>
-                </label>
-                <ReactTooltip id="tt_weave_IPAllocRange">
-                  IP Allocation Range for Weave
+                  </label>
+                  <ReactTooltip id="tt_weave_IPAllocRange">
+                    IP Allocation Range for Weave
                 </ReactTooltip>
-                <span data-tip data-for="tt_weave_IPAllocRange" className="icon clickable u-questionMarkCircle u-marginRight--normal"></span>
-                <input
-                  id="weave_IPAllocRange"
-                  className="flex2"
-                  type="text"
-                  onChange={e => this.handleOptionChange("weave.IPAllocRange", e.currentTarget)}
-                  placeholder={OPTION_DEFAULTS.weave.IPAllocRange}
-                  disabled={advancedOptions.weave.IPAllocRange === OPTION_DEFAULTS.weave.IPAllocRange}
-                  value={advancedOptions.weave.IPAllocRange}
-                />
+                  <span data-tip data-for="tt_weave_IPAllocRange" className="icon clickable u-questionMarkCircle u-marginLeft--normal u-marginRight--normal"></span>
+                </div>
+                <div>
+                  <input
+                    id="weave_IPAllocRange"
+                    className="flex2"
+                    type="text"
+                    onChange={e => this.handleOptionChange("weave.IPAllocRange", e.currentTarget)}
+                    placeholder={OPTION_DEFAULTS.weave.IPAllocRange}
+                    disabled={advancedOptions.weave.IPAllocRange === OPTION_DEFAULTS.weave.IPAllocRange}
+                    value={advancedOptions.weave.IPAllocRange}
+                  />
+                </div>
               </div>
               <div className="flex u-marginTop--15">
-                <input
-                  type="checkbox"
-                  name="encryptNetwork"
-                  onChange={e => this.handleOptionChange("weave.encryptNetwork", e.currentTarget)}
-                  checked={advancedOptions.weave.encryptNetwork}
-                />
-                <label
-                  className="flex1 u-width--full u-position--relative u-marginLeft--small u-cursor--pointer"
-                  htmlFor="weave_encryptNetwork">
-                  <span className="flex u-fontWeight--medium u-color--tuna u-fontSize--small u-lineHeight--normal alignSelf--center alignItems--center">
-                    Encrypt Network
+                <div className="flex">
+                  <input
+                    type="checkbox"
+                    name="encryptNetwork"
+                    onChange={e => this.handleOptionChange("weave.encryptNetwork", e.currentTarget)}
+                    checked={advancedOptions.weave.encryptNetwork}
+                  />
+                  <label
+                    className="flex1 u-width--full u-position--relative u-marginLeft--small u-cursor--pointer"
+                    htmlFor="weave_encryptNetwork">
+                    <span className="flex u-fontWeight--medium u-color--tuna u-fontSize--small u-lineHeight--normal alignSelf--center alignItems--center">
+                      Encrypt Network
                     <span data-tip data-for="tt_weave_encryptNetwork" className="icon clickable u-questionMarkCircle u-marginLeft--normal"></span>
-                  </span>
-                  <ReactTooltip id="tt_weave_encryptNetwork">
-                    Encrypt Network
+                    </span>
+                    <ReactTooltip id="tt_weave_encryptNetwork">
+                      Encrypt Network
                   </ReactTooltip>
-                </label>
+                  </label>
+                </div>
               </div>
             </div>
           </OptionWrapper>
         );
       }
-      
+
       case "rook": {
         return (
           <OptionWrapper>
             <div className="flex-column">
-              <div className="flex alignItems--center">
-                <input
-                  type="checkbox"
-                  name="IPAllocRange"
-                  data-focus-id="rook_storageClass"
-                  onChange={e => this.handleOptionChange("rook.storageClass", e.currentTarget)}
-                  checked={advancedOptions.rook.storageClass !== OPTION_DEFAULTS.rook.storageClass}
-                />
-                <label
-                  className="flex1 u-width--full u-position--relative u-marginLeft--small u-cursor--pointer"
-                  htmlFor="rook_storageClass">
-                  <span className="flex u-fontWeight--medium u-color--tuna u-fontSize--small u-lineHeight--normal alignSelf--center alignItems--center">
-                    Storage <br/>Class
+              <div className="flex flex1 alignItems--center">
+                <div className="flex">
+                  <input
+                    type="checkbox"
+                    name="IPAllocRange"
+                    data-focus-id="rook_storageClass"
+                    onChange={e => this.handleOptionChange("rook.storageClass", e.currentTarget)}
+                    checked={advancedOptions.rook.storageClass !== OPTION_DEFAULTS.rook.storageClass}
+                  />
+                  <label
+                    className="flex1 u-width--full u-position--relative u-marginLeft--small u-cursor--pointer"
+                    htmlFor="rook_storageClass">
+                    <span className="flex u-fontWeight--medium u-color--tuna u-fontSize--small u-lineHeight--normal alignSelf--center alignItems--center">
+                      Storage Class
                   </span>
-                </label>
-                <span data-tip data-for="tt_rook_storageClass" className="flex-auto icon clickable u-questionMarkCircle u-marginRight--normal"></span>
-                <ReactTooltip id="tt_rook_storageClass">
-                  Name of storage volume
+                  </label>
+                  <span data-tip data-for="tt_rook_storageClass" className="flex-auto icon clickable u-questionMarkCircle u-marginLeft--normal u-marginRight--normal"></span>
+                  <ReactTooltip id="tt_rook_storageClass">
+                    Name of storage volume
                 </ReactTooltip>
-                <input
-                  id="rook_storageClass"
-                  className="flex2"
-                  type="text"
-                  onChange={e => this.handleOptionChange("rook.storageClass", e.currentTarget)}
-                  placeholder={OPTION_DEFAULTS.rook.storageClass}
-                  disabled={advancedOptions.rook.storageClass === OPTION_DEFAULTS.rook.storageClass}
-                  value={advancedOptions.rook.storageClass}
-                />
+                </div>
+                <div className="flex">
+                  <input
+                    id="rook_storageClass"
+                    className="flex2"
+                    type="text"
+                    onChange={e => this.handleOptionChange("rook.storageClass", e.currentTarget)}
+                    placeholder={OPTION_DEFAULTS.rook.storageClass}
+                    disabled={advancedOptions.rook.storageClass === OPTION_DEFAULTS.rook.storageClass}
+                    value={advancedOptions.rook.storageClass}
+                  />
+                </div>
               </div>
               <div className="flex alignItems--center u-marginTop--15">
-                <input
-                  type="checkbox"
-                  name="cephPoolReplicas"
-                  data-focus-id="rook_cephPoolReplicas"
-                  onChange={e => this.handleOptionChange("rook.cephPoolReplicas", e.currentTarget)}
-                  checked={advancedOptions.rook.cephPoolReplicas !== OPTION_DEFAULTS.rook.cephPoolReplicas}
-                />
-                <label
-                  className="flex1 u-width--full u-position--relative u-marginLeft--small u-cursor--pointer"
-                  htmlFor="weave_cephPoolReplicas">
-                  <span className="flex u-fontWeight--medium u-color--tuna u-fontSize--small u-lineHeight--normal alignSelf--center alignItems--center">
-                    Ceph Pool Replicas
+                <div className="flex">
+                  <input
+                    type="checkbox"
+                    name="cephPoolReplicas"
+                    data-focus-id="rook_cephPoolReplicas"
+                    onChange={e => this.handleOptionChange("rook.cephPoolReplicas", e.currentTarget)}
+                    checked={advancedOptions.rook.cephPoolReplicas !== OPTION_DEFAULTS.rook.cephPoolReplicas}
+                  />
+                  <label
+                    className="flex1 u-width--full u-position--relative u-marginLeft--small u-cursor--pointer"
+                    htmlFor="weave_cephPoolReplicas">
+                    <span className="flex u-fontWeight--medium u-color--tuna u-fontSize--small u-lineHeight--normal alignSelf--center alignItems--center">
+                      Ceph Pool Replicas
                   </span>
-                </label>
-                <ReactTooltip id="tt_rook_cephPoolReplicas">
-                  Minimum Ceph Pool replicas
+                  </label>
+                  <ReactTooltip id="tt_rook_cephPoolReplicas">
+                    Minimum Ceph Pool replicas
                 </ReactTooltip>
-                <span data-tip data-for="tt_rook_cephPoolReplicas" className="flex-auto icon clickable u-questionMarkCircle u-marginRight--normal"></span>
-                <input
-                  id="rook_cephPoolReplicas"
-                  className="flex2"
-                  type="number"
-                  onChange={e => this.handleOptionChange("rook.cephPoolReplicas", e.currentTarget)}
-                  placeholder={OPTION_DEFAULTS.rook.cephPoolReplicas}
-                  disabled={advancedOptions.rook.cephPoolReplicas === OPTION_DEFAULTS.rook.cephPoolReplicas}
-                  value={advancedOptions.rook.cephPoolReplicas}
-                />
-                
+                  <span data-tip data-for="tt_rook_cephPoolReplicas" className="flex-auto icon clickable u-questionMarkCircle u-marginLeft--normal u-marginRight--normal"></span>
+                </div>
+                <div className="flex">
+                  <input
+                    id="rook_cephPoolReplicas"
+                    className="flex2"
+                    type="number"
+                    onChange={e => this.handleOptionChange("rook.cephPoolReplicas", e.currentTarget)}
+                    placeholder={OPTION_DEFAULTS.rook.cephPoolReplicas}
+                    disabled={advancedOptions.rook.cephPoolReplicas === OPTION_DEFAULTS.rook.cephPoolReplicas}
+                    value={advancedOptions.rook.cephPoolReplicas}
+                  />
+                </div>
               </div>
             </div>
           </OptionWrapper>
         );
-        
+
       }
-      
+
       case "docker": {
         return (
           <OptionWrapper>
@@ -572,11 +590,11 @@ class Kurlsh extends React.Component {
                   className="flex1 u-width--full u-position--relative u-marginLeft--small u-cursor--pointer"
                   htmlFor="docker_noCEOnEE">
                   <span className="flex u-fontWeight--medium u-color--tuna u-fontSize--small u-lineHeight--normal alignSelf--center alignItems--center">
-                    no CEOnEE 
+                    no CEOnEE
                     <span data-tip data-for="tt_docker_noCEOnEE" className="icon clickable u-questionMarkCircle u-marginLeft--normal"></span>
                   </span>
                   <ReactTooltip id="tt_docker_noCEOnEE">
-                    no CEOnEE 
+                    no CEOnEE
                   </ReactTooltip>
                 </label>
               </div>
@@ -584,17 +602,18 @@ class Kurlsh extends React.Component {
           </OptionWrapper>
         );
       }
-      
+
       case "prometheus": {
         // no advanced options for Prometheus!
         return null;
       }
-      
+
       case "kotsadm": {
         return (
           <OptionWrapper>
             <div className="flex-column">
-              <div className="flex alignItems--center">
+              <div className="flex flex1 alignItems--center">
+                <div className="flex">
                 <input
                   type="checkbox"
                   name="applicationSlug"
@@ -612,7 +631,9 @@ class Kurlsh extends React.Component {
                 <ReactTooltip id="tt_kotsadm_applicationSlug">
                   What slug prefix would you like?
                 </ReactTooltip>
-                <span data-tip data-for="tt_kotsadm_applicationSlug" className="icon clickable u-questionMarkCircle u-marginRight--normal"></span>
+                <span data-tip data-for="tt_kotsadm_applicationSlug" className="icon clickable u-questionMarkCircle u-marginLeft--normal u-marginRight--normal"></span>
+                </div>
+                <div className="flex">
                 <input
                   id="kotsadm_applicationSlug"
                   className="flex2"
@@ -622,8 +643,10 @@ class Kurlsh extends React.Component {
                   disabled={advancedOptions.kotsadm.applicationSlug === OPTION_DEFAULTS.kotsadm.applicationSlug}
                   value={advancedOptions.kotsadm.applicationSlug}
                 />
+                </div>
               </div>
               <div className="flex alignItems--center u-marginTop--15">
+                <div className="flex">
                 <input
                   type="checkbox"
                   name="uiBindPort"
@@ -641,7 +664,9 @@ class Kurlsh extends React.Component {
                 <ReactTooltip id="tt_kotsadm_uiBindPort">
                   What port would you like Kotsadm to be visible on?
                 </ReactTooltip>
-                <span data-tip data-for="tt_kotsadm_uiBindPort" className="icon clickable u-questionMarkCircle u-marginRight--normal"></span>
+                <span data-tip data-for="tt_kotsadm_uiBindPort" className="icon clickable u-questionMarkCircle u-marginLeft--normal u-marginRight--normal"></span>
+                </div>
+                <div className="flex">
                 <input
                   id="kotsadm_uiBindPort"
                   className="flex2"
@@ -651,12 +676,13 @@ class Kurlsh extends React.Component {
                   disabled={this.state.advancedOptions.kotsadm.uiBindPort === OPTION_DEFAULTS.kotsadm.uiBindPort}
                   value={this.state.advancedOptions.kotsadm.uiBindPort}
                 />
+                </div>
               </div>
             </div>
           </OptionWrapper>
         );
       }
-      
+
       default: {
         return null;
       }
@@ -676,8 +702,8 @@ class Kurlsh extends React.Component {
           <div className="flex u-width--70 u-paddingRight--60">
             <div className="left-content-wrap flex-column">
               <div className={`${isMobile ? "u-fontSize--normal" : "u-fontSize--large"} u-fontWeight--medium u-lineHeight--more u-color--tuna`}>
-                Kurl is a custom Kubernetes distro creator. Think of Kurl as a link shortener for your favorite Kubernetes base components (aka add-ons). 
-                It creates a unique URL for your specific components that can be installed with <code>curl</code> on a modern Linux server. 
+                Kurl is a custom Kubernetes distro creator. Think of Kurl as a link shortener for your favorite Kubernetes base components (aka add-ons).
+                It creates a unique URL for your specific components that can be installed with <code>curl</code> on a modern Linux server.
                 Kurl installation packages can be run online or download and executed in a completely airgapped environment.
                 Kurl is <a href="https://github.com/replicatedhq/kurl/" target="_blank" rel="noopener noreferrer" className="replicated-link">open source</a> and easily extensible by contributing additional add-ons as Kustomization overlays.
               </div>
@@ -914,7 +940,7 @@ class Kurlsh extends React.Component {
                   canCopy={true}
                   onCopyText={<span className="u-color--vidaLoca">URL has been copied to your clipboard</span>}
                   downloadAirgapLink={true}
-                  downloadAirgapHtml={<Link to={`/download/${installerSha}`}  className="u-color--royalBlue u-lineHeight--normal u-fontSize--small u-textDecoration--underlineOnHover"> Download airgap installer </Link>}
+                  downloadAirgapHtml={<Link to={`/download/${installerSha}`} className="u-color--royalBlue u-lineHeight--normal u-fontSize--small u-textDecoration--underlineOnHover"> Download airgap installer </Link>}
                 >
                   {installCommand}
                 </CodeSnippet>
