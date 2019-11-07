@@ -61,6 +61,14 @@ export default class DocumentationLayout extends Component {
       `}
         render={data => (
           <>
+            <div className="suite-banner">
+              <div className="flex flex-row justifyContent--spaceBetween">
+                <div className="repl-logo-white"></div>
+                <div>
+                  <a href="https://blog.replicated.com/announcing-kots/" target="_blank" rel="noopener noreferrer">Learn more about Replicated to operationalize your KOTS app <span class="banner-arrow"></span></a>
+                </div>
+              </div>
+            </div>
             <Navbar isMobile={isMobile} />
             <div className="u-minHeight--full flex-column flex1">
               <div>
