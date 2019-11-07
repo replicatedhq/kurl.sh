@@ -357,7 +357,7 @@ class Kurlsh extends React.Component {
 
   renderAdvancedOptions = addOn => {
     const { advancedOptions } = this.state;
-    console.log(advancedOptions.kotsadm.applicationSlug, OPTION_DEFAULTS.kotsadm.applicationSlug)
+
     switch (addOn) {
       case "kubernetes": {
         return (
