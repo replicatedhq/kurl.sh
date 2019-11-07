@@ -2,10 +2,10 @@ import React from "react";
 
 export default function OptionWrapper({children}) {
   return (
-    <div className="wrapperForm">
+    <div className="wrapperForm u-marginTop--small">
       <div className="u-position--relative flex">
-        <div className="flex-column">
-          <div className="flex alignItems--center">
+        <div className="flex flex1">
+          <div className="flex flex1 alignItems--center">
             {children}
           </div>
         </div>
