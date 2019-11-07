@@ -35,14 +35,14 @@ body a {
 
 .container {
   width: 100%;
-  padding: 110px 80px 40px 80px;
+  padding: 160px 80px 40px 80px;
   margin: 0 auto;
   box-sizing: border-box;
 }
 
 .mobile-container {
   width: 100%;
-  padding: 110px 80px 40px 40px;
+  padding: 160px 80px 40px 40px;
   margin: 0 auto;
   box-sizing: border-box;
 } 
@@ -59,6 +59,49 @@ body a {
 
 .code {
   font-family: monospace;
+}
+
+.suite-banner {
+  padding: 14px 30px;
+  background-color: #073551;
+  color: #ffffff;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 100;
+
+  .repl-logo-white {
+    width: 83px;
+    height: 20px;
+    background-image: url("../..//images/repl-white.svg");
+    background-repeat: no-repeat;
+    background-size: 100%;
+  }
+  a {
+    font-size: 14px;
+    font-weight: 400;
+    text-decoration: none;
+    color: #ffffff;
+
+    .banner-arrow {
+      position: relative;
+      margin-left: 6px;
+      top: 4px;
+      right: 0;
+      width: 9px;
+      height: 16px;
+      background-image: url("../../images/banner-arrow.png");
+      background-repeat: no-repeat;
+      background-size: 100%;
+      display: inline-block;
+      transition: all 0.2s;
+    }
+
+    &:hover .banner-arrow {
+      right: -4px;
+    }
+  }
 }
 
 .wrapperForm {
