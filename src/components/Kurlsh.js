@@ -367,6 +367,7 @@ class Kurlsh extends React.Component {
                 <input
                   type="checkbox"
                   name="serviceCIDR"
+                  id="kubernetes_serviceCIDR"
                   data-focus-id="kubernetes_serviceCIDR"
                   onChange={e => this.handleOptionChange("kubernetes.serviceCIDR", e.currentTarget)}
                   value={advancedOptions.kubernetes.serviceCIDR !== OPTION_DEFAULTS.kubernetes.serviceCIDR}
@@ -407,6 +408,7 @@ class Kurlsh extends React.Component {
                   <input
                     type="checkbox"
                     name="IPAllocRange"
+                    id="weave_IPAllocRange"
                     data-focus-id="weave_IPAllocRange"
                     onChange={e => this.handleOptionChange("weave.IPAllocRange", e.currentTarget)}
                     checked={advancedOptions.weave.IPAllocRange !== OPTION_DEFAULTS.weave.IPAllocRange}
@@ -440,6 +442,7 @@ class Kurlsh extends React.Component {
                   <input
                     type="checkbox"
                     name="encryptNetwork"
+                    id="weave_encryptNetwork"
                     onChange={e => this.handleOptionChange("weave.encryptNetwork", e.currentTarget)}
                     checked={advancedOptions.weave.encryptNetwork}
                   />
@@ -470,6 +473,7 @@ class Kurlsh extends React.Component {
                   <input
                     type="checkbox"
                     name="IPAllocRange"
+                    id="rook_storageClass"
                     data-focus-id="rook_storageClass"
                     onChange={e => this.handleOptionChange("rook.storageClass", e.currentTarget)}
                     checked={advancedOptions.rook.storageClass !== OPTION_DEFAULTS.rook.storageClass}
@@ -503,13 +507,14 @@ class Kurlsh extends React.Component {
                   <input
                     type="checkbox"
                     name="cephPoolReplicas"
+                    id="rook_cephPoolReplicas"
                     data-focus-id="rook_cephPoolReplicas"
                     onChange={e => this.handleOptionChange("rook.cephPoolReplicas", e.currentTarget)}
                     checked={advancedOptions.rook.cephPoolReplicas !== OPTION_DEFAULTS.rook.cephPoolReplicas}
                   />
                   <label
                     className="flex1 u-width--full u-position--relative u-marginLeft--small u-cursor--pointer"
-                    htmlFor="weave_cephPoolReplicas">
+                    htmlFor="rook_cephPoolReplicas">
                     <span className="flex u-fontWeight--medium u-color--tuna u-fontSize--small u-lineHeight--normal alignSelf--center alignItems--center">
                       Ceph Pool Replicas
                   </span>
@@ -545,6 +550,7 @@ class Kurlsh extends React.Component {
                 <input
                   type="checkbox"
                   name="bypassStorageDriverWarnings"
+                  id="docker_bypassStorageDriverWarnings"
                   onChange={e => this.handleOptionChange("docker.bypassStorageDriverWarnings", e.currentTarget)}
                   checked={advancedOptions.docker.bypassStorageDriverWarnings !== OPTION_DEFAULTS.docker.bypassStorageDriverWarnings}
                 />
@@ -564,6 +570,7 @@ class Kurlsh extends React.Component {
                 <input
                   type="checkbox"
                   name="hardFailOnLoopback"
+                  id="docker_hardFailOnLoopback"
                   onChange={e => this.handleOptionChange("docker.hardFailOnLoopback", e.currentTarget)}
                   checked={advancedOptions.docker.hardFailOnLoopback}
                 />
@@ -583,6 +590,7 @@ class Kurlsh extends React.Component {
                 <input
                   type="checkbox"
                   name="noCEOnEE"
+                  id="docker_noCEOnEE"
                   onChange={e => this.handleOptionChange("docker.noCEOnEE", e.currentTarget)}
                   checked={advancedOptions.docker.noCEOnEE}
                 />
@@ -617,6 +625,7 @@ class Kurlsh extends React.Component {
                 <input
                   type="checkbox"
                   name="applicationSlug"
+                  id="kotsadm_applicationSlug"
                   data-focus-id="kotsadm_applicationSlug"
                   onChange={e => this.handleOptionChange("kotsadm.applicationSlug", e.currentTarget)}
                   value={advancedOptions.kotsadm.applicationSlug !== OPTION_DEFAULTS.kotsadm.applicationSlug}
@@ -650,6 +659,7 @@ class Kurlsh extends React.Component {
                 <input
                   type="checkbox"
                   name="uiBindPort"
+                  id="kotsadm_uiBindPort"
                   data-focus-id="kotsadm_uiBindPort"
                   onChange={e => this.handleOptionChange("kotsadm.uiBindPort", e.currentTarget)}
                   value={advancedOptions.kotsadm.uiBindPort !== OPTION_DEFAULTS.kotsadm.uiBindPort}
