@@ -10,7 +10,7 @@
   overflow: hidden;
   position: fixed;
   top: 48px;
-	left: 0;
+  left: 0;
   z-index: 100;
   box-shadow: 0 1px 4px rgba(0,0,0,.16);
 }
@@ -177,7 +177,7 @@
   opacity: .9;
   visibility: visible;
   height: 100%;
-  z-index: 20;
+  z-index: 300;
 }
 
 .MobileNav-bg {
