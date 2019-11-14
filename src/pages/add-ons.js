@@ -11,7 +11,7 @@ class AddOns extends React.Component {
 
     return (
       <Layout isMobile={isMobile}>
-        <SupportedAddOns />
+        <SupportedAddOns isMobile={isMobile} />
       </Layout>
     )
   }

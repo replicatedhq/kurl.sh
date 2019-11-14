@@ -1,8 +1,10 @@
 import * as React from "react";
 import * as PropTypes from "prop-types";
 import { Link } from "@reach/router";
+import GitHubButton from "react-github-button";
 
 import "../../scss/components/shared/NavBar.scss";
+require("react-github-button/assets/style.css");
 
 export default class MobileNavBar extends React.Component {
   static propTypes = {
@@ -21,7 +23,7 @@ export default class MobileNavBar extends React.Component {
       onClose,
     } = this.props;
 
-    const mobileDropdownVisibleClasses = `MobileNav flex ${isOpen ? "is-open" : ""}`;
+    const mobileDropdownVisibleClasses = `MobileNav ${isOpen ? "is-open" : ""}`;
 
     return (
       <nav className={mobileDropdownVisibleClasses}>
@@ -30,7 +32,7 @@ export default class MobileNavBar extends React.Component {
             <div className="flex flex1 u-padding--20">
               <span className={`${isOpen ? "icon clickable u-closeIcon" : ""}`} onClick={onClose}></span>
             </div>
-            <ul className="MobileNav-items">
+            <ul className="MobileNav-items flex flex-column alignItems--center">
               {items.map((item, i) => (
                 <li
                   className="MobileNav-item"
@@ -48,6 +50,7 @@ export default class MobileNavBar extends React.Component {
                 </li>
               ))
               }
+              <li> <GitHubButton type="stargazers" size="large" repo="kurl" namespace="replicatedhq" /> </li>
             </ul>
           </div>
         </div>
