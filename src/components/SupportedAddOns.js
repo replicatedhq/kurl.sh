@@ -28,10 +28,11 @@ class SupportedAddOns extends React.Component {
 
   render() {
     const { kubernetesVersions, selectedVersion } = this.state;
+    const { isMobile } = this.props;
 
     return (
       <div className="u-minHeight--full u-width--full flex-column flex1 u-overflow--auto">
-        <div className="container u-marginBottom---40">
+        <div className={`${isMobile ? "mobile-container" : "container"} u-marginBottom---40`}>
           <div className="u-textAlign--center">
             <h2> Supported Add-ons</h2>
           </div>

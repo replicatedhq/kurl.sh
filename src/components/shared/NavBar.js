@@ -45,7 +45,6 @@ export class NavBar extends React.Component {
       {linkTo: "/", label: "Kurl"},
       {linkTo: "/add-ons", label: "Supported add-ons"},
       {linkTo: "/docs/introduction", label: "Documentation"},
-      {href: "https://github.com/replicatedhq/kurl.sh", label: "Github"}
     ];
 
 

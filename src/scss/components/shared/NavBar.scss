@@ -132,22 +132,27 @@
 }
 
 .MobileNav {
-  z-index: 450;
   position: fixed;
-  width: 100%;
-  height: 100%;
+  background: #326de6;
   top: 0;
   left: 0;
-  right: 0;
+  width: 100%;
+  height: 100vh;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .35s,visibility .35s,height .35s;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
   transform: translateX(-100%);
-  transition: transform .18s ease-in-out;
 }
 
 .MobileNav-menu {
-  background-color: #ffffff;
+  background-color: #326de6;
   position: relative;
   width: 100%;
-  max-width: 260px;
   z-index: 400;
 
   .closeIcon {
@@ -163,13 +168,16 @@
   li {
     list-style-type: none;
     padding-bottom: 10px;
-    border-bottom: 1px solid #DFDFDF;
     margin-top: 10px;
   }
 }
 
 .MobileNav.is-open {
   transform: translateX(0);
+  opacity: .9;
+  visibility: visible;
+  height: 100%;
+  z-index: 20;
 }
 
 .MobileNav-bg {
@@ -182,9 +190,8 @@
 .MobileNav-items {
   margin: 0;
   padding-top: 10px;
-  border-top: 1px solid #C4C8CA;
   width: 100%;
-  background-color: #ffffff;
+  background-color: #326de6;
   display: block;
   visibility: collapse;
   opacity: 0;
@@ -195,11 +202,11 @@
   position: relative;
 
   a {
+    text-align: center;
     display: block;
-    font-size: 16px;
-    padding: 20px;
-    color: #4A4A4A;
-    font-weight: normal;
+    font-size: 26px;
+    color: #FFFFFF;
+    font-weight: medium;
     cursor: pointer;
     line-height: normal;
     transition: color .2s linear;
