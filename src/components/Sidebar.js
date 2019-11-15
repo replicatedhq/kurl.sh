@@ -54,8 +54,8 @@ export default class Sidebar extends Component {
                 <div className="Sidebar-toggle u-position--absolute">
                   <span
                     className={classNames("icon clickable", {
-                      "u-closeIcon": openSidebar,
-                      "u-hamburgerMenu": !openSidebar
+                      "u-closeBlueIcon": openSidebar,
+                      "u-smallHamburgerMenu": !openSidebar
                     })}
                     onClick={() => {
                       this.setState({

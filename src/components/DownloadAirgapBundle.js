@@ -50,6 +50,7 @@ class DownloadAirgapBundle extends React.Component {
 
   render() {
     const { responseStatusCode } = this.state;
+    const { isMobile } = this.props;
     const sha = this.props.sha;
     const bundleUrl = `curl -LO https://kurl.sh/bundle/${sha}.tar.gz`
     const installBundleCommand = `
@@ -59,7 +60,7 @@ cat install.sh | sudo bash
 
 
     return (
-      <div className="u-minHeight--full u-width--full u-overflow--auto container flex-column flex1 u-marginBottom---40">
+      <div className={`u-minHeight--full u-width--full u-overflow--auto flex-column flex1 u-marginBottom---40 ${isMobile ? "mobile-container" : "container"}`}>
         <div className="flex-1-auto flex u-width--full justifyContent--center alignItems--center">
           {!responseStatusCode || responseStatusCode >= 400 ?
             <div className="flex-column flex-1-auto u-overflow--hidden justifyContent--center alignItems--center">
