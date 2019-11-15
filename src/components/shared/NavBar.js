@@ -46,7 +46,7 @@ export class NavBar extends React.Component {
       { linkTo: "/add-ons", label: "Supported add-ons" },
       { linkTo: "/docs/introduction", label: "Documentation" },
     ];
-
+    
 
     return (
       <div>

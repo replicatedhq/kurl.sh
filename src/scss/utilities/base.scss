@@ -111,6 +111,15 @@ body a {
   background-color: #F5F8FC;
 }
 
+.mobile-wrapperForm {
+  border: 1px solid #C4C7CA;
+  border-radius: 4px;
+  padding: 18px 20px;
+  background-color: #F5F8FC;
+  width: 260px;
+  flex-direction: column;
+}
+
 .FormLabel {
   font-size: 14px;
   font-weight: 600;

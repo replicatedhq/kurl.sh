@@ -214,7 +214,8 @@
 }
 
 .MobileNav-item:hover a {
-  color: #337AB7;
+  cursor: pointer;
+  text-decoration: underline;
 }
 
 .MobileNav.is-open .MobileNav-items {

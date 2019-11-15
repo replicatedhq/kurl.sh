@@ -36,6 +36,23 @@
   }
 }
 
+.mobileAddOns--wrapper {
+  border: solid 1px #DFDFDF;
+  background-color: #ffffff;
+  border-radius: 4px;
+  width: 90%;
+  margin-bottom: 20px;
+  box-sizing: border-box;
+  transition: box-shadow .3s;
+
+  .text-wrapper {
+    font-weight: 600;
+    color: #6D7278;
+    font-size: 14px;
+    padding-bottom: 10px;
+  }
+}
+
 .Wrapper .item{
   border-right: 1px solid #DFDFDF;
   line-height: 15px;

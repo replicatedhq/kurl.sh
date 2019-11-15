@@ -7,7 +7,7 @@ $base-padding: 8px;
   padding-bottom: $base-padding;
   transition: all .2s ease;
   &:hover {
-    color: #323232;
+    color: #326DE6;
     cursor: pointer;
   }
 
@@ -22,6 +22,7 @@ $base-padding: 8px;
 
    &.active {
      font-weight: bold;
+     color: #326DE6;
    }
   }
 
