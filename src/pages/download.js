@@ -13,7 +13,7 @@ class Download extends React.Component {
     return (
     <Layout isMobile={isMobile}>
       <FadeTransitionRouter>
-        <DownloadAirgapBundle path="download/:sha" />
+        <DownloadAirgapBundle path="download/:sha" isMobile={isMobile} />
       </FadeTransitionRouter>
     </Layout>
     )

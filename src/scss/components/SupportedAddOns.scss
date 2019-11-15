@@ -1,6 +1,5 @@
 .SelectKubernetes--wrapper {
   position: relative;
-  z-index: 100 !important;
 
   .css-1hwfws3 {
     padding:10px;
@@ -28,6 +27,23 @@
   &:nth-child(3n) {
     margin-right: 0;
   }
+
+  .text-wrapper {
+    font-weight: 600;
+    color: #6D7278;
+    font-size: 14px;
+    padding-bottom: 10px;
+  }
+}
+
+.mobileAddOns--wrapper {
+  border: solid 1px #DFDFDF;
+  background-color: #ffffff;
+  border-radius: 4px;
+  width: 90%;
+  margin-bottom: 20px;
+  box-sizing: border-box;
+  transition: box-shadow .3s;
 
   .text-wrapper {
     font-weight: 600;

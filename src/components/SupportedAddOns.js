@@ -28,14 +28,15 @@ class SupportedAddOns extends React.Component {
 
   render() {
     const { kubernetesVersions, selectedVersion } = this.state;
+    const { isMobile } = this.props;
 
     return (
       <div className="u-minHeight--full u-width--full flex-column flex1 u-overflow--auto">
-        <div className="container u-marginBottom---40">
+        <div className={`${isMobile ? "mobile-container justifyContent--center alignItems--center flex flex-column" : "container"} u-marginBottom---40`}>
           <div className="u-textAlign--center">
             <h2> Supported Add-ons</h2>
           </div>
-          <div className="flex u-marginTop--30 wrapperForm">
+          <div className={`flex u-marginTop--30 ${isMobile ? "mobile-wrapperForm flex-column" : "wrapperForm"}`}>
             <div className="flex flex-1-auto">
               <span className="u-fontWeight--medium u-color--tuna u-fontSize--large u-lineHeight--more">
                 It all starts with Kubernetes. Kurl uses <a href="https://kustomize.io/" target="_blank" rel="noopener noreferrer" className="u-color--royalBlue">Kustomize </a> to assist in the automation of tasks enabling any
@@ -43,7 +44,7 @@ class SupportedAddOns extends React.Component {
                 Select the version of Kubernetes you’re using to see which add-ons are supported.
               </span>
             </div>
-            <div className="flex flex1 u-marginLeft--40 justifyContent--flexEnd alignItems--center">
+            <div className={`flex flex1 justifyContent--flexEnd alignItems--center ${isMobile ? "u-marginTop--20" : "u-marginLeft--40"}`}>
               <div className="SelectKubernetes--wrapper u-width--400">
                 <Select
                   options={kubernetesVersions}
@@ -59,8 +60,8 @@ class SupportedAddOns extends React.Component {
             </div>
           </div>
 
-          <div className="flex-auto flex flexWrap--wrap u-width--full u-marginTop--30">
-            <div className="AddOns--wrapper">
+          <div className={`flex-auto flex flexWrap--wrap u-width--full u-marginTop--30 ${isMobile && "justifyContent--center"}`}>
+            <div className={`${isMobile ? "mobileAddOns--wrapper" : "AddOns--wrapper"}`}>
               <div className="addOnsBackground flex-auto justifyContent--center alignItems--center u-textAlign--center">
                 <span className="icon u-weaveworksFlux u-marginBottom--small"></span>
                 <div className="u-fontSize--largest u-fontWeight--medium u-color--tuna">Weaveworks flux</div>
@@ -88,7 +89,7 @@ class SupportedAddOns extends React.Component {
               </div>
             </div>
 
-            <div className="AddOns--wrapper">
+            <div className={`${isMobile ? "mobileAddOns--wrapper" : "AddOns--wrapper"}`}>
               <div className="addOnsBackground flex-auto justifyContent--center alignItems--center u-textAlign--center">
                 <span className="icon u-contour u-marginBottom--small"></span>
                 <div className="u-fontSize--largest u-fontWeight--medium u-color--tuna">Contour</div>
@@ -116,7 +117,7 @@ class SupportedAddOns extends React.Component {
               </div>
             </div>
 
-            <div className="AddOns--wrapper">
+            <div className={`${isMobile ? "mobileAddOns--wrapper" : "AddOns--wrapper"}`}>
               <div className="addOnsBackground flex-auto justifyContent--center alignItems--center u-textAlign--center">
                 <span className="icon u-rook u-marginBottom--small"></span>
                 <div className="u-fontSize--largest u-fontWeight--medium u-color--tuna">Rook</div>
@@ -144,7 +145,7 @@ class SupportedAddOns extends React.Component {
               </div>
             </div>
 
-            <div className="AddOns--wrapper">
+            <div className={`${isMobile ? "mobileAddOns--wrapper" : "AddOns--wrapper"}`}>
               <div className="addOnsBackground flex-auto justifyContent--center alignItems--center u-textAlign--center">
                 <span className="icon u-dockerRegistry u-marginBottom--small"></span>
                 <div className="u-fontSize--largest u-fontWeight--medium u-color--tuna">Docker registry</div>
