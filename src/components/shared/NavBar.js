@@ -67,7 +67,7 @@ export class NavBar extends React.Component {
                 </Link>
               </div>
               :
-              <div className="NavBarContainer flex flex1">
+              <div className="NavBarContainer flex flex1 alignItems--center">
                 <div className="flex1 justifyContent--flexStart">
                   <div className="flex1 flex u-height--full">
                     <div className="flex flex-auto">
