@@ -9,11 +9,6 @@ Before you are able to run this locally you need to have NodeJS above v.8.12.
    yarn install
    ```
 
-1. Run
-   ```bash
-   make build
-   ```
-
 1. And then run the project
    ```bash
    make serve
