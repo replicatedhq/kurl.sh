@@ -9,7 +9,3 @@ If you need support, install the `support-bundle` tool from Replicated.
 ```sh
 curl https://krew.sh/support-bundle | bash
 ```
-
-* First
-* Second
-* Third
