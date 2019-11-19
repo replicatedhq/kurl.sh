@@ -18,7 +18,8 @@ The install.sh script must define a function named `<add-on>` that will perform 
 For example, `/addons/weave/2.5.2/install.sh` defines the function named `weave`.
 
 Most add-ons include yaml files that will be applied to the cluster.
-These should be copied to the directory `kustomize/<name>` and be applied with `kubectl apply -k`.
+These should be copied to the directory `kustomize/<name>` and applied with `kubectl apply -k` rather than applied directly with `kubectl apply -f`.
+This will allow users to easily review all applied yaml, add their own patches and re-apply after the script completes.
 
 All files and directories in the add-on's source directory will be included in the package built for the add-on.
 The package will be built and uploaded to `s3://kurl-sh/dist/<name>-<version>.tar.gz` during CI.
@@ -26,7 +27,7 @@ It can be downloaded directly from S3 or by redirect from `https://kurl.sh/dist/
 The built package will include the images from the Manifest saved as tar archives.
 
 The install.sh script may also define the functions `<name>_pre_init` and `<name>_join`.
-The pre_init function will be called prior to initializaing the Kubernetes cluster.
+The pre_init function will be called prior to initializing the Kubernetes cluster.
 This may be used to modify the configuration that will be passed to `kubeadm init`.
 The join function will be called on remote nodes before they join the cluster and is useful for host configuration tasks such as loading a kernel module.
 
@@ -36,7 +37,7 @@ For online installs, the add-on package will be downloaded and extracted at runt
 For airgap installs, the add-on package will already be included in the installer bundle.
 
 The [addon](https://github.com/replicatedhq/kurl/blob/master/scripts/common/addon.sh) function in Kurl will first load all images from the add-on's `images/` directory and create the directory `<KURL_ROOT>/kustomize/<add-on>`.
-It will then dynamically source the `install.sh` script and execute the function named <add-on>.
+It will then dynamically source the `install.sh` script and execute the function named `<add-on>`.
 
 ## Developing Add-ons
 
