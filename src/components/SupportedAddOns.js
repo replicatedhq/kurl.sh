@@ -67,8 +67,8 @@ class SupportedAddOns extends React.Component {
                 <div className="u-fontSize--largest u-fontWeight--medium u-color--tuna">Weaveworks flux</div>
               </div>
               <div className="flex-auto flex u-marginTop--20 u-fontSize--small u-fontWeight--medium u-marginBottom--30">
-                <div className="Wrapper flex flex1 u-paddingLeft--more u-paddingRight--more">
-                  <div className="flex flex1 item">
+                <div className="flex flex1 u-paddingLeft--more u-paddingRight--more">
+                  <div className="flex flex1">
                     <div className="flex flex1 flex-column justifyContent--center alignItems--center">
                       <div className="flex flex1 text-wrapper justifyContent--center alignItems--center">Supported versions</div>
                       <span className="u-color--dustyGray u-fontWeight--medium u-fontSize--normal u-lineHeight--more"> latest </span>
@@ -87,8 +87,8 @@ class SupportedAddOns extends React.Component {
                 <div className="u-fontSize--largest u-fontWeight--medium u-color--tuna">Contour</div>
               </div>
               <div className="flex-auto flex u-marginTop--20 u-fontSize--small u-fontWeight--medium u-marginBottom--30">
-                <div className="Wrapper flex flex1 u-paddingLeft--more u-paddingRight--more">
-                  <div className="flex flex1 item">
+                <div className="flex flex1 u-paddingLeft--more u-paddingRight--more">
+                  <div className="flex flex1">
                     <div className="flex flex1 flex-column justifyContent--center alignItems--center">
                       <div className="flex flex1 text-wrapper justifyContent--center alignItems--center">Supported versions</div>
                       <span className="u-color--dustyGray u-fontWeight--medium u-fontSize--normal u-lineHeight--more"> latest </span>
@@ -107,8 +107,8 @@ class SupportedAddOns extends React.Component {
                 <div className="u-fontSize--largest u-fontWeight--medium u-color--tuna">Rook</div>
               </div>
               <div className="flex-auto flex u-marginTop--20 u-fontSize--small u-fontWeight--medium u-marginBottom--30">
-                <div className="Wrapper flex flex1 u-paddingLeft--more u-paddingRight--more">
-                  <div className="flex flex1 item">
+                <div className="flex flex1 u-paddingLeft--more u-paddingRight--more">
+                  <div className="flex flex1">
                     <div className="flex flex1 flex-column justifyContent--center alignItems--center">
                       <div className="flex flex1 text-wrapper justifyContent--center alignItems--center">Supported versions</div>
                       <span className="u-color--dustyGray u-fontWeight--medium u-fontSize--normal u-lineHeight--more"> latest </span>
@@ -127,8 +127,8 @@ class SupportedAddOns extends React.Component {
                 <div className="u-fontSize--largest u-fontWeight--medium u-color--tuna">Docker registry</div>
               </div>
               <div className="flex-auto flex u-marginTop--20 u-fontSize--small u-fontWeight--medium u-marginBottom--30">
-                <div className="Wrapper flex flex1 u-paddingLeft--more u-paddingRight--more">
-                  <div className="flex flex1 item">
+                <div className="flex flex1 u-paddingLeft--more u-paddingRight--more">
+                  <div className="flex flex1">
                     <div className="flex flex1 flex-column justifyContent--center alignItems--center">
                       <div className="flex flex1 text-wrapper justifyContent--center alignItems--center">Supported versions</div>
                       <span className="u-color--dustyGray u-fontWeight--medium u-fontSize--normal u-lineHeight--more"> latest </span>
