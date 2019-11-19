@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import classNames from "classnames";
-import { Link } from "gatsby";
+import { Link, navigate } from "gatsby";
 import "../../scss/components/shared/SidebarFileTree.scss";
 
 function titleize(string) {
@@ -32,6 +32,12 @@ export default class SidebarFileTree extends Component {
     const { treeState } = this.state;
     const isDirectory = event.currentTarget.dataset.type === "directory";
     const path = event.currentTarget.dataset.path;
+
+    const linkingToFirstSubItem = this.DFS(treeState, null, untitleize(path));
+    if (linkingToFirstSubItem) {
+      navigate(linkingToFirstSubItem.path)
+    }
+
     if (this.props.onDirectoryClick && isDirectory) {
       const mockEvent = {
         stopPropagation: () => {},
@@ -55,25 +61,18 @@ export default class SidebarFileTree extends Component {
 
         if (entry.directory) {
           copy.links = entry.links.map(mapLinks);
-        }
+        } 
         return copy;
       };
-
       this.setState({
         treeState: treeState.map(mapLinks)
       });
     }
   }
 
-  close = () => {
-    const { type } = this.props;
-    if (type === "directory") {
-      this.setState({ open: false });
-    }
-  }
-
   onLinkClick = event => {
     const path = event.currentTarget.dataset.path;
+    
     if (this.props.onLinkClick) {
       const mockEvent = {
         currentTarget: {
@@ -111,12 +110,26 @@ export default class SidebarFileTree extends Component {
       };
       // Inject state properties to children:
       const stateData = dataToRender.map(mapData);
-      // console.log(stateData);
       this.setState({
         treeState: stateData
       });
     }
+  }
 
+  DFS = (links, dirPath, targetPath) => {
+    if (targetPath === dirPath) {
+      return links[0]
+    } else {
+      for (let i=0; i<links.length; ++i) {
+        let subPath = links[i];
+        if (subPath.directory) {
+          let subPathObject = this.DFS(subPath.links, subPath.directory, targetPath);
+          if (subPathObject) {
+            return subPathObject;
+          }
+        }
+      }
+    }
   }
 
   render() {
@@ -140,7 +153,7 @@ export default class SidebarFileTree extends Component {
         data-path={children && children.toString()}
       >
         { children }
-        {(open || depth === 0) && dataToRender && dataToRender.map( (entry, idx) => {
+        {(open || depth === 0) && dataToRender && dataToRender.map((entry, idx) => {
           if (entry.directory) {
             return (
               <SidebarFileTree
