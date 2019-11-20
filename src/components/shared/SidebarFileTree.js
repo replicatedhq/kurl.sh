@@ -6,25 +6,23 @@ import "../../scss/components/shared/SidebarFileTree.scss";
 function titleize(string) {
   return string
     .split("-")
-    .map( s => s[0].toUpperCase() + s.slice(1))
+    .map(s => s[0].toUpperCase() + s.slice(1))
     .join(" ");
 }
 function untitleize(string) {
   return string
     .split(" ")
-    .map( s => s[0].toLowerCase() + s.slice(1))
+    .map(s => s[0].toLowerCase() + s.slice(1))
     .join("-");
 }
 
 export default class SidebarFileTree extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       open: false,
       treeState: []
     };
-
   }
 
   onDirectoryClick = event => {
@@ -33,14 +31,9 @@ export default class SidebarFileTree extends Component {
     const isDirectory = event.currentTarget.dataset.type === "directory";
     const path = event.currentTarget.dataset.path;
 
-    const linkingToFirstSubItem = this.DFS(treeState, null, untitleize(path));
-    if (linkingToFirstSubItem) {
-      navigate(linkingToFirstSubItem.path)
-    }
-
     if (this.props.onDirectoryClick && isDirectory) {
       const mockEvent = {
-        stopPropagation: () => {},
+        stopPropagation: () => { },
         currentTarget: {
           dataset: {
             type: "directory",
@@ -50,6 +43,10 @@ export default class SidebarFileTree extends Component {
       }
       this.props.onDirectoryClick(mockEvent);
     } else {
+      const linkingToFirstSubItem = this.DFS(treeState, null, untitleize(path));
+      if (linkingToFirstSubItem) {
+        navigate(linkingToFirstSubItem.path);
+      }
       const dirpath = untitleize(path);
       const mapLinks = entry => {
         const copy = {
@@ -61,7 +58,7 @@ export default class SidebarFileTree extends Component {
 
         if (entry.directory) {
           copy.links = entry.links.map(mapLinks);
-        } 
+        }
         return copy;
       };
       this.setState({
@@ -71,18 +68,8 @@ export default class SidebarFileTree extends Component {
   }
 
   onLinkClick = event => {
-    const path = event.currentTarget.dataset.path;
-    
-    if (this.props.onLinkClick) {
-      const mockEvent = {
-        currentTarget: {
-          dataset: {
-            path
-          }
-        }
-      };
-      this.props.onLinkClick(mockEvent);
-    }
+    event.stopPropagation();
+    navigate(event.currentTarget.dataset.path);
   }
 
   componentDidMount() {
@@ -120,7 +107,7 @@ export default class SidebarFileTree extends Component {
     if (targetPath === dirPath) {
       return links[0]
     } else {
-      for (let i=0; i<links.length; ++i) {
+      for (let i = 0; i < links.length; ++i) {
         let subPath = links[i];
         if (subPath.directory) {
           let subPathObject = this.DFS(subPath.links, subPath.directory, targetPath);
@@ -152,7 +139,7 @@ export default class SidebarFileTree extends Component {
         data-type={type}
         data-path={children && children.toString()}
       >
-        { children }
+        {children}
         {(open || depth === 0) && dataToRender && dataToRender.map((entry, idx) => {
           if (entry.directory) {
             return (
@@ -162,7 +149,7 @@ export default class SidebarFileTree extends Component {
                 type="directory"
                 open={entry.open}
                 onDirectoryClick={this.onDirectoryClick}
-                onLinkClick={this.onLinkClick}
+                closeSidebar={this.closeSidebar}
                 data={entry.links}
               >
                 {titleize(entry.directory)}
