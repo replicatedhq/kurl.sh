@@ -67,8 +67,8 @@ class SupportedAddOns extends React.Component {
                 <div className="u-fontSize--largest u-fontWeight--medium u-color--tuna">Weaveworks flux</div>
               </div>
               <div className="flex-auto flex u-marginTop--20 u-fontSize--small u-fontWeight--medium u-marginBottom--30">
-                <div className="Wrapper flex flex1 u-paddingLeft--more u-paddingRight--more">
-                  <div className="flex flex1 item">
+                <div className="flex flex1 u-paddingLeft--more u-paddingRight--more">
+                  <div className="flex flex1">
                     <div className="flex flex1 flex-column justifyContent--center alignItems--center">
                       <div className="flex flex1 text-wrapper justifyContent--center alignItems--center">Supported versions</div>
                       <span className="u-color--dustyGray u-fontWeight--medium u-fontSize--normal u-lineHeight--more"> latest </span>
@@ -77,14 +77,6 @@ class SupportedAddOns extends React.Component {
                     </div>
                   </div>
 
-                  <div className="flex flex1">
-                    <div className="flex flex1 flex-column justifyContent--center alignItems--center">
-                      <div className="flex flex1 text-wrapper justifyContent--center alignItems--center">Pairs well with</div>
-                      <span className="u-color--dustyGray u-fontWeight--medium u-fontSize--normal u-lineHeight--more"> latest </span>
-                      <span className="u-color--dustyGray u-fontWeight--medium u-fontSize--normal u-lineHeight--more"> 2.5.2 </span>
-                      <a href="https://github.com/replicatedhq/kurl" target="_blank" rel="noopener noreferrer" className="u-color--royalBlue u-fontWeight--medium u-fontSize--normal u-lineHeight--more u-textDecoration--underlineOnHover"> Try it </a>
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>
@@ -95,24 +87,16 @@ class SupportedAddOns extends React.Component {
                 <div className="u-fontSize--largest u-fontWeight--medium u-color--tuna">Contour</div>
               </div>
               <div className="flex-auto flex u-marginTop--20 u-fontSize--small u-fontWeight--medium u-marginBottom--30">
-                <div className="Wrapper flex flex1 u-paddingLeft--more u-paddingRight--more">
-                  <div className="flex flex1 item">
+                <div className="flex flex1 u-paddingLeft--more u-paddingRight--more">
+                  <div className="flex flex1">
                     <div className="flex flex1 flex-column justifyContent--center alignItems--center">
                       <div className="flex flex1 text-wrapper justifyContent--center alignItems--center">Supported versions</div>
                       <span className="u-color--dustyGray u-fontWeight--medium u-fontSize--normal u-lineHeight--more"> latest </span>
-                      <span className="u-color--dustyGray u-fontWeight--medium u-fontSize--normal u-lineHeight--more"> 2.5.2 </span>
+                      <span className="u-color--dustyGray u-fontWeight--medium u-fontSize--normal u-lineHeight--more"> 0.14.0 </span>
                       <a href="https://github.com/replicatedhq/kurl" target="_blank" rel="noopener noreferrer" className="u-color--royalBlue u-fontWeight--medium u-fontSize--normal u-lineHeight--more u-textDecoration--underlineOnHover"> Contribute more </a>
                     </div>
                   </div>
 
-                  <div className="flex flex1">
-                    <div className="flex flex1 flex-column justifyContent--center alignItems--center">
-                      <div className="flex flex1 text-wrapper justifyContent--center alignItems--center">Pairs well with</div>
-                      <span className="u-color--dustyGray u-fontWeight--medium u-fontSize--normal u-lineHeight--more"> latest </span>
-                      <span className="u-color--dustyGray u-fontWeight--medium u-fontSize--normal u-lineHeight--more"> 2.5.2 </span>
-                      <a href="https://github.com/replicatedhq/kurl" target="_blank" rel="noopener noreferrer" className="u-color--royalBlue u-fontWeight--medium u-fontSize--normal u-lineHeight--more u-textDecoration--underlineOnHover"> Try it </a>
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>
@@ -123,24 +107,16 @@ class SupportedAddOns extends React.Component {
                 <div className="u-fontSize--largest u-fontWeight--medium u-color--tuna">Rook</div>
               </div>
               <div className="flex-auto flex u-marginTop--20 u-fontSize--small u-fontWeight--medium u-marginBottom--30">
-                <div className="Wrapper flex flex1 u-paddingLeft--more u-paddingRight--more">
-                  <div className="flex flex1 item">
+                <div className="flex flex1 u-paddingLeft--more u-paddingRight--more">
+                  <div className="flex flex1">
                     <div className="flex flex1 flex-column justifyContent--center alignItems--center">
                       <div className="flex flex1 text-wrapper justifyContent--center alignItems--center">Supported versions</div>
                       <span className="u-color--dustyGray u-fontWeight--medium u-fontSize--normal u-lineHeight--more"> latest </span>
-                      <span className="u-color--dustyGray u-fontWeight--medium u-fontSize--normal u-lineHeight--more"> 2.5.2 </span>
+                      <span className="u-color--dustyGray u-fontWeight--medium u-fontSize--normal u-lineHeight--more"> 1.0.4 </span>
                       <a href="https://github.com/replicatedhq/kurl" target="_blank" rel="noopener noreferrer" className="u-color--royalBlue u-fontWeight--medium u-fontSize--normal u-lineHeight--more u-textDecoration--underlineOnHover"> Contribute more </a>
                     </div>
                   </div>
 
-                  <div className="flex flex1">
-                    <div className="flex flex1 flex-column justifyContent--center alignItems--center">
-                      <div className="flex flex1 text-wrapper justifyContent--center alignItems--center">Pairs well with</div>
-                      <span className="u-color--dustyGray u-fontWeight--medium u-fontSize--normal u-lineHeight--more"> latest </span>
-                      <span className="u-color--dustyGray u-fontWeight--medium u-fontSize--normal u-lineHeight--more"> 2.5.2 </span>
-                      <a href="https://github.com/replicatedhq/kurl" target="_blank" rel="noopener noreferrer" className="u-color--royalBlue u-fontWeight--medium u-fontSize--normal u-lineHeight--more u-textDecoration--underlineOnHover"> Try it </a>
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>
@@ -151,24 +127,16 @@ class SupportedAddOns extends React.Component {
                 <div className="u-fontSize--largest u-fontWeight--medium u-color--tuna">Docker registry</div>
               </div>
               <div className="flex-auto flex u-marginTop--20 u-fontSize--small u-fontWeight--medium u-marginBottom--30">
-                <div className="Wrapper flex flex1 u-paddingLeft--more u-paddingRight--more">
-                  <div className="flex flex1 item">
+                <div className="flex flex1 u-paddingLeft--more u-paddingRight--more">
+                  <div className="flex flex1">
                     <div className="flex flex1 flex-column justifyContent--center alignItems--center">
                       <div className="flex flex1 text-wrapper justifyContent--center alignItems--center">Supported versions</div>
                       <span className="u-color--dustyGray u-fontWeight--medium u-fontSize--normal u-lineHeight--more"> latest </span>
-                      <span className="u-color--dustyGray u-fontWeight--medium u-fontSize--normal u-lineHeight--more"> 2.5.2 </span>
+                      <span className="u-color--dustyGray u-fontWeight--medium u-fontSize--normal u-lineHeight--more"> 2.7.1 </span>
                       <a href="https://github.com/replicatedhq/kurl" target="_blank" rel="noopener noreferrer" className="u-color--royalBlue u-fontWeight--medium u-fontSize--normal u-lineHeight--more u-textDecoration--underlineOnHover"> Contribute more </a>
                     </div>
                   </div>
 
-                  <div className="flex flex1">
-                    <div className="flex flex1 flex-column justifyContent--center alignItems--center">
-                      <div className="flex flex1 text-wrapper justifyContent--center alignItems--center">Pairs well with</div>
-                      <span className="u-color--dustyGray u-fontWeight--medium u-fontSize--normal u-lineHeight--more"> latest </span>
-                      <span className="u-color--dustyGray u-fontWeight--medium u-fontSize--normal u-lineHeight--more"> 2.5.2 </span>
-                      <a href="https://github.com/replicatedhq/kurl" target="_blank" rel="noopener noreferrer" className="u-color--royalBlue u-fontWeight--medium u-fontSize--normal u-lineHeight--more u-textDecoration--underlineOnHover"> Try it </a>
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>

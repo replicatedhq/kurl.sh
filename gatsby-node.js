@@ -62,13 +62,6 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
     toPath: "/docs/introduction"
   });
 
-  createRedirect({
-    isPermanant: true,
-    redirectInBrowser: true,
-    fromPath: "/docs",
-    toPath: "/docs/introduction"
-  });
-
   // Handle errors
   if (result.errors) {
     reporter.panicOnBuild(`Error while running GraphQL query.`)

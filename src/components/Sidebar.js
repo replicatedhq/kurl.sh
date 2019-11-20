@@ -49,7 +49,7 @@ export default class Sidebar extends Component {
               <div className="Sidebar-content u-position--relative">
                 <SidebarFileTree
                   data={tree}
-                  onLinkClick={closeSidebar}
+                  closeSidebar={closeSidebar}
                 />
                 <div className="Sidebar-toggle u-position--absolute">
                   <span

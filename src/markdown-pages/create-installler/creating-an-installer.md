@@ -1,5 +1,5 @@
 ---
-path: "/docs/create-installler/creating-an-installer"
+path: "/docs/create-installer/creating-an-installer"
 date: "2019-10-15"
 weight: 1
 linktitle: "Create Installer"
