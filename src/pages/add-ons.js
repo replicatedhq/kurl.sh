@@ -10,7 +10,7 @@ class AddOns extends React.Component {
     const isMobile = this.props.breakpoint === "mobile";
 
     return (
-      <Layout isMobile={isMobile}>
+      <Layout isMobile={isMobile} title={"kURL - Supported Kubernetes add-ons"}>
         <SupportedAddOns isMobile={isMobile} />
       </Layout>
     )

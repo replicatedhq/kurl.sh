@@ -37,7 +37,7 @@ class Kurl extends React.Component {
     const { installerData } = this.state;
 
     return (
-      <Layout isMobile={isMobile}>
+      <Layout isMobile={isMobile} title={"kURL - Open Source Kubernetes Installer"}> 
         { installerData 
           ? <Kurlsh isMobile={isMobile} installerData={installerData} />
           : <Loader size="70" />
