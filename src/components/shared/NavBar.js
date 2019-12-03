@@ -63,7 +63,7 @@ export class NavBar extends React.Component {
                   }}
                 ></span>
                 <Link to="/" tabIndex="-1">
-                  <div className="HeaderMobileText flex flex1">Kubernetes URL Creator</div>
+                  <div className="HeaderMobileText flex flex1">{this.props.title}</div>
                 </Link>
               </div>
               :
@@ -78,7 +78,7 @@ export class NavBar extends React.Component {
                           </Link>
                         </div>
                       </div>
-                      <div className="HeaderText">Kubernetes URL Creator</div>
+                      <div className="HeaderText">{this.props.title}</div>
                     </div>
                     <div className="flex flex1 justifyContent--flexEnd right-items">
                       <div className="flex-column flex-auto u-marginRight--20 justifyContent--center">

@@ -47,6 +47,7 @@ export default class DocumentationLayout extends Component {
   render() {
     const { children } = this.props;
     const { isMobile } = this.state;
+    
 
     return (
       <StaticQuery
@@ -69,7 +70,7 @@ export default class DocumentationLayout extends Component {
                 </div>
               </div>
             </div>
-            <Navbar isMobile={isMobile} />
+            <Navbar isMobile={isMobile} title={`kURL - ${children.props.children.props.children[0].props.children}`} />
             <div className="u-minHeight--full flex-column flex1">
               <div>
                 <div className="Sidebar-wrapper">
