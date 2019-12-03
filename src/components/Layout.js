@@ -5,7 +5,7 @@ import Footer from "./shared/Footer";
 
 import "../scss/index.scss";
 
-const Layout = ({ children, isMobile }) => {
+const Layout = ({ children, isMobile, title }) => {
 
   return (
     <div className="flex flex1">
@@ -17,7 +17,7 @@ const Layout = ({ children, isMobile }) => {
           </div>
         </div>
       </div>
-      <NavBar isMobile={isMobile} />
+      <NavBar isMobile={isMobile} title={title} />
       <div className="u-minHeight--full flex-column flex1">
         <main className="flex-column flex1">{children}</main>
         <div className="flex-auto Footer-wrapper u-width--full">
