@@ -142,7 +142,7 @@ class SupportedAddOns extends React.Component {
 
             <div className={`${isMobile ? "mobileAddOns--wrapper" : "AddOns--wrapper"}`}>
               <div className="addOnsBackground flex-auto justifyContent--center alignItems--center u-textAlign--center">
-                <span className="icon u-marginBottom--small"></span>
+                <span className="icon u-prometheus u-marginBottom--small"></span>
                 <div className="u-fontSize--largest u-fontWeight--medium u-color--tuna">Prometheus</div>
               </div>
               <div className="flex-auto flex u-marginTop--20 u-fontSize--small u-fontWeight--medium u-marginBottom--30">
@@ -161,7 +161,7 @@ class SupportedAddOns extends React.Component {
 
             <div className={`${isMobile ? "mobileAddOns--wrapper" : "AddOns--wrapper"}`}>
               <div className="addOnsBackground flex-auto justifyContent--center alignItems--center u-textAlign--center">
-                <span className="icon u-marginBottom--small"></span>
+                <span className="icon u-kotsadm u-marginBottom--small"></span>
                 <div className="u-fontSize--largest u-fontWeight--medium u-color--tuna">Kotsadm</div>
               </div>
               <div className="flex-auto flex u-marginTop--20 u-fontSize--small u-fontWeight--medium u-marginBottom--30">
