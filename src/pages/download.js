@@ -11,7 +11,7 @@ class Download extends React.Component {
   render() {
     const isMobile = this.props.breakpoint === "mobile";
     return (
-    <Layout isMobile={isMobile}>
+    <Layout isMobile={isMobile} title={"kURL - Download airgap installer"}>
       <FadeTransitionRouter>
         <DownloadAirgapBundle path="download/:sha" isMobile={isMobile} />
       </FadeTransitionRouter>
