@@ -6,6 +6,7 @@ import { BreakpointConfig } from "../../services/breakpoints";
 
 import Sidebar from "../Sidebar";
 import Navbar from "./NavBar";
+import { Helmet } from "react-helmet"
 
 export default class DocumentationLayout extends Component {
   constructor(props) {
@@ -47,7 +48,7 @@ export default class DocumentationLayout extends Component {
   render() {
     const { children } = this.props;
     const { isMobile } = this.state;
-    
+
 
     return (
       <StaticQuery
@@ -66,10 +67,14 @@ export default class DocumentationLayout extends Component {
               <div className="flex flex-row justifyContent--spaceBetween">
                 <div className="repl-logo-white"></div>
                 <div>
-                  <a href="https://blog.replicated.com/announcing-kots/" target="_blank" rel="noopener noreferrer">Learn more about Replicated to operationalize your KOTS app <span className="banner-arrow"></span></a>
+                  <a href="https://blog.replicated.com/kurl-with-replicated-kots/" target="_blank" rel="noopener noreferrer">Learn more about how kURL works with Replicated KOTS <span className="banner-arrow"></span></a>
                 </div>
               </div>
             </div>
+            <Helmet>
+              <meta charSet="utf-8" />
+              <title>{children.props.children.props.children[0].props.children}</title>
+            </Helmet>
             <Navbar isMobile={isMobile} title={`kURL - ${children.props.children.props.children[0].props.children}`} />
             <div className="u-minHeight--full flex-column flex1">
               <div>
