@@ -64,7 +64,7 @@ class SupportedAddOns extends React.Component {
             <div className={`${isMobile ? "mobileAddOns--wrapper" : "AddOns--wrapper"}`}>
               <div className="addOnsBackground flex-auto justifyContent--center alignItems--center u-textAlign--center">
                 <span className="icon u-weaveworksFlux u-marginBottom--small"></span>
-                <div className="u-fontSize--largest u-fontWeight--medium u-color--tuna">Weaveworks flux</div>
+                <div className="u-fontSize--largest u-fontWeight--medium u-color--tuna">Weave</div>
               </div>
               <div className="flex-auto flex u-marginTop--20 u-fontSize--small u-fontWeight--medium u-marginBottom--30">
                 <div className="flex flex1 u-paddingLeft--more u-paddingRight--more">
