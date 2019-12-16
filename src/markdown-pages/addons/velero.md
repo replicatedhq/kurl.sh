@@ -27,8 +27,8 @@ spec:
 | Flag | Usage |
 | ---- | ----- |
 | velero-namespace | Install the Velero server into an alternative namesapce. Default is "velero". |
-| velero-install-cli | Disable installing the velero CLI with `velero-install-cli=0`. |
-| velero-use-restic | Disable the Restic integration with `velero-use-restic=0`. Pod volume data will not be included in backups if Restic is disabled. |
+| velero-disable-cli | Do not install the velero CLI |
+| velero-disable-restic | Do not install the Restic integration.  Volume data will not be included in backups if Restic is disabled. |
 | velero-local-bucket | Create an alternative bucket in the local ceph RGW store for the initial backend. Default is "velero". |
 
 ## Cluster Operator Tasks
@@ -38,10 +38,10 @@ Refer to the [Velero documentation](https://velero.io/docs/v1.2.0/) for more adv
 
 ### Configure Backend Object Store
 
-The first step after installation is to configure a backend object store for backups.
-The Kurl add-on supports AWS, Google, Azure and S3-compatible endpoints as storage backends.
-The default backend is the Ceph RGW in-cluster object store.
-This should be changed to an external provider.
+Velero requires a backend object store where it will save your backups.
+For the initial install the local Ceph Object Gateway will be configured as the backend if the Rook add-on is enabled.
+This is not suitable for a production install because loss of the cluster will mean loss of backups.
+The add-on includes plugins for using AWS, Azure, or GCP object stores as backends.
 
 #### AWS S3
 
