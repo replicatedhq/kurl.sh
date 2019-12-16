@@ -40,7 +40,7 @@ Refer to the [Velero documentation](https://velero.io/docs/v1.2.0/) for more adv
 
 Velero requires a backend object store where it will save your backups.
 For the initial install the local Ceph Object Gateway will be configured as the backend if the Rook add-on is enabled.
-This is not suitable for a production install because loss of the cluster will mean loss of backups.
+This is not suitable for disaster recovery because loss of the cluster will mean loss of backups.
 The add-on includes plugins for using AWS, Azure, or GCP object stores as backends.
 
 #### AWS S3
