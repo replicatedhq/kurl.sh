@@ -39,7 +39,7 @@ class SupportedAddOns extends React.Component {
           <div className={`flex u-marginTop--30 ${isMobile ? "mobile-wrapperForm flex-column" : "wrapperForm"}`}>
             <div className="flex flex-1-auto">
               <span className="u-fontWeight--medium u-color--tuna u-fontSize--large u-lineHeight--more">
-                It all starts with Kubernetes. Kurl uses <a href="https://kustomize.io/" target="_blank" rel="noopener noreferrer" className="u-color--royalBlue">Kustomize </a> to assist in the automation of tasks enabling any
+                It all starts with Kubernetes. kURL uses <a href="https://kustomize.io/" target="_blank" rel="noopener noreferrer" className="u-color--royalBlue">Kustomize </a> to assist in the automation of tasks enabling any
                 user to deploy to a Kubernetes cluster with a single script.
                 Select the version of Kubernetes you’re using to see which add-ons are supported.
               </span>
@@ -183,8 +183,8 @@ class SupportedAddOns extends React.Component {
           <div className="AddOns--background flex flex-1-auto">
             <div className="flex1 flex-column u-marginTop--40 u-marginBottom--40 justifyContent--center alignItems--center u-textAlign--center">
               <div className="flex title"> Want more Add-ons? </div>
-              <p className="flex u-width--half u-lineHeight--more"> We’re working to always add more add-ons to Kurl. If there is a particular service you want check out our contributing guide and submit a PR. </p>
-              <a href="https://github.com/replicatedhq/kurl" target="_blank" rel="noopener noreferrer" className="Button secondary-white u-marginTop--normal u-marginBottom--more"> Contribute to Kurl </a>
+              <p className="flex u-width--half u-lineHeight--more"> We’re working to always add more add-ons to kURL. If there is a particular service you want check out our contributing guide and submit a PR. </p>
+              <a href="https://github.com/replicatedhq/kurl" target="_blank" rel="noopener noreferrer" className="Button secondary-white u-marginTop--normal u-marginBottom--more"> Contribute to kURL </a>
             </div>
           </div>
         </div>
