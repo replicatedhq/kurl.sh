@@ -27,7 +27,7 @@ spec:
 | Flag | Usage |
 | ---- | ----- |
 | velero-namespace | Install the Velero server into an alternative namesapce. Default is "velero". |
-| velero-disable-cli | Do not install the velero CLI |
+| velero-disable-cli | Do not install the velero CLI. |
 | velero-disable-restic | Do not install the Restic integration.  Volume data will not be included in backups if Restic is disabled. |
 | velero-local-bucket | Create an alternative bucket in the local ceph RGW store for the initial backend. Default is "velero". |
 
