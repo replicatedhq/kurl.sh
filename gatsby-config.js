@@ -7,7 +7,7 @@ require("dotenv").config({
 
 module.exports = {
   siteMetadata: {
-    title: "Kurl.sh",
+    title: "kURL.sh",
     apiUrl: process.env.API_URL
   },
   plugins: [
