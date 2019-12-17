@@ -712,10 +712,10 @@ class Kurlsh extends React.Component {
           <div className="flex u-width--70 u-paddingRight--60">
             <div className="left-content-wrap flex-column">
               <div className={`${isMobile ? "u-fontSize--normal" : "u-fontSize--large"} u-fontWeight--medium u-lineHeight--more u-color--tuna`}>
-                Kurl is a custom Kubernetes distro creator. Think of Kurl as a link shortener for your favorite Kubernetes base components (aka add-ons).
-                It creates a unique URL for your specific components that can be installed with <code>curl</code> on a modern Linux server.
-                Kurl installation packages can be run online or download and executed in a completely airgapped environment.
-                Kurl is <a href="https://github.com/replicatedhq/kurl/" target="_blank" rel="noopener noreferrer" className="replicated-link">open source</a> and easily extensible by contributing additional add-ons as Kustomization overlays.
+                kURL is a custom Kubernetes distro creator. Think of kURL as a link shortener for your favorite Kubernetes base components (aka add-ons).
+                It creates a unique URL for your specific components that can be installed with <code>cURL</code> on a modern Linux server.
+                kURL installation packages can be run online or download and executed in a completely airgapped environment.
+                kURL is <a href="https://github.com/replicatedhq/kurl/" target="_blank" rel="noopener noreferrer" className="replicated-link">open source</a> and easily extensible by contributing additional add-ons as Kustomization overlays.
               </div>
               <div className="flex u-marginTop--30">
                 <div className="flex-column flex flex1">
@@ -956,7 +956,7 @@ class Kurlsh extends React.Component {
                 </CodeSnippet>
               </div>
             </div>
-            <span className="u-fontSize--small u-fontWeight--medium u-color--dustyGray u-lineHeight--normal u-marginTop--small"> Want to add a new component to kurl? <a href="https://github.com/replicatedhq/kurl#contributing" target="_blank" rel="noopener noreferrer" className="replicated-link">Read our contributing</a> guide.</span>
+            <span className="u-fontSize--small u-fontWeight--medium u-color--dustyGray u-lineHeight--normal u-marginTop--small"> Want to add a new component to kurl? <a href="https://kurl.sh/docs/add-on-author/" target="_blank" rel="noopener noreferrer" className="replicated-link">Read our contributing</a> guide.</span>
           </div>
         </div>
       </div>
