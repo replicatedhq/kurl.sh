@@ -1,7 +1,7 @@
 ---
 path: "/docs/add-on-author/"
 date: "2019-10-15"
-linktitle: "Contributing Add-ons"
+linktitle: "Overview"
 weight: 1
 title: "Contributing an Add-On"
 ---

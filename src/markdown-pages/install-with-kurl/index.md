@@ -2,7 +2,7 @@
 path: "/docs/install-with-kurl/"
 date: "2019-12-19"
 weight: 1
-linktitle: "Install with kURL"
+linktitle: "Overview"
 title: "Install with kURL"
 ---
 
