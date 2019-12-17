@@ -1,5 +1,5 @@
 ---
-path: "/docs/add-on-author/contributing-an-add-on"
+path: "/docs/add-on-author/"
 date: "2019-10-15"
 linktitle: "Contributing Add-ons"
 weight: 1

@@ -1,11 +1,11 @@
 ---
-path: "/docs/create-installer/creating-an-installer"
+path: "/docs/create-installer/creating-an-installer-api"
 date: "2019-10-15"
-weight: 1
-linktitle: "Create Installer"
-title: "Create An Installer"
+weight: 3
+linktitle: "Create Installer API"
+title: "Create An Installer via API"
 ---
-
+## API based Installer Creation
 An installer is the specification for a customized distribution of Kubernetes.
 The minimum valid installer spec requires only a supported Kubernetes version:
 
@@ -17,14 +17,12 @@ spec:
 ```
 
 Retrieve the install script for that spec by POSTing it to `https://kurl.sh/installer`:
-
 ```bash
 $ curl -X POST -H "Content-Type: text/yaml" --data-binary "@installer.yaml" https://kurl.sh/installer && echo ""
 # https://kurl.sh/3138d30
 ```
 
 The returned URL can be used to install a Kubernetes cluster:
-
 ```bash
 curl https://kurl.sh/3138d30 | sudo bash
 ```
