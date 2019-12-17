@@ -90,8 +90,7 @@ export default class SidebarFileTree extends Component {
 
         return {
           ...item,
-          // this can be changed to match the URL
-          open: false,
+          open: item.directory.includes(this.props.pathname.split("/")[2]),
           links: item.links.map(mapData)
         };
       };

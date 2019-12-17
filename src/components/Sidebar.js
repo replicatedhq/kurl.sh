@@ -16,7 +16,6 @@ export default class Sidebar extends Component {
   }
 
   render() {
-
     return (
       <StaticQuery
         query={graphql`
@@ -50,6 +49,7 @@ export default class Sidebar extends Component {
                 <SidebarFileTree
                   data={tree}
                   closeSidebar={closeSidebar}
+                  pathname={this.props.pathname}
                 />
                 <div className="Sidebar-toggle u-position--absolute">
                   <span
