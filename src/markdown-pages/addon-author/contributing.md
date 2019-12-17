@@ -2,7 +2,7 @@
 path: "/docs/add-on-author/core-contributions"
 date: "2019-10-15"
 linktitle: "Core Contributions"
-weight: 2
+weight: 4
 title: "Core Contributions"
 ---
 
