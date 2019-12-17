@@ -49,7 +49,6 @@ export default class DocumentationLayout extends Component {
     const { children } = this.props;
     const { isMobile } = this.state;
 
-
     return (
       <StaticQuery
         query={graphql`
@@ -76,15 +75,16 @@ export default class DocumentationLayout extends Component {
               <title>{children.props.children.props.children[0].props.children}</title>
             </Helmet>
             <Navbar isMobile={isMobile} title={`kURL - ${children.props.children.props.children[0].props.children}`} />
-            <div className="u-minHeight--full flex-column flex1">
-              <div>
-                <div className="Sidebar-wrapper">
-                  <Sidebar
-                    isMobile={isMobile}
-                    slideOpen={true}
-                  />
-                </div>
+            <div>
+              <div className="Sidebar-wrapper">
+                <Sidebar
+                  isMobile={isMobile}
+                  slideOpen={true}
+                  pathname={this.props.location.pathname}
+                />
               </div>
+            </div>
+            <div className={`u-minHeight--full u-width--full u-overflow--auto flex-column flex1 u-marginBottom---40 ${isMobile ? "mobile-container" : "docs-container"}`}>
               <div className="flex-column flex1">
                 {children}
               </div>

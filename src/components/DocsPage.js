@@ -8,8 +8,8 @@ export default () => (
     render={data => {
       return (
         <DocumentationLayout>
-          <div className="ContentArea flex-column flex1 u-height--auto u-overflow--auto">
-            <div className="container markdown-body">
+          <div className="flex-column flex1 u-height--auto u-overflow--auto">
+            <div className="u-marginLeft--50 markdown-body">
               <h1>{data.markdownRemark.frontmatter.title}</h1>
               <div dangerouslySetInnerHTML={{ __html: data.markdownRemark.html }}></div>
             </div>
