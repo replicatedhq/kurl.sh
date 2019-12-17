@@ -51,7 +51,8 @@ Create a [BackupStorageLocation](https://velero.io/docs/v1.2.0/api-types/backups
 velero backup-location create my-aws-backend --bucket my-s3-bucket --provider aws --config region=us-east-2
 ```
 
-You must create a secret named `aws-credentials` in the velero namespace unless using instance profiles.
+You must create a secret named `aws-credentials` in the velero namespace unless using instance profiles. You may need to delete the secret of the same name created by the initial install for the local ceph object store.
+
 
 1. Create a file that holds the credentials for your AWS IAM user following the [standard AWS credentials file format](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html):
 
@@ -105,8 +106,11 @@ velero backup-location create local-ceph-rgw --bucket snapshots --provider aws -
 
 #### Azure
 
+Refer to [Velero's Azure plugin documentation](https://github.com/vmware-tanzu/velero-plugin-for-microsoft-azure#create-azure-storage-account-and-blob-container) for help with creating a storage account and blob container.
+Then you can configure a backup-location with credentials using the following commands:
+
 ```bash
-velero backup-location create azure --provider azure --config resourceGroup=$AZURE_BACKUP_RESOURCE_GROUP,storageAccount=$AZURE_STORAGE_ACCOUNT_ID,subscriptionId=$AZURE_BACKUP_SUBSCRIPTION_ID --bucket $BLOB_CONTAINER
+velero backup-location create my-azure-backend --provider azure --config resourceGroup=$AZURE_BACKUP_RESOURCE_GROUP,storageAccount=$AZURE_STORAGE_ACCOUNT_ID,subscriptionId=$AZURE_BACKUP_SUBSCRIPTION_ID --bucket $BLOB_CONTAINER
 ```
 
 You must create a secret named 'azure-credentials' in the velero namespace.
