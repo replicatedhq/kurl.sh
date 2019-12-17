@@ -2,7 +2,7 @@
 path: "/docs/create-installer/"
 date: "2019-10-15"
 weight: 1
-linktitle: "Create Installer"
+linktitle: "Overview"
 title: "Create An Installer"
 ---
 ## UI-based Installer Creation

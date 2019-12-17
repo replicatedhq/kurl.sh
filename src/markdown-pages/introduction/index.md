@@ -2,7 +2,7 @@
 path: "/docs/introduction/"
 date: "2019-10-15"
 weight: 0
-linktitle: "Introduction"
+linktitle: "Overview"
 title: "Introduction to kURL"
 ---
 
