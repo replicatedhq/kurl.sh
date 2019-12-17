@@ -7,7 +7,6 @@ import { Helmet } from "react-helmet"
 import "../scss/index.scss";
 
 const Layout = ({ children, isMobile, title }) => {
-
   return (
     <div className="flex flex1">
       <div className="suite-banner">

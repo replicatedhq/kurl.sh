@@ -59,7 +59,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
     isPermanant: true,
     redirectInBrowser: true,
     fromPath: "/docs/",
-    toPath: "/docs/introduction"
+    toPath: "/docs/introduction/"
   });
 
   // Handle errors

@@ -13,7 +13,7 @@ const Footer = ({isMobile}) => {
       {
         label: "Documentation",
         icon: false,
-        linkTo: "/docs",
+        linkTo: "/docs/introduction/",
       },
     ];
   }
