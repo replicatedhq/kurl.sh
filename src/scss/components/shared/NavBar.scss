@@ -19,6 +19,25 @@
   height: 45px;
 }
 
+.MobileNavBarWrapper {
+  width: 100%;
+  padding: 0;
+  background-color: #F5F8FC;
+  margin-bottom: 0;
+  min-height: 50px;
+  transition: height 0.3s;
+  overflow: hidden;
+  position: fixed;
+  top: 56px;
+  left: 0;
+  z-index: 100;
+  box-shadow: 0 1px 4px rgba(0,0,0,.16);
+}
+
+.MobileNavBarWrapper.smaller {
+  height: 45px;
+}
+
 .KurlHeader {
   padding: 0;
   height: 80px;
@@ -33,6 +52,22 @@
   background: url("../../../images/kurl-header@2x.png");
   background-repeat: repeat;
   background-size: auto 50px;
+}
+
+.MobileKurlHeader {
+  padding: 0;
+  height: 60px;
+  background: url("../../../images/kurl-header@2x.png");
+  background-repeat: repeat;
+  background-size: auto 60px;
+}
+
+.MobileKurlHeader.smaller {
+  padding: 0;
+  height: auto !important;
+  background: url("../../../images/kurl-header@2x.png");
+  background-repeat: repeat;
+  background-size: auto 30px;
 }
 
 .NavBarContainer {
@@ -87,12 +122,19 @@
 }
 
 .HeaderMobileText {
-  font-size: 20px;
+  font-size: 18px;
   color: #326DE6;
   font-weight: 700;
   align-self: center;
   padding: 30px;
   cursor: pointer;
+}
+
+.MobileHeaderText.smaller {
+  font-size: 14px;
+  color: #326DE6;
+  font-weight: 700;
+  align-self: center;
 }
 
 /* Nav Items */

@@ -8,6 +8,7 @@ export default function Template({
 }) {
   const { markdownRemark } = data // data.markdownRemark holds our post data
   const { frontmatter, html } = markdownRemark
+
   return (
     <DocumentationLayout location={location}>
       <div className="flex-column flex1 u-height--auto u-overflow--auto">
