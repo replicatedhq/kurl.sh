@@ -15,13 +15,11 @@ curl https://kurl.sh/latest | sudo bash
 ## Advanced Options
 kURL installers support a handful of end-user defined advanced options that can be enabled with install script flags. These can be used in combination with both online and airgapped installers. The list of options and their expected values is available here: [kURL Advanced Install Options](/advanced-install-options).
 
-## Highly Available k8s (HA)
+## Highly Available K8s (HA)
 ```
 curl https://kurl.sh/latest | sudo bash -s ha
 ```
-HA installs will prompt and wait for an optional load balancer address to be provided in the install process. This will route external and internal traffic to the API servers. In the absence of a load balancer address, all traffic will be routed to the first master.
-![ha-load-balancer](/ha-load-balancer.png)
-This prompt can be bypassed during the install process by specifying the address in the flag `load-balancer-address=<address>` in the install script.
+HA installs will prompt and wait for an optional load balancer address to be provided in the install process. This will route external and internal traffic to the API servers. In the absence of a load balancer address, all traffic will be routed to the first master. This prompt can be bypassed during the install process by specifying the address in the flag `load-balancer-address=<address>` in the install script.
 
 ## Airgapped Usage
 To install Kubernetes in an airgapped environment, first fetch the installer archive:
@@ -40,7 +38,6 @@ Airgapped HA is available through:
 tar xvf latest.tar.gz
 cat install.sh | sudo bash -s ha
 ```
-
 
 ## Latest
 `latest` is a specific distro that is managed by the team at Replicated. This installer provides the most recent version of several add-ons and the most recent version of Kubernetes that kURL supports. Currently the spec for `latest` is:  
