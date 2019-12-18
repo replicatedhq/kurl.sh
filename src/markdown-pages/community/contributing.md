@@ -1,12 +1,10 @@
 ---
-path: "/docs/add-on-author/core-contributions"
+path: "/docs/community/core-contributions"
 date: "2019-10-15"
 linktitle: "Core Contributions"
 weight: 4
 title: "Core Contributions"
 ---
-
-## Core Contributions
 
 Beyond contributing new add-ons, we're always interested in new contributions to the core kURL project.
 

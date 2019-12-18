@@ -5,8 +5,12 @@ weight: 3
 linktitle: "Adding Nodes"
 title: "Adding Nodes"
 ---
+At the end of the install process, the install script will print out commands for adding nodes. These commands will be valid for 2 hours. To get new commands, re-run the install script on the master node.
 
-The install script will print the command that can be run on worker nodes to join them to your new cluster.
-This command will be valid for 2 hours. To get a new command to join worker nodes, re-run the install script on the master node.
+## Standard Installations
+The install script will print the command that can be run on **worker** nodes to join them to your new cluster.
+![add-nodes](/add-nodes.png)
 
-For HA clusters, the install script will print out separate commands for joining workers and joining masters.
+## HA Installations
+For HA clusters, the install script will print out separate commands for joining **workers** and joining additional **master** nodes.
+![add-nodes-ha](/add-nodes-ha.png)

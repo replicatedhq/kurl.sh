@@ -5,7 +5,6 @@ weight: 4
 linktitle: "Create Installer API"
 title: "Create An Installer via API"
 ---
-## API based Installer Creation
 An installer is the specification for a customized distribution of Kubernetes.
 The minimum valid installer spec requires only a supported Kubernetes version:
 
