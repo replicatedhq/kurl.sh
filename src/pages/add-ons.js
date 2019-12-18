@@ -6,8 +6,28 @@ import { BreakpointConfig } from "../services/breakpoints";
 
 @Resizer(BreakpointConfig)
 class AddOns extends React.Component {
+  state = {
+    isMobile: false
+  }
+
+  componentDidMount() {
+    if (this.props.breakpoint && this.props.breakpoint === "mobile") {
+      this.setState({ isMobile: true })
+    }
+  }
+
+  componentDidUpdate(lastProps) {
+    if (this.props.breakpoint !== lastProps.breakpoint && this.props.breakpoint) {
+      if (this.props.breakpoint === "mobile") {
+        this.setState({ isMobile: true })
+      } else {
+        this.setState({ isMobile: false })
+      }
+    }
+  }
+
   render() {
-    const isMobile = this.props.breakpoint === "mobile";
+    const { isMobile } = this.state;
 
     return (
       <Layout isMobile={isMobile} title={"kURL - Supported Kubernetes add-ons"}>

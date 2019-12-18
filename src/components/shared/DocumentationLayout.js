@@ -10,9 +10,26 @@ import { Helmet } from "react-helmet"
 
 @Resizer(BreakpointConfig)
 class DocumentationLayout extends Component {
+  state = {
+    isMobile: false
+  }
+
+  componentDidMount() {
+    if (this.props.breakpoint) {
+      this.setState({ isMobile: this.props.breakpoint === "mobile" })
+    }
+  }
+
+  componentDidUpdate(lastProps) {
+    if (this.props.breakpoint !== lastProps.breakpoint && this.props.breakpoint) {
+        this.setState({ isMobile: this.props.breakpoint === "mobile" })
+    }
+  }
+
+
   render() {
     const { children } = this.props;
-    const isMobile = this.props.breakpoint === "mobile";
+    const { isMobile } = this.state;
 
     return (
       <StaticQuery

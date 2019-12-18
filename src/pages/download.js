@@ -8,8 +8,25 @@ import { BreakpointConfig } from "../services/breakpoints";
 
 @Resizer(BreakpointConfig)
 class Download extends React.Component {
+  state = {
+    isMobile: false
+  }
+
+  componentDidMount() {
+    if (this.props.breakpoint) {
+      this.setState({ isMobile: this.props.breakpoint === "mobile" })
+    }
+  }
+
+  componentDidUpdate(lastProps) {
+    if (this.props.breakpoint !== lastProps.breakpoint && this.props.breakpoint) {
+        this.setState({ isMobile: this.props.breakpoint === "mobile" })
+    }
+  }
+
+
   render() {
-    const isMobile = this.props.breakpoint === "mobile";
+    const { isMobile } = this.state;
     return (
     <Layout isMobile={isMobile} title={"kURL - Download airgap installer"}>
       <FadeTransitionRouter>
