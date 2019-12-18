@@ -5,6 +5,12 @@ weight: 2
 linktitle: "What kURL Does"
 title: "What kURL Does"
 ---
+## kURL and kubeadm
+The [kubeadm tool](https://kubernetes.io/docs/reference/setup-tools/kubeadm/kubeadm/) is a subproject of the [sig-cluster-lifecycle](https://github.com/kubernetes/community/tree/master/sig-cluster-lifecycle) that provides best-practices for creating Kubernetes clusters. The project states:
+
+> Likewise, installing various nice-to-have addons, like the Kubernetes Dashboard, monitoring solutions, and cloud-specific addons, is not in scope. Instead, we expect higher-level and more tailored tooling to be built on top of kubeadm, and ideally, using kubeadm as the basis of all deployments will make it easier to create conformant clusters.
+
+kURL aims to be the higher-level tool for combining kubeadm with add-ons.
 
 ## Kubeadm Pre-Init
 Kubernetes has a few prerequisites that are outside of the scope of the kubeadm installer. For example, Docker (or another container runtime) must be present before running kubeadm. The kURL installer provides a declarative way to package a Docker installation (again, for both online and airgapped environments) along with advanced Docker Engine configuration options.
