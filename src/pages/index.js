@@ -10,7 +10,8 @@ class Kurl extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      installerData: null
+      installerData: null,
+      isMobile: false
     };
   }
   
@@ -30,10 +31,21 @@ class Kurl extends React.Component {
     if (!this.props.data) {
       this.fetchInstallerData();
     }
+    if (this.props.breakpoint) {
+      this.setState({ isMobile: this.props.breakpoint === "mobile" })
+    }
   }
+
+  componentDidUpdate(lastProps) {
+    if (this.props.breakpoint !== lastProps.breakpoint && this.props.breakpoint) {
+        this.setState({ isMobile: this.props.breakpoint === "mobile" })
+    }
+  }
+
+
   
   render() {
-    const isMobile = this.props.breakpoint === "mobile";
+    const { isMobile } = this.state;
     const { installerData } = this.state;
 
     return (
