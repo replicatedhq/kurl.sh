@@ -7,14 +7,6 @@ import { parseLinksToTree } from "../utils/parse-links-to-tree";
 import "../scss/components/Sidebar.scss";
 
 export default class Sidebar extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      openSidebar: false
-    };
-  }
-
   render() {
     return (
       <StaticQuery
@@ -35,35 +27,16 @@ export default class Sidebar extends Component {
     `}
         render={({ allMarkdownRemark: { edges: pages } }) => {
           const tree = parseLinksToTree(pages);
-          const { openSidebar } = this.state;
-          const closeSidebar = () => {
-            this.setState({
-              openSidebar: false
-            });
-          }
           return (
-            <div className={classNames("Sidebar flex-column flex1", {
-              isOpen: openSidebar
+            <div className={classNames("flex-column flex1", {
+              "Sidebar": !this.props.isMobile,
+
             })}>
-              <div className="Sidebar-content u-position--relative">
+              <div className={`${this.props.isMobile ? "" : "Sidebar-content u-position--relative"}`}>
                 <SidebarFileTree
                   data={tree}
-                  closeSidebar={closeSidebar}
                   pathname={this.props.pathname}
                 />
-                <div className="Sidebar-toggle u-position--absolute">
-                  <span
-                    className={classNames("icon clickable", {
-                      "u-closeBlueIcon": openSidebar,
-                      "u-smallHamburgerMenu": !openSidebar
-                    })}
-                    onClick={() => {
-                      this.setState({
-                        openSidebar: !openSidebar
-                      });
-                    }}
-                  />
-                </div>
               </div>
             </div>
           );

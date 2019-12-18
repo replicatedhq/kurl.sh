@@ -47,9 +47,15 @@ body a {
   box-sizing: border-box;
 } 
 
+.docs-mobile-container {
+  width: 100%;
+  margin-bottom: 30px;
+  box-sizing: border-box;
+}
+
 .docs-container {
   width: 100%;
-  padding: 160px 250px;
+  padding: 140px 300px;
   box-sizing: border-box;
 }
 
@@ -137,6 +143,11 @@ body a {
   left: -1000px;
   top: -1000px;
   opacity: 0;
+}
+
+.Mobile--wrapper {
+  margin-bottom: 20px;
+  border-bottom: 1px solid #C4C8CA;
 }
 /* Media Queries */
 
