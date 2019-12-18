@@ -26,4 +26,4 @@ The returned URL can be used to install a Kubernetes cluster:
 curl https://kurl.sh/3138d30 | sudo bash
 ```
 
-Refer to the [reference documentation](https://kots.io/reference/kubernetes-installers/kurl/) for a full list of options available in the installer yaml.
+Refer to the [reference documentation](add-on-adv-options) for a full list of options available in the installer yaml.
