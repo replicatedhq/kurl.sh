@@ -148,7 +148,6 @@ export default class SidebarFileTree extends Component {
                 type="directory"
                 open={entry.open}
                 onDirectoryClick={this.onDirectoryClick}
-                closeSidebar={this.closeSidebar}
                 data={entry.links}
               >
                 {titleize(entry.directory)}

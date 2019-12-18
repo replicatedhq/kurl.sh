@@ -244,7 +244,7 @@ class Kurlsh extends React.Component {
       }
     }
 
-    return json2yaml.stringify(generatedInstaller).replace("---\n", "");
+    return json2yaml.stringify(generatedInstaller).replace("---\n", "").replace(/^  /gm, "");
   }
 
   onVersionChange = name => value => {
