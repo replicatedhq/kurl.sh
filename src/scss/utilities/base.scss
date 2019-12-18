@@ -24,6 +24,7 @@ body a {
 
 #___gatsby {
   display: flex;
+  flex-direction: column;
   height:100%;
   min-height: 100vh;
 }
@@ -42,14 +43,20 @@ body a {
 
 .mobile-container {
   width: 100%;
-  padding: 160px 20px;
+  padding: 130px 20px;
   margin: 0 auto;
   box-sizing: border-box;
 } 
 
+.docs-mobile-container {
+  width: 100%;
+  margin-bottom: 30px;
+  box-sizing: border-box;
+}
+
 .docs-container {
   width: 100%;
-  padding: 160px 250px;
+  padding: 140px 300px;
   box-sizing: border-box;
 }
 
@@ -80,12 +87,55 @@ body a {
   .repl-logo-white {
     width: 83px;
     height: 20px;
-    background-image: url("../..//images/repl-white.svg");
+    background-image: url("../../images/repl-white.svg");
     background-repeat: no-repeat;
     background-size: 100%;
   }
   a {
     font-size: 14px;
+    font-weight: 400;
+    text-decoration: none;
+    color: #ffffff;
+
+    .banner-arrow {
+      position: relative;
+      margin-left: 6px;
+      top: 4px;
+      right: 0;
+      width: 9px;
+      height: 16px;
+      background-image: url("../../images/banner-arrow.png");
+      background-repeat: no-repeat;
+      background-size: 100%;
+      display: inline-block;
+      transition: all 0.2s;
+    }
+
+    &:hover .banner-arrow {
+      right: -4px;
+    }
+  }
+}
+
+.mobile-suite-banner {
+  background-color: #073551;
+  color: #ffffff;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 100;
+  padding: 10px 15px;
+
+  .repl-logo-white {
+    width: 83px;
+    height: 20px;
+    background-image: url("../../images/repl-white.svg");
+    background-repeat: no-repeat;
+    background-size: 100%;
+  }
+  a {
+    font-size: 12px;
     font-weight: 400;
     text-decoration: none;
     color: #ffffff;
@@ -137,6 +187,11 @@ body a {
   left: -1000px;
   top: -1000px;
   opacity: 0;
+}
+
+.Mobile--wrapper {
+  margin-bottom: 20px;
+  border-bottom: 1px solid #C4C8CA;
 }
 /* Media Queries */
 

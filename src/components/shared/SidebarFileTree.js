@@ -133,7 +133,7 @@ export default class SidebarFileTree extends Component {
 
     return (
       <div
-        className={classNames(`SidebarFileTree depth-${depth}`, className)}
+        className={classNames(`SidebarFileTree depth-${depth} flex1 flex-column`, className)}
         onClick={type === "directory" ? this.onDirectoryClick : null}
         data-type={type}
         data-path={children && children.toString()}
@@ -148,7 +148,6 @@ export default class SidebarFileTree extends Component {
                 type="directory"
                 open={entry.open}
                 onDirectoryClick={this.onDirectoryClick}
-                closeSidebar={this.closeSidebar}
                 data={entry.links}
               >
                 {titleize(entry.directory)}
