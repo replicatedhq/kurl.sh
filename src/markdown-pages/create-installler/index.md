@@ -30,6 +30,10 @@ spec:
 ## Versions
 For add-ons that are using `version: "latest"` this will be pinned to the latest version of the component that is supported by our installer. This means that when an update to the component is shipped, your installer will automatically be updated. This may be desirable in some scenarios, while other installers may want to have tested, locked and predictable installed versions. You can also list a specific (supported) version of an add on and it will be locked to that version.
 
+## Distro Hash
+The hash for a specific distro is immutable, each hash references a specific combination of components and versions. Mutable, vanity urls are available for Replicated customers as described below in **Managing a kURL Installer**.
+
+## Creation & Management Options
 ### UI-based Installer Creation
 kURL hosts a website where users can specify a kURL manifest. Creating a new distro can be as easy as selecting a few drop down components. [Learn more](creating-an-installer-ui)
 
