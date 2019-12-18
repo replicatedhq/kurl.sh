@@ -1,7 +1,7 @@
 ---
 path: "/docs/create-installer/creating-an-installer-ui"
 date: "2019-10-15"
-weight: 3
+weight: 4
 linktitle: "Create Installer UI"
 title: "Create An Installer via UI"
 ---
@@ -16,5 +16,5 @@ As you make your selections the declarative YAML for the kURL manifest is dynami
 ![kurl-url](/kurl-url.png)
 
 ## Advanced Options
-The kURL manifest can include [advanced configuration](../add-on-adv-options) options for each add-on.  
+The kURL manifest can include [advanced configuration](add-on-adv-options) options for each add-on.  
 ![kurl advanced](/kurl-advanced.png)
