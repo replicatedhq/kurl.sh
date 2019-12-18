@@ -36,7 +36,7 @@ The join function will be called on remote nodes before they join the cluster an
 For online installs, the add-on package will be downloaded and extracted at runtime.
 For airgap installs, the add-on package will already be included in the installer bundle.
 
-The [addon](https://github.com/replicatedhq/kurl/blob/master/scripts/common/addon.sh) function in Kurl will first load all images from the add-on's `images/` directory and create the directory `<KURL_ROOT>/kustomize/<add-on>`.
+The [addon](https://github.com/replicatedhq/kurl/blob/master/scripts/common/addon.sh) function in kURL will first load all images from the add-on's `images/` directory and create the directory `<KURL_ROOT>/kustomize/<add-on>`.
 It will then dynamically source the `install.sh` script and execute the function named `<add-on>`.
 
 ## Developing Add-ons
