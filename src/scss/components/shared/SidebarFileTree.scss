@@ -3,18 +3,22 @@ $base-padding: 8px;
 .SidebarFileTree {
   width: 100%;
   color: #4a4a4a;
-  padding-top: $base-padding;
-  padding-bottom: $base-padding;
   transition: all .2s ease;
   &:hover {
     color: #326DE6;
     cursor: pointer;
   }
 
+  .SidebarFileTree:nth-child(1) {
+    padding-top: 12px;
+  }
+
   a {
     display: block;
     padding-top: $base-padding;
+    padding-bottom: $base-padding;
     color: #323232;
+    padding-left: 16px;
 
    &:visited{
      color: #4a4a4a;
@@ -26,9 +30,10 @@ $base-padding: 8px;
    }
   }
 
-  @for $spacing from 0 through 4 {
+  @for $spacing from 0 through 1 {
     .depth-#{$spacing} {
-      padding-left: ($base-padding * $spacing) + $base-padding;
+      padding-left: 24px;
+      padding-top: 20px;
     }
   }
 

@@ -32,7 +32,7 @@ export default class Sidebar extends Component {
               "Sidebar": !this.props.isMobile,
 
             })}>
-              <div className={`${this.props.isMobile ? "" : "Sidebar-content u-position--relative"}`}>
+              <div className={`${this.props.isMobile ? "u-paddingBottom--20" : "Sidebar-content u-position--relative"}`}>
                 <SidebarFileTree
                   data={tree}
                   pathname={this.props.pathname}
