@@ -17,4 +17,4 @@ As you make your selections the declarative YAML for the kURL manifest is dynami
 
 ## Advanced Options
 The kURL manifest can include [advanced configuration](add-on-adv-options) options for each add-on.  
-![kurl advanced](/kurl-advanced.png)
+![kurl-advanced](/kurl-advanced.png)
