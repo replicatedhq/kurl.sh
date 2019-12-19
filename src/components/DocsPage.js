@@ -9,7 +9,7 @@ export default () => (
       return (
         <DocumentationLayout>
           <div className="flex-column flex1 u-height--auto u-overflow--auto">
-            <div className="u-padding--15 markdown-body">
+            <div className="u-padding--20 markdown-body">
               <h1>{data.markdownRemark.frontmatter.title}</h1>
               <div dangerouslySetInnerHTML={{ __html: data.markdownRemark.html }}></div>
             </div>

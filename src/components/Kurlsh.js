@@ -244,7 +244,7 @@ class Kurlsh extends React.Component {
       }
     }
 
-    return json2yaml.stringify(generatedInstaller).replace("---\n", "").replace(/^  /gm, "");
+    return json2yaml.stringify(generatedInstaller).replace("---\n", "").replace(/^ {2}/gm, "");
   }
 
   onVersionChange = name => value => {
@@ -622,70 +622,70 @@ class Kurlsh extends React.Component {
             <div className="flex-column">
               <div className="flex flex1 alignItems--center">
                 <div className="flex">
-                <input
-                  type="checkbox"
-                  name="applicationSlug"
-                  id="kotsadm_applicationSlug"
-                  data-focus-id="kotsadm_applicationSlug"
-                  onChange={e => this.handleOptionChange("kotsadm.applicationSlug", e.currentTarget)}
-                  value={advancedOptions.kotsadm.applicationSlug !== OPTION_DEFAULTS.kotsadm.applicationSlug}
-                />
-                <label
-                  className="flex1 u-width--full u-position--relative u-marginLeft--small u-cursor--pointer"
-                  htmlFor="kotsadm_applicationSlug">
-                  <span className="flex u-fontWeight--medium u-color--tuna u-fontSize--small u-lineHeight--normal alignSelf--center alignItems--center">
-                    Application Slug
+                  <input
+                    type="checkbox"
+                    name="applicationSlug"
+                    id="kotsadm_applicationSlug"
+                    data-focus-id="kotsadm_applicationSlug"
+                    onChange={e => this.handleOptionChange("kotsadm.applicationSlug", e.currentTarget)}
+                    value={advancedOptions.kotsadm.applicationSlug !== OPTION_DEFAULTS.kotsadm.applicationSlug}
+                  />
+                  <label
+                    className="flex1 u-width--full u-position--relative u-marginLeft--small u-cursor--pointer"
+                    htmlFor="kotsadm_applicationSlug">
+                    <span className="flex u-fontWeight--medium u-color--tuna u-fontSize--small u-lineHeight--normal alignSelf--center alignItems--center">
+                      Application Slug
                   </span>
-                </label>
-                <ReactTooltip id="tt_kotsadm_applicationSlug">
-                  What slug prefix would you like?
+                  </label>
+                  <ReactTooltip id="tt_kotsadm_applicationSlug">
+                    What slug prefix would you like?
                 </ReactTooltip>
-                <span data-tip data-for="tt_kotsadm_applicationSlug" className="icon clickable u-questionMarkCircle u-marginLeft--normal u-marginRight--normal"></span>
+                  <span data-tip data-for="tt_kotsadm_applicationSlug" className="icon clickable u-questionMarkCircle u-marginLeft--normal u-marginRight--normal"></span>
                 </div>
                 <div className="flex">
-                <input
-                  id="kotsadm_applicationSlug"
-                  className="flex2"
-                  type="text"
-                  onChange={e => this.handleOptionChange("kotsadm.applicationSlug", e.currentTarget)}
-                  placeholder={OPTION_DEFAULTS.kotsadm.applicationSlug}
-                  disabled={advancedOptions.kotsadm.applicationSlug === OPTION_DEFAULTS.kotsadm.applicationSlug}
-                  value={advancedOptions.kotsadm.applicationSlug}
-                />
+                  <input
+                    id="kotsadm_applicationSlug"
+                    className="flex2"
+                    type="text"
+                    onChange={e => this.handleOptionChange("kotsadm.applicationSlug", e.currentTarget)}
+                    placeholder={OPTION_DEFAULTS.kotsadm.applicationSlug}
+                    disabled={advancedOptions.kotsadm.applicationSlug === OPTION_DEFAULTS.kotsadm.applicationSlug}
+                    value={advancedOptions.kotsadm.applicationSlug}
+                  />
                 </div>
               </div>
               <div className="flex alignItems--center u-marginTop--15">
                 <div className="flex">
-                <input
-                  type="checkbox"
-                  name="uiBindPort"
-                  id="kotsadm_uiBindPort"
-                  data-focus-id="kotsadm_uiBindPort"
-                  onChange={e => this.handleOptionChange("kotsadm.uiBindPort", e.currentTarget)}
-                  value={advancedOptions.kotsadm.uiBindPort !== OPTION_DEFAULTS.kotsadm.uiBindPort}
-                />
-                <label
-                  className="flex1 u-width--full u-position--relative u-marginLeft--small u-cursor--pointer"
-                  htmlFor="kotsadm_uiBindPort">
-                  <span className="flex u-fontWeight--medium u-color--tuna u-fontSize--small u-lineHeight--normal alignSelf--center alignItems--center">
-                    UI Bind Port
+                  <input
+                    type="checkbox"
+                    name="uiBindPort"
+                    id="kotsadm_uiBindPort"
+                    data-focus-id="kotsadm_uiBindPort"
+                    onChange={e => this.handleOptionChange("kotsadm.uiBindPort", e.currentTarget)}
+                    value={advancedOptions.kotsadm.uiBindPort !== OPTION_DEFAULTS.kotsadm.uiBindPort}
+                  />
+                  <label
+                    className="flex1 u-width--full u-position--relative u-marginLeft--small u-cursor--pointer"
+                    htmlFor="kotsadm_uiBindPort">
+                    <span className="flex u-fontWeight--medium u-color--tuna u-fontSize--small u-lineHeight--normal alignSelf--center alignItems--center">
+                      UI Bind Port
                   </span>
-                </label>
-                <ReactTooltip id="tt_kotsadm_uiBindPort">
-                  What port would you like Kotsadm to be visible on?
+                  </label>
+                  <ReactTooltip id="tt_kotsadm_uiBindPort">
+                    What port would you like Kotsadm to be visible on?
                 </ReactTooltip>
-                <span data-tip data-for="tt_kotsadm_uiBindPort" className="icon clickable u-questionMarkCircle u-marginLeft--normal u-marginRight--normal"></span>
+                  <span data-tip data-for="tt_kotsadm_uiBindPort" className="icon clickable u-questionMarkCircle u-marginLeft--normal u-marginRight--normal"></span>
                 </div>
                 <div className="flex">
-                <input
-                  id="kotsadm_uiBindPort"
-                  className="flex2"
-                  type="text"
-                  onChange={e => this.handleOptionChange("kotsadm.uiBindPort", e.currentTarget)}
-                  placeholder={OPTION_DEFAULTS.kotsadm.uiBindPort}
-                  disabled={this.state.advancedOptions.kotsadm.uiBindPort === OPTION_DEFAULTS.kotsadm.uiBindPort}
-                  value={this.state.advancedOptions.kotsadm.uiBindPort}
-                />
+                  <input
+                    id="kotsadm_uiBindPort"
+                    className="flex2"
+                    type="text"
+                    onChange={e => this.handleOptionChange("kotsadm.uiBindPort", e.currentTarget)}
+                    placeholder={OPTION_DEFAULTS.kotsadm.uiBindPort}
+                    disabled={this.state.advancedOptions.kotsadm.uiBindPort === OPTION_DEFAULTS.kotsadm.uiBindPort}
+                    value={this.state.advancedOptions.kotsadm.uiBindPort}
+                  />
                 </div>
               </div>
             </div>

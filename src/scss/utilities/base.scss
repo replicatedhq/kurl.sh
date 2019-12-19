@@ -60,6 +60,11 @@ body a {
   box-sizing: border-box;
 }
 
+.docsWidth {
+  width: 100%;
+  max-width: 860px;
+}
+
 .replicated-link {
   color: #326DE6;
   cursor: pointer;
