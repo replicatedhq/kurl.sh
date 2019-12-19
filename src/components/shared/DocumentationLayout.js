@@ -11,7 +11,26 @@ import { Helmet } from "react-helmet"
 @Resizer(BreakpointConfig)
 class DocumentationLayout extends Component {
   state = {
-    isMobile: false
+    isMobile: false,
+  }
+  
+  allImagesLoaded = (hash) => {
+    let counter = 0;
+
+    const incrementCounter = () => {
+      counter++;
+      if (counter === document.images.length) {
+        this.scrollTo(hash);
+      }
+    }
+
+    [].forEach.call(document.images, (img) => {
+      if (img.complete) {
+        incrementCounter();
+      } else {
+        img.addEventListener("load", incrementCounter, false);
+      }
+    });
   }
 
   scrollTo = (id) => {
@@ -25,13 +44,17 @@ class DocumentationLayout extends Component {
       this.setState({ isMobile: this.props.breakpoint === "mobile" })
     }
     if (this.props.location && this.props.location.hash) {
-      this.scrollTo(this.props.location.hash)
+      if (document.images && document.images.length > 0) {
+        this.allImagesLoaded(this.props.location.hash);
+      } else {
+        this.scrollTo(this.props.location.hash);
+      }
     }
   }
 
   componentDidUpdate(lastProps) {
     if (this.props.breakpoint !== lastProps.breakpoint && this.props.breakpoint) {
-        this.setState({ isMobile: this.props.breakpoint === "mobile" })
+      this.setState({ isMobile: this.props.breakpoint === "mobile" })
     }
   }
 
