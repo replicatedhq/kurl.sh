@@ -79,11 +79,8 @@ class DocumentationLayout extends Component {
                 />
               </div>
               <div className={`${isMobile ? "docs-mobile-container" : "docs-container"} flex-column flex1`}>
-                {/* <div className="flex-column flex1 u-width--860">
-                {children}
-                </div> */}
                 {!isMobile ?
-                  <div className="flex-column flex1 u-width--860">
+                  <div className="flex-column flex1 docsWidth">
                     {children}
                   </div>
                   :
