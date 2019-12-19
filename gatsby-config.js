@@ -27,7 +27,6 @@ module.exports = {
         path: `${__dirname}/src/markdown-pages`,
       },
     },
-    `gatsby-transformer-remark`,
     {
       resolve: `gatsby-plugin-sass`,
       options: {
@@ -50,6 +49,19 @@ module.exports = {
     {
       resolve: `gatsby-plugin-create-client-paths`,
       options: { prefixes: [`/download/*`, `/docs/*`] },
+    },
+    {
+      resolve: `gatsby-transformer-remark`,
+      options: {
+        plugins: [
+          {
+            resolve: `gatsby-remark-autolink-headers`,
+            options: {
+              offsetY: `100`
+            }
+          }
+        ],
+      },
     },
   ],
 }

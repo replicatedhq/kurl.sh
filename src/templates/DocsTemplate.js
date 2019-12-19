@@ -12,7 +12,7 @@ export default function Template({
   return (
     <DocumentationLayout location={location}>
       <div className="flex-column flex1 u-height--auto u-overflow--auto">
-        <div className="u-padding--15 markdown-body">
+        <div className="u-padding--20 markdown-body">
           <h1>{frontmatter.title}</h1>
           <div
             className="docs-content"

@@ -14,9 +14,18 @@ class DocumentationLayout extends Component {
     isMobile: false
   }
 
+  scrollTo = (id) => {
+    const el = document.querySelector(id);
+    if (el) return window.scrollTo(0, el.offsetTop - 100);
+    return false
+  }
+
   componentDidMount() {
     if (this.props.breakpoint) {
       this.setState({ isMobile: this.props.breakpoint === "mobile" })
+    }
+    if (this.props.location && this.props.location.hash) {
+      this.scrollTo(this.props.location.hash)
     }
   }
 
@@ -25,7 +34,6 @@ class DocumentationLayout extends Component {
         this.setState({ isMobile: this.props.breakpoint === "mobile" })
     }
   }
-
 
   render() {
     const { children } = this.props;
@@ -79,11 +87,8 @@ class DocumentationLayout extends Component {
                 />
               </div>
               <div className={`${isMobile ? "docs-mobile-container" : "docs-container"} flex-column flex1`}>
-                {/* <div className="flex-column flex1 u-width--860">
-                {children}
-                </div> */}
                 {!isMobile ?
-                  <div className="flex-column flex1 u-width--860">
+                  <div className="flex-column flex1 docsWidth">
                     {children}
                   </div>
                   :
