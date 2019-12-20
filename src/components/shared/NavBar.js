@@ -40,7 +40,7 @@ export class NavBar extends React.Component {
 
   render() {
     const { mobileNavIsOpen } = this.state;
-    const { isMobile } = this.props;
+    const { isMobile, documentation } = this.props;
     const navBarItems = [
       { linkTo: "/", label: "Kurl" },
       { linkTo: "/add-ons", label: "Supported add-ons" },
@@ -49,8 +49,8 @@ export class NavBar extends React.Component {
 
     return (
       <div>
-        <div className={`flex flex-auto ${isMobile ? "MobileNavBarWrapper": "NavBarWrapper"}`} id="nav-header">
-          <div className={`${isMobile ? "MobileKurlHeader" : "KurlHeader"} flex flex1`} id="kurl-header">
+        <div className={`flex flex-auto ${documentation ? "MobileDocNavBarWrapper" : isMobile ? "MobileNavBarWrapper": "NavBarWrapper"}`} id="nav-header">
+          <div className={`${documentation ? "MobileDocKurlHeader" : isMobile ? "MobileKurlHeader" : "KurlHeader"} flex flex1`} id="kurl-header">
             {isMobile ?
               <div className="flex flex1 alignItems--center">
                 <span
