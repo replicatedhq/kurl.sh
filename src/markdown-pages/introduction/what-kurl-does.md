@@ -41,3 +41,4 @@ The available add-ons are:
 * [Nodeless](https://www.elotl.co/)
 * [Calico](https://www.projectcalico.org/)
 * AWS (enables the AWS cloud provider in Kubernetes)
+* [Velero](https://velero.io/)
