@@ -115,7 +115,7 @@ cat install.sh | sudo bash
                 </div>
               </div>
               <div className="flex1">
-                <span className="u-fontSize--small u-fontWeight--medium u-color--dustyGray u-lineHeight--normal u-marginTop--small">Need more help? <a href="https://github.com/replicatedhq/kurl#airgapped-usage" target="_blank" rel="noopener noreferrer" className="replicated-link">Check out our docs.</a> </span>
+                <span className="u-fontSize--small u-fontWeight--medium u-color--dustyGray u-lineHeight--normal u-marginTop--small">Need more help? <a href="https://kurl.sh/docs/install-with-kurl/#airgapped-usage" target="_blank" rel="noopener noreferrer" className="replicated-link">Check out our docs.</a> </span>
               </div>
               <div className="flex justifyContent--center u-marginTop--30">
                 <Link to="/" className="Button secondary"> Back to install URL builder </Link>
