@@ -1,7 +1,7 @@
 ---
 path: "/docs/install-with-kurl/advanced-options"
 date: "2019-12-19"
-weight: 5
+weight: 15
 linktitle: "Advanced Options"
 title: "Advanced Options"
 ---

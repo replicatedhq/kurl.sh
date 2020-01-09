@@ -1,7 +1,7 @@
 ---
 path: "/docs/create-installer/"
 date: "2019-10-15"
-weight: 2
+weight: 20
 linktitle: "Overview"
 title: "Create An Installer"
 ---

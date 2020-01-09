@@ -1,7 +1,7 @@
 ---
 path: "/docs/create-installer/creating-an-installer-api"
 date: "2019-10-15"
-weight: 5
+weight: 23
 linktitle: "Create Installer API"
 title: "Create An Installer via API"
 ---

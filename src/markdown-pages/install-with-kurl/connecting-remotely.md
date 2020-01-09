@@ -1,7 +1,7 @@
 ---
 path: "/docs/install-with-kurl/connecting-remotely"
 date: "2019-12-19"
-weight: 4
+weight: 14
 linktitle: "Connecting Remotely"
 title: "Connecting Remotely"
 ---
