@@ -1,7 +1,7 @@
 ---
 path: "/docs/create-installer/add-on-adv-options"
 date: "2019-10-15"
-weight: 3
+weight: 21
 linktitle: "Advanced Options"
 title: "Advanced Options"
 ---
