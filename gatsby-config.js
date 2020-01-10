@@ -68,6 +68,14 @@ module.exports = {
       options: {
         trackingId: process.env.GOOGLE_ANALYTICS_TRACKING_ID,
       },
+    },
+    {
+      resolve: 'gatsby-plugin-matomo',
+      options: {
+        siteId: process.env.MATOMO_SITE_ID,
+        matomoUrl: process.env.MATOMO_URL,
+        siteUrl: process.env.API_URL
+      }
     }
   ],
 }
