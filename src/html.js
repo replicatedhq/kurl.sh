@@ -31,7 +31,7 @@ export default function HTML(props) {
       _paq.push(['trackPageView']);
         _paq.push(['enableLinkTracking']);
     (function() {
-    var u="//data-2.staging.replicated.com/";
+    var u="//data-2.replicated.com/";
         _paq.push(['setTrackerUrl', u+'data/']);
         _paq.push(['setSiteId', '11']);
         var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
