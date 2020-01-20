@@ -8,7 +8,7 @@ title: "System Requirements"
 
 ## Supported Operating Systems
 
-* Ubuntu 16.04
+* Ubuntu 16.04 (Kernel version >= 4.15)
 * Ubuntu 18.04 (Recommended)
 * CentOS 7.4, 7.5, 7.6
 * RHEL 7.4, 7.5, 7.6
