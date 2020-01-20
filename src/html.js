@@ -27,16 +27,23 @@ export default function HTML(props) {
         <script type="text/javascript"
           dangerouslySetInnerHTML={{
             __html: `
-        var _paq = _paq || [];
-      _paq.push(['trackPageView']);
-        _paq.push(['enableLinkTracking']);
-    (function() {
-    var u="//data-2.replicated.com/";
-        _paq.push(['setTrackerUrl', u+'data/']);
-        _paq.push(['setSiteId', '11']);
-        var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-        g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'js/'; s.parentNode.insertBefore(g,s);
-        })();`
+            var _paq = _paq || [];
+            _paq.push(['trackPageView']);
+            _paq.push(['enableLinkTracking']);
+            if (window.origin !== "http://localhost:8072") {
+              (function() {
+                let u;
+                if (window.origin === "https://kurl.sh") {
+                  u="//data-2.replicated.com/";
+                } else {
+                  u="//data-2.staging.replicated.com/";
+                }
+                  _paq.push(['setTrackerUrl', u+'data/']);
+                  _paq.push(['setSiteId', '11']);
+                  var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+                  g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'js/'; s.parentNode.insertBefore(g,s);
+               })();
+            }`
           }}
         />
       </body>
