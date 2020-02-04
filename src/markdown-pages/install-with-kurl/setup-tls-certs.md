@@ -11,13 +11,11 @@ After kURL install has completed, you'll be prompted to set up the KOTS Admin Co
 ![tls-certs-insecure](/tls-certs-insecure.png)
 
 
-The page prompts you through a first-time set up of the TLS certificates.  kURL installed unsigned TLS certificates which may be used by default.  Alternatively, you may choose upload your own signed TLS certificates.  In either case, follow the links to continue set up. 
-
 The next page allows you to configure your TLS certificates:
 <br><br><br>
 ![tls-certs-setup](/tls-certs-setup.png)
 
-To continue with the pre-installed unsigned TLS certificates, click "skip & continue".  Otherwise upload your signed TLS certificates as describe on this page.  The hostname is an optional field, and when its specified, its used to redirect your browser to the specified host. 
+To continue with the preinstalled self-signed TLS certificates, click "skip & continue".  Otherwise upload your signed TLS certificates as describe on this page.  The hostname is an optional field, and when its specified, its used to redirect your browser to the specified host. 
 
 Once you complete this process then you'll no longer be presented this page when logging into the KOTS Admin console.  If you direct your browser to `http://<ip>:8800` you'll always be redirected to `https://<ip>:8800`.  
     
