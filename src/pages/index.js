@@ -17,7 +17,7 @@ class Kurl extends React.Component {
   
   fetchInstallerData = async () => {
     try {
-      const resp = await fetch("https://kurl.sh/installer");  
+      const resp = await fetch(process.env.KURL_INSTALLER_URL);  
       const installerData = await resp.json();
       this.setState({
         installerData
