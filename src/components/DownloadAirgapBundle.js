@@ -55,7 +55,7 @@ class DownloadAirgapBundle extends React.Component {
     const bundleUrl = `curl -LO https://kurl.sh/bundle/${sha}.tar.gz`
     const installBundleCommand = `
 tar xvf ${sha}.tar.gz
-cat install.sh | sudo bash
+cat install.sh | sudo bash -s airgap
     `
 
 
