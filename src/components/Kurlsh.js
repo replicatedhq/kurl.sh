@@ -134,7 +134,7 @@ class Kurlsh extends React.Component {
     } = this.state;
 
     const generatedInstaller = {
-      apiVersion: "kurl.sh/v1beta1",
+      apiVersion: `${process.env.API_URL}/v1beta1`,
       kind: "Installer",
       metadata: {
         name: ""
@@ -704,7 +704,7 @@ class Kurlsh extends React.Component {
     const { versions, selectedVersions, installerSha, showAdvancedOptions, isLoading } = this.state;
     const { isMobile } = this.props;
 
-    const installCommand = `curl https://kurl.sh/${installerSha} | sudo bash`;
+    const installCommand = `curl ${process.env.API_URL}/${installerSha} | sudo bash`;
 
     return (
       <div className={`u-minHeight--full u-width--full u-overflow--auto flex-column flex1 u-marginBottom---40 ${isMobile ? "mobile-container" : "container"}`}>
