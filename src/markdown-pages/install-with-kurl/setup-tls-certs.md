@@ -39,5 +39,5 @@ The following command should provide the name of the kurl-proxy server:
 
 `kubectl get pods -A | grep kurl-proxy | awk '{print $2}'`
 
-After the pod has been restart, then direct your browser to `http://<ip>:8800` and run through the upload process as described above.  Its best to complete this process as soon as possible to avoid anyone uploading a TLS cert.  
+After the pod has been restarted direct your browser to `http://<ip>:8800` and run through the upload process as described above.  Its best to complete this process as soon as possible to avoid anyone uploading a TLS cert.  
 <br><br><br>
