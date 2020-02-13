@@ -25,11 +25,21 @@ kURL will set up a Kubernetes secret called `kotsadm-tls`.  The secret stores th
 
 ## Uploading new TLS Certs
 
-If you've already gone through the setup process once, and you want to upload new TLS certificates, you must run this command to re-add the ability to upload new TLS certificates:
+If you've already gone through the setup process once, and you want to upload new TLS certificates, you must run this command to restore the ability to upload new TLS certificates:
 
 `kubectl -n default annotate secret kotsadm-tls acceptAnonymousUploads=1`
 
-<span style="color:red">**Warning: adding this annotation opens the door for anyone to upload TLS certificates.**</span>
+<span style="color:red">**Warning: adding this annotation will temporarily create a vulnerability for anyone to nefariously upload TLS certificates.  Once TLS certificates have been uploaded then the vulnerability is closed again.**</span>
 
-Then direct your browser to `http://<ip>:8800` and run through the upload process as described above.  Its best to complete this process as soon as possible to avoid anyone uploading a TLS cert.  
+After adding the annotation, you will need to restart the kurl proxy server.  The simplest way is to delete the kurl-proxy pod (the pod will automatically get restarted): 
+
+`kubectl delete pods PROXY_SERVER`
+
+The following command should provide the name of the kurl-proxy server:
+
+`kubectl get pods -A | grep kurl-proxy | awk '{print $2}'`
+
+After the pod has been restarted direct your browser to `http://<ip>:8800` and run through the upload process as described above.  
+    
+It's best to complete this process as soon as possible to avoid anyone from nefariously uploading TLS certificates.  After this process has completed, the vulnerability will be closed, and uploading new TLS certificates will be disallowed again.  In order to upload new TLS certificates you must repeat the steps above. 
 <br><br><br>
