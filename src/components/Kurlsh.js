@@ -32,10 +32,20 @@ const OPTION_DEFAULTS = {
     uiBindPort: 8800
   }
 };
-function versionToState(version) {
-  return {
-    version
-  };
+
+function versionsToState(versions) {
+  return versions.map(function(version, index) {
+    if (version === "latest") {
+      return {
+        label: `latest (${versions[index+1]})`,
+        version,
+      };
+    }
+    return {
+      label: version,
+      version,
+    };
+  });
 }
 
 class Kurlsh extends React.Component {
@@ -43,28 +53,28 @@ class Kurlsh extends React.Component {
     super(props);
     const { installerData } = props;
 
-    const kubernetesVersions = installerData.kubernetes.map(versionToState);
+    const kubernetesVersions = versionsToState(installerData.kubernetes);
 
-    const contourVersions = installerData.contour.map(versionToState);
-    contourVersions.push({ version: "None" });
+    const contourVersions = versionsToState(installerData.contour);
+    contourVersions.push({ version: "None", label: "None" });
 
-    const weaveVersions = installerData.weave.map(versionToState);
-    weaveVersions.push({ version: "None" });
+    const weaveVersions = versionsToState(installerData.weave);
+    weaveVersions.push({ version: "None", label: "None" });
 
-    const rookVersions = installerData.rook.map(versionToState);
-    rookVersions.push({ version: "None" });
+    const rookVersions = versionsToState(installerData.rook);
+    rookVersions.push({ version: "None", label: "None" });
 
-    const dockerVersions = installerData.docker.map(versionToState);
-    dockerVersions.push({ version: "None" });
+    const dockerVersions = versionsToState(installerData.docker);
+    dockerVersions.push({ version: "None", label: "None" });
 
-    const prometheusVersions = installerData.prometheus.map(versionToState);
-    prometheusVersions.push({ version: "None" });
+    const prometheusVersions = versionsToState(installerData.prometheus);
+    prometheusVersions.push({ version: "None", label: "None" });
 
-    const registryVersions = installerData.registry.map(versionToState);
-    registryVersions.push({ version: "None" });
+    const registryVersions = versionsToState(installerData.registry);
+    registryVersions.push({ version: "None", label: "None" });
 
-    const kotsadmVersions = installerData.kotsadm.map(versionToState);
-    kotsadmVersions.push({ version: "None" });
+    const kotsadmVersions = versionsToState(installerData.kotsadm);
+    kotsadmVersions.push({ version: "None", label: "None" });
 
     this.state = {
       versions: {
@@ -78,14 +88,14 @@ class Kurlsh extends React.Component {
         kotsadm: kotsadmVersions
       },
       selectedVersions: {
-        kubernetes: { version: "latest" },
-        weave: { version: "latest" },
-        contour: { version: "latest" },
-        rook: { version: "latest" },
-        docker: { version: "latest" },
-        prometheus: { version: "latest" },
-        registry: { version: "latest" },
-        kotsadm: { version: "None" }
+        kubernetes: kubernetesVersions[0],
+        weave: weaveVersions[0],
+        contour: contourVersions[0],
+        rook: rookVersions[0],
+        docker: dockerVersions[0],
+        prometheus: prometheusVersions[0],
+        registry: registryVersions[0],
+        kotsadm: kotsadmVersions[0],
       },
       installerSha: "latest",
       showAdvancedOptions: {
@@ -253,10 +263,10 @@ class Kurlsh extends React.Component {
     })
   }
 
-  getLabel = ({ version }) => {
+  getLabel = ({ version, label }) => {
     return (
       <div>
-        <span style={{ fontSize: 14 }}>{version}</span>
+        <span style={{ fontSize: 14 }}>{label}</span>
       </div>
     );
   }
@@ -725,7 +735,7 @@ class Kurlsh extends React.Component {
                       <div className="u-fontSize--small u-fontWeight--normal u-color--dustyGray u-lineHeight--normal"> What version of Kubernetes are you using? </div>
                     </div>
                     <div className="flex1 u-paddingLeft--50 alignSelf--center">
-                      <div className="u-width--120">
+                      <div className="u-width--145">
                         <Select
                           options={versions.kubernetes}
                           getOptionLabel={this.getLabel}
@@ -755,7 +765,7 @@ class Kurlsh extends React.Component {
                       <div className="u-fontSize--small u-fontWeight--normal u-color--dustyGray u-lineHeight--normal"> What version of Weave are you using? </div>
                     </div>
                     <div className="flex1 u-paddingLeft--50 alignSelf--center">
-                      <div className="u-width--120">
+                      <div className="u-width--145">
                         <Select
                           options={versions.weave}
                           getOptionLabel={this.getLabel}
@@ -783,7 +793,7 @@ class Kurlsh extends React.Component {
                       <div className="u-fontSize--small u-fontWeight--normal u-color--dustyGray u-lineHeight--normal"> What version of Contour are you using? </div>
                     </div>
                     <div className="flex1 u-paddingLeft--50 alignSelf--center">
-                      <div className="u-width--120">
+                      <div className="u-width--145">
                         <Select
                           options={versions.contour}
                           getOptionLabel={this.getLabel}
@@ -807,7 +817,7 @@ class Kurlsh extends React.Component {
                       <div className="u-fontSize--small u-fontWeight--normal u-color--dustyGray u-lineHeight--normal"> What version of Rook are you using? </div>
                     </div>
                     <div className="flex1 u-paddingLeft--50 alignSelf--center">
-                      <div className="u-width--120">
+                      <div className="u-width--145">
                         <Select
                           options={versions.rook}
                           getOptionLabel={this.getLabel}
@@ -834,7 +844,7 @@ class Kurlsh extends React.Component {
                       <div className="u-fontSize--small u-fontWeight--normal u-color--dustyGray u-lineHeight--normal"> What version of Docker are you using? </div>
                     </div>
                     <div className="flex1 u-paddingLeft--50 alignSelf--center">
-                      <div className="u-width--120">
+                      <div className="u-width--145">
                         <Select
                           options={versions.docker}
                           getOptionLabel={this.getLabel}
@@ -861,7 +871,7 @@ class Kurlsh extends React.Component {
                       <div className="u-fontSize--small u-fontWeight--normal u-color--dustyGray u-lineHeight--normal"> What version of Prometheus are you using? </div>
                     </div>
                     <div className="flex1 u-paddingLeft--50 alignSelf--center">
-                      <div className="u-width--120">
+                      <div className="u-width--145">
                         <Select
                           options={versions.prometheus}
                           getOptionLabel={this.getLabel}
@@ -884,7 +894,7 @@ class Kurlsh extends React.Component {
                       <div className="u-fontSize--small u-fontWeight--normal u-color--dustyGray u-lineHeight--normal"> What version of Registry are you using? </div>
                     </div>
                     <div className="flex1 u-paddingLeft--50 alignSelf--center">
-                      <div className="u-width--120">
+                      <div className="u-width--145">
                         <Select
                           options={versions.registry}
                           getOptionLabel={this.getLabel}
@@ -907,7 +917,7 @@ class Kurlsh extends React.Component {
                       <div className="u-fontSize--small u-fontWeight--normal u-color--dustyGray u-lineHeight--normal"> What version of Kotsadm are you using? </div>
                     </div>
                     <div className="flex1 u-paddingLeft--50 alignSelf--center">
-                      <div className="u-width--120">
+                      <div className="u-width--145">
                         <Select
                           options={versions.kotsadm}
                           getOptionLabel={this.getLabel}
