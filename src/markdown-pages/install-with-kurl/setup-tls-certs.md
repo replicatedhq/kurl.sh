@@ -39,7 +39,7 @@ The following command should provide the name of the kurl-proxy server:
 
 `kubectl get pods -A | grep kurl-proxy | awk '{print $2}'`
 
-After the pod has been restarted direct your browser to `http://<ip>:8800` and run through the upload process as described above.  
+After the pod has been restarted direct your browser to `http://<ip>:8800/tls` and run through the upload process as described above.  
     
 It's best to complete this process as soon as possible to avoid anyone from nefariously uploading TLS certificates.  After this process has completed, the vulnerability will be closed, and uploading new TLS certificates will be disallowed again.  In order to upload new TLS certificates you must repeat the steps above. 
 <br><br><br>
