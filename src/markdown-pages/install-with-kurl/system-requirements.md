@@ -10,12 +10,13 @@ title: "System Requirements"
 
 * Ubuntu 16.04 (Kernel version >= 4.15)
 * Ubuntu 18.04 (Recommended)
-* CentOS 7.4, 7.5, 7.6
-* RHEL 7.4, 7.5, 7.6
+* CentOS 7.4, 7.5, 7.6, 7.7
+* RHEL 7.4, 7.5, 7.6, 7.7
 
 ## Minimum System Requirements
 
-* 2 CPUs or more
-* 4 GB or more of RAM per machine
+* 4 CPUs or equivalent per machine
+* 8 GB of RAM per machine
+* 30 GB of Disk Space per machine
 * TCP ports 6443 and 6783 open
 * UDP ports 6783 and 6784 open
