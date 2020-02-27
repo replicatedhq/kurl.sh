@@ -16,7 +16,7 @@ The Kurl add-on installs:
 ```yaml
 spec:
   ekco:
-    version: "v2020.02.26-0"
+    version: "v0.1.0"
     nodeUnreachableToleration: 1h
     minReadyMasterNodes: 2
     minReadyWorkerNodes: 0
