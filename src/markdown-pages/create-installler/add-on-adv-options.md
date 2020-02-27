@@ -162,3 +162,23 @@ spec:
 | velero-disable-cli | Do not install the velero CLI. |
 | velero-disable-restic | Do not install the Restic integration.  Volume data will not be included in backups if Restic is disabled. |
 | velero-local-bucket | Create an alternative bucket in the local ceph RGW store for the initial backend. Default is "velero". |
+
+### EKCO
+
+```yaml
+spec:
+  ekco:
+    version: "v2020.02.26-0"
+    nodeUnreachableToleration: 1h
+    minReadyMasterNodes: 2
+    minReadyWorkerNodes: 0
+    rook:
+      maintainStorageNodes: true
+```
+
+| Flag | Usage |
+| ---- | ----- |
+| ekco-node-unreachable-toleration | How long a Node must be unreachable before considered dead. Default is 1h. |
+| ekco-min-ready-master-nodes | Don't purge the node if it will result in less than this many ready masters. Default is 2. |
+| ekco-min-ready-worker-nodes | Don't purge the node if it will result in less than this many ready workers. Default is 0. |
+| ekco-disable-maintain-rook-storage-nodes | Whether to maintain the list of nodes to use in the CephCluster config. Default is true when rook addon is installed. |
