@@ -17,19 +17,19 @@ The Kurl add-on installs:
 spec:
   ekco:
     version: "v0.1.0"
-    nodeUnreachableToleration: 1h
-    minReadyMasterNodes: 2
-    minReadyWorkerNodes: 0
+    nodeUnreachableTolerationDuration: 1h
+    minReadyMasterNodeCount: 2
+    minReadyWorkerNodeCount: 0
     rook:
-      maintainStorageNodes: true
+      shouldMaintainStorageNodes: true
 ```
 
 | Flag | Usage |
 | ---- | ----- |
-| ekco-node-unreachable-toleration | How long a Node must be unreachable before considered dead. Default is 1h. |
-| ekco-min-ready-master-nodes | Don't purge the node if it will result in less than this many ready masters. Default is 2. |
-| ekco-min-ready-worker-nodes | Don't purge the node if it will result in less than this many ready workers. Default is 0. |
-| ekco-disable-maintain-rook-storage-nodes | Whether to maintain the list of nodes to use in the CephCluster config. Default is true when rook addon is installed. |
+| ekco-node-unreachable-toleration-duration | How long a Node must be unreachable before considered dead. Default is 1h. |
+| ekco-min-ready-master-node-count | Don't purge the node if it will result in less than this many ready masters. Default is 2. |
+| ekco-min-ready-worker-node-count | Don't purge the node if it will result in less than this many ready workers. Default is 0. |
+| ekco-disable-should-maintain-rook-storage-nodes | Whether to maintain the list of nodes to use in the CephCluster config. Default is true when rook addon is installed. |
 
 ## Operator Tasks
 
