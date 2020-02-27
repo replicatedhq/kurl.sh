@@ -42,3 +42,4 @@ The available add-ons are:
 * [Calico](https://www.projectcalico.org/)
 * AWS (enables the AWS cloud provider in Kubernetes)
 * [Velero](https://velero.io/)
+* [EKCO](https://github.com/replicatedhq/ekco)
