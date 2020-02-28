@@ -46,6 +46,29 @@ In an HA Kubernetes cluster the EKCO operator will automatically purge failed no
 1. (Masters only) Connect to the etcd cluster and remove the peer
 1. (Masters only) Remove the apiEndpoint for the node from the kubeadm-config ConfigMap in the kube-system namespace
 
+#### Manual Node Purge
+
+A command will be made available on all master nodes to manually purge a node. This command takes a parameter `[name]` of the node you would like to purge. The command will inherit all configuration from the EKCO operator running in the cluster.
+
+```bash
+$ ekco-purge-node --help
+Manually purge a Kurl cluster node
+
+Usage:
+  ekco purge-node [name] [flags]
+
+Flags:
+      --certificates_dir string       Kubernetes certificates directory (default "/etc/kubernetes/pki")
+  -h, --help                          help for purge-node
+      --maintain_rook_storage_nodes   Add and remove nodes to the ceph cluster and scale replication of pools
+      --min_ready_master_nodes int    Minimum number of ready master nodes required for auto-purge (default 2)
+      --min_ready_worker_nodes int    Minimum number of ready worker nodes required for auto-purge
+
+Global Flags:
+      --config string      Config file (default is /etc/ekco/config.yaml)
+      --log_level string   Log level (default "info")
+```
+
 ### Rook
 
 The EKCO operator is responsible for appending nodes to the CephCluster `storage.nodes` setting to include the node in the list of nodes used by Ceph for storage. This operation will only append nodes. Removing nodes is done during purge.
