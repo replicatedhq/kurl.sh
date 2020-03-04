@@ -25,19 +25,24 @@ openebs:
 The [LocalPV provisioner](https://docs.openebs.io/docs/next/localpv.html) uses the host filesystem directory `/var/openebs/local` for storage.
 PersistentVolumes provisioned with localPV will not be relocatable to a new node if a pod gets rescheduled.
 Data in these PersistentVolumes will not be replicated across nodes to protect against data loss.
-The localPV provisioner is suitable for single-node clusters.
+The localPV provisioner is suitable as the default provisioner for single-node clusters.
 
 ## cStor 
 
 The [cStor provisioner](https://docs.openebs.io/docs/next/ugcstor.html) relies on block devices for storage.
-The OpenEBS NodeDeviceManager runs a DaemonSet to automatically incorporate available block devices into a storage pool named `cstor-dist`.
+The OpenEBS NodeDeviceManager runs a DaemonSet to automatically incorporate available block devices into a storage pool named `cstor-disk`.
 The first available block device on each node in the cluster will automatically be added to this pool.
+
+
+### Adding Disks
+
+After joining more nodes with disks to your cluster you can re-run the kURL installer to re-configure the `cstor-disk` storagepoolclaim, the storageclass, and the replica count of any existing volumes.
 
 ### Storage Class
 
-The kURL installer will create a StorageClass for the cStor provisioner that configures cStor to provision volumes with a single replica.
+The kURL installer will create a StorageClass that initially configures cStor to provision volumes with a single replica.
 After adding more nodes with disks to the cluster, re-running the kURL installer will increase the replica count up to a maximum of three.
-The kURL installer will also create additional replicas for volumes below the new target.
+The kURL installer will also check for any PVCs that were created at a lower ReplicaCount and will add additional replicas to bring those volumes up to the new ReplicaCount.
 
 ```
 apiVersion: storage.k8s.io/v1
@@ -103,8 +108,8 @@ spec:
 ```
 
 The `blockDeviceList: null` setting indicates to OpenEBS that this is an automatic pool.
-In automatic pools, blockdevices will automatically claimed for the pool up to the value of `maxPools`.
-If no blockdevices are available, the kURL installer will prompt and show a spinner until a disk is attached.
+Blockdevices will automatically be claimed for the pool up to the value of `maxPools`.
+If no blockdevices are available, the kURL installer will prompt for one to be attached and wait.
 After joining more nodes with disks to the cluster, re-running the kURL installer will increase the `maxPools` level.
 
 #### cstorvolumes.openebs.io
@@ -122,21 +127,3 @@ For each cstorvolume there will be 1 to 3 cstorvolumereplicas in the `openebs` n
 kubectl -n openebs get cstorvolumereplicas
 ```
 The number of replicas should match the `ReplicaCount` configured in the StorageClass, which kURL increases as more nodes with disks are added to the clsuter.
-
-### Adding Disks
-
-After joining more nodes with disks to your cluster you can re-run the kURL installer to re-configure the `cstor-disk` storagepoolclaim, the storageclass, and the replica count of any existing volumes.
-
-#### Example
-
-After the initial install, a cluster operator has joined 5 more nodes to their cluster, each with a disk, but has not re-run the kURL install script on the master node.
-
-The `cstor-disk` storagepoolclaim will have a `maxPools` value of `1`.
-The cstor StorageClass will have a ReplicaCount of 1.
-All cstorvolumes will have 1 cstorvolumereplica.
-The OpenEBS Node Device Manager will already have detected five additional disks and created five more `disk` and `blockdevice` resources.
-There will be only one blockdeviceclaim because the only storagepoolclaim is limited to one pool.
-
-The next time the kURL install script runs, it will detect the 5 additional blockdevices and increase the `maxPools` setting on the `cstor-disk` storagepoolclaim to 6.
-The kURL install script will increase the ReplicaCount to 3 on the StorageClass so that all future PVCs provisioned will begin with a replication factor of 3.
-It will also create 2 additional cstorvolumereplicas for each existing cstorvolume to bring the replication factor up to 3.
