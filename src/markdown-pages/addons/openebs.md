@@ -14,10 +14,10 @@ In this example, the localPV provisioner would be used as provisioner for any PV
 ```
 openebs:
   version: latest
-  localPV: true
-  localPVStorageClass: default
-  cstor: true
-  cstorStorageClass: cstor
+  isLocalPVEnabled: true
+  localPVStorageClassName: default
+  isCstorEnabled: true
+  cstorStorageClassName: cstor
 ```
 
 ## LocalPV
