@@ -7,10 +7,10 @@ var backend;
 var frontend;
 
 if (appEnv === "dev") {
-  backend = "https://backend.staging.kurl.sh";
+  backend = "https://tf-kurl-eks-nlb-3ed29f9af4c471f3.elb.us-east-1.amazonaws.com"; //change back to "https://backend.staging.kurl.sh" eventually
   frontend = "https://kurlsh-staging.netlify.com";
 } else if (appEnv === "staging") {
-  backend = "https://backend.staging.kurl.sh";
+  backend = "https://tf-kurl-eks-nlb-3ed29f9af4c471f3.elb.us-east-1.amazonaws.com"; //change back to "https://backend.staging.kurl.sh" eventually
   frontend = "https://kurlsh-staging.netlify.com";
 } else if (appEnv === "prod") {
   backend = "https://tf-kurl-eks-976042054.us-east-1.elb.amazonaws.com"; //change back to "https://backend.kurl.sh" once we figure out what's broken in cf
