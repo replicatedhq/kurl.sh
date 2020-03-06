@@ -19,6 +19,14 @@ build: prebuild
 	KURL_ENV=prod `yarn bin`/webpack
 	KURL_ENV=dev `yarn bin`/webpack
 
+.PHONY: build-staging
+build-staging: prebuild
+	KURL_ENV=staging `yarn bin`/webpack
+
+.PHONY: build-production
+build-production: prebuild
+	KURL_ENV=prod `yarn bin`/webpack
+
 .PHONY: preview
 preview: build
 	`yarn bin`/workers-preview < dist/bundle.js

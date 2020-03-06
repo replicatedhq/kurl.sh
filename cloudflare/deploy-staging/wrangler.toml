@@ -1,0 +1,6 @@
+type = "javascript"
+name = "staging-kurl-sh"
+workers_dev = false
+account_id = "c2592895222dce604580569f98ef7094"
+zone_id = "0b01edc42aa345a430aa79fe7d74db1d"
+route = "staging.kurl.sh/*"

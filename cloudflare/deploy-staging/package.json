@@ -1,0 +1,7 @@
+{
+  "private": true,
+  "name": "staging-kurl-sh",
+  "main": "../dist/bundle-staging.js",
+  "version": "1.0.0", 
+  "description": "Cloudflare worker to handle staging.kurl.sh"
+}
