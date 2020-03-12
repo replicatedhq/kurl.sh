@@ -710,7 +710,7 @@ class Kurlsh extends React.Component {
       <div className={`u-minHeight--full u-width--full u-overflow--auto flex-column flex1 u-marginBottom---40 ${isMobile ? "mobile-container" : "container"}`}>
         <div className={`u-flexTabletReflow flex1 u-width--full ${isMobile && "justifyContent--center alignItems--center"}`}>
           <div className="flex u-width--full">
-            <div className="left-content-wrap flex-column">
+            <div className="left-content-wrap flex-column u-marginRight--30">
               <div className={`${isMobile ? "u-fontSize--normal" : "u-fontSize--large"} u-fontWeight--medium u-lineHeight--more u-color--tuna`}>
                 kURL is a custom Kubernetes distro creator. Think of kURL as a link shortener for your favorite Kubernetes base components (aka add-ons).
                 It creates a unique URL for your specific components that can be installed with <code>cURL</code> on a modern Linux server.
@@ -722,7 +722,7 @@ class Kurlsh extends React.Component {
                   <div className="flex flex1">
                     <div className="flex1">
                       <div className="FormLabel u-marginBottom--10"> Kubernetes version </div>
-                      <div className="u-fontSize--small u-fontWeight--normal u-color--dustyGray u-lineHeight--normal"> What version of Kubernetes are you using? </div>
+                      <div className="u-fontSize--small u-fontWeight--normal u-color--scorpion u-lineHeight--normal"> What version of Kubernetes are you using? </div>
                     </div>
                     <div className="flex1 u-paddingLeft--50 alignSelf--center">
                       <div className="u-width--120">
@@ -752,7 +752,7 @@ class Kurlsh extends React.Component {
                   <div className="flex flex1">
                     <div className="flex1">
                       <div className="FormLabel u-marginBottom--10"> Weave version </div>
-                      <div className="u-fontSize--small u-fontWeight--normal u-color--dustyGray u-lineHeight--normal"> What version of Weave are you using? </div>
+                      <div className="u-fontSize--small u-fontWeight--normal u-color--scorpion u-lineHeight--normal"> What version of Weave are you using? </div>
                     </div>
                     <div className="flex1 u-paddingLeft--50 alignSelf--center">
                       <div className="u-width--120">
@@ -780,7 +780,7 @@ class Kurlsh extends React.Component {
                   <div className="flex flex1">
                     <div className="flex1">
                       <div className="FormLabel u-marginBottom--10"> Contour version </div>
-                      <div className="u-fontSize--small u-fontWeight--normal u-color--dustyGray u-lineHeight--normal"> What version of Contour are you using? </div>
+                      <div className="u-fontSize--small u-fontWeight--normal u-color--scorpion u-lineHeight--normal"> What version of Contour are you using? </div>
                     </div>
                     <div className="flex1 u-paddingLeft--50 alignSelf--center">
                       <div className="u-width--120">
@@ -804,7 +804,7 @@ class Kurlsh extends React.Component {
                   <div className="flex flex1">
                     <div className="flex1">
                       <div className="FormLabel u-marginBottom--10"> Rook version </div>
-                      <div className="u-fontSize--small u-fontWeight--normal u-color--dustyGray u-lineHeight--normal"> What version of Rook are you using? </div>
+                      <div className="u-fontSize--small u-fontWeight--normal u-color--scorpion u-lineHeight--normal"> What version of Rook are you using? </div>
                     </div>
                     <div className="flex1 u-paddingLeft--50 alignSelf--center">
                       <div className="u-width--120">
@@ -831,7 +831,7 @@ class Kurlsh extends React.Component {
                   <div className="flex flex1">
                     <div className="flex1">
                       <div className="FormLabel u-marginBottom--10"> Docker version </div>
-                      <div className="u-fontSize--small u-fontWeight--normal u-color--dustyGray u-lineHeight--normal"> What version of Docker are you using? </div>
+                      <div className="u-fontSize--small u-fontWeight--normal u-color--scorpion u-lineHeight--normal"> What version of Docker are you using? </div>
                     </div>
                     <div className="flex1 u-paddingLeft--50 alignSelf--center">
                       <div className="u-width--120">
@@ -858,7 +858,7 @@ class Kurlsh extends React.Component {
                   <div className="flex flex1">
                     <div className="flex1">
                       <div className="FormLabel u-marginBottom--10"> Prometheus version </div>
-                      <div className="u-fontSize--small u-fontWeight--normal u-color--dustyGray u-lineHeight--normal"> What version of Prometheus are you using? </div>
+                      <div className="u-fontSize--small u-fontWeight--normal u-color--scorpion u-lineHeight--normal"> What version of Prometheus are you using? </div>
                     </div>
                     <div className="flex1 u-paddingLeft--50 alignSelf--center">
                       <div className="u-width--120">
@@ -881,7 +881,7 @@ class Kurlsh extends React.Component {
                   <div className="flex flex1">
                     <div className="flex1">
                       <div className="FormLabel u-marginBottom--10"> Registry version </div>
-                      <div className="u-fontSize--small u-fontWeight--normal u-color--dustyGray u-lineHeight--normal"> What version of Registry are you using? </div>
+                      <div className="u-fontSize--small u-fontWeight--normal u-color--scorpion u-lineHeight--normal"> What version of Registry are you using? </div>
                     </div>
                     <div className="flex1 u-paddingLeft--50 alignSelf--center">
                       <div className="u-width--120">
@@ -904,7 +904,7 @@ class Kurlsh extends React.Component {
                   <div className="flex flex1">
                     <div className="flex1">
                       <div className="FormLabel u-marginBottom--10"> Kotsadm version </div>
-                      <div className="u-fontSize--small u-fontWeight--normal u-color--dustyGray u-lineHeight--normal"> What version of Kotsadm are you using? </div>
+                      <div className="u-fontSize--small u-fontWeight--normal u-color--scorpion u-lineHeight--normal"> What version of Kotsadm are you using? </div>
                     </div>
                     <div className="flex1 u-paddingLeft--50 alignSelf--center">
                       <div className="u-width--120">
@@ -941,7 +941,7 @@ class Kurlsh extends React.Component {
             </div>
             <div className="flex-column wrapperForm u-marginTop--30">
               <div className="FormLabel u-marginBottom--normal"> Installation URL </div>
-              <div className="u-fontSize--small u-fontWeight--normal u-color--dustyGray u-lineHeight--normal">
+              <div className="u-fontSize--small u-fontWeight--normal u-color--scorpion u-lineHeight--normal">
                 As you make changes to your YAML spec a new URL will be generated. To create custom URLs or make changes to this one
                     <a href="https://vendor.replicated.com/login" target="_blank" rel="noopener noreferrer" className="replicated-link"> log in to vendor.replicated.com</a>.
                   </div>
@@ -956,7 +956,7 @@ class Kurlsh extends React.Component {
                 </CodeSnippet>
               </div>
             </div>
-            <span className="u-fontSize--small u-fontWeight--medium u-color--dustyGray u-lineHeight--normal u-marginTop--small"> Want to add a new component to kurl? <a href="https://kurl.sh/docs/add-on-author/" target="_blank" rel="noopener noreferrer" className="replicated-link">Read our contributing</a> guide.</span>
+            <span className="u-fontSize--small u-fontWeight--medium u-color--scorpion u-lineHeight--normal u-marginTop--small"> Want to add a new component to kurl? <a href="https://kurl.sh/docs/add-on-author/" target="_blank" rel="noopener noreferrer" className="replicated-link">Read our contributing</a> guide.</span>
           </div>
         </div>
       </div>

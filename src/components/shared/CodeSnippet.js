@@ -108,7 +108,7 @@ class CodeSnippet extends Component {
             </span>
           )}
           {downloadAirgapLink ?
-            <span className="u-color--dustyGray u-fontSize--small u-marginLeft--small u-marginRight--small"> | </span>
+            <span className="u-color--scorpion u-fontSize--small u-marginLeft--small u-marginRight--small"> | </span>
           : null}
           {downloadAirgapLink && (
             <span

@@ -1,0 +1,51 @@
+.AppList--wrapper {
+  list-style: none;
+  margin-left: 0;
+  padding-left: 0;
+}
+
+.AppList--wrapper li {
+  width: 50%;
+  display: flex;
+  margin-bottom: 10px;
+  align-items: center;
+  padding: 0;
+}
+
+.AppList--wrapper li::before {
+  content: "";
+  height: 6px;
+  background: #326DE6;
+  border-radius: 7px;
+  display: inline-block;
+  width: 6px;
+  padding: 0;
+  margin-right: 5px;
+}
+
+.WhatYouGet--wrapper p {
+  margin: 0;
+}
+
+.DataEditor--wrapper {
+  background-color: #303030;
+  padding: 20px;
+  border-radius: 10px;
+}
+.DataEditor--wrapper p {
+  margin-bottom: 10px;
+}
+.isSelected {
+  background-color: #F4F4F4;
+  border-radius: 4px;
+}
+.Flags--wrapper div p {
+  border-bottom: 1px solid #B1B1B1; 
+}
+.status-dot {
+  background-color: #44BB66;
+  width: 7px;
+  height: 7px;
+  border-radius: 100%;
+  margin-right: 6px;
+}
