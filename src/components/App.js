@@ -2,16 +2,15 @@ import * as React from "react";
 import CodeSnippet from "./shared/CodeSnippet";
 import Loader from "./shared/Loader";
 import { Utilities } from "./utilities";
-
 import("../scss/components/App.scss");
-
 
 class AppComponent extends React.Component {
   state = {
     responseStatusCode: null,
     bundleUrl: "",
     installerData: null,
-    selectedSpec: "kubernetes"
+    selectedSpec: "kubernetes",
+    versionData: null
   };
 
   fetchInstallerData = async (sha) => {
@@ -27,9 +26,13 @@ class AppComponent extends React.Component {
     }
   }
 
-  componentDidUpdate(lastProps) {
+  componentDidUpdate(lastProps, lastState) {
     if (this.props.breakpoint !== lastProps.breakpoint && this.props.breakpoint) {
       this.setState({ isMobile: this.props.breakpoint === "mobile" })
+    }
+
+    if (this.state.selectedSpec !== lastState.selectedSpec && this.state.selectedSpec) {
+      this.getVersionDetails(this.state.selectedSpec)
     }
   }
 
@@ -41,6 +44,10 @@ class AppComponent extends React.Component {
 
     if (this.props.breakpoint) {
       this.setState({ isMobile: this.props.breakpoint === "mobile" })
+    }
+
+    if (this.state.selectedSpec) {
+      this.getVersionDetails(this.state.selectedSpec)
     }
   }
 
@@ -77,6 +84,38 @@ class AppComponent extends React.Component {
 
   whatYouGet = (spec) => {
     this.setState({ selectedSpec: spec });
+  }
+
+  getVersionDetails = async (addOn) => {
+    const url = `${process.env.INTERNAL_ADD_ON_URL}/${addOn}`
+    try {
+      const resp = await fetch(url);
+      const versionData = await resp.json();
+      this.setState({
+        versionData
+      });
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  getVersionData = (installerData) => {
+    const { versionData } = this.state;
+    return Object.keys(versionData).map((key, i) => {
+      const existInInstallerYaml = installerData.find((d) => key === d);
+      return (
+        <div className="flex alignItems--center u-borderBottom--silverChalice u-padding--normal" key={`${key}-${i}`}>
+          {existInInstallerYaml ? <span className="status-dot"></span> : <span></span>}
+          <div className="flex flex1 alignItems--center justifyContent--center">
+            <div className="flex flex-column alignItems--center u-width--180 u-marginLeft--40">
+              <div className="u-color--alabasterapprox u-fontSize--small u-fontWeight--normal u-marginRight--30"> {versionData[key].flag ? `--${versionData[key].flag}` : "--version"} </div>
+              <div className="u-color--silverChalice u-fontSize--small u-fontWeight--normal u-marginRight--30"> {versionData[key].type} </div>
+            </div>
+            <div className="u-width--250 u-color--alabasterapprox u-fontSize--small u-fontWeight--normal"> {versionData[key].description} </div>
+          </div>
+        </div>
+      )
+    })
   }
 
   render() {
@@ -263,25 +302,12 @@ cat install.sh | sudo bash -s airgap
                     <p className="u-fontSize--normal u-color--silverChalice u-marginTop--none"> You can run your install command with any of the following flags to override values for {Utilities.toTitleCase(selectedSpec)}. </p>
                   </div>
 
-                  <div className="flex">
-                    <div className="flex flex1 u-borderBottom--silverChalice justifyContent--center">
-                      <div className="u-fontSize--small u-fontWeight--medium u-color--alabasterapprox u-marginBottom--10 u-marginLeft--40"> Flag
-                      </div>
-                      <div className="u-fontSize--small u-fontWeight--medium u-color--alabasterapprox u-marginLeft--40 u-marginBottom--10"> Description
-                        </div>
-                    </div>
+                  <div className="flex u-borderBottom--silverChalice justifyContent--center">
+                    <div className="u-width--120 u-fontSize--small u-fontWeight--medium u-color--alabasterapprox u-marginBottom--10"> Flag </div>
+                    <div className="u-width--120 u-fontSize--small u-fontWeight--medium u-color--alabasterapprox u-marginBottom--10"> Description </div>
                   </div>
                   <div className="flex1 flex-column">
-                    {Object.keys(installerData.spec[selectedSpec]).map((key, i) => {
-                      return (
-                        <div className="flex alignItems--center u-borderBottom--silverChalice justifyContent--spaceBetween u-padding--normal" key={`${key}-${i}`}>
-                          <span className="status-dot"></span>
-                          <div className="u-color--alabasterapprox u-fontSize--small u-fontWeight--normal u-marginRight--30"> --{key}
-                          </div>
-                          <div className="u-color--alabasterapprox u-fontSize--small u-fontWeight--normal u-marginLeft--30">  </div>
-                        </div>
-                      )
-                    })}
+                    {this.getVersionData(Object.keys(installerData.spec[selectedSpec]))}
                   </div>
                   <div className="flex justifyContent--center alignItems--center">
                     <span className="status-dot"></span>
