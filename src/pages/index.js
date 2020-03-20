@@ -49,11 +49,13 @@ class Kurl extends React.Component {
   render() {
     const { isMobile } = this.state;
     const { installerData } = this.state;
+    const { location } = this.props;
+
 
     return (
       <Layout isMobile={isMobile} title={"kURL - Open Source Kubernetes Installer"}>
         <FadeTransitionRouter>
-          {installerData
+          {installerData && location.pathname === "/"
             ? <Kurlsh path="/" isMobile={isMobile} installerData={installerData} />
             : <Loader path="/" size="70" />
           }
