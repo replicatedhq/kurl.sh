@@ -13,7 +13,7 @@ import OptionWrapper from "./shared/OptionWrapper";
 
 import("../scss/components/Kurlsh.scss");
 
-const versionAddOns = ["kubernetes", "weave", "rook", "docker", "kotsadm"];
+const versionAddOns = ["kubernetes", "weave", "rook", "registry", "docker", "kotsadm"];
 function versionToState(version) {
   return {
     version
@@ -75,6 +75,7 @@ class Kurlsh extends React.Component {
         "weave": false,
         "contour": false,
         "rook": false,
+        "registry": false,
         "docker": false,
         "kotsadm": false
       },
@@ -82,6 +83,7 @@ class Kurlsh extends React.Component {
         kubernetes: {},
         weave: {},
         rook: {},
+        registry: {},
         docker: {},
         kotsadm: {}
       },
@@ -212,9 +214,17 @@ class Kurlsh extends React.Component {
     }
 
     if (selectedVersions.registry.version !== "None") {
+      const diff = getDiff(optionDefaults["kotsadm"], options.registry);
       generatedInstaller.spec.registry = {
         version: selectedVersions.registry.version
       };
+
+      if (Object.keys(diff).length) {
+        generatedInstaller.spec.registry = {
+          ...generatedInstaller.spec.registry,
+          ...diff
+        };
+      }
     }
 
     if (selectedVersions.kotsadm.version !== "None") {
@@ -646,6 +656,10 @@ class Kurlsh extends React.Component {
                       </div>
                     </div>
                   </div>
+                  <div className="flex u-fontSize--small u-color--royalBlue u-marginTop--small u-cursor--pointer" onClick={() => this.onToggleShowAdvancedOptions("registry")}>
+                    {showAdvancedOptions["registry"] ? "Hide advanced options" : "Show advanced options"}
+                  </div>
+                  {showAdvancedOptions["registry"] && this.renderAdvancedOptions("registry")}
                 </div>
               </div>
               <div className="flex u-marginTop--30">
