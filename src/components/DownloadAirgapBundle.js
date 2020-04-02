@@ -72,12 +72,12 @@ cat install.sh | sudo bash -s airgap
             :
             <div>
               <div className="flex1">
-                <span className="u-fontSize--small u-fontWeight--medium u-color--dustyGray u-lineHeight--normal u-marginTop--small"><Link to="/" className="replicated-link">kurl.sh</Link> > {sha} > download airgap bundle </span>
+                <span className="u-fontSize--small u-fontWeight--medium u-color--scorpion u-lineHeight--normal u-marginTop--small"><Link to="/" className="replicated-link">kurl.sh</Link> > {sha} > download airgap bundle </span>
               </div>
               <div className="flex-column wrapperForm u-marginTop--normal">
                 <div className="flex1">
                   <div className="FormLabel u-marginBottom--5"> Download airgap installer </div>
-                  <span className="u-fontSize--small u-fontWeight--normal u-color--dustyGray u-lineHeight--normal u-marginBottom--more"> You can get the airgap bundle a couple of ways. You can download it directly from here or via a CLI. </span>
+                  <span className="u-fontSize--small u-fontWeight--normal u-color--scorpion u-lineHeight--normal u-marginBottom--more"> You can get the airgap bundle a couple of ways. You can download it directly from here or via a CLI. </span>
                   <div className="u-marginTop--normal">
                     <button
                       type="button"
@@ -101,7 +101,7 @@ cat install.sh | sudo bash -s airgap
                 <div className="u-marginTop--40">
                   <div className="flex1">
                     <div className="FormLabel u-marginBottom--5"> Install airgap bundle </div>
-                    <span className="u-fontSize--small u-fontWeight--normal u-color--dustyGray u-lineHeight--normal u-marginBottom--more"> After copying the archive to your host, untar it and run the install script. </span>
+                    <span className="u-fontSize--small u-fontWeight--normal u-color--scorpion u-lineHeight--normal u-marginBottom--more"> After copying the archive to your host, untar it and run the install script. </span>
                   </div>
                   <div className="flex flex-column u-marginTop--normal">
                     <CodeSnippet
@@ -115,7 +115,7 @@ cat install.sh | sudo bash -s airgap
                 </div>
               </div>
               <div className="flex1">
-                <span className="u-fontSize--small u-fontWeight--medium u-color--dustyGray u-lineHeight--normal u-marginTop--small">Need more help? <a href="https://kurl.sh/docs/install-with-kurl/#airgapped-usage" target="_blank" rel="noopener noreferrer" className="replicated-link">Check out our docs.</a> </span>
+                <span className="u-fontSize--small u-fontWeight--medium u-color--scorpion u-lineHeight--normal u-marginTop--small">Need more help? <a href="https://kurl.sh/docs/install-with-kurl/#airgapped-usage" target="_blank" rel="noopener noreferrer" className="replicated-link">Check out our docs.</a> </span>
               </div>
               <div className="flex justifyContent--center u-marginTop--30">
                 <Link to="/" className="Button secondary"> Back to install URL builder </Link>
