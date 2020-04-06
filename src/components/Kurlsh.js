@@ -134,7 +134,7 @@ class Kurlsh extends React.Component {
     } = this.state;
 
     const generatedInstaller = {
-      apiVersion: `${process.env.API_URL}/v1beta1`,
+      apiVersion: `${process.env.CLUSTER_API_URL}/v1beta1`,
       kind: "Installer",
       metadata: {
         name: ""
