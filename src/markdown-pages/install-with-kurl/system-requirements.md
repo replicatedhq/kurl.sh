@@ -18,5 +18,5 @@ title: "System Requirements"
 * 4 CPUs or equivalent per machine
 * 8 GB of RAM per machine
 * 30 GB of Disk Space per machine
-* TCP ports 6443 and 6783 open
-* UDP ports 6783 and 6784 open
+* TCP ports 6443 and 6783 open between cluster nodes
+* UDP ports 6783 and 6784 open between cluster nodes
