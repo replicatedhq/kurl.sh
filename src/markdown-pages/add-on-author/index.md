@@ -57,7 +57,7 @@ The [`insert_patches_strategic_merge`](https://github.com/replicatedhq/kurl/blob
 insert_patches_strategic_merge "$DIR/kustomize/weave/kustomization.yaml" ip-alloc-range.yaml
 ```
 
-The [`render_yaml_file`](https://github.com/replicatedhq/kurl/blob/5e6c9549ad6410df1f385444b83eabaf42a7e244/scripts/common/yaml.sh#L18) function can be used to substitute env vars in a yaml file at runtime:
+The [`render_yaml_file`](https://github.com/replicatedhq/kurl/blob/5e6c9549ad6410df1f385444b83eabaf42a7e244/scripts/common/yaml.sh#L14) function can be used to substitute env vars in a yaml file at runtime:
 ```
 render_yaml_file "$DIR/addons/weave/2.5.2/tmpl-secret.yaml" > "$DIR/kustomize/weave/secret.yaml"
 ```
