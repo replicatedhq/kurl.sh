@@ -4,34 +4,16 @@ import { Link } from "@reach/router";
 import ReactTooltip from "react-tooltip";
 import json2yaml from "json2yaml";
 import Select from "react-select";
+import isEmpty from "lodash/isEmpty";
+import find from "lodash/find";
+
 import CodeSnippet from "./shared/CodeSnippet";
 import Loader from "./shared/Loader";
 import OptionWrapper from "./shared/OptionWrapper";
 
 import("../scss/components/Kurlsh.scss");
 
-const OPTION_DEFAULTS = {
-  kubernetes: {
-    serviceCIDR: "10.96.0.0/12"
-  },
-  weave: {
-    IPAllocRange: "10.32.0.0/12",
-    encryptNetwork: true
-  },
-  rook: {
-    storageClass: "default",
-    cephPoolReplicas: 3
-  },
-  docker: {
-    bypassStorageDriverWarnings: false,
-    hardFailOnLoopback: false,
-    noCEOnEE: false
-  },
-  kotsadm: {
-    applicationSlug: "Application Slug",
-    uiBindPort: 8800
-  }
-};
+const versionAddOns = ["kubernetes", "weave", "rook", "registry", "docker", "kotsadm"];
 function versionToState(version) {
   return {
     version
@@ -93,41 +75,46 @@ class Kurlsh extends React.Component {
         "weave": false,
         "contour": false,
         "rook": false,
+        "registry": false,
         "docker": false,
         "kotsadm": false
       },
       advancedOptions: {
-        kubernetes: {
-          ...OPTION_DEFAULTS.kubernetes
-        },
-        weave: {
-          ...OPTION_DEFAULTS.weave
-        },
-        // contour: {
-        // contour has no advanced options
-        // },
-        rook: {
-          ...OPTION_DEFAULTS.rook
-        },
-        docker: {
-          ...OPTION_DEFAULTS.docker
-        },
-        // registry: {
-        // Registry has no advanced options
-        // },
-        // prometheus: {
-        // Prometheus has no advanced options
-        // },
-        kotsadm: {
-          ...OPTION_DEFAULTS.kotsadm
-        }
+        kubernetes: {},
+        weave: {},
+        rook: {},
+        registry: {},
+        docker: {},
+        kotsadm: {}
       },
-      isLoading: false
+      isLoading: false,
+      optionDefaults: {},
+      installerErr: false,
+      installerErrMsg: ""
     };
   }
 
+  helperToGenerateOptionsForYaml = (newObj) => {
+    let result = {};
+    for (let i = 0; i < Object.keys(newObj).length; ++i) {
+      const obj = Object.keys(newObj)[i];
+      if (newObj[obj].isChecked) {
+        result[obj] = newObj[obj].inputValue
+      }
+    }
+    return result;
+  }
 
-  getYaml = () => {
+  generateAdvancedOptionsForYaml = (advancedOptions) => {
+    let result = {};
+    for (let i = 0; i < Object.keys(advancedOptions).length; ++i) {
+      const objX = Object.keys(advancedOptions)[i];
+      result[objX] = this.helperToGenerateOptionsForYaml(advancedOptions[objX])
+    }
+    return result;
+  }
+
+  getYaml = (sha) => {
     const {
       selectedVersions,
       advancedOptions
@@ -137,7 +124,7 @@ class Kurlsh extends React.Component {
       apiVersion: `${process.env.CLUSTER_API_URL}/v1beta1`,
       kind: "Installer",
       metadata: {
-        name: ""
+        name: sha
       },
       spec: {
         kubernetes: {
@@ -156,9 +143,12 @@ class Kurlsh extends React.Component {
 
       return diff;
     }
+    const { optionDefaults } = this.state;
 
-    if (advancedOptions.kubernetes) {
-      const diff = getDiff(OPTION_DEFAULTS.kubernetes, advancedOptions.kubernetes);
+    const options = this.generateAdvancedOptionsForYaml(advancedOptions);
+
+    if (options.kubernetes) {
+      const diff = getDiff(optionDefaults["kubernetes"], options.kubernetes);
 
       if (Object.keys(diff).length) {
         generatedInstaller.spec.kubernetes = {
@@ -169,7 +159,7 @@ class Kurlsh extends React.Component {
     }
 
     if (selectedVersions.weave.version !== "None") {
-      const diff = getDiff(OPTION_DEFAULTS.weave, advancedOptions.weave);
+      const diff = getDiff(optionDefaults["weave"], options.weave);
       generatedInstaller.spec.weave = {
         version: selectedVersions.weave.version
       };
@@ -183,7 +173,7 @@ class Kurlsh extends React.Component {
     }
 
     if (selectedVersions.rook.version !== "None") {
-      const diff = getDiff(OPTION_DEFAULTS.rook, advancedOptions.rook);
+      const diff = getDiff(optionDefaults["rook"], options.rook);
       generatedInstaller.spec.rook = {
         version: selectedVersions.rook.version
       };
@@ -205,7 +195,7 @@ class Kurlsh extends React.Component {
     }
 
     if (selectedVersions.docker.version !== "None") {
-      const diff = getDiff(OPTION_DEFAULTS.docker, advancedOptions.docker);
+      const diff = getDiff(optionDefaults["docker"], options.docker);
       generatedInstaller.spec.docker = {
         version: selectedVersions.docker.version
       };
@@ -225,13 +215,21 @@ class Kurlsh extends React.Component {
     }
 
     if (selectedVersions.registry.version !== "None") {
+      const diff = getDiff(optionDefaults["kotsadm"], options.registry);
       generatedInstaller.spec.registry = {
         version: selectedVersions.registry.version
       };
+
+      if (Object.keys(diff).length) {
+        generatedInstaller.spec.registry = {
+          ...generatedInstaller.spec.registry,
+          ...diff
+        };
+      }
     }
 
     if (selectedVersions.kotsadm.version !== "None") {
-      const diff = getDiff(OPTION_DEFAULTS.kotsadm, advancedOptions.kotsadm);
+      const diff = getDiff(optionDefaults["kotsadm"], options.kotsadm);
       generatedInstaller.spec.kotsadm = {
         version: selectedVersions.kotsadm.version
       };
@@ -249,7 +247,7 @@ class Kurlsh extends React.Component {
 
   onVersionChange = name => value => {
     this.setState({ selectedVersions: { ...this.state.selectedVersions, [name]: value } }, () => {
-      this.postToKurlInstaller(this.getYaml());
+      this.postToKurlInstaller(this.getYaml(this.state.installerSha));
     })
   }
 
@@ -262,6 +260,10 @@ class Kurlsh extends React.Component {
   }
 
   postToKurlInstaller = async (yaml) => {
+    this.setState({
+      installerErr: false,
+      installerErrMsg: ""
+    })
     const url = `${process.env.KURL_INSTALLER_URL}`
     try {
       const response = await fetch(url, {
@@ -276,32 +278,51 @@ class Kurlsh extends React.Component {
         const splittedRes = res.split("/");
         const installerSha = splittedRes[splittedRes.length - 1];
         this.setState({ installerSha });
+      } else {
+        const body = await response.json();
+        this.setState({
+          installerErr: true,
+          installerErrMsg: body.error.message
+        })
       }
     } catch (err) {
-      console.log(err)
+      this.setState({
+        installerErr: true,
+        installerErrMsg: err
+      })
     }
   }
 
   onToggleShowAdvancedOptions = (addOn) => {
-    this.setState({ showAdvancedOptions: { ...this.state.showAdvancedOptions, [addOn]: !this.state.showAdvancedOptions[addOn] } })
+    this.setState({
+      showAdvancedOptions: { ...this.state.showAdvancedOptions, [addOn]: !this.state.showAdvancedOptions[addOn] }
+    })
   }
 
-  handleOptionChange = (path, currentTarget) => {
-    let value = currentTarget.value;
+  handleOptionChange = (path, currentTarget, type) => {
+    let addOnData = {}
     let elementToFocus;
     const [field, key] = path.split('.');
-    if (currentTarget.type === "checkbox") {
-      value = currentTarget.checked;
-      if (value && currentTarget.dataset.focusId) {
-        elementToFocus = currentTarget.dataset.focusId;
-        value = "";
-      } else if (currentTarget.dataset.focusId) {
-        value = OPTION_DEFAULTS[field][key];
-      }
-    }
 
-    if (currentTarget.type === "number") {
-      value = parseInt(value, 10) || 0;
+    if (currentTarget.type === "checkbox") {
+      if (type === "boolean") {
+        addOnData = {
+          inputValue: currentTarget.checked ? true : false,
+          isChecked: currentTarget.checked
+        }
+      } else {
+        addOnData = {
+          isChecked: currentTarget.checked,
+        }
+      }
+    } else if (currentTarget.type === "number") {
+      addOnData = {
+        inputValue: parseInt(currentTarget.value, 10) || 0
+      }
+    } else {
+      addOnData = {
+        inputValue: currentTarget.value
+      }
     }
 
     this.setState({
@@ -309,7 +330,11 @@ class Kurlsh extends React.Component {
         ...this.state.advancedOptions,
         [field]: {
           ...this.state.advancedOptions[field],
-          [key]: value
+          [key]: Object.assign(
+            {},
+            this.state.advancedOptions[field][key] ? this.state.advancedOptions[field][key] : { inputValue: "", isChecked: false },
+            addOnData
+          )
         }
       }
     }, () => {
@@ -317,8 +342,10 @@ class Kurlsh extends React.Component {
         const el = document.getElementById(elementToFocus);
         el.focus();
       }
-      window.monacoEditor.setValue(this.getYaml());
-      this.postToKurlInstaller(this.getYaml());
+      if (this.state.installerSha) {
+        window.monacoEditor.setValue(this.getYaml(this.state.installerSha));
+        this.postToKurlInstaller(this.getYaml(this.state.installerSha));
+      }
     });
   }
 
@@ -326,7 +353,7 @@ class Kurlsh extends React.Component {
   renderMonacoEditor = () => {
     import("monaco-editor").then(monaco => {
       window.monacoEditor = monaco.editor.create(document.getElementById("monaco"), {
-        value: this.getYaml(),
+        value: this.getYaml(this.state.installerSha),
         language: "yaml",
         readOnly: true,
         minimap: {
@@ -345,357 +372,110 @@ class Kurlsh extends React.Component {
     }, () => {
       this.renderMonacoEditor();
     });
+
+    versionAddOns.forEach(version => {
+      this.getOptionDefaults(version);
+    })
   }
 
   componentDidUpdate(lastProps, lastState) {
     if (typeof window !== "undefined") {
-      if (this.state.selectedVersions !== lastState.selectedVersions) {
-        window.monacoEditor.setValue(this.getYaml());
+      if (this.state.selectedVersions !== lastState.selectedVersions && this.state.installerSha) {
+        window.monacoEditor.setValue(this.getYaml(this.state.installerSha));
       }
+    }
+    if (this.state.installerSha !== lastState.installerSha && this.state.installerSha) {
+      window.monacoEditor.setValue(this.getYaml(this.state.installerSha));
     }
   }
 
+  getOptionDefaults = async (addOn) => {
+    const url = `${process.env.INTERNAL_ADD_ON_URL}/${addOn}`
+    try {
+      const resp = await fetch(url);
+      const optionDefaults = await resp.json();
+      this.setState({
+        optionDefaults: {
+          ...this.state.optionDefaults,
+          [addOn]: optionDefaults
+        }
+      });
+    } catch (error) {
+      throw error;
+    }
+  }
+
+
   renderAdvancedOptions = addOn => {
-    const { advancedOptions } = this.state;
+    const { advancedOptions, optionDefaults, installerErr, installerErrMsg } = this.state;
+    let addOnData = {};
+    if (!isEmpty(optionDefaults)) {
+      addOnData = optionDefaults[addOn];
 
-    switch (addOn) {
-      case "kubernetes": {
-        return (
-          <OptionWrapper>
-            <div className="flex flex1 alignItems--center">
-              <div className="flex">
-                <input
-                  type="checkbox"
-                  name="serviceCIDR"
-                  id="kubernetes_serviceCIDR"
-                  data-focus-id="kubernetes_serviceCIDR"
-                  onChange={e => this.handleOptionChange("kubernetes.serviceCIDR", e.currentTarget)}
-                  value={advancedOptions.kubernetes.serviceCIDR !== OPTION_DEFAULTS.kubernetes.serviceCIDR}
-                />
-                <label
-                  className="flex1 u-width--full u-position--relative u-marginLeft--small u-cursor--pointer"
-                  htmlFor="kubernetes_serviceCIDR">
-                  <span className="flex u-fontWeight--medium u-color--tuna u-fontSize--small u-lineHeight--normal alignSelf--center alignItems--center">
-                    Service CIDR
-                </span>
-                </label>
-                <ReactTooltip id="tt_kubernetes_serviceCIDR">
-                  Set ServiceCIDR here
-              </ReactTooltip>
-                <span data-tip data-for="tt_kubernetes_serviceCIDR" className="icon clickable u-questionMarkCircle u-marginLeft--normal u-marginRight--normal"></span>
-              </div>
-              <div>
-                <input
-                  id="kubernetes_serviceCIDR"
-                  className="flex2"
-                  type="text"
-                  onChange={e => this.handleOptionChange("kubernetes.serviceCIDR", e.currentTarget)}
-                  placeholder={OPTION_DEFAULTS.kubernetes.serviceCIDR}
-                  disabled={advancedOptions.kubernetes.serviceCIDR === OPTION_DEFAULTS.kubernetes.serviceCIDR}
-                  value={advancedOptions.kubernetes.serviceCIDR}
-                />
-              </div>
-            </div>
-          </OptionWrapper>
-        );
-      }
-      case "weave": {
-        return (
-          <OptionWrapper>
-            <div className="flex-column">
-              <div className="flex flex1 alignItems--center">
-                <div className="flex">
-                  <input
-                    type="checkbox"
-                    name="IPAllocRange"
-                    id="weave_IPAllocRange"
-                    data-focus-id="weave_IPAllocRange"
-                    onChange={e => this.handleOptionChange("weave.IPAllocRange", e.currentTarget)}
-                    checked={advancedOptions.weave.IPAllocRange !== OPTION_DEFAULTS.weave.IPAllocRange}
-                  />
-                  <label
-                    className="flex1 u-width--full u-position--relative u-marginLeft--small u-cursor--pointer"
-                    htmlFor="weave_IPAllocRange">
-                    <span className="flex u-fontWeight--medium u-color--tuna u-fontSize--small u-lineHeight--normal alignSelf--center alignItems--center">
-                      IP Allocation Range
-                  </span>
-                  </label>
-                  <ReactTooltip id="tt_weave_IPAllocRange">
-                    IP Allocation Range for Weave
-                </ReactTooltip>
-                  <span data-tip data-for="tt_weave_IPAllocRange" className="icon clickable u-questionMarkCircle u-marginLeft--normal u-marginRight--normal"></span>
-                </div>
-                <div>
-                  <input
-                    id="weave_IPAllocRange"
-                    className="flex2"
-                    type="text"
-                    onChange={e => this.handleOptionChange("weave.IPAllocRange", e.currentTarget)}
-                    placeholder={OPTION_DEFAULTS.weave.IPAllocRange}
-                    disabled={advancedOptions.weave.IPAllocRange === OPTION_DEFAULTS.weave.IPAllocRange}
-                    value={advancedOptions.weave.IPAllocRange}
-                  />
-                </div>
-              </div>
-              <div className="flex u-marginTop--15">
-                <div className="flex">
-                  <input
-                    type="checkbox"
-                    name="encryptNetwork"
-                    id="weave_encryptNetwork"
-                    onChange={e => this.handleOptionChange("weave.encryptNetwork", e.currentTarget)}
-                    checked={advancedOptions.weave.encryptNetwork}
-                  />
-                  <label
-                    className="flex1 u-width--full u-position--relative u-marginLeft--small u-cursor--pointer"
-                    htmlFor="weave_encryptNetwork">
-                    <span className="flex u-fontWeight--medium u-color--tuna u-fontSize--small u-lineHeight--normal alignSelf--center alignItems--center">
-                      Encrypt Network
-                    <span data-tip data-for="tt_weave_encryptNetwork" className="icon clickable u-questionMarkCircle u-marginLeft--normal"></span>
-                    </span>
-                    <ReactTooltip id="tt_weave_encryptNetwork">
-                      Encrypt Network
-                  </ReactTooltip>
-                  </label>
-                </div>
-              </div>
-            </div>
-          </OptionWrapper>
-        );
-      }
+      return (
+        <OptionWrapper>
+          {Object.keys(addOnData).filter(flag => flag !== "version").map((flag, i) => {
+            const option = addOnData[flag];
+            const currentOption = find(advancedOptions[addOn], (key, value) => value === flag);
+            const doesCurrentErrExist = installerErr ? installerErrMsg.includes(flag) : false;
 
-      case "rook": {
-        return (
-          <OptionWrapper>
-            <div className="flex-column">
-              <div className="flex flex1 alignItems--center">
-                <div className="flex">
-                  <input
-                    type="checkbox"
-                    name="IPAllocRange"
-                    id="rook_storageClass"
-                    data-focus-id="rook_storageClass"
-                    onChange={e => this.handleOptionChange("rook.storageClass", e.currentTarget)}
-                    checked={advancedOptions.rook.storageClass !== OPTION_DEFAULTS.rook.storageClass}
-                  />
-                  <label
-                    className="flex1 u-width--full u-position--relative u-marginLeft--small u-cursor--pointer"
-                    htmlFor="rook_storageClass">
-                    <span className="flex u-fontWeight--medium u-color--tuna u-fontSize--small u-lineHeight--normal alignSelf--center alignItems--center">
-                      Storage Class
-                  </span>
-                  </label>
-                  <span data-tip data-for="tt_rook_storageClass" className="flex-auto icon clickable u-questionMarkCircle u-marginLeft--normal u-marginRight--normal"></span>
-                  <ReactTooltip id="tt_rook_storageClass">
-                    Name of storage volume
-                </ReactTooltip>
+            return (
+              <div className="OptionItem flex-column" key={`${flag}-${i}`}>
+                <div className="flex flex1 alignItems--center">
+                  <div className="flex">
+                    {option.type !== "boolean" ?
+                      <input
+                        type="checkbox"
+                        name={flag}
+                        id={`${addOn}_${flag}`}
+                        data-focus-id={`${addOn}_${flag}`}
+                        onChange={e => this.handleOptionChange(`${addOn}.${flag}`, e.currentTarget, option.type)}
+                        checked={currentOption ? currentOption.isChecked : false}
+                      />
+                      :
+                      <input
+                        type="checkbox"
+                        name={flag}
+                        id={`${addOn}_${flag}`}
+                        data-focus-id={`${addOn}_${flag}`}
+                        onChange={e => this.handleOptionChange(`${addOn}.${flag}`, e.currentTarget, option.type)}
+                        value={currentOption && currentOption.inputValue}
+                      />
+                    }
+                    <label
+                      className="flex1 u-width--full u-position--relative u-marginLeft--small u-cursor--pointer"
+                      htmlFor={`${addOn}_${flag}`}>
+                      <span className="flex u-fontWeight--medium u-color--tuna u-fontSize--small u-lineHeight--normal alignSelf--center alignItems--center">
+                        {flag !== "version" && flag}
+                      </span>
+                    </label>
+                    <ReactTooltip id={`tt_${addOn}_${flag}`}>
+                      {option.description}
+                    </ReactTooltip>
+                    <span data-tip data-for={`tt_${addOn}_${flag}`} className="icon clickable u-questionMarkCircle u-marginLeft--normal u-marginRight--normal"></span>
+                  </div>
+                  {option.type === "string" || option.type === "number" ?
+                    <div>
+                      <input
+                        id={`${addOn}_${flag}`}
+                        className="flex2"
+                        type={option.type === "string" ? "text" : "number"}
+                        onChange={e => this.handleOptionChange(`${addOn}.${flag}`, e.currentTarget, option.type)}
+                        disabled={!currentOption || (currentOption && !currentOption.isChecked)}
+                        value={currentOption ? currentOption.inputValue : ""}
+                      />
+                    </div>
+                    : null
+                  }
                 </div>
-                <div className="flex">
-                  <input
-                    id="rook_storageClass"
-                    className="flex2"
-                    type="text"
-                    onChange={e => this.handleOptionChange("rook.storageClass", e.currentTarget)}
-                    placeholder={OPTION_DEFAULTS.rook.storageClass}
-                    disabled={advancedOptions.rook.storageClass === OPTION_DEFAULTS.rook.storageClass}
-                    value={advancedOptions.rook.storageClass}
-                  />
-                </div>
+                {doesCurrentErrExist ?
+                  <p className="u-color--chestnut u-fontSize--normal u-fontWeight--medium u-lineHeight--normal u-marginTop--10">{installerErrMsg}</p>
+                  : null}
               </div>
-              <div className="flex alignItems--center u-marginTop--15">
-                <div className="flex">
-                  <input
-                    type="checkbox"
-                    name="cephPoolReplicas"
-                    id="rook_cephPoolReplicas"
-                    data-focus-id="rook_cephPoolReplicas"
-                    onChange={e => this.handleOptionChange("rook.cephPoolReplicas", e.currentTarget)}
-                    checked={advancedOptions.rook.cephPoolReplicas !== OPTION_DEFAULTS.rook.cephPoolReplicas}
-                  />
-                  <label
-                    className="flex1 u-width--full u-position--relative u-marginLeft--small u-cursor--pointer"
-                    htmlFor="rook_cephPoolReplicas">
-                    <span className="flex u-fontWeight--medium u-color--tuna u-fontSize--small u-lineHeight--normal alignSelf--center alignItems--center">
-                      Ceph Pool Replicas
-                  </span>
-                  </label>
-                  <ReactTooltip id="tt_rook_cephPoolReplicas">
-                    Minimum Ceph Pool replicas
-                </ReactTooltip>
-                  <span data-tip data-for="tt_rook_cephPoolReplicas" className="flex-auto icon clickable u-questionMarkCircle u-marginLeft--normal u-marginRight--normal"></span>
-                </div>
-                <div className="flex">
-                  <input
-                    id="rook_cephPoolReplicas"
-                    className="flex2"
-                    type="number"
-                    onChange={e => this.handleOptionChange("rook.cephPoolReplicas", e.currentTarget)}
-                    placeholder={OPTION_DEFAULTS.rook.cephPoolReplicas}
-                    disabled={advancedOptions.rook.cephPoolReplicas === OPTION_DEFAULTS.rook.cephPoolReplicas}
-                    value={advancedOptions.rook.cephPoolReplicas}
-                  />
-                </div>
-              </div>
-            </div>
-          </OptionWrapper>
-        );
-
-      }
-
-      case "docker": {
-        return (
-          <OptionWrapper>
-            <div className="flex-column">
-              <div className="flex alignItems--center">
-                <input
-                  type="checkbox"
-                  name="bypassStorageDriverWarnings"
-                  id="docker_bypassStorageDriverWarnings"
-                  onChange={e => this.handleOptionChange("docker.bypassStorageDriverWarnings", e.currentTarget)}
-                  checked={advancedOptions.docker.bypassStorageDriverWarnings !== OPTION_DEFAULTS.docker.bypassStorageDriverWarnings}
-                />
-                <label
-                  className="flex1 u-width--full u-position--relative u-marginLeft--small u-cursor--pointer"
-                  htmlFor="docker_bypassStorageDriverWarnings">
-                  <span className="flex u-fontWeight--medium u-color--tuna u-fontSize--small u-lineHeight--normal alignSelf--center alignItems--center">
-                    Bypass Storage Driver Warnings
-                    <span data-tip data-for="tt_docker_bypassStorageDriverWarnings" className="icon clickable u-questionMarkCircle u-marginLeft--normal"></span>
-                  </span>
-                  <ReactTooltip id="tt_docker_bypassStorageDriverWarnings">
-                    Bypass Storage Driver Warnings
-                  </ReactTooltip>
-                </label>
-              </div>
-              <div className="flex u-marginTop--15">
-                <input
-                  type="checkbox"
-                  name="hardFailOnLoopback"
-                  id="docker_hardFailOnLoopback"
-                  onChange={e => this.handleOptionChange("docker.hardFailOnLoopback", e.currentTarget)}
-                  checked={advancedOptions.docker.hardFailOnLoopback}
-                />
-                <label
-                  className="flex1 u-width--full u-position--relative u-marginLeft--small u-cursor--pointer"
-                  htmlFor="docker_hardFailOnLoopback">
-                  <span className="flex u-fontWeight--medium u-color--tuna u-fontSize--small u-lineHeight--normal alignSelf--center alignItems--center">
-                    Hard Fail on Loopback
-                    <span data-tip data-for="tt_docker_hardFailOnLoopback" className="icon clickable u-questionMarkCircle u-marginLeft--normal"></span>
-                  </span>
-                  <ReactTooltip id="tt_docker_hardFailOnLoopback">
-                    Hard Fail on Loopback
-                  </ReactTooltip>
-                </label>
-              </div>
-              <div className="flex u-marginTop--15">
-                <input
-                  type="checkbox"
-                  name="noCEOnEE"
-                  id="docker_noCEOnEE"
-                  onChange={e => this.handleOptionChange("docker.noCEOnEE", e.currentTarget)}
-                  checked={advancedOptions.docker.noCEOnEE}
-                />
-                <label
-                  className="flex1 u-width--full u-position--relative u-marginLeft--small u-cursor--pointer"
-                  htmlFor="docker_noCEOnEE">
-                  <span className="flex u-fontWeight--medium u-color--tuna u-fontSize--small u-lineHeight--normal alignSelf--center alignItems--center">
-                    no CEOnEE
-                    <span data-tip data-for="tt_docker_noCEOnEE" className="icon clickable u-questionMarkCircle u-marginLeft--normal"></span>
-                  </span>
-                  <ReactTooltip id="tt_docker_noCEOnEE">
-                    no CEOnEE
-                  </ReactTooltip>
-                </label>
-              </div>
-            </div>
-          </OptionWrapper>
-        );
-      }
-
-      case "prometheus": {
-        // no advanced options for Prometheus!
-        return null;
-      }
-
-      case "kotsadm": {
-        return (
-          <OptionWrapper>
-            <div className="flex-column">
-              <div className="flex flex1 alignItems--center">
-                <div className="flex">
-                  <input
-                    type="checkbox"
-                    name="applicationSlug"
-                    id="kotsadm_applicationSlug"
-                    data-focus-id="kotsadm_applicationSlug"
-                    onChange={e => this.handleOptionChange("kotsadm.applicationSlug", e.currentTarget)}
-                    value={advancedOptions.kotsadm.applicationSlug !== OPTION_DEFAULTS.kotsadm.applicationSlug}
-                  />
-                  <label
-                    className="flex1 u-width--full u-position--relative u-marginLeft--small u-cursor--pointer"
-                    htmlFor="kotsadm_applicationSlug">
-                    <span className="flex u-fontWeight--medium u-color--tuna u-fontSize--small u-lineHeight--normal alignSelf--center alignItems--center">
-                      Application Slug
-                  </span>
-                  </label>
-                  <ReactTooltip id="tt_kotsadm_applicationSlug">
-                    What slug prefix would you like?
-                </ReactTooltip>
-                  <span data-tip data-for="tt_kotsadm_applicationSlug" className="icon clickable u-questionMarkCircle u-marginLeft--normal u-marginRight--normal"></span>
-                </div>
-                <div className="flex">
-                  <input
-                    id="kotsadm_applicationSlug"
-                    className="flex2"
-                    type="text"
-                    onChange={e => this.handleOptionChange("kotsadm.applicationSlug", e.currentTarget)}
-                    placeholder={OPTION_DEFAULTS.kotsadm.applicationSlug}
-                    disabled={advancedOptions.kotsadm.applicationSlug === OPTION_DEFAULTS.kotsadm.applicationSlug}
-                    value={advancedOptions.kotsadm.applicationSlug}
-                  />
-                </div>
-              </div>
-              <div className="flex alignItems--center u-marginTop--15">
-                <div className="flex">
-                  <input
-                    type="checkbox"
-                    name="uiBindPort"
-                    id="kotsadm_uiBindPort"
-                    data-focus-id="kotsadm_uiBindPort"
-                    onChange={e => this.handleOptionChange("kotsadm.uiBindPort", e.currentTarget)}
-                    value={advancedOptions.kotsadm.uiBindPort !== OPTION_DEFAULTS.kotsadm.uiBindPort}
-                  />
-                  <label
-                    className="flex1 u-width--full u-position--relative u-marginLeft--small u-cursor--pointer"
-                    htmlFor="kotsadm_uiBindPort">
-                    <span className="flex u-fontWeight--medium u-color--tuna u-fontSize--small u-lineHeight--normal alignSelf--center alignItems--center">
-                      UI Bind Port
-                  </span>
-                  </label>
-                  <ReactTooltip id="tt_kotsadm_uiBindPort">
-                    What port would you like Kotsadm to be visible on?
-                </ReactTooltip>
-                  <span data-tip data-for="tt_kotsadm_uiBindPort" className="icon clickable u-questionMarkCircle u-marginLeft--normal u-marginRight--normal"></span>
-                </div>
-                <div className="flex">
-                  <input
-                    id="kotsadm_uiBindPort"
-                    className="flex2"
-                    type="text"
-                    onChange={e => this.handleOptionChange("kotsadm.uiBindPort", e.currentTarget)}
-                    placeholder={OPTION_DEFAULTS.kotsadm.uiBindPort}
-                    disabled={this.state.advancedOptions.kotsadm.uiBindPort === OPTION_DEFAULTS.kotsadm.uiBindPort}
-                    value={this.state.advancedOptions.kotsadm.uiBindPort}
-                  />
-                </div>
-              </div>
-            </div>
-          </OptionWrapper>
-        );
-      }
-
-      default: {
-        return null;
-      }
+            )
+          })}
+        </OptionWrapper>
+      );
     }
   }
 
@@ -897,6 +677,10 @@ class Kurlsh extends React.Component {
                       </div>
                     </div>
                   </div>
+                  <div className="flex u-fontSize--small u-color--royalBlue u-marginTop--small u-cursor--pointer" onClick={() => this.onToggleShowAdvancedOptions("registry")}>
+                    {showAdvancedOptions["registry"] ? "Hide advanced options" : "Show advanced options"}
+                  </div>
+                  {showAdvancedOptions["registry"] && this.renderAdvancedOptions("registry")}
                 </div>
               </div>
               <div className="flex u-marginTop--30">
