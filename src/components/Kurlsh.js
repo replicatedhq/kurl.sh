@@ -112,8 +112,7 @@ class Kurlsh extends React.Component {
     return result;
   }
 
-
-  getYaml = () => {
+  getYaml = (sha) => {
     const {
       selectedVersions,
       advancedOptions
@@ -123,7 +122,7 @@ class Kurlsh extends React.Component {
       apiVersion: `${process.env.CLUSTER_API_URL}/v1beta1`,
       kind: "Installer",
       metadata: {
-        name: ""
+        name: sha
       },
       spec: {
         kubernetes: {
@@ -246,7 +245,7 @@ class Kurlsh extends React.Component {
 
   onVersionChange = name => value => {
     this.setState({ selectedVersions: { ...this.state.selectedVersions, [name]: value } }, () => {
-      this.postToKurlInstaller(this.getYaml());
+      this.postToKurlInstaller(this.getYaml(this.state.installerSha));
     })
   }
 
@@ -330,8 +329,10 @@ class Kurlsh extends React.Component {
         const el = document.getElementById(elementToFocus);
         el.focus();
       }
-      window.monacoEditor.setValue(this.getYaml());
-      this.postToKurlInstaller(this.getYaml());
+      if (this.state.installerSha) {
+        window.monacoEditor.setValue(this.getYaml(this.state.installerSha));
+        this.postToKurlInstaller(this.getYaml(this.state.installerSha));
+      }
     });
   }
 
@@ -339,7 +340,7 @@ class Kurlsh extends React.Component {
   renderMonacoEditor = () => {
     import("monaco-editor").then(monaco => {
       window.monacoEditor = monaco.editor.create(document.getElementById("monaco"), {
-        value: this.getYaml(),
+        value: this.getYaml(this.state.installerSha),
         language: "yaml",
         readOnly: true,
         minimap: {
@@ -366,9 +367,12 @@ class Kurlsh extends React.Component {
 
   componentDidUpdate(lastProps, lastState) {
     if (typeof window !== "undefined") {
-      if (this.state.selectedVersions !== lastState.selectedVersions) {
-        window.monacoEditor.setValue(this.getYaml());
+      if (this.state.selectedVersions !== lastState.selectedVersions && this.state.installerSha) {
+        window.monacoEditor.setValue(this.getYaml(this.state.installerSha));
       }
+    }
+    if(this.state.installerSha !== lastState.installerSha && this.state.installerSha) {
+      window.monacoEditor.setValue(this.getYaml(this.state.installerSha));
     }
   }
 
