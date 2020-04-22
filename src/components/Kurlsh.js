@@ -88,7 +88,9 @@ class Kurlsh extends React.Component {
         kotsadm: {}
       },
       isLoading: false,
-      optionDefaults: {}
+      optionDefaults: {},
+      installerErr: false,
+      installerErrMsg: ""
     };
   }
 
@@ -258,6 +260,10 @@ class Kurlsh extends React.Component {
   }
 
   postToKurlInstaller = async (yaml) => {
+    this.setState({
+      installerErr: false,
+      installerErrMsg: ""
+    })
     const url = `${process.env.KURL_INSTALLER_URL}`
     try {
       const response = await fetch(url, {
@@ -272,9 +278,18 @@ class Kurlsh extends React.Component {
         const splittedRes = res.split("/");
         const installerSha = splittedRes[splittedRes.length - 1];
         this.setState({ installerSha });
+      } else {
+        const body = await response.json();
+        this.setState({
+          installerErr: true,
+          installerErrMsg: body.error.message
+        })
       }
     } catch (err) {
-      console.log(err)
+      this.setState({
+        installerErr: true,
+        installerErrMsg: err
+      })
     }
   }
 
@@ -309,8 +324,6 @@ class Kurlsh extends React.Component {
         inputValue: currentTarget.value
       }
     }
-
-
 
     this.setState({
       advancedOptions: {
@@ -371,7 +384,7 @@ class Kurlsh extends React.Component {
         window.monacoEditor.setValue(this.getYaml(this.state.installerSha));
       }
     }
-    if(this.state.installerSha !== lastState.installerSha && this.state.installerSha) {
+    if (this.state.installerSha !== lastState.installerSha && this.state.installerSha) {
       window.monacoEditor.setValue(this.getYaml(this.state.installerSha));
     }
   }
@@ -394,7 +407,7 @@ class Kurlsh extends React.Component {
 
 
   renderAdvancedOptions = addOn => {
-    const { advancedOptions, optionDefaults } = this.state;
+    const { advancedOptions, optionDefaults, installerErr, installerErrMsg } = this.state;
     let addOnData = {};
     if (!isEmpty(optionDefaults)) {
       addOnData = optionDefaults[addOn];
@@ -404,6 +417,7 @@ class Kurlsh extends React.Component {
           {Object.keys(addOnData).filter(flag => flag !== "version").map((flag, i) => {
             const option = addOnData[flag];
             const currentOption = find(advancedOptions[addOn], (key, value) => value === flag);
+            const doesCurrentErrExist = installerErr ? installerErrMsg.includes(flag) : false;
 
             return (
               <div className="OptionItem flex-column" key={`${flag}-${i}`}>
@@ -454,6 +468,9 @@ class Kurlsh extends React.Component {
                     : null
                   }
                 </div>
+                {doesCurrentErrExist ?
+                  <p className="u-color--chestnut u-fontSize--normal u-fontWeight--medium u-lineHeight--normal u-marginTop--10">{installerErrMsg}</p>
+                  : null}
               </div>
             )
           })}
