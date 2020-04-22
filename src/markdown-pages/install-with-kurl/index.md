@@ -42,7 +42,7 @@ cat install.sh | sudo bash -s ha
 ## Latest
 `latest` is a specific distro that is managed by the team at Replicated. This installer provides the most recent version of several add-ons and the most recent version of Kubernetes that kURL supports. Currently the spec for `latest` is:  
 ```yaml
-  apiVersion: "kurl.sh/v1beta1"
+  apiVersion: "cluster.kurl.sh/v1beta1"
   kind: "Installer"
   metadata:
     name: ""
