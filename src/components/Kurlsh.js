@@ -45,6 +45,9 @@ class Kurlsh extends React.Component {
     const registryVersions = installerData.registry.map(versionToState);
     registryVersions.push({ version: "None" });
 
+    const veleroVersions = installerData.velero.map(versionToState);
+    veleroVersions.push({ version: "None" });
+
     const kotsadmVersions = installerData.kotsadm.map(versionToState);
     kotsadmVersions.push({ version: "None" });
 
@@ -57,6 +60,7 @@ class Kurlsh extends React.Component {
         docker: dockerVersions,
         prometheus: prometheusVersions,
         registry: registryVersions,
+        velero: veleroVersions,
         kotsadm: kotsadmVersions
       },
       selectedVersions: {
@@ -67,6 +71,7 @@ class Kurlsh extends React.Component {
         docker: { version: "latest" },
         prometheus: { version: "latest" },
         registry: { version: "latest" },
+        velero: { version: "None" },
         kotsadm: { version: "None" }
       },
       installerSha: "latest",
@@ -75,8 +80,10 @@ class Kurlsh extends React.Component {
         "weave": false,
         "contour": false,
         "rook": false,
+        "prometheus": false,
         "registry": false,
         "docker": false,
+        "velero": false,
         "kotsadm": false
       },
       advancedOptions: {
@@ -215,7 +222,7 @@ class Kurlsh extends React.Component {
     }
 
     if (selectedVersions.registry.version !== "None") {
-      const diff = getDiff(optionDefaults["kotsadm"], options.registry);
+      const diff = getDiff(optionDefaults["registry"], options.registry);
       generatedInstaller.spec.registry = {
         version: selectedVersions.registry.version
       };
@@ -226,6 +233,14 @@ class Kurlsh extends React.Component {
           ...diff
         };
       }
+    }
+
+    if (selectedVersions.velero.version !== "None") {
+      generatedInstaller.spec.velero = {
+        version: selectedVersions.velero.version
+      };
+
+      // No advanced options for Velero!
     }
 
     if (selectedVersions.kotsadm.version !== "None") {
@@ -681,6 +696,29 @@ class Kurlsh extends React.Component {
                     {showAdvancedOptions["registry"] ? "Hide advanced options" : "Show advanced options"}
                   </div>
                   {showAdvancedOptions["registry"] && this.renderAdvancedOptions("registry")}
+                </div>
+              </div>
+              <div className="flex u-marginTop--30">
+                <div className="flex-column flex flex1">
+                  <div className="flex flex1">
+                    <div className="flex1">
+                      <div className="FormLabel u-marginBottom--10"> Velero version </div>
+                      <div className="u-fontSize--small u-fontWeight--normal u-color--scorpion u-lineHeight--normal"> What version of Velero are you using? </div>
+                    </div>
+                    <div className="flex1 u-paddingLeft--50 alignSelf--center">
+                      <div className="u-width--120">
+                        <Select
+                          options={versions.velero}
+                          getOptionLabel={this.getLabel}
+                          getOptionValue={(velero) => velero}
+                          value={selectedVersions.velero}
+                          onChange={this.onVersionChange("velero")}
+                          matchProp="value"
+                          isOptionSelected={() => false}
+                        />
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
               <div className="flex u-marginTop--30">
