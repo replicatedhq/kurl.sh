@@ -326,8 +326,16 @@ class Kurlsh extends React.Component {
           isChecked: currentTarget.checked
         }
       } else {
-        addOnData = {
-          isChecked: currentTarget.checked,
+        if (type === "string") {
+          addOnData = {
+            inputValue: "",
+            isChecked: currentTarget.checked,
+          }
+        } else {
+          addOnData = {
+            inputValue: 0,
+            isChecked: currentTarget.checked,
+          }
         }
       }
     } else if (currentTarget.type === "number") {
