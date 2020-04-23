@@ -8,7 +8,7 @@ title: "Create An Installer"
 The installer can support various add-ons. Removing an add-on from the spec will remove it from your installer. For a full list of supported add-ons and the advanced options they support see the [advanced reference documentation](add-on-adv-options).
 
 ```yaml
-apiVersion: kurl.sh/v1beta1
+apiVersion: cluster.kurl.sh/v1beta1
 kind: Installer
 metadata:
   name: "my-installer"

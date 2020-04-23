@@ -9,7 +9,7 @@ An installer is the specification for a customized distribution of Kubernetes.
 The minimum valid installer spec requires only a supported Kubernetes version:
 
 ```yaml
-apiVersion: kurl.sh/v1beta1
+apiVersion: cluster.kurl.sh/v1beta1
 spec:
   kubernetes:
     version: "1.15.3"
