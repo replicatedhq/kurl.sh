@@ -13,7 +13,7 @@ import OptionWrapper from "./shared/OptionWrapper";
 
 import("../scss/components/Kurlsh.scss");
 
-const versionAddOns = ["kubernetes", "weave", "rook", "registry", "docker", "kotsadm"];
+const versionAddOns = ["kubernetes", "weave", "rook", "registry", "docker", "velero", "kotsadm"];
 function versionToState(version) {
   return {
     version
@@ -92,6 +92,7 @@ class Kurlsh extends React.Component {
         rook: {},
         registry: {},
         docker: {},
+        velero: {},
         kotsadm: {}
       },
       isLoading: false,
@@ -236,11 +237,17 @@ class Kurlsh extends React.Component {
     }
 
     if (selectedVersions.velero.version !== "None") {
+      const diff = getDiff(optionDefaults["velero"], options.velero);
       generatedInstaller.spec.velero = {
         version: selectedVersions.velero.version
       };
 
-      // No advanced options for Velero!
+      if (Object.keys(diff).length) {
+        generatedInstaller.spec.velero = {
+          ...generatedInstaller.spec.velero,
+          ...diff
+        };
+      }
     }
 
     if (selectedVersions.kotsadm.version !== "None") {
@@ -326,8 +333,16 @@ class Kurlsh extends React.Component {
           isChecked: currentTarget.checked
         }
       } else {
-        addOnData = {
-          isChecked: currentTarget.checked,
+        if (type === "string") {
+          addOnData = {
+            inputValue: "",
+            isChecked: currentTarget.checked,
+          }
+        } else {
+          addOnData = {
+            inputValue: 0,
+            isChecked: currentTarget.checked,
+          }
         }
       }
     } else if (currentTarget.type === "number") {
@@ -454,6 +469,7 @@ class Kurlsh extends React.Component {
                         id={`${addOn}_${flag}`}
                         data-focus-id={`${addOn}_${flag}`}
                         onChange={e => this.handleOptionChange(`${addOn}.${flag}`, e.currentTarget, option.type)}
+                        checked={currentOption ? currentOption.isChecked : false}
                         value={currentOption && currentOption.inputValue}
                       />
                     }
@@ -719,6 +735,10 @@ class Kurlsh extends React.Component {
                       </div>
                     </div>
                   </div>
+                  <div className="flex u-fontSize--small u-color--royalBlue u-marginTop--small u-cursor--pointer" onClick={() => this.onToggleShowAdvancedOptions("velero")}>
+                    {showAdvancedOptions["velero"] ? "Hide advanced options" : "Show advanced options"}
+                  </div>
+                  {showAdvancedOptions["velero"] && this.renderAdvancedOptions("velero")}
                 </div>
               </div>
               <div className="flex u-marginTop--30">

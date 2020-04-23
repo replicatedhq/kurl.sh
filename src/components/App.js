@@ -270,6 +270,17 @@ cat install.sh | sudo bash -s airgap
                   </div>
                   <div className="icon u-arrow u-marginRight--normal"></div>
                 </div>}
+              {installerData.spec.velero &&
+                <div className={`flex u-cursor--pointer alignItems--center u-padding--20 ${selectedSpec === "velero" && "isSelected"}`} onClick={() => this.whatYouGet("velero")}>
+                  <div className="flex u-width--250">
+                    <div className="flex icon u-veleroSmall u-marginRight--normal"></div>
+                    <div className="WhatYouGet--wrapper flex flex-column">
+                      <p className="u-color--tuna u-fontSize--large u-fontWeight--bold u-paddingBottom--small"> Velero </p>
+                      <p className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal"> {installerData.spec.velero.version === "latest" ? "Latest version" : `Version ${installerData.spec.velero.version}`} </p>
+                    </div>
+                  </div>
+                  <div className="icon u-arrow u-marginRight--normal"></div>
+                </div>}
               {installerData.spec.kotsadm &&
                 <div className={`flex u-cursor--pointer alignItems--center u-padding--20 ${selectedSpec === "kotsadm" && "isSelected"}`} onClick={() => this.whatYouGet("kotsadm")}>
                   <div className="flex u-width--250">
