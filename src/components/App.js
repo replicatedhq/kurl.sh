@@ -94,7 +94,6 @@ class AppComponent extends React.Component {
   getVersionData = (installerData) => {
     const { versionData } = this.state;
     return Object.keys(versionData).map((key, i) => {
-      console.log(versionData)
       const existInInstallerYaml = installerData.find((d) => key === d);
       return (
         <div className="flex alignItems--center u-borderBottom--silverChalice u-padding--normal" key={`${key}-${i}`}>
