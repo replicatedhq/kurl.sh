@@ -28,6 +28,14 @@ module.exports = {
       },
     },
     {
+      resolve: `gatsby-plugin-sharp`,
+      options: {
+        useMozJpeg: false,
+        stripMetadata: true,
+        defaultQuality: 75,
+      },
+    },
+    {
       resolve: `gatsby-plugin-sass`,
       options: {
         useResolveUrlLoader: true,
