@@ -11,6 +11,25 @@ It also runs the Ceph RGW object store to provide an S3-compatible store in the 
 
 By default the cluster uses the filesystem for storage. Each node in the cluster will have a single OSD backed by a directory in `/opt/replicated/rook`.
 
+## Advanced Install Options
+
+```yaml
+spec:
+  rook:
+    version: latest
+    blockDeviceFilter: sd[b-z]
+    cephReplicaCount: 24
+    isBlockStorageEnabled: true
+    storageClassName: "storage"
+```
+
+| Flag | Usage |
+| ---- | ----- |
+| storage-class-name| The name of the StorageClass that will use Rook to provision PVCs. |
+| ceph-replica-count | Replication factor of ceph pools. The default is to use the number of nodes in the cluster, up to a maximum of 3. |
+| rook-block-storage-enabled | Use block devices instead of the filesystem for storage in the Ceph cluster. |
+| rook-block-device-filter | Only use block devices matching this regex. |
+
 ## Block Storage
 
 For production clusters, Rook should be configured to use block devices rather than the filesystem.

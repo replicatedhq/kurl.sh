@@ -96,16 +96,19 @@ spec:
 ```yaml
 spec:
   rook:
-    version: "1.0.4"
-    storageClass: "default"
-    cephPoolReplicas: 3
+    version: latest
+    blockDeviceFilter: sd[b-z]
+    cephReplicaCount: 24
+    isBlockStorageEnabled: true
+    storageClassName: "storage"
 ```
 
 | Flag | Usage |
 | ---- | ----- |
-| ceph-pool-replicas | Replication factor of ceph pools. The default is to use the number of nodes in the cluster, up to a maximum of 3. |
-| storage-class      | The name of the StorageClass that will use Rook to provision PVCs. |
-| disable-rook       | Do not deploy the Rook add-on. |
+| storage-class-name| The name of the StorageClass that will use Rook to provision PVCs.  |
+| ceph-replica-count | Replication factor of ceph pools. The default is to use the number of nodes in the cluster, up to a maximum of 3. |
+| rook-block-storage-enabled | Use block devices instead of the filesystem for storage in the Ceph cluster. |
+| rook-block-device-filter | Only use block devices matching this regex. |
 
 ### Contour
 
@@ -135,15 +138,20 @@ spec:
 
 ```yaml
 spec:
-  kotsadm:
-    version: "0.9.9"
-    applicationSlug: ""
+  kotsadm: 
+    version: "latest"
+    applicationSlug: "slug"
     uiBindPort: 8800
+    hostname: "hostname"
+    applicationNamespace: "kots"
 ```
 
 | Flag | Usage |
 | ---- | ----- |
-| kotsadm-ui-bind-port | NodePort the kotsadm web application will listen on. |
+| kotsadm-application-slug| The slug shown on the app settings page of vendor web. |
+| kotsadm-ui-bind-port | This is the port where the kots admin panel can be interacted with via browser. |
+| kotsadm-hostname | The hostname that the admin console will be exposed on. |
+| kotsadm-application-namespaces | An additional namespace that should be pre-created during the install (For applications that install to other namespaces outside of the one where kotsadm is running). |
 
 ### Velero
 
