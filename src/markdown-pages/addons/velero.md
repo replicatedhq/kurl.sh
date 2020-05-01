@@ -25,12 +25,12 @@ spec:
     localBucket: "local"
 ```
 
-| Flag                | Usage                                                                                                      |
-| ------------------- | ---------------------------------------------------------------------------------------------------------- |
-| veleroNamespace     | Install the Velero server into an alternative namesapce. Default is "velero".                              |
-| veleroDisableCli    | Do not install the velero CLI.                                                                             |
-| veleroDisableRestic | Do not install the Restic integration.  Volume data will not be included in backups if Restic is disabled. |
-| veleroLocalBucket   | Create an alternative bucket in the local ceph RGW store for the initial backend. Default is "velero".     |
+| Flag          | Usage                                                                                                      |
+| --------------| ---------------------------------------------------------------------------------------------------------- |
+| namespace     | Install the Velero server into an alternative namesapce. Default is "velero".                              |
+| disableCLI    | Do not install the velero CLI.                                                                             |
+| disableRestic | Do not install the Restic integration.  Volume data will not be included in backups if Restic is disabled. |
+| localBucket   | Create an alternative bucket in the local ceph RGW store for the initial backend. Default is "velero".     |
 
 ## Cluster Operator Tasks
 

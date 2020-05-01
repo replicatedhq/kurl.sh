@@ -104,7 +104,7 @@ spec:
 | ---- | ----- |
 | storageClassName        | The name of the StorageClass that will use Rook to provision PVCs.                                                |
 | cephReplicaCount        | Replication factor of ceph pools. The default is to use the number of nodes in the cluster, up to a maximum of 3. |
-| blockStorageEnabled     | Use block devices instead of the filesystem for storage in the Ceph cluster.                                      |
+| isBlockStorageEnabled   | Use block devices instead of the filesystem for storage in the Ceph cluster.                                      |
 | blockDeviceFilter       | Only use block devices matching this regex.                                                                       |
 
 ### Contour
@@ -162,12 +162,12 @@ spec:
     localBucket: "local"
 ```
 
-| Flag                | Usage                                                                                                      |
-| ------------------- | ---------------------------------------------------------------------------------------------------------- |
-| veleroNamespace     | Install the Velero server into an alternative namesapce. Default is "velero".                              |
-| veleroDisableCli    | Do not install the velero CLI.                                                                             |
-| veleroDisableRestic | Do not install the Restic integration.  Volume data will not be included in backups if Restic is disabled. |
-| veleroLocalBucket   | Create an alternative bucket in the local ceph RGW store for the initial backend. Default is "velero".     |
+| Flag          | Usage                                                                                                      |
+| --------------| ---------------------------------------------------------------------------------------------------------- |
+| namespace     | Install the Velero server into an alternative namesapce. Default is "velero".                              |
+| disableCLI    | Do not install the velero CLI.                                                                             |
+| disableRestic | Do not install the Restic integration.  Volume data will not be included in backups if Restic is disabled. |
+| localBucket   | Create an alternative bucket in the local ceph RGW store for the initial backend. Default is "velero".     |
 
 ### EKCO
 
