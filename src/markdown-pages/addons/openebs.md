@@ -35,11 +35,11 @@ spec:
 
 | Flag                              | Usage                                                                                                         |
 | --------------------------------- | ------------------------------------------------------------------------------------------------------------- |
-| openebsNamespace                  | The namespace Open EBS is installed to.                                                                       |
-| openebsLocalpvEnabled             | Turn on localPV storage provisioning.                                                                         |
-| openebsLocalpvStorageClassName    | StorageClass name for local PV provisioner (Name it “default” to make it the cluster’s default provisioner).  |
-| openebsCstorEnabled               | Turn on cstor storage provisioning.                                                                           |
-| openebsCstorStorageClassName      | The StorageClass name for cstor provisioner (Name it “default” to make it the cluster’s default provisioner). |
+| namespace                         | The namespace Open EBS is installed to.                                                                       |
+| isLocalPVEnabled                  | Turn on localPV storage provisioning.                                                                         |
+| localPVStorageClassName           | StorageClass name for local PV provisioner (Name it “default” to make it the cluster’s default provisioner).  |
+| isCstorEnabled                    | Turn on cstor storage provisioning.                                                                           |
+| cstorStorageClassName             | The StorageClass name for cstor provisioner (Name it “default” to make it the cluster’s default provisioner). |
 
 ## LocalPV
 
