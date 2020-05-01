@@ -23,12 +23,12 @@ spec:
     storageClassName: "storage"
 ```
 
-| Flag | Usage |
-| ---- | ----- |
-| storage-class-name| The name of the StorageClass that will use Rook to provision PVCs. |
-| ceph-replica-count | Replication factor of ceph pools. The default is to use the number of nodes in the cluster, up to a maximum of 3. |
-| rook-block-storage-enabled | Use block devices instead of the filesystem for storage in the Ceph cluster. |
-| rook-block-device-filter | Only use block devices matching this regex. |
+| Flag                    | Usage                                                                                                             |
+| ----------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| storageClassName        | The name of the StorageClass that will use Rook to provision PVCs.                                                |
+| cephReplicaCount        | Replication factor of ceph pools. The default is to use the number of nodes in the cluster, up to a maximum of 3. |
+| blockStorageEnabled     | Use block devices instead of the filesystem for storage in the Ceph cluster.                                      |
+| blockDeviceFilter       | Only use block devices matching this regex.                                                                       |
 
 ## Block Storage
 

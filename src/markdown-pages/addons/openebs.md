@@ -33,13 +33,13 @@ spec:
     cstorStorageClassName: cstor
 ```
 
-| Flag | Usage |
-| ---- | ----- |
-| openebs-namespace | The namespace Open EBS is installed to. |
-| openebs-localpv-enabled | Turn on localPV storage provisioning. |
-| openebs-localpv-storage-class-name | StorageClass name for local PV provisioner (Name it “default” to make it the cluster’s default provisioner). |
-| openebs-cstor-enabled | Turn on cstor storage provisioning. |
-| openebs-cstor-storage-class-name | The StorageClass name for cstor provisioner (Name it “default” to make it the cluster’s default provisioner). |
+| Flag                              | Usage                                                                                                         |
+| --------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| openebsNamespace                  | The namespace Open EBS is installed to.                                                                       |
+| openebsLocalpvEnabled             | Turn on localPV storage provisioning.                                                                         |
+| openebsLocalpvStorageClassName    | StorageClass name for local PV provisioner (Name it “default” to make it the cluster’s default provisioner).  |
+| openebsCstorEnabled               | Turn on cstor storage provisioning.                                                                           |
+| openebsCstorStorageClassName      | The StorageClass name for cstor provisioner (Name it “default” to make it the cluster’s default provisioner). |
 
 ## LocalPV
 

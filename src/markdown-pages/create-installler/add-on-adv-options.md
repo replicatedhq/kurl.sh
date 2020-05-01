@@ -20,18 +20,6 @@ Additionally, some options are only available to the cluster operator to be pass
 
 Flag options must be passed every time the install script is run.
 
-## General Installation Options
-
-These options are only available to the cluster operator as flags to the install script.
-
-| Flag             | Usage                                                          |
-| ---------------- | -------------------------------------------------------------- |
-| airgap           | Do not attempt outbound Internet connections while installing. |
-| http-proxy       | Configures Docker to use a proxy when pulling images. Disables automatic proxy detection from the environment and prompt. Must include http(s) and may include port. |
-| no-proxy         | If present, do not use a proxy. Disables automatic proxy detection and prompt. |
-| public-address   | The public IP address that will be added to the SANs of any certificates generated for host services. Setting this disables detection from the environment and prompt. |
-| private-address  | The private IP address used for internal communication between components. Setting this disables detection from the host and prompt. |
-
 ### Kubernetes
 
 ```yaml
@@ -43,10 +31,10 @@ spec:
 
 | Flag | Usage |
 | ---- | ----- |
-| service-cidr | Customize the range of virtual IPs assigned to services. |
-| bootstrap-token | Authentication token used by kubernetes when adding nodes. The default is an auto-generated token. |
-| bootstrap-token-ttl | TTL of the `bootstrap-token`. The default is 24 hours. |
-| ha | Install Kubernetes in multi-master mode. |
+| serviceCidr       | Customize the range of virtual IPs assigned to services. |
+| bootstrapToken    | Authentication token used by kubernetes when adding nodes. The default is an auto-generated token. |
+| bootstrapTokenTTL | TTL of the `bootstrap-token`. The default is 24 hours. |
+| ha                | Install Kubernetes in multi-master mode. |
 
 ## Add Ons
 
@@ -59,14 +47,21 @@ spec:
     bypassStorageDriverWarnings: false
     hardFailOnLoopback: false
     noCEOnEE: false
+    daemonConfig: |
+      {
+    	  "exec-opts": ["native.cgroupdriver=systemd"]
+      }
+    preserveConfig: false
 ```
 
 | Flag | Usage |
 | ---- | ----- |
-| bypass-storagedriver-warnings | Bypass Docker warnings when using the devicemapper storage driver in loopback mode                 |
-| hard-fail-on-loopback         | If present, aborts the installation if devicemapper on loopback mode is detected                   |
-| no-ce-on-ee                   | Disable installation of Docker CE onto platforms it does not support - RHEL, SLES and Oracle Linux |
-| no-docker                     | Skip docker installation                                                                           |
+| bypassStorageDriverWarnings   | Bypass Docker warnings when using the devicemapper storage driver in loopback mode.                                    |
+| hardFailOnLoopback            | If present, aborts the installation if devicemapper on loopback mode is detected.                                      |
+| noCEOnEE                      | Disable installation of Docker CE onto platforms it does not support - RHEL, SLES and Oracle Linux.                    |
+| noDocker                      | Skip docker installation.                                                                                              |
+| daemonConfig                  | This is where a docker daemon.json config may be added as a string field.                                              |
+| preserveConfig                | This flag will ensure that nothing is changed in the existing docker config on the system, regardless of other options.|
 
 ### Registry
 
@@ -82,14 +77,16 @@ spec:
 spec:
   weave:
     version: "2.5.2"
-    encryptNetwork: true
-    IPAllocRange: "10.32.0.0/12"
+    isEncryptionDisabled: true
+    podCIDR: "1.1.1.1"
+    podCidrRange: "/16"
 ```
 
 | Flag | Usage |
 | ---- | ----- |
-| encrypt-network | Encrypt network communication between nodes in the cluster. Use `encrypt-network=0` to disable. |
-| ip-alloc-range  | Customize the range of IPs assigned to pods. |
+| isEncryptionDisabled | Encrypt network communication between nodes in the cluster. |
+| podCIDR              | The subnet where pods will be found.                        |
+| podCidrRange         | The size of the CIDR where pods can be found.               |
 
 ### Rook
 
@@ -105,10 +102,10 @@ spec:
 
 | Flag | Usage |
 | ---- | ----- |
-| storage-class-name| The name of the StorageClass that will use Rook to provision PVCs.  |
-| ceph-replica-count | Replication factor of ceph pools. The default is to use the number of nodes in the cluster, up to a maximum of 3. |
-| rook-block-storage-enabled | Use block devices instead of the filesystem for storage in the Ceph cluster. |
-| rook-block-device-filter | Only use block devices matching this regex. |
+| storageClassName        | The name of the StorageClass that will use Rook to provision PVCs.                                                |
+| cephReplicaCount        | Replication factor of ceph pools. The default is to use the number of nodes in the cluster, up to a maximum of 3. |
+| blockStorageEnabled     | Use block devices instead of the filesystem for storage in the Ceph cluster.                                      |
+| blockDeviceFilter       | Only use block devices matching this regex.                                                                       |
 
 ### Contour
 
@@ -120,7 +117,7 @@ spec:
 
 | Flag | Usage |
 | ---- | ----- |
-| disable-contour | If present, disables the deployment of the Contour ingress controller. |
+| disableContour | If present, disables the deployment of the Contour ingress controller. |
 
 ### Prometheus
 
@@ -132,7 +129,7 @@ spec:
 
 | Flag | Usage |
 | ---- | ----- |
-| disable-prometheus | If present, disables the deployment of Prometheus monitoring components. |
+| disablePrometheus | If present, disables the deployment of Prometheus monitoring components. |
 
 ### Kotsadm
 
@@ -146,47 +143,49 @@ spec:
     applicationNamespace: "kots"
 ```
 
-| Flag | Usage |
-| ---- | ----- |
-| kotsadm-application-slug| The slug shown on the app settings page of vendor web. |
-| kotsadm-ui-bind-port | This is the port where the kots admin panel can be interacted with via browser. |
-| kotsadm-hostname | The hostname that the admin console will be exposed on. |
-| kotsadm-application-namespaces | An additional namespace that should be pre-created during the install (For applications that install to other namespaces outside of the one where kotsadm is running). |
+| Flag                  | Usage                                                                                                                                                                  |
+| --------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| applicationSlug       | The slug shown on the app settings page of vendor web.                                                                                                                 |
+| uiBindPort            | This is the port where the kots admin panel can be interacted with via browser.                                                                                        |
+| hostname              | The hostname that the admin console will be exposed on.                                                                                                                |
+| applicationNamespaces | An additional namespace that should be pre-created during the install (For applications that install to other namespaces outside of the one where kotsadm is running). |
 
 ### Velero
 
 ```yaml
 spec:
   velero:
-    version: "1.2.0"
-    namespace: velero
-    useRestic: true
-    installCLI: true
+    version: "latest"
+    namespace: "velero"
+    disableRestic: true
+    disableCLI: true
+    localBucket: "local"
 ```
 
-| Flag | Usage |
-| ---- | ----- |
-| velero-namespace | Install the Velero server into an alternative namesapce. Default is "velero". |
-| velero-disable-cli | Do not install the velero CLI. |
-| velero-disable-restic | Do not install the Restic integration.  Volume data will not be included in backups if Restic is disabled. |
-| velero-local-bucket | Create an alternative bucket in the local ceph RGW store for the initial backend. Default is "velero". |
+| Flag                | Usage                                                                                                      |
+| ------------------- | ---------------------------------------------------------------------------------------------------------- |
+| veleroNamespace     | Install the Velero server into an alternative namesapce. Default is "velero".                              |
+| veleroDisableCli    | Do not install the velero CLI.                                                                             |
+| veleroDisableRestic | Do not install the Restic integration.  Volume data will not be included in backups if Restic is disabled. |
+| veleroLocalBucket   | Create an alternative bucket in the local ceph RGW store for the initial backend. Default is "velero".     |
 
 ### EKCO
 
 ```yaml
 spec:
   ekco:
-    version: "v0.1.0"
+    version: "latest"
     nodeUnreachableTolerationDuration: 1h
     minReadyMasterNodeCount: 2
     minReadyWorkerNodeCount: 0
-    rook:
-      shouldMaintainStorageNodes: true
+    rookShouldUseAllNodes: true
+    shouldDisableRebootServices: true
 ```
 
-| Flag | Usage |
-| ---- | ----- |
-| ekco-node-unreachable-toleration-duration | How long a Node must be unreachable before considered dead. Default is 1h. |
-| ekco-min-ready-master-node-count | Don't purge the node if it will result in less than this many ready masters. Default is 2. |
-| ekco-min-ready-worker-node-count | Don't purge the node if it will result in less than this many ready workers. Default is 0. |
-| ekco-disable-should-maintain-rook-storage-nodes | Whether to maintain the list of nodes to use in the CephCluster config. Default is true when rook addon is installed. |
+| Flag                              | Usage                                                                                                                                                       |
+| --------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| nodeUnreachableTolerationDuration | How long a Node must be unreachable before considered dead. Default is 1h.                                                                                  |
+| minReadyMasterNodeCount           | Don't purge the node if it will result in less than this many ready masters. Default is 2.                                                                  |
+| minReadyWorkerNodeCount           | Don't purge the node if it will result in less than this many ready workers. Default is 0.                                                                  |
+| rookShouldUseAllNodes             | This will disable management of nodes in the CephCluster resource. If false, ekco will add nodes to the storage list and remove them when a node is purged. |
+| shouldMaintainStorageNodes        | Whether to maintain the list of nodes to use in the CephCluster config. Default is true when rook addon is installed.                                       |
