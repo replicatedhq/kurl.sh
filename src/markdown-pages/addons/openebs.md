@@ -20,6 +20,27 @@ openebs:
   cstorStorageClassName: cstor
 ```
 
+## Advanced Install Options
+
+```yaml
+spec:
+  openebs:
+    version: latest
+    namespace: "space"
+    isLocalPVEnabled: true
+    localPVStorageClassName: default
+    isCstorEnabled: true
+    cstorStorageClassName: cstor
+```
+
+| Flag                              | Usage                                                                                                         |
+| --------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| openebsNamespace                  | The namespace Open EBS is installed to.                                                                       |
+| openebsLocalpvEnabled             | Turn on localPV storage provisioning.                                                                         |
+| openebsLocalpvStorageClassName    | StorageClass name for local PV provisioner (Name it “default” to make it the cluster’s default provisioner).  |
+| openebsCstorEnabled               | Turn on cstor storage provisioning.                                                                           |
+| openebsCstorStorageClassName      | The StorageClass name for cstor provisioner (Name it “default” to make it the cluster’s default provisioner). |
+
 ## LocalPV
 
 The [LocalPV provisioner](https://docs.openebs.io/docs/next/localpv.html) uses the host filesystem directory `/var/openebs/local` for storage.

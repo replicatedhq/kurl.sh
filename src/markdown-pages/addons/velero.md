@@ -18,18 +18,19 @@ The Kurl add-on installs:
 ```yaml
 spec:
   velero:
-    version: "1.2.0"
-    namespace: velero
-    useRestic: true
-    installCLI: true
+    version: "latest"
+    namespace: "velero"
+    disableRestic: true
+    disableCLI: true
+    localBucket: "local"
 ```
 
-| Flag | Usage |
-| ---- | ----- |
-| velero-namespace | Install the Velero server into an alternative namesapce. Default is "velero". |
-| velero-disable-cli | Do not install the velero CLI. |
-| velero-disable-restic | Do not install the Restic integration.  Volume data will not be included in backups if Restic is disabled. |
-| velero-local-bucket | Create an alternative bucket in the local ceph RGW store for the initial backend. Default is "velero". |
+| Flag                | Usage                                                                                                      |
+| ------------------- | ---------------------------------------------------------------------------------------------------------- |
+| veleroNamespace     | Install the Velero server into an alternative namesapce. Default is "velero".                              |
+| veleroDisableCli    | Do not install the velero CLI.                                                                             |
+| veleroDisableRestic | Do not install the Restic integration.  Volume data will not be included in backups if Restic is disabled. |
+| veleroLocalBucket   | Create an alternative bucket in the local ceph RGW store for the initial backend. Default is "velero".     |
 
 ## Cluster Operator Tasks
 
