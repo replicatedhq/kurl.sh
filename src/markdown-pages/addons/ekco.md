@@ -16,20 +16,21 @@ The Kurl add-on installs:
 ```yaml
 spec:
   ekco:
-    version: "v0.1.0"
+    version: "latest"
     nodeUnreachableTolerationDuration: 1h
     minReadyMasterNodeCount: 2
     minReadyWorkerNodeCount: 0
-    rook:
-      shouldMaintainStorageNodes: true
+    rookShouldUseAllNodes: true
+    shouldDisableRebootServices: true
 ```
 
-| Flag | Usage |
-| ---- | ----- |
-| ekco-node-unreachable-toleration-duration | How long a Node must be unreachable before considered dead. Default is 1h. |
-| ekco-min-ready-master-node-count | Don't purge the node if it will result in less than this many ready masters. Default is 2. |
-| ekco-min-ready-worker-node-count | Don't purge the node if it will result in less than this many ready workers. Default is 0. |
-| ekco-disable-should-maintain-rook-storage-nodes | Whether to maintain the list of nodes to use in the CephCluster config. Default is true when rook addon is installed. |
+| Flag                              | Usage                                                                                                                                                       |
+| --------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| nodeUnreachableTolerationDuration | How long a Node must be unreachable before considered dead. Default is 1h.                                                                                  |
+| minReadyMasterNodeCount           | Don't purge the node if it will result in less than this many ready masters. Default is 2.                                                                  |
+| minReadyWorkerNodeCount           | Don't purge the node if it will result in less than this many ready workers. Default is 0.                                                                  |
+| rookShouldUseAllNodes             | This will disable management of nodes in the CephCluster resource. If false, ekco will add nodes to the storage list and remove them when a node is purged. |
+| shouldMaintainStorageNodes        | Whether to maintain the list of nodes to use in the CephCluster config. Default is true when rook addon is installed.                                       |
 
 ## Operator Tasks
 
