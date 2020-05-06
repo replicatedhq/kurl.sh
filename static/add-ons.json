@@ -1,0 +1,103 @@
+{
+  "addOns": [
+    {
+      "name": "Weave",
+      "categories": ["CNI Plugin"],
+      "dependencies": ["Container Runtime"],
+      "compatibilities": ["Docker", "Containerd"],
+      "incompatibilities": ["Calico"],
+      "supportedVersions": ["2.5.2"]
+    },
+    {
+      "name": "Docker",
+      "categories": ["Container Runtime"],
+      "dependencies": [],
+      "compatibilities": ["Weave", "Calico"],
+      "incompatibilities": ["Containerd"],
+      "supportedVersions": ["19.03.4", "18.09.8"]
+    },
+    {
+      "name": "Docker Registry",
+      "categories": ["Registry"],
+      "dependencies": ["Docker registry", "Kots", "Prometheus"],
+      "compatibilities": ["Docker registry", "Kots", "Prometheus"],
+      "incompatibilities": ["Calico"],
+      "supportedVersions": ["2.7.1"]
+    },
+    {
+      "name": "SELinux",
+      "categories": ["OS Extenstion"],
+      "dependencies": ["OS Linux"],
+      "compatibilities": ["Docker registry", "Kots", "Prometheus"],
+      "incompatibilities": []
+    },
+    {
+      "name": "Velero",
+      "categories": ["Snapshots"],
+      "dependencies": ["CNI Plugin", "Container Runtime", "Object Store"],
+      "compatibilities": ["Docker registry", "Kots", "Prometheus"],
+      "incompatibilities": [],
+      "supportedVersions": ["1.2.0"]
+    },
+    {
+      "name": "Firewalld",
+      "categories": ["OS Extension"],
+      "dependencies": ["OS Centos6"],
+      "compatibilities": ["Docker registry", "Kots", "Prometheus"],
+      "incompatibilities": []
+    },
+    {
+      "name": "Kots",
+      "categories": ["Application Management"],
+      "dependencies": ["CNI Plugin", "Container Runtime", "PVC Provisioner", "Object Store"],
+      "compatibilities": ["Docker registry", "Prometheus"],
+      "incompatibilities": [],
+      "supportedVersions": ["1.15.2", "1.15.1", "1.15.0", "1.14.2", "1.14.0", "1.13.9", "1.13.8", "1.13.6", "1.13.5", "1.13.4", "1.13.3"]
+    },
+    {
+      "name": "Prometheus",
+      "categories": ["Metrics & Monitoring"],
+      "dependencies": ["Docker registry", "Kots"],
+      "compatibilities": ["Docker registry", "Kots"],
+      "incompatibilities": [],
+      "supportedVersions": ["0.33.0"]
+    },
+    {
+      "name": "Contour",
+      "categories": ["Ingress"],
+      "dependencies": ["CNI Plugin", "Container Runtime"],
+      "compatibilities": ["Docker registry", "Kots", "Prometheus"],
+      "incompatibilities": [],
+      "supportedVersions": ["1.0.1", "0.14.0"]
+    },
+    {
+      "name": "Rook",
+      "categories": ["PVC Provisioner", "Object Store"],
+      "dependencies": ["Container Runtime, CNI Plugin add-ons"],
+      "compatibilities": ["Docker registry", "Kots", "Prometheus"],
+      "incompatibilities": ["openEBS"]
+    },
+    {
+      "name": "EKCO",
+      "categories": ["Cluster Administration"],
+      "dependencies": ["CNI Plugin", "Container Runtime"],
+      "compatibilities": ["Docker registry", "Kots", "Prometheus"],
+      "incompatibilities": []
+    },
+    {
+      "name": "IPtables",
+      "categories": ["OS Extension"],
+      "dependencies": ["OS Linux"],
+      "compatibilities": ["Docker registry", "Kots", "Prometheus"],
+      "incompatibilities": []
+    },
+    {
+      "name": "OpenEBS",
+      "categories": ["PVC Provisioner"],
+      "dependencies": ["Docker registry", "Kots", "Prometheus"],
+      "compatibilities": ["Docker registry", "Kots", "Prometheus"],
+      "incompatibilities": ["Rook"]
+    }
+  ],
+  "categories": ["Container Runtime", "CNI Plugin", "PVC Provisioner", "Object Store", "Ingress", "Logs", "Snapshots", "Metrics & Monitoring", "Cluster Administration", "Application Management"]
+}
