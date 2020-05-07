@@ -55,12 +55,20 @@ class SupportedAddOns extends React.Component {
     this.setState({ categoryVersionsToShow: this.state.categoryVersionsToShow.filter(c => c !== category) });
   }
 
+  getDocumentationUrl = (addOn) => {
+    if (addOn === "weave" || addOn === "docker" || addOn === "docker registry" || addOn === "contour" || addOn === "prometheus") {
+      return <a href={`${addOn === "docker registry" ? "https://kurl.sh/docs/create-installer/add-on-adv-options#registry" : `https://kurl.sh/docs/create-installer/add-on-adv-options#${addOn}`}`} target="_blank" rel="noopener noreferrer" className="u-color--royalBlue u-fontWeight--medium u-fontSize--normal u-lineHeight--more u-textDecoration--underlineOnHover"> Learn more </a>
+    } else {
+      return <a href={`${addOn === "kots" ? "https://kurl.sh/docs/add-ons/kotsadm" : `https://kurl.sh/docs/add-ons/${addOn}`}`} target="_blank" rel="noopener noreferrer" className="u-color--royalBlue u-fontWeight--medium u-fontSize--normal u-lineHeight--more u-textDecoration--underlineOnHover"> Learn more </a>
+    }
+  }
+
   renderDependeciesStates = (dependencies) => {
     if (dependencies.length === 1) {
       if (dependencies[0].includes("OS")) {
         const splitDependecy = dependencies[0].split(" ");
-        return <span className="u-fontSize--normal u-fontWeight--normal u-color--dustyGray u-marginTop--small u-display--inline u-marginRight--small"> Requires {splitDependecy[0]} to be {splitDependecy[1]}  </span> 
-      } else {       
+        return <span className="u-fontSize--normal u-fontWeight--normal u-color--dustyGray u-marginTop--small u-display--inline u-marginRight--small"> Requires {splitDependecy[0]} to be {splitDependecy[1]}  </span>
+      } else {
         return <span className="u-fontSize--normal u-fontWeight--normal u-color--dustyGray u-marginTop--small u-display--inline u-marginRight--small"> Requires a {dependencies[0]} add-on </span>
       }
     } else if (dependencies.length === 2) {
@@ -96,7 +104,7 @@ class SupportedAddOns extends React.Component {
             </div>
           </div>
           <div className="flex justifyContent--flexEnd">
-            <span className="icon u-externalLinkIcon clickable" />
+            <a href={`https://github.com/replicatedhq/kURL/tree/master/addons/${addOn.name.toLowerCase()}`} target="_blank" rel="noopener noreferrer" className="icon u-externalLinkIcon clickable" />
           </div>
         </div>
         {categoryVersionsToShow && activeSupportedVersionCategory && categoryVersionsToShow.length > 0 ?
@@ -153,7 +161,7 @@ class SupportedAddOns extends React.Component {
             </div>
             <div className="u-marginTop--40">
               <div className="flex flex1">
-                <a href={`https://kurl.sh/docs/add-ons/${addOn.name.toLowerCase()}`} target="_blank" rel="noopener noreferrer" className="u-color--royalBlue u-fontWeight--medium u-fontSize--normal u-lineHeight--more u-textDecoration--underlineOnHover"> Learn more </a>
+                {this.getDocumentationUrl(addOn.name.toLowerCase())}
                 {addOn.supportedVersions && addOn.supportedVersions.length > 0 ?
                   <div>
                     <span className="u-color--scorpion u-fontSize--small u-marginLeft--small u-marginRight--small"> | </span>
