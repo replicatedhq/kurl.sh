@@ -3,6 +3,7 @@ import Select from "react-select";
 import MobileCategories from "./shared/MobileCategories";
 
 import supportedAddOnsData from "../../static/add-ons.json";
+import installerData from "../../static/installer.json";
 
 import("../scss/components/SupportedAddOns.scss");
 
@@ -82,6 +83,7 @@ class SupportedAddOns extends React.Component {
     const { categoryVersionsToShow } = this.state;
     const { isMobile } = this.props;
     const activeSupportedVersionCategory = categoryVersionsToShow.find(c => c.name === addOn.name);
+    const supportedVersions = addOn.name === "Docker Registry" ? installerData["registry"] : addOn.name === "Kots" ? installerData["kotsadm"] : installerData[addOn.name.toLowerCase()];
 
     return (
       <div className={`${isMobile ? "mobileAddOns--wrapper" : "AddOns--wrapper flex flex-column"}`} key={`${addOn}-${i}`}>
@@ -114,7 +116,7 @@ class SupportedAddOns extends React.Component {
               <span className="u-fontSize--large u-fontWeight--bold u-color--tundora u-marginLeft--small"> Supported versions </span>
             </div>
             <div className="SupportedVersionsList--wrapper flex1 flex-column u-marginTop--15">
-              {activeSupportedVersionCategory.supportedVersions.map((version, i) => {
+              {supportedVersions.map((version, i) => {
                 return <li className="u-fontSize--large u-fontWeight--medium u-color--dustyGray u-marginTop--small" key={`${version}-${i}`}> {version} </li>
               })}
             </div>
@@ -162,7 +164,7 @@ class SupportedAddOns extends React.Component {
             <div className="u-marginTop--40">
               <div className="flex flex1">
                 {this.getDocumentationUrl(addOn.name.toLowerCase())}
-                {addOn.supportedVersions && addOn.supportedVersions.length > 0 ?
+                {supportedVersions && supportedVersions.length > 0 ?
                   <div>
                     <span className="u-color--scorpion u-fontSize--small u-marginLeft--small u-marginRight--small"> | </span>
                     <span className="u-color--royalBlue u-fontWeight--medium u-fontSize--normal u-lineHeight--more u-textDecoration--underlineOnHover" onClick={() => this.toggleSupportedVersions(addOn)}> Supported versions </span>
