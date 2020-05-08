@@ -1,7 +1,8 @@
 import * as React from "react";
 import * as PropTypes from "prop-types";
+import { Link } from "gatsby";
 
-import "../../scss/components/shared/MobileCategories.scss";
+import "../scss/components/MobileCategories.scss";
 
 export default class MobileCategories extends React.Component {
   static propTypes = {
@@ -40,10 +41,10 @@ export default class MobileCategories extends React.Component {
             <div className="flex-column u-marginTop--10">
               {categoryItems.map((category, i) => {
                 return (
-                  <span className={`Category--item u-fontSize--normal u-color--dustyGray u-fontWeight--bold u-lineHeight--normal body-copy flex justifyContent--spaceBetween alignItems--center ${category === categoryToShow && "is-active"}`} onClick={(e) => this.showingCategoryDetails(category, e)} key={`${category}-${i}`}>
+                  <Link to={`${category === "Metrics & Monitoring" ? "/add-ons/?category=metrics-monitoring" : `/add-ons/?category=${category.replace(/\s/g, "-").toLowerCase()}`}`} className={`Category--item u-fontSize--normal u-color--dustyGray u-fontWeight--bold u-lineHeight--normal body-copy flex justifyContent--spaceBetween alignItems--center ${category === categoryToShow && "is-active"}`} onClick={(e) => this.showingCategoryDetails(category, e)} key={`${category}-${i}`}>
                     {category}
                     {category === categoryToShow && <span className="icon u-whiteCloseIcon clickable u-marginLeft--small" onClick={onCloseCategory} />}
-                  </span>
+                  </Link>
                 )
               })}
             </div>

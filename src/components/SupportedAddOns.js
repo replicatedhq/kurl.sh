@@ -1,6 +1,8 @@
 import * as React from "react";
 import Select from "react-select";
-import MobileCategories from "./shared/MobileCategories";
+import { Link, navigate } from "gatsby";
+import MobileCategories from "./MobileCategories";
+import { Utilities } from "./utilities";
 
 import supportedAddOnsData from "../../static/add-ons.json";
 import installerData from "../../static/installer.json";
@@ -10,16 +12,36 @@ import("../scss/components/SupportedAddOns.scss");
 class SupportedAddOns extends React.Component {
   state = {
     kubernetesVersions: [
-      { version: "1.15.0" },
-      { version: "1.15.1" },
-      { version: "1.15.2" },
-      { version: "1.15.3" },
+      { version: "1.17.3" },
       { version: "1.16.4" },
-      { version: "1.17.3" }],
+      { version: "1.15.3" },
+      { version: "1.15.2" },
+      { version: "1.15.1" },
+      { version: "1.15.0" }],
     selectedVersion: { version: "1.17.3" },
     categoryToShow: "",
     categoryVersionsToShow: [],
     mobileCategoriesOpen: false
+  }
+
+  getCurrentCategory = (category) => {
+    if (category === "pvc-provisioner") {
+      this.setState({ categoryToShow: "PVC Provisioner" })
+    } else if (category === "cni-plugin") {
+      this.setState({ categoryToShow: "CNI Plugin" });
+    } else if (category === "metrics-monitoring") {
+      this.setState({ categoryToShow: "Metrics & Monitoring" });
+    } else {
+      this.setState({
+        categoryToShow: Utilities.toTitleCase(category.replace("-", " "))
+      })
+    }
+  }
+
+  componentDidMount() {
+    if (this.props.category) {
+      this.getCurrentCategory(this.props.category);
+    }
   }
 
   onVersionChange = (selectedVersion) => {
@@ -42,7 +64,9 @@ class SupportedAddOns extends React.Component {
   }
 
   onCloseCategory = () => {
-    this.setState({ categoryToShow: "" });
+    this.setState({ categoryToShow: "" }, () => {
+      navigate("/add-ons");
+    });
   }
 
   toggleSupportedVersions = (category) => {
@@ -58,24 +82,24 @@ class SupportedAddOns extends React.Component {
 
   getDocumentationUrl = (addOn) => {
     if (addOn === "weave" || addOn === "docker" || addOn === "docker registry" || addOn === "contour" || addOn === "prometheus") {
-      return <a href={`${addOn === "docker registry" ? "https://kurl.sh/docs/create-installer/add-on-adv-options#registry" : `https://kurl.sh/docs/create-installer/add-on-adv-options#${addOn}`}`} target="_blank" rel="noopener noreferrer" className="u-color--royalBlue u-fontWeight--medium u-fontSize--normal u-lineHeight--more u-textDecoration--underlineOnHover"> Learn more </a>
+      return <a href={`https://kurl.sh/docs/create-installer/add-on-adv-options#${addOn}`} target="_blank" rel="noopener noreferrer" className="u-color--royalBlue u-fontWeight--medium u-fontSize--normal u-lineHeight--more u-textDecoration--underlineOnHover"> Learn more </a>
     } else {
-      return <a href={`${addOn === "kots" ? "https://kurl.sh/docs/add-ons/kotsadm" : `https://kurl.sh/docs/add-ons/${addOn}`}`} target="_blank" rel="noopener noreferrer" className="u-color--royalBlue u-fontWeight--medium u-fontSize--normal u-lineHeight--more u-textDecoration--underlineOnHover"> Learn more </a>
+      return <a href={`https://kurl.sh/docs/add-ons/${addOn}`} target="_blank" rel="noopener noreferrer" className="u-color--royalBlue u-fontWeight--medium u-fontSize--normal u-lineHeight--more u-textDecoration--underlineOnHover"> Learn more </a>
     }
   }
 
-  renderDependeciesStates = (dependencies) => {
-    if (dependencies.length === 1) {
-      if (dependencies[0].includes("OS")) {
-        const splitDependecy = dependencies[0].split(" ");
+  renderDependeciesStates = (requires) => {
+    if (requires.length === 1) {
+      if (requires[0].includes("OS")) {
+        const splitDependecy = requires[0].split(" ");
         return <span className="u-fontSize--normal u-fontWeight--normal u-color--dustyGray u-marginTop--small u-display--inline u-marginRight--small"> Requires {splitDependecy[0]} to be {splitDependecy[1]}  </span>
       } else {
-        return <span className="u-fontSize--normal u-fontWeight--normal u-color--dustyGray u-marginTop--small u-display--inline u-marginRight--small"> Requires a {dependencies[0]} add-on </span>
+        return <span className="u-fontSize--normal u-fontWeight--normal u-color--dustyGray u-marginTop--small u-display--inline u-marginRight--small"> Requires a {requires[0]} add-on </span>
       }
-    } else if (dependencies.length === 2) {
-      return <span className="u-fontSize--normal u-fontWeight--normal u-color--dustyGray u-marginTop--small u-display--inline u-marginRight--small"> Requires {dependencies.join(" & ")} add-ons </span>
+    } else if (requires.length === 2) {
+      return <span className="u-fontSize--normal u-fontWeight--normal u-color--dustyGray u-marginTop--small u-display--inline u-marginRight--small"> Requires {requires.join(" & ")} add-ons </span>
     } else {
-      return <span className="u-fontSize--normal u-fontWeight--normal u-color--dustyGray u-marginTop--small u-display--inline u-marginRight--small"> Requires {dependencies.join(", ")} add-ons </span>
+      return <span className="u-fontSize--normal u-fontWeight--normal u-color--dustyGray u-marginTop--small u-display--inline u-marginRight--small"> Requires {requires.join(", ")} add-ons </span>
     }
   }
 
@@ -83,17 +107,17 @@ class SupportedAddOns extends React.Component {
     const { categoryVersionsToShow } = this.state;
     const { isMobile } = this.props;
     const activeSupportedVersionCategory = categoryVersionsToShow.find(c => c.name === addOn.name);
-    const supportedVersions = addOn.name === "Docker Registry" ? installerData["registry"] : addOn.name === "Kots" ? installerData["kotsadm"] : installerData[addOn.name.toLowerCase()];
+    const supportedVersions = installerData[addOn.name];
 
     return (
-      <div className={`${isMobile ? "mobileAddOns--wrapper" : "AddOns--wrapper flex flex-column"}`} key={`${addOn}-${i}`}>
+      <div className={`${isMobile ? "mobileAddOns--wrapper" : activeSupportedVersionCategory ? "AddOns--wrapper flex flex-column" : "AddOns--wrapper"}`} key={`${addOn}-${i}`}>
         <div className="addOnsBackground flex alignItems--center">
           <div className="flex flex1 alignItems--center">
-            <span className={`icon u-${addOn.name === "Docker Registry" ? "dockerRegistry" : addOn.name === "EKCO" ? "kubernetes" : addOn.name.toLowerCase()} u-marginBottom--small`}></span>
+            <span className={`icon u-${addOn.name === "ekco" ? "kubernetes" : addOn.name.toLowerCase()} u-marginBottom--small`}></span>
             <div className="flex-column">
-              <span className="u-fontSize--largest u-fontWeight--medium u-color--tuna  u-marginLeft--10">{addOn.name}</span>
+              <span className="u-fontSize--largest u-fontWeight--medium u-color--tuna  u-marginLeft--10">{addOn.name === "kotsadm" ? "Kots" : Utilities.toTitleCase(addOn.name)}</span>
               <div className="flex flex1 u-marginTop--small">
-                {addOn.categories.map((category, i) => {
+                {addOn.fulfills.map((category, i) => {
                   return (
                     <div className="category-item" key={`${category}-${i}`}>
                       <span className="u-color--dustyGray u-fontWeight--medium u-fontSize--normal"> {category}
@@ -106,7 +130,7 @@ class SupportedAddOns extends React.Component {
             </div>
           </div>
           <div className="flex justifyContent--flexEnd">
-            <a href={`https://github.com/replicatedhq/kURL/tree/master/addons/${addOn.name.toLowerCase()}`} target="_blank" rel="noopener noreferrer" className="icon u-externalLinkIcon clickable" />
+            <a href={`https://github.com/replicatedhq/kURL/tree/master/addons/${addOn.name}`} target="_blank" rel="noopener noreferrer" className="icon u-externalLinkIcon clickable" />
           </div>
         </div>
         {categoryVersionsToShow && activeSupportedVersionCategory && categoryVersionsToShow.length > 0 ?
@@ -131,8 +155,8 @@ class SupportedAddOns extends React.Component {
               <div className="flex-column">
                 <span className="u-fontSize--normal u-fontWeight--bold u-color--tundora"> Depends on </span>
                 <div className="flex-auto u-marginTop--small">
-                  {addOn.dependencies.length > 0 ?
-                    this.renderDependeciesStates(addOn.dependencies)
+                  {addOn.requires.length > 0 ?
+                    this.renderDependeciesStates(addOn.requires)
                     :
                     <span className="u-fontSize--normal u-fontWeight--normal u-color--dustyGray u-marginTop--small" key={i}> No dependencies required </span>
                   }
@@ -144,7 +168,7 @@ class SupportedAddOns extends React.Component {
               <div className="flex-column">
                 <span className="u-fontSize--normal u-fontWeight--bold u-color--tundora"> Works well with </span>
                 <div className="flex-auto u-marginTop--small">
-                  <span className="u-fontSize--normal u-fontWeight--normal u-color--dustyGray u-marginTop--small u-display--inline u-marginRight--small"> {addOn.compatibilities.join(", ")} </span>
+                  <span className="u-fontSize--normal u-fontWeight--normal u-color--dustyGray u-marginTop--small u-display--inline u-marginRight--small"> {addOn.recommends.join(", ")} </span>
                 </div>
               </div>
             </div>
@@ -163,7 +187,7 @@ class SupportedAddOns extends React.Component {
             </div>
             <div className="u-marginTop--40">
               <div className="flex flex1">
-                {this.getDocumentationUrl(addOn.name.toLowerCase())}
+                {this.getDocumentationUrl(addOn.name)}
                 {supportedVersions && supportedVersions.length > 0 ?
                   <div>
                     <span className="u-color--scorpion u-fontSize--small u-marginLeft--small u-marginRight--small"> | </span>
@@ -210,7 +234,7 @@ class SupportedAddOns extends React.Component {
     const { kubernetesVersions, selectedVersion, categoryToShow } = this.state;
     const { isMobile } = this.props;
 
-    const filteredCategoriesToShow = supportedAddOnsData.addOns.filter(addOn => (categoryToShow === addOn.categories.find(c => c === categoryToShow)));
+    const filteredCategoriesToShow = supportedAddOnsData.addOns.filter(addOn => (categoryToShow === addOn.fulfills.find(c => c === categoryToShow)));
 
     return (
       <div className="u-minHeight--full u-width--full flex-column flex1 u-overflow--auto">
@@ -246,11 +270,12 @@ class SupportedAddOns extends React.Component {
                     <span className="u-fontSize--18  u-color--tundora u-fontWeight--bold"> Categories </span>
                     <div className="u-borderTop--gray u-marginTop--12">
                       {supportedAddOnsData.categories.map((category, i) => (
-                        <p className={`Category--item u-fontSize--normal u-color--dustyGray u-fontWeight--bold u-lineHeight--normal body-copy flex alignItems--center justifyContent--spaceBetween ${category === this.state.categoryToShow && "is-active"}`} onClick={(e) => this.showingCategoryDetails(category, e)} key={`${category}-${i}`}>
+                        <Link to={`${category === "Metrics & Monitoring" ? "/add-ons/?category=metrics-monitoring" : `/add-ons/?category=${category.replace(/\s/g, "-").toLowerCase()}`}`} className={`Category--item u-fontSize--normal u-color--dustyGray u-fontWeight--bold u-lineHeight--normal body-copy flex alignItems--center justifyContent--spaceBetween ${category === this.state.categoryToShow && "is-active"}`} onClick={(e) => this.showingCategoryDetails(category, e)} key={`${category}-${i}`}>
                           {category}
                           {category === this.state.categoryToShow && <span className="icon u-whiteCloseIcon u-marginLeft--10 clickable" onClick={this.onCloseCategory} />}
-                        </p>
-                      ))}
+                        </Link>
+                      )
+                      )}
                     </div>
                   </div>
                   :
