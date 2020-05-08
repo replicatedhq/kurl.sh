@@ -94,5 +94,9 @@ exports.onCreatePage = async ({ page, actions }) => {
     page.matchPath = `/download/*`
     createPage(page)
   }
+  if (page.path === `/add-ons`) {
+    page.matchPath = `/add-ons/*`
+    createPage(page)
+  }
 
 }
