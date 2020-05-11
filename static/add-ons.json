@@ -52,7 +52,7 @@
     {
       "name": "firewalld",
       "fulfills": ["OS Extension"],
-      "requires": ["OS Centos6"],
+      "requires": [],
       "recommends": ["Docker registry", "Kots", "Prometheus"],
       "incompatibilities": []
     },
@@ -101,7 +101,7 @@
     {
       "name": "iptables",
       "fulfills": ["OS Extension"],
-      "requires": ["OS Linux"],
+      "requires": [],
       "recommends": ["Docker registry", "Kots", "Prometheus"],
       "incompatibilities": []
     },

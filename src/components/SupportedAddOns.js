@@ -103,14 +103,15 @@ class SupportedAddOns extends React.Component {
     }
   }
 
-  renderAddOnCard = (addOn, i) => {
+  renderAddOnCard = (addOn, i, filteredCategories) => {
     const { categoryVersionsToShow } = this.state;
     const { isMobile } = this.props;
     const activeSupportedVersionCategory = categoryVersionsToShow.find(c => c.name === addOn.name);
     const supportedVersions = installerData[addOn.name];
 
+
     return (
-      <div className={`${isMobile ? "mobileAddOns--wrapper" : activeSupportedVersionCategory ? "AddOns--wrapper flex flex-column" : "AddOns--wrapper"}`} key={`${addOn}-${i}`}>
+      <div className={`${isMobile ? "mobileAddOns--wrapper" : filteredCategories ? "AddOns--wrapper fixedHeight flex flex-column" : "AddOns--wrapper flex flex-column"}`} key={`${addOn}-${i}`}>
         <div className="addOnsBackground flex alignItems--center">
           <div className="flex flex1 alignItems--center">
             <span className={`icon u-${addOn.name === "ekco" ? "kubernetes" : addOn.name.toLowerCase()} u-marginBottom--small`}></span>
@@ -149,43 +150,45 @@ class SupportedAddOns extends React.Component {
             </div>
           </div>
           :
-          <div className="flex-column flex u-marginTop--15 u-paddingLeft--15 u-paddingRight--15 u-paddingBottom--10">
-            <div className="flex">
-              <span className="icon u-dependecy" />
-              <div className="flex-column">
-                <span className="u-fontSize--normal u-fontWeight--bold u-color--tundora"> Depends on </span>
-                <div className="flex-auto u-marginTop--small">
-                  {addOn.requires.length > 0 ?
-                    this.renderDependeciesStates(addOn.requires)
-                    :
-                    <span className="u-fontSize--normal u-fontWeight--normal u-color--dustyGray u-marginTop--small" key={i}> No dependencies required </span>
-                  }
+          <div className="u-marginTop--15 u-paddingLeft--15 u-paddingRight--15 u-paddingBottom--10">
+            <div className="flex-column flex1 dependeciesWrapper">
+              <div className="flex">
+                <span className="icon u-dependecy" />
+                <div className="flex-column">
+                  <span className="u-fontSize--normal u-fontWeight--bold u-color--tundora"> Depends on </span>
+                  <div className="flex-auto u-marginTop--small">
+                    {addOn.requires.length > 0 ?
+                      this.renderDependeciesStates(addOn.requires)
+                      :
+                      <span className="u-fontSize--normal u-fontWeight--normal u-color--dustyGray u-marginTop--small" key={i}> No dependencies required </span>
+                    }
+                  </div>
+                </div>
+              </div>
+              <div className="flex u-marginTop--20">
+                <span className="icon u-grayCircleCheckmark" />
+                <div className="flex-column">
+                  <span className="u-fontSize--normal u-fontWeight--bold u-color--tundora"> Works well with </span>
+                  <div className="flex-auto u-marginTop--small">
+                    <span className="u-fontSize--normal u-fontWeight--normal u-color--dustyGray u-marginTop--small u-display--inline u-marginRight--small"> {addOn.recommends.join(", ")} </span>
+                  </div>
+                </div>
+              </div>
+              <div className="flex u-marginTop--20">
+                <span className="icon u-grayCircleExclamationMark" />
+                <div className="flex-column">
+                  <span className="u-fontSize--normal u-fontWeight--bold u-color--tundora"> Incompatible with </span>
+                  <div className="flex-auto u-marginTop--small">
+                    {addOn.incompatibilities.length > 0 ?
+                      <span className="u-fontSize--normal u-fontWeight--normal u-color--dustyGray u-marginTop--small u-display--inline u-marginRight--small"> {addOn.incompatibilities.join(", ")} </span>
+                      :
+                      <span className="u-fontSize--normal u-fontWeight--normal u-color--dustyGray u-marginTop--small"> No incompatibilities </span>
+                    }
+                  </div>
                 </div>
               </div>
             </div>
-            <div className="flex u-marginTop--20">
-              <span className="icon u-grayCircleCheckmark" />
-              <div className="flex-column">
-                <span className="u-fontSize--normal u-fontWeight--bold u-color--tundora"> Works well with </span>
-                <div className="flex-auto u-marginTop--small">
-                  <span className="u-fontSize--normal u-fontWeight--normal u-color--dustyGray u-marginTop--small u-display--inline u-marginRight--small"> {addOn.recommends.join(", ")} </span>
-                </div>
-              </div>
-            </div>
-            <div className="flex u-marginTop--20">
-              <span className="icon u-grayCircleExclamationMark" />
-              <div className="flex-column">
-                <span className="u-fontSize--normal u-fontWeight--bold u-color--tundora"> Incompatible with </span>
-                <div className="flex-auto u-marginTop--small">
-                  {addOn.incompatibilities.length > 0 ?
-                    <span className="u-fontSize--normal u-fontWeight--normal u-color--dustyGray u-marginTop--small u-display--inline u-marginRight--small"> {addOn.incompatibilities.join(", ")} </span>
-                    :
-                    <span className="u-fontSize--normal u-fontWeight--normal u-color--dustyGray u-marginTop--small"> No incompatibilities </span>
-                  }
-                </div>
-              </div>
-            </div>
-            <div className="u-marginTop--40">
+            <div className={`flex flex1 ${isMobile && "u-marginTop--40"}`}>
               <div className="flex flex1">
                 {this.getDocumentationUrl(addOn.name)}
                 {supportedVersions && supportedVersions.length > 0 ?
@@ -208,11 +211,11 @@ class SupportedAddOns extends React.Component {
 
     if (categoryToShow === "") {
       return categories.map((addOn, i) => {
-        return this.renderAddOnCard(addOn, i);
+        return this.renderAddOnCard(addOn, i, false);
       })
     } else if (filteredCategoriesToShow && filteredCategoriesToShow.length > 0) {
       return filteredCategoriesToShow.map((addOn, i) => {
-        return this.renderAddOnCard(addOn, i)
+        return this.renderAddOnCard(addOn, i, true)
       })
     } else {
       return (
