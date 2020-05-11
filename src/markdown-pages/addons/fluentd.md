@@ -4,6 +4,7 @@ date: "2019-02-20"
 linktitle: "Fluentd Add-On"
 weight: 26
 title: "Fluentd Add-On"
+addOn: "fluentd"
 ---
 
 The [Fluentd](https://www.fluentd.org/) add-on is used as a unified logging layer.
@@ -25,6 +26,4 @@ spec:
     fullEFKStack: true
 ```
 
-| Flag                              | Usage                                                                                                         |
-| --------------------------------- | ------------------------------------------------------------------------------------------------------------- |
-| fullEFKStack                      | This flag will install Elasticsearch for log aggregation and Kibana for visualization alongside fluentd.      |
+flags-table

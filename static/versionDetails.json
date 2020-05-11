@@ -1,0 +1,423 @@
+{
+  "kubernetes": [
+    {
+      "flag": "version",
+      "description": "The version of kubernetes to be installed.",
+      "type": "string"
+    },
+    {
+      "flag": "serviceCIDR",
+      "description": "Customize the range of virtual IPs assigned to services.",
+      "type": "string"
+    },
+    {
+      "flag": "serviceCidrRange",
+      "description": "The size of the CIDR for Kubernetes (can be presented as just a number or with a preceding slash).",
+      "type": "string"
+    },
+    {
+      "flag": "bootstrapToken",
+      "description": "Authentication token used by kubernetes when adding nodes. The default is an auto-generated token.",
+      "type": "string"
+    },
+    {
+      "flag": "bootstrapTokenTTL",
+      "description": "TTL of the bootstrap-token. The default is 24 hours.",
+      "type": "string"
+    },
+    {
+      "flag": "certKey",
+      "description": " A secret needed for new master nodes to join an existing cluster (read-only).",
+      "type": "string"
+    },
+    {
+      "flag": "controlPlane",
+      "description": "Used during a join script to indicate that the node will be an additional master (read-only).",
+      "type": "boolean"
+    },
+    {
+      "flag": "kubeadmToken",
+      "description": "Generated during the install script, used for nodes joining (read-only).",
+      "type": "string"
+    },
+    {
+      "flag": "kubeadmTokenCAHash",
+      "description": "Generated during the install script, used for nodes joining (read-only).",
+      "type": "string"
+    },
+    {
+      "flag": "loadBalancerAddress",
+      "description": "Used for High Availability installs, indicates the address of the external load balancer.",
+      "type": "string"
+    },
+    {
+      "flag": "masterAddress",
+      "description": "The address of the internal Kubernetes API server, used during join scripts (read-only).",
+      "type": "string"
+    }
+  ],
+  "weave": [
+    {
+      "flag": "version",
+      "description": "The version of weave to be installed.",
+      "type": "string"
+    },
+    {
+      "flag": "isEncryptionDisabled",
+      "description": "Encrypt network communication between nodes in the cluster.",
+      "type": "boolean"
+    },
+    {
+      "flag": "podCIDR",
+      "description": "The subnet where pods will be found.",
+      "type": "string"
+    },
+    {
+      "flag": "podCidrRange",
+      "description": "The size of the CIDR where pods can be found.",
+      "type": "string"
+    }
+  ],
+  "contour": [
+    {
+      "flag": "version",
+      "description": "The version of contour to be installed.",
+      "type": "string"
+    }
+  ],
+  "rook": [
+    {
+      "flag": "version",
+      "description": "The version of rook to be installed.",
+      "type": "string"
+    },
+    {
+      "flag": "storageClassName",
+      "description": "The name of the StorageClass that will use Rook to provision PVCs.",
+      "type": "string"
+    },
+    {
+      "flag": "cephReplicaCount",
+      "description": "Replication factor of ceph pools. The default is to use the number of nodes in the cluster, up to a maximum of 3.",
+      "type": "number"
+    },
+    {
+      "flag": "isBlockStorageEnabled",
+      "description": "Use block devices instead of the filesystem for storage in the Ceph cluster.",
+      "type": "boolean"
+    },
+    {
+      "flag": "blockDeviceFilter",
+      "description": "Only use block devices matching this regex.",
+      "type": "string"
+    }
+  ],
+  "docker": [
+    {
+      "flag": "version",
+      "description": "The version of docker to be installed.",
+      "type": "string"
+    },
+    {
+      "flag": "bypassStorageDriverWarnings",
+      "description": "Bypass Docker warnings when using the devicemapper storage driver in loopback mode.",
+      "type": "boolean"
+    },
+    {
+      "flag": "hardFailOnLoopback",
+      "description": "If present, aborts the installation if devicemapper on loopback mode is detected.",
+      "type": "boolean"
+    },
+    {
+      "flag": "noCEOnEE",
+      "description": "Disable installation of Docker CE onto platforms it does not support - RHEL, SLES and Oracle Linux.",
+      "type": "boolean"
+    },
+    {
+      "flag": "daemonConfig",
+      "description": "This is where a docker daemon.json config may be added as a string field.",
+      "type": "string"
+    },
+    {
+      "flag": "preserveConfig",
+      "description": "This flag will ensure that nothing is changed in the existing docker config on the system, regardless of other options.",
+      "type": "boolean"
+    },
+    {
+      "flag": "dockerRegistryIP",
+      "description": "This is the location of the docker registry, used by additional nodes during a join script. It is not customizable by the user during an initial install.",
+      "type": "string"
+    }
+  ],
+  "prometheus": [
+    {
+      "flag": "version",
+      "description": "The version of prometheus to be installed.",
+      "type": "string"
+    }
+  ],
+  "registry": [
+    {
+      "flag": "version",
+      "description": "The version of registry to be installed.",
+      "type": "string"
+    },
+    {
+      "flag": "publishPort",
+      "description": "Add a NodePort service to the registry.",
+      "type": "number"
+    }
+  ],
+  "velero": [
+    {
+      "flag": "version",
+      "description": "The version of velero to be installed.",
+      "type": "string"
+    },
+    {
+      "flag": "namespace",
+      "description": "Install the Velero server into an alternative namesapce. Default is 'velero'",
+      "type": "string"
+    },
+    {
+      "flag": "disableCLI",
+      "description": "Do not install the velero CLI.",
+      "type": "boolean"
+    },
+    {
+      "flag": "disableRestic",
+      "description": "Do not install the Restic integration. Volume data will not be included in backups if Restic is disabled",
+      "type": "boolean"
+    },
+    {
+      "flag": "localBucket",
+      "description": "Create an alternative bucket in the local ceph RGW store for the initial backend. Default is 'velero'",
+      "type": "string"
+    }
+  ],
+  "kotsadm": [
+    {
+      "flag": "version",
+      "description": "The version of kotsadm to be installed.",
+      "type": "string"
+    },
+    {
+      "flag": "applicationSlug",
+      "description": "The slug shown on the app settings page of vendor web",
+      "type": "string"
+    },
+    {
+      "flag": "uiBindPort",
+      "description": "This is the port where the kots admin panel can be interacted with via browser",
+      "type": "number"
+    },
+    {
+      "flag": "hostname",
+      "description": "The hostname that the admin console will be exposed on",
+      "type": "string"
+    },
+    {
+      "flag": "applicationNamespaces",
+      "description": "An additional namespace that should be pre-created during the install (For applications that install to other namespaces outside of the one where kotsadm is running)",
+      "type": "string"
+    }
+  ],
+  "firewalld": [
+    {
+      "flag": "bypassFirewalldWarning",
+      "description": "By default, a kURL install will not continue with firewalld active. When this flag is set, kURL will continue to install.",
+      "type": "boolean"
+    },
+    {
+      "flag": "disableFirewalld",
+      "description": "This is a flag that allows for disabling firewalld during the install script without user interaction. Note that if disableFirewalld and preserveConfig are set to True, preserveConfig will take precedence.",
+      "type": "boolean"
+    },
+    {
+      "flag": "hardFailOnFirewalld",
+      "description": "This is a flag that will stop and exit a current install if firewalld is active.",
+      "type": "boolean"
+    },
+    {
+      "flag": "firewalld",
+      "description": "This flag describes the desired state of firewalld, either enabled or disabled.",
+      "type": "string"
+    },
+    {
+      "flag": "firewalldCmds",
+      "description": "This is a list of arguments that may be passed in to kURL and executed by firewall-cmd during the install. Multiple commands may be run.",
+      "type": "string"
+    },
+    {
+      "flag": "preserveConfig",
+      "description": "This flag will ensure that nothing is changed in the existing firewalld config on the system, regardless of other options.",
+      "type": "boolean"
+    }
+  ],
+  "iptables": [
+    {
+      "flag": "iptablesCmds",
+      "description": "This is a list of arguments that may be passed in to kURL and executed by iptables during the install. Multiple commands may be run.",
+      "type": "string"
+    },
+    {
+      "flag": "preserveConfig",
+      "description": "This flag will ensure that nothing is changed in the existing iptables config on the system, regardless of other options.",
+      "type": "boolean"
+    }
+  ],
+  "kurl": [
+    {
+      "flag": "airgap",
+      "description": "This flag signifies that the installer will use an airgap bundle to install the file. It needs and does not need an outbound internet connection.",
+      "type": "boolean"
+    },
+    {
+      "flag": "HTTPProxy",
+      "description": "Configures Docker to use a proxy when pulling images. Disables automatic proxy detection from the environment and prompt. Must include http(s) and may include port.",
+      "type": "string"
+    },
+    {
+      "flag": "noProxy",
+      "description": "If present, do not use a proxy. Disables automatic proxy detection and prompt.",
+      "type": "boolean"
+    },
+    {
+      "flag": "publicAddress",
+      "description": "The public IP address that will be added to the SANs of any certificates generated for host services. Setting this disables detection from the environment and prompt.",
+      "type": "string"
+    },
+    {
+      "flag": "privateAddress",
+      "description": "The private IP address used for internal communication between components. Setting this disables detection from the host and prompt.",
+      "type": "string"
+    },
+    {
+      "flag": "hostnameCheck",
+      "description": "This is an option for use during a join script to ensure that the join is only run on the node it is targeted for.",
+      "type": "string"
+    }
+  ],
+  "selinux": [
+    {
+      "flag": "chconCmds",
+      "description": "This is a list of arguments that may be passed in to kURL and executed by chcon during the install. Multiple commands may be run.",
+      "type": "string"
+    },
+    {
+      "flag": "disableSelinux",
+      "description": "This is a flag that allows for disabling selinux during the install script without user interaction. Note that if disableSelinux and preserveConfig are set to True, preserveConfig will take precedence.",
+      "type": "boolean"
+    },
+    {
+      "flag": "preserveConfig",
+      "description": "This flag will ensure that nothing is changed in the existing selinux config on the system, regardless of other options.",
+      "type": "boolean"
+    },
+    {
+      "flag": "semanageCmds",
+      "description": "This is a list of arguments that may be passed in to kURL and executed by semanage during the install. Multiple commands may be run.",
+      "type": "string"
+    },
+    {
+      "flag": "selinux",
+      "description": "This option sets the desired state of selinux, choices are enforcing, permissive, disabled.",
+      "type": "string"
+    }
+  ],
+  "openebs": [
+    {
+      "flag": "version",
+      "description": "The version of OpenEBS to be installed.",
+      "type": "string"
+    },
+    {
+      "flag": "namespace",
+      "description": "The namespace Open EBS is installed to.",
+      "type": "string"
+    },
+    {
+      "flag": "isLocalPVEnabled",
+      "description": "Turn on localPV storage provisioning.",
+      "type": "boolean"
+    },
+    {
+      "flag": "localPVStorageClassName",
+      "description": "StorageClass name for local PV provisioner (Name it “default” to make it the cluster’s default provisioner).",
+      "type": "string"
+    },
+    {
+      "flag": "isCstorEnabled",
+      "description": "Turn on cstor storage provisioning.",
+      "type": "boolean"
+    },
+    {
+      "flag": "cstorStorageClassName",
+      "description": "The StorageClass name for cstor provisioner (Name it “default” to make it the cluster’s default provisioner).",
+      "type": "string"
+    }
+  ],
+  "ekco": [
+    {
+      "flag": "version",
+      "description": "The version of EKCO to be installed.",
+      "type": "string"
+    },
+    {
+      "flag": "nodeUnreachableToleration",
+      "description": "How long a Node must be unreachable before considered dead. Default is 1h.",
+      "type": "string"
+    },
+    {
+      "flag": "minReadyMasterNodeCount",
+      "description": "Don't purge the node if it will result in less than this many ready masters. Default is 2.",
+      "type": "number"
+    },
+    {
+      "flag": "minReadyWorkerNodeCount",
+      "description": "Don't purge the node if it will result in less than this many ready workers. Default is 0.",
+      "type": "number"
+    },
+    {
+      "flag": "rookShouldUseAllNodes",
+      "description": "This will disable management of nodes in the CephCluster resource. If false, ekco will add nodes to the storage list and remove them when a node is purged.",
+      "type": "boolean"
+    },
+    {
+      "flag": "shouldDisableRebootServices",
+      "description": "Do not install the systemd shutdown service that cordons a node and deletes pods with PVC and Shared FS volumes mounted.",
+      "type": "boolean"
+    }
+  ],
+  "fluentd": [
+    {
+      "flag": "version",
+      "description": "The version of Fluentd to be installed.",
+      "type": "string"
+    },
+    {
+      "flag": "fullEFKStack",
+      "description": "This will ensure that ElasticSearch and Kibana will be installed for log aggregation and visualization.",
+      "type": "boolean"
+    }
+  ],
+  "minio": [
+    {
+      "flag": "version",
+      "description": "The version of minio to be installed.",
+      "type": "string"
+    },
+    {
+      "flag": "namespace",
+      "description": "Changes the namespace in which minio will be installed into.",
+      "type": "string"
+    }
+  ],
+  "calico": [
+    {
+      "flag": "version",
+      "description": "The version of calico to be installed.",
+      "type": "string"
+    }
+  ]
+}

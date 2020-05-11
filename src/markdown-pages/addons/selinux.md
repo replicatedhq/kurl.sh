@@ -4,6 +4,7 @@ date: "2020-05-01"
 linktitle: "Selinux Add-On"
 weight: 25
 title: "Selinux Add-On"
+addOn: "selinux"
 ---
 
 Security-Enhanced Linux (SELinux) is a security architecture for Linux systems that allows administrators to have more control over who can access the system.
@@ -24,10 +25,4 @@ spec:
     disableSelinux: false
 ```
 
-| Flag           | Usage                                                                                                                                                                                                     |
-| -------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| chconCmds      | This is a list of arguments that may be passed in to kURL and executed by chcon during the install. Multiple commands may be run.                                                                         |
-| disableSelinux | This is a flag that allows for disabling selinux during the install script without user interaction. Note that if disableSelinux and preserveConfig are set to True, preserveConfig will take precedence. |
-| preserveConfig | This flag will ensure that nothing is changed in the existing selinux config on the system, regardless of other options.                                                                                  |
-| semanageCmds   | This is a list of arguments that may be passed in to kURL and executed by semanage during the install. Multiple commands may be run.                                                                      |
-| selinux        | This option sets the desired state of selinux, choices are enforcing, permissive, disabled.                                                                                                               |
+flags-table

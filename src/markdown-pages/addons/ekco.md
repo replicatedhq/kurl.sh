@@ -4,6 +4,7 @@ date: "2020-02-27"
 linktitle: "EKCO Add-On"
 weight: 27
 title: "Embedded kURL Cluster Operator (EKCO) Add-On"
+addOn: "ekco"
 ---
 
 The [EKCO](https://github.com/replicatedhq/ekco) add-on is a utility tool to perform maintenance operations on a kURL cluster.
@@ -24,13 +25,7 @@ spec:
     shouldDisableRebootServices: true
 ```
 
-| Flag                              | Usage                                                                                                                                                       |
-| --------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| nodeUnreachableTolerationDuration | How long a Node must be unreachable before considered dead. Default is 1h.                                                                                  |
-| minReadyMasterNodeCount           | Don't purge the node if it will result in less than this many ready masters. Default is 2.                                                                  |
-| minReadyWorkerNodeCount           | Don't purge the node if it will result in less than this many ready workers. Default is 0.                                                                  |
-| rookShouldUseAllNodes             | This will disable management of nodes in the CephCluster resource. If false, ekco will add nodes to the storage list and remove them when a node is purged. |
-| shouldMaintainStorageNodes        | Whether to maintain the list of nodes to use in the CephCluster config. Default is true when rook addon is installed.                                       |
+flags-table
 
 ## Operator Tasks
 

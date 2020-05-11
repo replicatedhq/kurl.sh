@@ -15,13 +15,6 @@
       "incompatibilities": ["Containerd"]
     },
     {
-      "name": "containerd",
-      "fulfills": ["Container Runtime"],
-      "requires": [],
-      "recommends": ["KOTS"],
-      "incompatibilities": ["Docker"]
-    },
-    {
       "name": "calico",
       "fulfills": ["CNI Plugin"],
       "requires": ["Container Runtime"],

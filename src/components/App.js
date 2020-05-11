@@ -2,7 +2,9 @@ import * as React from "react";
 import CodeSnippet from "./shared/CodeSnippet";
 import Loader from "./shared/Loader";
 import { Utilities } from "./utilities";
-import("../scss/components/App.scss");
+
+import "../scss/components/App.scss";
+import versionDetails from "../../static/versionDetails.json";
 
 class AppComponent extends React.Component {
   state = {
@@ -84,32 +86,23 @@ class AppComponent extends React.Component {
     this.setState({ selectedSpec: spec });
   }
 
-  getVersionDetails = async (addOn) => {
-    const url = `${process.env.INTERNAL_ADD_ON_URL}/${addOn}`
-    try {
-      const resp = await fetch(url);
-      const versionData = await resp.json();
-      this.setState({
-        versionData
-      });
-    } catch (error) {
-      throw error;
-    }
+  getVersionDetails = (addOn) => {
+    this.setState({ versionData: versionDetails[addOn] });
   }
 
   getVersionData = (installerData) => {
     const { versionData } = this.state;
-    return Object.keys(versionData).map((key, i) => {
-      const existInInstallerYaml = installerData.find((d) => key === d);
+    return versionData.map((data, i) => {
+      const existInInstallerYaml = installerData.find((d) => data.flag === d);
       return (
-        <div className="flex alignItems--center u-borderBottom--silverChalice u-padding--normal" key={`${key}-${i}`}>
+        <div className="flex alignItems--center u-borderBottom--silverChalice u-padding--normal" key={`${data}-${i}`}>
           {existInInstallerYaml ? <span className="status-dot"></span> : <span></span>}
           <div className="flex flex1 alignItems--center justifyContent--center">
             <div className="flex flex-column alignItems--center u-width--180 u-marginLeft--40">
-              <div className="u-color--alabasterapprox u-fontSize--small u-fontWeight--normal u-marginRight--30"> {versionData[key].flag ? `--${versionData[key].flag}` : "--version"} </div>
-              <div className="u-color--silverChalice u-fontSize--small u-fontWeight--normal u-marginRight--30"> {versionData[key].type} </div>
+              <div className="u-color--alabasterapprox u-fontSize--small u-fontWeight--normal u-marginRight--30"> {data.flag ? `--${data.flag}` : "--version"} </div>
+              <div className="u-color--silverChalice u-fontSize--small u-fontWeight--normal u-marginRight--30"> {data.type} </div>
             </div>
-            <div className="u-width--250 u-color--alabasterapprox u-fontSize--small u-fontWeight--normal"> {versionData[key].description} </div>
+            <div className="u-width--250 u-color--alabasterapprox u-fontSize--small u-fontWeight--normal"> {data.description} </div>
           </div>
         </div>
       )
