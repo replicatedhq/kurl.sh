@@ -18,13 +18,13 @@
   border: solid 1px #DFDFDF;
   background-color: #ffffff;
   border-radius: 4px;
-  width: 30%;
-  margin-right: 20px;
-  margin-bottom: 20px;
+  width: 100%;
+  margin-right: 30px;
+  margin-bottom: 30px;
   box-sizing: border-box;
   transition: box-shadow .3s;
 
-  &:nth-child(3n) {
+  &:nth-child(2n) {
     margin-right: 0;
   }
 
@@ -34,13 +34,17 @@
     font-size: 14px;
     padding-bottom: 10px;
   }
+
+  .dependeciesWrapper {
+    height: 200px;
+  }
 }
 
 .mobileAddOns--wrapper {
   border: solid 1px #DFDFDF;
   background-color: #ffffff;
   border-radius: 4px;
-  width: 90%;
+  width: 100%;
   margin-bottom: 20px;
   box-sizing: border-box;
   transition: box-shadow .3s;
@@ -61,7 +65,7 @@
 
 .addOnsBackground {
   background: linear-gradient(rgba(245,248,252,0) 0%, rgba(245,248,252,93) 100%);
-  padding: 30px 0px 20px 0px;
+  padding: 15px;
 }
 
 .AddOns--footer {
@@ -84,18 +88,81 @@
   }
 }
 
+.Category--item {
+  cursor: pointer;
+  padding: 10px 10px;
+ 
+  &:hover {
+    background-color: #f8f8f8;
+    color: #326DE6;
+  }
+
+  .icon.white-x-icon {
+    position: relative;
+    top: 2px;
+  }
+}
+
+.Category--item.is-active,
+.Category--item.is-active .Category--item:hover {
+  background-color: #326DE6;
+  color: #ffffff;
+}
+
+.SupportedVersionsList--wrapper {
+  list-style: none;
+  margin-left: 0;
+  padding-left: 0;
+  overflow: scroll;
+  width: 300px;
+  text-align: center;
+  max-height: 140px;
+}
+
+.SupportedVersionsList--wrapper li::before {
+  content: "";
+  height: 6px;
+  background: #326DE6;
+  border-radius: 7px;
+  display: inline-block;
+  width: 6px;
+  padding: 0;
+  margin-right: 5px;
+}
+
+.category-item {
+  border-right: 1px solid #DFDFDF;
+  padding: 0 10px;
+
+  &:last-child {
+    border-right: none
+  }
+}
+
+.roundBorder {
+  border-radius: 50%;
+  padding: 8px 10px;
+  box-sizing: border-box;
+  box-shadow: 0 2px 4px rgba(0,0,0,.50);
+}
+
+/* Media Queries */
 @media screen and (min-width: 60em) {
   .AddOns--wrapper {
-    flex: 1 1 calc(50% - 30px);
+    flex: 1 1 calc(50% - 50px);
+    max-width: calc(50% - 50px);
   }
-  .AddOns--wrapper:nth-child(3n) {
-    max-width: calc(50% - 30px);
+  .fixedHeight {
+    max-height: calc(65% - 50px);
   }
 }
 
 @media screen and (min-width: 80em) {
   .AddOns--wrapper {
-    max-width: calc(33.33% - 30px);
-    flex: 1 1 calc(33.33% - 30px);
+    max-width: calc(50% - 50px);
+    flex: 1 1 calc(50% - 50px);
   }
+  .fixedHeight {
+    max-height: calc(65% - 50px);	
+   }
 }

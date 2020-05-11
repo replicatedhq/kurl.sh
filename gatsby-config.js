@@ -44,7 +44,7 @@ module.exports = {
     },
     {
       resolve: `gatsby-plugin-create-client-paths`,
-      options: { prefixes: [`/index/*`, `/download/*`, `/docs/*`] },
+      options: { prefixes: [`/index/*`, `/download/*`, `/docs/*`, `/add-ons/*`] },
     },
     {
       resolve: `gatsby-transformer-remark`,

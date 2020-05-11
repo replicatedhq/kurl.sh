@@ -221,7 +221,7 @@ cat install.sh | sudo bash -s airgap
                 {installerData.spec.weave &&
                   <div className={`flex u-cursor--pointer alignItems--center u-padding--20 ${selectedSpec === "weave" && "isSelected"}`} onClick={() => this.whatYouGet("weave")}>
                     <div className="flex u-width--250">
-                      <div className="flex icon u-weaveworksFlux u-marginRight--normal"></div>
+                      <div className="flex icon u-weave u-marginRight--normal"></div>
                       <div className="WhatYouGet--wrapper flex flex-column">
                         <p className="u-color--tuna u-fontSize--large u-fontWeight--bold u-paddingBottom--small"> Weave </p>
                         <p className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal"> {installerData.spec.weave.version === "latest" ? "Latest version" : `Version ${installerData.spec.weave.version}`} </p>
@@ -254,7 +254,7 @@ cat install.sh | sudo bash -s airgap
                 {installerData.spec.registry &&
                   <div className={`flex u-cursor--pointer alignItems--center u-padding--20 ${selectedSpec === "registry" && "isSelected"}`} onClick={() => this.whatYouGet("registry")}>
                     <div className="flex u-width--250">
-                      <div className="flex icon u-dockerRegistry u-marginRight--normal"></div>
+                      <div className="flex icon u-registry u-marginRight--normal"></div>
                       <div className="WhatYouGet--wrapper flex flex-column">
                         <p className="u-color--tuna u-fontSize--large u-fontWeight--bold u-paddingBottom--small"> Docker Registry </p>
                         <p className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal"> {installerData.spec.registry.version === "latest" ? "Latest version" : `Version ${installerData.spec.registry.version}`} </p>
@@ -287,7 +287,7 @@ cat install.sh | sudo bash -s airgap
                 {installerData.spec.velero &&
                   <div className={`flex u-cursor--pointer alignItems--center u-padding--20 ${selectedSpec === "velero" && "isSelected"}`} onClick={() => this.whatYouGet("velero")}>
                     <div className="flex u-width--250">
-                      <div className="flex icon u-veleroSmall u-marginRight--normal"></div>
+                      <div className="flex icon u-velero u-marginRight--normal"></div>
                       <div className="WhatYouGet--wrapper flex flex-column">
                         <p className="u-color--tuna u-fontSize--large u-fontWeight--bold u-paddingBottom--small"> Velero </p>
                         <p className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal"> {installerData.spec.velero.version === "latest" ? "Latest version" : `Version ${installerData.spec.velero.version}`} </p>
@@ -298,7 +298,7 @@ cat install.sh | sudo bash -s airgap
                 {installerData.spec.kotsadm &&
                   <div className={`flex u-cursor--pointer alignItems--center u-padding--20 ${selectedSpec === "kotsadm" && "isSelected"}`} onClick={() => this.whatYouGet("kotsadm")}>
                     <div className="flex u-width--250">
-                      <div className="flex icon u-kotsadmSmall u-marginRight--normal"></div>
+                      <div className="flex icon u-kotsadm u-marginRight--normal"></div>
                       <div className="WhatYouGet--wrapper flex flex-column">
                         <p className="u-color--tuna u-fontSize--large u-fontWeight--bold u-paddingBottom--small"> Kotsadm </p>
                         <p className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal"> {installerData.spec.kotsadm.version === "latest" ? "Latest version" : `Version ${installerData.spec.kotsadm.version}`} </p>
