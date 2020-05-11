@@ -34,6 +34,10 @@
     font-size: 14px;
     padding-bottom: 10px;
   }
+
+  .dependeciesWrapper {
+    height: 200px;
+  }
 }
 
 .mobileAddOns--wrapper {
@@ -147,7 +151,9 @@
   .AddOns--wrapper {
     flex: 1 1 calc(50% - 50px);
     max-width: calc(50% - 50px);
-    max-height: calc(52% - 50px);
+  }
+  .fixedHeight {
+    max-height: calc(65% - 50px);
   }
 }
 
@@ -155,6 +161,8 @@
   .AddOns--wrapper {
     max-width: calc(50% - 50px);
     flex: 1 1 calc(50% - 50px);
-    max-height: calc(70% - 50px);
   }
+  .fixedHeight {
+    max-height: calc(65% - 50px);	
+   }
 }
