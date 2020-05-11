@@ -18,42 +18,42 @@
       "name": "containerd",
       "fulfills": ["Container Runtime"],
       "requires": [],
-      "recommends": ["Kots"],
+      "recommends": ["KOTS"],
       "incompatibilities": ["Docker"]
     },
     {
       "name": "calico",
       "fulfills": ["CNI Plugin"],
       "requires": ["Container Runtime"],
-      "recommends": ["Kots"],
+      "recommends": ["KOTS"],
       "incompatibilities": ["Weave"]
     },
     {
       "name": "registry",
       "fulfills": ["Registry"],
       "requires": ["CNI Plugin", "Container Runtime","Object Store"],
-      "recommends": ["Kots"],
+      "recommends": ["KOTS"],
       "incompatibilities": []
     },
     {
       "name": "selinux",
       "fulfills": ["OS Extenstion"],
       "requires": ["OS Linux"],
-      "recommends": ["Docker registry", "Kots", "Prometheus"],
+      "recommends": ["Docker registry", "KOTS", "Prometheus"],
       "incompatibilities": []
     },
     {
       "name": "velero",
       "fulfills": ["Snapshots"],
       "requires": ["CNI Plugin", "Container Runtime", "Object Store"],
-      "recommends": ["Kots"],
+      "recommends": ["KOTS"],
       "incompatibilities": []
     },
     {
       "name": "firewalld",
       "fulfills": ["OS Extension"],
       "requires": [],
-      "recommends": ["Docker registry", "Kots", "Prometheus"],
+      "recommends": ["Docker registry", "KOTS", "Prometheus"],
       "incompatibilities": []
     },
     {
@@ -67,57 +67,57 @@
       "name": "prometheus",
       "fulfills": ["Metrics & Monitoring"],
       "requires": ["CNI Plugin", "Container Runtime", "PVC Provisioner"],
-      "recommends": ["Kots"],
+      "recommends": ["KOTS"],
       "incompatibilities": []
     },
     {
       "name": "contour",
       "fulfills": ["Ingress"],
       "requires": ["CNI Plugin", "Container Runtime"],
-      "recommends": ["Kots"],
+      "recommends": ["KOTS"],
       "incompatibilities": []
     },
     {
       "name": "fluentd",
       "fulfills": ["Logs"],
       "requires": ["CNI Plugin", "Container Runtime"],
-      "recommends": ["Kots"],
+      "recommends": ["KOTS"],
       "incompatibilities": []
     },
     {
       "name": "rook",
       "fulfills": ["PVC Provisioner", "Object Store"],
-      "requires": ["Container Runtime, CNI Plugin add-ons"],
-      "recommends": ["Docker registry", "Kots", "Prometheus"],
-      "incompatibilities": ["openEBS", "minio"]
+      "requires": ["Container Runtime", "CNI Plugin"],
+      "recommends": ["Docker registry", "KOTS", "Prometheus"],
+      "incompatibilities": ["OpenEBS", "Minio"]
     },
     {
       "name": "ekco",
       "fulfills": ["Cluster Administration"],
       "requires": ["CNI Plugin", "Container Runtime"],
-      "recommends": ["Kots"],
+      "recommends": ["KOTS"],
       "incompatibilities": []
     },
     {
       "name": "iptables",
       "fulfills": ["OS Extension"],
       "requires": [],
-      "recommends": ["Docker registry", "Kots", "Prometheus"],
+      "recommends": ["Docker registry", "KOTS", "Prometheus"],
       "incompatibilities": []
     },
     {
       "name": "openebs",
       "fulfills": ["PVC Provisioner"],
       "requires":  ["CNI Plugin", "Container Runtime"],
-      "recommends": ["Kots"],
+      "recommends": ["KOTS"],
       "incompatibilities": ["Rook"]
     },
     {
       "name": "minio",
       "fulfills": ["Object Store"],
       "requires":  ["CNI Plugin", "Container Runtime"],
-      "recommends": ["Kots"],
-      "incompatibilities": ["Rook"]
+      "recommends": ["KOTS"],
+      "incompatibilities": []
     }
   ],
   "categories": ["Container Runtime", "CNI Plugin", "PVC Provisioner", "Object Store", "Ingress", "Logs", "Snapshots", "Metrics & Monitoring", "Cluster Administration", "Application Management"]
