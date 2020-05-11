@@ -103,6 +103,25 @@ class SupportedAddOns extends React.Component {
     }
   }
 
+  generateCardName = (name) => {
+    switch (name) {
+      case "kotsadm":
+        return "KOTS";
+      case "selinux":
+        return "SELinux";
+      case "firewalld":
+        return "firewalld";
+      case "ekco":
+        return "EKCO";
+      case "openebs":
+        return "OpenEBS";
+      case "iptables":
+        return "iptables"
+      default:
+        return Utilities.toTitleCase(name);
+    }
+  }
+
   renderAddOnCard = (addOn, i, filteredCategories) => {
     const { categoryVersionsToShow } = this.state;
     const { isMobile } = this.props;
@@ -116,7 +135,7 @@ class SupportedAddOns extends React.Component {
           <div className="flex flex1 alignItems--center">
             <span className={`icon u-${addOn.name === "ekco" ? "kubernetes" : addOn.name.toLowerCase()} u-marginBottom--small`}></span>
             <div className="flex-column">
-              <span className="u-fontSize--largest u-fontWeight--medium u-color--tuna  u-marginLeft--10">{addOn.name === "kotsadm" ? "Kots" : Utilities.toTitleCase(addOn.name)}</span>
+              <span className="u-fontSize--largest u-fontWeight--medium u-color--tuna  u-marginLeft--10">{this.generateCardName(addOn.name)}</span>
               <div className="flex flex1 u-marginTop--small">
                 {addOn.fulfills.map((category, i) => {
                   return (
