@@ -1,7 +1,7 @@
 ---
 path: "/docs/community/"
 date: "2019-10-15"
-weight: 40
+weight: 60
 linktitle: "Community"
 title: "Community"
 ---

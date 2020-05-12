@@ -2,7 +2,7 @@
 path: "/docs/add-ons/docker"
 date: "2020-05-13"
 linktitle: "Docker Add-On"
-weight: 27
+weight: 32
 title: "Docker Add-On"
 addOn: "docker"
 ---

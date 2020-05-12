@@ -2,7 +2,7 @@
 path: "/docs/add-ons/calico"
 date: "2020-05-13"
 linktitle: "Calico Add-On"
-weight: 27
+weight: 30
 title: "Calico Add-On"
 addOn: "calico"
 ---
