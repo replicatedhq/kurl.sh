@@ -2,7 +2,7 @@
 path: "/docs/add-ons/firewalld"
 date: "2020-05-01"
 linktitle: "Firewalld Add-On"
-weight: 25
+weight: 34
 title: "Firewalld Add-On"
 addOn: "firewalld"
 ---

@@ -2,7 +2,7 @@
 path: "/docs/add-ons/iptables"
 date: "2020-05-01"
 linktitle: "Iptables Add-On"
-weight: 25
+weight: 36
 title: "Iptables Add-On"
 addOn: "iptables"
 ---

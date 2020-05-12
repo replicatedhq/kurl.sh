@@ -2,7 +2,7 @@
 path: "/docs/add-ons/ekco"
 date: "2020-02-27"
 linktitle: "EKCO Add-On"
-weight: 27
+weight: 33
 title: "Embedded kURL Cluster Operator (EKCO) Add-On"
 addOn: "ekco"
 ---
