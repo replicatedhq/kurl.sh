@@ -16,8 +16,6 @@ There is also an optional [Elasticsearch](https://www.elastic.co/elasticsearch/)
 
 Elasticsearch requires 1gb of memory for stability. Default storage is set to 20GB. Log rotation is not done by default. It uses the existing rook/ceph setups to handle the persistent volume claims.
 
-```
-
 ## Advanced Install Options
 
 ```yaml
