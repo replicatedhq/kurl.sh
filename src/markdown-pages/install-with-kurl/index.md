@@ -74,7 +74,7 @@ For example, if the install was done using the following command
 kubectl get installers
 ```
 
-Takeing the result from the previous command:
+Taking the result from the previous command:
 
 ```
 kubectl get installer [installer name]
