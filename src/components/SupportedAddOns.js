@@ -5,7 +5,6 @@ import MobileCategories from "./MobileCategories";
 import { Utilities } from "./utilities";
 
 import supportedAddOnsData from "../../static/add-ons.json";
-import installerData from "../../static/installer.json";
 
 import("../scss/components/SupportedAddOns.scss");
 
@@ -21,7 +20,12 @@ class SupportedAddOns extends React.Component {
     selectedVersion: { version: "1.17.3" },
     categoryToShow: "",
     categoryVersionsToShow: [],
-    mobileCategoriesOpen: false
+    mobileCategoriesOpen: false,
+    supportedVersions: []
+  }
+
+  getSupportedVersions = async () => {
+    this.setState({ supportedVersions: await Utilities.getSupportedVersions() })
   }
 
   getCurrentCategory = (category) => {
@@ -42,6 +46,7 @@ class SupportedAddOns extends React.Component {
     if (this.props.category) {
       this.getCurrentCategory(this.props.category);
     }
+    this.getSupportedVersions();
   }
 
   onVersionChange = (selectedVersion) => {
@@ -115,10 +120,10 @@ class SupportedAddOns extends React.Component {
   }
 
   renderAddOnCard = (addOn, i, filteredCategories) => {
-    const { categoryVersionsToShow } = this.state;
+    const { categoryVersionsToShow, supportedVersions } = this.state;
     const { isMobile } = this.props;
     const activeSupportedVersionCategory = categoryVersionsToShow.find(c => c.name === addOn.name);
-    const supportedVersions = installerData[addOn.name];
+    const versions = supportedVersions[addOn.name];
 
 
     return (
@@ -152,7 +157,7 @@ class SupportedAddOns extends React.Component {
               <span className="u-fontSize--large u-fontWeight--bold u-color--tundora u-marginLeft--small"> Supported versions </span>
             </div>
             <div className="SupportedVersionsList--wrapper flex1 flex-column u-marginTop--15">
-              {supportedVersions.map((version, i) => {
+              {versions.map((version, i) => {
                 return <li className="u-fontSize--large u-fontWeight--medium u-color--dustyGray u-marginTop--small" key={`${version}-${i}`}> {version} </li>
               })}
             </div>
@@ -202,7 +207,7 @@ class SupportedAddOns extends React.Component {
             <div className={`flex flex1 ${isMobile && "u-marginTop--40"}`}>
               <div className="flex flex1">
                 <a href={`https://kurl.sh/docs/add-ons/${addOn.name}`} target="_blank" rel="noopener noreferrer" className="u-color--royalBlue u-fontWeight--medium u-fontSize--normal u-lineHeight--more u-textDecoration--underlineOnHover"> Learn more </a>
-                {supportedVersions && supportedVersions.length > 0 ?
+                {versions && versions.length > 0 ?
                   <div>
                     <span className="u-color--scorpion u-fontSize--small u-marginLeft--small u-marginRight--small"> | </span>
                     <span className="u-color--royalBlue u-fontWeight--medium u-fontSize--normal u-lineHeight--more u-textDecoration--underlineOnHover" onClick={() => this.toggleSupportedVersions(addOn)}> Supported versions </span>
