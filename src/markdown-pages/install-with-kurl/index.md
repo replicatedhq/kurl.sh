@@ -103,7 +103,7 @@ and kind, as well as have a name.
     name: "patch"
   spec:
     kubernetes:
-      version: "19.03.4"
+      HACluster: true
 ```
 
 The kURL installer will perform a merge on this YAML to reach the desired end
