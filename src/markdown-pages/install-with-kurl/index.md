@@ -68,20 +68,18 @@ cat install.sh | sudo bash -s airgap ha
 The kURL installer YAML is a valid Kubernetes Custom Resource. At the end of an
 install, the install time options can be easily viewed via kubectl.
 
-For example, if the install was done using the following command
+For example, if the install was done using the following command:
 
 ```
-kubectl get installers
+curl https://kurl.sh/latest
 ```
 
-Taking the result from the previous command:
+Once the install is complete you can view the current state of the cluster and every option that was
+changed in the kURL YAML spec with the following command.
 
 ```
-kubectl get installer [installer name]
+kubectl get installer latest
 ```
-
-This will show the current state of the cluster and every option that was
-changed in the kURL YAML spec. 
 
 ## Modifying an Install Using a YAML Patch File at Runtime.
 
