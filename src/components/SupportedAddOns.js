@@ -2,12 +2,14 @@ import * as React from "react";
 import Select from "react-select";
 import { Link, navigate } from "gatsby";
 import MobileCategories from "./MobileCategories";
+import Loader from "./shared/Loader";
+
 import { Utilities } from "./utilities";
+import isEmpty from "lodash/isEmpty";
+import chunk from "lodash/chunk";
+import intersection from "lodash/intersection";
 
-import supportedAddOnsData from "../../static/add-ons.json";
-import installerData from "../../static/installer.json";
-
-import("../scss/components/SupportedAddOns.scss");
+import "../scss/components/SupportedAddOns.scss";
 
 class SupportedAddOns extends React.Component {
   state = {
@@ -21,7 +23,28 @@ class SupportedAddOns extends React.Component {
     selectedVersion: { version: "1.17.3" },
     categoryToShow: "",
     categoryVersionsToShow: [],
-    mobileCategoriesOpen: false
+    mobileCategoriesOpen: false,
+    supportedVersions: [],
+    supportedAddOns: [],
+    categories: []
+  }
+
+  getSupportedAddOnsData = async () => {
+    const url = `${process.env.ADDONS_JSON}`;
+    try {
+      const resp = await fetch(url);
+      const addOns = await resp.json();
+      this.setState({
+        supportedAddOns: addOns.addOns,
+        categories: [...new Set(addOns.addOns.map(add => chunk(add.fulfills, 1)[0].join("")))]
+      });
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  getSupportedVersions = async () => {
+    this.setState({ supportedVersions: await Utilities.getSupportedVersions() })
   }
 
   getCurrentCategory = (category) => {
@@ -38,10 +61,25 @@ class SupportedAddOns extends React.Component {
     }
   }
 
+  getAddOnIncompatibilities = (addOn) => {
+    const incompatibileAddOns = this.state.supportedAddOns.filter(a => intersection(a.fulfills, addOn.fulfills).length > 0).map(a => a.name);
+    if (incompatibileAddOns.length > 1) {
+      if (addOn.name === "minio") {
+        return "No incompatibilities";
+      } else {
+        return this.generateVersionName(incompatibileAddOns.filter(add => add !== addOn.name).join(", "));
+      }
+    } else {
+      return "No incompatibilities";
+    }
+  }
+
   componentDidMount() {
     if (this.props.category) {
       this.getCurrentCategory(this.props.category);
     }
+    this.getSupportedAddOnsData();
+    this.getSupportedVersions();
   }
 
   onVersionChange = (selectedVersion) => {
@@ -95,7 +133,7 @@ class SupportedAddOns extends React.Component {
     }
   }
 
-  generateCardName = (name) => {
+  generateVersionName = (name) => {
     switch (name) {
       case "kotsadm":
         return "KOTS";
@@ -105,20 +143,20 @@ class SupportedAddOns extends React.Component {
         return "firewalld";
       case "ekco":
         return "EKCO";
-      case "openebs":
+      case "openEBS":
         return "OpenEBS";
       case "iptables":
         return "iptables"
       default:
-        return Utilities.toTitleCase(name);
+        return name.charAt(0).toUpperCase() + name.slice(1);
     }
   }
 
   renderAddOnCard = (addOn, i, filteredCategories) => {
-    const { categoryVersionsToShow } = this.state;
+    const { categoryVersionsToShow, supportedVersions } = this.state;
     const { isMobile } = this.props;
     const activeSupportedVersionCategory = categoryVersionsToShow.find(c => c.name === addOn.name);
-    const supportedVersions = installerData[addOn.name];
+    const versions = supportedVersions[addOn.name];
 
 
     return (
@@ -127,7 +165,7 @@ class SupportedAddOns extends React.Component {
           <div className="flex flex1 alignItems--center">
             <span className={`icon u-${addOn.name === "ekco" ? "kubernetes" : addOn.name.toLowerCase()} u-marginBottom--small`}></span>
             <div className="flex-column">
-              <span className="u-fontSize--largest u-fontWeight--medium u-color--tuna  u-marginLeft--10">{this.generateCardName(addOn.name)}</span>
+              <span className="u-fontSize--largest u-fontWeight--medium u-color--tuna  u-marginLeft--10">{this.generateVersionName(addOn.name)}</span>
               <div className="flex flex1 u-marginTop--small">
                 {addOn.fulfills.map((category, i) => {
                   return (
@@ -152,7 +190,7 @@ class SupportedAddOns extends React.Component {
               <span className="u-fontSize--large u-fontWeight--bold u-color--tundora u-marginLeft--small"> Supported versions </span>
             </div>
             <div className="SupportedVersionsList--wrapper flex1 flex-column u-marginTop--15">
-              {supportedVersions.map((version, i) => {
+              {versions.map((version, i) => {
                 return <li className="u-fontSize--large u-fontWeight--medium u-color--dustyGray u-marginTop--small" key={`${version}-${i}`}> {version} </li>
               })}
             </div>
@@ -181,7 +219,11 @@ class SupportedAddOns extends React.Component {
                 <div className="flex-column">
                   <span className="u-fontSize--normal u-fontWeight--bold u-color--tundora"> Works well with </span>
                   <div className="flex-auto u-marginTop--small">
-                    <span className="u-fontSize--normal u-fontWeight--normal u-color--dustyGray u-marginTop--small u-display--inline u-marginRight--small"> {addOn.recommends.join(", ")} </span>
+                    {addOn.recommends.length > 0 ?
+                      <span className="u-fontSize--normal u-fontWeight--normal u-color--dustyGray u-marginTop--small u-display--inline u-marginRight--small"> {this.generateVersionName(addOn.recommends.join(", "))} </span>
+                      :
+                      <span className="u-fontSize--normal u-fontWeight--normal u-color--dustyGray u-marginTop--small u-display--inline u-marginRight--small"> KOTS </span>
+                    }
                   </div>
                 </div>
               </div>
@@ -190,11 +232,7 @@ class SupportedAddOns extends React.Component {
                 <div className="flex-column">
                   <span className="u-fontSize--normal u-fontWeight--bold u-color--tundora"> Incompatible with </span>
                   <div className="flex-auto u-marginTop--small">
-                    {addOn.incompatibilities.length > 0 ?
-                      <span className="u-fontSize--normal u-fontWeight--normal u-color--dustyGray u-marginTop--small u-display--inline u-marginRight--small"> {addOn.incompatibilities.join(", ")} </span>
-                      :
-                      <span className="u-fontSize--normal u-fontWeight--normal u-color--dustyGray u-marginTop--small"> No incompatibilities </span>
-                    }
+                    <span className="u-fontSize--normal u-fontWeight--normal u-color--dustyGray u-marginTop--small u-display--inline u-marginRight--small"> {this.getAddOnIncompatibilities(addOn)} </span>
                   </div>
                 </div>
               </div>
@@ -202,7 +240,7 @@ class SupportedAddOns extends React.Component {
             <div className={`flex flex1 ${isMobile && "u-marginTop--40"}`}>
               <div className="flex flex1">
                 <a href={`https://kurl.sh/docs/add-ons/${addOn.name}`} target="_blank" rel="noopener noreferrer" className="u-color--royalBlue u-fontWeight--medium u-fontSize--normal u-lineHeight--more u-textDecoration--underlineOnHover"> Learn more </a>
-                {supportedVersions && supportedVersions.length > 0 ?
+                {versions && versions.length > 0 ?
                   <div>
                     <span className="u-color--scorpion u-fontSize--small u-marginLeft--small u-marginRight--small"> | </span>
                     <span className="u-color--royalBlue u-fontWeight--medium u-fontSize--normal u-lineHeight--more u-textDecoration--underlineOnHover" onClick={() => this.toggleSupportedVersions(addOn)}> Supported versions </span>
@@ -245,10 +283,20 @@ class SupportedAddOns extends React.Component {
 
 
   render() {
-    const { kubernetesVersions, selectedVersion, categoryToShow } = this.state;
+    const { kubernetesVersions, selectedVersion, categoryToShow, supportedAddOns, categories } = this.state;
     const { isMobile } = this.props;
 
-    const filteredCategoriesToShow = supportedAddOnsData.addOns.filter(addOn => (categoryToShow === addOn.fulfills.find(c => c === categoryToShow)));
+    const filteredCategoriesToShow = supportedAddOns.filter(addOn => (categoryToShow === addOn.fulfills.find(c => c === categoryToShow)));
+
+    if (isEmpty(supportedAddOns)) {
+      return (
+        <div className="flex-column flex-1-auto u-overflow--hidden justifyContent--center alignItems--center">
+          <Loader
+            size="70"
+          />
+        </div>
+      )
+    }
 
     return (
       <div className="u-minHeight--full u-width--full flex-column flex1 u-overflow--auto">
@@ -283,7 +331,7 @@ class SupportedAddOns extends React.Component {
                   <div className="flex-column u-marginTop--40">
                     <span className="u-fontSize--18  u-color--tundora u-fontWeight--bold"> Categories </span>
                     <div className="u-borderTop--gray u-marginTop--12">
-                      {supportedAddOnsData.categories.map((category, i) => (
+                      {categories.map((category, i) => (
                         <Link to={`${category === "Metrics & Monitoring" ? "/add-ons/?category=metrics-monitoring" : `/add-ons/?category=${category.replace(/\s/g, "-").toLowerCase()}`}`} className={`Category--item u-fontSize--normal u-color--dustyGray u-fontWeight--bold u-lineHeight--normal body-copy flex alignItems--center justifyContent--spaceBetween ${category === this.state.categoryToShow && "is-active"}`} onClick={(e) => this.showingCategoryDetails(category, e)} key={`${category}-${i}`}>
                           {category}
                           {category === this.state.categoryToShow && <span className="icon u-whiteCloseIcon u-marginLeft--10 clickable" onClick={this.onCloseCategory} />}
@@ -299,7 +347,7 @@ class SupportedAddOns extends React.Component {
                 }
               </div>
               <div className={`flex flexWrap--wrap u-width--full ${isMobile ? "justifyContent--center u-marginTop--15" : "u-marginLeft--50"}`}>
-                {this.renderCategories(supportedAddOnsData.addOns, filteredCategoriesToShow)}
+                {this.renderCategories(supportedAddOns, filteredCategoriesToShow)}
               </div>
             </div>
           </div>
@@ -318,7 +366,7 @@ class SupportedAddOns extends React.Component {
             className="MobileNavBar"
             categoryToShow={categoryToShow}
             onCloseCategory={this.onCloseCategory}
-            categoryItems={supportedAddOnsData.categories}
+            categoryItems={categories}
             isOpen={this.state.mobileCategoriesOpen}
             showingCategoryDetails={this.showingCategoryDetails}
             onClose={this.onMobileCategoriesClick}
