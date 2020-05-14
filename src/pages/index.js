@@ -6,28 +6,22 @@ import AppComponent from "../components/App";
 import Loader from "../components/shared/Loader";
 import { Resizer } from "../components/shared/Resize";
 import { BreakpointConfig } from "../services/breakpoints";
-import { Utilities } from "../components/utilities";
 
+import installerData from "../../static/installer.json";
 
 @Resizer(BreakpointConfig)
 class Kurl extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isMobile: false,
-      supportedVersions: null
+      isMobile: false
     };
-  }
-
-  getSupportedVersions = async () => {	
-    this.setState({ supportedVersions: await Utilities.getSupportedVersions() })
   }
 
   componentDidMount() {
     if (this.props.breakpoint) {
       this.setState({ isMobile: this.props.breakpoint === "mobile" })
     }
-    this.getSupportedVersions();	
   }
 
   componentDidUpdate(lastProps) {
@@ -37,16 +31,17 @@ class Kurl extends React.Component {
   }
 
 
+
   render() {
-    const { isMobile, supportedVersions } = this.state;
+    const { isMobile } = this.state;
     const { location } = this.props;
 
 
     return (
       <Layout isMobile={isMobile} title={"kURL - Open Source Kubernetes Installer"}>
         <FadeTransitionRouter>
-          {supportedVersions && location.pathname === "/"
-            ? <Kurlsh path="/" isMobile={isMobile} supportedVersions={supportedVersions} />
+          {installerData && location.pathname === "/"
+            ? <Kurlsh path="/" isMobile={isMobile} installerData={installerData} />
             : <Loader path="/" size="70" />
           }
           <AppComponent path="/:sha" isMobile={isMobile} />

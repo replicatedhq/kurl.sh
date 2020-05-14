@@ -24,32 +24,32 @@ function versionToState(version) {
 class Kurlsh extends React.Component {
   constructor(props) {
     super(props);
-    const { supportedVersions } = props;
+    const { installerData } = props;
 
-    const kubernetesVersions = supportedVersions.kubernetes.map(versionToState);
+    const kubernetesVersions = installerData.kubernetes.map(versionToState);
 
-    const contourVersions = supportedVersions.contour.map(versionToState);
+    const contourVersions = installerData.contour.map(versionToState);
     contourVersions.push({ version: "None" });
 
-    const weaveVersions = supportedVersions.weave.map(versionToState);
+    const weaveVersions = installerData.weave.map(versionToState);
     weaveVersions.push({ version: "None" });
 
-    const rookVersions = supportedVersions.rook.map(versionToState);
+    const rookVersions = installerData.rook.map(versionToState);
     rookVersions.push({ version: "None" });
 
-    const dockerVersions = supportedVersions.docker.map(versionToState);
+    const dockerVersions = installerData.docker.map(versionToState);
     dockerVersions.push({ version: "None" });
 
-    const prometheusVersions = supportedVersions.prometheus.map(versionToState);
+    const prometheusVersions = installerData.prometheus.map(versionToState);
     prometheusVersions.push({ version: "None" });
 
-    const registryVersions = supportedVersions.registry.map(versionToState);
+    const registryVersions = installerData.registry.map(versionToState);
     registryVersions.push({ version: "None" });
 
-    const veleroVersions = supportedVersions.velero.map(versionToState);
+    const veleroVersions = installerData.velero.map(versionToState);
     veleroVersions.push({ version: "None" });
 
-    const kotsadmVersions = supportedVersions.kotsadm.map(versionToState);
+    const kotsadmVersions = installerData.kotsadm.map(versionToState);
     kotsadmVersions.push({ version: "None" });
 
     this.state = {
