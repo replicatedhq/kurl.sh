@@ -39,7 +39,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
   const result = await graphql(`
     {
       allMarkdownRemark(
-        sort: { order: DESC, fields: [frontmatter___date] }
+        sort: { order: DESC, fields: [frontmatter___weight] }
         limit: 1000
       ) {
         edges {
@@ -48,6 +48,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
               path
               linktitle
               title
+              addOn
             }
           }
         }
@@ -76,8 +77,6 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
       title,
       html,
       component: docsTemplate
-
-      // context: {}, // additional data can be passed via context
     })
   })
 }

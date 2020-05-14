@@ -2,23 +2,15 @@
 path: "/docs/add-ons/openebs"
 date: "2019-02-20"
 linktitle: "OpenEBS Add-On"
-weight: 26
+weight: 40
 title: "OpenEBS Add-On"
+addOn: "openebs"
 ---
 
 The [OpenEBS](https://openebs.io) add-on includes two options for provisioning volumes for PVCs: LocalPV and cStor.
 
 Either provisioner may be selected as the default provisioner for the cluster by naming its storageclass `default`.
 In this example, the localPV provisioner would be used as provisioner for any PVCs that did not explicitly specify a storageClassName.
-
-```
-openebs:
-  version: latest
-  isLocalPVEnabled: true
-  localPVStorageClassName: default
-  isCstorEnabled: true
-  cstorStorageClassName: cstor
-```
 
 ## Advanced Install Options
 
@@ -33,13 +25,7 @@ spec:
     cstorStorageClassName: cstor
 ```
 
-| Flag                              | Usage                                                                                                         |
-| --------------------------------- | ------------------------------------------------------------------------------------------------------------- |
-| namespace                         | The namespace Open EBS is installed to.                                                                       |
-| isLocalPVEnabled                  | Turn on localPV storage provisioning.                                                                         |
-| localPVStorageClassName           | StorageClass name for local PV provisioner (Name it “default” to make it the cluster’s default provisioner).  |
-| isCstorEnabled                    | Turn on cstor storage provisioning.                                                                           |
-| cstorStorageClassName             | The StorageClass name for cstor provisioner (Name it “default” to make it the cluster’s default provisioner). |
+flags-table
 
 ## LocalPV
 

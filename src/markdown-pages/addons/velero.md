@@ -2,8 +2,9 @@
 path: "/docs/add-ons/velero"
 date: "2019-11-20"
 linktitle: "Velero Add-On"
-weight: 26
+weight: 45
 title: "Velero Add-On"
+addOn: "velero"
 ---
 
 The [Velero](https://velero.io/) add-on is a tool for cluster operators to backup Kubernetes namespaces and data.
@@ -25,12 +26,7 @@ spec:
     localBucket: "local"
 ```
 
-| Flag          | Usage                                                                                                      |
-| --------------| ---------------------------------------------------------------------------------------------------------- |
-| namespace     | Install the Velero server into an alternative namesapce. Default is "velero".                              |
-| disableCLI    | Do not install the velero CLI.                                                                             |
-| disableRestic | Do not install the Restic integration.  Volume data will not be included in backups if Restic is disabled. |
-| localBucket   | Create an alternative bucket in the local ceph RGW store for the initial backend. Default is "velero".     |
+flags-table
 
 ## Cluster Operator Tasks
 

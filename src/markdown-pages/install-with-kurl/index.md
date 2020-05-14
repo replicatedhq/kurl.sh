@@ -24,19 +24,19 @@ HA installs will prompt and wait for an optional load balancer address to be pro
 ## Airgapped Usage
 To install Kubernetes in an airgapped environment, first fetch the installer archive:
 ```
-curl -LO https://kurl.sh/bundle/latest.tar.gz
+curl -LO https://k8s.kurl.sh/bundle/latest.tar.gz
 ```
 
 After copying the archive to your host, untar it and run the install script:
 ```
-tar xvf latest.tar.gz
-cat install.sh | sudo bash
+tar -zxvf latest.tar.gz
+cat install.sh | sudo bash -s airgap
 ```
 
 Airgapped HA is available through:
 ```
-tar xvf latest.tar.gz
-cat install.sh | sudo bash -s ha
+tar -zxvf latest.tar.gz
+cat install.sh | sudo bash -s airgap ha
 ```
 
 ## Latest

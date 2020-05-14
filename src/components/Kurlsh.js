@@ -11,7 +11,8 @@ import CodeSnippet from "./shared/CodeSnippet";
 import Loader from "./shared/Loader";
 import OptionWrapper from "./shared/OptionWrapper";
 
-import("../scss/components/Kurlsh.scss");
+import "../scss/components/Kurlsh.scss";
+import versionDetails from "../../static/versionDetails.json"
 
 const versionAddOns = ["kubernetes", "weave", "rook", "registry", "docker", "velero", "kotsadm"];
 function versionToState(version) {
@@ -379,7 +380,6 @@ class Kurlsh extends React.Component {
     });
   }
 
-
   renderMonacoEditor = () => {
     import("monaco-editor").then(monaco => {
       window.monacoEditor = monaco.editor.create(document.getElementById("monaco"), {
@@ -403,9 +403,14 @@ class Kurlsh extends React.Component {
       this.renderMonacoEditor();
     });
 
+    let options = {}
     versionAddOns.forEach(version => {
-      this.getOptionDefaults(version);
+      options = {
+        ...options,
+        [version]: versionDetails[version]
+      }
     })
+    this.setState({ optionDefaults: options });
   }
 
   componentDidUpdate(lastProps, lastState) {
@@ -419,79 +424,63 @@ class Kurlsh extends React.Component {
     }
   }
 
-  getOptionDefaults = async (addOn) => {
-    const url = `${process.env.INTERNAL_ADD_ON_URL}/${addOn}`
-    try {
-      const resp = await fetch(url);
-      const optionDefaults = await resp.json();
-      this.setState({
-        optionDefaults: {
-          ...this.state.optionDefaults,
-          [addOn]: optionDefaults
-        }
-      });
-    } catch (error) {
-      throw error;
-    }
-  }
-
 
   renderAdvancedOptions = addOn => {
     const { advancedOptions, optionDefaults, installerErr, installerErrMsg } = this.state;
-    let addOnData = {};
+    let addOnData = [];
     if (!isEmpty(optionDefaults)) {
       addOnData = optionDefaults[addOn];
 
       return (
         <OptionWrapper>
-          {Object.keys(addOnData).filter(flag => flag !== "version").map((flag, i) => {
-            const option = addOnData[flag];
-            const currentOption = find(advancedOptions[addOn], (key, value) => value === flag);
-            const doesCurrentErrExist = installerErr ? installerErrMsg.includes(flag) : false;
+          {addOnData.filter(d => d.flag !== "version").map((data, i) => {
+            const option = data;
+            const currentOption = find(advancedOptions[addOn], (key, value) => value === data.flag);
+            const doesCurrentErrExist = installerErr ? installerErrMsg.includes(data.flag) : false;
 
             return (
-              <div className="OptionItem flex-column" key={`${flag}-${i}`}>
+              <div className="OptionItem flex-column" key={`${data.flag}-${i}`}>
                 <div className="flex flex1 alignItems--center">
                   <div className="flex">
                     {option.type !== "boolean" ?
                       <input
                         type="checkbox"
-                        name={flag}
-                        id={`${addOn}_${flag}`}
-                        data-focus-id={`${addOn}_${flag}`}
-                        onChange={e => this.handleOptionChange(`${addOn}.${flag}`, e.currentTarget, option.type)}
+                        name={data.flag}
+                        id={`${addOn}_${data.flag}`}
+                        data-focus-id={`${addOn}_${data.flag}`}
+                        onChange={e => this.handleOptionChange(`${addOn}.${data.flag}`, e.currentTarget, option.type)}
                         checked={currentOption ? currentOption.isChecked : false}
                       />
                       :
                       <input
                         type="checkbox"
-                        name={flag}
-                        id={`${addOn}_${flag}`}
-                        data-focus-id={`${addOn}_${flag}`}
-                        onChange={e => this.handleOptionChange(`${addOn}.${flag}`, e.currentTarget, option.type)}
+                        name={data.flag}
+                        id={`${addOn}_${data.flag}`}
+                        data-focus-id={`${addOn}_${data.flag}`}
+                        onChange={e => this.handleOptionChange(`${addOn}.${data.flag}`, e.currentTarget, option.type)}
                         checked={currentOption ? currentOption.isChecked : false}
                         value={currentOption && currentOption.inputValue}
                       />
                     }
                     <label
                       className="flex1 u-width--full u-position--relative u-marginLeft--small u-cursor--pointer"
-                      htmlFor={`${addOn}_${flag}`}>
+                      htmlFor={`${addOn}_${data.flag}`}>
                       <span className="flex u-fontWeight--medium u-color--tuna u-fontSize--small u-lineHeight--normal alignSelf--center alignItems--center">
-                        {flag !== "version" && flag}
+                        {data.flag !== "version" && data.flag}
                       </span>
                     </label>
-                    <ReactTooltip id={`tt_${addOn}_${flag}`}>
+                    <ReactTooltip id={`tt_${addOn}_${data.flag}`}>
                       {option.description}
                     </ReactTooltip>
-                    <span data-tip data-for={`tt_${addOn}_${flag}`} className="icon clickable u-questionMarkCircle u-marginLeft--normal u-marginRight--normal"></span>
+                    <span data-tip data-for={`tt_${addOn}_${data.flag}`} className="icon clickable u-questionMarkCircle u-marginLeft--normal u-marginRight--normal"></span>
                   </div>
                   {option.type === "string" || option.type === "number" ?
                     <div>
                       <input
-                        id={`${addOn}_${flag}`}
+                        id={`${addOn}_${data.flag}`}
                         className="flex2"
                         type={option.type === "string" ? "text" : "number"}
-                        onChange={e => this.handleOptionChange(`${addOn}.${flag}`, e.currentTarget, option.type)}
+                        onChange={e => this.handleOptionChange(`${addOn}.${data.flag}`, e.currentTarget, option.type)}
                         disabled={!currentOption || (currentOption && !currentOption.isChecked)}
                         value={currentOption ? currentOption.inputValue : ""}
                       />

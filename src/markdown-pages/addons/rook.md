@@ -2,8 +2,9 @@
 path: "/docs/add-ons/rook"
 date: "2020-04-01"
 linktitle: "Rook Add-On"
-weight: 25
+weight: 43
 title: "Rook Add-On"
+addOn: "rook"
 ---
 
 The [Rook](https://rook.io/) add-on creates and manages a Ceph cluster along with a storage class for provisioning PVCs.
@@ -23,12 +24,7 @@ spec:
     storageClassName: "storage"
 ```
 
-| Flag                    | Usage                                                                                                             |
-| ----------------------- | ----------------------------------------------------------------------------------------------------------------- |
-| storageClassName        | The name of the StorageClass that will use Rook to provision PVCs.                                                |
-| cephReplicaCount        | Replication factor of ceph pools. The default is to use the number of nodes in the cluster, up to a maximum of 3. |
-| isBlockStorageEnabled   | Use block devices instead of the filesystem for storage in the Ceph cluster.                                      |
-| blockDeviceFilter       | Only use block devices matching this regex.                                                                       |
+flags-table
 
 ## Block Storage
 
