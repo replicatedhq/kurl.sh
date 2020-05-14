@@ -99,7 +99,7 @@ class AppComponent extends React.Component {
           {existInInstallerYaml ? <span className="status-dot"></span> : <span></span>}
           <div className="flex flex1 alignItems--center justifyContent--center">
             <div className="flex flex-column alignItems--center u-width--180 u-marginLeft--40">
-              <div className="u-color--alabasterapprox u-fontSize--small u-fontWeight--normal u-marginRight--30"> {data.flag ? `--${data.flag}` : "--version"} </div>
+              <div className="u-color--alabasterapprox u-fontSize--small u-fontWeight--normal u-marginRight--30"> {data.flag ? `${data.flag}` : "version"} </div>
               <div className="u-color--silverChalice u-fontSize--small u-fontWeight--normal u-marginRight--30"> {data.type} </div>
             </div>
             <div className="u-width--250 u-color--alabasterapprox u-fontSize--small u-fontWeight--normal"> {data.description} </div>
@@ -115,7 +115,7 @@ class AppComponent extends React.Component {
     const sha = this.props.sha;
     const bundleUrl = `curl -LO ${process.env.API_URL}/bundle/${sha}.tar.gz`
     const installBundleCommand = `
-tar xvf ${sha}.tar.gz
+tar zxvf ${sha}.tar.gz
 cat install.sh | sudo bash -s airgap
     `
 
