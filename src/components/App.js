@@ -115,7 +115,7 @@ class AppComponent extends React.Component {
     const sha = this.props.sha;
     const bundleUrl = `curl -LO ${process.env.API_URL}/bundle/${sha}.tar.gz`
     const installBundleCommand = `
-tar zxvf ${sha}.tar.gz
+tar xvf ${sha}.tar.gz
 cat install.sh | sudo bash -s airgap
     `
 

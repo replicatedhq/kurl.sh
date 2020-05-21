@@ -29,13 +29,13 @@ curl -LO https://k8s.kurl.sh/bundle/latest.tar.gz
 
 After copying the archive to your host, untar it and run the install script:
 ```
-tar zxvf latest.tar.gz
+tar xvf latest.tar.gz
 cat install.sh | sudo bash -s airgap
 ```
 
 Airgapped HA is available through:
 ```
-tar zxvf latest.tar.gz
+tar xvf latest.tar.gz
 cat install.sh | sudo bash -s airgap ha
 ```
 
