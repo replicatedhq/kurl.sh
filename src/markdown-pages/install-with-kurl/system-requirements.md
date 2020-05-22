@@ -10,8 +10,8 @@ title: "System Requirements"
 
 * Ubuntu 16.04 (Kernel version >= 4.15)
 * Ubuntu 18.04 (Recommended)
-* CentOS 7.4, 7.5, 7.6, 7.7
-* RHEL 7.4, 7.5, 7.6, 7.7
+* CentOS 7.4, 7.5, 7.6, 7.7, 7.8
+* RHEL 7.4, 7.5, 7.6, 7.7, 7.8
 
 ## Minimum System Requirements
 
