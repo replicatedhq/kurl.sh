@@ -278,14 +278,19 @@
       "type": "boolean"
     },
     {
-      "flag": "HTTPProxy",
-      "description": "Configures Docker to use a proxy when pulling images. Disables automatic proxy detection from the environment and prompt. Must include http(s) and may include port.",
+      "flag": "proxyAddress",
+      "description": "Configures Docker to use a proxy when pulling images and sets proxy environment variables for the kotsadm add-on. Must include http(s) and may include port.",
       "type": "string"
     },
     {
       "flag": "noProxy",
-      "description": "If present, do not use a proxy. Disables automatic proxy detection and prompt.",
+      "description": "If present, do not use a proxy. Disables automatic proxy detection and configuration.",
       "type": "boolean"
+    },
+    {
+      "flag": "additionalNoProxyAddresses",
+      "description": "A list of addresses that can be accessed without using a proxy.",
+      "type": "list"
     },
     {
       "flag": "publicAddress",

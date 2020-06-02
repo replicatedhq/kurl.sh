@@ -14,6 +14,10 @@ addOn: "kurl"
 spec:
   kurl:
     airgap: true
+    proxyAddress: http://10.128.0.70:3128
+    additionalNoProxyAddresses:
+    - .corporate.internal
+    noProxy: false
 ```
 
 flags-table
