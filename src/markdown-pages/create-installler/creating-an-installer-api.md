@@ -10,6 +10,9 @@ The minimum valid installer spec requires only a supported Kubernetes version:
 
 ```yaml
 apiVersion: cluster.kurl.sh/v1beta1
+kind: Installer
+metadata:
+  name: my-installer
 spec:
   kubernetes:
     version: "1.15.3"
