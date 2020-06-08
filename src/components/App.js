@@ -113,8 +113,9 @@ class AppComponent extends React.Component {
     const { loadingBundleUrl, installerData, selectedSpec, fetchingInstallerDataError } = this.state;
     const { isMobile } = this.props;
     const sha = this.props.sha;
-    const bundleUrl = `curl -LO ${process.env.API_URL}/bundle/${sha}.tar.gz`
+    const bundleUrl = `curl ${process.env.API_URL}/${sha} | sudo bash`
     const installBundleCommand = `
+curl -LO ${process.env.API_URL}/bundle/${sha}.tar.gz
 tar xvf ${sha}.tar.gz
 cat install.sh | sudo bash -s airgap
     `
