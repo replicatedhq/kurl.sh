@@ -13,7 +13,7 @@ The Kubernetes URL Creator is a framework for creating custom Kubernetes distrib
 At its core, kURL is based on [kubeadm](https://kubernetes.io/docs/reference/setup-tools/kubeadm/kubeadm/), the cluster management tool built by the core Kubernetes team and owned by sig-cluster-lifecycle. This means it benefits from the latest Kubernetes updates, patches and security hot-fixes as they are shipped by Kubernetes maintainers. kURL is a framework for declaring the layers that exist before and after the services that kubeadm provides.
 
 ### Flexible
-Compared to standard Kubernetes distributions, it's worth emphasizing that kURL is actually a flexible Kubernetes distribution creator. Most distributions make decisions about CNI, Storage, Ingress, etc. out of the box. Comparatively, [kurl.sh](https://kurl.sh) allows you to choose your own providers and versions of these components.
+Compared to standard Kubernetes distributions, it's worth emphasizing that kURL is actually a flexible Kubernetes distribution creator. Most distributions make decisions about CRI, CNI, Storage, Ingress, etc. out of the box. Comparatively, [kurl.sh](https://kurl.sh) allows you to choose your own providers and versions of these components.
 
 ### Extensible
 The Kustomized-based, [open source add-on model](https://github.com/replicatedhq/kurl/tree/master/addons) means anyone in the community can contribute additional add-ons via Kustomizations or even host their own kurl.sh server (soon).
