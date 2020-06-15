@@ -56,7 +56,7 @@ body a {
 
 .docs-container {
   width: 100%;
-  padding: 140px 300px;
+  padding: 140px 340px;
   box-sizing: border-box;
 }
 
@@ -77,6 +77,31 @@ body a {
 
 .code {
   font-family: monospace;
+}
+
+.prerelease-tag {
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 1;
+  letter-spacing: 1px;
+  padding: 4px 8px;
+  border-radius: 25px;
+  color: #ffffff;
+  position: relative;
+  text-transform: uppercase;
+  top: -6px;
+
+  &.sidebar {
+    top: -2px;
+    margin-left: 4px;
+  }
+
+  &.alpha {
+    background-color: #45B451;
+  }
+  &.beta {
+    background-color: #F9485C;
+  }
 }
 
 .suite-banner {
@@ -203,7 +228,7 @@ body a {
 @media screen and (min-width: 35.5em) {
   .docs-container {
     width: 100%;
-    padding: 140px 0px 20px 260px;
+    padding: 140px 0px 20px 340px;
     box-sizing: border-box;
   }
 }
@@ -212,7 +237,7 @@ body a {
 @media screen and (min-width: 48em) {
   .docs-container {
     width: 100%;
-    padding: 140px 0px 20px 260px;
+    padding: 140px 0px 20px 340px;
     box-sizing: border-box;
   }
 }
@@ -221,7 +246,7 @@ body a {
 @media screen and (min-width: 60em) {
   .docs-container {
     width: 100%;
-    padding: 140px 0px 20px 260px;
+    padding: 140px 0px 20px 340px;
     box-sizing: border-box;
   }
 }
@@ -230,7 +255,7 @@ body a {
 @media screen and (min-width: 64em) {
   .docs-container {
     width: 100%;
-    padding: 140px 20px 20px 300px;
+    padding: 140px 20px 20px 340px;
     box-sizing: border-box;
   }
 }
@@ -244,7 +269,7 @@ body a {
   }
   .docs-container {
     width: 100%;
-    padding: 140px 20px 20px 300px;
+    padding: 140px 20px 20px 340px;
     box-sizing: border-box;
   }
 }

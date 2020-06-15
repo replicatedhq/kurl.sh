@@ -33,6 +33,20 @@ exports.onCreateWebpackConfig = ({ stage, loaders, actions }) => {
   }
 };
 
+exports.createSchemaCustomization = ({ actions }) => {
+  const { createTypes } = actions
+  const typeDefs = `
+    type MarkdownRemark implements Node {
+      frontmatter: Frontmatter
+    }
+    type Frontmatter {
+      isBeta: Boolean
+      isAlpha: Boolean
+    }
+  `
+  createTypes(typeDefs)
+}
+
 exports.createPages = async ({ actions, graphql, reporter }) => {
   const { createPage, createRedirect } = actions
   const docsTemplate = path.resolve(__dirname, 'src/templates/DocsTemplate.js/');
@@ -49,6 +63,8 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
               linktitle
               title
               addOn
+              isBeta
+              isAlpha
             }
           }
         }

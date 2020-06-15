@@ -36,12 +36,11 @@ export default function Template({
   const { markdownRemark } = data // data.markdownRemark holds our post data
   const { frontmatter, html } = markdownRemark
 
-
   return (
     <DocumentationLayout location={location}>
       <div className="flex-column flex1 u-height--auto u-overflow--auto">
         <div className="u-padding--20 markdown-body">
-          <h1>{frontmatter.title}</h1>
+          <h1>{frontmatter.title} {frontmatter.isAlpha && <span className="prerelease-tag alpha">alpha</span>} {frontmatter.isBeta && <span className="prerelease-tag beta">beta</span>}</h1>
           <div
             className="docs-content"
             dangerouslySetInnerHTML={{ __html: html.replace("flags-table", buildHtmlTableFromJson(frontmatter.addOn)) }}
@@ -61,6 +60,8 @@ export const pageQuery = graphql`
         path
         title
         addOn
+        isBeta
+        isAlpha
       }
     }
   }

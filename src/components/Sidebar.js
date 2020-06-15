@@ -19,6 +19,8 @@ export default class Sidebar extends Component {
                 path
                 linktitle
                 title
+                isAlpha
+                isBeta
               }
             }
           }
