@@ -5,6 +5,7 @@ linktitle: "Containerd Add-On"
 weight: 31
 title: "Containerd Add-On"
 addOn: "containerd"
+isBeta: true
 ---
 Containerd is an alternative CRI (Container Runtime Interface) to Docker.
 Currently it is in beta on kURL and available on Centos 7.7, 7.8, and 8.1.
