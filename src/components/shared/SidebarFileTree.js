@@ -167,7 +167,7 @@ export default class SidebarFileTree extends Component {
                   onClick={this.onLinkClick}
                   data-path={entry.path}
                 >
-                  {entry.linktitle || entry.title}
+                  {entry.linktitle || entry.title} {entry.isAlpha && <span className="prerelease-tag sidebar alpha">alpha</span>} {entry.isBeta && <span className="prerelease-tag sidebar beta">beta</span>}
                 </Link>
               </SidebarFileTree>
             );
