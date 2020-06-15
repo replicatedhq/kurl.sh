@@ -2,7 +2,7 @@
 path: "/docs/add-ons/kotsadm"
 date: "2020-04-23"
 linktitle: "Kotsadm Add-On"
-weight: 37
+weight: 38
 title: "Kotsadm Add-On"
 addOn: "kotsadm"
 ---
