@@ -79,6 +79,31 @@ body a {
   font-family: monospace;
 }
 
+.prerelease-tag {
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 1;
+  letter-spacing: 1px;
+  padding: 4px 8px;
+  border-radius: 25px;
+  color: #ffffff;
+  position: relative;
+  text-transform: uppercase;
+  top: -6px;
+
+  &.sidebar {
+    top: -2px;
+    margin-left: 4px;
+  }
+
+  &.alpha {
+    background-color: #45B451;
+  }
+  &.beta {
+    background-color: #F9485C;
+  }
+}
+
 .suite-banner {
   background-color: #073551;
   color: #ffffff;

@@ -98,7 +98,7 @@ class DocumentationLayout extends Component {
             }
             <Helmet>
               <meta charSet="utf-8" />
-              <title>{children.props.children.props.children[0].props.children}</title>
+              <title>{children.props.children.props.children[0].props.children[0]}</title>
             </Helmet>
             <Navbar isMobile={isMobile} documentation={isMobile && true} title={`${children.props.children.props.children[0].props.children}`} />
             <div className={`u-minHeight--full u-width--full u-overflow--auto flex-column flex1 ${isMobile ? "" : "u-marginBottom---40"}`}>
