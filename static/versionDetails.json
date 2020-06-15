@@ -429,5 +429,12 @@
       "description": "The version of calico to be installed.",
       "type": "string"
     }
+  ],
+  "containerd": [
+    {
+      "flag": "version",
+      "description": "The version of containerd to be installed, current value is 'beta'",
+      "type": "string"
+    }
   ]
 }
