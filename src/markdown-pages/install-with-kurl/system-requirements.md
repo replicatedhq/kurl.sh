@@ -12,6 +12,7 @@ title: "System Requirements"
 * Ubuntu 18.04 (Recommended)
 * CentOS 7.4, 7.5, 7.6, 7.7, 7.8 (kURL has a beta release of CentOS 8.1 support using the containerd CRI)
 * RHEL 7.4, 7.5, 7.6, 7.7, 7.8
+* Amazon Linux 2
 
 ## Minimum System Requirements
 
