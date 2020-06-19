@@ -433,7 +433,7 @@
   "containerd": [
     {
       "flag": "version",
-      "description": "The version of containerd to be installed, current value is 'beta'",
+      "description": "The version of containerd to be installed",
       "type": "string"
     }
   ]
