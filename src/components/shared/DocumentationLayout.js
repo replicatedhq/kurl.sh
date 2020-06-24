@@ -102,7 +102,7 @@ class DocumentationLayout extends Component {
             </Helmet>
             <Navbar isMobile={isMobile} documentation={isMobile && true} title={`${children.props.children.props.children[0].props.children[0]}`} />
             <div className={`u-minHeight--full u-width--full u-overflow--auto flex1 ${isMobile ? "flex-column" : "flex u-marginBottom---40"}`}>
-              <div className={`${isMobile ? "Mobile--wrapper u-marginTop--120" : "Sidebar-wrapper flex flex1"}`}>
+              <div className={`${isMobile ? "Mobile--wrapper u-marginTop--30" : "Sidebar-wrapper flex flex1"}`}>
                 <Sidebar
                   isMobile={isMobile}
                   slideOpen={true}
