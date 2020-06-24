@@ -1,25 +1,14 @@
 /*--- Sidebar ---**/
-.Sidebar {
-  width: 300px;
-  height: 100%;
-  max-height: 100%;
+.Sidebar-wrapper {
+  max-width: 300px;
+  width: 100%;
   background-color: #F5F8FC;
   border-right: 1px solid #C4C8CA;
-  position: fixed;
-  top: 100px !important;
-  left: 0;
-  margin: 0 !important;
-  padding: 1em;
-  padding-top: 50px;
-  -webkit-transform: translateX(-220px);
-  transform: translateX(-220px);
-  -webkit-transform-style: preserve-3d;
-  transform-style: preserve-3d;
-  will-change: transform;
-  transition-duration: .2s;
-  transition-timing-function: cubic-bezier(.4, 0, .2, 1);
-  transition-property: transform;
-  transition-property: transform, -webkit-transform;
+}
+.Sidebar {
+  margin-top: 10px;
+  margin-bottom: 60px;
+  overflow: auto;
   z-index: 5;
 
   &.isOpen {
