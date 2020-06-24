@@ -74,7 +74,7 @@ class DocumentationLayout extends Component {
         }
       `}
         render={data => (
-          <>
+          <div className="flex-column flex1">
             {!isMobile ?
               <div className="suite-banner">
                 <div className="flex flex-row justifyContent--spaceBetween">
@@ -101,15 +101,15 @@ class DocumentationLayout extends Component {
               <title>{children.props.children.props.children[0].props.children[0]}</title>
             </Helmet>
             <Navbar isMobile={isMobile} documentation={isMobile && true} title={`${children.props.children.props.children[0].props.children[0]}`} />
-            <div className={`u-minHeight--full u-width--full u-overflow--auto flex-column flex1 ${isMobile ? "" : "u-marginBottom---40"}`}>
-              <div className={`${isMobile ? "Mobile--wrapper u-marginTop--120" : "Sidebar-wrapper"}`}>
+            <div className={`u-minHeight--full u-width--full u-overflow--auto flex1 ${isMobile ? "flex-column" : "flex u-marginBottom---40"}`}>
+              <div className={`${isMobile ? "Mobile--wrapper u-marginTop--120" : "Sidebar-wrapper flex flex1"}`}>
                 <Sidebar
                   isMobile={isMobile}
                   slideOpen={true}
                   pathname={this.props.location.pathname}
                 />
               </div>
-              <div className={`${isMobile ? "docs-mobile-container" : "docs-container"} flex-column flex1`}>
+              <div className={`${isMobile ? "docs-mobile-container" : "docs-container u-overflow--auto"} flex-column flex1`}>
                 {!isMobile ?
                   <div className="flex-column flex1 docsWidth">
                     {children}
@@ -119,7 +119,7 @@ class DocumentationLayout extends Component {
                 }
               </div>
             </div>
-          </>
+          </div>
         )}
       />
     );
