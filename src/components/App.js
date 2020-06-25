@@ -316,8 +316,10 @@ cat install.sh | sudo bash -s airgap
                     <div className="u-width--120 u-fontSize--small u-fontWeight--medium u-color--alabasterapprox u-marginBottom--10"> Flag </div>
                     <div className="u-width--120 u-fontSize--small u-fontWeight--medium u-color--alabasterapprox u-marginBottom--10 u-marginLeft--normal"> Description </div>
                   </div>
-                  {this.getVersionData(Object.keys(installerData.spec[selectedSpec]))}
-                  <div className="flex alignItems--center justifyContent--center" style={{ marginTop: "auto"}}>
+                  <div className="flex flex-column u-overflow--auto">
+                    {this.getVersionData(Object.keys(installerData.spec[selectedSpec]))}
+                  </div>
+                  <div className="flex alignItems--center justifyContent--center" style={{ marginTop: "auto" }}>
                     <span className="status-dot"></span>
                     <span className="u-color--alabasterapprox u-fontSize--small u-fontWeight--normal"> Currently defined in your install script </span>
                   </div>
