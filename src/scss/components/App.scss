@@ -49,3 +49,9 @@
   border-radius: 100%;
   margin-right: 6px;
 }
+
+.InstallerRow {
+  &:last-child {
+    margin-bottom: auto;
+  }
+}
