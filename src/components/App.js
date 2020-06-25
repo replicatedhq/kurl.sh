@@ -95,14 +95,14 @@ class AppComponent extends React.Component {
     return versionData.map((data, i) => {
       const existInInstallerYaml = installerData.find((d) => data.flag === d);
       return (
-        <div className="flex alignItems--center u-borderBottom--silverChalice u-padding--normal" key={`${data}-${i}`}>
+        <div className="InstallerRow flex alignItems--center u-borderBottom--silverChalice u-padding--normal" key={`${data}-${i}`}>
           {existInInstallerYaml ? <span className="status-dot"></span> : <span></span>}
           <div className="flex flex1 alignItems--center justifyContent--center">
-            <div className="flex flex-column alignItems--center u-width--180 u-marginLeft--40">
-              <div className="u-color--alabasterapprox u-fontSize--small u-fontWeight--normal u-marginRight--30"> {data.flag ? `${data.flag}` : "version"} </div>
-              <div className="u-color--silverChalice u-fontSize--small u-fontWeight--normal u-marginRight--30"> {data.type} </div>
+            <div className="flex-column u-width--120">
+              <div className="u-color--alabasterapprox u-fontSize--small u-fontWeight--normal"> {data.flag ? `${data.flag}` : "version"} </div>
+              <div className="u-color--silverChalice u-fontSize--small u-fontWeight--normal"> {data.type} </div>
             </div>
-            <div className="u-width--250 u-color--alabasterapprox u-fontSize--small u-fontWeight--normal"> {data.description} </div>
+            <div className="flex u-width--120 u-color--alabasterapprox u-fontSize--small u-fontWeight--normal u-marginLeft--normal"> {data.description} </div>
           </div>
         </div>
       )
@@ -131,15 +131,15 @@ cat install.sh | sudo bash -s airgap
     }
 
     return (
-      <div className="u-minHeight--full u-width--full u-overflow--auto flex-column flex1">
+      <div className={`u-minHeight--full u-width--full flex-column flex1 u-marginBottom---40 ${isMobile ? "mobile-container u-overflow--auto" : "container u-overflow--hidden"}`}>
         {fetchingInstallerDataError ?
           <div className="flex1 flex-column justifyContent--center alignItems--center">
             <p className="u-color--chestnut u-fontSize--normal u-fontWeight--medium u-lineHeight--normal u-marginTop--10">{fetchingInstallerDataError.message}</p>
           </div>
           :
-          <div className={`u-flexTabletReflow flex1 flex-column u-overflow--auto u-width--full u-marginBottom---40 ${isMobile ? "mobile-container" : "container"}`}>
-            <div className="flex flex-column u-width--600">
-              <div>
+          <div className="u-flexTabletReflow flex1 u-width--full">
+            <div className={`flex ${!isMobile ? "flex1 justifyContent--spaceBetween" : "flex-column"}`}>
+              <div className="flex flex-column u-overflow--auto">
                 <p className="u-fontSize--24 u-fontWeight--bold u-color--mineShaft u-marginBottom--20"> Your installer </p>
                 <div className="u-fontSize--large u-fontWeight--bold u-color--tundora"> Install online </div>
                 <div className="flex flex-column u-marginTop--normal">
@@ -172,140 +172,138 @@ cat install.sh | sudo bash -s airgap
                     </CodeSnippet>
                   </div>
                 </div>
-              </div>
-              <div className="u-marginTop--30">
-                <p className="u-fontSize--24 u-fontWeight--bold u-color--mineShaft u-marginBottom--10"> System requirements </p>
-                <p className="u-fontSize--normal u-color--dustyGray u-lineHeight--normal"> kURL is supported on the following operating systems that meet the minimum system requirements. </p>
-                <div className="u-marginTop--20">
-                  <p className="u-fontSize--large u-fontWeight--bold u-color--tundora"> Supported operating systems </p>
-                  <div className="AppList--wrapper flex flexWrap--wrap">
-                    <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal"> Ubuntu 16.04 (Kernel version >= 4.15) </li>
-                    <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal"> Ubuntu 18.04 (Recommended) </li>
-                    <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal"> CentOS 7.4, 7.5, 7.6, 7.7, 7.8, 8.1 (Beta Support) </li>
-                    <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal"> RHEL 7.4, 7.5, 7.6, 7.7, 7.8 </li>
-                    <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal"> Amazon Linux 2 </li>
+                <div className="u-marginTop--30">
+                  <p className="u-fontSize--24 u-fontWeight--bold u-color--mineShaft u-marginBottom--10"> System requirements </p>
+                  <p className="u-fontSize--normal u-color--dustyGray u-lineHeight--normal"> kURL is supported on the following operating systems that meet the minimum system requirements. </p>
+                  <div className="u-marginTop--20">
+                    <p className="u-fontSize--large u-fontWeight--bold u-color--tundora"> Supported operating systems </p>
+                    <div className="AppList--wrapper flex flexWrap--wrap">
+                      <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal"> Ubuntu 16.04 (Kernel version >= 4.15) </li>
+                      <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal"> Ubuntu 18.04 (Recommended) </li>
+                      <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal"> CentOS 7.4, 7.5, 7.6, 7.7, 7.8, 8.1 (Beta Support) </li>
+                      <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal"> RHEL 7.4, 7.5, 7.6, 7.7, 7.8 </li>
+                      <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal"> Amazon Linux 2 </li>
+                    </div>
                   </div>
-                </div>
 
-                <div className="u-marginTop--20 u-borderTop--gray">
-                  <p className="u-fontSize--large u-fontWeight--bold u-color--tundora"> Minimum system requirements </p>
-                  <div className="AppList--wrapper flex flexWrap--wrap">
-                    <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal"> 4 CPUs or equivalent per machine </li>
-                    <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal"> 30 GB of Disk Space per machine </li>
-                    <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal"> UDP ports 6783 and 6784 open </li>
-                    <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal"> 8 GB of RAM per machine </li>
-                    <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal"> TCP ports 6443 and 6783 open </li>
+                  <div className="u-marginTop--20 u-borderTop--gray">
+                    <p className="u-fontSize--large u-fontWeight--bold u-color--tundora"> Minimum system requirements </p>
+                    <div className="AppList--wrapper flex flexWrap--wrap">
+                      <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal"> 4 CPUs or equivalent per machine </li>
+                      <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal"> 30 GB of Disk Space per machine </li>
+                      <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal"> UDP ports 6783 and 6784 open </li>
+                      <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal"> 8 GB of RAM per machine </li>
+                      <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal"> TCP ports 6443 and 6783 open </li>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            {installerData ?
-              <div className="flex flex-column u-marginLeft--20">
-                <p className="u-fontSize--24 u-fontWeight--bold u-color--mineShaft u-marginBottom--20"> What you get </p>
-                {installerData.spec.kubernetes &&
-                  <div className={`flex u-cursor--pointer alignItems--center u-padding--20 ${selectedSpec === "kubernetes" && "isSelected"}`} onClick={() => this.whatYouGet("kubernetes")}>
-                    <div className="flex u-width--250">
-                      <div className="flex icon u-kubernetes u-marginRight--normal"></div>
-                      <div className="WhatYouGet--wrapper flex flex-column">
-                        <p className="u-color--tuna u-fontSize--large u-fontWeight--bold u-paddingBottom--small"> Kubernetes </p>
-                        <p className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal"> {installerData.spec.kubernetes.version === "latest" ? "Latest version" : `Version ${installerData.spec.kubernetes.version}`} </p>
-                      </div>
-                    </div>
-                    <div className="icon u-arrow u-marginRight--normal"></div>
-                  </div>}
-                {installerData.spec.weave &&
-                  <div className={`flex u-cursor--pointer alignItems--center u-padding--20 ${selectedSpec === "weave" && "isSelected"}`} onClick={() => this.whatYouGet("weave")}>
-                    <div className="flex u-width--250">
-                      <div className="flex icon u-weave u-marginRight--normal"></div>
-                      <div className="WhatYouGet--wrapper flex flex-column">
-                        <p className="u-color--tuna u-fontSize--large u-fontWeight--bold u-paddingBottom--small"> Weave </p>
-                        <p className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal"> {installerData.spec.weave.version === "latest" ? "Latest version" : `Version ${installerData.spec.weave.version}`} </p>
-                      </div>
-                    </div>
-                    <div className="icon u-arrow u-marginRight--normal"></div>
-                  </div>}
-                {installerData.spec.contour &&
-                  <div className={`flex u-cursor--pointer alignItems--center u-padding--20 ${selectedSpec === "contour" && "isSelected"}`} onClick={() => this.whatYouGet("contour")}>
-                    <div className="flex u-width--250">
-                      <div className="flex icon u-contour u-marginRight--normal"></div>
-                      <div className="WhatYouGet--wrapper flex flex-column">
-                        <p className="u-color--tuna u-fontSize--large u-fontWeight--bold u-paddingBottom--small"> Contour </p>
-                        <p className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal"> {installerData.spec.contour.version === "latest" ? "Latest version" : `Version ${installerData.spec.contour.version}`} </p>
-                      </div>
-                    </div>
-                    <div className="icon u-arrow u-marginRight--normal"></div>
-                  </div>}
-                {installerData.spec.rook &&
-                  <div className={`flex u-cursor--pointer alignItems--center u-padding--20 ${selectedSpec === "rook" && "isSelected"}`} onClick={() => this.whatYouGet("rook")}>
-                    <div className="flex u-width--250">
-                      <div className="flex icon u-rook u-marginRight--normal"></div>
-                      <div className="WhatYouGet--wrapper flex flex-column">
-                        <p className="u-color--tuna u-fontSize--large u-fontWeight--bold u-paddingBottom--small"> Rook </p>
-                        <p className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal"> {installerData.spec.rook.version === "latest" ? "Latest version" : `Version ${installerData.spec.rook.version}`} </p>
-                      </div>
-                    </div>
-                    <div className="icon u-arrow u-marginRight--normal"></div>
-                  </div>}
-                {installerData.spec.registry &&
-                  <div className={`flex u-cursor--pointer alignItems--center u-padding--20 ${selectedSpec === "registry" && "isSelected"}`} onClick={() => this.whatYouGet("registry")}>
-                    <div className="flex u-width--250">
-                      <div className="flex icon u-registry u-marginRight--normal"></div>
-                      <div className="WhatYouGet--wrapper flex flex-column">
-                        <p className="u-color--tuna u-fontSize--large u-fontWeight--bold u-paddingBottom--small"> Docker Registry </p>
-                        <p className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal"> {installerData.spec.registry.version === "latest" ? "Latest version" : `Version ${installerData.spec.registry.version}`} </p>
-                      </div>
-                    </div>
-                    <div className="icon u-arrow u-marginRight--normal"></div>
-                  </div>}
-                {installerData.spec.docker &&
-                  <div className={`flex u-cursor--pointer alignItems--center u-padding--20 ${selectedSpec === "docker" && "isSelected"}`} onClick={() => this.whatYouGet("docker")}>
-                    <div className="flex u-width--250">
-                      <div className="flex icon u-docker u-marginRight--normal"></div>
-                      <div className="WhatYouGet--wrapper flex flex-column">
-                        <p className="u-color--tuna u-fontSize--large u-fontWeight--bold u-paddingBottom--small"> Docker </p>
-                        <p className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal"> {installerData.spec.docker.version === "latest" ? "Latest version" : `Version ${installerData.spec.docker.version}`} </p>
-                      </div>
-                    </div>
-                    <div className="icon u-arrow u-marginRight--normal"></div>
-                  </div>}
-                {installerData.spec.prometheus &&
-                  <div className={`flex u-cursor--pointer alignItems--center u-padding--20 ${selectedSpec === "prometheus" && "isSelected"}`} onClick={() => this.whatYouGet("prometheus")}>
-                    <div className="flex u-width--250">
-                      <div className="flex icon u-prometheus u-marginRight--normal"></div>
-                      <div className="WhatYouGet--wrapper flex flex-column">
-                        <p className="u-color--tuna u-fontSize--large u-fontWeight--bold u-paddingBottom--small"> Prometheus </p>
-                        <p className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal"> {installerData.spec.prometheus.version === "latest" ? "Latest version" : `Version ${installerData.spec.prometheus.version}`} </p>
-                      </div>
-                    </div>
-                    <div className="icon u-arrow u-marginRight--normal"></div>
-                  </div>}
-                {installerData.spec.velero &&
-                  <div className={`flex u-cursor--pointer alignItems--center u-padding--20 ${selectedSpec === "velero" && "isSelected"}`} onClick={() => this.whatYouGet("velero")}>
-                    <div className="flex u-width--250">
-                      <div className="flex icon u-velero u-marginRight--normal"></div>
-                      <div className="WhatYouGet--wrapper flex flex-column">
-                        <p className="u-color--tuna u-fontSize--large u-fontWeight--bold u-paddingBottom--small"> Velero </p>
-                        <p className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal"> {installerData.spec.velero.version === "latest" ? "Latest version" : `Version ${installerData.spec.velero.version}`} </p>
-                      </div>
-                    </div>
-                    <div className="icon u-arrow u-marginRight--normal"></div>
-                  </div>}
-                {installerData.spec.kotsadm &&
-                  <div className={`flex u-cursor--pointer alignItems--center u-padding--20 ${selectedSpec === "kotsadm" && "isSelected"}`} onClick={() => this.whatYouGet("kotsadm")}>
-                    <div className="flex u-width--250">
-                      <div className="flex icon u-kotsadm u-marginRight--normal"></div>
-                      <div className="WhatYouGet--wrapper flex flex-column">
-                        <p className="u-color--tuna u-fontSize--large u-fontWeight--bold u-paddingBottom--small"> Kotsadm </p>
-                        <p className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal"> {installerData.spec.kotsadm.version === "latest" ? "Latest version" : `Version ${installerData.spec.kotsadm.version}`} </p>
-                      </div>
-                    </div>
-                    <div className="icon u-arrow u-marginRight--normal"></div>
-                  </div>}
-              </div>
-              : null}
-            <div className="flex flex1 u-marginLeft--20">
               {installerData ?
-                <div className="DataEditor--wrapper flex flex1 flex-column">
+                <div className="flex flex-column u-marginLeft--20 u-overflow--auto">
+                  <p className="u-fontSize--24 u-fontWeight--bold u-color--mineShaft u-marginBottom--20"> What you get </p>
+                  {installerData.spec.kubernetes &&
+                    <div className={`flex u-cursor--pointer alignItems--center u-padding--20 ${selectedSpec === "kubernetes" && "isSelected"}`} onClick={() => this.whatYouGet("kubernetes")}>
+                      <div className="flex u-width--250">
+                        <div className="flex icon u-kubernetes u-marginRight--normal"></div>
+                        <div className="WhatYouGet--wrapper flex flex-column">
+                          <p className="u-color--tuna u-fontSize--large u-fontWeight--bold u-paddingBottom--small"> Kubernetes </p>
+                          <p className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal"> {installerData.spec.kubernetes.version === "latest" ? "Latest version" : `Version ${installerData.spec.kubernetes.version}`} </p>
+                        </div>
+                      </div>
+                      <div className="icon u-arrow u-marginRight--normal"></div>
+                    </div>}
+                  {installerData.spec.weave &&
+                    <div className={`flex u-cursor--pointer alignItems--center u-padding--20 ${selectedSpec === "weave" && "isSelected"}`} onClick={() => this.whatYouGet("weave")}>
+                      <div className="flex u-width--250">
+                        <div className="flex icon u-weave u-marginRight--normal"></div>
+                        <div className="WhatYouGet--wrapper flex flex-column">
+                          <p className="u-color--tuna u-fontSize--large u-fontWeight--bold u-paddingBottom--small"> Weave </p>
+                          <p className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal"> {installerData.spec.weave.version === "latest" ? "Latest version" : `Version ${installerData.spec.weave.version}`} </p>
+                        </div>
+                      </div>
+                      <div className="icon u-arrow u-marginRight--normal"></div>
+                    </div>}
+                  {installerData.spec.contour &&
+                    <div className={`flex u-cursor--pointer alignItems--center u-padding--20 ${selectedSpec === "contour" && "isSelected"}`} onClick={() => this.whatYouGet("contour")}>
+                      <div className="flex u-width--250">
+                        <div className="flex icon u-contour u-marginRight--normal"></div>
+                        <div className="WhatYouGet--wrapper flex flex-column">
+                          <p className="u-color--tuna u-fontSize--large u-fontWeight--bold u-paddingBottom--small"> Contour </p>
+                          <p className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal"> {installerData.spec.contour.version === "latest" ? "Latest version" : `Version ${installerData.spec.contour.version}`} </p>
+                        </div>
+                      </div>
+                      <div className="icon u-arrow u-marginRight--normal"></div>
+                    </div>}
+                  {installerData.spec.rook &&
+                    <div className={`flex u-cursor--pointer alignItems--center u-padding--20 ${selectedSpec === "rook" && "isSelected"}`} onClick={() => this.whatYouGet("rook")}>
+                      <div className="flex u-width--250">
+                        <div className="flex icon u-rook u-marginRight--normal"></div>
+                        <div className="WhatYouGet--wrapper flex flex-column">
+                          <p className="u-color--tuna u-fontSize--large u-fontWeight--bold u-paddingBottom--small"> Rook </p>
+                          <p className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal"> {installerData.spec.rook.version === "latest" ? "Latest version" : `Version ${installerData.spec.rook.version}`} </p>
+                        </div>
+                      </div>
+                      <div className="icon u-arrow u-marginRight--normal"></div>
+                    </div>}
+                  {installerData.spec.registry &&
+                    <div className={`flex u-cursor--pointer alignItems--center u-padding--20 ${selectedSpec === "registry" && "isSelected"}`} onClick={() => this.whatYouGet("registry")}>
+                      <div className="flex u-width--250">
+                        <div className="flex icon u-registry u-marginRight--normal"></div>
+                        <div className="WhatYouGet--wrapper flex flex-column">
+                          <p className="u-color--tuna u-fontSize--large u-fontWeight--bold u-paddingBottom--small"> Docker Registry </p>
+                          <p className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal"> {installerData.spec.registry.version === "latest" ? "Latest version" : `Version ${installerData.spec.registry.version}`} </p>
+                        </div>
+                      </div>
+                      <div className="icon u-arrow u-marginRight--normal"></div>
+                    </div>}
+                  {installerData.spec.docker &&
+                    <div className={`flex u-cursor--pointer alignItems--center u-padding--20 ${selectedSpec === "docker" && "isSelected"}`} onClick={() => this.whatYouGet("docker")}>
+                      <div className="flex u-width--250">
+                        <div className="flex icon u-docker u-marginRight--normal"></div>
+                        <div className="WhatYouGet--wrapper flex flex-column">
+                          <p className="u-color--tuna u-fontSize--large u-fontWeight--bold u-paddingBottom--small"> Docker </p>
+                          <p className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal"> {installerData.spec.docker.version === "latest" ? "Latest version" : `Version ${installerData.spec.docker.version}`} </p>
+                        </div>
+                      </div>
+                      <div className="icon u-arrow u-marginRight--normal"></div>
+                    </div>}
+                  {installerData.spec.prometheus &&
+                    <div className={`flex u-cursor--pointer alignItems--center u-padding--20 ${selectedSpec === "prometheus" && "isSelected"}`} onClick={() => this.whatYouGet("prometheus")}>
+                      <div className="flex u-width--250">
+                        <div className="flex icon u-prometheus u-marginRight--normal"></div>
+                        <div className="WhatYouGet--wrapper flex flex-column">
+                          <p className="u-color--tuna u-fontSize--large u-fontWeight--bold u-paddingBottom--small"> Prometheus </p>
+                          <p className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal"> {installerData.spec.prometheus.version === "latest" ? "Latest version" : `Version ${installerData.spec.prometheus.version}`} </p>
+                        </div>
+                      </div>
+                      <div className="icon u-arrow u-marginRight--normal"></div>
+                    </div>}
+                  {installerData.spec.velero &&
+                    <div className={`flex u-cursor--pointer alignItems--center u-padding--20 ${selectedSpec === "velero" && "isSelected"}`} onClick={() => this.whatYouGet("velero")}>
+                      <div className="flex u-width--250">
+                        <div className="flex icon u-velero u-marginRight--normal"></div>
+                        <div className="WhatYouGet--wrapper flex flex-column">
+                          <p className="u-color--tuna u-fontSize--large u-fontWeight--bold u-paddingBottom--small"> Velero </p>
+                          <p className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal"> {installerData.spec.velero.version === "latest" ? "Latest version" : `Version ${installerData.spec.velero.version}`} </p>
+                        </div>
+                      </div>
+                      <div className="icon u-arrow u-marginRight--normal"></div>
+                    </div>}
+                  {installerData.spec.kotsadm &&
+                    <div className={`flex u-cursor--pointer alignItems--center u-padding--20 ${selectedSpec === "kotsadm" && "isSelected"}`} onClick={() => this.whatYouGet("kotsadm")}>
+                      <div className="flex u-width--250">
+                        <div className="flex icon u-kotsadm u-marginRight--normal"></div>
+                        <div className="WhatYouGet--wrapper flex flex-column">
+                          <p className="u-color--tuna u-fontSize--large u-fontWeight--bold u-paddingBottom--small"> Kotsadm </p>
+                          <p className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal"> {installerData.spec.kotsadm.version === "latest" ? "Latest version" : `Version ${installerData.spec.kotsadm.version}`} </p>
+                        </div>
+                      </div>
+                      <div className="icon u-arrow u-marginRight--normal"></div>
+                    </div>}
+                </div>
+                : null}
+              {installerData ?
+                <div className="DataEditor--wrapper flex flex-column u-marginLeft--20 u-overflow--auto">
                   <p className="u-fontSize--jumbo u-fontWeight--bold u-color--white u-marginTop--none"> {Utilities.toTitleCase(selectedSpec)} {installerData.spec[selectedSpec].version} </p>
                   <p className="u-fontSize--normal u-color--silverChalice u-marginTop--none"> The installation script will install {Utilities.toTitleCase(selectedSpec)} version {installerData.spec[selectedSpec].version}. </p>
 
@@ -316,16 +314,15 @@ cat install.sh | sudo bash -s airgap
 
                   <div className="flex u-borderBottom--silverChalice justifyContent--center">
                     <div className="u-width--120 u-fontSize--small u-fontWeight--medium u-color--alabasterapprox u-marginBottom--10"> Flag </div>
-                    <div className="u-width--120 u-fontSize--small u-fontWeight--medium u-color--alabasterapprox u-marginBottom--10"> Description </div>
+                    <div className="u-width--120 u-fontSize--small u-fontWeight--medium u-color--alabasterapprox u-marginBottom--10 u-marginLeft--normal"> Description </div>
                   </div>
-                  <div className="flex1 flex-column">
-                    {this.getVersionData(Object.keys(installerData.spec[selectedSpec]))}
-                  </div>
-                  <div className="flex justifyContent--center alignItems--center">
+                  {this.getVersionData(Object.keys(installerData.spec[selectedSpec]))}
+                  <div className="flex alignItems--center justifyContent--center" style={{ marginTop: "auto"}}>
                     <span className="status-dot"></span>
-                    <p className="u-color--alabasterapprox u-fontSize--small u-fontWeight--normal"> Currently defined in your install script </p>
+                    <span className="u-color--alabasterapprox u-fontSize--small u-fontWeight--normal"> Currently defined in your install script </span>
                   </div>
-                </div> : null}
+                </div>
+                : null}
             </div>
           </div>
         }
