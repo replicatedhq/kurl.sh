@@ -18,7 +18,7 @@ The Kurl add-on installs:
 spec:
   ekco:
     version: "latest"
-    nodeUnreachableTolerationDuration: 1h
+    nodeUnreachableToleration: 1h
     minReadyMasterNodeCount: 2
     minReadyWorkerNodeCount: 0
     rookShouldUseAllNodes: true
