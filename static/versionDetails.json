@@ -88,6 +88,11 @@
       "flag": "version",
       "description": "The version of contour to be installed.",
       "type": "string"
+    },
+    {
+      "flag": "tlsMinimumProtocolVersion",
+      "description": "The minimum TLS protocol version that is allowed (default \"1.2\").",
+      "type": "string"
     }
   ],
   "rook": [
