@@ -14,7 +14,7 @@ import OptionWrapper from "./shared/OptionWrapper";
 import "../scss/components/Kurlsh.scss";
 import versionDetails from "../../static/versionDetails.json"
 
-const versionAddOns = ["kubernetes", "weave", "rook", "registry", "docker", "velero", "kotsadm"];
+const versionAddOns = ["kubernetes", "weave", "contour", "rook", "registry", "docker", "velero", "kotsadm"];
 function versionToState(version) {
   return {
     version
@@ -90,6 +90,7 @@ class Kurlsh extends React.Component {
       advancedOptions: {
         kubernetes: {},
         weave: {},
+        contour: {},
         rook: {},
         registry: {},
         docker: {},
@@ -196,11 +197,17 @@ class Kurlsh extends React.Component {
     }
 
     if (selectedVersions.contour.version !== "None") {
+      const diff = getDiff(optionDefaults["contour"], options.contour);
       generatedInstaller.spec.contour = {
         version: selectedVersions.contour.version
       };
 
-      // No advanced options for Contour!
+      if (Object.keys(diff).length) {
+        generatedInstaller.spec.contour = {
+          ...generatedInstaller.spec.contour,
+          ...diff
+        };
+      }
     }
 
     if (selectedVersions.docker.version !== "None") {
@@ -596,6 +603,10 @@ class Kurlsh extends React.Component {
                       </div>
                     </div>
                   </div>
+                  <div className="flex u-fontSize--small u-color--royalBlue u-marginTop--small u-cursor--pointer" onClick={() => this.onToggleShowAdvancedOptions("contour")}>
+                    {showAdvancedOptions["contour"] ? "Hide advanced options" : "Show advanced options"}
+                  </div>
+                  {showAdvancedOptions["contour"] && this.renderAdvancedOptions("contour")}
                 </div>
               </div>
 
