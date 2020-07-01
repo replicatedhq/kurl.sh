@@ -23,6 +23,8 @@ spec:
     minReadyWorkerNodeCount: 0
     rookShouldUseAllNodes: true
     shouldDisableRebootServices: true
+    shouldDisableClearNodes: false
+    shouldEnablePurgeNodes: false
 ```
 
 flags-table
@@ -31,9 +33,25 @@ flags-table
 
 This section describes maintenance tasks that the EKCO operator performs.
 
+### Clear nodes
+
+The clear nodes feature ensures that pods running on a node that becomes unreachable are quickly rescheduled to healthy nodes.
+When a node is unreachable for more than forty seconds, Kubernetes will change the node's ready status to `Unknown`.
+After five minutes in the Unknown state, Kubernetes will delete all pods on the unreachable node so they can be rescheduled on healthy nodes.
+The deleted pods are likely to remain in the Terminating state since kubelet will not be reachable to confirm the pods have stopped.
+If a pod mounts a PVC it will maintain its lock on the PVC while stuck in the Terminating state and replacement pods will not be able to start.
+This can cause applications using PVCs to be unavailable longer than the five minute grace period applied by Kubernetes.
+
+To avoid extended downtime, the EKCO operator will watch for nodes in the Unknown state for more than five minutes and force delete all pods on them that have been terminating for at least thirty seconds.
+
+The clear node feature is a safer alternative to the purge node feature and is enabled by default.
+When using the clear node and a node is lost, the cluster will be degraded until the node is cleaned up.
+In a degraded state new nodes will not be able to join the cluster, the cluster cannot be upgraded, and cluster components will report health warnings.
+Refer to the command [below](/docs/add-ons/ekco#manual-node-purge) for manually purging a lost node.
+
 ### Purge nodes
 
-In an HA Kubernetes cluster the EKCO operator will automatically purge failed nodes that have been unreachable for more than `node_unreachable_toleration` (default 1h). The following steps will be taken during a purge:
+When enabled, the EKCO operator will automatically purge failed nodes that have been unreachable for more than `node_unreachable_toleration` (default 5m). The following steps will be taken during a purge:
 
 1. Delete the Deployment resource for the OSD from the rook-ceph namespace
 1. Exec into the Rook operator pod and run the command `ceph osd purge <id>`
