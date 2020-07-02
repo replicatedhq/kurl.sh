@@ -278,6 +278,17 @@ cat install.sh | sudo bash -s airgap
                       </div>
                       <div className="icon u-arrow u-marginRight--normal"></div>
                     </div>}
+                  {installerData.spec.containerd &&
+                    <div className={`flex u-cursor--pointer alignItems--center u-padding--20 ${selectedSpec === "containerd" && "isSelected"}`} onClick={() => this.whatYouGet("containerd")}>
+                      <div className="flex u-width--250">
+                        <div className="flex icon u-containerd u-marginRight--normal"></div>
+                        <div className="WhatYouGet--wrapper flex flex-column">
+                          <p className="u-color--tuna u-fontSize--large u-fontWeight--bold u-paddingBottom--small"> Containerd </p>
+                          <p className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal"> {installerData.spec.containerd.version === "latest" ? "Latest version" : `Version ${installerData.spec.containerd.version}`} </p>
+                        </div>
+                      </div>
+                      <div className="icon u-arrow u-marginRight--normal"></div>
+                    </div>}
                   {installerData.spec.velero &&
                     <div className={`flex u-cursor--pointer alignItems--center u-padding--20 ${selectedSpec === "velero" && "isSelected"}`} onClick={() => this.whatYouGet("velero")}>
                       <div className="flex u-width--250">
