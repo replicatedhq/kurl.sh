@@ -139,8 +139,6 @@ class Kurlsh extends React.Component {
     return result;
   }
 
-  checkFor
-
   getYaml = (sha) => {
     const {
       selectedVersions,
