@@ -14,7 +14,8 @@ Contour is an Ingress controller for Kubernetes that works by deploying the Envo
 ```yaml
 spec:
   contour:
-    version: "0.14.0"
+    version: "1.0.1"
+    tlsMinimumProtocolVersion: "1.3"
 ```
 
 flags-table

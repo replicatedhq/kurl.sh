@@ -1,0 +1,88 @@
+import * as React from "react";
+import Modal from "react-modal";
+import isEmpty from "lodash/isEmpty";
+
+import { Utilities } from "../utilities";
+
+import "../../scss/components/modals/ConfirmSelectionModal.scss";
+
+
+class ConfirmSelectionModal extends React.Component {
+  state = {
+    addOnToRemove: {}
+  }
+
+  dockerContainerdSelection = () => {
+    const { currentSelection, selectedVersions } = this.props;
+
+    if (Object.keys(currentSelection)[0] === "containerd") {
+      this.setState({ addOnToRemove: { docker: selectedVersions.docker } });
+    } else {
+      this.setState({ addOnToRemove: { containerd: selectedVersions.containerd } });
+    }
+  }
+
+  componentDidMount() {
+    this.dockerContainerdSelection();
+  }
+
+  handleConfirmSelection = (currentSelection, addOnToRemove) => {
+    this.props.onConfirmSelection(currentSelection, addOnToRemove)
+  }
+
+  render() {
+    const { addOnToRemove } = this.state;
+    const {
+      displayConfirmSelectionModal,
+      toggleConfirmSelection,
+      currentSelection
+    } = this.props;
+
+
+    return (
+      <Modal
+        isOpen={displayConfirmSelectionModal}
+        onRequestClose={toggleConfirmSelection}
+        shouldReturnFocusAfterClose={false}
+        contentLabel="Confirm selection"
+        ariaHideApp={false}
+        className="Modal ConfirmSelectionModal"
+      >
+        <div className="Modal-body">
+          <div className="u-fontSize--largest u-color--tuna u-fontWeight--bold u-lineHeight--normal">Confirm selection</div>
+          <p className="u-fontSize--normal u-color--dustyGray u-lineHeight--normal u-marginBottom--20">
+            The option you are selecting is incompatible with another selected option.
+        </p>
+          <div className="flex flex-column">
+            <span className="u-fontSize--normal u-color--tuna u-lineHeight--normal u-fontWeight--bold"> In order to add </span>
+            {!isEmpty(currentSelection) &&
+              <div className="flex add-wrapper alignItems--center u-marginTop--small">
+                <span className="icon u-add-plus-icon" />
+                <span className={`icon u-${Object.keys(currentSelection)[0]}-small-icon`} />
+                <span className="u-fontSize--small u-lineHeight--normal u-color--tuna">{Utilities.toTitleCase(Object.keys(currentSelection)[0])} version {currentSelection[Object.keys(currentSelection)[0]].version}</span>
+              </div>}
+
+            <span className="u-fontSize--normal u-color--tuna u-lineHeight--normal u-fontWeight--bold u-marginTop--20"> The following add-on will be removed </span>
+            {!isEmpty(addOnToRemove) &&
+              <div className="flex remove-wrapper alignItems--center u-marginTop--small">
+                <span className="icon u-remove-minus-icon" />
+                <span className={`icon u-${Object.keys(addOnToRemove)[0]}-small-icon`} />
+                <span className="u-fontSize--small u-lineHeight--normal u-color--tuna">{Utilities.toTitleCase(Object.keys(addOnToRemove)[0])} version {addOnToRemove[Object.keys(addOnToRemove)[0]].version}</span>
+              </div>}
+          </div>
+          <div className="u-marginTop--20 flex">
+            <button
+              onClick={() => this.handleConfirmSelection(currentSelection, addOnToRemove)}
+              type="button"
+              className="Button primary">
+              Confirm selection
+          </button>
+            <button type="button" onClick={toggleConfirmSelection} className="Button secondary u-marginLeft--10">Cancel</button>
+          </div>
+        </div>
+      </Modal>
+    );
+  }
+}
+
+export default ConfirmSelectionModal;

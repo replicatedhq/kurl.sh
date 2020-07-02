@@ -10,11 +10,12 @@ import find from "lodash/find";
 import CodeSnippet from "./shared/CodeSnippet";
 import Loader from "./shared/Loader";
 import OptionWrapper from "./shared/OptionWrapper";
+import ConfirmSelectionModal from "./modals/ConfirmSelectionModal";
 
 import "../scss/components/Kurlsh.scss";
 import versionDetails from "../../static/versionDetails.json"
 
-const versionAddOns = ["kubernetes", "weave", "rook", "registry", "docker", "velero", "kotsadm"];
+const versionAddOns = ["kubernetes", "weave", "contour", "rook", "registry", "docker", "velero", "kotsadm"];
 function versionToState(version) {
   return {
     version
@@ -46,6 +47,9 @@ class Kurlsh extends React.Component {
     const registryVersions = supportedVersions.registry.map(versionToState);
     registryVersions.push({ version: "None" });
 
+    const containerdVersions = supportedVersions.containerd.map(versionToState);
+    containerdVersions.push({ version: "None" });
+
     const veleroVersions = supportedVersions.velero.map(versionToState);
     veleroVersions.push({ version: "None" });
 
@@ -61,6 +65,7 @@ class Kurlsh extends React.Component {
         docker: dockerVersions,
         prometheus: prometheusVersions,
         registry: registryVersions,
+        containerd: containerdVersions,
         velero: veleroVersions,
         kotsadm: kotsadmVersions
       },
@@ -72,6 +77,7 @@ class Kurlsh extends React.Component {
         docker: { version: "latest" },
         prometheus: { version: "latest" },
         registry: { version: "latest" },
+        containerd: { version: "None" },
         velero: { version: "None" },
         kotsadm: { version: "None" }
       },
@@ -90,6 +96,7 @@ class Kurlsh extends React.Component {
       advancedOptions: {
         kubernetes: {},
         weave: {},
+        contour: {},
         rook: {},
         registry: {},
         docker: {},
@@ -98,9 +105,18 @@ class Kurlsh extends React.Component {
       },
       isLoading: false,
       optionDefaults: {},
-      installerErr: false,
-      installerErrMsg: ""
+      installerErrMsg: "",
+      displayConfirmSelectionModal: false,
+      currentSelection: {}
     };
+  }
+
+  toggleConfirmSelection = () => {
+    this.setState({ displayConfirmSelectionModal: !this.state.displayConfirmSelectionModal });
+  }
+
+  checkDockerContainerdSelection = (current) => {
+    this.setState({ displayConfirmSelectionModal: true, currentSelection: current });
   }
 
   helperToGenerateOptionsForYaml = (newObj) => {
@@ -126,7 +142,8 @@ class Kurlsh extends React.Component {
   getYaml = (sha) => {
     const {
       selectedVersions,
-      advancedOptions
+      advancedOptions,
+      optionDefaults
     } = this.state;
 
     const generatedInstaller = {
@@ -152,7 +169,6 @@ class Kurlsh extends React.Component {
 
       return diff;
     }
-    const { optionDefaults } = this.state;
 
     const options = this.generateAdvancedOptionsForYaml(advancedOptions);
 
@@ -196,11 +212,17 @@ class Kurlsh extends React.Component {
     }
 
     if (selectedVersions.contour.version !== "None") {
+      const diff = getDiff(optionDefaults["contour"], options.contour);
       generatedInstaller.spec.contour = {
         version: selectedVersions.contour.version
       };
 
-      // No advanced options for Contour!
+      if (Object.keys(diff).length) {
+        generatedInstaller.spec.contour = {
+          ...generatedInstaller.spec.contour,
+          ...diff
+        };
+      }
     }
 
     if (selectedVersions.docker.version !== "None") {
@@ -237,6 +259,12 @@ class Kurlsh extends React.Component {
       }
     }
 
+    if (selectedVersions.containerd.version !== "None") {
+      generatedInstaller.spec.containerd = {
+        version: selectedVersions.containerd.version
+      };
+    }
+
     if (selectedVersions.velero.version !== "None") {
       const diff = getDiff(optionDefaults["velero"], options.velero);
       generatedInstaller.spec.velero = {
@@ -268,10 +296,23 @@ class Kurlsh extends React.Component {
     return json2yaml.stringify(generatedInstaller).replace("---\n", "").replace(/^ {2}/gm, "");
   }
 
-  onVersionChange = name => value => {
-    this.setState({ selectedVersions: { ...this.state.selectedVersions, [name]: value } }, () => {
+  onConfirmSelection = (currentSelection, addOnToRemove) => {
+    this.setState({ selectedVersions: { ...this.state.selectedVersions, [Object.entries(currentSelection)[0][0]]: Object.entries(currentSelection)[0][1], [Object.entries(addOnToRemove)[0][0]]: { version: "None" } } }, () => {
       this.postToKurlInstaller(this.getYaml(this.state.installerSha));
+      this.toggleConfirmSelection();
     })
+  }
+
+  onVersionChange = name => value => {
+    if (name === "containerd" && value.version !== "None" && this.state.selectedVersions.docker.version !== "None") {
+      this.checkDockerContainerdSelection({ containerd: value });
+    } else if (name === "docker" && value.version !== "None" && this.state.selectedVersions.containerd.version !== "None") {
+      this.checkDockerContainerdSelection({ docker: value });
+    } else {
+      this.setState({ selectedVersions: { ...this.state.selectedVersions, [name]: value } }, () => {
+        this.postToKurlInstaller(this.getYaml(this.state.installerSha));
+      })
+    }
   }
 
   getLabel = ({ version }) => {
@@ -283,10 +324,7 @@ class Kurlsh extends React.Component {
   }
 
   postToKurlInstaller = async (yaml) => {
-    this.setState({
-      installerErr: false,
-      installerErrMsg: ""
-    })
+    this.setState({ installerErrMsg: "" })
     const url = `${process.env.KURL_INSTALLER_URL}`
     try {
       const response = await fetch(url, {
@@ -303,16 +341,10 @@ class Kurlsh extends React.Component {
         this.setState({ installerSha });
       } else {
         const body = await response.json();
-        this.setState({
-          installerErr: true,
-          installerErrMsg: body.error.message
-        })
+        this.setState({ installerErrMsg: body.error.message })
       }
     } catch (err) {
-      this.setState({
-        installerErr: true,
-        installerErrMsg: err
-      })
+      this.setState({ installerErrMsg: err })
     }
   }
 
@@ -413,6 +445,8 @@ class Kurlsh extends React.Component {
     this.setState({ optionDefaults: options });
   }
 
+
+
   componentDidUpdate(lastProps, lastState) {
     if (typeof window !== "undefined") {
       if (this.state.selectedVersions !== lastState.selectedVersions && this.state.installerSha) {
@@ -426,7 +460,7 @@ class Kurlsh extends React.Component {
 
 
   renderAdvancedOptions = addOn => {
-    const { advancedOptions, optionDefaults, installerErr, installerErrMsg } = this.state;
+    const { advancedOptions, optionDefaults, installerErrMsg } = this.state;
     let addOnData = [];
     if (!isEmpty(optionDefaults)) {
       addOnData = optionDefaults[addOn];
@@ -436,7 +470,7 @@ class Kurlsh extends React.Component {
           {addOnData.filter(d => d.flag !== "version").map((data, i) => {
             const option = data;
             const currentOption = find(advancedOptions[addOn], (key, value) => value === data.flag);
-            const doesCurrentErrExist = installerErr ? installerErrMsg.includes(data.flag) : false;
+            const doesCurrentErrExist = installerErrMsg ? installerErrMsg.includes(data.flag) : false;
 
             return (
               <div className="OptionItem flex-column" key={`${data.flag}-${i}`}>
@@ -596,6 +630,10 @@ class Kurlsh extends React.Component {
                       </div>
                     </div>
                   </div>
+                  <div className="flex u-fontSize--small u-color--royalBlue u-marginTop--small u-cursor--pointer" onClick={() => this.onToggleShowAdvancedOptions("contour")}>
+                    {showAdvancedOptions["contour"] ? "Hide advanced options" : "Show advanced options"}
+                  </div>
+                  {showAdvancedOptions["contour"] && this.renderAdvancedOptions("contour")}
                 </div>
               </div>
 
@@ -703,6 +741,31 @@ class Kurlsh extends React.Component {
                   {showAdvancedOptions["registry"] && this.renderAdvancedOptions("registry")}
                 </div>
               </div>
+
+              <div className="flex u-marginTop--30">
+                <div className="flex-column flex flex1">
+                  <div className="flex flex1">
+                    <div className="flex1">
+                      <div className="FormLabel u-marginBottom--10"> Containerd version </div>
+                      <div className="u-fontSize--small u-fontWeight--normal u-color--scorpion u-lineHeight--normal"> What version of Containerd are you using? </div>
+                    </div>
+                    <div className="flex1 u-paddingLeft--50 alignSelf--center">
+                      <div className="u-width--120">
+                        <Select
+                          options={versions.containerd}
+                          getOptionLabel={this.getLabel}
+                          getOptionValue={(containerd) => containerd}
+                          value={selectedVersions.containerd}
+                          onChange={this.onVersionChange("containerd")}
+                          matchProp="value"
+                          isOptionSelected={() => false}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
               <div className="flex u-marginTop--30">
                 <div className="flex-column flex flex1">
                   <div className="flex flex1">
@@ -790,6 +853,14 @@ class Kurlsh extends React.Component {
             <span className="u-fontSize--small u-fontWeight--medium u-color--scorpion u-lineHeight--normal u-marginTop--small"> Want to add a new component to kurl? <a href="https://kurl.sh/docs/add-on-author/" target="_blank" rel="noopener noreferrer" className="replicated-link">Read our contributing</a> guide.</span>
           </div>
         </div>
+        {this.state.displayConfirmSelectionModal &&
+          <ConfirmSelectionModal
+            displayConfirmSelectionModal={this.state.displayConfirmSelectionModal}
+            toggleConfirmSelection={this.toggleConfirmSelection}
+            currentSelection={this.state.currentSelection}
+            selectedVersions={this.state.selectedVersions}
+            onConfirmSelection={this.onConfirmSelection}
+          />}
       </div>
     );
   }

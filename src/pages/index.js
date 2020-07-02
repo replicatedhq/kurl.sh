@@ -47,7 +47,7 @@ class Kurl extends React.Component {
         <FadeTransitionRouter>
           {supportedVersions && location.pathname === "/"
             ? <Kurlsh path="/" isMobile={isMobile} supportedVersions={supportedVersions} />
-            : <Loader path="/" size="70" />
+            : <Loader className="flex flex1 justifyContent--center alignItems--center" path="/" size="70" />
           }
           <AppComponent path="/:sha" isMobile={isMobile} />
         </FadeTransitionRouter>
