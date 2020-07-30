@@ -9,6 +9,8 @@ title: "Proxy Installs"
 Online installs that require a proxy to reach the public Internet can be configured with the `kurl` section of the yaml spec.
 
 ```
+apiVersion: cluster.kurl.sh/v1beta1
+kind: Installer
 spec:
   kurl:
     proxyAddress: http://10.128.0.70:3128
@@ -17,7 +19,8 @@ spec:
     noProxy: false
 ```
 
-The proxy configuration will be used to download packages required for the installation script to complete and will be applied to the docker and kotsadm add-ons. 
+The proxy configuration will be used to download packages required for the installation script to complete and will be applied to the docker and kotsadm add-ons.
+See [Modifying an Install Using a YAML Patch File](/docs/install-with-kurl#modifying-an-install-using-a-yaml-patch-file-at-runtime) for more details on using patch files.
 
 ## Proxy Environment Variables
 

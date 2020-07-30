@@ -19,7 +19,7 @@ spec:
   rook:
     version: latest
     blockDeviceFilter: sd[b-z]
-    cephReplicaCount: 24
+    cephReplicaCount: 3
     isBlockStorageEnabled: true
     storageClassName: "storage"
 ```

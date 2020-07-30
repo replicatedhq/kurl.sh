@@ -16,7 +16,7 @@ spec:
   weave:
     version: "2.5.2"
     isEncryptionDisabled: true
-    podCIDR: "1.1.1.1"
+    podCIDR: "10.10.0.0/16"
     podCidrRange: "/16"
 ```
 

@@ -11,6 +11,8 @@ addOn: "kurl"
 ## Advanced Install Options
 
 ```yaml
+apiVersion: cluster.kurl.sh/v1beta1
+kind: Installer
 spec:
   kurl:
     airgap: true
