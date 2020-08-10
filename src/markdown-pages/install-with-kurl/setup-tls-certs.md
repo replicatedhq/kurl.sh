@@ -29,7 +29,7 @@ If you've already gone through the setup process once, and you want to upload ne
 
 `kubectl -n default annotate secret kotsadm-tls acceptAnonymousUploads=1`
 
-<span style="color:red">**Warning: adding this annotation will temporarily create a vulnerability for anyone to nefariously upload TLS certificates.  Once TLS certificates have been uploaded then the vulnerability is closed again.**</span>
+<span style="color:red">**Warning: adding this annotation will temporarily create a vulnerability for an attacker to maliciously upload TLS certificates.  Once TLS certificates have been uploaded then the vulnerability is closed again.**</span>
 
 After adding the annotation, you will need to restart the kurl proxy server.  The simplest way is to delete the kurl-proxy pod (the pod will automatically get restarted): 
 
