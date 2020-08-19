@@ -65,7 +65,7 @@ class SupportedAddOns extends React.Component {
   getAddOnIncompatibilities = (addOn) => {
     const incompatibileAddOns = this.state.supportedAddOns.filter(a => intersection(a.fulfills, addOn.fulfills).length > 0).map(a => a.name);
     if (incompatibileAddOns.length > 1) {
-      if (addOn.name === "minio") {
+      if (addOn.name === "minio" || addOn.name === "rook" || addOn.name === "openEBS") {
         return "No incompatibilities";
       } else {
         return this.generateVersionName(incompatibileAddOns.filter(add => add !== addOn.name).join(", "));

@@ -12,18 +12,24 @@ class ConfirmSelectionModal extends React.Component {
     addOnToRemove: {}
   }
 
-  dockerContainerdSelection = () => {
+  incompatibleAddOnsSelection = () => {
     const { currentSelection, selectedVersions } = this.props;
+    const current = Object.keys(currentSelection)[0];
 
-    if (Object.keys(currentSelection)[0] === "containerd") {
+    if (current === "containerd") {
       this.setState({ addOnToRemove: { docker: selectedVersions.docker } });
-    } else {
+      return;
+    } else if (current === "docker") {
       this.setState({ addOnToRemove: { containerd: selectedVersions.containerd } });
+    } else if (current === "calico") {
+      this.setState({ addOnToRemove: { weave: selectedVersions.weave } });
+    } else {
+      this.setState({ addOnToRemove: { calico: selectedVersions.calico } });
     }
   }
 
   componentDidMount() {
-    this.dockerContainerdSelection();
+    this.incompatibleAddOnsSelection();
   }
 
   handleConfirmSelection = (currentSelection, addOnToRemove) => {
