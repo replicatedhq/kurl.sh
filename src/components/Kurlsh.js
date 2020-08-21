@@ -15,7 +15,7 @@ import ConfirmSelectionModal from "./modals/ConfirmSelectionModal";
 import "../scss/components/Kurlsh.scss";
 import versionDetails from "../../static/versionDetails.json"
 
-const versionAddOns = ["kubernetes", "weave", "contour", "rook", "registry", "docker", "velero", "kotsadm"];
+const hasAdvancedOptions = ["kubernetes", "weave", "contour", "rook", "registry", "docker", "velero", "kotsadm", "ekco", "fluentd", "minio", "openebs"];
 function versionToState(version) {
   return {
     version
@@ -56,6 +56,21 @@ class Kurlsh extends React.Component {
     const kotsadmVersions = supportedVersions.kotsadm.map(versionToState);
     kotsadmVersions.push({ version: "None" });
 
+    const calicoVersions = supportedVersions.calico.map(versionToState);
+    calicoVersions.push({ version: "None" });
+
+    const ekcoVersions = supportedVersions.ekco.map(versionToState);
+    ekcoVersions.push({ version: "None" });
+
+    const fluentdVersions = supportedVersions.fluentd.map(versionToState);
+    fluentdVersions.push({ version: "None" });
+
+    const minioVersions = supportedVersions.minio.map(versionToState);
+    minioVersions.push({ version: "None" });
+
+    const openebsVersions = supportedVersions.openebs.map(versionToState);
+    openebsVersions.push({ version: "None" });
+
     this.state = {
       versions: {
         kubernetes: kubernetesVersions,
@@ -67,7 +82,12 @@ class Kurlsh extends React.Component {
         registry: registryVersions,
         containerd: containerdVersions,
         velero: veleroVersions,
-        kotsadm: kotsadmVersions
+        kotsadm: kotsadmVersions,
+        calico: calicoVersions,
+        ekco: ekcoVersions,
+        fluentd: fluentdVersions,
+        minio: minioVersions,
+        openebs: openebsVersions
       },
       selectedVersions: {
         kubernetes: { version: "latest" },
@@ -79,7 +99,12 @@ class Kurlsh extends React.Component {
         registry: { version: "latest" },
         containerd: { version: "None" },
         velero: { version: "None" },
-        kotsadm: { version: "None" }
+        kotsadm: { version: "None" },
+        calico: { version: "None" },
+        ekco: { version: "None" },
+        fluentd: { version: "None" },
+        minio: { version: "None" },
+        openebs: { version: "None" }
       },
       installerSha: "latest",
       showAdvancedOptions: {
@@ -91,7 +116,11 @@ class Kurlsh extends React.Component {
         "registry": false,
         "docker": false,
         "velero": false,
-        "kotsadm": false
+        "kotsadm": false,
+        "ekco": false,
+        "fluentd": false,
+        "minio": false,
+        "openebs": false
       },
       advancedOptions: {
         kubernetes: {},
@@ -101,7 +130,11 @@ class Kurlsh extends React.Component {
         registry: {},
         docker: {},
         velero: {},
-        kotsadm: {}
+        kotsadm: {},
+        ekco: {},
+        fluentd: {},
+        minio: {},
+        openebs: {}
       },
       isLoading: false,
       optionDefaults: {},
@@ -115,7 +148,7 @@ class Kurlsh extends React.Component {
     this.setState({ displayConfirmSelectionModal: !this.state.displayConfirmSelectionModal });
   }
 
-  checkDockerContainerdSelection = (current) => {
+  checkIncompatibleSelection = (current) => {
     this.setState({ displayConfirmSelectionModal: true, currentSelection: current });
   }
 
@@ -293,6 +326,68 @@ class Kurlsh extends React.Component {
       }
     }
 
+    if (selectedVersions.calico.version !== "None") {
+      generatedInstaller.spec.calico = {
+        version: selectedVersions.calico.version
+      };
+    }
+
+    if (selectedVersions.ekco.version !== "None") {
+      const diff = getDiff(optionDefaults["ekco"], options.ekco);
+      generatedInstaller.spec.ekco = {
+        version: selectedVersions.ekco.version
+      };
+
+      if (Object.keys(diff).length) {
+        generatedInstaller.spec.ekco = {
+          ...generatedInstaller.spec.ekco,
+          ...diff
+        };
+      }
+    }
+
+    if (selectedVersions.fluentd.version !== "None") {
+      const diff = getDiff(optionDefaults["fluentd"], options.fluentd);
+      generatedInstaller.spec.fluentd = {
+        version: selectedVersions.fluentd.version
+      };
+
+      if (Object.keys(diff).length) {
+        generatedInstaller.spec.fluentd = {
+          ...generatedInstaller.spec.fluentd,
+          ...diff
+        };
+      }
+    }
+
+    if (selectedVersions.minio.version !== "None") {
+      const diff = getDiff(optionDefaults["minio"], options.minio);
+      generatedInstaller.spec.minio = {
+        version: selectedVersions.minio.version
+      };
+
+      if (Object.keys(diff).length) {
+        generatedInstaller.spec.minio = {
+          ...generatedInstaller.spec.minio,
+          ...diff
+        };
+      }
+    }
+
+    if (selectedVersions.openebs.version !== "None") {
+      const diff = getDiff(optionDefaults["openebs"], options.openebs);
+      generatedInstaller.spec.openebs = {
+        version: selectedVersions.openebs.version
+      };
+
+      if (Object.keys(diff).length) {
+        generatedInstaller.spec.openebs = {
+          ...generatedInstaller.spec.openebs,
+          ...diff
+        };
+      }
+    }
+
     return json2yaml.stringify(generatedInstaller).replace("---\n", "").replace(/^ {2}/gm, "");
   }
 
@@ -305,10 +400,15 @@ class Kurlsh extends React.Component {
 
   onVersionChange = name => value => {
     if (name === "containerd" && value.version !== "None" && this.state.selectedVersions.docker.version !== "None") {
-      this.checkDockerContainerdSelection({ containerd: value });
+      this.checkIncompatibleSelection({ containerd: value });
     } else if (name === "docker" && value.version !== "None" && this.state.selectedVersions.containerd.version !== "None") {
-      this.checkDockerContainerdSelection({ docker: value });
-    } else {
+      this.checkIncompatibleSelection({ docker: value });
+    } else if (name === "calico" && value.version !== "None" && this.state.selectedVersions.weave.version !== "None") {
+      this.checkIncompatibleSelection({ calico: value });
+    } else if (name === "weave" && value.version !== "None" && this.state.selectedVersions.calico.version !== "None") {
+      this.checkIncompatibleSelection({ weave: value });
+    }
+    else {
       this.setState({ selectedVersions: { ...this.state.selectedVersions, [name]: value } }, () => {
         this.postToKurlInstaller(this.getYaml(this.state.installerSha));
       })
@@ -436,7 +536,7 @@ class Kurlsh extends React.Component {
     });
 
     let options = {}
-    versionAddOns.forEach(version => {
+    hasAdvancedOptions.forEach(version => {
       options = {
         ...options,
         [version]: versionDetails[version]
@@ -820,6 +920,144 @@ class Kurlsh extends React.Component {
                   {showAdvancedOptions["kotsadm"] && this.renderAdvancedOptions("kotsadm")}
                 </div>
               </div>
+
+              <div className="flex u-marginTop--30">
+                <div className="flex-column flex flex1">
+                  <div className="flex flex1">
+                    <div className="flex1">
+                      <div className="FormLabel u-marginBottom--10"> Calico version </div>
+                      <div className="u-fontSize--small u-fontWeight--normal u-color--scorpion u-lineHeight--normal"> What version of Calico are you using? </div>
+                    </div>
+                    <div className="flex1 u-paddingLeft--50 alignSelf--center">
+                      <div className="u-width--120">
+                        <Select
+                          options={versions.calico}
+                          getOptionLabel={this.getLabel}
+                          getOptionValue={(calico) => calico}
+                          value={selectedVersions.calico}
+                          onChange={this.onVersionChange("calico")}
+                          matchProp="value"
+                          isOptionSelected={() => false}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex u-marginTop--30">
+                <div className="flex-column flex flex1">
+                  <div className="flex flex1">
+                    <div className="flex1">
+                      <div className="FormLabel u-marginBottom--10"> EKCO version </div>
+                      <div className="u-fontSize--small u-fontWeight--normal u-color--scorpion u-lineHeight--normal"> What version of EKCO are you using? </div>
+                    </div>
+                    <div className="flex1 u-paddingLeft--50 alignSelf--center">
+                      <div className="u-width--120">
+                        <Select
+                          options={versions.ekco}
+                          getOptionLabel={this.getLabel}
+                          getOptionValue={(ekco) => ekco}
+                          value={selectedVersions.ekco}
+                          onChange={this.onVersionChange("ekco")}
+                          matchProp="value"
+                          isOptionSelected={() => false}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex u-fontSize--small u-color--royalBlue u-marginTop--small u-cursor--pointer" onClick={() => this.onToggleShowAdvancedOptions("ekco")}>
+                    {showAdvancedOptions["ekco"] ? "Hide advanced options" : "Show advanced options"}
+                  </div>
+                  {showAdvancedOptions["ekco"] && this.renderAdvancedOptions("ekco")}
+                </div>
+              </div>
+
+              <div className="flex u-marginTop--30">
+                <div className="flex-column flex flex1">
+                  <div className="flex flex1">
+                    <div className="flex1">
+                      <div className="FormLabel u-marginBottom--10"> Fluentd version </div>
+                      <div className="u-fontSize--small u-fontWeight--normal u-color--scorpion u-lineHeight--normal"> What version of fluentd are you using? </div>
+                    </div>
+                    <div className="flex1 u-paddingLeft--50 alignSelf--center">
+                      <div className="u-width--120">
+                        <Select
+                          options={versions.fluentd}
+                          getOptionLabel={this.getLabel}
+                          getOptionValue={(fluentd) => fluentd}
+                          value={selectedVersions.fluentd}
+                          onChange={this.onVersionChange("fluentd")}
+                          matchProp="value"
+                          isOptionSelected={() => false}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex u-fontSize--small u-color--royalBlue u-marginTop--small u-cursor--pointer" onClick={() => this.onToggleShowAdvancedOptions("fluentd")}>
+                    {showAdvancedOptions["fluentd"] ? "Hide advanced options" : "Show advanced options"}
+                  </div>
+                  {showAdvancedOptions["fluentd"] && this.renderAdvancedOptions("fluentd")}
+                </div>
+              </div>
+
+              <div className="flex u-marginTop--30">
+                <div className="flex-column flex flex1">
+                  <div className="flex flex1">
+                    <div className="flex1">
+                      <div className="FormLabel u-marginBottom--10"> Minio version </div>
+                      <div className="u-fontSize--small u-fontWeight--normal u-color--scorpion u-lineHeight--normal"> What version of minio are you using? </div>
+                    </div>
+                    <div className="flex1 u-paddingLeft--50 alignSelf--center">
+                      <div className="u-width--120">
+                        <Select
+                          options={versions.minio}
+                          getOptionLabel={this.getLabel}
+                          getOptionValue={(minio) => minio}
+                          value={selectedVersions.minio}
+                          onChange={this.onVersionChange("minio")}
+                          matchProp="value"
+                          isOptionSelected={() => false}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex u-fontSize--small u-color--royalBlue u-marginTop--small u-cursor--pointer" onClick={() => this.onToggleShowAdvancedOptions("minio")}>
+                    {showAdvancedOptions["minio"] ? "Hide advanced options" : "Show advanced options"}
+                  </div>
+                  {showAdvancedOptions["minio"] && this.renderAdvancedOptions("minio")}
+                </div>
+              </div>
+
+              <div className="flex u-marginTop--30">
+                <div className="flex-column flex flex1">
+                  <div className="flex flex1">
+                    <div className="flex1">
+                      <div className="FormLabel u-marginBottom--10"> OpenEBS version </div>
+                      <div className="u-fontSize--small u-fontWeight--normal u-color--scorpion u-lineHeight--normal"> What version of openEBS are you using? </div>
+                    </div>
+                    <div className="flex1 u-paddingLeft--50 alignSelf--center">
+                      <div className="u-width--120">
+                        <Select
+                          options={versions.openebs}
+                          getOptionLabel={this.getLabel}
+                          getOptionValue={(openebs) => openebs}
+                          value={selectedVersions.openebs}
+                          onChange={this.onVersionChange("openebs")}
+                          matchProp="value"
+                          isOptionSelected={() => false}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex u-fontSize--small u-color--royalBlue u-marginTop--small u-cursor--pointer" onClick={() => this.onToggleShowAdvancedOptions("openebs")}>
+                    {showAdvancedOptions["openebs"] ? "Hide advanced options" : "Show advanced options"}
+                  </div>
+                  {showAdvancedOptions["openebs"] && this.renderAdvancedOptions("openebs")}
+                </div>
+              </div>
+
+
             </div>
           </div>
           <div className={`FixedWrapper flex-column ${isMobile ? "u-marginTop--30" : ""}`}>
