@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "gatsby";
-import GitHubButton from "react-github-button";
 import MobileNavBar from "./MobileNavBar";
 
 import "../../scss/components/shared/NavBar.scss";
@@ -12,29 +11,21 @@ export class NavBar extends React.Component {
   }
 
   componentWillUnmount() {
-    window.removeEventListener("scroll", this.shrinkNavbarOnScroll, true);
+    window.removeEventListener("scroll", this.handleNavScroll, true);
   }
 
   componentDidMount() {
-    window.addEventListener("scroll", this.shrinkNavbarOnScroll, true);
+    window.addEventListener("scroll", this.handleNavScroll, true);
   }
 
-  shrinkNavbarOnScroll = () => {
+  handleNavScroll = () => {
     const scrollTop = Math.max(window.pageYOffset, document.documentElement.scrollTop, document.body.scrollTop)
-    const distanceY = scrollTop,
-      shrinkOn = 100,
-      headerEl = document.getElementById("nav-header"),
-      kurlHeaderEl = document.getElementById("kurl-header"),
-      logoEl = document.getElementById("logo-header");
-
-    if (distanceY > shrinkOn) {
-      headerEl && headerEl.classList.add("smaller");
-      kurlHeaderEl && kurlHeaderEl.classList.add("smaller");
-      logoEl && logoEl.classList.add("smaller");
+    const headerEl = document.getElementById("nav-header");
+    console.log(scrollTop)
+    if (scrollTop > 100) {
+      headerEl && headerEl.classList.add("scrolled");
     } else {
-      headerEl && headerEl.classList.remove("smaller");
-      kurlHeaderEl && kurlHeaderEl.classList.remove("smaller");
-      logoEl && logoEl.classList.remove("smaller");
+      headerEl && headerEl.classList.remove("scrolled");
     }
   }
 
@@ -67,8 +58,16 @@ export class NavBar extends React.Component {
               </div>
               :
               <div className="NavBarContainer flex flex1 alignItems--center">
-                <div className="flex1 justifyContent--flexStart">
+                <div className="flex1 justifyContent--spaceBetween">
                   <div className="flex1 flex u-height--full">
+                    <div className="flex flex1">
+                      <div className="flex-column flex-auto u-marginRight--20 justifyContent--center">
+                        <Link to="/add-ons" className="u-fontWeight--medium u-color--royalBlue u-lineHeight--normal u-fontSize--normal u-textDecoration--underlineOnHover"> Supported add-ons </Link>
+                      </div>
+                      <div className="flex-column flex-auto u-marginRight--20 justifyContent--center">
+                        <Link to="/docs/introduction/" className="u-fontWeight--medium  u-color--royalBlue u-lineHeight--normal u-fontSize--normal u-textDecoration--underlineOnHover"> Docs </Link>
+                      </div>
+                    </div>
                     <div className="flex flex-auto">
                       <div className="flex alignItems--center flex1 flex-verticalCenter u-position--relative u-marginRight--20">
                         <div className="HeaderLogo" id="logo-header">
@@ -77,17 +76,13 @@ export class NavBar extends React.Component {
                           </Link>
                         </div>
                       </div>
-                      <div className="HeaderText">{this.props.title}</div>
                     </div>
-                    <div className="flex flex1 justifyContent--flexEnd right-items">
-                      <div className="flex-column flex-auto u-marginRight--20 justifyContent--center">
-                        <Link to="/add-ons" className="u-fontWeight--medium u-color--royalBlue u-lineHeight--normal u-fontSize--normal u-textDecoration--underlineOnHover"> Supported add-ons </Link>
-                      </div>
-                      <div className="flex-column flex-auto u-marginRight--20 justifyContent--center">
-                        <Link to="/docs/introduction/" className="u-fontWeight--medium  u-color--royalBlue u-lineHeight--normal u-fontSize--normal u-textDecoration--underlineOnHover"> Docs </Link>
-                      </div>
+                    <div className="flex flex1 justifyContent--flexEnd">
                       <div className="flex-column flex-auto justifyContent--center">
-                        <GitHubButton type="stargazers" size="large" repo="kurl" namespace="replicatedhq" />
+                        <a href="https://github.com/replicatedhq/kurl/" target="_blank" rel="noopener noreferrer" className="github-btn flex justifyContent--center alignItems--center">
+                          <span className="icon github-icon" />
+                          View on GitHub
+                        </a>
                       </div>
                     </div>
                   </div>
