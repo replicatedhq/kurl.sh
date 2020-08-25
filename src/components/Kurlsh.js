@@ -640,26 +640,37 @@ class Kurlsh extends React.Component {
 
     const installCommand = `curl ${process.env.API_URL}/${installerSha} | sudo bash`;
 
+
     return (
-      <div className={`u-minHeight--full u-width--full u-overflow--auto flex-column flex1 u-marginBottom---40 ${isMobile ? "mobile-container" : "container"}`}>
-        <div className={`u-flexTabletReflow flex1 u-width--full`}>
-          <div className="flex u-width--full">
-            <div className="left-content-wrap flex-column u-marginRight--30">
-              <div className={`${isMobile ? "u-fontSize--normal" : "u-fontSize--large"} u-fontWeight--medium u-lineHeight--more u-color--tuna`}>
-                kURL is a custom Kubernetes distro creator. Think of kURL as a link shortener for your favorite Kubernetes base components (aka add-ons).
+      <div className="u-minHeight--full u-width--full u-overflow--auto flex-column flex1 u-marginBottom---40 kurlContainer">
+        <div className="KurlHeader flex flex-column u-borderBottom--gray">
+          <div className="flex flex-column alignItems--center">
+            <p className="u-fontSize--32 u-fontWeight--bold u-color--downriver u-lineHeight--more"> kURL - Open Source Kubernetes Installer </p>
+            <span className={`${isMobile ? "u-fontSize--normal" : "u-fontSize--large"} u-fontWeight--medium u-lineHeight--more u-color--fiord u-lineHeight--more u-textAlign--center u-width--half`}>
+              kURL is a custom Kubernetes distro creator. Think of kURL as a link shortener for your favorite Kubernetes base components (aka add-ons).
                 It creates a unique URL for your specific components that can be installed with <code>cURL</code> on a modern Linux server.
                 kURL installation packages can be run online or download and executed in a completely airgapped environment.
                 kURL is <a href="https://github.com/replicatedhq/kurl/" target="_blank" rel="noopener noreferrer" className="replicated-link">open source</a> and easily extensible by contributing additional add-ons as Kustomization overlays.
-              </div>
-              <div className="flex u-marginTop--30">
-                <div className="flex-column flex flex1">
-                  <div className="flex flex1">
-                    <div className="flex1">
-                      <div className="FormLabel u-marginBottom--10"> Kubernetes version </div>
-                      <div className="u-fontSize--small u-fontWeight--normal u-color--scorpion u-lineHeight--normal"> What version of Kubernetes are you using? </div>
-                    </div>
-                    <div className="flex1 u-paddingLeft--50 alignSelf--center">
-                      <div className="u-width--120">
+              </span>
+          </div>
+          <div className="flex flex1 u-marginBottom--20 u-marginTop--20 alignItems--center justifyContent--center">
+            <button type="button" className="Button primary">Build your installer</button>
+            <Link to="/docs/introduction/" className="u-fontWeight--medium u-color--royalBlue u-lineHeight--normal u-marginLeft--20 u-fontSize--normal u-textDecoration--underlineOnHover"> View the docs </Link>
+          </div>
+        </div>
+        <div className={`u-flexTabletReflow flex1 u-width--full ${isMobile ? "mobile-container" : "container"}`}>
+          <div className="flex flex1 u-marginRight--30">
+            <div className="left-content-wrap flex-auto flex-column u-width--full">
+              <span className="u-fontSize--24 u-fontWeight--bold u-color--mineShaft"> Select add-ons </span>
+
+              <div className="AddOn--wrapper selected flex flex-column u-marginTop--20">
+                <div className="flex flex1">
+                  <div className="flex flex1 alignItems--center">
+                    <span className="icon u-kubernetes u-marginBottom--small" />
+                    <div className="flex flex-column u-marginLeft--15">
+                      <div className="FormLabel "> Kubernetes </div>
+                      <div className="SelectVersion flex flex1" style={{ width: "200px" }}>
+                        <span className="flex alignItems--center u-color--fiord u-fontSize--normal"> Version </span>
                         <Select
                           options={versions.kubernetes}
                           getOptionLabel={this.getLabel}
@@ -670,398 +681,427 @@ class Kurlsh extends React.Component {
                           isOptionSelected={() => false}
                         />
                       </div>
-                      <div>
+                    </div>
+                  </div>
+                  <div className="flex flex1 justifyContent--flexEnd alignItems--center">
+                    <div className="flex u-fontSize--small u-fontWeight--medium u-color--royalBlue u-marginTop--small u-cursor--pointer" onClick={() => this.onToggleShowAdvancedOptions("kubernetes")}>
+                      {showAdvancedOptions["kubernetes"] ? "Hide config" : "Show config"}
+                    </div>
+                  </div>
+                </div>
+                {showAdvancedOptions["kubernetes"] && this.renderAdvancedOptions("kubernetes")}
+              </div>
+
+              <div className="flex flex-column u-marginTop--40">
+                <span className="u-fontSize--normal u-fontWeight--medium u-color--bermudaGray"> CRI </span>
+                <div className={`AddOn--wrapper ${selectedVersions.docker.version !== "None" && "selected"} flex flex-column u-marginTop--15`}>
+                  <div className="flex flex1">
+                    <div className="flex flex1 alignItems--center">
+                      <span className="icon u-docker u-marginBottom--small" />
+                      <div className="flex flex-column u-marginLeft--15">
+                        <div className="FormLabel "> Docker </div>
+                        <div className="SelectVersion flex flex1" style={{ width: "200px" }}>
+                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal"> Version </span>
+                          <Select
+                            options={versions.docker}
+                            getOptionLabel={this.getLabel}
+                            getOptionValue={(docker) => docker}
+                            value={selectedVersions.docker}
+                            onChange={this.onVersionChange("docker")}
+                            matchProp="value"
+                            isOptionSelected={() => false} />
+                        </div>
+                      </div>
+                    </div>
+                    <div className="flex flex1 justifyContent--flexEnd alignItems--center">
+                      <div className="flex u-fontSize--small u-fontWeight--medium u-color--royalBlue u-marginTop--small u-cursor--pointer" onClick={() => this.onToggleShowAdvancedOptions("docker")}>
+                        {showAdvancedOptions["docker"] ? "Hide config" : "Show config"}
                       </div>
                     </div>
                   </div>
-                  <div className="flex u-fontSize--small u-color--royalBlue u-marginTop--small u-cursor--pointer" onClick={() => this.onToggleShowAdvancedOptions("kubernetes")}>
-                    {showAdvancedOptions["kubernetes"] ? "Hide advanced options" : "Show advanced options"}
+                  {showAdvancedOptions["docker"] && this.renderAdvancedOptions("docker")}
+                </div>
+                <div className={`AddOn--wrapper ${selectedVersions.containerd.version !== "None" && "selected"} flex flex-column u-marginTop--15`}>
+                  <div className="flex flex1">
+                    <div className="flex flex1 alignItems--center">
+                      <span className="icon u-containerd u-marginBottom--small" />
+                      <div className="flex flex-column u-marginLeft--15">
+                        <div className="FormLabel"> Containerd </div>
+                        <div className="SelectVersion flex flex1" style={{ width: "200px" }}>
+                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal"> Version </span>
+                          <Select
+                            options={versions.containerd}
+                            getOptionLabel={this.getLabel}
+                            getOptionValue={(containerd) => containerd}
+                            value={selectedVersions.containerd}
+                            onChange={this.onVersionChange("containerd")}
+                            matchProp="value"
+                            isOptionSelected={() => false} />
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  {showAdvancedOptions["kubernetes"] && this.renderAdvancedOptions("kubernetes")}
                 </div>
               </div>
 
-              <div className="flex u-marginTop--30">
-                <div className="flex-column flex flex1">
+              <div className="flex flex-column u-marginTop--40">
+                <span className="u-fontSize--normal u-fontWeight--medium u-color--bermudaGray"> CNI plugin </span>
+                <div className={`AddOn--wrapper ${selectedVersions.calico.version !== "None" && "selected"} flex flex-column u-marginTop--15`}>
                   <div className="flex flex1">
-                    <div className="flex1">
-                      <div className="FormLabel u-marginBottom--10"> Weave version </div>
-                      <div className="u-fontSize--small u-fontWeight--normal u-color--scorpion u-lineHeight--normal"> What version of Weave are you using? </div>
-                    </div>
-                    <div className="flex1 u-paddingLeft--50 alignSelf--center">
-                      <div className="u-width--120">
-                        <Select
-                          options={versions.weave}
-                          getOptionLabel={this.getLabel}
-                          getOptionValue={(weave) => weave}
-                          value={selectedVersions.weave}
-                          onChange={this.onVersionChange("weave")}
-                          matchProp="value"
-                          isOptionSelected={() => false}
-                        />
+                    <div className="flex flex1 alignItems--center">
+                      <span className="icon u-calico u-marginBottom--small" />
+                      <div className="flex flex-column u-marginLeft--15">
+                        <div className="FormLabel"> Calico </div>
+                        <div className="SelectVersion flex flex1" style={{ width: "200px" }}>
+                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal"> Version </span>
+                          <Select
+                            options={versions.calico}
+                            getOptionLabel={this.getLabel}
+                            getOptionValue={(calico) => calico}
+                            value={selectedVersions.calico}
+                            onChange={this.onVersionChange("calico")}
+                            matchProp="value"
+                            isOptionSelected={() => false} />
+                        </div>
                       </div>
                     </div>
                   </div>
-                  <div className="flex u-fontSize--small u-color--royalBlue u-marginTop--small u-cursor--pointer" onClick={() => this.onToggleShowAdvancedOptions("weave")}>
-                    {showAdvancedOptions["weave"] ? "Hide advanced options" : "Show advanced options"}
+                </div>
+                <div className={`AddOn--wrapper ${selectedVersions.weave.version !== "None" && "selected"} flex flex-column u-marginTop--15`}>
+                  <div className="flex flex1">
+                    <div className="flex flex1 alignItems--center">
+                      <span className="icon u-weave u-marginBottom--small" />
+                      <div className="flex flex-column u-marginLeft--15">
+                        <div className="FormLabel"> Weave </div>
+                        <div className="SelectVersion flex flex1" style={{ width: "200px" }}>
+                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal"> Version </span>
+                          <Select
+                            options={versions.weave}
+                            getOptionLabel={this.getLabel}
+                            getOptionValue={(weave) => weave}
+                            value={selectedVersions.weave}
+                            onChange={this.onVersionChange("weave")}
+                            matchProp="value"
+                            isOptionSelected={() => false} />
+                        </div>
+                      </div>
+                    </div>
+                    <div className="flex flex1 justifyContent--flexEnd alignItems--center">
+                      <div className="flex u-fontSize--small u-fontWeight--medium u-color--royalBlue u-marginTop--small u-cursor--pointer" onClick={() => this.onToggleShowAdvancedOptions("weave")}>
+                        {showAdvancedOptions["weave"] ? "Hide config" : "Show config"}
+                      </div>
+                    </div>
                   </div>
                   {showAdvancedOptions["weave"] && this.renderAdvancedOptions("weave")}
                 </div>
               </div>
 
-              <div className="flex u-marginTop--30">
-                <div className="flex-column flex flex1">
+              <div className="flex flex-column u-marginTop--40">
+                <span className="u-fontSize--normal u-fontWeight--medium u-color--bermudaGray"> Ingress </span>
+                <div className={`AddOn--wrapper ${selectedVersions.contour.version !== "None" && "selected"} flex flex-column u-marginTop--15`}>
                   <div className="flex flex1">
-                    <div className="flex1">
-                      <div className="FormLabel u-marginBottom--10"> Contour version </div>
-                      <div className="u-fontSize--small u-fontWeight--normal u-color--scorpion u-lineHeight--normal"> What version of Contour are you using? </div>
-                    </div>
-                    <div className="flex1 u-paddingLeft--50 alignSelf--center">
-                      <div className="u-width--120">
-                        <Select
-                          options={versions.contour}
-                          getOptionLabel={this.getLabel}
-                          getOptionValue={(contour) => contour}
-                          value={selectedVersions.contour}
-                          onChange={this.onVersionChange("contour")}
-                          matchProp="value"
-                          isOptionSelected={() => false}
-                        />
+                    <div className="flex flex1 alignItems--center">
+                      <span className="icon u-contour u-marginBottom--small" />
+                      <div className="flex flex-column u-marginLeft--15">
+                        <div className="FormLabel"> Contour </div>
+                        <div className="SelectVersion flex flex1" style={{ width: "200px" }}>
+                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal"> Version </span>
+                          <Select
+                            options={versions.contour}
+                            getOptionLabel={this.getLabel}
+                            getOptionValue={(contour) => contour}
+                            value={selectedVersions.contour}
+                            onChange={this.onVersionChange("contour")}
+                            matchProp="value"
+                            isOptionSelected={() => false} />
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div className="flex u-fontSize--small u-color--royalBlue u-marginTop--small u-cursor--pointer" onClick={() => this.onToggleShowAdvancedOptions("contour")}>
-                    {showAdvancedOptions["contour"] ? "Hide advanced options" : "Show advanced options"}
+                    <div className="flex flex1 justifyContent--flexEnd alignItems--center">
+                      <div className="flex u-fontSize--small u-fontWeight--medium u-color--royalBlue u-marginTop--small u-cursor--pointer" onClick={() => this.onToggleShowAdvancedOptions("contour")}>
+                        {showAdvancedOptions["contour"] ? "Hide config" : "Show config"}
+                      </div>
+                    </div>
                   </div>
                   {showAdvancedOptions["contour"] && this.renderAdvancedOptions("contour")}
                 </div>
               </div>
 
-              <div className="flex u-marginTop--30">
-                <div className="flex-column flex flex1">
+              <div className="flex flex-column u-marginTop--40">
+                <span className="u-fontSize--normal u-fontWeight--medium u-color--bermudaGray"> Cluster Administration </span>
+                <div className={`AddOn--wrapper ${selectedVersions.ekco.version !== "None" && "selected"} flex flex-column u-marginTop--15`}>
                   <div className="flex flex1">
-                    <div className="flex1">
-                      <div className="FormLabel u-marginBottom--10"> Rook version </div>
-                      <div className="u-fontSize--small u-fontWeight--normal u-color--scorpion u-lineHeight--normal"> What version of Rook are you using? </div>
-                    </div>
-                    <div className="flex1 u-paddingLeft--50 alignSelf--center">
-                      <div className="u-width--120">
-                        <Select
-                          options={versions.rook}
-                          getOptionLabel={this.getLabel}
-                          getOptionValue={(rook) => rook}
-                          value={selectedVersions.rook}
-                          onChange={this.onVersionChange("rook")}
-                          matchProp="value"
-                          isOptionSelected={() => false}
-                        />
+                    <div className="flex flex1 alignItems--center">
+                      <span className="icon u-kubernetes u-marginBottom--small" />
+                      <div className="flex flex-column u-marginLeft--15">
+                        <div className="FormLabel"> EKCO </div>
+                        <div className="SelectVersion flex flex1" style={{ width: "200px" }}>
+                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal"> Version </span>
+                          <Select
+                            options={versions.ekco}
+                            getOptionLabel={this.getLabel}
+                            getOptionValue={(ekco) => ekco}
+                            value={selectedVersions.ekco}
+                            onChange={this.onVersionChange("ekco")}
+                            matchProp="value"
+                            isOptionSelected={() => false} />
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div className="flex u-fontSize--small u-color--royalBlue u-marginTop--small u-cursor--pointer" onClick={() => this.onToggleShowAdvancedOptions("rook")}>
-                    {showAdvancedOptions["rook"] ? "Hide advanced options" : "Show advanced options"}
-                  </div>
-                  {showAdvancedOptions["rook"] && this.renderAdvancedOptions("rook")}
-                </div>
-              </div>
-              <div className="flex u-marginTop--30">
-                <div className="flex-column flex flex1">
-                  <div className="flex flex1">
-                    <div className="flex1">
-                      <div className="FormLabel u-marginBottom--10"> Docker version </div>
-                      <div className="u-fontSize--small u-fontWeight--normal u-color--scorpion u-lineHeight--normal"> What version of Docker are you using? </div>
-                    </div>
-                    <div className="flex1 u-paddingLeft--50 alignSelf--center">
-                      <div className="u-width--120">
-                        <Select
-                          options={versions.docker}
-                          getOptionLabel={this.getLabel}
-                          getOptionValue={(docker) => docker}
-                          value={selectedVersions.docker}
-                          onChange={this.onVersionChange("docker")}
-                          matchProp="value"
-                          isOptionSelected={() => false}
-                        />
+                    <div className="flex flex1 justifyContent--flexEnd alignItems--center">
+                      <div className="flex u-fontSize--small u-fontWeight--medium u-color--royalBlue u-marginTop--small u-cursor--pointer" onClick={() => this.onToggleShowAdvancedOptions("ekco")}>
+                        {showAdvancedOptions["ekco"] ? "Hide config" : "Show config"}
                       </div>
                     </div>
-                  </div>
-                  <div className="flex u-fontSize--small u-color--royalBlue u-marginTop--small u-cursor--pointer" onClick={() => this.onToggleShowAdvancedOptions("docker")}>
-                    {showAdvancedOptions["docker"] ? "Hide advanced options" : "Show advanced options"}
-                  </div>
-                  {showAdvancedOptions["docker"] && this.renderAdvancedOptions("docker")}
-                </div>
-              </div>
-              <div className="flex u-marginTop--30">
-                <div className="flex-column flex flex1">
-                  <div className="flex flex1">
-                    <div className="flex1">
-                      <div className="FormLabel u-marginBottom--10"> Prometheus version </div>
-                      <div className="u-fontSize--small u-fontWeight--normal u-color--scorpion u-lineHeight--normal"> What version of Prometheus are you using? </div>
-                    </div>
-                    <div className="flex1 u-paddingLeft--50 alignSelf--center">
-                      <div className="u-width--120">
-                        <Select
-                          options={versions.prometheus}
-                          getOptionLabel={this.getLabel}
-                          getOptionValue={(prometheus) => prometheus}
-                          value={selectedVersions.prometheus}
-                          onChange={this.onVersionChange("prometheus")}
-                          matchProp="value"
-                          isOptionSelected={() => false}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="flex u-marginTop--30">
-                <div className="flex-column flex flex1">
-                  <div className="flex flex1">
-                    <div className="flex1">
-                      <div className="FormLabel u-marginBottom--10"> Registry version </div>
-                      <div className="u-fontSize--small u-fontWeight--normal u-color--scorpion u-lineHeight--normal"> What version of Registry are you using? </div>
-                    </div>
-                    <div className="flex1 u-paddingLeft--50 alignSelf--center">
-                      <div className="u-width--120">
-                        <Select
-                          options={versions.registry}
-                          getOptionLabel={this.getLabel}
-                          getOptionValue={(registry) => registry}
-                          value={selectedVersions.registry}
-                          onChange={this.onVersionChange("registry")}
-                          matchProp="value"
-                          isOptionSelected={() => false}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <div className="flex u-fontSize--small u-color--royalBlue u-marginTop--small u-cursor--pointer" onClick={() => this.onToggleShowAdvancedOptions("registry")}>
-                    {showAdvancedOptions["registry"] ? "Hide advanced options" : "Show advanced options"}
-                  </div>
-                  {showAdvancedOptions["registry"] && this.renderAdvancedOptions("registry")}
-                </div>
-              </div>
-
-              <div className="flex u-marginTop--30">
-                <div className="flex-column flex flex1">
-                  <div className="flex flex1">
-                    <div className="flex1">
-                      <div className="FormLabel u-marginBottom--10"> Containerd version </div>
-                      <div className="u-fontSize--small u-fontWeight--normal u-color--scorpion u-lineHeight--normal"> What version of Containerd are you using? </div>
-                    </div>
-                    <div className="flex1 u-paddingLeft--50 alignSelf--center">
-                      <div className="u-width--120">
-                        <Select
-                          options={versions.containerd}
-                          getOptionLabel={this.getLabel}
-                          getOptionValue={(containerd) => containerd}
-                          value={selectedVersions.containerd}
-                          onChange={this.onVersionChange("containerd")}
-                          matchProp="value"
-                          isOptionSelected={() => false}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="flex u-marginTop--30">
-                <div className="flex-column flex flex1">
-                  <div className="flex flex1">
-                    <div className="flex1">
-                      <div className="FormLabel u-marginBottom--10"> Velero version </div>
-                      <div className="u-fontSize--small u-fontWeight--normal u-color--scorpion u-lineHeight--normal"> What version of Velero are you using? </div>
-                    </div>
-                    <div className="flex1 u-paddingLeft--50 alignSelf--center">
-                      <div className="u-width--120">
-                        <Select
-                          options={versions.velero}
-                          getOptionLabel={this.getLabel}
-                          getOptionValue={(velero) => velero}
-                          value={selectedVersions.velero}
-                          onChange={this.onVersionChange("velero")}
-                          matchProp="value"
-                          isOptionSelected={() => false}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <div className="flex u-fontSize--small u-color--royalBlue u-marginTop--small u-cursor--pointer" onClick={() => this.onToggleShowAdvancedOptions("velero")}>
-                    {showAdvancedOptions["velero"] ? "Hide advanced options" : "Show advanced options"}
-                  </div>
-                  {showAdvancedOptions["velero"] && this.renderAdvancedOptions("velero")}
-                </div>
-              </div>
-              <div className="flex u-marginTop--30">
-                <div className="flex-column flex flex1">
-                  <div className="flex flex1">
-                    <div className="flex1">
-                      <div className="FormLabel u-marginBottom--10"> KOTS version </div>
-                      <div className="u-fontSize--small u-fontWeight--normal u-color--scorpion u-lineHeight--normal"> What version of KOTS are you using? </div>
-                    </div>
-                    <div className="flex1 u-paddingLeft--50 alignSelf--center">
-                      <div className="u-width--120">
-                        <Select
-                          options={versions.kotsadm}
-                          getOptionLabel={this.getLabel}
-                          getOptionValue={(kotsadm) => kotsadm}
-                          value={selectedVersions.kotsadm}
-                          onChange={this.onVersionChange("kotsadm")}
-                          matchProp="value"
-                          isOptionSelected={() => false}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <div className="flex u-fontSize--small u-color--royalBlue u-marginTop--small u-cursor--pointer" onClick={() => this.onToggleShowAdvancedOptions("kotsadm")}>
-                    {showAdvancedOptions["kotsadm"] ? "Hide advanced options" : "Show advanced options"}
-                  </div>
-                  {showAdvancedOptions["kotsadm"] && this.renderAdvancedOptions("kotsadm")}
-                </div>
-              </div>
-
-              <div className="flex u-marginTop--30">
-                <div className="flex-column flex flex1">
-                  <div className="flex flex1">
-                    <div className="flex1">
-                      <div className="FormLabel u-marginBottom--10"> Calico version </div>
-                      <div className="u-fontSize--small u-fontWeight--normal u-color--scorpion u-lineHeight--normal"> What version of Calico are you using? </div>
-                    </div>
-                    <div className="flex1 u-paddingLeft--50 alignSelf--center">
-                      <div className="u-width--120">
-                        <Select
-                          options={versions.calico}
-                          getOptionLabel={this.getLabel}
-                          getOptionValue={(calico) => calico}
-                          value={selectedVersions.calico}
-                          onChange={this.onVersionChange("calico")}
-                          matchProp="value"
-                          isOptionSelected={() => false}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="flex u-marginTop--30">
-                <div className="flex-column flex flex1">
-                  <div className="flex flex1">
-                    <div className="flex1">
-                      <div className="FormLabel u-marginBottom--10"> EKCO version </div>
-                      <div className="u-fontSize--small u-fontWeight--normal u-color--scorpion u-lineHeight--normal"> What version of EKCO are you using? </div>
-                    </div>
-                    <div className="flex1 u-paddingLeft--50 alignSelf--center">
-                      <div className="u-width--120">
-                        <Select
-                          options={versions.ekco}
-                          getOptionLabel={this.getLabel}
-                          getOptionValue={(ekco) => ekco}
-                          value={selectedVersions.ekco}
-                          onChange={this.onVersionChange("ekco")}
-                          matchProp="value"
-                          isOptionSelected={() => false}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <div className="flex u-fontSize--small u-color--royalBlue u-marginTop--small u-cursor--pointer" onClick={() => this.onToggleShowAdvancedOptions("ekco")}>
-                    {showAdvancedOptions["ekco"] ? "Hide advanced options" : "Show advanced options"}
                   </div>
                   {showAdvancedOptions["ekco"] && this.renderAdvancedOptions("ekco")}
                 </div>
               </div>
 
-              <div className="flex u-marginTop--30">
-                <div className="flex-column flex flex1">
+              <div className="flex flex-column u-marginTop--40">
+                <span className="u-fontSize--normal u-fontWeight--medium u-color--bermudaGray"> Logs </span>
+                <div className={`AddOn--wrapper ${selectedVersions.fluentd.version !== "None" && "selected"} flex flex-column u-marginTop--15`}>
                   <div className="flex flex1">
-                    <div className="flex1">
-                      <div className="FormLabel u-marginBottom--10"> Fluentd version </div>
-                      <div className="u-fontSize--small u-fontWeight--normal u-color--scorpion u-lineHeight--normal"> What version of fluentd are you using? </div>
-                    </div>
-                    <div className="flex1 u-paddingLeft--50 alignSelf--center">
-                      <div className="u-width--120">
-                        <Select
-                          options={versions.fluentd}
-                          getOptionLabel={this.getLabel}
-                          getOptionValue={(fluentd) => fluentd}
-                          value={selectedVersions.fluentd}
-                          onChange={this.onVersionChange("fluentd")}
-                          matchProp="value"
-                          isOptionSelected={() => false}
-                        />
+                    <div className="flex flex1 alignItems--center">
+                      <span className="icon u-fluentd u-marginBottom--small" />
+                      <div className="flex flex-column u-marginLeft--15">
+                        <div className="FormLabel"> Fluentd </div>
+                        <div className="SelectVersion flex flex1" style={{ width: "200px" }}>
+                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal"> Version </span>
+                          <Select
+                            options={versions.fluentd}
+                            getOptionLabel={this.getLabel}
+                            getOptionValue={(fluentd) => fluentd}
+                            value={selectedVersions.fluentd}
+                            onChange={this.onVersionChange("fluentd")}
+                            matchProp="value"
+                            isOptionSelected={() => false} />
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div className="flex u-fontSize--small u-color--royalBlue u-marginTop--small u-cursor--pointer" onClick={() => this.onToggleShowAdvancedOptions("fluentd")}>
-                    {showAdvancedOptions["fluentd"] ? "Hide advanced options" : "Show advanced options"}
+                    <div className="flex flex1 justifyContent--flexEnd alignItems--center">
+                      <div className="flex u-fontSize--small u-fontWeight--medium u-color--royalBlue u-marginTop--small u-cursor--pointer" onClick={() => this.onToggleShowAdvancedOptions("fluentd")}>
+                        {showAdvancedOptions["fluentd"] ? "Hide config" : "Show config"}
+                      </div>
+                    </div>
                   </div>
                   {showAdvancedOptions["fluentd"] && this.renderAdvancedOptions("fluentd")}
                 </div>
               </div>
 
-              <div className="flex u-marginTop--30">
-                <div className="flex-column flex flex1">
+              <div className="flex flex-column u-marginTop--40">
+                <span className="u-fontSize--normal u-fontWeight--medium u-color--bermudaGray"> Application Management </span>
+                <div className={`AddOn--wrapper ${selectedVersions.kotsadm.version !== "None" && "selected"} flex flex-column u-marginTop--15`}>
                   <div className="flex flex1">
-                    <div className="flex1">
-                      <div className="FormLabel u-marginBottom--10"> Minio version </div>
-                      <div className="u-fontSize--small u-fontWeight--normal u-color--scorpion u-lineHeight--normal"> What version of minio are you using? </div>
+                    <div className="flex flex1 alignItems--center">
+                      <span className="icon u-kotsadm u-marginBottom--small" />
+                      <div className="flex flex-column u-marginLeft--15">
+                        <div className="FormLabel"> KOTS </div>
+                        <div className="SelectVersion flex flex1" style={{ width: "200px" }}>
+                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal"> Version </span>
+                          <Select
+                            options={versions.kotsadm}
+                            getOptionLabel={this.getLabel}
+                            getOptionValue={(kotsadm) => kotsadm}
+                            value={selectedVersions.kotsadm}
+                            onChange={this.onVersionChange("kotsadm")}
+                            matchProp="value"
+                            isOptionSelected={() => false} />
+                        </div>
+                      </div>
                     </div>
-                    <div className="flex1 u-paddingLeft--50 alignSelf--center">
-                      <div className="u-width--120">
-                        <Select
-                          options={versions.minio}
-                          getOptionLabel={this.getLabel}
-                          getOptionValue={(minio) => minio}
-                          value={selectedVersions.minio}
-                          onChange={this.onVersionChange("minio")}
-                          matchProp="value"
-                          isOptionSelected={() => false}
-                        />
+                    <div className="flex flex1 justifyContent--flexEnd alignItems--center">
+                      <div className="flex u-fontSize--small u-fontWeight--medium u-color--royalBlue u-marginTop--small u-cursor--pointer" onClick={() => this.onToggleShowAdvancedOptions("kotsadm")}>
+                        {showAdvancedOptions["kotsadm"] ? "Hide config" : "Show config"}
                       </div>
                     </div>
                   </div>
-                  <div className="flex u-fontSize--small u-color--royalBlue u-marginTop--small u-cursor--pointer" onClick={() => this.onToggleShowAdvancedOptions("minio")}>
-                    {showAdvancedOptions["minio"] ? "Hide advanced options" : "Show advanced options"}
-                  </div>
-                  {showAdvancedOptions["minio"] && this.renderAdvancedOptions("minio")}
+                  {showAdvancedOptions["kotsadm"] && this.renderAdvancedOptions("kotsadm")}
                 </div>
               </div>
 
-              <div className="flex u-marginTop--30">
-                <div className="flex-column flex flex1">
+              <div className="flex flex-column u-marginTop--40">
+                <span className="u-fontSize--normal u-fontWeight--medium u-color--bermudaGray"> Object Store </span>
+                <div className={`AddOn--wrapper ${selectedVersions.minio.version !== "None" && "selected"} flex flex-column u-marginTop--15`}>
                   <div className="flex flex1">
-                    <div className="flex1">
-                      <div className="FormLabel u-marginBottom--10"> OpenEBS version </div>
-                      <div className="u-fontSize--small u-fontWeight--normal u-color--scorpion u-lineHeight--normal"> What version of openEBS are you using? </div>
+                    <div className="flex flex1 alignItems--center">
+                      <span className="icon u-minio u-marginBottom--small" />
+                      <div className="flex flex-column u-marginLeft--15">
+                        <div className="FormLabel"> Minio </div>
+                        <div className="SelectVersion flex flex1" style={{ width: "200px" }}>
+                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal"> Version </span>
+                          <Select
+                            options={versions.minio}
+                            getOptionLabel={this.getLabel}
+                            getOptionValue={(minio) => minio}
+                            value={selectedVersions.minio}
+                            onChange={this.onVersionChange("minio")}
+                            matchProp="value"
+                            isOptionSelected={() => false} />
+                        </div>
+                      </div>
                     </div>
-                    <div className="flex1 u-paddingLeft--50 alignSelf--center">
-                      <div className="u-width--120">
-                        <Select
-                          options={versions.openebs}
-                          getOptionLabel={this.getLabel}
-                          getOptionValue={(openebs) => openebs}
-                          value={selectedVersions.openebs}
-                          onChange={this.onVersionChange("openebs")}
-                          matchProp="value"
-                          isOptionSelected={() => false}
-                        />
+                    <div className="flex flex1 justifyContent--flexEnd alignItems--center">
+                      <div className="flex u-fontSize--small u-fontWeight--medium u-color--royalBlue u-marginTop--small u-cursor--pointer" onClick={() => this.onToggleShowAdvancedOptions("minio")}>
+                        {showAdvancedOptions["minio"] ? "Hide config" : "Show config"}
                       </div>
                     </div>
                   </div>
-                  <div className="flex u-fontSize--small u-color--royalBlue u-marginTop--small u-cursor--pointer" onClick={() => this.onToggleShowAdvancedOptions("openebs")}>
-                    {showAdvancedOptions["openebs"] ? "Hide advanced options" : "Show advanced options"}
+                  {showAdvancedOptions["minio"] && this.renderAdvancedOptions("minio")}
+                </div>
+
+                <div className={`AddOn--wrapper ${selectedVersions.rook.version !== "None" && "selected"} flex flex-column u-marginTop--15`}>
+                  <div className="flex flex1">
+                    <div className="flex flex1 alignItems--center">
+                      <span className="icon u-rook u-marginBottom--small" />
+                      <div className="flex flex-column u-marginLeft--15">
+                        <div className="FormLabel"> Rook </div>
+                        <div className="SelectVersion flex flex1" style={{ width: "200px" }}>
+                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal"> Version </span>
+                          <Select
+                            options={versions.rook}
+                            getOptionLabel={this.getLabel}
+                            getOptionValue={(rook) => rook}
+                            value={selectedVersions.rook}
+                            onChange={this.onVersionChange("rook")}
+                            matchProp="value"
+                            isOptionSelected={() => false} />
+                        </div>
+                      </div>
+                    </div>
+                    <div className="flex flex1 justifyContent--flexEnd alignItems--center">
+                      <div className="flex u-fontSize--small u-fontWeight--medium u-color--royalBlue u-marginTop--small u-cursor--pointer" onClick={() => this.onToggleShowAdvancedOptions("rook")}>
+                        {showAdvancedOptions["rook"] ? "Hide config" : "Show config"}
+                      </div>
+                    </div>
+                  </div>
+                  {showAdvancedOptions["rook"] && this.renderAdvancedOptions("rook")}
+                </div>
+              </div>
+
+              <div className="flex flex-column u-marginTop--40">
+                <span className="u-fontSize--normal u-fontWeight--medium u-color--bermudaGray"> PVC Provisioner </span>
+                <div className={`AddOn--wrapper ${selectedVersions.openebs.version !== "None" && "selected"} flex flex-column u-marginTop--15`}>
+                  <div className="flex flex1">
+                    <div className="flex flex1 alignItems--center">
+                      <span className="icon u-openebs u-marginBottom--small" />
+                      <div className="flex flex-column u-marginLeft--15">
+                        <div className="FormLabel"> openEBS </div>
+                        <div className="SelectVersion flex flex1" style={{ width: "200px" }}>
+                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal"> Version </span>
+                          <Select
+                            options={versions.openebs}
+                            getOptionLabel={this.getLabel}
+                            getOptionValue={(openebs) => openebs}
+                            value={selectedVersions.openebs}
+                            onChange={this.onVersionChange("openebs")}
+                            matchProp="value"
+                            isOptionSelected={() => false} />
+                        </div>
+                      </div>
+                    </div>
+                    <div className="flex flex1 justifyContent--flexEnd alignItems--center">
+                      <div className="flex u-fontSize--small u-fontWeight--medium u-color--royalBlue u-marginTop--small u-cursor--pointer" onClick={() => this.onToggleShowAdvancedOptions("openebs")}>
+                        {showAdvancedOptions["openebs"] ? "Hide config" : "Show config"}
+                      </div>
+                    </div>
                   </div>
                   {showAdvancedOptions["openebs"] && this.renderAdvancedOptions("openebs")}
                 </div>
               </div>
 
+              <div className="flex flex-column u-marginTop--40">
+                <span className="u-fontSize--normal u-fontWeight--medium u-color--bermudaGray"> Metrics & Monitoring </span>
+                <div className={`AddOn--wrapper ${selectedVersions.prometheus.version !== "None" && "selected"} flex flex-column u-marginTop--15`}>
+                  <div className="flex flex1">
+                    <div className="flex flex1 alignItems--center">
+                      <span className="icon u-prometheus u-marginBottom--small" />
+                      <div className="flex flex-column u-marginLeft--15">
+                        <div className="FormLabel"> Prometheus </div>
+                        <div className="SelectVersion flex flex1" style={{ width: "200px" }}>
+                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal"> Version </span>
+                          <Select
+                            options={versions.prometheus}
+                            getOptionLabel={this.getLabel}
+                            getOptionValue={(prometheus) => prometheus}
+                            value={selectedVersions.prometheus}
+                            onChange={this.onVersionChange("prometheus")}
+                            matchProp="value"
+                            isOptionSelected={() => false} />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex flex-column u-marginTop--40">
+                <span className="u-fontSize--normal u-fontWeight--medium u-color--bermudaGray"> Registry </span>
+                <div className={`AddOn--wrapper ${selectedVersions.registry.version !== "None" && "selected"} flex flex-column u-marginTop--15`}>
+                  <div className="flex flex1">
+                    <div className="flex flex1 alignItems--center">
+                      <span className="icon u-registry u-marginBottom--small" />
+                      <div className="flex flex-column u-marginLeft--15">
+                        <div className="FormLabel"> Docker Registry </div>
+                        <div className="SelectVersion flex flex1" style={{ width: "200px" }}>
+                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal"> Version </span>
+                          <Select
+                            options={versions.registry}
+                            getOptionLabel={this.getLabel}
+                            getOptionValue={(registry) => registry}
+                            value={selectedVersions.registry}
+                            onChange={this.onVersionChange("registry")}
+                            matchProp="value"
+                            isOptionSelected={() => false} />
+                        </div>
+                      </div>
+                    </div>
+                    <div className="flex flex1 justifyContent--flexEnd alignItems--center">
+                      <div className="flex u-fontSize--small u-fontWeight--medium u-color--royalBlue u-marginTop--small u-cursor--pointer" onClick={() => this.onToggleShowAdvancedOptions("registry")}>
+                        {showAdvancedOptions["registry"] ? "Hide config" : "Show config"}
+                      </div>
+                    </div>
+                  </div>
+                  {showAdvancedOptions["registry"] && this.renderAdvancedOptions("registry")}
+                </div>
+              </div>
+
+              <div className="flex flex-column u-marginTop--40">
+                <span className="u-fontSize--normal u-fontWeight--medium u-color--bermudaGray"> Snapshots </span>
+                <div className={`AddOn--wrapper ${selectedVersions.velero.version !== "None" && "selected"} flex flex-column u-marginTop--15`}>
+                  <div className="flex flex1">
+                    <div className="flex flex1 alignItems--center">
+                      <span className="icon u-velero u-marginBottom--small" />
+                      <div className="flex flex-column u-marginLeft--15">
+                        <div className="FormLabel"> Velero </div>
+                        <div className="SelectVersion flex flex1" style={{ width: "200px" }}>
+                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal"> Version </span>
+                          <Select
+                            options={versions.velero}
+                            getOptionLabel={this.getLabel}
+                            getOptionValue={(velero) => velero}
+                            value={selectedVersions.velero}
+                            onChange={this.onVersionChange("velero")}
+                            matchProp="value"
+                            isOptionSelected={() => false} />
+                        </div>
+                      </div>
+                    </div>
+                    <div className="flex flex1 justifyContent--flexEnd alignItems--center">
+                      <div className="flex u-fontSize--small u-fontWeight--medium u-fontWeight--medium u-color--royalBlue u-marginTop--small u-cursor--pointer" onClick={() => this.onToggleShowAdvancedOptions("velero")}>
+                        {showAdvancedOptions["velero"] ? "Hide config" : "Show config"}
+                      </div>
+                    </div>
+                  </div>
+                  {showAdvancedOptions["velero"] && this.renderAdvancedOptions("velero")}
+                </div>
+              </div>
 
             </div>
           </div>
-          <div className={`FixedWrapper flex-column ${isMobile ? "u-marginTop--30" : ""}`}>
-            <div className="MonacoEditor--wrapper flex u-width--full">
+          <div className={`FixedWrapper flex-column ${isMobile ? "u-marginTop--30" : ""}`} style={{ width: "40%" }}>
+            <span className="u-fontSize--24 u-fontWeight--bold u-color--mineShaft"> Installer YAML </span>
+            <div className="MonacoEditor--wrapper flex u-width--full u-marginTop--20">
               <div className="flex u-width--full u-overflow--hidden" id="monaco">
                 {isLoading &&
                   <div className="flex-column flex-1-auto u-overflow--hidden justifyContent--center alignItems--center">
@@ -1071,7 +1111,7 @@ class Kurlsh extends React.Component {
                   </div>}
               </div>
             </div>
-            <div className="flex-column wrapperForm u-marginTop--30">
+            <div className="flex-column installationForm u-marginTop--30">
               <div className="FormLabel u-marginBottom--normal"> Installation URL </div>
               <div className="u-fontSize--small u-fontWeight--normal u-color--scorpion u-lineHeight--normal">
                 As you make changes to your YAML spec a new URL will be generated. To create custom URLs or make changes to this one

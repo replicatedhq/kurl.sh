@@ -21,7 +21,6 @@ export class NavBar extends React.Component {
   handleNavScroll = () => {
     const scrollTop = Math.max(window.pageYOffset, document.documentElement.scrollTop, document.body.scrollTop)
     const headerEl = document.getElementById("nav-header");
-    console.log(scrollTop)
     if (scrollTop > 100) {
       headerEl && headerEl.classList.add("scrolled");
     } else {
@@ -40,7 +39,7 @@ export class NavBar extends React.Component {
 
     return (
       <div className="flex flex-auto">
-        <div className={`flex flex-auto ${documentation ? "MobileDocNavBarWrapper" : isMobile ? "MobileNavBarWrapper": "NavBarWrapper"}`} id="nav-header">
+        <div className={`flex flex-auto ${documentation ? "MobileDocNavBarWrapper" : isMobile ? "MobileNavBarWrapper" : "NavBarWrapper"}`} id="nav-header">
           <div className={`${documentation ? "MobileDocKurlHeader" : isMobile ? "MobileKurlHeader" : "KurlHeader"} flex flex1`} id="kurl-header">
             {isMobile ?
               <div className="flex flex1 alignItems--center">
@@ -58,7 +57,7 @@ export class NavBar extends React.Component {
               </div>
               :
               <div className="NavBarContainer flex flex1 alignItems--center">
-                <div className="flex1 justifyContent--spaceBetween">
+                <div className="flex1 justifyContent--spaceBetween u-marginTop--10 u-marginBottom--10">
                   <div className="flex1 flex u-height--full">
                     <div className="flex flex1">
                       <div className="flex-column flex-auto u-marginRight--20 justifyContent--center">

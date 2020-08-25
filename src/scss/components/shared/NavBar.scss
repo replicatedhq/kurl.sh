@@ -53,10 +53,10 @@
 
 .KurlHeader {
   padding: 0;
-  height: 80px;
-  background: url("../../../images/kurl-header@2x.png");
+  background: url("../../../images/kurl-new-header@2x.png");
   background-repeat: repeat;
-  background-size: auto 80px;
+  background-size: auto 300px;
+  background-color: #F5F8FC;
 }
 
 .KurlHeader.smaller {
@@ -70,9 +70,10 @@
 .MobileKurlHeader {
   padding: 0;
   height: 60px;
-  background: url("../../../images/kurl-header@2x.png");
+  background: url("../../../images/kurl-new-header@2x.png");
   background-repeat: repeat;
   background-size: auto 60px;
+  background-color: #F5F8FC;
 }
 
 .MobileDocKurlHeader {
