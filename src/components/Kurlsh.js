@@ -415,6 +415,28 @@ class Kurlsh extends React.Component {
     }
   }
 
+  handleIsAddOnSelected = (name, e) => {
+    if (e.target.checked) {
+      if (name === "containerd" && this.state.selectedVersions.docker.version !== "None") {
+        this.checkIncompatibleSelection({ containerd: { version: "latest" } });
+      } else if (name === "docker" && this.state.selectedVersions.containerd.version !== "None") {
+        this.checkIncompatibleSelection({ docker: { version: "latest" } });
+      } else if (name === "calico" && this.state.selectedVersions.weave.version !== "None") {
+        this.checkIncompatibleSelection({ calico: { version: "latest" } });
+      } else if (name === "weave" && this.state.selectedVersions.calico.version !== "None") {
+        this.checkIncompatibleSelection({ weave: { version: "latest" } });
+      } else {
+        this.setState({ selectedVersions: { ...this.state.selectedVersions, [name]: { version: "latest" } } }, () => {
+          this.postToKurlInstaller(this.getYaml(this.state.installerSha));
+        })
+      }
+    } else {
+      this.setState({ selectedVersions: { ...this.state.selectedVersions, [name]: { version: "None" } } }, () => {
+        this.postToKurlInstaller(this.getYaml(this.state.installerSha));
+      })
+    }
+  }
+
   getLabel = ({ version }) => {
     return (
       <div>
@@ -633,6 +655,11 @@ class Kurlsh extends React.Component {
     }
   }
 
+  scrollToAddOns = (id) => {
+    const element = document.getElementById(id);
+    element.scrollIntoView({ behavior: "smooth" });
+  }
+
 
   render() {
     const { versions, selectedVersions, installerSha, showAdvancedOptions, isLoading } = this.state;
@@ -645,8 +672,8 @@ class Kurlsh extends React.Component {
       <div className="u-minHeight--full u-width--full u-overflow--auto flex-column flex1 u-marginBottom---40 kurlContainer">
         <div className="KurlHeader flex flex-column u-borderBottom--gray">
           <div className="flex flex-column alignItems--center">
-            <p className="u-fontSize--32 u-fontWeight--bold u-color--downriver u-lineHeight--more"> kURL - Open Source Kubernetes Installer </p>
-            <span className={`${isMobile ? "u-fontSize--normal" : "u-fontSize--large"} u-fontWeight--medium u-lineHeight--more u-color--fiord u-lineHeight--more u-textAlign--center u-width--half`}>
+            {isMobile ? null : <p className="u-fontSize--32 u-fontWeight--bold u-color--downriver u-lineHeight--more"> kURL - Open Source Kubernetes Installer </p>}
+            <span className={`${isMobile ? "u-fontSize--normal u-marginTop--10" : "u-fontSize--large"} u-fontWeight--medium u-lineHeight--more u-color--fiord u-lineHeight--more u-textAlign--center u-width--half`}>
               kURL is a custom Kubernetes distro creator. Think of kURL as a link shortener for your favorite Kubernetes base components (aka add-ons).
                 It creates a unique URL for your specific components that can be installed with <code>cURL</code> on a modern Linux server.
                 kURL installation packages can be run online or download and executed in a completely airgapped environment.
@@ -654,13 +681,13 @@ class Kurlsh extends React.Component {
               </span>
           </div>
           <div className="flex flex1 u-marginBottom--20 u-marginTop--20 alignItems--center justifyContent--center">
-            <button type="button" className="Button primary">Build your installer</button>
+            <button type="button" className="Button primary" onClick={() => this.scrollToAddOns("addOnsWrapper")}>Build your installer</button>
             <Link to="/docs/introduction/" className="u-fontWeight--medium u-color--royalBlue u-lineHeight--normal u-marginLeft--20 u-fontSize--normal u-textDecoration--underlineOnHover"> View the docs </Link>
           </div>
         </div>
-        <div className={`u-flexTabletReflow flex1 u-width--full ${isMobile ? "mobile-container" : "container"}`}>
-          <div className="flex flex1 u-marginRight--30">
-            <div className="left-content-wrap flex-auto flex-column u-width--full">
+        <div className={`u-flexTabletReflow u-width--full ${isMobile ? "mobile-container flex flex-column" : "container flex1"}`} id="addOnsWrapper">
+          <div className="flex u-width--full">
+            <div className="left-content-wrap flex1 flex-column u-marginRight--30" style={{maxWidth: "1200px"}}>
               <span className="u-fontSize--24 u-fontWeight--bold u-color--mineShaft"> Select add-ons </span>
 
               <div className="AddOn--wrapper selected flex flex-column u-marginTop--20">
@@ -697,6 +724,12 @@ class Kurlsh extends React.Component {
                 <div className={`AddOn--wrapper ${selectedVersions.docker.version !== "None" && "selected"} flex flex-column u-marginTop--15`}>
                   <div className="flex flex1">
                     <div className="flex flex1 alignItems--center">
+                      <input
+                        type="checkbox"
+                        className="u-marginRight--normal"
+                        onChange={(e) => this.handleIsAddOnSelected("docker", e)}
+                        checked={selectedVersions.docker.version !== "None"}
+                      />
                       <span className="icon u-docker u-marginBottom--small" />
                       <div className="flex flex-column u-marginLeft--15">
                         <div className="FormLabel "> Docker </div>
@@ -724,6 +757,12 @@ class Kurlsh extends React.Component {
                 <div className={`AddOn--wrapper ${selectedVersions.containerd.version !== "None" && "selected"} flex flex-column u-marginTop--15`}>
                   <div className="flex flex1">
                     <div className="flex flex1 alignItems--center">
+                      <input
+                        type="checkbox"
+                        className="u-marginRight--normal"
+                        onChange={(e) => this.handleIsAddOnSelected("containerd", e)}
+                        checked={selectedVersions.containerd.version !== "None"}
+                      />
                       <span className="icon u-containerd u-marginBottom--small" />
                       <div className="flex flex-column u-marginLeft--15">
                         <div className="FormLabel"> Containerd </div>
@@ -749,6 +788,12 @@ class Kurlsh extends React.Component {
                 <div className={`AddOn--wrapper ${selectedVersions.calico.version !== "None" && "selected"} flex flex-column u-marginTop--15`}>
                   <div className="flex flex1">
                     <div className="flex flex1 alignItems--center">
+                      <input
+                        type="checkbox"
+                        className="u-marginRight--normal"
+                        onChange={(e) => this.handleIsAddOnSelected("calico", e)}
+                        checked={selectedVersions.calico.version !== "None"}
+                      />
                       <span className="icon u-calico u-marginBottom--small" />
                       <div className="flex flex-column u-marginLeft--15">
                         <div className="FormLabel"> Calico </div>
@@ -770,6 +815,12 @@ class Kurlsh extends React.Component {
                 <div className={`AddOn--wrapper ${selectedVersions.weave.version !== "None" && "selected"} flex flex-column u-marginTop--15`}>
                   <div className="flex flex1">
                     <div className="flex flex1 alignItems--center">
+                      <input
+                        type="checkbox"
+                        className="u-marginRight--normal"
+                        onChange={(e) => this.handleIsAddOnSelected("weave", e)}
+                        checked={selectedVersions.weave.version !== "None"}
+                      />
                       <span className="icon u-weave u-marginBottom--small" />
                       <div className="flex flex-column u-marginLeft--15">
                         <div className="FormLabel"> Weave </div>
@@ -801,6 +852,12 @@ class Kurlsh extends React.Component {
                 <div className={`AddOn--wrapper ${selectedVersions.contour.version !== "None" && "selected"} flex flex-column u-marginTop--15`}>
                   <div className="flex flex1">
                     <div className="flex flex1 alignItems--center">
+                      <input
+                        type="checkbox"
+                        className="u-marginRight--normal"
+                        onChange={(e) => this.handleIsAddOnSelected("contour", e)}
+                        checked={selectedVersions.contour.version !== "None"}
+                      />
                       <span className="icon u-contour u-marginBottom--small" />
                       <div className="flex flex-column u-marginLeft--15">
                         <div className="FormLabel"> Contour </div>
@@ -832,6 +889,12 @@ class Kurlsh extends React.Component {
                 <div className={`AddOn--wrapper ${selectedVersions.ekco.version !== "None" && "selected"} flex flex-column u-marginTop--15`}>
                   <div className="flex flex1">
                     <div className="flex flex1 alignItems--center">
+                      <input
+                        type="checkbox"
+                        className="u-marginRight--normal"
+                        onChange={(e) => this.handleIsAddOnSelected("ekco", e)}
+                        checked={selectedVersions.ekco.version !== "None"}
+                      />
                       <span className="icon u-kubernetes u-marginBottom--small" />
                       <div className="flex flex-column u-marginLeft--15">
                         <div className="FormLabel"> EKCO </div>
@@ -863,6 +926,12 @@ class Kurlsh extends React.Component {
                 <div className={`AddOn--wrapper ${selectedVersions.fluentd.version !== "None" && "selected"} flex flex-column u-marginTop--15`}>
                   <div className="flex flex1">
                     <div className="flex flex1 alignItems--center">
+                      <input
+                        type="checkbox"
+                        className="u-marginRight--normal"
+                        onChange={(e) => this.handleIsAddOnSelected("fluentd", e)}
+                        checked={selectedVersions.fluentd.version !== "None"}
+                      />
                       <span className="icon u-fluentd u-marginBottom--small" />
                       <div className="flex flex-column u-marginLeft--15">
                         <div className="FormLabel"> Fluentd </div>
@@ -894,6 +963,12 @@ class Kurlsh extends React.Component {
                 <div className={`AddOn--wrapper ${selectedVersions.kotsadm.version !== "None" && "selected"} flex flex-column u-marginTop--15`}>
                   <div className="flex flex1">
                     <div className="flex flex1 alignItems--center">
+                      <input
+                        type="checkbox"
+                        className="u-marginRight--normal"
+                        onChange={(e) => this.handleIsAddOnSelected("kotsadm", e)}
+                        checked={selectedVersions.kotsadm.version !== "None"}
+                      />
                       <span className="icon u-kotsadm u-marginBottom--small" />
                       <div className="flex flex-column u-marginLeft--15">
                         <div className="FormLabel"> KOTS </div>
@@ -925,6 +1000,12 @@ class Kurlsh extends React.Component {
                 <div className={`AddOn--wrapper ${selectedVersions.minio.version !== "None" && "selected"} flex flex-column u-marginTop--15`}>
                   <div className="flex flex1">
                     <div className="flex flex1 alignItems--center">
+                      <input
+                        type="checkbox"
+                        className="u-marginRight--normal"
+                        onChange={(e) => this.handleIsAddOnSelected("minio", e)}
+                        checked={selectedVersions.minio.version !== "None"}
+                      />
                       <span className="icon u-minio u-marginBottom--small" />
                       <div className="flex flex-column u-marginLeft--15">
                         <div className="FormLabel"> Minio </div>
@@ -953,6 +1034,12 @@ class Kurlsh extends React.Component {
                 <div className={`AddOn--wrapper ${selectedVersions.rook.version !== "None" && "selected"} flex flex-column u-marginTop--15`}>
                   <div className="flex flex1">
                     <div className="flex flex1 alignItems--center">
+                      <input
+                        type="checkbox"
+                        className="u-marginRight--normal"
+                        onChange={(e) => this.handleIsAddOnSelected("rook", e)}
+                        checked={selectedVersions.rook.version !== "None"}
+                      />
                       <span className="icon u-rook u-marginBottom--small" />
                       <div className="flex flex-column u-marginLeft--15">
                         <div className="FormLabel"> Rook </div>
@@ -984,6 +1071,12 @@ class Kurlsh extends React.Component {
                 <div className={`AddOn--wrapper ${selectedVersions.openebs.version !== "None" && "selected"} flex flex-column u-marginTop--15`}>
                   <div className="flex flex1">
                     <div className="flex flex1 alignItems--center">
+                      <input
+                        type="checkbox"
+                        className="u-marginRight--normal"
+                        onChange={(e) => this.handleIsAddOnSelected("openebs", e)}
+                        checked={selectedVersions.openebs.version !== "None"}
+                      />
                       <span className="icon u-openebs u-marginBottom--small" />
                       <div className="flex flex-column u-marginLeft--15">
                         <div className="FormLabel"> openEBS </div>
@@ -1015,6 +1108,12 @@ class Kurlsh extends React.Component {
                 <div className={`AddOn--wrapper ${selectedVersions.prometheus.version !== "None" && "selected"} flex flex-column u-marginTop--15`}>
                   <div className="flex flex1">
                     <div className="flex flex1 alignItems--center">
+                      <input
+                        type="checkbox"
+                        className="u-marginRight--normal"
+                        onChange={(e) => this.handleIsAddOnSelected("prometheus", e)}
+                        checked={selectedVersions.prometheus.version !== "None"}
+                      />
                       <span className="icon u-prometheus u-marginBottom--small" />
                       <div className="flex flex-column u-marginLeft--15">
                         <div className="FormLabel"> Prometheus </div>
@@ -1040,6 +1139,12 @@ class Kurlsh extends React.Component {
                 <div className={`AddOn--wrapper ${selectedVersions.registry.version !== "None" && "selected"} flex flex-column u-marginTop--15`}>
                   <div className="flex flex1">
                     <div className="flex flex1 alignItems--center">
+                      <input
+                        type="checkbox"
+                        className="u-marginRight--normal"
+                        onChange={(e) => this.handleIsAddOnSelected("registry", e)}
+                        checked={selectedVersions.registry.version !== "None"}
+                      />
                       <span className="icon u-registry u-marginBottom--small" />
                       <div className="flex flex-column u-marginLeft--15">
                         <div className="FormLabel"> Docker Registry </div>
@@ -1071,6 +1176,12 @@ class Kurlsh extends React.Component {
                 <div className={`AddOn--wrapper ${selectedVersions.velero.version !== "None" && "selected"} flex flex-column u-marginTop--15`}>
                   <div className="flex flex1">
                     <div className="flex flex1 alignItems--center">
+                      <input
+                        type="checkbox"
+                        className="u-marginRight--normal"
+                        onChange={(e) => this.handleIsAddOnSelected("velero", e)}
+                        checked={selectedVersions.velero.version !== "None"}
+                      />
                       <span className="icon u-velero u-marginBottom--small" />
                       <div className="flex flex-column u-marginLeft--15">
                         <div className="FormLabel"> Velero </div>
@@ -1099,7 +1210,7 @@ class Kurlsh extends React.Component {
 
             </div>
           </div>
-          <div className={`FixedWrapper flex-column ${isMobile ? "u-marginTop--30" : ""}`} style={{ width: "40%" }}>
+          <div className={`FixedWrapper flex-column ${isMobile ? "u-marginTop--30" : ""}`}>
             <span className="u-fontSize--24 u-fontWeight--bold u-color--mineShaft"> Installer YAML </span>
             <div className="MonacoEditor--wrapper flex u-width--full u-marginTop--20">
               <div className="flex u-width--full u-overflow--hidden" id="monaco">
