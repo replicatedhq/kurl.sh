@@ -2,6 +2,12 @@
   margin: 0 auto 40px;
 }
 
+.FixedWrapper {
+  position:fixed;
+  top: 160px;
+  left: 1500px;
+}
+
 .AddOn--wrapper {
   background: #FFFFFF;
   border: 1px solid #DFDFDF;
@@ -112,4 +118,43 @@
   .OptionItem:not(:first-child) {
     margin-top: 10px;
   }
+}
+
+/* Media Queries */
+
+/* ≥ 568px */
+@media screen and (min-width: 35.5em) {
+  .FixedWrapper {
+    position:fixed;
+    top: 160px;
+    left: 1500px;
+  }
+}
+
+/* ≥ 768px */
+@media screen and (min-width: 48em) {
+  .FixedWrapper {
+    position:fixed;
+    top: 160px;
+    left: 1500px;
+  }
+}
+
+/* ≥ 960px */
+@media screen and (min-width: 60em) {
+  .FixedWrapper {
+    position:fixed;
+    top: 160px;
+    left: 1000px;
+  }
+}
+
+/* ≥ 1024px */
+@media screen and (min-width: 64em) {
+  
+}
+
+/* ≥ 1280px */
+@media screen and (min-width: 80em) {
+  
 }

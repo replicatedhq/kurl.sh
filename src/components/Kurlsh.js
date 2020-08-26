@@ -144,6 +144,21 @@ class Kurlsh extends React.Component {
     };
   }
 
+  componentWillUnmount() {
+    window.removeEventListener("scroll", this.handleScroll, true);
+  }
+
+  handleScroll = () => {
+    const container = document.getElementById("kurl-container");
+    const scrollTop = container.scrollTop;
+    const wrapper = document.getElementById("fixed-wrapper");
+    if (scrollTop > 270 && !this.props.isMobile) {
+      wrapper && wrapper.classList.add("FixedWrapper");
+    } else {
+      wrapper && wrapper.classList.remove("FixedWrapper");
+    }
+  }
+
   toggleConfirmSelection = () => {
     this.setState({ displayConfirmSelectionModal: !this.state.displayConfirmSelectionModal });
   }
@@ -565,6 +580,7 @@ class Kurlsh extends React.Component {
       }
     })
     this.setState({ optionDefaults: options });
+    window.addEventListener("scroll", this.handleScroll, true);
   }
 
 
@@ -669,7 +685,7 @@ class Kurlsh extends React.Component {
 
 
     return (
-      <div className="u-minHeight--full u-width--full u-overflow--auto flex-column flex1 u-marginBottom---40 kurlContainer">
+      <div className="u-minHeight--full u-width--full u-overflow--auto flex-column flex1 u-marginBottom---40 kurlContainer" id="kurl-container">
         <div className="KurlHeader flex flex-column u-borderBottom--gray">
           <div className="flex flex-column alignItems--center">
             {isMobile ? null : <p className="u-fontSize--32 u-fontWeight--bold u-color--downriver u-lineHeight--more u-marginTop--30"> kURL - Open Source Kubernetes Installer </p>}
@@ -686,8 +702,8 @@ class Kurlsh extends React.Component {
           </div>
         </div>
         <div className={`u-flexTabletReflow u-width--full ${isMobile ? "mobile-container flex flex-column" : "container flex1"}`} id="addOnsWrapper">
-          <div className="flex u-width--full">
-            <div className="left-content-wrap flex1 flex-column u-marginRight--30" style={{maxWidth: "1200px"}}>
+          <div className="flex" style={{width: "900px"}}>
+            <div className="left-content-wrap flex-column u-marginRight--30 u-width--full">
               <span className="u-fontSize--24 u-fontWeight--bold u-color--mineShaft"> Select add-ons </span>
 
               <div className="AddOn--wrapper selected flex flex-column u-marginTop--20">
@@ -1210,7 +1226,7 @@ class Kurlsh extends React.Component {
 
             </div>
           </div>
-          <div className={`FixedWrapper flex-column ${isMobile ? "u-marginTop--30" : ""}`}>
+          <div className={`flex-column flex-auto ${isMobile ? "u-marginTop--30" : ""}`} id="fixed-wrapper">
             <span className="u-fontSize--24 u-fontWeight--bold u-color--mineShaft"> Installer YAML </span>
             <div className="MonacoEditor--wrapper flex u-width--full u-marginTop--20">
               <div className="flex u-width--full u-overflow--hidden" id="monaco">
