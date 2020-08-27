@@ -1,3 +1,93 @@
+.kurlContainer {
+  margin: 0 auto 40px;
+}
+
+.AbsoulteFixedWrapper{
+  max-width: 400px;
+  position: absolute;
+  top: 39px;
+  right: 80px;
+
+  &.FixedWrapper {
+    position: fixed;
+  }
+}
+
+.AddOn--wrapper {
+  background: #FFFFFF;
+  border: 1px solid #DFDFDF;
+  box-sizing: border-box;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  padding: 13px 15px 10px 15px;
+}
+
+.selected { 
+  background: #F5F8FC;
+  border: 1px solid #9AACD1;
+}
+
+.SelectVersion{
+  position: relative;
+
+  .css-2b097c-container {
+    position: relative;
+    box-sizing: border-box;
+    width: 100px;
+}
+
+  .css-1hwfws3 {
+    padding-left: 2px;
+    padding-right: 0;
+  }
+
+  .css-yk16xz-control {
+    border: none;
+    background: none;
+  }
+
+  .css-tlfecz-indicatorContainer  {
+    padding:0;
+    padding-right: 25px;
+  }
+
+  .css-1gtu0rj-indicatorContainer  {
+    padding:0;
+    padding-right: 25px;
+  }
+
+  .css-26l3qy-menu {
+    width: 117px;
+  }
+
+  .css-1pahdxg-control {
+    border: none;
+    background: none;
+    box-shadow: none;
+  }
+
+  .css-1pahdxg-control:hover {
+    border: none;
+    background: none;
+    box-shadow: none;
+  }
+
+  .css-1okebmr-indicatorSeparator {
+    visibility: hidden;
+  }
+
+  .css-1uccc91-singleValue {
+    color: #455566;
+  }
+}
+
+.installationForm {
+  border-radius: 4px;
+  padding: 12px;
+  background: #F5F8FC;
+  box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.1);
+}
+
 .MonacoEditor--wrapper {
   overflow: auto;
   border: 1px solid #DFDFDF;
@@ -19,16 +109,57 @@
   }
 }
 
-.wrapperForm {
-    input[type="text"], input[type="number"] {
-      padding-left: 10px;
-      width: 100%;
-      height: 30px;  
-    }
+
+.configForm {
+  border-top: 1px solid #C4C7CA;
+  input[type="text"], input[type="number"] {
+    padding-left: 10px;
+    width: 100%;
+    height: 30px;  
   }
+}
 
 .AdvancedOptions--wrapper {
   .OptionItem:not(:first-child) {
     margin-top: 10px;
   }
+}
+
+/* Media Queries */
+
+/* ≥ 568px */
+@media screen and (min-width: 35.5em) {
+  .AbsoulteFixedWrapper.FixedWrapper {
+    position:fixed;
+    top: 142px;
+    right: 80px;
+  }
+}
+
+/* ≥ 768px */
+@media screen and (min-width: 48em) {
+  .AbsoulteFixedWrapper.FixedWrapper {
+    position:fixed;
+    top: 142px;
+    right: 80px;
+  }
+}
+
+/* ≥ 960px */
+@media screen and (min-width: 60em) {
+  .AbsoulteFixedWrapper.FixedWrapper {
+    position:fixed;
+    top: 142px;
+    right: 80px;
+  }
+}
+
+/* ≥ 1024px */
+@media screen and (min-width: 64em) {
+  
+}
+
+/* ≥ 1280px */
+@media screen and (min-width: 80em) {
+  
 }
