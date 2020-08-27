@@ -1252,7 +1252,7 @@ class Kurlsh extends React.Component {
           {/* Spacer div the same width as the sidebar where the editor lives */}
           <div className="flex-column flex1" style={{ maxWidth: "400px" }} />
 
-          <div className={`flex-column flex1 ${isMobile ? "u-marginTop--30" : ""}`} id="fixed-wrapper">
+          <div className={`flex-column flex1 ${isMobile ? "u-marginTop--30" : "AbsoulteFixedWrapper"}`} id="fixed-wrapper">
             <span className="u-fontSize--24 u-fontWeight--bold u-color--mineShaft"> Installer YAML </span>
             <div className="MonacoEditor--wrapper flex u-width--full u-marginTop--20">
               <div className="flex u-width--full u-overflow--hidden" id="monaco">
