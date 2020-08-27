@@ -83,7 +83,7 @@ class ConfirmSelectionModal extends React.Component {
               className="Button primary">
               Confirm selection
           </button>
-            <button type="button" onClick={toggleConfirmSelection} className="Button secondary u-marginLeft--10">Cancel</button>
+            <button type="button" onClick={() => toggleConfirmSelection(currentSelection)} className="Button secondary u-marginLeft--10">Cancel</button>
           </div>
         </div>
       </Modal>
