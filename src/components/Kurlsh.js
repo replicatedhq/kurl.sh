@@ -447,9 +447,9 @@ class Kurlsh extends React.Component {
   }
 
   handleIsAddOnSelected = (name, e) => {
-    console.log(e.target)
     if (!e.target.classList.contains("configDiv") && !e.target.classList.contains("addOnOption") && !e.target.classList.contains("versionLabel") && 
-    !e.target.classList.contains("css-tj5bde-Svg") && !e.target.classList.contains("css-9gakcf-option") && !e.target.classList.contains(" css-1n7v3ny-option")) {
+    !e.target.classList.contains("css-tj5bde-Svg") && !e.target.classList.contains("css-9gakcf-option") && !e.target.classList.contains(" css-1n7v3ny-option") &&
+    !e.target.classList.contains("versionLabel--wrapper") && !e.target.classList.contains("css-1hwfws3")) {
       this.setState({ isAddOnChecked: {...this.state.isAddOnChecked, [name]: !this.state.isAddOnChecked[name] }}, () => {
         if (this.state.isAddOnChecked[name]) {
           if (name === "containerd" && this.state.selectedVersions.docker.version !== "None") {
@@ -476,7 +476,7 @@ class Kurlsh extends React.Component {
 
   getLabel = ({ version }) => {
     return (
-      <div>
+      <div className="versionLabel--wrapper">
         <span className="versionLabel" style={{ fontSize: 14 }}>{version}</span>
       </div>
     );
