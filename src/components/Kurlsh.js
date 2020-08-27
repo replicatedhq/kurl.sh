@@ -1255,7 +1255,7 @@ class Kurlsh extends React.Component {
                       </div>
                     </div>
                     <div className="flex flex1 justifyContent--flexEnd alignItems--center">
-                      <div className="flex u-fontSize--small u-fontWeight--medium u-fontWeight--medium u-color--royalBlue u-marginTop--small u-cursor--pointer" onClick={() => this.onToggleShowAdvancedOptions("velero")}>
+                      <div className="flex u-fontSize--small u-fontWeight--medium u-fontWeight--medium u-color--royalBlue u-marginTop--small u-cursor--pointer configDiv" onClick={() => this.onToggleShowAdvancedOptions("velero")}>
                         {showAdvancedOptions["velero"] ? "Hide config" : "Show config"}
                       </div>
                     </div>
