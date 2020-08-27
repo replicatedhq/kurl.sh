@@ -136,6 +136,22 @@ class Kurlsh extends React.Component {
         minio: {},
         openebs: {}
       },
+      isAddOnChecked: {
+        weave:  true,
+        contour: true,
+        rook: true,
+        docker: true,
+        prometheus: true,
+        registry: true,
+        containerd: false,
+        velero: false,
+        kotsadm: false,
+        calico: false,
+        ekco: false,
+        fluentd: false,
+        minio: false,
+        openebs: false
+      },
       isLoading: false,
       optionDefaults: {},
       installerErrMsg: "",
@@ -431,23 +447,29 @@ class Kurlsh extends React.Component {
   }
 
   handleIsAddOnSelected = (name, e) => {
-    if (e.target.checked) {
-      if (name === "containerd" && this.state.selectedVersions.docker.version !== "None") {
-        this.checkIncompatibleSelection({ containerd: { version: "latest" } });
-      } else if (name === "docker" && this.state.selectedVersions.containerd.version !== "None") {
-        this.checkIncompatibleSelection({ docker: { version: "latest" } });
-      } else if (name === "calico" && this.state.selectedVersions.weave.version !== "None") {
-        this.checkIncompatibleSelection({ calico: { version: "latest" } });
-      } else if (name === "weave" && this.state.selectedVersions.calico.version !== "None") {
-        this.checkIncompatibleSelection({ weave: { version: "latest" } });
-      } else {
-        this.setState({ selectedVersions: { ...this.state.selectedVersions, [name]: { version: "latest" } } }, () => {
-          this.postToKurlInstaller(this.getYaml(this.state.installerSha));
-        })
-      }
-    } else {
-      this.setState({ selectedVersions: { ...this.state.selectedVersions, [name]: { version: "None" } } }, () => {
-        this.postToKurlInstaller(this.getYaml(this.state.installerSha));
+    console.log(e.target)
+    if (!e.target.classList.contains("configDiv") && !e.target.classList.contains("addOnOption") && !e.target.classList.contains("versionLabel") && 
+    !e.target.classList.contains("css-tj5bde-Svg") && !e.target.classList.contains("css-9gakcf-option") && !e.target.classList.contains(" css-1n7v3ny-option")) {
+      this.setState({ isAddOnChecked: {...this.state.isAddOnChecked, [name]: !this.state.isAddOnChecked[name] }}, () => {
+        if (this.state.isAddOnChecked[name]) {
+          if (name === "containerd" && this.state.selectedVersions.docker.version !== "None") {
+            this.checkIncompatibleSelection({ containerd: { version: "latest" } });
+          } else if (name === "docker" && this.state.selectedVersions.containerd.version !== "None") {
+            this.checkIncompatibleSelection({ docker: { version: "latest" } });
+          } else if (name === "calico" && this.state.selectedVersions.weave.version !== "None") {
+            this.checkIncompatibleSelection({ calico: { version: "latest" } });
+          } else if (name === "weave" && this.state.selectedVersions.calico.version !== "None") {
+            this.checkIncompatibleSelection({ weave: { version: "latest" } });
+          } else {
+            this.setState({ selectedVersions: { ...this.state.selectedVersions, [name]: { version: "latest" } } }, () => {
+              this.postToKurlInstaller(this.getYaml(this.state.installerSha));
+            })
+          }
+        } else {
+          this.setState({ selectedVersions: { ...this.state.selectedVersions, [name]: { version: "None" } } }, () => {
+            this.postToKurlInstaller(this.getYaml(this.state.installerSha));
+          })
+        }
       })
     }
   }
@@ -455,7 +477,7 @@ class Kurlsh extends React.Component {
   getLabel = ({ version }) => {
     return (
       <div>
-        <span style={{ fontSize: 14 }}>{version}</span>
+        <span className="versionLabel" style={{ fontSize: 14 }}>{version}</span>
       </div>
     );
   }
@@ -617,6 +639,7 @@ class Kurlsh extends React.Component {
                     {option.type !== "boolean" ?
                       <input
                         type="checkbox"
+                        className="addOnOption"
                         name={data.flag}
                         id={`${addOn}_${data.flag}`}
                         data-focus-id={`${addOn}_${data.flag}`}
@@ -626,6 +649,7 @@ class Kurlsh extends React.Component {
                       :
                       <input
                         type="checkbox"
+                        className="addOnOption"
                         name={data.flag}
                         id={`${addOn}_${data.flag}`}
                         data-focus-id={`${addOn}_${data.flag}`}
@@ -635,9 +659,9 @@ class Kurlsh extends React.Component {
                       />
                     }
                     <label
-                      className="flex1 u-width--full u-position--relative u-marginLeft--small u-cursor--pointer"
+                      className="flex1 u-width--full u-position--relative u-marginLeft--small u-cursor--pointer addOnOption"
                       htmlFor={`${addOn}_${data.flag}`}>
-                      <span className="flex u-fontWeight--medium u-color--tuna u-fontSize--small u-lineHeight--normal alignSelf--center alignItems--center">
+                      <span className="flex u-fontWeight--medium u-color--tuna u-fontSize--small u-lineHeight--normal alignSelf--center alignItems--center addOnOption">
                         {data.flag !== "version" && data.flag}
                       </span>
                     </label>
@@ -650,7 +674,7 @@ class Kurlsh extends React.Component {
                     <div>
                       <input
                         id={`${addOn}_${data.flag}`}
-                        className="flex2"
+                        className="flex2 addOnOption"
                         type={option.type === "string" ? "text" : "number"}
                         onChange={e => this.handleOptionChange(`${addOn}.${data.flag}`, e.currentTarget, option.type)}
                         disabled={!currentOption || (currentOption && !currentOption.isChecked)}
@@ -727,7 +751,7 @@ class Kurlsh extends React.Component {
                     </div>
                   </div>
                   <div className="flex flex1 justifyContent--flexEnd alignItems--center">
-                    <div className="flex u-fontSize--small u-fontWeight--medium u-color--royalBlue u-marginTop--small u-cursor--pointer" onClick={() => this.onToggleShowAdvancedOptions("kubernetes")}>
+                    <div className="flex u-fontSize--small u-fontWeight--medium u-color--royalBlue u-marginTop--small u-cursor--pointer configDiv" onClick={() => this.onToggleShowAdvancedOptions("kubernetes")}>
                       {showAdvancedOptions["kubernetes"] ? "Hide config" : "Show config"}
                     </div>
                   </div>
@@ -737,13 +761,12 @@ class Kurlsh extends React.Component {
 
               <div className="flex flex-column u-marginTop--40">
                 <span className="u-fontSize--normal u-fontWeight--medium u-color--bermudaGray"> CRI </span>
-                <div className={`AddOn--wrapper ${selectedVersions.docker.version !== "None" && "selected"} flex flex-column u-marginTop--15`}>
+                <div className={`AddOn--wrapper ${selectedVersions.docker.version !== "None" && "selected"} flex flex-column u-marginTop--15`} onClick={(e) => this.handleIsAddOnSelected("docker", e)}>
                   <div className="flex flex1">
                     <div className="flex flex1 alignItems--center">
                       <input
                         type="checkbox"
                         className="u-marginRight--normal"
-                        onChange={(e) => this.handleIsAddOnSelected("docker", e)}
                         checked={selectedVersions.docker.version !== "None"}
                       />
                       <span className="icon u-docker u-marginBottom--small" />
@@ -763,20 +786,19 @@ class Kurlsh extends React.Component {
                       </div>
                     </div>
                     <div className="flex flex1 justifyContent--flexEnd alignItems--center">
-                      <div className="flex u-fontSize--small u-fontWeight--medium u-color--royalBlue u-marginTop--small u-cursor--pointer" onClick={() => this.onToggleShowAdvancedOptions("docker")}>
+                      <div className="flex u-fontSize--small u-fontWeight--medium u-color--royalBlue u-marginTop--small u-cursor--pointer configDiv" onClick={() => this.onToggleShowAdvancedOptions("docker")}>
                         {showAdvancedOptions["docker"] ? "Hide config" : "Show config"}
                       </div>
                     </div>
                   </div>
                   {showAdvancedOptions["docker"] && this.renderAdvancedOptions("docker")}
                 </div>
-                <div className={`AddOn--wrapper ${selectedVersions.containerd.version !== "None" && "selected"} flex flex-column u-marginTop--15`}>
+                <div className={`AddOn--wrapper ${selectedVersions.containerd.version !== "None" && "selected"} flex flex-column u-marginTop--15`}  onClick={(e) => this.handleIsAddOnSelected("containerd", e)}>
                   <div className="flex flex1">
                     <div className="flex flex1 alignItems--center">
                       <input
                         type="checkbox"
                         className="u-marginRight--normal"
-                        onChange={(e) => this.handleIsAddOnSelected("containerd", e)}
                         checked={selectedVersions.containerd.version !== "None"}
                       />
                       <span className="icon u-containerd u-marginBottom--small" />
@@ -801,13 +823,12 @@ class Kurlsh extends React.Component {
 
               <div className="flex flex-column u-marginTop--40">
                 <span className="u-fontSize--normal u-fontWeight--medium u-color--bermudaGray"> CNI plugin </span>
-                <div className={`AddOn--wrapper ${selectedVersions.calico.version !== "None" && "selected"} flex flex-column u-marginTop--15`}>
+                <div className={`AddOn--wrapper ${selectedVersions.calico.version !== "None" && "selected"} flex flex-column u-marginTop--15`} onClick={(e) => this.handleIsAddOnSelected("calico", e)}>
                   <div className="flex flex1">
                     <div className="flex flex1 alignItems--center">
                       <input
                         type="checkbox"
                         className="u-marginRight--normal"
-                        onChange={(e) => this.handleIsAddOnSelected("calico", e)}
                         checked={selectedVersions.calico.version !== "None"}
                       />
                       <span className="icon u-calico u-marginBottom--small" />
@@ -828,13 +849,12 @@ class Kurlsh extends React.Component {
                     </div>
                   </div>
                 </div>
-                <div className={`AddOn--wrapper ${selectedVersions.weave.version !== "None" && "selected"} flex flex-column u-marginTop--15`}>
+                <div className={`AddOn--wrapper ${selectedVersions.weave.version !== "None" && "selected"} flex flex-column u-marginTop--15`} onClick={(e) => this.handleIsAddOnSelected("weave", e)}>
                   <div className="flex flex1">
                     <div className="flex flex1 alignItems--center">
                       <input
                         type="checkbox"
                         className="u-marginRight--normal"
-                        onChange={(e) => this.handleIsAddOnSelected("weave", e)}
                         checked={selectedVersions.weave.version !== "None"}
                       />
                       <span className="icon u-weave u-marginBottom--small" />
@@ -854,7 +874,7 @@ class Kurlsh extends React.Component {
                       </div>
                     </div>
                     <div className="flex flex1 justifyContent--flexEnd alignItems--center">
-                      <div className="flex u-fontSize--small u-fontWeight--medium u-color--royalBlue u-marginTop--small u-cursor--pointer" onClick={() => this.onToggleShowAdvancedOptions("weave")}>
+                      <div className="flex u-fontSize--small u-fontWeight--medium u-color--royalBlue u-marginTop--small u-cursor--pointer configDiv" onClick={() => this.onToggleShowAdvancedOptions("weave")}>
                         {showAdvancedOptions["weave"] ? "Hide config" : "Show config"}
                       </div>
                     </div>
@@ -865,13 +885,12 @@ class Kurlsh extends React.Component {
 
               <div className="flex flex-column u-marginTop--40">
                 <span className="u-fontSize--normal u-fontWeight--medium u-color--bermudaGray"> Ingress </span>
-                <div className={`AddOn--wrapper ${selectedVersions.contour.version !== "None" && "selected"} flex flex-column u-marginTop--15`}>
+                <div className={`AddOn--wrapper ${selectedVersions.contour.version !== "None" && "selected"} flex flex-column u-marginTop--15`} onClick={(e) => this.handleIsAddOnSelected("contour", e)}>
                   <div className="flex flex1">
                     <div className="flex flex1 alignItems--center">
                       <input
                         type="checkbox"
                         className="u-marginRight--normal"
-                        onChange={(e) => this.handleIsAddOnSelected("contour", e)}
                         checked={selectedVersions.contour.version !== "None"}
                       />
                       <span className="icon u-contour u-marginBottom--small" />
@@ -891,7 +910,7 @@ class Kurlsh extends React.Component {
                       </div>
                     </div>
                     <div className="flex flex1 justifyContent--flexEnd alignItems--center">
-                      <div className="flex u-fontSize--small u-fontWeight--medium u-color--royalBlue u-marginTop--small u-cursor--pointer" onClick={() => this.onToggleShowAdvancedOptions("contour")}>
+                      <div className="flex u-fontSize--small u-fontWeight--medium u-color--royalBlue u-marginTop--small u-cursor--pointer configDiv" onClick={() => this.onToggleShowAdvancedOptions("contour")}>
                         {showAdvancedOptions["contour"] ? "Hide config" : "Show config"}
                       </div>
                     </div>
@@ -902,13 +921,12 @@ class Kurlsh extends React.Component {
 
               <div className="flex flex-column u-marginTop--40">
                 <span className="u-fontSize--normal u-fontWeight--medium u-color--bermudaGray"> Cluster Administration </span>
-                <div className={`AddOn--wrapper ${selectedVersions.ekco.version !== "None" && "selected"} flex flex-column u-marginTop--15`}>
+                <div className={`AddOn--wrapper ${selectedVersions.ekco.version !== "None" && "selected"} flex flex-column u-marginTop--15`} onClick={(e) => this.handleIsAddOnSelected("ekco", e)}>
                   <div className="flex flex1">
                     <div className="flex flex1 alignItems--center">
                       <input
                         type="checkbox"
                         className="u-marginRight--normal"
-                        onChange={(e) => this.handleIsAddOnSelected("ekco", e)}
                         checked={selectedVersions.ekco.version !== "None"}
                       />
                       <span className="icon u-kubernetes u-marginBottom--small" />
@@ -928,7 +946,7 @@ class Kurlsh extends React.Component {
                       </div>
                     </div>
                     <div className="flex flex1 justifyContent--flexEnd alignItems--center">
-                      <div className="flex u-fontSize--small u-fontWeight--medium u-color--royalBlue u-marginTop--small u-cursor--pointer" onClick={() => this.onToggleShowAdvancedOptions("ekco")}>
+                      <div className="flex u-fontSize--small u-fontWeight--medium u-color--royalBlue u-marginTop--small u-cursor--pointer configDiv" onClick={() => this.onToggleShowAdvancedOptions("ekco")}>
                         {showAdvancedOptions["ekco"] ? "Hide config" : "Show config"}
                       </div>
                     </div>
@@ -939,13 +957,12 @@ class Kurlsh extends React.Component {
 
               <div className="flex flex-column u-marginTop--40">
                 <span className="u-fontSize--normal u-fontWeight--medium u-color--bermudaGray"> Logs </span>
-                <div className={`AddOn--wrapper ${selectedVersions.fluentd.version !== "None" && "selected"} flex flex-column u-marginTop--15`}>
+                <div className={`AddOn--wrapper ${selectedVersions.fluentd.version !== "None" && "selected"} flex flex-column u-marginTop--15`} onClick={(e) => this.handleIsAddOnSelected("fluentd", e)}>
                   <div className="flex flex1">
                     <div className="flex flex1 alignItems--center">
                       <input
                         type="checkbox"
                         className="u-marginRight--normal"
-                        onChange={(e) => this.handleIsAddOnSelected("fluentd", e)}
                         checked={selectedVersions.fluentd.version !== "None"}
                       />
                       <span className="icon u-fluentd u-marginBottom--small" />
@@ -965,7 +982,7 @@ class Kurlsh extends React.Component {
                       </div>
                     </div>
                     <div className="flex flex1 justifyContent--flexEnd alignItems--center">
-                      <div className="flex u-fontSize--small u-fontWeight--medium u-color--royalBlue u-marginTop--small u-cursor--pointer" onClick={() => this.onToggleShowAdvancedOptions("fluentd")}>
+                      <div className="flex u-fontSize--small u-fontWeight--medium u-color--royalBlue u-marginTop--small u-cursor--pointer configDiv" onClick={() => this.onToggleShowAdvancedOptions("fluentd")}>
                         {showAdvancedOptions["fluentd"] ? "Hide config" : "Show config"}
                       </div>
                     </div>
@@ -976,13 +993,12 @@ class Kurlsh extends React.Component {
 
               <div className="flex flex-column u-marginTop--40">
                 <span className="u-fontSize--normal u-fontWeight--medium u-color--bermudaGray"> Application Management </span>
-                <div className={`AddOn--wrapper ${selectedVersions.kotsadm.version !== "None" && "selected"} flex flex-column u-marginTop--15`}>
+                <div className={`AddOn--wrapper ${selectedVersions.kotsadm.version !== "None" && "selected"} flex flex-column u-marginTop--15`} onClick={(e) => this.handleIsAddOnSelected("kotsadm", e)}>
                   <div className="flex flex1">
                     <div className="flex flex1 alignItems--center">
                       <input
                         type="checkbox"
                         className="u-marginRight--normal"
-                        onChange={(e) => this.handleIsAddOnSelected("kotsadm", e)}
                         checked={selectedVersions.kotsadm.version !== "None"}
                       />
                       <span className="icon u-kotsadm u-marginBottom--small" />
@@ -1002,7 +1018,7 @@ class Kurlsh extends React.Component {
                       </div>
                     </div>
                     <div className="flex flex1 justifyContent--flexEnd alignItems--center">
-                      <div className="flex u-fontSize--small u-fontWeight--medium u-color--royalBlue u-marginTop--small u-cursor--pointer" onClick={() => this.onToggleShowAdvancedOptions("kotsadm")}>
+                      <div className="flex u-fontSize--small u-fontWeight--medium u-color--royalBlue u-marginTop--small u-cursor--pointer configDiv" onClick={() => this.onToggleShowAdvancedOptions("kotsadm")}>
                         {showAdvancedOptions["kotsadm"] ? "Hide config" : "Show config"}
                       </div>
                     </div>
@@ -1013,13 +1029,12 @@ class Kurlsh extends React.Component {
 
               <div className="flex flex-column u-marginTop--40">
                 <span className="u-fontSize--normal u-fontWeight--medium u-color--bermudaGray"> Object Store </span>
-                <div className={`AddOn--wrapper ${selectedVersions.minio.version !== "None" && "selected"} flex flex-column u-marginTop--15`}>
+                <div className={`AddOn--wrapper ${selectedVersions.minio.version !== "None" && "selected"} flex flex-column u-marginTop--15`} onClick={(e) => this.handleIsAddOnSelected("minio", e)}>
                   <div className="flex flex1">
                     <div className="flex flex1 alignItems--center">
                       <input
                         type="checkbox"
                         className="u-marginRight--normal"
-                        onChange={(e) => this.handleIsAddOnSelected("minio", e)}
                         checked={selectedVersions.minio.version !== "None"}
                       />
                       <span className="icon u-minio u-marginBottom--small" />
@@ -1039,7 +1054,7 @@ class Kurlsh extends React.Component {
                       </div>
                     </div>
                     <div className="flex flex1 justifyContent--flexEnd alignItems--center">
-                      <div className="flex u-fontSize--small u-fontWeight--medium u-color--royalBlue u-marginTop--small u-cursor--pointer" onClick={() => this.onToggleShowAdvancedOptions("minio")}>
+                      <div className="flex u-fontSize--small u-fontWeight--medium u-color--royalBlue u-marginTop--small u-cursor--pointer configDiv" onClick={() => this.onToggleShowAdvancedOptions("minio")}>
                         {showAdvancedOptions["minio"] ? "Hide config" : "Show config"}
                       </div>
                     </div>
@@ -1047,13 +1062,12 @@ class Kurlsh extends React.Component {
                   {showAdvancedOptions["minio"] && this.renderAdvancedOptions("minio")}
                 </div>
 
-                <div className={`AddOn--wrapper ${selectedVersions.rook.version !== "None" && "selected"} flex flex-column u-marginTop--15`}>
+                <div className={`AddOn--wrapper ${selectedVersions.rook.version !== "None" && "selected"} flex flex-column u-marginTop--15`} onClick={(e) => this.handleIsAddOnSelected("rook", e)}>
                   <div className="flex flex1">
                     <div className="flex flex1 alignItems--center">
                       <input
                         type="checkbox"
                         className="u-marginRight--normal"
-                        onChange={(e) => this.handleIsAddOnSelected("rook", e)}
                         checked={selectedVersions.rook.version !== "None"}
                       />
                       <span className="icon u-rook u-marginBottom--small" />
@@ -1073,7 +1087,7 @@ class Kurlsh extends React.Component {
                       </div>
                     </div>
                     <div className="flex flex1 justifyContent--flexEnd alignItems--center">
-                      <div className="flex u-fontSize--small u-fontWeight--medium u-color--royalBlue u-marginTop--small u-cursor--pointer" onClick={() => this.onToggleShowAdvancedOptions("rook")}>
+                      <div className="flex u-fontSize--small u-fontWeight--medium u-color--royalBlue u-marginTop--small u-cursor--pointer configDiv" onClick={() => this.onToggleShowAdvancedOptions("rook")}>
                         {showAdvancedOptions["rook"] ? "Hide config" : "Show config"}
                       </div>
                     </div>
@@ -1084,13 +1098,12 @@ class Kurlsh extends React.Component {
 
               <div className="flex flex-column u-marginTop--40">
                 <span className="u-fontSize--normal u-fontWeight--medium u-color--bermudaGray"> PVC Provisioner </span>
-                <div className={`AddOn--wrapper ${selectedVersions.openebs.version !== "None" && "selected"} flex flex-column u-marginTop--15`}>
+                <div className={`AddOn--wrapper ${selectedVersions.openebs.version !== "None" && "selected"} flex flex-column u-marginTop--15`} onClick={(e) => this.handleIsAddOnSelected("openebs", e)}>
                   <div className="flex flex1">
                     <div className="flex flex1 alignItems--center">
                       <input
                         type="checkbox"
                         className="u-marginRight--normal"
-                        onChange={(e) => this.handleIsAddOnSelected("openebs", e)}
                         checked={selectedVersions.openebs.version !== "None"}
                       />
                       <span className="icon u-openebs u-marginBottom--small" />
@@ -1110,7 +1123,7 @@ class Kurlsh extends React.Component {
                       </div>
                     </div>
                     <div className="flex flex1 justifyContent--flexEnd alignItems--center">
-                      <div className="flex u-fontSize--small u-fontWeight--medium u-color--royalBlue u-marginTop--small u-cursor--pointer" onClick={() => this.onToggleShowAdvancedOptions("openebs")}>
+                      <div className="flex u-fontSize--small u-fontWeight--medium u-color--royalBlue u-marginTop--small u-cursor--pointer configDiv" onClick={() => this.onToggleShowAdvancedOptions("openebs")}>
                         {showAdvancedOptions["openebs"] ? "Hide config" : "Show config"}
                       </div>
                     </div>
@@ -1121,13 +1134,12 @@ class Kurlsh extends React.Component {
 
               <div className="flex flex-column u-marginTop--40">
                 <span className="u-fontSize--normal u-fontWeight--medium u-color--bermudaGray"> Metrics & Monitoring </span>
-                <div className={`AddOn--wrapper ${selectedVersions.prometheus.version !== "None" && "selected"} flex flex-column u-marginTop--15`}>
+                <div className={`AddOn--wrapper ${selectedVersions.prometheus.version !== "None" && "selected"} flex flex-column u-marginTop--15`} onClick={(e) => this.handleIsAddOnSelected("prometheus", e)}>
                   <div className="flex flex1">
                     <div className="flex flex1 alignItems--center">
                       <input
                         type="checkbox"
                         className="u-marginRight--normal"
-                        onChange={(e) => this.handleIsAddOnSelected("prometheus", e)}
                         checked={selectedVersions.prometheus.version !== "None"}
                       />
                       <span className="icon u-prometheus u-marginBottom--small" />
@@ -1152,13 +1164,12 @@ class Kurlsh extends React.Component {
 
               <div className="flex flex-column u-marginTop--40">
                 <span className="u-fontSize--normal u-fontWeight--medium u-color--bermudaGray"> Registry </span>
-                <div className={`AddOn--wrapper ${selectedVersions.registry.version !== "None" && "selected"} flex flex-column u-marginTop--15`}>
+                <div className={`AddOn--wrapper ${selectedVersions.registry.version !== "None" && "selected"} flex flex-column u-marginTop--15`} onClick={(e) => this.handleIsAddOnSelected("registry", e)}>
                   <div className="flex flex1">
                     <div className="flex flex1 alignItems--center">
                       <input
                         type="checkbox"
                         className="u-marginRight--normal"
-                        onChange={(e) => this.handleIsAddOnSelected("registry", e)}
                         checked={selectedVersions.registry.version !== "None"}
                       />
                       <span className="icon u-registry u-marginBottom--small" />
@@ -1178,7 +1189,7 @@ class Kurlsh extends React.Component {
                       </div>
                     </div>
                     <div className="flex flex1 justifyContent--flexEnd alignItems--center">
-                      <div className="flex u-fontSize--small u-fontWeight--medium u-color--royalBlue u-marginTop--small u-cursor--pointer" onClick={() => this.onToggleShowAdvancedOptions("registry")}>
+                      <div className="flex u-fontSize--small u-fontWeight--medium u-color--royalBlue u-marginTop--small u-cursor--pointer configDiv" onClick={() => this.onToggleShowAdvancedOptions("registry")}>
                         {showAdvancedOptions["registry"] ? "Hide config" : "Show config"}
                       </div>
                     </div>
@@ -1189,13 +1200,12 @@ class Kurlsh extends React.Component {
 
               <div className="flex flex-column u-marginTop--40">
                 <span className="u-fontSize--normal u-fontWeight--medium u-color--bermudaGray"> Snapshots </span>
-                <div className={`AddOn--wrapper ${selectedVersions.velero.version !== "None" && "selected"} flex flex-column u-marginTop--15`}>
+                <div className={`AddOn--wrapper ${selectedVersions.velero.version !== "None" && "selected"} flex flex-column u-marginTop--15`} onClick={(e) => this.handleIsAddOnSelected("velero", e)}>
                   <div className="flex flex1">
                     <div className="flex flex1 alignItems--center">
                       <input
                         type="checkbox"
                         className="u-marginRight--normal"
-                        onChange={(e) => this.handleIsAddOnSelected("velero", e)}
                         checked={selectedVersions.velero.version !== "None"}
                       />
                       <span className="icon u-velero u-marginBottom--small" />
