@@ -448,7 +448,7 @@ class Kurlsh extends React.Component {
 
   handleIsAddOnSelected = (name, e) => {
     if (!e.target.classList.contains("configDiv") && !e.target.classList.contains("addOnOption") && !e.target.classList.contains("versionLabel") && 
-    !e.target.classList.contains("css-tj5bde-Svg") && !e.target.classList.contains("css-9gakcf-option") && !e.target.classList.contains(" css-1n7v3ny-option") &&
+    !e.target.classList.contains("css-tj5bde-Svg") && !e.target.classList.contains("css-9gakcf-option") && !e.target.classList.contains("css-1n7v3ny-option") &&
     !e.target.classList.contains("versionLabel--wrapper") && !e.target.classList.contains("css-1hwfws3")) {
       this.setState({ isAddOnChecked: {...this.state.isAddOnChecked, [name]: !this.state.isAddOnChecked[name] }}, () => {
         if (this.state.isAddOnChecked[name]) {
