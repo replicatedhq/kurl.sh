@@ -175,8 +175,17 @@ class Kurlsh extends React.Component {
     }
   }
 
-  toggleConfirmSelection = () => {
-    this.setState({ displayConfirmSelectionModal: !this.state.displayConfirmSelectionModal });
+  toggleConfirmSelection = (currentSelection) => {
+    if (currentSelection) {
+      this.setState({ 
+        displayConfirmSelectionModal: !this.state.displayConfirmSelectionModal,
+        isAddOnChecked: {...this.state.isAddOnChecked, [Object.keys(currentSelection)[0]]: false}
+      });
+    } else {
+      this.setState({ 
+        displayConfirmSelectionModal: !this.state.displayConfirmSelectionModal
+      });
+    }
   }
 
   checkIncompatibleSelection = (current) => {
@@ -423,7 +432,10 @@ class Kurlsh extends React.Component {
   }
 
   onConfirmSelection = (currentSelection, addOnToRemove) => {
-    this.setState({ selectedVersions: { ...this.state.selectedVersions, [Object.entries(currentSelection)[0][0]]: Object.entries(currentSelection)[0][1], [Object.entries(addOnToRemove)[0][0]]: { version: "None" } } }, () => {
+    this.setState({ 
+      selectedVersions: {...this.state.selectedVersions, [Object.entries(currentSelection)[0][0]]: Object.entries(currentSelection)[0][1], [Object.entries(addOnToRemove)[0][0]]: { version: "None" }},
+      isAddOnChecked: {...this.state.isAddOnChecked, [Object.keys(addOnToRemove)[0]]: false}
+    }, () => {
       this.postToKurlInstaller(this.getYaml(this.state.installerSha));
       this.toggleConfirmSelection();
     })
@@ -440,7 +452,10 @@ class Kurlsh extends React.Component {
       this.checkIncompatibleSelection({ weave: value });
     }
     else {
-      this.setState({ selectedVersions: { ...this.state.selectedVersions, [name]: value } }, () => {
+      this.setState({ selectedVersions: { ...this.state.selectedVersions, [name]: value }}, () => {
+        if (value.version === "None") {
+          this.setState({ isAddOnChecked: {...this.state.isAddOnChecked, [name]: !this.state.isAddOnChecked[name]}})
+        }
         this.postToKurlInstaller(this.getYaml(this.state.installerSha));
       })
     }
@@ -448,29 +463,18 @@ class Kurlsh extends React.Component {
 
   handleIsAddOnSelected = (name, e) => {
     if (!e.target.classList.contains("configDiv") && !e.target.classList.contains("addOnOption") && !e.target.classList.contains("versionLabel") && 
-    !e.target.classList.contains("css-tj5bde-Svg") && !e.target.classList.contains("css-9gakcf-option") && !e.target.classList.contains("css-1n7v3ny-option") &&
-    !e.target.classList.contains("versionLabel--wrapper") && !e.target.classList.contains("css-1hwfws3")) {
+    !e.target.classList.contains("css-19bqh2r") && !e.target.classList.contains("css-tj5bde-Svg") && !e.target.classList.contains("css-9gakcf-option") && !e.target.classList.contains("css-1n7v3ny-option") &&
+    !e.target.classList.contains("versionLabel--wrapper") && !e.target.classList.contains("css-1hwfws3") && e.target.localName !== "path" && !e.target.classList.contains("SelectVersion") &&
+    !e.target.classList.contains("css-tlfecz-indicatorContainer") && !e.target.classList.contains("css-1gtu0rj-indicatorContainer") && !e.target.classList.contains("css-1g48xl4-IndicatorsContainer")) {
       this.setState({ isAddOnChecked: {...this.state.isAddOnChecked, [name]: !this.state.isAddOnChecked[name] }}, () => {
         if (this.state.isAddOnChecked[name]) {
           if (name === "containerd" && this.state.selectedVersions.docker.version !== "None") {
-            if (this.state.isAddOnChecked["docker"]) {
-              this.setState({ isAddOnChecked: {...this.state.isAddOnChecked, docker: false }})
-            }
             this.checkIncompatibleSelection({ containerd: { version: "latest" } });
           } else if (name === "docker" && this.state.selectedVersions.containerd.version !== "None") {
-            if (this.state.isAddOnChecked["containerd"]) {
-              this.setState({ isAddOnChecked: {...this.state.isAddOnChecked, containerd: false }})
-            }
             this.checkIncompatibleSelection({ docker: { version: "latest" } });
           } else if (name === "calico" && this.state.selectedVersions.weave.version !== "None") {
-            if (this.state.isAddOnChecked["weave"]) {
-              this.setState({ isAddOnChecked: {...this.state.isAddOnChecked, weave: false }})
-            }
             this.checkIncompatibleSelection({ calico: { version: "latest" } });
           } else if (name === "weave" && this.state.selectedVersions.calico.version !== "None") {
-            if (this.state.isAddOnChecked["calico"]) {
-              this.setState({ isAddOnChecked: {...this.state.isAddOnChecked, calico: false }})
-            }
             this.checkIncompatibleSelection({ weave: { version: "latest" } });
           } else {
             this.setState({ selectedVersions: { ...this.state.selectedVersions, [name]: { version: "latest" } } }, () => {
@@ -728,7 +732,7 @@ class Kurlsh extends React.Component {
             <span className={`${isMobile ? "u-fontSize--normal u-marginTop--10" : "u-fontSize--large"} u-fontWeight--medium u-lineHeight--more u-color--fiord u-lineHeight--more u-textAlign--center u-width--half`}>
               kURL is a custom Kubernetes distro creator. Think of kURL as a link shortener for your favorite Kubernetes base components (aka add-ons).
                 It creates a unique URL for your specific components that can be installed with <code>cURL</code> on a modern Linux server.
-                kURL installation packages can be run online or download and executed in a completely airgapped environment.
+                kURL installation packages can be run online or downloaded and executed in a completely airgapped environment.
                 kURL is <a href="https://github.com/replicatedhq/kurl/" target="_blank" rel="noopener noreferrer" className="replicated-link">open source</a> and easily extensible by contributing additional add-ons as Kustomization overlays.
               </span>
           </div>
@@ -784,8 +788,8 @@ class Kurlsh extends React.Component {
                       <span className="icon u-docker u-marginBottom--small" />
                       <div className="flex flex-column u-marginLeft--15">
                         <div className="FormLabel "> Docker </div>
-                        <div className="SelectVersion flex flex1" style={{ width: "200px" }}>
-                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> Version </span>
+                        <div className={`SelectVersion flex flex1 ${!this.state.isAddOnChecked["docker"] && "disabled"}`} style={{ width: "200px" }}>
+                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> {!this.state.isAddOnChecked["docker"] ? "Version None" : "Version"} </span>
                           <Select
                             options={versions.docker}
                             getOptionLabel={this.getLabel}
@@ -793,6 +797,7 @@ class Kurlsh extends React.Component {
                             value={selectedVersions.docker}
                             onChange={this.onVersionChange("docker")}
                             matchProp="value"
+                            isDisabled={!this.state.isAddOnChecked["docker"]}
                             isOptionSelected={() => false} />
                         </div>
                       </div>
@@ -816,8 +821,8 @@ class Kurlsh extends React.Component {
                       <span className="icon u-containerd u-marginBottom--small" />
                       <div className="flex flex-column u-marginLeft--15">
                         <div className="FormLabel"> Containerd </div>
-                        <div className="SelectVersion flex flex1" style={{ width: "200px" }}>
-                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> Version </span>
+                        <div className={`SelectVersion flex flex1 ${!this.state.isAddOnChecked["containerd"] && "disabled"}`} style={{ width: "200px" }}>
+                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> {!this.state.isAddOnChecked["containerd"] ? "Version None" : "Version"} </span>
                           <Select
                             options={versions.containerd}
                             getOptionLabel={this.getLabel}
@@ -825,6 +830,7 @@ class Kurlsh extends React.Component {
                             value={selectedVersions.containerd}
                             onChange={this.onVersionChange("containerd")}
                             matchProp="value"
+                            isDisabled={!this.state.isAddOnChecked["containerd"]}
                             isOptionSelected={() => false} />
                         </div>
                       </div>
@@ -846,8 +852,8 @@ class Kurlsh extends React.Component {
                       <span className="icon u-calico u-marginBottom--small" />
                       <div className="flex flex-column u-marginLeft--15">
                         <div className="FormLabel"> Calico </div>
-                        <div className="SelectVersion flex flex1" style={{ width: "200px" }}>
-                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> Version </span>
+                        <div className={`SelectVersion flex flex1 ${!this.state.isAddOnChecked["calico"] && "disabled"}`} style={{ width: "200px" }}>
+                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> {!this.state.isAddOnChecked["calico"] ? "Version None" : "Version"} </span>
                           <Select
                             options={versions.calico}
                             getOptionLabel={this.getLabel}
@@ -855,6 +861,7 @@ class Kurlsh extends React.Component {
                             value={selectedVersions.calico}
                             onChange={this.onVersionChange("calico")}
                             matchProp="value"
+                            isDisabled={!this.state.isAddOnChecked["calico"]}
                             isOptionSelected={() => false} />
                         </div>
                       </div>
@@ -872,8 +879,8 @@ class Kurlsh extends React.Component {
                       <span className="icon u-weave u-marginBottom--small" />
                       <div className="flex flex-column u-marginLeft--15">
                         <div className="FormLabel"> Weave </div>
-                        <div className="SelectVersion flex flex1" style={{ width: "200px" }}>
-                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> Version </span>
+                        <div className={`SelectVersion flex flex1 ${!this.state.isAddOnChecked["weave"] && "disabled"}`} style={{ width: "200px" }}>
+                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> {!this.state.isAddOnChecked["weave"] ? "Version None" : "Version"} </span>
                           <Select
                             options={versions.weave}
                             getOptionLabel={this.getLabel}
@@ -881,6 +888,7 @@ class Kurlsh extends React.Component {
                             value={selectedVersions.weave}
                             onChange={this.onVersionChange("weave")}
                             matchProp="value"
+                            isDisabled={!this.state.isAddOnChecked["weave"]}
                             isOptionSelected={() => false} />
                         </div>
                       </div>
@@ -908,8 +916,8 @@ class Kurlsh extends React.Component {
                       <span className="icon u-contour u-marginBottom--small" />
                       <div className="flex flex-column u-marginLeft--15">
                         <div className="FormLabel"> Contour </div>
-                        <div className="SelectVersion flex flex1" style={{ width: "200px" }}>
-                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> Version </span>
+                        <div className={`SelectVersion flex flex1 ${!this.state.isAddOnChecked["contour"] && "disabled"}`} style={{ width: "200px" }}>
+                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> {!this.state.isAddOnChecked["contour"] ? "Version None" : "Version"} </span>
                           <Select
                             options={versions.contour}
                             getOptionLabel={this.getLabel}
@@ -917,6 +925,7 @@ class Kurlsh extends React.Component {
                             value={selectedVersions.contour}
                             onChange={this.onVersionChange("contour")}
                             matchProp="value"
+                            isDisabled={!this.state.isAddOnChecked["contour"]}
                             isOptionSelected={() => false} />
                         </div>
                       </div>
@@ -944,8 +953,8 @@ class Kurlsh extends React.Component {
                       <span className="icon u-kubernetes u-marginBottom--small" />
                       <div className="flex flex-column u-marginLeft--15">
                         <div className="FormLabel"> EKCO </div>
-                        <div className="SelectVersion flex flex1" style={{ width: "200px" }}>
-                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> Version </span>
+                        <div className={`SelectVersion flex flex1 ${!this.state.isAddOnChecked["ekco"] && "disabled"}`} style={{ width: "200px" }}>
+                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> {!this.state.isAddOnChecked["ekco"] ? "Version None" : "Version"} </span>
                           <Select
                             options={versions.ekco}
                             getOptionLabel={this.getLabel}
@@ -953,6 +962,7 @@ class Kurlsh extends React.Component {
                             value={selectedVersions.ekco}
                             onChange={this.onVersionChange("ekco")}
                             matchProp="value"
+                            isDisabled={!this.state.isAddOnChecked["ekco"]}
                             isOptionSelected={() => false} />
                         </div>
                       </div>
@@ -980,8 +990,8 @@ class Kurlsh extends React.Component {
                       <span className="icon u-fluentd u-marginBottom--small" />
                       <div className="flex flex-column u-marginLeft--15">
                         <div className="FormLabel"> Fluentd </div>
-                        <div className="SelectVersion flex flex1" style={{ width: "200px" }}>
-                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> Version </span>
+                        <div className={`SelectVersion flex flex1 ${!this.state.isAddOnChecked["fluentd"] && "disabled"}`} style={{ width: "200px" }}>
+                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> {!this.state.isAddOnChecked["fluentd"] ? "Version None" : "Version"} </span>
                           <Select
                             options={versions.fluentd}
                             getOptionLabel={this.getLabel}
@@ -989,6 +999,7 @@ class Kurlsh extends React.Component {
                             value={selectedVersions.fluentd}
                             onChange={this.onVersionChange("fluentd")}
                             matchProp="value"
+                            isDisabled={!this.state.isAddOnChecked["fluentd"]}
                             isOptionSelected={() => false} />
                         </div>
                       </div>
@@ -1016,8 +1027,8 @@ class Kurlsh extends React.Component {
                       <span className="icon u-kotsadm u-marginBottom--small" />
                       <div className="flex flex-column u-marginLeft--15">
                         <div className="FormLabel"> KOTS </div>
-                        <div className="SelectVersion flex flex1" style={{ width: "200px" }}>
-                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> Version </span>
+                        <div className={`SelectVersion flex flex1 ${!this.state.isAddOnChecked["kotsadm"] && "disabled"}`} style={{ width: "200px" }}>
+                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> {!this.state.isAddOnChecked["kotsadm"] ? "Version None" : "Version"} </span>
                           <Select
                             options={versions.kotsadm}
                             getOptionLabel={this.getLabel}
@@ -1025,6 +1036,7 @@ class Kurlsh extends React.Component {
                             value={selectedVersions.kotsadm}
                             onChange={this.onVersionChange("kotsadm")}
                             matchProp="value"
+                            isDisabled={!this.state.isAddOnChecked["kotsadm"]}
                             isOptionSelected={() => false} />
                         </div>
                       </div>
@@ -1052,8 +1064,8 @@ class Kurlsh extends React.Component {
                       <span className="icon u-minio u-marginBottom--small" />
                       <div className="flex flex-column u-marginLeft--15">
                         <div className="FormLabel"> Minio </div>
-                        <div className="SelectVersion flex flex1" style={{ width: "200px" }}>
-                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> Version </span>
+                        <div className={`SelectVersion flex flex1 ${!this.state.isAddOnChecked["minio"] && "disabled"}`} style={{ width: "200px" }}>
+                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> {!this.state.isAddOnChecked["minio"] ? "Version None" : "Version"} </span>
                           <Select
                             options={versions.minio}
                             getOptionLabel={this.getLabel}
@@ -1061,6 +1073,7 @@ class Kurlsh extends React.Component {
                             value={selectedVersions.minio}
                             onChange={this.onVersionChange("minio")}
                             matchProp="value"
+                            isDisabled={!this.state.isAddOnChecked["minio"]}
                             isOptionSelected={() => false} />
                         </div>
                       </div>
@@ -1085,8 +1098,8 @@ class Kurlsh extends React.Component {
                       <span className="icon u-rook u-marginBottom--small" />
                       <div className="flex flex-column u-marginLeft--15">
                         <div className="FormLabel"> Rook </div>
-                        <div className="SelectVersion flex flex1" style={{ width: "200px" }}>
-                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> Version </span>
+                        <div className={`SelectVersion flex flex1 ${!this.state.isAddOnChecked["rook"] && "disabled"}`} style={{ width: "200px" }}>
+                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> {!this.state.isAddOnChecked["rook"] ? "Version None" : "Version"} </span>
                           <Select
                             options={versions.rook}
                             getOptionLabel={this.getLabel}
@@ -1094,6 +1107,7 @@ class Kurlsh extends React.Component {
                             value={selectedVersions.rook}
                             onChange={this.onVersionChange("rook")}
                             matchProp="value"
+                            isDisabled={!this.state.isAddOnChecked["rook"]}
                             isOptionSelected={() => false} />
                         </div>
                       </div>
@@ -1121,8 +1135,8 @@ class Kurlsh extends React.Component {
                       <span className="icon u-openebs u-marginBottom--small" />
                       <div className="flex flex-column u-marginLeft--15">
                         <div className="FormLabel"> openEBS </div>
-                        <div className="SelectVersion flex flex1" style={{ width: "200px" }}>
-                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> Version </span>
+                        <div className={`SelectVersion flex flex1 ${!this.state.isAddOnChecked["openebs"] && "disabled"}`} style={{ width: "200px" }}>
+                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> {!this.state.isAddOnChecked["openebs"] ? "Version None" : "Version"} </span>
                           <Select
                             options={versions.openebs}
                             getOptionLabel={this.getLabel}
@@ -1130,6 +1144,7 @@ class Kurlsh extends React.Component {
                             value={selectedVersions.openebs}
                             onChange={this.onVersionChange("openebs")}
                             matchProp="value"
+                            isDisabled={!this.state.isAddOnChecked["openebs"]}
                             isOptionSelected={() => false} />
                         </div>
                       </div>
@@ -1157,8 +1172,8 @@ class Kurlsh extends React.Component {
                       <span className="icon u-prometheus u-marginBottom--small" />
                       <div className="flex flex-column u-marginLeft--15">
                         <div className="FormLabel"> Prometheus </div>
-                        <div className="SelectVersion flex flex1" style={{ width: "200px" }}>
-                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> Version </span>
+                        <div className={`SelectVersion flex flex1 ${!this.state.isAddOnChecked["prometheus"] && "disabled"}`} style={{ width: "200px" }}>
+                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> {!this.state.isAddOnChecked["prometheus"] ? "Version None" : "Version"} </span>
                           <Select
                             options={versions.prometheus}
                             getOptionLabel={this.getLabel}
@@ -1166,6 +1181,7 @@ class Kurlsh extends React.Component {
                             value={selectedVersions.prometheus}
                             onChange={this.onVersionChange("prometheus")}
                             matchProp="value"
+                            isDisabled={!this.state.isAddOnChecked["prometheus"]}
                             isOptionSelected={() => false} />
                         </div>
                       </div>
@@ -1187,8 +1203,8 @@ class Kurlsh extends React.Component {
                       <span className="icon u-registry u-marginBottom--small" />
                       <div className="flex flex-column u-marginLeft--15">
                         <div className="FormLabel"> Docker Registry </div>
-                        <div className="SelectVersion flex flex1" style={{ width: "200px" }}>
-                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> Version </span>
+                        <div className={`SelectVersion flex flex1 ${!this.state.isAddOnChecked["registry"] && "disabled"}`} style={{ width: "200px" }}>
+                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> {!this.state.isAddOnChecked["registry"] ? "Version None" : "Version"} </span>
                           <Select
                             options={versions.registry}
                             getOptionLabel={this.getLabel}
@@ -1196,6 +1212,7 @@ class Kurlsh extends React.Component {
                             value={selectedVersions.registry}
                             onChange={this.onVersionChange("registry")}
                             matchProp="value"
+                            isDisabled={!this.state.isAddOnChecked["registry"]}
                             isOptionSelected={() => false} />
                         </div>
                       </div>
@@ -1223,8 +1240,8 @@ class Kurlsh extends React.Component {
                       <span className="icon u-velero u-marginBottom--small" />
                       <div className="flex flex-column u-marginLeft--15">
                         <div className="FormLabel"> Velero </div>
-                        <div className="SelectVersion flex flex1" style={{ width: "200px" }}>
-                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> Version </span>
+                        <div className={`SelectVersion flex flex1 ${!this.state.isAddOnChecked["velero"] && "disabled"}`} style={{ width: "200px" }}>
+                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> {!this.state.isAddOnChecked["velero"] ? "Version None" : "Version"} </span>
                           <Select
                             options={versions.velero}
                             getOptionLabel={this.getLabel}
@@ -1232,6 +1249,7 @@ class Kurlsh extends React.Component {
                             value={selectedVersions.velero}
                             onChange={this.onVersionChange("velero")}
                             matchProp="value"
+                            isDisabled={!this.state.isAddOnChecked["velero"]}
                             isOptionSelected={() => false} />
                         </div>
                       </div>

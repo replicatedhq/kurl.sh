@@ -27,6 +27,11 @@
   border: 1px solid #9AACD1;
 }
 
+.disabled { 
+  opacity: 0.5;
+  width: 140px !important;
+}
+
 .SelectVersion{
   position: relative;
 
@@ -66,6 +71,12 @@
     box-shadow: none;
   }
 
+  .css-f0arjc-control {
+    border: none;
+    background: none;
+    box-shadow: none;
+  }
+
   .css-1pahdxg-control:hover {
     border: none;
     background: none;
@@ -78,6 +89,22 @@
 
   .css-1uccc91-singleValue {
     color: #455566;
+  }
+
+  .css-109onse-indicatorSeparator {
+    visibility: hidden;
+  }
+
+  .css-1fhf3k1-control {
+    border: none;
+    background: none;
+    box-shadow: none;
+  }
+
+  .css-1fhf3k1-control:hover {
+    border: none;
+    background: none;
+    box-shadow: none;
   }
 }
 
@@ -128,6 +155,24 @@
 /* Media Queries */
 
 /* ≥ 568px */
+@media screen and (min-width: 35.5em) and (max-height: 700px) {
+  .AbsoulteFixedWrapper.FixedWrapper {
+    position:fixed;
+    top: 142px;
+    right: 80px;
+    height: 450px;
+  }
+}
+
+@media screen and (min-width: 35.5em) and (max-height: 850px) {
+  .AbsoulteFixedWrapper.FixedWrapper {
+    position:fixed;
+    top: 142px;
+    right: 80px;
+    height: 450px;
+  }
+}
+
 @media screen and (min-width: 35.5em) {
   .AbsoulteFixedWrapper.FixedWrapper {
     position:fixed;
@@ -145,12 +190,48 @@
   }
 }
 
+@media screen and (min-width: 48em) and (max-height: 850px) {
+  .AbsoulteFixedWrapper.FixedWrapper {
+    position:fixed;
+    top: 142px;
+    right: 80px;
+    height: 450px;
+  }
+}
+
+@media screen and (min-width: 48em) and (max-height: 700px) {
+  .AbsoulteFixedWrapper.FixedWrapper {
+    position:fixed;
+    top: 142px;
+    right: 80px;
+    height: 450px;
+  }
+}
 /* ≥ 960px */
+
 @media screen and (min-width: 60em) {
   .AbsoulteFixedWrapper.FixedWrapper {
     position:fixed;
     top: 142px;
     right: 80px;
+  }
+}
+
+@media screen and (min-width: 60em) and (max-height: 850px) {
+  .AbsoulteFixedWrapper.FixedWrapper {
+    position:fixed;
+    top: 142px;
+    right: 80px;
+    height: 450px;
+  }
+}
+
+@media screen and (min-width: 60em) and (max-height: 700px) {
+  .AbsoulteFixedWrapper.FixedWrapper {
+    position:fixed;
+    top: 142px;
+    right: 80px;
+    height: 450px;
   }
 }
 
