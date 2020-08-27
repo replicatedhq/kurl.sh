@@ -168,7 +168,7 @@ class Kurlsh extends React.Component {
     const container = document.getElementById("kurl-container");
     const scrollTop = container.scrollTop;
     const wrapper = document.getElementById("fixed-wrapper");
-    if (scrollTop > 270 && !this.props.isMobile) {
+    if (scrollTop > 370 && !this.props.isMobile) {
       wrapper && wrapper.classList.add("FixedWrapper");
     } else {
       wrapper && wrapper.classList.remove("FixedWrapper");
@@ -725,8 +725,8 @@ class Kurlsh extends React.Component {
             <Link to="/docs/introduction/" className="u-fontWeight--medium u-color--royalBlue u-lineHeight--normal u-marginLeft--20 u-fontSize--normal u-textDecoration--underlineOnHover"> View the docs </Link>
           </div>
         </div>
-        <div className={`u-flexTabletReflow u-width--full ${isMobile ? "mobile-container flex flex-column" : "container flex1"}`} id="addOnsWrapper">
-          <div className="flex" style={{width: "900px"}}>
+        <div className={`u-flexTabletReflow u-width--full u-position--relative ${isMobile ? "mobile-container flex flex-column" : "container flex1"}`} id="addOnsWrapper">
+          <div className="flex flex1">
             <div className="left-content-wrap flex-column u-marginRight--30 u-width--full">
               <span className="u-fontSize--24 u-fontWeight--bold u-color--mineShaft"> Select add-ons </span>
 
@@ -1236,7 +1236,11 @@ class Kurlsh extends React.Component {
 
             </div>
           </div>
-          <div className={`flex-column flex-auto ${isMobile ? "u-marginTop--30" : ""}`} id="fixed-wrapper">
+
+          {/* Spacer div the same width as the sidebar where the editor lives */}
+          <div className="flex-column flex1" style={{ maxWidth: "400px" }} />
+
+          <div className={`flex-column flex1 ${isMobile ? "u-marginTop--30" : ""}`} id="fixed-wrapper">
             <span className="u-fontSize--24 u-fontWeight--bold u-color--mineShaft"> Installer YAML </span>
             <div className="MonacoEditor--wrapper flex u-width--full u-marginTop--20">
               <div className="flex u-width--full u-overflow--hidden" id="monaco">

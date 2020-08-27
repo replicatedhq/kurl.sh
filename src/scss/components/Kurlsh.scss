@@ -2,10 +2,15 @@
   margin: 0 auto 40px;
 }
 
-.FixedWrapper {
-  position:fixed;
-  top: 160px;
-  left: 1500px;
+#fixed-wrapper {
+  max-width: 400px;
+  position: absolute;
+  top: 39px;
+  right: 80px;
+
+  &.FixedWrapper {
+    position: fixed;
+  }
 }
 
 .AddOn--wrapper {
@@ -124,28 +129,28 @@
 
 /* ≥ 568px */
 @media screen and (min-width: 35.5em) {
-  .FixedWrapper {
+  #fixed-wrapper.FixedWrapper {
     position:fixed;
-    top: 160px;
-    left: 1500px;
+    top: 142px;
+    right: 80px;
   }
 }
 
 /* ≥ 768px */
 @media screen and (min-width: 48em) {
-  .FixedWrapper {
+  #fixed-wrapper.FixedWrapper {
     position:fixed;
-    top: 160px;
-    left: 1500px;
+    top: 142px;
+    right: 80px;
   }
 }
 
 /* ≥ 960px */
 @media screen and (min-width: 60em) {
-  .FixedWrapper {
+  #fixed-wrapper.FixedWrapper {
     position:fixed;
-    top: 160px;
-    left: 1000px;
+    top: 142px;
+    right: 80px;
   }
 }
 

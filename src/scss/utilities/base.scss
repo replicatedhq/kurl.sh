@@ -32,6 +32,7 @@ body a {
   display: flex;
   flex: 1;
   overflow: hidden;
+  flex-direction: column;
 }
 
 .container {
