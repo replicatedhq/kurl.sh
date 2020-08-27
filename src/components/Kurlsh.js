@@ -453,12 +453,24 @@ class Kurlsh extends React.Component {
       this.setState({ isAddOnChecked: {...this.state.isAddOnChecked, [name]: !this.state.isAddOnChecked[name] }}, () => {
         if (this.state.isAddOnChecked[name]) {
           if (name === "containerd" && this.state.selectedVersions.docker.version !== "None") {
+            if (this.state.isAddOnChecked["docker"]) {
+              this.setState({ isAddOnChecked: {...this.state.isAddOnChecked, docker: false }})
+            }
             this.checkIncompatibleSelection({ containerd: { version: "latest" } });
           } else if (name === "docker" && this.state.selectedVersions.containerd.version !== "None") {
+            if (this.state.isAddOnChecked["containerd"]) {
+              this.setState({ isAddOnChecked: {...this.state.isAddOnChecked, containerd: false }})
+            }
             this.checkIncompatibleSelection({ docker: { version: "latest" } });
           } else if (name === "calico" && this.state.selectedVersions.weave.version !== "None") {
+            if (this.state.isAddOnChecked["weave"]) {
+              this.setState({ isAddOnChecked: {...this.state.isAddOnChecked, weave: false }})
+            }
             this.checkIncompatibleSelection({ calico: { version: "latest" } });
           } else if (name === "weave" && this.state.selectedVersions.calico.version !== "None") {
+            if (this.state.isAddOnChecked["calico"]) {
+              this.setState({ isAddOnChecked: {...this.state.isAddOnChecked, calico: false }})
+            }
             this.checkIncompatibleSelection({ weave: { version: "latest" } });
           } else {
             this.setState({ selectedVersions: { ...this.state.selectedVersions, [name]: { version: "latest" } } }, () => {
@@ -737,7 +749,7 @@ class Kurlsh extends React.Component {
                     <div className="flex flex-column u-marginLeft--15">
                       <div className="FormLabel "> Kubernetes </div>
                       <div className="SelectVersion flex flex1" style={{ width: "200px" }}>
-                        <span className="flex alignItems--center u-color--fiord u-fontSize--normal"> Version </span>
+                        <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> Version </span>
                         <Select
                           options={versions.kubernetes}
                           getOptionLabel={this.getLabel}
@@ -773,7 +785,7 @@ class Kurlsh extends React.Component {
                       <div className="flex flex-column u-marginLeft--15">
                         <div className="FormLabel "> Docker </div>
                         <div className="SelectVersion flex flex1" style={{ width: "200px" }}>
-                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal"> Version </span>
+                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> Version </span>
                           <Select
                             options={versions.docker}
                             getOptionLabel={this.getLabel}
@@ -805,7 +817,7 @@ class Kurlsh extends React.Component {
                       <div className="flex flex-column u-marginLeft--15">
                         <div className="FormLabel"> Containerd </div>
                         <div className="SelectVersion flex flex1" style={{ width: "200px" }}>
-                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal"> Version </span>
+                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> Version </span>
                           <Select
                             options={versions.containerd}
                             getOptionLabel={this.getLabel}
@@ -835,7 +847,7 @@ class Kurlsh extends React.Component {
                       <div className="flex flex-column u-marginLeft--15">
                         <div className="FormLabel"> Calico </div>
                         <div className="SelectVersion flex flex1" style={{ width: "200px" }}>
-                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal"> Version </span>
+                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> Version </span>
                           <Select
                             options={versions.calico}
                             getOptionLabel={this.getLabel}
@@ -861,7 +873,7 @@ class Kurlsh extends React.Component {
                       <div className="flex flex-column u-marginLeft--15">
                         <div className="FormLabel"> Weave </div>
                         <div className="SelectVersion flex flex1" style={{ width: "200px" }}>
-                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal"> Version </span>
+                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> Version </span>
                           <Select
                             options={versions.weave}
                             getOptionLabel={this.getLabel}
@@ -897,7 +909,7 @@ class Kurlsh extends React.Component {
                       <div className="flex flex-column u-marginLeft--15">
                         <div className="FormLabel"> Contour </div>
                         <div className="SelectVersion flex flex1" style={{ width: "200px" }}>
-                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal"> Version </span>
+                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> Version </span>
                           <Select
                             options={versions.contour}
                             getOptionLabel={this.getLabel}
@@ -933,7 +945,7 @@ class Kurlsh extends React.Component {
                       <div className="flex flex-column u-marginLeft--15">
                         <div className="FormLabel"> EKCO </div>
                         <div className="SelectVersion flex flex1" style={{ width: "200px" }}>
-                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal"> Version </span>
+                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> Version </span>
                           <Select
                             options={versions.ekco}
                             getOptionLabel={this.getLabel}
@@ -969,7 +981,7 @@ class Kurlsh extends React.Component {
                       <div className="flex flex-column u-marginLeft--15">
                         <div className="FormLabel"> Fluentd </div>
                         <div className="SelectVersion flex flex1" style={{ width: "200px" }}>
-                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal"> Version </span>
+                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> Version </span>
                           <Select
                             options={versions.fluentd}
                             getOptionLabel={this.getLabel}
@@ -1005,7 +1017,7 @@ class Kurlsh extends React.Component {
                       <div className="flex flex-column u-marginLeft--15">
                         <div className="FormLabel"> KOTS </div>
                         <div className="SelectVersion flex flex1" style={{ width: "200px" }}>
-                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal"> Version </span>
+                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> Version </span>
                           <Select
                             options={versions.kotsadm}
                             getOptionLabel={this.getLabel}
@@ -1041,7 +1053,7 @@ class Kurlsh extends React.Component {
                       <div className="flex flex-column u-marginLeft--15">
                         <div className="FormLabel"> Minio </div>
                         <div className="SelectVersion flex flex1" style={{ width: "200px" }}>
-                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal"> Version </span>
+                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> Version </span>
                           <Select
                             options={versions.minio}
                             getOptionLabel={this.getLabel}
@@ -1074,7 +1086,7 @@ class Kurlsh extends React.Component {
                       <div className="flex flex-column u-marginLeft--15">
                         <div className="FormLabel"> Rook </div>
                         <div className="SelectVersion flex flex1" style={{ width: "200px" }}>
-                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal"> Version </span>
+                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> Version </span>
                           <Select
                             options={versions.rook}
                             getOptionLabel={this.getLabel}
@@ -1110,7 +1122,7 @@ class Kurlsh extends React.Component {
                       <div className="flex flex-column u-marginLeft--15">
                         <div className="FormLabel"> openEBS </div>
                         <div className="SelectVersion flex flex1" style={{ width: "200px" }}>
-                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal"> Version </span>
+                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> Version </span>
                           <Select
                             options={versions.openebs}
                             getOptionLabel={this.getLabel}
@@ -1146,7 +1158,7 @@ class Kurlsh extends React.Component {
                       <div className="flex flex-column u-marginLeft--15">
                         <div className="FormLabel"> Prometheus </div>
                         <div className="SelectVersion flex flex1" style={{ width: "200px" }}>
-                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal"> Version </span>
+                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> Version </span>
                           <Select
                             options={versions.prometheus}
                             getOptionLabel={this.getLabel}
@@ -1176,7 +1188,7 @@ class Kurlsh extends React.Component {
                       <div className="flex flex-column u-marginLeft--15">
                         <div className="FormLabel"> Docker Registry </div>
                         <div className="SelectVersion flex flex1" style={{ width: "200px" }}>
-                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal"> Version </span>
+                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> Version </span>
                           <Select
                             options={versions.registry}
                             getOptionLabel={this.getLabel}
@@ -1212,7 +1224,7 @@ class Kurlsh extends React.Component {
                       <div className="flex flex-column u-marginLeft--15">
                         <div className="FormLabel"> Velero </div>
                         <div className="SelectVersion flex flex1" style={{ width: "200px" }}>
-                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal"> Version </span>
+                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> Version </span>
                           <Select
                             options={versions.velero}
                             getOptionLabel={this.getLabel}
