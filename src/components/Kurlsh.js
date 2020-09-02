@@ -1273,7 +1273,7 @@ class Kurlsh extends React.Component {
           <div className={`flex-column flex1 ${isMobile ? "u-marginTop--30" : "AbsoulteFixedWrapper"}`} id="fixed-wrapper">
             <span className="u-fontSize--24 u-fontWeight--bold u-color--mineShaft"> Installer YAML </span>
             <div className="MonacoEditor--wrapper flex u-width--full u-marginTop--20">
-              <div className="flex u-width--full u-overflow--hidden" id="monaco">
+              <div className="flex u-width--full u-overflow--auto" id="monaco">
                 {isLoading &&
                   <div className="flex-column flex-1-auto u-overflow--hidden justifyContent--center alignItems--center">
                     <Loader
