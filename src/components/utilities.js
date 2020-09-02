@@ -1,6 +1,5 @@
 const kubernetesVersions = { "kubernetes": ["latest", "1.17.7", "1.17.3", "1.16.4", "1.15.3", "1.15.2", "1.15.1", "1.15.0"] };
 const dockerVersion = { "docker": ["latest", "19.03.10", "19.03.4", "18.09.8"] };
-const containerdVersion = { "containerd": ["latest", "1.2.13"] };
 
 export const Utilities = {
   // Converts string to titlecase i.e. 'hello' -> 'Hello'
@@ -35,7 +34,7 @@ export const Utilities = {
     try {
       const resp = await fetch(process.env.SUPPORTED_VERSIONS_JSON);
       const data = await resp.json();
-      return { ...data.supportedVersions, ...kubernetesVersions, ...dockerVersion, ...containerdVersion };
+      return { ...data.supportedVersions, ...kubernetesVersions, ...dockerVersion };
     } catch (error) {
       throw error;
     }
