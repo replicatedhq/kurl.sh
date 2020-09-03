@@ -1,6 +1,7 @@
 import * as React from "react";
 import CodeSnippet from "./shared/CodeSnippet";
 import Loader from "./shared/Loader";
+import AppVersionCard from "./AppVersionCard";
 import { Utilities } from "./utilities";
 
 import "../scss/components/App.scss";
@@ -203,115 +204,33 @@ cat install.sh | sudo bash -s airgap
                 <div className="flex flex-column u-marginLeft--20 u-overflow--auto">
                   <p className="u-fontSize--24 u-fontWeight--bold u-color--mineShaft u-marginBottom--20"> What you get </p>
                   {installerData.spec.kubernetes &&
-                    <div className={`flex u-cursor--pointer alignItems--center u-padding--20 ${selectedSpec === "kubernetes" && "isSelected"}`} onClick={() => this.whatYouGet("kubernetes")}>
-                      <div className="flex u-width--250">
-                        <div className="flex icon u-kubernetes u-marginRight--normal"></div>
-                        <div className="WhatYouGet--wrapper flex flex-column">
-                          <p className="u-color--tuna u-fontSize--large u-fontWeight--bold u-paddingBottom--small"> Kubernetes </p>
-                          <p className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal"> {installerData.spec.kubernetes.version === "latest" ? "Latest version" : `Version ${installerData.spec.kubernetes.version}`} </p>
-                        </div>
-                      </div>
-                      <div className="icon u-arrow u-marginRight--normal"></div>
-                    </div>}
+                    <AppVersionCard selectedSpec={selectedSpec} name={"kubernetes"} installerData={installerData.spec.kubernetes} whatYouGet={this.whatYouGet}/>}
                   {installerData.spec.weave &&
-                    <div className={`flex u-cursor--pointer alignItems--center u-padding--20 ${selectedSpec === "weave" && "isSelected"}`} onClick={() => this.whatYouGet("weave")}>
-                      <div className="flex u-width--250">
-                        <div className="flex icon u-weave u-marginRight--normal"></div>
-                        <div className="WhatYouGet--wrapper flex flex-column">
-                          <p className="u-color--tuna u-fontSize--large u-fontWeight--bold u-paddingBottom--small"> Weave </p>
-                          <p className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal"> {installerData.spec.weave.version === "latest" ? "Latest version" : `Version ${installerData.spec.weave.version}`} </p>
-                        </div>
-                      </div>
-                      <div className="icon u-arrow u-marginRight--normal"></div>
-                    </div>}
+                    <AppVersionCard selectedSpec={selectedSpec} name={"weave"} installerData={installerData.spec.weave} whatYouGet={this.whatYouGet} />}
                   {installerData.spec.contour &&
-                    <div className={`flex u-cursor--pointer alignItems--center u-padding--20 ${selectedSpec === "contour" && "isSelected"}`} onClick={() => this.whatYouGet("contour")}>
-                      <div className="flex u-width--250">
-                        <div className="flex icon u-contour u-marginRight--normal"></div>
-                        <div className="WhatYouGet--wrapper flex flex-column">
-                          <p className="u-color--tuna u-fontSize--large u-fontWeight--bold u-paddingBottom--small"> Contour </p>
-                          <p className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal"> {installerData.spec.contour.version === "latest" ? "Latest version" : `Version ${installerData.spec.contour.version}`} </p>
-                        </div>
-                      </div>
-                      <div className="icon u-arrow u-marginRight--normal"></div>
-                    </div>}
+                    <AppVersionCard selectedSpec={selectedSpec} name={"contour"} installerData={installerData.spec.contour} whatYouGet={this.whatYouGet} />}
                   {installerData.spec.rook &&
-                    <div className={`flex u-cursor--pointer alignItems--center u-padding--20 ${selectedSpec === "rook" && "isSelected"}`} onClick={() => this.whatYouGet("rook")}>
-                      <div className="flex u-width--250">
-                        <div className="flex icon u-rook u-marginRight--normal"></div>
-                        <div className="WhatYouGet--wrapper flex flex-column">
-                          <p className="u-color--tuna u-fontSize--large u-fontWeight--bold u-paddingBottom--small"> Rook </p>
-                          <p className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal"> {installerData.spec.rook.version === "latest" ? "Latest version" : `Version ${installerData.spec.rook.version}`} </p>
-                        </div>
-                      </div>
-                      <div className="icon u-arrow u-marginRight--normal"></div>
-                    </div>}
+                    <AppVersionCard selectedSpec={selectedSpec} name={"rook"} installerData={installerData.spec.rook} whatYouGet={this.whatYouGet} />}
+                  {installerData.spec.minio &&
+                    <AppVersionCard selectedSpec={selectedSpec} name={"minio"} installerData={installerData.spec.minio} whatYouGet={this.whatYouGet} />}
                   {installerData.spec.registry &&
-                    <div className={`flex u-cursor--pointer alignItems--center u-padding--20 ${selectedSpec === "registry" && "isSelected"}`} onClick={() => this.whatYouGet("registry")}>
-                      <div className="flex u-width--250">
-                        <div className="flex icon u-registry u-marginRight--normal"></div>
-                        <div className="WhatYouGet--wrapper flex flex-column">
-                          <p className="u-color--tuna u-fontSize--large u-fontWeight--bold u-paddingBottom--small"> Docker Registry </p>
-                          <p className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal"> {installerData.spec.registry.version === "latest" ? "Latest version" : `Version ${installerData.spec.registry.version}`} </p>
-                        </div>
-                      </div>
-                      <div className="icon u-arrow u-marginRight--normal"></div>
-                    </div>}
+                    <AppVersionCard selectedSpec={selectedSpec} name={"registry"} installerData={installerData.spec.registry} whatYouGet={this.whatYouGet} />}
                   {installerData.spec.docker &&
-                    <div className={`flex u-cursor--pointer alignItems--center u-padding--20 ${selectedSpec === "docker" && "isSelected"}`} onClick={() => this.whatYouGet("docker")}>
-                      <div className="flex u-width--250">
-                        <div className="flex icon u-docker u-marginRight--normal"></div>
-                        <div className="WhatYouGet--wrapper flex flex-column">
-                          <p className="u-color--tuna u-fontSize--large u-fontWeight--bold u-paddingBottom--small"> Docker </p>
-                          <p className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal"> {installerData.spec.docker.version === "latest" ? "Latest version" : `Version ${installerData.spec.docker.version}`} </p>
-                        </div>
-                      </div>
-                      <div className="icon u-arrow u-marginRight--normal"></div>
-                    </div>}
+                    <AppVersionCard selectedSpec={selectedSpec} name={"docker"} installerData={installerData.spec.docker} whatYouGet={this.whatYouGet}/>}
                   {installerData.spec.prometheus &&
-                    <div className={`flex u-cursor--pointer alignItems--center u-padding--20 ${selectedSpec === "prometheus" && "isSelected"}`} onClick={() => this.whatYouGet("prometheus")}>
-                      <div className="flex u-width--250">
-                        <div className="flex icon u-prometheus u-marginRight--normal"></div>
-                        <div className="WhatYouGet--wrapper flex flex-column">
-                          <p className="u-color--tuna u-fontSize--large u-fontWeight--bold u-paddingBottom--small"> Prometheus </p>
-                          <p className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal"> {installerData.spec.prometheus.version === "latest" ? "Latest version" : `Version ${installerData.spec.prometheus.version}`} </p>
-                        </div>
-                      </div>
-                      <div className="icon u-arrow u-marginRight--normal"></div>
-                    </div>}
+                    <AppVersionCard selectedSpec={selectedSpec} name={"prometheus"} installerData={installerData.spec.prometheus} whatYouGet={this.whatYouGet} />}
                   {installerData.spec.containerd &&
-                    <div className={`flex u-cursor--pointer alignItems--center u-padding--20 ${selectedSpec === "containerd" && "isSelected"}`} onClick={() => this.whatYouGet("containerd")}>
-                      <div className="flex u-width--250">
-                        <div className="flex icon u-containerd u-marginRight--normal"></div>
-                        <div className="WhatYouGet--wrapper flex flex-column">
-                          <p className="u-color--tuna u-fontSize--large u-fontWeight--bold u-paddingBottom--small"> Containerd </p>
-                          <p className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal"> {installerData.spec.containerd.version === "latest" ? "Latest version" : `Version ${installerData.spec.containerd.version}`} </p>
-                        </div>
-                      </div>
-                      <div className="icon u-arrow u-marginRight--normal"></div>
-                    </div>}
+                    <AppVersionCard selectedSpec={selectedSpec} name={"containerd"} installerData={installerData.spec.containerd} whatYouGet={this.whatYouGet} />}
                   {installerData.spec.velero &&
-                    <div className={`flex u-cursor--pointer alignItems--center u-padding--20 ${selectedSpec === "velero" && "isSelected"}`} onClick={() => this.whatYouGet("velero")}>
-                      <div className="flex u-width--250">
-                        <div className="flex icon u-velero u-marginRight--normal"></div>
-                        <div className="WhatYouGet--wrapper flex flex-column">
-                          <p className="u-color--tuna u-fontSize--large u-fontWeight--bold u-paddingBottom--small"> Velero </p>
-                          <p className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal"> {installerData.spec.velero.version === "latest" ? "Latest version" : `Version ${installerData.spec.velero.version}`} </p>
-                        </div>
-                      </div>
-                      <div className="icon u-arrow u-marginRight--normal"></div>
-                    </div>}
+                    <AppVersionCard selectedSpec={selectedSpec} name={"velero"} installerData={installerData.spec.velero} whatYouGet={this.whatYouGet} />}
                   {installerData.spec.kotsadm &&
-                    <div className={`flex u-cursor--pointer alignItems--center u-padding--20 ${selectedSpec === "kotsadm" && "isSelected"}`} onClick={() => this.whatYouGet("kotsadm")}>
-                      <div className="flex u-width--250">
-                        <div className="flex icon u-kotsadm u-marginRight--normal"></div>
-                        <div className="WhatYouGet--wrapper flex flex-column">
-                          <p className="u-color--tuna u-fontSize--large u-fontWeight--bold u-paddingBottom--small"> Kotsadm </p>
-                          <p className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal"> {installerData.spec.kotsadm.version === "latest" ? "Latest version" : `Version ${installerData.spec.kotsadm.version}`} </p>
-                        </div>
-                      </div>
-                      <div className="icon u-arrow u-marginRight--normal"></div>
-                    </div>}
+                    <AppVersionCard selectedSpec={selectedSpec} name={"kotsadm"} installerData={installerData.spec.kotsadm} whatYouGet={this.whatYouGet} />}
+                  {installerData.spec.fluentd &&
+                    <AppVersionCard selectedSpec={selectedSpec} name={"fluentd"} installerData={installerData.spec.fluentd} whatYouGet={this.whatYouGet} />}
+                  {installerData.spec.openebs &&
+                    <AppVersionCard selectedSpec={selectedSpec} name={"openebs"} installerData={installerData.spec.openebs} whatYouGet={this.whatYouGet} />}
+                  {installerData.spec.ekco &&
+                    <AppVersionCard selectedSpec={selectedSpec} name={"ekco"} installerData={installerData.spec.ekco} whatYouGet={this.whatYouGet} />}
                 </div>
                 : null}
               {installerData ?
