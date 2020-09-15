@@ -152,6 +152,30 @@
   }
 }
 
+.AbsoluteErrorWrapper {
+  position: absolute;
+  left: 20px;
+  top: 340px;
+  display: flex;
+  background: #FBECEA;
+  border: 1px solid #BC4752;
+  box-sizing: border-box;
+  border-radius: 4px;
+  width: 353px;
+  height: 50px;
+  text-align: center;
+  align-items: center;
+  z-index: 999;
+  p {
+    margin: 0 auto;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 22px;
+    color: #BC4752;
+  }
+}
+
 /* Media Queries */
 
 /* ≥ 568px */
