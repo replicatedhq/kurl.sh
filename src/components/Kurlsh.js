@@ -137,7 +137,7 @@ class Kurlsh extends React.Component {
         openebs: {}
       },
       isAddOnChecked: {
-        weave:  true,
+        weave: true,
         contour: true,
         rook: true,
         docker: true,
@@ -177,12 +177,12 @@ class Kurlsh extends React.Component {
 
   toggleConfirmSelection = (currentSelection) => {
     if (currentSelection) {
-      this.setState({ 
+      this.setState({
         displayConfirmSelectionModal: !this.state.displayConfirmSelectionModal,
-        isAddOnChecked: {...this.state.isAddOnChecked, [Object.keys(currentSelection)[0]]: false}
+        isAddOnChecked: { ...this.state.isAddOnChecked, [Object.keys(currentSelection)[0]]: false }
       });
     } else {
-      this.setState({ 
+      this.setState({
         displayConfirmSelectionModal: !this.state.displayConfirmSelectionModal
       });
     }
@@ -432,9 +432,9 @@ class Kurlsh extends React.Component {
   }
 
   onConfirmSelection = (currentSelection, addOnToRemove) => {
-    this.setState({ 
-      selectedVersions: {...this.state.selectedVersions, [Object.entries(currentSelection)[0][0]]: Object.entries(currentSelection)[0][1], [Object.entries(addOnToRemove)[0][0]]: { version: "None" }},
-      isAddOnChecked: {...this.state.isAddOnChecked, [Object.keys(addOnToRemove)[0]]: false}
+    this.setState({
+      selectedVersions: { ...this.state.selectedVersions, [Object.entries(currentSelection)[0][0]]: Object.entries(currentSelection)[0][1], [Object.entries(addOnToRemove)[0][0]]: { version: "None" } },
+      isAddOnChecked: { ...this.state.isAddOnChecked, [Object.keys(addOnToRemove)[0]]: false }
     }, () => {
       this.postToKurlInstaller(this.getYaml(this.state.installerSha));
       this.toggleConfirmSelection();
@@ -452,9 +452,9 @@ class Kurlsh extends React.Component {
       this.checkIncompatibleSelection({ weave: value });
     }
     else {
-      this.setState({ selectedVersions: { ...this.state.selectedVersions, [name]: value }}, () => {
+      this.setState({ selectedVersions: { ...this.state.selectedVersions, [name]: value } }, () => {
         if (value.version === "None") {
-          this.setState({ isAddOnChecked: {...this.state.isAddOnChecked, [name]: !this.state.isAddOnChecked[name]}})
+          this.setState({ isAddOnChecked: { ...this.state.isAddOnChecked, [name]: !this.state.isAddOnChecked[name] } })
         }
         this.postToKurlInstaller(this.getYaml(this.state.installerSha));
       })
@@ -462,11 +462,11 @@ class Kurlsh extends React.Component {
   }
 
   handleIsAddOnSelected = (name, e) => {
-    if (!e.target.classList.contains("configDiv") && !e.target.classList.contains("addOnOption") && !e.target.classList.contains("versionLabel") && 
-    !e.target.classList.contains("css-19bqh2r") && !e.target.classList.contains("css-tj5bde-Svg") && !e.target.classList.contains("css-9gakcf-option") && !e.target.classList.contains("css-1n7v3ny-option") &&
-    !e.target.classList.contains("versionLabel--wrapper") && !e.target.classList.contains("css-1hwfws3") && e.target.localName !== "path" && !e.target.classList.contains("SelectVersion") &&
-    !e.target.classList.contains("css-tlfecz-indicatorContainer") && !e.target.classList.contains("css-1gtu0rj-indicatorContainer") && !e.target.classList.contains("css-1g48xl4-IndicatorsContainer")) {
-      this.setState({ isAddOnChecked: {...this.state.isAddOnChecked, [name]: !this.state.isAddOnChecked[name] }}, () => {
+    if (!e.target.classList.contains("configDiv") && !e.target.classList.contains("addOnOption") && !e.target.classList.contains("versionLabel") &&
+      !e.target.classList.contains("css-19bqh2r") && !e.target.classList.contains("css-tj5bde-Svg") && !e.target.classList.contains("css-9gakcf-option") && !e.target.classList.contains("css-1n7v3ny-option") &&
+      !e.target.classList.contains("versionLabel--wrapper") && !e.target.classList.contains("css-1hwfws3") && e.target.localName !== "path" && !e.target.classList.contains("SelectVersion") &&
+      !e.target.classList.contains("css-tlfecz-indicatorContainer") && !e.target.classList.contains("css-1gtu0rj-indicatorContainer") && !e.target.classList.contains("css-1g48xl4-IndicatorsContainer")) {
+      this.setState({ isAddOnChecked: { ...this.state.isAddOnChecked, [name]: !this.state.isAddOnChecked[name] } }, () => {
         if (this.state.isAddOnChecked[name]) {
           if (name === "containerd" && this.state.selectedVersions.docker.version !== "None") {
             this.checkIncompatibleSelection({ containerd: { version: "latest" } });
@@ -716,13 +716,20 @@ class Kurlsh extends React.Component {
     element.scrollIntoView({ behavior: "smooth" });
   }
 
+  renderVersionError = (errorMsg) => {
+    return (
+      <div className="AbsoluteErrorWrapper">
+        <p> {errorMsg} </p>
+      </div>
+    )
+  }
+
 
   render() {
-    const { versions, selectedVersions, installerSha, showAdvancedOptions, isLoading } = this.state;
+    const { versions, selectedVersions, installerSha, showAdvancedOptions, isLoading, installerErrMsg } = this.state;
     const { isMobile } = this.props;
 
     const installCommand = `curl ${process.env.API_URL}/${installerSha} | sudo bash`;
-
 
     return (
       <div className="u-minHeight--full u-width--full u-overflow--auto flex-column flex1 u-marginBottom---40 kurlContainer" id="kurl-container">
@@ -810,7 +817,7 @@ class Kurlsh extends React.Component {
                   </div>
                   {showAdvancedOptions["docker"] && this.renderAdvancedOptions("docker")}
                 </div>
-                <div className={`AddOn--wrapper ${selectedVersions.containerd.version !== "None" && "selected"} flex flex-column u-marginTop--15`}  onClick={(e) => this.handleIsAddOnSelected("containerd", e)}>
+                <div className={`AddOn--wrapper ${selectedVersions.containerd.version !== "None" && "selected"} flex flex-column u-marginTop--15`} onClick={(e) => this.handleIsAddOnSelected("containerd", e)}>
                   <div className="flex flex1">
                     <div className="flex flex1 alignItems--center">
                       <input
@@ -1269,10 +1276,10 @@ class Kurlsh extends React.Component {
 
           {/* Spacer div the same width as the sidebar where the editor lives */}
           <div className="flex-column flex1" style={{ maxWidth: "400px" }} />
-
           <div className={`flex-column flex1 ${isMobile ? "u-marginTop--30" : "AbsoulteFixedWrapper"}`} id="fixed-wrapper">
             <span className="u-fontSize--24 u-fontWeight--bold u-color--mineShaft"> Installer YAML </span>
-            <div className="MonacoEditor--wrapper flex u-width--full u-marginTop--20">
+            <div className="MonacoEditor--wrapper flex u-width--full u-marginTop--20 u-position--relative">
+            {installerErrMsg.includes("is not supported") && this.renderVersionError(installerErrMsg)}
               <div className="flex u-width--full u-overflow--auto" id="monaco">
                 {isLoading &&
                   <div className="flex-column flex-1-auto u-overflow--hidden justifyContent--center alignItems--center">
