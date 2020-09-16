@@ -36,7 +36,8 @@ class SupportedAddOns extends React.Component {
       const resp = await fetch(url);
       const addOns = await resp.json();
       this.setState({
-        supportedAddOns: addOns.addOns,
+        // hiding calico add on
+        supportedAddOns: addOns.addOns.filter(a => a.name !== "calico"),
         categories: [...new Set(addOns.addOns.map(add => chunk(add.fulfills, 1)[0].join("")))]
       });
     } catch (error) {

@@ -848,7 +848,8 @@ class Kurlsh extends React.Component {
 
               <div className="flex flex-column u-marginTop--40">
                 <span className="u-fontSize--normal u-fontWeight--medium u-color--bermudaGray"> CNI plugin </span>
-                <div className={`AddOn--wrapper ${selectedVersions.calico.version !== "None" && "selected"} flex flex-column u-marginTop--15`} onClick={(e) => this.handleIsAddOnSelected("calico", e)}>
+                {/* hiding calico add on */}
+                <div className={`u-display--none AddOn--wrapper ${selectedVersions.calico.version !== "None" && "selected"} u-marginTop--15`} onClick={(e) => this.handleIsAddOnSelected("calico", e)}>
                   <div className="flex flex1">
                     <div className="flex flex1 alignItems--center">
                       <input
