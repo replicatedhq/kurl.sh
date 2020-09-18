@@ -101,7 +101,7 @@ class Kurlsh extends React.Component {
         velero: { version: "None" },
         kotsadm: { version: "None" },
         calico: { version: "None" },
-        ekco: { version: "None" },
+        ekco: { version: "latest" },
         fluentd: { version: "None" },
         minio: { version: "None" },
         openebs: { version: "None" }
@@ -147,7 +147,7 @@ class Kurlsh extends React.Component {
         velero: false,
         kotsadm: false,
         calico: false,
-        ekco: false,
+        ekco: true,
         fluentd: false,
         minio: false,
         openebs: false
@@ -1126,6 +1126,12 @@ class Kurlsh extends React.Component {
                       </div>
                     </div>
                   </div>
+                  { this.state.isAddOnChecked["rook"] && !this.state.isAddOnChecked["ekco"] ?
+                    <div className="flex u-color--fiord u-fontSize--normal">
+                      NOTE: The EKCO add-on is recommended when installing Rook.
+                    </div>
+                    : null
+                  }
                   {showAdvancedOptions["rook"] && this.renderAdvancedOptions("rook")}
                 </div>
               </div>

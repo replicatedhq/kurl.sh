@@ -42,6 +42,8 @@ spec:
     version: latest
   rook:
     version: latest
+  ekco:
+    version: latest
   registry:
     version: latest
   kotsadm: 

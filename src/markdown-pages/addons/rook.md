@@ -12,6 +12,8 @@ It also runs the Ceph RGW object store to provide an S3-compatible store in the 
 
 By default the cluster uses the filesystem for storage. Each node in the cluster will have a single OSD backed by a directory in `/opt/replicated/rook`.
 
+The [EKCO](/docs/add-ons/ekco) add-on is recommended when installing Rook. EKCO is responsible for performing various operations to maintain the health of a Ceph cluster.
+
 ## Advanced Install Options
 
 ```yaml
