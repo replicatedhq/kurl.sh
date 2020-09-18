@@ -53,6 +53,8 @@ cat install.sh | sudo bash -s airgap ha
       version: "latest"
     rook:
       version: "latest"
+    ekco:
+      version: "latest"
     contour:
       version: "latest"
     docker:

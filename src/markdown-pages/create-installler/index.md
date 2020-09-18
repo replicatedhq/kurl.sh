@@ -21,6 +21,8 @@ spec:
     version: "latest"
   rook:
     version: "latest"
+  ekco:
+    version: "latest"
   contour:
     version: "latest"
   kotsadm:
