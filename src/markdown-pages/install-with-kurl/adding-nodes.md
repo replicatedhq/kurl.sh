@@ -6,7 +6,7 @@ linktitle: "Adding Nodes"
 title: "Adding Nodes"
 ---
 At the end of the install process, the install script will print out commands for adding nodes.
-Commands to join new worker nodes last 24 hours, and commands to join additional master nodes in HA mode last for 2 hours.
+Commands to add new worker nodes last 24 hours, and commands to add additional master nodes in HA mode last for 2 hours.
 To get new commands, run `tasks.sh join_token` with the relevant parameters (`airgap` and `ha`) on a master node.
 For instance, on an airgapped HA installation you would run `cat ./tasks.sh | sudo bash -s join_token ha airgap`, while on a single-master online installation you would run `curl -sSL https://kurl.sh/latest/ | sudo bash -s join_token`.
 
