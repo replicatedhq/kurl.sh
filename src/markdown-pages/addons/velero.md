@@ -31,7 +31,7 @@ flags-table
 ## Cluster Operator Tasks
 
 This section describes tasks for cluster operators using Velero to backup resources and data in their cluster.
-Refer to the [Velero documentation](https://velero.io/docs/v1.2.0/) for more advanced topics, including help on scheduling recurring backups and troubleshooting.
+Refer to the [Velero documentation](https://velero.io/docs/) for more advanced topics, including help on scheduling recurring backups and troubleshooting.
 
 ### Configure Backend Object Store
 
@@ -42,7 +42,7 @@ The add-on includes plugins for using AWS, Azure, or GCP object stores as backen
 
 #### AWS S3
 
-Create a [BackupStorageLocation](https://velero.io/docs/v1.2.0/api-types/backupstoragelocation/) in the `velero` namespace with your S3 configuration:
+Create a [BackupStorageLocation](https://velero.io/docs/main/api-types/backupstoragelocation/) in the `velero` namespace with your S3 configuration:
 
 ```bash
 velero backup-location create my-aws-backend --bucket my-s3-bucket --provider aws --config region=us-east-2
