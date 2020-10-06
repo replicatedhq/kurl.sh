@@ -101,7 +101,7 @@ class Kurlsh extends React.Component {
         velero: { version: "None" },
         kotsadm: { version: "None" },
         calico: { version: "None" },
-        ekco: { version: "None" },
+        ekco: { version: "latest" },
         fluentd: { version: "None" },
         minio: { version: "None" },
         openebs: { version: "None" }
@@ -147,7 +147,7 @@ class Kurlsh extends React.Component {
         velero: false,
         kotsadm: false,
         calico: false,
-        ekco: false,
+        ekco: true,
         fluentd: false,
         minio: false,
         openebs: false
@@ -1106,21 +1106,25 @@ class Kurlsh extends React.Component {
                       <span className="icon u-rook u-marginBottom--small" />
                       <div className="flex flex-column u-marginLeft--15">
                         <div className="FormLabel"> Rook </div>
-                        <div className={`SelectVersion flex flex1 ${!this.state.isAddOnChecked["rook"] && "disabled"}`} style={{ width: "200px" }}>
-                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> {!this.state.isAddOnChecked["rook"] ? "Version None" : "Version"} </span>
-                          <Select
-                            options={versions.rook}
-                            getOptionLabel={this.getLabel}
-                            getOptionValue={(rook) => rook}
-                            value={selectedVersions.rook}
-                            onChange={this.onVersionChange("rook")}
-                            matchProp="value"
-                            isDisabled={!this.state.isAddOnChecked["rook"]}
-                            isOptionSelected={() => false} />
+                        <div className="flex flex1 alignItems--center">
+                          <div className={`SelectVersion flex flex1 ${!this.state.isAddOnChecked["rook"] && "disabled"}`}>
+                            <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> {!this.state.isAddOnChecked["rook"] ? "Version None" : "Version"} </span>
+                            <Select
+                              options={versions.rook}
+                              getOptionLabel={this.getLabel}
+                              getOptionValue={(rook) => rook}
+                              value={selectedVersions.rook}
+                              onChange={this.onVersionChange("rook")}
+                              matchProp="value"
+                              isDisabled={!this.state.isAddOnChecked["rook"]}
+                              isOptionSelected={() => false} />
+                          </div>
+                          {selectedVersions.rook.version !== "None" && selectedVersions.ekco.version === "None" &&
+                            <span className="u-fontSize--small u-fontWeight--medium u-color--fiord flex alignItems--center" style={{lineHeight: "12px"}}> <span className="icon u-blueExclamationMark" style={{marginRight: "6px"}} /> The EKCO add-on is recommended when installing Rook. </span>}
                         </div>
                       </div>
                     </div>
-                    <div className="flex flex1 justifyContent--flexEnd alignItems--center">
+                    <div className="flex justifyContent--flexEnd alignItems--center">
                       <div className="flex u-fontSize--small u-fontWeight--medium u-color--royalBlue u-marginTop--small u-cursor--pointer configDiv" onClick={() => this.onToggleShowAdvancedOptions("rook")}>
                         {showAdvancedOptions["rook"] ? "Hide config" : "Show config"}
                       </div>
@@ -1280,7 +1284,7 @@ class Kurlsh extends React.Component {
           <div className={`flex-column flex1 ${isMobile ? "u-marginTop--30" : "AbsoulteFixedWrapper"}`} id="fixed-wrapper">
             <span className="u-fontSize--24 u-fontWeight--bold u-color--mineShaft"> Installer YAML </span>
             <div className="MonacoEditor--wrapper flex u-width--full u-marginTop--20 u-position--relative">
-            {installerErrMsg.includes("is not supported") && this.renderVersionError(installerErrMsg)}
+              {installerErrMsg.includes("is not supported") && this.renderVersionError(installerErrMsg)}
               <div className="flex u-width--full u-overflow--auto" id="monaco">
                 {isLoading &&
                   <div className="flex-column flex-1-auto u-overflow--hidden justifyContent--center alignItems--center">
