@@ -749,7 +749,7 @@ class Kurlsh extends React.Component {
           </div>
         </div>
         <div className={`u-display--block u-width--full u-position--relative ${isMobile ? "mobile-container" : "container flex1"}`} id="addOnsWrapper">
-          <div className="flex1 flex-column u-marginRight--30">
+          <div className={`${!isMobile && "u-marginRight--30"} flex1 flex-column`}>
             <div className={`${!isMobile && "left-content-wrap"}`}>
               <span className="u-fontSize--24 u-fontWeight--bold u-color--mineShaft"> Select add-ons </span>
               <div className="AddOn--wrapper selected flex flex-column u-marginTop--20">
@@ -1280,7 +1280,7 @@ class Kurlsh extends React.Component {
 
           {/* Spacer div the same width as the sidebar where the editor lives */}
           <div className="flex-column flex1" style={{ maxWidth: "400px" }} />
-          <div className={`u-display--block ${isMobile ? "u-marginTop--30" : "AbsoulteFixedWrapper"}`} id="fixed-wrapper">
+          <div className={`${isMobile ? "u-marginTop--30 u-display--block " : "AbsoluteFixedWrapper flex flex-column"}`} id="fixed-wrapper">
             <span className="u-fontSize--24 u-fontWeight--bold u-color--mineShaft"> Installer YAML </span>
             <div className="MonacoEditor--wrapper flex u-width--full u-marginTop--20 u-position--relative">
               {installerErrMsg.includes("is not supported") && this.renderVersionError(installerErrMsg)}

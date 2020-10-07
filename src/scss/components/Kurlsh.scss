@@ -2,7 +2,7 @@
   margin: 0 auto 40px;
 }
 
-.AbsoulteFixedWrapper{
+.AbsoluteFixedWrapper{
   max-width: 400px;
   position: absolute;
   top: 39px;
@@ -185,7 +185,7 @@
 
 /* ≥ 568px */
 @media screen and (min-width: 35.5em) and (max-height: 700px) {
-  .AbsoulteFixedWrapper.FixedWrapper {
+  .AbsoluteFixedWrapper.FixedWrapper {
     position:fixed;
     top: 142px;
     right: 80px;
@@ -194,7 +194,7 @@
 }
 
 @media screen and (min-width: 35.5em) and (max-height: 850px) {
-  .AbsoulteFixedWrapper.FixedWrapper {
+  .AbsoluteFixedWrapper.FixedWrapper {
     position:fixed;
     top: 142px;
     right: 80px;
@@ -203,7 +203,7 @@
 }
 
 @media screen and (min-width: 35.5em) {
-  .AbsoulteFixedWrapper.FixedWrapper {
+  .AbsoluteFixedWrapper.FixedWrapper {
     position:fixed;
     top: 142px;
     right: 80px;
@@ -212,7 +212,7 @@
 
 /* ≥ 768px */
 @media screen and (min-width: 48em) {
-  .AbsoulteFixedWrapper.FixedWrapper {
+  .AbsoluteFixedWrapper.FixedWrapper {
     position:fixed;
     top: 142px;
     right: 80px;
@@ -220,7 +220,7 @@
 }
 
 @media screen and (min-width: 48em) and (max-height: 850px) {
-  .AbsoulteFixedWrapper.FixedWrapper {
+  .AbsoluteFixedWrapper.FixedWrapper {
     position:fixed;
     top: 142px;
     right: 80px;
@@ -229,7 +229,7 @@
 }
 
 @media screen and (min-width: 48em) and (max-height: 700px) {
-  .AbsoulteFixedWrapper.FixedWrapper {
+  .AbsoluteFixedWrapper.FixedWrapper {
     position:fixed;
     top: 142px;
     right: 80px;
@@ -239,7 +239,7 @@
 /* ≥ 960px */
 
 @media screen and (min-width: 60em) {
-  .AbsoulteFixedWrapper.FixedWrapper {
+  .AbsoluteFixedWrapper.FixedWrapper {
     position:fixed;
     top: 142px;
     right: 80px;
@@ -247,7 +247,7 @@
 }
 
 @media screen and (min-width: 60em) and (max-height: 850px) {
-  .AbsoulteFixedWrapper.FixedWrapper {
+  .AbsoluteFixedWrapper.FixedWrapper {
     position:fixed;
     top: 142px;
     right: 80px;
@@ -256,7 +256,7 @@
 }
 
 @media screen and (min-width: 60em) and (max-height: 700px) {
-  .AbsoulteFixedWrapper.FixedWrapper {
+  .AbsoluteFixedWrapper.FixedWrapper {
     position:fixed;
     top: 142px;
     right: 80px;
