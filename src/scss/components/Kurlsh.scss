@@ -22,6 +22,11 @@
   padding: 13px 15px 10px 15px;
 }
 
+.left-content-wrap {
+  max-width: 2000px;
+  width: calc(100% - 400px);
+}
+
 .selected { 
   background: #F5F8FC;
   border: 1px solid #9AACD1;
