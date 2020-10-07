@@ -733,7 +733,7 @@ class Kurlsh extends React.Component {
 
     return (
       <div className="u-minHeight--full u-width--full u-overflow--auto flex-column flex1 u-marginBottom---40 kurlContainer" id="kurl-container">
-        <div className="KurlHeader flex flex-column u-borderBottom--gray">
+        <div className="KurlHeader u-borderBottom--gray">
           <div className="flex flex-column alignItems--center">
             {isMobile ? null : <p className="u-fontSize--32 u-fontWeight--bold u-color--downriver u-lineHeight--more u-marginTop--30"> kURL - Open Source Kubernetes Installer </p>}
             <span className={`${isMobile ? "u-fontSize--normal u-marginTop--10" : "u-fontSize--large"} u-fontWeight--medium u-lineHeight--more u-color--fiord u-lineHeight--more u-textAlign--center u-width--half`}>
@@ -748,11 +748,10 @@ class Kurlsh extends React.Component {
             <Link to="/docs/introduction/" className="u-fontWeight--medium u-color--royalBlue u-lineHeight--normal u-marginLeft--20 u-fontSize--normal u-textDecoration--underlineOnHover"> View the docs </Link>
           </div>
         </div>
-        <div className={`u-flexTabletReflow u-width--full u-position--relative ${isMobile ? "mobile-container flex flex-column" : "container flex1"}`} id="addOnsWrapper">
-          <div className="flex flex1">
-            <div className="left-content-wrap flex-column u-marginRight--30 u-width--full">
+        <div className={`u-display--block u-width--full u-position--relative ${isMobile ? "mobile-container" : "container flex1"}`} id="addOnsWrapper">
+          <div className={`${!isMobile && "u-marginRight--30"} flex1 flex-column`}>
+            <div className={`${!isMobile && "left-content-wrap"}`}>
               <span className="u-fontSize--24 u-fontWeight--bold u-color--mineShaft"> Select add-ons </span>
-
               <div className="AddOn--wrapper selected flex flex-column u-marginTop--20">
                 <div className="flex flex1">
                   <div className="flex flex1 alignItems--center">
@@ -1281,7 +1280,7 @@ class Kurlsh extends React.Component {
 
           {/* Spacer div the same width as the sidebar where the editor lives */}
           <div className="flex-column flex1" style={{ maxWidth: "400px" }} />
-          <div className={`flex-column flex1 ${isMobile ? "u-marginTop--30" : "AbsoulteFixedWrapper"}`} id="fixed-wrapper">
+          <div className={`${isMobile ? "u-marginTop--30 u-display--block " : "AbsoluteFixedWrapper flex flex-column"}`} id="fixed-wrapper">
             <span className="u-fontSize--24 u-fontWeight--bold u-color--mineShaft"> Installer YAML </span>
             <div className="MonacoEditor--wrapper flex u-width--full u-marginTop--20 u-position--relative">
               {installerErrMsg.includes("is not supported") && this.renderVersionError(installerErrMsg)}
