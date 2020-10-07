@@ -424,6 +424,11 @@
       "flag": "fullEFKStack",
       "description": "This will ensure that ElasticSearch and Kibana will be installed for log aggregation and visualization.",
       "type": "boolean"
+    },
+    {
+      "flag": "fluentdConfPath",
+      "description": "The absolute path to a custom Fluentd config file.",
+      "type": "string"
     }
   ],
   "minio": [

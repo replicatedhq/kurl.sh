@@ -22,6 +22,7 @@ Elasticsearch requires 1gb of memory for stability. Default storage is set to 20
 spec:
   fluentd:
     fullEFKStack: true
+    fluentdConfPath: /mnt/replicated/fluent.conf
 ```
 
 flags-table
