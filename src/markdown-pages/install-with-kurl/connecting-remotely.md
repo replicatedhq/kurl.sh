@@ -17,9 +17,11 @@ This will use the load balancer or public address for the Kubernetes API server 
 You can add this config to your regular configuration with something like:
 
 ```
-mv <user>.conf $HOME/.kube/config/.<user>.conf
-export KUBECONFIG="$HOME/.kube/config:$HOME/.kube/.<user>.conf"
+mv <user>.conf $HOME/.kube/<user>.conf
+export KUBECONFIG="$HOME/.kube/config:$HOME/.kube/<user>.conf"
 ```
+
+If you already have a current context set in your main kubeconfig, then you can choose the kurl context with `kubectl --context kurl <command>`.
 
 Or merge them into your main config with:
 
