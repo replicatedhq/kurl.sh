@@ -22,7 +22,7 @@ You can then copy to another machine and use with:
 kubectl --kubeconfig=$USER.conf <command>
 ```
 
-> Note this assume the usernames on the local and remote machines are the same.
+> Note this assumes the usernames on the local and remote machines are the same.
 If not, replace $USER with the username on the **remote** machine.
 
 You can add this config with your regular configuration with:
