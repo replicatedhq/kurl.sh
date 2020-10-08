@@ -36,7 +36,7 @@ Or merge them into your main config with:
 
 ```
 cp $HOME/.kube/config $HOME/.kube/config.bak
-KUBECONFIG=$HOME/.kube/config:$USER.conf kubectl config view --merge --flatten > $HOME/.kube/config
+KUBECONFIG=$HOME/.kube/config.bak:$USER.conf kubectl config view --merge --flatten > $HOME/.kube/config
 ```
 
 You can choose the kurl context with:
