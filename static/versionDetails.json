@@ -279,7 +279,7 @@
   "kurl": [
     {
       "flag": "airgap",
-      "description": "This flag signifies that the installer will use an airgap bundle to install the file. It needs and does not need an outbound internet connection.",
+      "description": "This flag signifies that the installer will use an airgap bundle to install the file, which means it will not need an internet connection.",
       "type": "boolean"
     },
     {
