@@ -756,7 +756,7 @@ class Kurlsh extends React.Component {
                 <div className="flex flex1">
                   <div className="flex flex1 alignItems--center">
                     <span className="icon u-kubernetes u-marginBottom--small" />
-                    <div className="flex flex-column u-marginLeft--15">
+                    <div className="flex flex-column u-marginLeft--15 u-marginTop--small">
                       <div className="FormLabel "> Kubernetes </div>
                       <div className="SelectVersion flex flex1" style={{ width: "200px" }}>
                         <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> Version </span>
@@ -792,7 +792,7 @@ class Kurlsh extends React.Component {
                         checked={selectedVersions.docker.version !== "None"}
                       />
                       <span className="icon u-docker u-marginBottom--small" />
-                      <div className="flex flex-column u-marginLeft--15">
+                      <div className="flex flex-column u-marginLeft--15 u-marginTop--small">
                         <div className="FormLabel "> Docker </div>
                         <div className={`SelectVersion flex flex1 ${!this.state.isAddOnChecked["docker"] && "disabled"}`} style={{ width: "200px" }}>
                           <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> {!this.state.isAddOnChecked["docker"] ? "Version None" : "Version"} </span>
@@ -825,7 +825,7 @@ class Kurlsh extends React.Component {
                         checked={selectedVersions.containerd.version !== "None"}
                       />
                       <span className="icon u-containerd u-marginBottom--small" />
-                      <div className="flex flex-column u-marginLeft--15">
+                      <div className="flex flex-column u-marginLeft--15 u-marginTop--small">
                         <div className="FormLabel"> Containerd </div>
                         <div className={`SelectVersion flex flex1 ${!this.state.isAddOnChecked["containerd"] && "disabled"}`} style={{ width: "200px" }}>
                           <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> {!this.state.isAddOnChecked["containerd"] ? "Version None" : "Version"} </span>
@@ -857,7 +857,7 @@ class Kurlsh extends React.Component {
                         checked={selectedVersions.calico.version !== "None"}
                       />
                       <span className="icon u-calico u-marginBottom--small" />
-                      <div className="flex flex-column u-marginLeft--15">
+                      <div className="flex flex-column u-marginLeft--15 u-marginTop--small">
                         <div className="FormLabel"> Calico </div>
                         <div className={`SelectVersion flex flex1 ${!this.state.isAddOnChecked["calico"] && "disabled"}`} style={{ width: "200px" }}>
                           <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> {!this.state.isAddOnChecked["calico"] ? "Version None" : "Version"} </span>
@@ -884,7 +884,7 @@ class Kurlsh extends React.Component {
                         checked={selectedVersions.weave.version !== "None"}
                       />
                       <span className="icon u-weave u-marginBottom--small" />
-                      <div className="flex flex-column u-marginLeft--15">
+                      <div className="flex flex-column u-marginLeft--15 u-marginTop--small">
                         <div className="FormLabel"> Weave </div>
                         <div className={`SelectVersion flex flex1 ${!this.state.isAddOnChecked["weave"] && "disabled"}`} style={{ width: "200px" }}>
                           <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> {!this.state.isAddOnChecked["weave"] ? "Version None" : "Version"} </span>
@@ -921,7 +921,7 @@ class Kurlsh extends React.Component {
                         checked={selectedVersions.contour.version !== "None"}
                       />
                       <span className="icon u-contour u-marginBottom--small" />
-                      <div className="flex flex-column u-marginLeft--15">
+                      <div className="flex flex-column u-marginLeft--15 u-marginTop--small">
                         <div className="FormLabel"> Contour </div>
                         <div className={`SelectVersion flex flex1 ${!this.state.isAddOnChecked["contour"] && "disabled"}`} style={{ width: "200px" }}>
                           <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> {!this.state.isAddOnChecked["contour"] ? "Version None" : "Version"} </span>
@@ -958,7 +958,7 @@ class Kurlsh extends React.Component {
                         checked={selectedVersions.ekco.version !== "None"}
                       />
                       <span className="icon u-kubernetes u-marginBottom--small" />
-                      <div className="flex flex-column u-marginLeft--15">
+                      <div className="flex flex-column u-marginLeft--15 u-marginTop--small">
                         <div className="FormLabel"> EKCO </div>
                         <div className={`SelectVersion flex flex1 ${!this.state.isAddOnChecked["ekco"] && "disabled"}`} style={{ width: "200px" }}>
                           <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> {!this.state.isAddOnChecked["ekco"] ? "Version None" : "Version"} </span>
@@ -995,7 +995,7 @@ class Kurlsh extends React.Component {
                         checked={selectedVersions.fluentd.version !== "None"}
                       />
                       <span className="icon u-fluentd u-marginBottom--small" />
-                      <div className="flex flex-column u-marginLeft--15">
+                      <div className="flex flex-column u-marginLeft--15 u-marginTop--small">
                         <div className="FormLabel"> Fluentd </div>
                         <div className={`SelectVersion flex flex1 ${!this.state.isAddOnChecked["fluentd"] && "disabled"}`} style={{ width: "200px" }}>
                           <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> {!this.state.isAddOnChecked["fluentd"] ? "Version None" : "Version"} </span>
@@ -1032,7 +1032,7 @@ class Kurlsh extends React.Component {
                         checked={selectedVersions.kotsadm.version !== "None"}
                       />
                       <span className="icon u-kotsadm u-marginBottom--small" />
-                      <div className="flex flex-column u-marginLeft--15">
+                      <div className="flex flex-column u-marginLeft--15 u-marginTop--small">
                         <div className="FormLabel"> KOTS </div>
                         <div className={`SelectVersion flex flex1 ${!this.state.isAddOnChecked["kotsadm"] && "disabled"}`} style={{ width: "200px" }}>
                           <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> {!this.state.isAddOnChecked["kotsadm"] ? "Version None" : "Version"} </span>
@@ -1069,7 +1069,7 @@ class Kurlsh extends React.Component {
                         checked={selectedVersions.minio.version !== "None"}
                       />
                       <span className="icon u-minio u-marginBottom--small" />
-                      <div className="flex flex-column u-marginLeft--15">
+                      <div className="flex flex-column u-marginLeft--15 u-marginTop--small">
                         <div className="FormLabel"> Minio </div>
                         <div className={`SelectVersion flex flex1 ${!this.state.isAddOnChecked["minio"] && "disabled"}`} style={{ width: "200px" }}>
                           <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> {!this.state.isAddOnChecked["minio"] ? "Version None" : "Version"} </span>
@@ -1103,7 +1103,7 @@ class Kurlsh extends React.Component {
                         checked={selectedVersions.rook.version !== "None"}
                       />
                       <span className="icon u-rook u-marginBottom--small" />
-                      <div className="flex flex-column u-marginLeft--15">
+                      <div className="flex flex-column u-marginLeft--15 u-marginTop--small">
                         <div className="FormLabel"> Rook </div>
                         <div className="flex flex1 alignItems--center">
                           <div className={`SelectVersion flex flex1 ${!this.state.isAddOnChecked["rook"] && "disabled"}`}>
@@ -1144,7 +1144,7 @@ class Kurlsh extends React.Component {
                         checked={selectedVersions.openebs.version !== "None"}
                       />
                       <span className="icon u-openebs u-marginBottom--small" />
-                      <div className="flex flex-column u-marginLeft--15">
+                      <div className="flex flex-column u-marginLeft--15 u-marginTop--small">
                         <div className="FormLabel"> openEBS </div>
                         <div className={`SelectVersion flex flex1 ${!this.state.isAddOnChecked["openebs"] && "disabled"}`} style={{ width: "200px" }}>
                           <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> {!this.state.isAddOnChecked["openebs"] ? "Version None" : "Version"} </span>
@@ -1181,7 +1181,7 @@ class Kurlsh extends React.Component {
                         checked={selectedVersions.prometheus.version !== "None"}
                       />
                       <span className="icon u-prometheus u-marginBottom--small" />
-                      <div className="flex flex-column u-marginLeft--15">
+                      <div className="flex flex-column u-marginLeft--15 u-marginTop--small">
                         <div className="FormLabel"> Prometheus </div>
                         <div className={`SelectVersion flex flex1 ${!this.state.isAddOnChecked["prometheus"] && "disabled"}`} style={{ width: "200px" }}>
                           <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> {!this.state.isAddOnChecked["prometheus"] ? "Version None" : "Version"} </span>
@@ -1212,7 +1212,7 @@ class Kurlsh extends React.Component {
                         checked={selectedVersions.registry.version !== "None"}
                       />
                       <span className="icon u-registry u-marginBottom--small" />
-                      <div className="flex flex-column u-marginLeft--15">
+                      <div className="flex flex-column u-marginLeft--15 u-marginTop--small">
                         <div className="FormLabel"> Docker Registry </div>
                         <div className={`SelectVersion flex flex1 ${!this.state.isAddOnChecked["registry"] && "disabled"}`} style={{ width: "200px" }}>
                           <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> {!this.state.isAddOnChecked["registry"] ? "Version None" : "Version"} </span>
@@ -1249,7 +1249,7 @@ class Kurlsh extends React.Component {
                         checked={selectedVersions.velero.version !== "None"}
                       />
                       <span className="icon u-velero u-marginBottom--small" />
-                      <div className="flex flex-column u-marginLeft--15">
+                      <div className="flex flex-column u-marginLeft--15 u-marginTop--small">
                         <div className="FormLabel"> Velero </div>
                         <div className={`SelectVersion flex flex1 ${!this.state.isAddOnChecked["velero"] && "disabled"}`} style={{ width: "200px" }}>
                           <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> {!this.state.isAddOnChecked["velero"] ? "Version None" : "Version"} </span>
