@@ -15,6 +15,10 @@ Then if there are any remote primaries to upgrade, the script will drain each se
 The script will detect when Kubernetes has been upgraded on the remote node and proceed to drain the next node.
 After upgrading all primaries the same operation will be performed sequentially on all remote secondaries.
 
+The install script supports upgrading at most two minor versions of Kubernetes.
+When upgrading two minor versions, the skipped minor version will be installed before proceeding to the desired version.
+For example, it's possible to upgrade directly from Kubernetes 1.17 to 1.19 but the install script will complete the installation of 1.18 before proceeding to 1.19.
+
 ## Container Runtimes
 
 Existing versions of docker and containerd will never be upgraded by the install script.
@@ -25,5 +29,7 @@ Because upgraded components may have pods scheduled on any node in the cluster, 
 After downloading and extracting the airgap bundle to every node in the cluster, run this script to ensure all required images are available:
 
 ```bash
-cat tasks.sh load-images
+cat tasks.sh | sudo bash -s load-images
 ```
+
+The install script will also perform a check for required images and prompt the user to run this command if any are missing.

@@ -1,6 +1,7 @@
 const kubernetesVersions = {
   "kubernetes": [
     "latest",
+    "1.19.2",
     "1.18.9",
     "1.18.4",
     "1.17.7",
@@ -9,8 +10,7 @@ const kubernetesVersions = {
     "1.15.3",
     "1.15.2",
     "1.15.1",
-    "1.15.0",
-    "1.19.2"
+    "1.15.0"
   ]
 };
 const dockerVersion = { "docker": ["latest", "19.03.10", "19.03.4", "18.09.8"] };
