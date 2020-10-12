@@ -21,6 +21,15 @@ curl https://kurl.sh/latest | sudo bash -s ha
 ```
 HA installs will prompt and wait for an optional load balancer address to be provided in the install process. This will route external and internal traffic to the API servers. In the absence of a load balancer address, all traffic will be routed to the first master. This prompt can be bypassed during the install process by specifying the address in the flag `load-balancer-address=<address>` in the install script.
 
+### Converting to HA (Beta)
+
+To convert a non-HA cluster to an HA cluster, re-run the install script with the `ha` flag.
+If the cluster has remote secondary nodes, the install script will print out a command that must be run on every node to update clients to use the new load balancer address.
+
+```
+curl https://kurl.sh/latest | sudo bash -s ha
+```
+
 ## Airgapped Usage
 To install Kubernetes in an airgapped environment, first fetch the installer archive:
 ```
