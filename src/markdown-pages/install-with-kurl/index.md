@@ -23,12 +23,26 @@ HA installs will prompt and wait for an optional load balancer address to be pro
 
 ### Converting to HA (Beta)
 
-To convert a non-HA cluster to an HA cluster, re-run the install script with the `ha` flag.
-If the cluster has remote secondary nodes, the install script will print out a command that must be run on every node to update clients to use the new load balancer address.
+To convert a non-HA cluster to an HA cluster, re-run the install script with the `ha` flag:
 
-```
+```bash
 curl https://kurl.sh/latest | sudo bash -s ha
 ```
+
+If the cluster has remote nodes, the install script will print out a command that must be run on every node to update clients to use the new load balancer address:
+
+```bash
+curl https://kurl.sh/latest/tasks.sh | sudo bash -s set-kubeconfig-server https://k8slb.somebigbank.com:6443
+```
+
+To change the load balancer of an existing HA cluster, re-run the install script with the new load balancer address.
+This requires that the [ekco add-on](/docs/add-ons/ekco) is enabled with version 0.6.0+.
+
+```bash
+curl https://kurl.sh/latest | sudo bash -s ha load-balancer-address=k8slb.somebigbank.com:6443
+```
+
+This will automatically regenerate new certificates that include the new load balancer host as a Subject Alternative Name for all Kubernetes API servers in the cluster.
 
 ## Airgapped Usage
 To install Kubernetes in an airgapped environment, first fetch the installer archive:
