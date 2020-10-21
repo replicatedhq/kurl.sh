@@ -74,9 +74,9 @@ This will prevent Kubernetes API servers from restarting while handling client t
 
 1. Remove the first primary node from your load balancer's target group.
 1. Run `kubeadm alpha certs renew all` on the node.
-1. Run `mv /etc/kubernetes/manifests/kube-apiserver.yaml /tmp/ && mv /tmp/kube-apiserver.yaml /etc/kubernetes/manifests/`
-1. Run `mv /etc/kubernetes/manifests/kube-controller-manager.yaml /tmp/ && mv /tmp/kube-controller-manager.yaml /etc/kubernetes/manifests/`
-1. Run `mv /etc/kubernetes/manifests/kube-scheduler.yaml /tmp/ && mv /tmp/kube-scheduler.yaml /etc/kubernetes/manifests/`
+1. Run `mv /etc/kubernetes/manifests/kube-apiserver.yaml /tmp/ && sleep 1 && mv /tmp/kube-apiserver.yaml /etc/kubernetes/manifests/`
+1. Run `mv /etc/kubernetes/manifests/kube-controller-manager.yaml /tmp/ && sleep 1 && mv /tmp/kube-controller-manager.yaml /etc/kubernetes/manifests/`
+1. Run `mv /etc/kubernetes/manifests/kube-scheduler.yaml /tmp/ && sleep 1 && mv /tmp/kube-scheduler.yaml /etc/kubernetes/manifests/`
 1. Wait until `curl -k https://127.0.0.1:6443/healthz` reports ok
 1. Add the node back to your load balanacer's target group.
 
