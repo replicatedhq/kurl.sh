@@ -12,7 +12,7 @@ title: "System Requirements"
 * Ubuntu 18.04 (Recommended)
 * Ubuntu 20.04 (Docker version >= 19.03.10)
 * CentOS 7.4, 7.5, 7.6, 7.7, 7.8, 8.1, 8.2 (CentOS 8.x requires Containerd)
-* RHEL 7.4, 7.5, 7.6, 7.7, 7.8, 8.1, 8.2 (RHEL 8.x requires Containerd)
+* RHEL 7.4, 7.5, 7.6, 7.7, 7.8, 7.9, 8.1, 8.2 (RHEL 8.x requires Containerd)
 * Amazon Linux 2
 
 ## Minimum System Requirements
