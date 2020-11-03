@@ -464,14 +464,14 @@
       "type": "string"
     }
   ],
-  "cert-manager": [
+  "certManager": [
     {
       "flag": "version",
       "description": "The version of Certificate Manager to be installed",
       "type": "string"
     }
   ],
-  "metrics-server": [
+  "metricsServer": [
     {
       "flag": "version",
       "description": "The version of metrics server to be installed",
