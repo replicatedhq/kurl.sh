@@ -456,5 +456,26 @@
       "description": "The version of containerd to be installed",
       "type": "string"
     }
+  ],
+  "collectd": [
+    {
+      "flag": "version",
+      "description": "The version of collectd to be installed",
+      "type": "string"
+    }
+  ],
+  "cert-manager": [
+    {
+      "flag": "version",
+      "description": "The version of Certificate Manager to be installed",
+      "type": "string"
+    }
+  ],
+  "metrics-server": [
+    {
+      "flag": "version",
+      "description": "The version of metrics server to be installed",
+      "type": "string"
+    }
   ]
 }
