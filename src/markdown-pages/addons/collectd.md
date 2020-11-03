@@ -15,3 +15,5 @@ spec:
   collectd:
     version: 0.0.1
 ```
+
+flags-table
