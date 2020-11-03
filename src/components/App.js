@@ -204,7 +204,7 @@ cat install.sh | sudo bash -s airgap
                 <div className="flex flex-column u-marginLeft--20 u-overflow--auto">
                   <p className="u-fontSize--24 u-fontWeight--bold u-color--mineShaft u-marginBottom--20"> What you get </p>
                   {installerData.spec.kubernetes &&
-                    <AppVersionCard selectedSpec={selectedSpec} name={"kubernetes"} installerData={installerData.spec.kubernetes} whatYouGet={this.whatYouGet}/>}
+                    <AppVersionCard selectedSpec={selectedSpec} name={"kubernetes"} installerData={installerData.spec.kubernetes} whatYouGet={this.whatYouGet} />}
                   {installerData.spec.weave &&
                     <AppVersionCard selectedSpec={selectedSpec} name={"weave"} installerData={installerData.spec.weave} whatYouGet={this.whatYouGet} />}
                   {installerData.spec.contour &&
@@ -216,7 +216,7 @@ cat install.sh | sudo bash -s airgap
                   {installerData.spec.registry &&
                     <AppVersionCard selectedSpec={selectedSpec} name={"registry"} installerData={installerData.spec.registry} whatYouGet={this.whatYouGet} />}
                   {installerData.spec.docker &&
-                    <AppVersionCard selectedSpec={selectedSpec} name={"docker"} installerData={installerData.spec.docker} whatYouGet={this.whatYouGet}/>}
+                    <AppVersionCard selectedSpec={selectedSpec} name={"docker"} installerData={installerData.spec.docker} whatYouGet={this.whatYouGet} />}
                   {installerData.spec.prometheus &&
                     <AppVersionCard selectedSpec={selectedSpec} name={"prometheus"} installerData={installerData.spec.prometheus} whatYouGet={this.whatYouGet} />}
                   {installerData.spec.containerd &&
@@ -231,6 +231,12 @@ cat install.sh | sudo bash -s airgap
                     <AppVersionCard selectedSpec={selectedSpec} name={"openebs"} installerData={installerData.spec.openebs} whatYouGet={this.whatYouGet} />}
                   {installerData.spec.ekco &&
                     <AppVersionCard selectedSpec={selectedSpec} name={"ekco"} installerData={installerData.spec.ekco} whatYouGet={this.whatYouGet} />}
+                  {installerData.spec.collectd &&
+                    <AppVersionCard selectedSpec={selectedSpec} name={"collectd"} installerData={installerData.spec.collectd} whatYouGet={this.whatYouGet} />}
+                  {installerData.spec.metricsServer &&
+                    <AppVersionCard selectedSpec={selectedSpec} name={"metricsServer"} installerData={installerData.spec.metricsServer} whatYouGet={this.whatYouGet} />}
+                  {installerData.spec.certManager &&
+                    <AppVersionCard selectedSpec={selectedSpec} name={"certManager"} installerData={installerData.spec.certManager} whatYouGet={this.whatYouGet} />}
                 </div>
                 : null}
               {installerData ?
