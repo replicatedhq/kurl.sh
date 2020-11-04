@@ -96,12 +96,16 @@ Ekco supports automatic certificate rotation for the [registry add-on](/docs/ins
 ### Reboot
 
 Ekco installs the `ekco-reboot.service` to safely unmount pod volumes before system shutdown.
-This service runs a script at time of shutdown to delete pods on the current node mounting volumes provisioned by Rook.
-This script may fail to complete when run on a primary node of a non-HA cluster because it depends on the Kubernetes API server to handle delete requests and the Kubernetes API server may already be shutting down.
-To avoid race conditions when shutting down the primary node in a non-HA cluster, trigger the ekco-reboot service's shutdown script prior to proceeding with system shutdown:
+This service runs `/opt/ekco/shutdown.sh` when it is stopped, which happens automatically when the system begins to shutdown.
+The shutdown script deletes pods on the current node that mount volumes provisioned by Rook and cordons the node.
+
+When the `ekco-reboot.service` is started it runs `/opt/ekco/startup.sh`.
+This happens automatically when the system starts after docker is running.
+This script uncordons the node.
+
+The shutdown script may fail to complete because it depends on services running on the node to be available to delete pods, but these services may already be shutting down.
+To avoid race conditions, manually run the ekco-reboot service's shutdown script prior to proceeding with system shutdown or reboot:
 
 ```bash
-systemctl stop ekco-reboot
+/opt/ekco/shutdown.sh
 ```
-
-This service will cordon the node it is run on and will automatically uncordon the node when the system restarts.
