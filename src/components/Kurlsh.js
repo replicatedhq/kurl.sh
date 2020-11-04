@@ -71,6 +71,15 @@ class Kurlsh extends React.Component {
     const openebsVersions = supportedVersions.openebs.map(versionToState);
     openebsVersions.push({ version: "None" });
 
+    const collectdVersions = supportedVersions.collectd.map(versionToState);
+    collectdVersions.push({ version: "None" });
+
+    const metricsServerVersions = supportedVersions["metrics-server"].map(versionToState);
+    metricsServerVersions.push({ version: "None" });
+
+    const certManagerVersions = supportedVersions["cert-manager"].map(versionToState);
+    certManagerVersions.push({ version: "None" });
+
     this.state = {
       versions: {
         kubernetes: kubernetesVersions,
@@ -87,7 +96,10 @@ class Kurlsh extends React.Component {
         ekco: ekcoVersions,
         fluentd: fluentdVersions,
         minio: minioVersions,
-        openebs: openebsVersions
+        openebs: openebsVersions,
+        collectd: collectdVersions,
+        metricsServer: metricsServerVersions,
+        certManager: certManagerVersions
       },
       selectedVersions: {
         kubernetes: { version: "latest" },
@@ -104,7 +116,10 @@ class Kurlsh extends React.Component {
         ekco: { version: "latest" },
         fluentd: { version: "None" },
         minio: { version: "None" },
-        openebs: { version: "None" }
+        openebs: { version: "None" },
+        collectd: { version: "None" },
+        metricsServer: { version: "None" },
+        certManager: { version: "None" }
       },
       installerSha: "latest",
       showAdvancedOptions: {
@@ -120,7 +135,9 @@ class Kurlsh extends React.Component {
         "ekco": false,
         "fluentd": false,
         "minio": false,
-        "openebs": false
+        "openebs": false,
+        "metricsServer": false,
+        "certManager": false
       },
       advancedOptions: {
         kubernetes: {},
@@ -134,7 +151,10 @@ class Kurlsh extends React.Component {
         ekco: {},
         fluentd: {},
         minio: {},
-        openebs: {}
+        openebs: {},
+        collectd: {},
+        metricsServer: {},
+        certManager: {}
       },
       isAddOnChecked: {
         weave: true,
@@ -150,7 +170,10 @@ class Kurlsh extends React.Component {
         ekco: true,
         fluentd: false,
         minio: false,
-        openebs: false
+        openebs: false,
+        collectd: false,
+        metricsServer: false,
+        certManager: false
       },
       isLoading: false,
       optionDefaults: {},
@@ -423,6 +446,48 @@ class Kurlsh extends React.Component {
       if (Object.keys(diff).length) {
         generatedInstaller.spec.openebs = {
           ...generatedInstaller.spec.openebs,
+          ...diff
+        };
+      }
+    }
+
+    if (selectedVersions.collectd.version !== "None") {
+      const diff = getDiff(optionDefaults["collectd"], options.collectd);
+      generatedInstaller.spec.collectd = {
+        version: selectedVersions.collectd.version
+      };
+
+      if (Object.keys(diff).length) {
+        generatedInstaller.spec.collectd = {
+          ...generatedInstaller.spec.collectd,
+          ...diff
+        };
+      }
+    }
+
+    if (selectedVersions.metricsServer.version !== "None") {
+      const diff = getDiff(optionDefaults.metricsServer, options.metricsServer);
+      generatedInstaller.spec.metricsServer = {
+        version: selectedVersions.metricsServer.version
+      };
+
+      if (Object.keys(diff).length) {
+        generatedInstaller.spec.metricsServer = {
+          ...generatedInstaller.spec.metricsServer,
+          ...diff
+        };
+      }
+    }
+
+    if (selectedVersions.certManager.version !== "None") {
+      const diff = getDiff(optionDefaults.certManager, options.certManager);
+      generatedInstaller.spec.certManager = {
+        version: selectedVersions.certManager.version
+      };
+
+      if (Object.keys(diff).length) {
+        generatedInstaller.spec.certManager = {
+          ...generatedInstaller.spec.certManager,
           ...diff
         };
       }
@@ -1119,7 +1184,7 @@ class Kurlsh extends React.Component {
                               isOptionSelected={() => false} />
                           </div>
                           {selectedVersions.rook.version !== "None" && selectedVersions.ekco.version === "None" &&
-                            <span className="u-fontSize--small u-fontWeight--medium u-color--fiord flex alignItems--center" style={{lineHeight: "12px"}}> <span className="icon u-blueExclamationMark" style={{marginRight: "6px"}} /> The EKCO add-on is recommended when installing Rook. </span>}
+                            <span className="u-fontSize--small u-fontWeight--medium u-color--fiord flex alignItems--center" style={{ lineHeight: "12px" }}> <span className="icon u-blueExclamationMark" style={{ marginRight: "6px" }} /> The EKCO add-on is recommended when installing Rook. </span>}
                         </div>
                       </div>
                     </div>
@@ -1193,6 +1258,91 @@ class Kurlsh extends React.Component {
                             onChange={this.onVersionChange("prometheus")}
                             matchProp="value"
                             isDisabled={!this.state.isAddOnChecked["prometheus"]}
+                            isOptionSelected={() => false} />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className={`AddOn--wrapper ${selectedVersions.collectd.version !== "None" && "selected"} flex flex-column u-marginTop--15`} onClick={(e) => this.handleIsAddOnSelected("collectd", e)}>
+                  <div className="flex flex1">
+                    <div className="flex flex1 alignItems--center">
+                      <input
+                        type="checkbox"
+                        className="u-marginRight--normal"
+                        checked={selectedVersions.collectd.version !== "None"}
+                      />
+                      <span className="icon u-collectd u-marginBottom--small" />
+                      <div className="flex flex-column u-marginLeft--15 u-marginTop--small">
+                        <div className="FormLabel"> Collectd </div>
+                        <div className={`SelectVersion flex flex1 ${!this.state.isAddOnChecked["collectd"] && "disabled"}`} style={{ width: "200px" }}>
+                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> {!this.state.isAddOnChecked["collectd"] ? "Version None" : "Version"} </span>
+                          <Select
+                            options={versions.collectd}
+                            getOptionLabel={this.getLabel}
+                            getOptionValue={(collectd) => collectd}
+                            value={selectedVersions.collectd}
+                            onChange={this.onVersionChange("collectd")}
+                            matchProp="value"
+                            isDisabled={!this.state.isAddOnChecked["collectd"]}
+                            isOptionSelected={() => false} />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className={`AddOn--wrapper ${selectedVersions.metricsServer.version !== "None" && "selected"} flex flex-column u-marginTop--15`} onClick={(e) => this.handleIsAddOnSelected("metricsServer", e)}>
+                  <div className="flex flex1">
+                    <div className="flex flex1 alignItems--center">
+                      <input
+                        type="checkbox"
+                        className="u-marginRight--normal"
+                        checked={selectedVersions.metricsServer.version !== "None"}
+                      />
+                      <span className="icon u-kubernetes u-marginBottom--small" />
+                      <div className="flex flex-column u-marginLeft--15 u-marginTop--small">
+                        <div className="FormLabel"> Metrics-server </div>
+                        <div className={`SelectVersion flex flex1 ${!this.state.isAddOnChecked["metricsServer"] && "disabled"}`} style={{ width: "200px" }}>
+                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> {!this.state.isAddOnChecked["metricsServer"] ? "Version None" : "Version"} </span>
+                          <Select
+                            options={versions["metricsServer"]}
+                            getOptionLabel={this.getLabel}
+                            getOptionValue={(metricsServer) => metricsServer}
+                            value={selectedVersions.metricsServer}
+                            onChange={this.onVersionChange("metricsServer")}
+                            matchProp="value"
+                            isDisabled={!this.state.isAddOnChecked["metricsServer"]}
+                            isOptionSelected={() => false} />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex flex-column u-marginTop--40">
+                <span className="u-fontSize--normal u-fontWeight--medium u-color--bermudaGray"> x509 Certificates </span>
+                <div className={`AddOn--wrapper ${selectedVersions.certManager.version !== "None" && "selected"} flex flex-column u-marginTop--15`} onClick={(e) => this.handleIsAddOnSelected("certManager", e)}>
+                  <div className="flex flex1">
+                    <div className="flex flex1 alignItems--center">
+                      <input
+                        type="checkbox"
+                        className="u-marginRight--normal"
+                        checked={selectedVersions.certManager.version !== "None"}
+                      />
+                      <span className="icon u-certManager u-marginBottom--small" />
+                      <div className="flex flex-column u-marginLeft--15 u-marginTop--small">
+                        <div className="FormLabel"> Cert manager </div>
+                        <div className={`SelectVersion flex flex1 ${!this.state.isAddOnChecked["certManager"] && "disabled"}`} style={{ width: "200px" }}>
+                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> {!this.state.isAddOnChecked["certManager"] ? "Version None" : "Version"} </span>
+                          <Select
+                            options={versions.certManager}
+                            getOptionLabel={this.getLabel}
+                            getOptionValue={(certManager) => certManager}
+                            value={selectedVersions.certManager}
+                            onChange={this.onVersionChange("certManager")}
+                            matchProp="value"
+                            isDisabled={!this.state.isAddOnChecked["certManager"]}
                             isOptionSelected={() => false} />
                         </div>
                       </div>
