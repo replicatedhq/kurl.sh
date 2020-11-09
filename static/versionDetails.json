@@ -227,7 +227,7 @@
       "type": "string"
     },
     {
-      "flag": "applicationNamespaces",
+      "flag": "applicationNamespace",
       "description": "An additional namespace that should be pre-created during the install (For applications that install to other namespaces outside of the one where kotsadm is running)",
       "type": "string"
     }
