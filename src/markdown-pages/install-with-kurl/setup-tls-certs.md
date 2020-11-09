@@ -44,6 +44,12 @@ After the pod has been restarted direct your browser to `http://<ip>:8800` and r
 It's best to complete this process as soon as possible to avoid anyone from nefariously uploading TLS certificates.  After this process has completed, the vulnerability will be closed, and uploading new TLS certificates will be disallowed again.  In order to upload new TLS certificates you must repeat the steps above. 
 <br><br><br>
 
+### KOTS TLS Certificate Renewal
+
+The certificate used to serve the kotsadm console will be renewed automatically at thirty days prior to expiration if the [ecko add-on](/docs/add-ons/ekco) is enabled with version 0.7.0+.
+Only the default self-signed certificate will be renewed.
+If a custom certificate has been uploaded then no renewal will be attempted, even if the certificate is expired.
+
 ## Registry
 
 The TLS certificate for the [registry add-on](/docs/add-ons/registry) will be renewed automatically at thirty days prior to expiration if the [ekco add-on](/docs/add-ons/ekco) is enabled with version 0.5.0+.
