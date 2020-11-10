@@ -826,6 +826,7 @@ class Kurlsh extends React.Component {
                       <div className="SelectVersion flex flex1" style={{ width: "200px" }}>
                         <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> Version </span>
                         <Select
+                          isSearchable={false}
                           options={versions.kubernetes}
                           getOptionLabel={this.getLabel}
                           getOptionValue={(kubernetes) => kubernetes}
@@ -862,6 +863,7 @@ class Kurlsh extends React.Component {
                         <div className={`SelectVersion flex flex1 ${!this.state.isAddOnChecked["docker"] && "disabled"}`} style={{ width: "200px" }}>
                           <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> {!this.state.isAddOnChecked["docker"] ? "Version None" : "Version"} </span>
                           <Select
+                            isSearchable={false}
                             options={versions.docker}
                             getOptionLabel={this.getLabel}
                             getOptionValue={(docker) => docker}
@@ -895,6 +897,7 @@ class Kurlsh extends React.Component {
                         <div className={`SelectVersion flex flex1 ${!this.state.isAddOnChecked["containerd"] && "disabled"}`} style={{ width: "200px" }}>
                           <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> {!this.state.isAddOnChecked["containerd"] ? "Version None" : "Version"} </span>
                           <Select
+                            isSearchable={false}
                             options={versions.containerd}
                             getOptionLabel={this.getLabel}
                             getOptionValue={(containerd) => containerd}
@@ -927,6 +930,7 @@ class Kurlsh extends React.Component {
                         <div className={`SelectVersion flex flex1 ${!this.state.isAddOnChecked["calico"] && "disabled"}`} style={{ width: "200px" }}>
                           <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> {!this.state.isAddOnChecked["calico"] ? "Version None" : "Version"} </span>
                           <Select
+                            isSearchable={false}
                             options={versions.calico}
                             getOptionLabel={this.getLabel}
                             getOptionValue={(calico) => calico}
@@ -954,6 +958,7 @@ class Kurlsh extends React.Component {
                         <div className={`SelectVersion flex flex1 ${!this.state.isAddOnChecked["weave"] && "disabled"}`} style={{ width: "200px" }}>
                           <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> {!this.state.isAddOnChecked["weave"] ? "Version None" : "Version"} </span>
                           <Select
+                            isSearchable={false}
                             options={versions.weave}
                             getOptionLabel={this.getLabel}
                             getOptionValue={(weave) => weave}
@@ -991,6 +996,7 @@ class Kurlsh extends React.Component {
                         <div className={`SelectVersion flex flex1 ${!this.state.isAddOnChecked["contour"] && "disabled"}`} style={{ width: "200px" }}>
                           <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> {!this.state.isAddOnChecked["contour"] ? "Version None" : "Version"} </span>
                           <Select
+                            isSearchable={false}
                             options={versions.contour}
                             getOptionLabel={this.getLabel}
                             getOptionValue={(contour) => contour}
@@ -1028,6 +1034,7 @@ class Kurlsh extends React.Component {
                         <div className={`SelectVersion flex flex1 ${!this.state.isAddOnChecked["ekco"] && "disabled"}`} style={{ width: "200px" }}>
                           <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> {!this.state.isAddOnChecked["ekco"] ? "Version None" : "Version"} </span>
                           <Select
+                            isSearchable={false}
                             options={versions.ekco}
                             getOptionLabel={this.getLabel}
                             getOptionValue={(ekco) => ekco}
@@ -1065,6 +1072,7 @@ class Kurlsh extends React.Component {
                         <div className={`SelectVersion flex flex1 ${!this.state.isAddOnChecked["fluentd"] && "disabled"}`} style={{ width: "200px" }}>
                           <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> {!this.state.isAddOnChecked["fluentd"] ? "Version None" : "Version"} </span>
                           <Select
+                            isSearchable={false}
                             options={versions.fluentd}
                             getOptionLabel={this.getLabel}
                             getOptionValue={(fluentd) => fluentd}
@@ -1102,6 +1110,7 @@ class Kurlsh extends React.Component {
                         <div className={`SelectVersion flex flex1 ${!this.state.isAddOnChecked["kotsadm"] && "disabled"}`} style={{ width: "200px" }}>
                           <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> {!this.state.isAddOnChecked["kotsadm"] ? "Version None" : "Version"} </span>
                           <Select
+                            isSearchable={false}
                             options={versions.kotsadm}
                             getOptionLabel={this.getLabel}
                             getOptionValue={(kotsadm) => kotsadm}
@@ -1139,6 +1148,7 @@ class Kurlsh extends React.Component {
                         <div className={`SelectVersion flex flex1 ${!this.state.isAddOnChecked["minio"] && "disabled"}`} style={{ width: "200px" }}>
                           <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> {!this.state.isAddOnChecked["minio"] ? "Version None" : "Version"} </span>
                           <Select
+                            isSearchable={false}
                             options={versions.minio}
                             getOptionLabel={this.getLabel}
                             getOptionValue={(minio) => minio}
@@ -1174,6 +1184,7 @@ class Kurlsh extends React.Component {
                           <div className={`SelectVersion flex flex1 ${!this.state.isAddOnChecked["rook"] && "disabled"}`}>
                             <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> {!this.state.isAddOnChecked["rook"] ? "Version None" : "Version"} </span>
                             <Select
+                              isSearchable={false}
                               options={versions.rook}
                               getOptionLabel={this.getLabel}
                               getOptionValue={(rook) => rook}
@@ -1214,6 +1225,7 @@ class Kurlsh extends React.Component {
                         <div className={`SelectVersion flex flex1 ${!this.state.isAddOnChecked["openebs"] && "disabled"}`} style={{ width: "200px" }}>
                           <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> {!this.state.isAddOnChecked["openebs"] ? "Version None" : "Version"} </span>
                           <Select
+                            isSearchable={false}
                             options={versions.openebs}
                             getOptionLabel={this.getLabel}
                             getOptionValue={(openebs) => openebs}
@@ -1251,6 +1263,7 @@ class Kurlsh extends React.Component {
                         <div className={`SelectVersion flex flex1 ${!this.state.isAddOnChecked["prometheus"] && "disabled"}`} style={{ width: "200px" }}>
                           <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> {!this.state.isAddOnChecked["prometheus"] ? "Version None" : "Version"} </span>
                           <Select
+                            isSearchable={false}
                             options={versions.prometheus}
                             getOptionLabel={this.getLabel}
                             getOptionValue={(prometheus) => prometheus}
@@ -1278,6 +1291,7 @@ class Kurlsh extends React.Component {
                         <div className={`SelectVersion flex flex1 ${!this.state.isAddOnChecked["collectd"] && "disabled"}`} style={{ width: "200px" }}>
                           <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> {!this.state.isAddOnChecked["collectd"] ? "Version None" : "Version"} </span>
                           <Select
+                            isSearchable={false}
                             options={versions.collectd}
                             getOptionLabel={this.getLabel}
                             getOptionValue={(collectd) => collectd}
@@ -1305,6 +1319,7 @@ class Kurlsh extends React.Component {
                         <div className={`SelectVersion flex flex1 ${!this.state.isAddOnChecked["metricsServer"] && "disabled"}`} style={{ width: "200px" }}>
                           <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> {!this.state.isAddOnChecked["metricsServer"] ? "Version None" : "Version"} </span>
                           <Select
+                            isSearchable={false}
                             options={versions["metricsServer"]}
                             getOptionLabel={this.getLabel}
                             getOptionValue={(metricsServer) => metricsServer}
@@ -1336,6 +1351,7 @@ class Kurlsh extends React.Component {
                         <div className={`SelectVersion flex flex1 ${!this.state.isAddOnChecked["certManager"] && "disabled"}`} style={{ width: "200px" }}>
                           <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> {!this.state.isAddOnChecked["certManager"] ? "Version None" : "Version"} </span>
                           <Select
+                            isSearchable={false}
                             options={versions.certManager}
                             getOptionLabel={this.getLabel}
                             getOptionValue={(certManager) => certManager}
@@ -1367,6 +1383,7 @@ class Kurlsh extends React.Component {
                         <div className={`SelectVersion flex flex1 ${!this.state.isAddOnChecked["registry"] && "disabled"}`} style={{ width: "200px" }}>
                           <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> {!this.state.isAddOnChecked["registry"] ? "Version None" : "Version"} </span>
                           <Select
+                            isSearchable={false}
                             options={versions.registry}
                             getOptionLabel={this.getLabel}
                             getOptionValue={(registry) => registry}
@@ -1404,6 +1421,7 @@ class Kurlsh extends React.Component {
                         <div className={`SelectVersion flex flex1 ${!this.state.isAddOnChecked["velero"] && "disabled"}`} style={{ width: "200px" }}>
                           <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> {!this.state.isAddOnChecked["velero"] ? "Version None" : "Version"} </span>
                           <Select
+                            isSearchable={false}
                             options={versions.velero}
                             getOptionLabel={this.getLabel}
                             getOptionValue={(velero) => velero}
