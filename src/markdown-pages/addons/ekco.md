@@ -91,4 +91,21 @@ EKCO is also responsible for adjusting the Ceph block pool, filesystem and objec
 
 ### TLS Certificate Rotation
 
-Ekco supports automatic certificate rotation for the [registry add-on](/docs/install-with-kurl/setup-tls-certs#registry) and the [Kubernetes control plane](/docs/install-with-kurl/setup-tls-certs#kubernetes-control-plane) since version 0.5.0.
+Ekco supports automatic certificate rotation for the [registry add-on](/docs/install-with-kurl/setup-tls-certs#registry) and the [Kubernetes control plane](/docs/install-with-kurl/setup-tls-certs#kubernetes-control-plane) since version 0.5.0 and for the [kotsadm add-on](/docs/install-with-kurl/setup-tls-certs#kots-tls-certificate-renewal) since version 0.7.0.
+
+### Reboot
+
+Ekco installs the `ekco-reboot.service` to safely unmount pod volumes before system shutdown.
+This service runs `/opt/ekco/shutdown.sh` when it is stopped, which happens automatically when the system begins to shutdown.
+The shutdown script deletes pods on the current node that mount volumes provisioned by Rook and cordons the node.
+
+When the `ekco-reboot.service` is started it runs `/opt/ekco/startup.sh`.
+This happens automatically when the system starts after docker is running.
+This script uncordons the node.
+
+The shutdown script may fail to complete because it depends on services running on the node to be available to delete pods, but these services may already be shutting down.
+To avoid race conditions, manually run the ekco-reboot service's shutdown script prior to proceeding with system shutdown or reboot:
+
+```bash
+/opt/ekco/shutdown.sh
+```
