@@ -6,6 +6,7 @@ import json2yaml from "json2yaml";
 import Select from "react-select";
 import isEmpty from "lodash/isEmpty";
 import find from "lodash/find";
+import semver from "semver";
 
 import CodeSnippet from "./shared/CodeSnippet";
 import Loader from "./shared/Loader";
@@ -687,7 +688,6 @@ class Kurlsh extends React.Component {
   }
 
 
-
   componentDidUpdate(lastProps, lastState) {
     if (typeof window !== "undefined") {
       if (this.state.selectedVersions !== lastState.selectedVersions && this.state.installerSha) {
@@ -698,7 +698,6 @@ class Kurlsh extends React.Component {
       window.monacoEditor.setValue(this.getYaml(this.state.installerSha));
     }
   }
-
 
   renderAdvancedOptions = addOn => {
     const { advancedOptions, optionDefaults, installerErrMsg } = this.state;
@@ -787,6 +786,17 @@ class Kurlsh extends React.Component {
         <p> {errorMsg} </p>
       </div>
     )
+  }
+
+  checkKotsVeleroIncompatibility = (veleroVersion, kotsVersion) => {
+    if (veleroVersion !== "None" && kotsVersion !== "None") {
+      if (kotsVersion === "latest") {
+        kotsVersion = this.state.versions.kotsadm[1].version;
+      }
+      if (veleroVersion === "1.2.0" && semver.gt(kotsVersion, "1.20.2")) {
+        return true;
+      }
+    }
   }
 
 
@@ -1409,7 +1419,7 @@ class Kurlsh extends React.Component {
                 <span className="u-fontSize--normal u-fontWeight--medium u-color--bermudaGray"> Snapshots </span>
                 <div className={`AddOn--wrapper ${selectedVersions.velero.version !== "None" && "selected"} flex flex-column u-marginTop--15`} onClick={(e) => this.handleIsAddOnSelected("velero", e)}>
                   <div className="flex flex1">
-                    <div className="flex flex1 alignItems--center">
+                    <div className="flex flex-auto alignItems--center">
                       <input
                         type="checkbox"
                         className="u-marginRight--normal"
@@ -1418,18 +1428,22 @@ class Kurlsh extends React.Component {
                       <span className="icon u-velero u-marginBottom--small" />
                       <div className="flex flex-column u-marginLeft--15 u-marginTop--small">
                         <div className="FormLabel"> Velero </div>
-                        <div className={`SelectVersion flex flex1 ${!this.state.isAddOnChecked["velero"] && "disabled"}`} style={{ width: "200px" }}>
-                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> {!this.state.isAddOnChecked["velero"] ? "Version None" : "Version"} </span>
-                          <Select
-                            isSearchable={false}
-                            options={versions.velero}
-                            getOptionLabel={this.getLabel}
-                            getOptionValue={(velero) => velero}
-                            value={selectedVersions.velero}
-                            onChange={this.onVersionChange("velero")}
-                            matchProp="value"
-                            isDisabled={!this.state.isAddOnChecked["velero"]}
-                            isOptionSelected={() => false} />
+                        <div className="flex flex1 alignItems--center">
+                          <div className={`SelectVersion flex flex1 ${!this.state.isAddOnChecked["velero"] && "disabled"}`} style={{ width: "200px" }}>
+                            <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> {!this.state.isAddOnChecked["velero"] ? "Version None" : "Version"} </span>
+                            <Select
+                              isSearchable={false}
+                              options={versions.velero}
+                              getOptionLabel={this.getLabel}
+                              getOptionValue={(velero) => velero}
+                              value={selectedVersions.velero}
+                              onChange={this.onVersionChange("velero")}
+                              matchProp="value"
+                              isDisabled={!this.state.isAddOnChecked["velero"]}
+                              isOptionSelected={() => false} />
+                          </div>
+                          {this.checkKotsVeleroIncompatibility(selectedVersions.velero.version, selectedVersions.kotsadm.version) &&
+                          <span className="u-fontSize--small u-fontWeight--medium u-color--fiord flex alignItems--center" style={{ lineHeight: "12px" }}> <span className="icon u-blueExclamationMark" style={{ marginRight: "6px" }} /> Version {selectedVersions.velero.version} is not compatible with KOTS {selectedVersions.kotsadm.version} </span>}
                         </div>
                       </div>
                     </div>
