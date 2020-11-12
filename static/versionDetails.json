@@ -298,6 +298,11 @@
       "type": "list"
     },
     {
+      "flag": "nameserver",
+      "description": "Configures CoreDNS to forward DNS requests to a specific nameserver rather than parsing resolv.conf",
+      "type": "string"
+    },
+    {
       "flag": "publicAddress",
       "description": "The public IP address that will be added to the SANs of any certificates generated for host services. Setting this disables detection from the environment and prompt.",
       "type": "string"

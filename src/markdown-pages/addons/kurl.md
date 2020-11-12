@@ -20,6 +20,7 @@ spec:
     additionalNoProxyAddresses:
     - .corporate.internal
     noProxy: false
+    nameserver: 8.8.8.8
 ```
 
 flags-table
