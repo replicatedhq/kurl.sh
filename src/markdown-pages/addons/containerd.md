@@ -16,7 +16,7 @@ As CentOS and RHEL 8.x do not support Docker, the Containerd CRI is required.
 ```yaml
 spec:
   containerd:
-    version: "1.2.13"
+    version: "1.3.7"
 ```
 
 flags-table
