@@ -135,7 +135,7 @@
     },
     {
       "flag": "hardFailOnLoopback",
-      "description": "If present, aborts the installation if devicemapper on loopback mode is detected.",
+      "description": "Set to false to allow installation to proceed when Docker is detected to be using the devicemapper storage driver in loopback mode. By default the installer will abort when loopback mode is detected because of instability.",
       "type": "boolean"
     },
     {
