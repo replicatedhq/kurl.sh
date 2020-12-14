@@ -138,8 +138,8 @@ cat install.sh | sudo bash -s airgap
             <p className="u-color--chestnut u-fontSize--normal u-fontWeight--medium u-lineHeight--normal u-marginTop--10">{fetchingInstallerDataError.message}</p>
           </div>
           :
-          <div className={`flex ${!isMobile ? "flex1 justifyContent--spaceBetween" : "flex-column"}`}>
-            <div className="Installer--wrapper flex flex-column u-overflow--auto">
+          <div className={`u-flexTabletReflow ${!isMobile ? "flex1 justifyContent--spaceBetween" : "flex-column"}`}>
+            <div className={`flex flex-column u-overflow--auto justifyContent--flexStart ${!isMobile && "Installer--wrapper"}`}>
               <p className="u-fontSize--24 u-fontWeight--bold u-color--mineShaft u-marginBottom--20"> Your installer </p>
               <div className="u-fontSize--large u-fontWeight--bold u-color--tundora"> Install online </div>
               <div className="flex flex-column u-marginTop--normal">
@@ -199,68 +199,70 @@ cat install.sh | sudo bash -s airgap
                 </div>
               </div>
             </div>
-            {installerData ?
-              <div className="flex flex-column u-marginLeft--20 u-overflow--auto">
-                <p className="u-fontSize--24 u-fontWeight--bold u-color--mineShaft u-marginBottom--20"> What you get </p>
-                {installerData.spec.kubernetes &&
-                  <AppVersionCard selectedSpec={selectedSpec} name={"kubernetes"} installerData={installerData.spec.kubernetes} whatYouGet={this.whatYouGet} />}
-                {installerData.spec.weave &&
-                  <AppVersionCard selectedSpec={selectedSpec} name={"weave"} installerData={installerData.spec.weave} whatYouGet={this.whatYouGet} />}
-                {installerData.spec.contour &&
-                  <AppVersionCard selectedSpec={selectedSpec} name={"contour"} installerData={installerData.spec.contour} whatYouGet={this.whatYouGet} />}
-                {installerData.spec.rook &&
-                  <AppVersionCard selectedSpec={selectedSpec} name={"rook"} installerData={installerData.spec.rook} whatYouGet={this.whatYouGet} />}
-                {installerData.spec.minio &&
-                  <AppVersionCard selectedSpec={selectedSpec} name={"minio"} installerData={installerData.spec.minio} whatYouGet={this.whatYouGet} />}
-                {installerData.spec.registry &&
-                  <AppVersionCard selectedSpec={selectedSpec} name={"registry"} installerData={installerData.spec.registry} whatYouGet={this.whatYouGet} />}
-                {installerData.spec.docker &&
-                  <AppVersionCard selectedSpec={selectedSpec} name={"docker"} installerData={installerData.spec.docker} whatYouGet={this.whatYouGet} />}
-                {installerData.spec.prometheus &&
-                  <AppVersionCard selectedSpec={selectedSpec} name={"prometheus"} installerData={installerData.spec.prometheus} whatYouGet={this.whatYouGet} />}
-                {installerData.spec.containerd &&
-                  <AppVersionCard selectedSpec={selectedSpec} name={"containerd"} installerData={installerData.spec.containerd} whatYouGet={this.whatYouGet} />}
-                {installerData.spec.velero &&
-                  <AppVersionCard selectedSpec={selectedSpec} name={"velero"} installerData={installerData.spec.velero} whatYouGet={this.whatYouGet} />}
-                {installerData.spec.kotsadm &&
-                  <AppVersionCard selectedSpec={selectedSpec} name={"kotsadm"} installerData={installerData.spec.kotsadm} whatYouGet={this.whatYouGet} />}
-                {installerData.spec.fluentd &&
-                  <AppVersionCard selectedSpec={selectedSpec} name={"fluentd"} installerData={installerData.spec.fluentd} whatYouGet={this.whatYouGet} />}
-                {installerData.spec.openebs &&
-                  <AppVersionCard selectedSpec={selectedSpec} name={"openebs"} installerData={installerData.spec.openebs} whatYouGet={this.whatYouGet} />}
-                {installerData.spec.ekco &&
-                  <AppVersionCard selectedSpec={selectedSpec} name={"ekco"} installerData={installerData.spec.ekco} whatYouGet={this.whatYouGet} />}
-                {installerData.spec.collectd &&
-                  <AppVersionCard selectedSpec={selectedSpec} name={"collectd"} installerData={installerData.spec.collectd} whatYouGet={this.whatYouGet} />}
-                {installerData.spec.metricsServer &&
-                  <AppVersionCard selectedSpec={selectedSpec} name={"metricsServer"} installerData={installerData.spec.metricsServer} whatYouGet={this.whatYouGet} />}
-                {installerData.spec.certManager &&
-                  <AppVersionCard selectedSpec={selectedSpec} name={"certManager"} installerData={installerData.spec.certManager} whatYouGet={this.whatYouGet} />}
-              </div>
-              : null}
-            {installerData ?
-              <div className="DataEditor--wrapper flex flex-column u-marginLeft--20 u-overflow--auto">
-                <p className="u-fontSize--jumbo u-fontWeight--bold u-color--white u-marginTop--none"> {Utilities.toTitleCase(selectedSpec)} {installerData.spec[selectedSpec].version} </p>
-                <p className="u-fontSize--normal u-color--silverChalice u-marginTop--none"> The installation script will install {Utilities.toTitleCase(selectedSpec)} version {installerData.spec[selectedSpec].version}. </p>
+            <div className={`InstallerAddOns flex flex1 u-overflow--auto justifyContent--flexEnd ${isMobile && "u-marginTop--20"}`}>
+              {installerData ?
+                <div className="flex flex-column u-marginLeft--20 u-overflow--auto">
+                  <p className="u-fontSize--24 u-fontWeight--bold u-color--mineShaft u-marginBottom--20"> What you get </p>
+                  {installerData.spec.kubernetes &&
+                    <AppVersionCard selectedSpec={selectedSpec} name={"kubernetes"} installerData={installerData.spec.kubernetes} whatYouGet={this.whatYouGet} />}
+                  {installerData.spec.weave &&
+                    <AppVersionCard selectedSpec={selectedSpec} name={"weave"} installerData={installerData.spec.weave} whatYouGet={this.whatYouGet} />}
+                  {installerData.spec.contour &&
+                    <AppVersionCard selectedSpec={selectedSpec} name={"contour"} installerData={installerData.spec.contour} whatYouGet={this.whatYouGet} />}
+                  {installerData.spec.rook &&
+                    <AppVersionCard selectedSpec={selectedSpec} name={"rook"} installerData={installerData.spec.rook} whatYouGet={this.whatYouGet} />}
+                  {installerData.spec.minio &&
+                    <AppVersionCard selectedSpec={selectedSpec} name={"minio"} installerData={installerData.spec.minio} whatYouGet={this.whatYouGet} />}
+                  {installerData.spec.registry &&
+                    <AppVersionCard selectedSpec={selectedSpec} name={"registry"} installerData={installerData.spec.registry} whatYouGet={this.whatYouGet} />}
+                  {installerData.spec.docker &&
+                    <AppVersionCard selectedSpec={selectedSpec} name={"docker"} installerData={installerData.spec.docker} whatYouGet={this.whatYouGet} />}
+                  {installerData.spec.prometheus &&
+                    <AppVersionCard selectedSpec={selectedSpec} name={"prometheus"} installerData={installerData.spec.prometheus} whatYouGet={this.whatYouGet} />}
+                  {installerData.spec.containerd &&
+                    <AppVersionCard selectedSpec={selectedSpec} name={"containerd"} installerData={installerData.spec.containerd} whatYouGet={this.whatYouGet} />}
+                  {installerData.spec.velero &&
+                    <AppVersionCard selectedSpec={selectedSpec} name={"velero"} installerData={installerData.spec.velero} whatYouGet={this.whatYouGet} />}
+                  {installerData.spec.kotsadm &&
+                    <AppVersionCard selectedSpec={selectedSpec} name={"kotsadm"} installerData={installerData.spec.kotsadm} whatYouGet={this.whatYouGet} />}
+                  {installerData.spec.fluentd &&
+                    <AppVersionCard selectedSpec={selectedSpec} name={"fluentd"} installerData={installerData.spec.fluentd} whatYouGet={this.whatYouGet} />}
+                  {installerData.spec.openebs &&
+                    <AppVersionCard selectedSpec={selectedSpec} name={"openebs"} installerData={installerData.spec.openebs} whatYouGet={this.whatYouGet} />}
+                  {installerData.spec.ekco &&
+                    <AppVersionCard selectedSpec={selectedSpec} name={"ekco"} installerData={installerData.spec.ekco} whatYouGet={this.whatYouGet} />}
+                  {installerData.spec.collectd &&
+                    <AppVersionCard selectedSpec={selectedSpec} name={"collectd"} installerData={installerData.spec.collectd} whatYouGet={this.whatYouGet} />}
+                  {installerData.spec.metricsServer &&
+                    <AppVersionCard selectedSpec={selectedSpec} name={"metricsServer"} installerData={installerData.spec.metricsServer} whatYouGet={this.whatYouGet} />}
+                  {installerData.spec.certManager &&
+                    <AppVersionCard selectedSpec={selectedSpec} name={"certManager"} installerData={installerData.spec.certManager} whatYouGet={this.whatYouGet} />}
+                </div>
+                : null}
+              {installerData ?
+                <div className="DataEditor--wrapper flex flex-column u-marginLeft--20 u-overflow--auto">
+                  <p className="u-fontSize--jumbo u-fontWeight--bold u-color--white u-marginTop--none"> {Utilities.toTitleCase(selectedSpec)} {installerData.spec[selectedSpec].version} </p>
+                  <p className="u-fontSize--normal u-color--silverChalice u-marginTop--none"> The installation script will install {Utilities.toTitleCase(selectedSpec)} version {installerData.spec[selectedSpec].version}. </p>
 
-                <div className="u-borderTop--silverChalice u-marginTop--8">
-                  <p className="u-fontSize--large u-fontWeight--bold u-color--white u-marginTop--20"> Override flags </p>
-                  <p className="u-fontSize--normal u-color--silverChalice u-marginTop--none"> You can run your install command with any of the following flags to override values for {Utilities.toTitleCase(selectedSpec)}. </p>
-                </div>
+                  <div className="u-borderTop--silverChalice u-marginTop--8">
+                    <p className="u-fontSize--large u-fontWeight--bold u-color--white u-marginTop--20"> Override flags </p>
+                    <p className="u-fontSize--normal u-color--silverChalice u-marginTop--none"> You can run your install command with any of the following flags to override values for {Utilities.toTitleCase(selectedSpec)}. </p>
+                  </div>
 
-                <div className="flex u-borderBottom--silverChalice justifyContent--center">
-                  <div className="u-width--150 u-fontSize--small u-fontWeight--medium u-color--alabasterapprox u-marginBottom--10"> Flag </div>
-                  <div className="u-width--150 u-fontSize--small u-fontWeight--medium u-color--alabasterapprox u-marginBottom--10 u-marginLeft--normal"> Description </div>
+                  <div className="flex u-borderBottom--silverChalice justifyContent--center">
+                    <div className="u-width--150 u-fontSize--small u-fontWeight--medium u-color--alabasterapprox u-marginBottom--10"> Flag </div>
+                    <div className="u-width--150 u-fontSize--small u-fontWeight--medium u-color--alabasterapprox u-marginBottom--10 u-marginLeft--normal"> Description </div>
+                  </div>
+                  <div className="flex flex-column u-overflow--auto">
+                    {this.getVersionData(Object.keys(installerData.spec[selectedSpec]))}
+                  </div>
+                  <div className="flex alignItems--center justifyContent--center" style={{ marginTop: "10px" }}>
+                    <span className="status-dot"></span>
+                    <span className="u-color--alabasterapprox u-fontSize--small u-fontWeight--normal"> Currently defined in your install script </span>
+                  </div>
                 </div>
-                <div className="flex flex-column u-overflow--auto">
-                  {this.getVersionData(Object.keys(installerData.spec[selectedSpec]))}
-                </div>
-                <div className="flex alignItems--center justifyContent--center" style={{ marginTop: "10px" }}>
-                  <span className="status-dot"></span>
-                  <span className="u-color--alabasterapprox u-fontSize--small u-fontWeight--normal"> Currently defined in your install script </span>
-                </div>
-              </div>
-              : null}
+                : null}
+            </div>
           </div>
         }
       </div>
