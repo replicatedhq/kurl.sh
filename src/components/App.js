@@ -99,11 +99,11 @@ class AppComponent extends React.Component {
         <div className="InstallerRow flex alignItems--center u-borderBottom--silverChalice u-padding--normal" key={`${data}-${i}`}>
           {existInInstallerYaml ? <span className="status-dot"></span> : <span></span>}
           <div className="flex flex1 alignItems--center justifyContent--center">
-            <div className="flex-column u-width--120">
-              <div className="u-color--alabasterapprox u-fontSize--small u-fontWeight--normal"> {data.flag ? `${data.flag}` : "version"} </div>
-              <div className="u-color--silverChalice u-fontSize--small u-fontWeight--normal"> {data.type} </div>
+            <div className="FlagDetails flex-column u-width--150">
+              <span className="u-color--alabasterapprox u-fontSize--small u-fontWeight--normal"> {data.flag ? `${data.flag}` : "version"} </span>
+              <span className="u-color--silverChalice u-fontSize--small u-fontWeight--normal"> {data.type} </span>
             </div>
-            <div className="flex u-width--120 u-color--alabasterapprox u-fontSize--small u-fontWeight--normal u-marginLeft--normal"> {data.description} </div>
+            <div className="flex u-width--150 u-color--alabasterapprox u-fontSize--small u-fontWeight--normal u-marginLeft--normal"> {data.description} </div>
           </div>
         </div>
       )
@@ -138,68 +138,68 @@ cat install.sh | sudo bash -s airgap
             <p className="u-color--chestnut u-fontSize--normal u-fontWeight--medium u-lineHeight--normal u-marginTop--10">{fetchingInstallerDataError.message}</p>
           </div>
           :
-          <div className="u-flexTabletReflow flex1 u-width--full">
-            <div className={`flex ${!isMobile ? "flex1 justifyContent--spaceBetween" : "flex-column"}`}>
-              <div className="flex flex-column u-overflow--auto">
-                <p className="u-fontSize--24 u-fontWeight--bold u-color--mineShaft u-marginBottom--20"> Your installer </p>
-                <div className="u-fontSize--large u-fontWeight--bold u-color--tundora"> Install online </div>
-                <div className="flex flex-column u-marginTop--normal">
+          <div className={`u-flexTabletReflow ${!isMobile ? "flex1 justifyContent--spaceBetween" : "flex-column"}`}>
+            <div className={`flex flex-column u-overflow--auto justifyContent--flexStart ${!isMobile && "Installer--wrapper"}`}>
+              <p className="u-fontSize--24 u-fontWeight--bold u-color--mineShaft u-marginBottom--20"> Your installer </p>
+              <div className="u-fontSize--large u-fontWeight--bold u-color--tundora"> Install online </div>
+              <div className="flex flex-column u-marginTop--normal">
+                <CodeSnippet
+                  canCopy={true}
+                  onCopyText={<span className="u-color--vidaLoca">URL has been copied to your clipboard</span>}
+                >
+                  {bundleUrl}
+                </CodeSnippet>
+              </div>
+              <div className="u-marginTop--normal u-borderTop--gray">
+                <div className="u-fontSize--large u-fontWeight--bold u-color--tundora u-marginTop--normal"> Install airgap </div>
+                <div className="u-marginTop--normal u-marginBottom--normal">
+                  <button
+                    type="button"
+                    className="Button secondary"
+                    onClick={() => this.handleDownloadBundle()}
+                  >
+                    Download airgap bundle
+                    </button>
+                </div>
+                <span className="u-fontSize--small u-fontWeight--normal u-color--dustyGray u-lineHeight--normal u-marginBottom--more"> After copying the archive to your host, untar it and run the install script. </span>
+                <div className="flex flex-column u-marginTop--small">
                   <CodeSnippet
                     canCopy={true}
-                    onCopyText={<span className="u-color--vidaLoca">URL has been copied to your clipboard</span>}
+                    isCommand={true}
+                    onCopyText={<span className="u-color--vidaLoca">Command has been copied to your clipboard</span>}
                   >
-                    {bundleUrl}
+                    {installBundleCommand}
                   </CodeSnippet>
                 </div>
-                <div className="u-marginTop--normal u-borderTop--gray">
-                  <div className="u-fontSize--large u-fontWeight--bold u-color--tundora u-marginTop--normal"> Install airgap </div>
-                  <div className="u-marginTop--normal u-marginBottom--normal">
-                    <button
-                      type="button"
-                      className="Button secondary"
-                      onClick={() => this.handleDownloadBundle()}
-                    >
-                      Download airgap bundle
-                    </button>
-                  </div>
-                  <span className="u-fontSize--small u-fontWeight--normal u-color--dustyGray u-lineHeight--normal u-marginBottom--more"> After copying the archive to your host, untar it and run the install script. </span>
-                  <div className="flex flex-column u-marginTop--small">
-                    <CodeSnippet
-                      canCopy={true}
-                      isCommand={true}
-                      onCopyText={<span className="u-color--vidaLoca">Command has been copied to your clipboard</span>}
-                    >
-                      {installBundleCommand}
-                    </CodeSnippet>
+              </div>
+              <div className="u-marginTop--30">
+                <p className="u-fontSize--24 u-fontWeight--bold u-color--mineShaft u-marginBottom--10"> System requirements </p>
+                <p className="u-fontSize--normal u-color--dustyGray u-lineHeight--normal"> kURL is supported on the following operating systems that meet the minimum system requirements. </p>
+                <div className="u-marginTop--20">
+                  <p className="u-fontSize--large u-fontWeight--bold u-color--tundora"> Supported operating systems </p>
+                  <div className="AppList--wrapper flex flexWrap--wrap">
+                    <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal"> Ubuntu 16.04 (Kernel version >= 4.15) </li>
+                    <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal"> Ubuntu 18.04 (Recommended) </li>
+                    <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal"> Ubuntu 20.04 (Docker version >= 19.03.10) </li>
+                    <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal"> CentOS 7.4, 7.5, 7.6, 7.7, 7.8, 7.9, 8.1, 8.2 (CentOS 8.x requires Containerd) </li>
+                    <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal"> RHEL 7.4, 7.5, 7.6, 7.7, 7.8, 7.9, 8.1, 8.2 (RHEL 8.x requires Containerd) </li>
+                    <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal"> Amazon Linux 2 </li>
                   </div>
                 </div>
-                <div className="u-marginTop--30">
-                  <p className="u-fontSize--24 u-fontWeight--bold u-color--mineShaft u-marginBottom--10"> System requirements </p>
-                  <p className="u-fontSize--normal u-color--dustyGray u-lineHeight--normal"> kURL is supported on the following operating systems that meet the minimum system requirements. </p>
-                  <div className="u-marginTop--20">
-                    <p className="u-fontSize--large u-fontWeight--bold u-color--tundora"> Supported operating systems </p>
-                    <div className="AppList--wrapper flex flexWrap--wrap">
-                      <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal"> Ubuntu 16.04 (Kernel version >= 4.15) </li>
-                      <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal"> Ubuntu 18.04 (Recommended) </li>
-                      <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal"> Ubuntu 20.04 (Docker version >= 19.03.10) </li>
-                      <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal"> CentOS 7.4, 7.5, 7.6, 7.7, 7.8, 7.9, 8.1, 8.2 (CentOS 8.x requires Containerd) </li>
-                      <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal"> RHEL 7.4, 7.5, 7.6, 7.7, 7.8, 7.9, 8.1, 8.2 (RHEL 8.x requires Containerd) </li>
-                      <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal"> Amazon Linux 2 </li>
-                    </div>
-                  </div>
 
-                  <div className="u-marginTop--20 u-borderTop--gray">
-                    <p className="u-fontSize--large u-fontWeight--bold u-color--tundora"> Minimum system requirements </p>
-                    <div className="AppList--wrapper flex flexWrap--wrap">
-                      <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal"> 4 CPUs or equivalent per machine </li>
-                      <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal"> 30 GB of Disk Space per machine </li>
-                      <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal"> UDP ports 6783 and 6784 open </li>
-                      <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal"> 8 GB of RAM per machine </li>
-                      <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal"> TCP ports 6443 and 6783 open </li>
-                    </div>
+                <div className="u-marginTop--20 u-borderTop--gray">
+                  <p className="u-fontSize--large u-fontWeight--bold u-color--tundora"> Minimum system requirements </p>
+                  <div className="AppList--wrapper flex flexWrap--wrap">
+                    <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal"> 4 CPUs or equivalent per machine </li>
+                    <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal"> 30 GB of Disk Space per machine </li>
+                    <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal"> UDP ports 6783 and 6784 open </li>
+                    <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal"> 8 GB of RAM per machine </li>
+                    <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal"> TCP ports 6443 and 6783 open </li>
                   </div>
                 </div>
               </div>
+            </div>
+            <div className={`InstallerAddOns flex flex1 u-overflow--auto justifyContent--flexEnd ${isMobile && "u-marginTop--20"}`}>
               {installerData ?
                 <div className="flex flex-column u-marginLeft--20 u-overflow--auto">
                   <p className="u-fontSize--24 u-fontWeight--bold u-color--mineShaft u-marginBottom--20"> What you get </p>
@@ -250,13 +250,13 @@ cat install.sh | sudo bash -s airgap
                   </div>
 
                   <div className="flex u-borderBottom--silverChalice justifyContent--center">
-                    <div className="u-width--120 u-fontSize--small u-fontWeight--medium u-color--alabasterapprox u-marginBottom--10"> Flag </div>
-                    <div className="u-width--120 u-fontSize--small u-fontWeight--medium u-color--alabasterapprox u-marginBottom--10 u-marginLeft--normal"> Description </div>
+                    <div className="u-width--150 u-fontSize--small u-fontWeight--medium u-color--alabasterapprox u-marginBottom--10"> Flag </div>
+                    <div className="u-width--150 u-fontSize--small u-fontWeight--medium u-color--alabasterapprox u-marginBottom--10 u-marginLeft--normal"> Description </div>
                   </div>
                   <div className="flex flex-column u-overflow--auto">
                     {this.getVersionData(Object.keys(installerData.spec[selectedSpec]))}
                   </div>
-                  <div className="flex alignItems--center justifyContent--center" style={{ marginTop: "auto" }}>
+                  <div className="flex alignItems--center justifyContent--center" style={{ marginTop: "10px" }}>
                     <span className="status-dot"></span>
                     <span className="u-color--alabasterapprox u-fontSize--small u-fontWeight--normal"> Currently defined in your install script </span>
                   </div>
