@@ -1,5 +1,7 @@
 node_modules
 dist
+kurl.pdf
+md-files.txt
 
 # gatsby files
 .cache/
