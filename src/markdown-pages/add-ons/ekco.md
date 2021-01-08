@@ -25,6 +25,7 @@ spec:
     shouldDisableRebootServices: true
     shouldDisableClearNodes: false
     shouldEnablePurgeNodes: false
+    autoUpgradeSchedule: Sat 17:30
 ```
 
 flags-table
@@ -109,3 +110,14 @@ To avoid race conditions, manually run the ekco-reboot service's shutdown script
 ```bash
 /opt/ekco/shutdown.sh
 ```
+
+### Auto-Upgrades (Experimental)
+
+If an auto-upgrade schedule is included in your kURL spec and the end user passes the `auto-upgrades-enabled` flag to the install script, a systemd service named `ekco-upgrade` will be installed to automatically check for and install updates to Kubernetes and add-ons.
+The schedule must be a valid [systemd calendar event time](https://manpages.debian.org/testing/systemd/systemd.time.7.en.html#CALENDAR_EVENTS).
+This feature is available in version 0.8.0+.
+
+#### Limitations
+
+Auto-upgrades are only supported on single-node online installations.
+This feature is only relevant for named installers that may have changes to kURL specs without changes to the url where the spec is hosted.
