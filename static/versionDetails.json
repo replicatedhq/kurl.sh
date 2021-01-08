@@ -420,7 +420,7 @@
 		},
 		{
 			"flag": "autoUpgradeSchedule",
-			"description": "Schedule to automatically check for and install updates",
+			"description": "Schedule to automatically check for and install updates, when `auto-upgrades-enabled` is used",
 			"type": "string"
 		}
   ],
