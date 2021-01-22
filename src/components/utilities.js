@@ -1,6 +1,7 @@
 const kubernetesVersions = {
   "kubernetes": [
     "latest",
+    "1.19.7",
     "1.19.3",
     "1.19.2",
     "1.18.10",
