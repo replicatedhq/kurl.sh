@@ -93,6 +93,16 @@
       "flag": "tlsMinimumProtocolVersion",
       "description": "The minimum TLS protocol version that is allowed (default \"1.2\").",
       "type": "string"
+    },
+    {
+      "flag": "httpPort",
+      "description": "The NodePort exposed for http Ingress.",
+      "type": "number"
+    },
+    {
+      "flag": "httpsPort",
+      "description": "The NodePort exposed for https (TLS) Ingress.",
+      "type": "number"
     }
   ],
   "rook": [
@@ -417,6 +427,11 @@
 			"flag": "shouldEnablePurgeNodes",
 			"description": "Automatically delete and cleanup unreachable nodes",
 			"type": "boolean"
+		},
+		{
+			"flag": "autoUpgradeSchedule",
+			"description": "Schedule to automatically check for and install updates, when `auto-upgrades-enabled` is used",
+			"type": "string"
 		}
   ],
   "fluentd": [

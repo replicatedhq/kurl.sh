@@ -117,6 +117,22 @@ If an auto-upgrade schedule is included in your kURL spec and the end user passe
 The schedule must be a valid [systemd calendar event time](https://manpages.debian.org/testing/systemd/systemd.time.7.en.html#CALENDAR_EVENTS).
 This feature is available in version 0.8.0+.
 
+### Example
+
+The following spec and command would enable auto-upgrades for an installation:
+
+```yaml
+spec:
+  ekco:
+    version: "latest"
+    autoUpgradeSchedule: Sat 17:30
+```
+
+```bash
+curl -sSL https://k8s.kurl.sh/<installer-id> | sudo bash -s auto-upgrades-enabled
+```
+
+
 #### Limitations
 
 Auto-upgrades are only supported on single-node online installations.

@@ -14,6 +14,7 @@ import "../scss/components/SupportedAddOns.scss";
 class SupportedAddOns extends React.Component {
   state = {
     kubernetesVersions: [
+      { version: "1.19.7" },
       { version: "1.19.3" },
       { version: "1.19.2" },
       { version: "1.18.10" },
@@ -27,7 +28,7 @@ class SupportedAddOns extends React.Component {
       { version: "1.15.2" },
       { version: "1.15.1" },
       { version: "1.15.0" }],
-    selectedVersion: { version: "1.19.3" },
+    selectedVersion: { version: "1.19.7" },
     categoryToShow: "",
     categoryVersionsToShow: [],
     mobileCategoriesOpen: false,
