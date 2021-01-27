@@ -21,6 +21,8 @@ curl https://kurl.sh/latest | sudo bash -s ha
 ```
 HA installs will prompt and wait for an optional load balancer address to be provided in the install process. This will route external and internal traffic to the API servers. In the absence of a load balancer address, all traffic will be routed to the first master. This prompt can be bypassed during the install process by specifying the address in the flag `load-balancer-address=<address>` in the install script.
 
+[Learn more](/docs/add-ons/ekco#clear-nodes) about how the ekco add-on ensures pods recover during node failure events.
+
 ### Converting to HA (Beta)
 
 To convert a non-HA cluster to an HA cluster, re-run the install script with the `ha` flag:
