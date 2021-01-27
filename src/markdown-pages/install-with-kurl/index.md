@@ -179,6 +179,23 @@ replace, not add to commands that may exist on the base YAML.
         - ["-A", "INPUT", "-s", "1.1.1.1", "-j", "DROP"]
 ```
 
+The following patch YAML can be used to configure the IP adddress ranges
+of Pods and Services. Note that the installer will attempt to default to `10.32.0.0/16`
+for Pods and `10.96.0.0/16` for Services. If those ranges aren't available per the routing table, 
+the installer will fallback to searching for available subnets in `10.0.0.0/8`.
+
+```yaml
+  apiversion: cluster.kurl.sh/v1beta1
+  kind: Installer
+  metadata:
+    name: "patch"
+  spec:
+    kubernetes:
+      serviceCIDR: "<your custom subnet>"
+    weave:     
+      podCIDR: "<your custom subnet>"
+```
+
 This patch YAML file can also be used to add functionality that does not exist
 in the base YAML file. Please note this will work for online installs only, as
 airgap packages will not include the files needed.
