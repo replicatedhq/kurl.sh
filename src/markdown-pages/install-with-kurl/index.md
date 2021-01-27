@@ -21,6 +21,8 @@ curl https://kurl.sh/latest | sudo bash -s ha
 ```
 HA installs will prompt and wait for an optional load balancer address to be provided in the install process. This will route external and internal traffic to the API servers. In the absence of a load balancer address, all traffic will be routed to the first master. This prompt can be bypassed during the install process by specifying the address in the flag `load-balancer-address=<address>` in the install script.
 
+[Learn more](/docs/add-ons/ekco#clear-nodes) about how the ekco add-on ensures pods recover during node failure events.
+
 ### Converting to HA (Beta)
 
 To convert a non-HA cluster to an HA cluster, re-run the install script with the `ha` flag:
@@ -177,6 +179,23 @@ replace, not add to commands that may exist on the base YAML.
     iptablesConfig:
       iptablesCmds:
         - ["-A", "INPUT", "-s", "1.1.1.1", "-j", "DROP"]
+```
+
+The following patch YAML can be used to configure the IP adddress ranges
+of Pods and Services. Note that the installer will attempt to default to `10.32.0.0/16`
+for Pods and `10.96.0.0/16` for Services. If those ranges aren't available per the routing table, 
+the installer will fallback to searching for available subnets in `10.0.0.0/8`.
+
+```yaml
+  apiversion: cluster.kurl.sh/v1beta1
+  kind: Installer
+  metadata:
+    name: "patch"
+  spec:
+    kubernetes:
+      serviceCIDR: "<your custom subnet>"
+    weave:     
+      podCIDR: "<your custom subnet>"
 ```
 
 This patch YAML file can also be used to add functionality that does not exist
