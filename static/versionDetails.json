@@ -461,6 +461,11 @@
       "flag": "namespace",
       "description": "Changes the namespace in which minio will be installed into.",
       "type": "string"
+    },
+    {
+      "flag": "hostPath",
+      "description": "Configure minio to use a local hostPath for storing data.",
+      "type": "string"
     }
   ],
   "calico": [
