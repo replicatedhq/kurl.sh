@@ -1,4 +1,5 @@
 import * as React from "react";
+import * as _ from "lodash";
 import Select from "react-select";
 import { Link, navigate } from "gatsby";
 import MobileCategories from "./MobileCategories";
@@ -13,22 +14,8 @@ import "../scss/components/SupportedAddOns.scss";
 
 class SupportedAddOns extends React.Component {
   state = {
-    kubernetesVersions: [
-      { version: "1.19.7" },
-      { version: "1.19.3" },
-      { version: "1.19.2" },
-      { version: "1.18.10" },
-      { version: "1.18.9" },
-      { version: "1.18.4" },
-      { version: "1.17.13" },
-      { version: "1.17.7" },
-      { version: "1.17.3" },
-      { version: "1.16.4" },
-      { version: "1.15.3" },
-      { version: "1.15.2" },
-      { version: "1.15.1" },
-      { version: "1.15.0" }],
-    selectedVersion: { version: "1.19.7" },
+    kubernetesVersions: [{ version: "" }],
+    selectedVersion: { version: "" },
     categoryToShow: "",
     categoryVersionsToShow: [],
     mobileCategoriesOpen: false,
@@ -53,7 +40,14 @@ class SupportedAddOns extends React.Component {
   }
 
   getSupportedVersions = async () => {
-    this.setState({ supportedVersions: await Utilities.getSupportedVersions() })
+    const supportedVersions = await Utilities.getSupportedVersions();
+    this.setState({
+      supportedVersions,
+      kubernetesVersions: _.map(supportedVersions.kubernetes, (version) => {
+        return { version };
+      }),
+      selectedVersion: { version: _.first(supportedVersions.kubernetes) },
+    });
   }
 
   getCurrentCategory = (category) => {
