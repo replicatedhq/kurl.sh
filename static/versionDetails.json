@@ -218,6 +218,11 @@
       "flag": "localBucket",
       "description": "Create an alternative bucket in the local ceph RGW store for the initial backend. Default is 'velero'",
       "type": "string"
+    },
+    {
+      "flag": "resticRequiresPrivileged",
+      "description": "Runs Restic container in privileged mode",
+      "type": "boolean"
     }
   ],
   "kotsadm": [
