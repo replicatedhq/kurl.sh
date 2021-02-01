@@ -130,6 +130,11 @@
       "flag": "blockDeviceFilter",
       "description": "Only use block devices matching this regex.",
       "type": "string"
+    },
+    {
+      "flag": "hostpathRequiresPrivileged",
+      "description": "Runs Ceph Pods as privileged to be able to write to hostPaths in OpenShift with SELinux restrictions.",
+      "type": "boolean"
     }
   ],
   "docker": [
@@ -460,6 +465,11 @@
     {
       "flag": "namespace",
       "description": "Changes the namespace in which minio will be installed into.",
+      "type": "string"
+    },
+    {
+      "flag": "hostPath",
+      "description": "Configure minio to use a local hostPath for storing data.",
       "type": "string"
     }
   ],

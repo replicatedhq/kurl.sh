@@ -24,6 +24,7 @@ spec:
     cephReplicaCount: 3
     isBlockStorageEnabled: true
     storageClassName: "storage"
+    hostpathRequiresPrivileged: false
 ```
 
 flags-table

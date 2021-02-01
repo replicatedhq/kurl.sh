@@ -1,6 +1,6 @@
 ---
 path: "/docs/add-ons/minio"
-date: "2020-05-13"
+date: "2021-01-28"
 linktitle: "Minio Add-On"
 weight: 40
 title: "Minio Add-On"
@@ -17,6 +17,7 @@ spec:
   minio:
     version: "latest"
     namespace: "minio"
+    hostPath: /mnt/nfs_share
 ```
 
 flags-table
