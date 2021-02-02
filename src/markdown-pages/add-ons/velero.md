@@ -24,6 +24,7 @@ spec:
     disableRestic: true
     disableCLI: true
     localBucket: "local"
+    resticRequiresPrivileged: true
 ```
 
 flags-table
