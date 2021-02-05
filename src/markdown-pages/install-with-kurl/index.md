@@ -12,6 +12,7 @@ To run the latest version of the install script:
 ```
 curl https://kurl.sh/latest | sudo bash
 ```
+
 ## Advanced Options
 kURL installers support a handful of end-user defined advanced options that can be enabled with install script flags. These can be used in combination with both online and airgapped installers. The list of options and their expected values is available here: [kURL Advanced Install Options](/docs/install-with-kurl/advanced-options).
 
