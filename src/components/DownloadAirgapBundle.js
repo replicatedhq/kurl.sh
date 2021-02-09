@@ -18,17 +18,14 @@ class DownloadAirgapBundle extends React.Component {
   }
 
   checkS3Response = async (sha) => {
-    const url = `https://cors-anywhere.herokuapp.com/${process.env.KURL_BUNDLE_URL}/${sha}.tar.gz`
+    const url = `${process.env.KURL_BUNDLE_URL}/${sha}.tar.gz`
+    this.setState({ loadingBundleUrl: true });
     try {
       const response = await fetch(url, {
-        method: "GET",
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "Content-Type": "application/tar+gzip",
-        },
-        mode: "cors"
+        method: "HEAD",
+        mode: "same-origin"
       });
-      this.setState({ responseStatusCode: response.status, bundleUrl: `${process.env.KURL_BUNDLE_URL}/${sha}.tar.gz` })
+      this.setState({ responseStatusCode: response.status, bundleUrl: url })
     } catch (error) {
       console.log(error);
       return;
