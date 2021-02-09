@@ -18,17 +18,20 @@ class DownloadAirgapBundle extends React.Component {
   }
 
   checkS3Response = async (sha) => {
-    const url = `https://cors-anywhere.herokuapp.com/${process.env.KURL_BUNDLE_URL}/${sha}.tar.gz`
+    const url = `${process.env.KURL_BUNDLE_URL}/${sha}.tar.gz`
+    this.setState({ loadingBundleUrl: true });
+    let mode = "same-origin"
+    if (process.env.IS_DEVELOPMENT === "true") {
+      mode = "cors" 
+      // this is unneeded on staging/prod, as the request is to the same origin
+      // for dev, it allows access to existing bundles but fails for bundles that don't exist (as we don't provide accept headers for 404s)
+    }
     try {
       const response = await fetch(url, {
-        method: "GET",
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "Content-Type": "application/tar+gzip",
-        },
-        mode: "cors"
+        method: "HEAD",
+        mode: mode
       });
-      this.setState({ responseStatusCode: response.status, bundleUrl: `${process.env.KURL_BUNDLE_URL}/${sha}.tar.gz` })
+      this.setState({ responseStatusCode: response.status, bundleUrl: url })
     } catch (error) {
       console.log(error);
       return;
