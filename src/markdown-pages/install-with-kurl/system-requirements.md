@@ -20,7 +20,7 @@ title: "System Requirements"
 * 4 CPUs or equivalent per machine
 * 8 GB of RAM per machine
 * 30 GB of Disk Space per machine
-* TCP ports 6443 and 6783 open between cluster nodes
+* TCP ports 2379, 2380, 6443, 6783, 10250, 10251 and 10252 open between cluster nodes
 * UDP ports 6783 and 6784 open between cluster nodes
 
 ## kURL Dependencies Directory
@@ -50,5 +50,7 @@ Firewall rules can be added after or preserved during an install, but because in
 See [Advanced Options](/docs/install-with-kurl/advanced-options) for installer flags that can preserve these rules.
 
 The following ports must be open between nodes for multi-node clusters:
-* TCP ports 6443 and 6783 
+* TCP ports 2379, 2380, 6443, 6783, 10250, 10251 and 10252
 * UDP ports 6783 and 6784
+
+These ports are required for the [Kubernetes control plane](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#control-plane-node-s) and [Weave](https://www.weave.works/docs/net/latest/faq/#ports).
