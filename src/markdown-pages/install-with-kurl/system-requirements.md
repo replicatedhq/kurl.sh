@@ -54,3 +54,52 @@ The following ports must be open between nodes for multi-node clusters:
 * UDP ports 6783 and 6784
 
 These ports are required for the [Kubernetes control plane](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#control-plane-node-s) and [Weave](https://www.weave.works/docs/net/latest/faq/#ports).
+## High Availability Requirements
+
+In addition to the networking requirements described in the previous section, operating a cluster with high availability adds additional constraints.
+
+### Control Plane HA
+
+To operate the Kubernetes control plane in HA mode, it is recommended to have a minimum of 3 master nodes. 
+In the event that one of these nodes becomes unavailable, the remaining two will still be able to function with an etcd quorom. 
+As the cluster scales, dedicating these master nodes to control-plane only workloads using the `noSchedule` taint should be considered.
+This will affect the number of nodes that need to be provisioned.
+
+### Worker Node HA
+
+The number of required worker nodes is primarily a function of the desired application availability and throughput.
+By default, master nodes in kURL also run application workloads. 
+At least two nodes should be used for data durability for applications that use persistent storage (i.e. databases) deployed in-cluster.
+
+### Load Balancers
+
+Highly available cluster setups require a load balancer to route requests to healthy nodes. 
+This can pertain to both the kubernetes control plane and application workloads.
+The following diagram shows this, though by default in kURL, master nodes also participate as workers.
+
+```mermaid
+%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#f5f8fc'}}}%%
+graph TB
+    A(External Load Balancer)
+    A -->|Port 6443| B[Master Node]
+    A -->|Port 6443| C[Master Node]
+    A -->|Port 6443| D[Master Node]
+    E(External Load Balancer)
+    E-->|App Port| F[Worker Node]
+    E-->|App Port| G[Worker Node]
+    E-->|App Port| H[Worker Node]
+```
+
+#### Kube-apiserver Load Balancer Requirements
+
+The following requirements need to be met for load balancers used on the control plane (master nodes):
+1. The load balancer must route TCP traffic, as opposed to Layer 7/HTTP traffic.
+1. The load balancer must support hairpinning, i.e. nodes referring to eachother through the load balancer IP.
+    * **Note**: Only internet-facing AWS Network Load Balancers (NLBs) support hairpinning - internal load balancers do not support this.<br /><br />
+1. Load balancer health checks should be configured using TCP probes of port 6443 on each master node.
+1. The load balancer should target each master node on port 6443.
+1. In accordance with the above firewall rules, port 6443 should be open on each master node.
+
+The IP or DNS name and port of the load balancer should be provided as an argument to kURL during the HA setup. See [Highly Available K8s](/docs/install-with-kurl/#highly-available-k8s-ha) for more install information.
+
+Review [Create load balancer for kube-apiserver](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/high-availability/#create-load-balancer-for-kube-apiserver) for additional information on setting up a load balancer for the control plane.
