@@ -15,5 +15,6 @@ The install script will print the command that can be run on **worker** nodes to
 ![add-nodes](/add-nodes.png)
 
 ## HA Installations
-For HA clusters, the install script will print out separate commands for joining **workers** and joining additional **master** nodes.
+For HA clusters, the install script will print out separate commands for joining **workers** and joining additional **master** nodes. 
+See [Highly Available K8s](/docs/install-with-kurl/#highly-available-k8s-ha) for HA install details.
 ![add-nodes-ha](/add-nodes-ha.png)

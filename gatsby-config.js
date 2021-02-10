@@ -64,6 +64,23 @@ module.exports = {
       options: {
         trackingId: process.env.GOOGLE_ANALYTICS_TRACKING_ID,
       },
+    },
+    {
+      resolve: 'gatsby-transformer-remark',
+      options: {
+        plugins: [
+          {
+            resolve: 'gatsby-remark-mermaid',
+            options: {
+              language: 'mermaid',
+              theme: "default", 
+              themeVariables: {
+                "primaryColor":"#f5f8fc"
+              }
+            }
+          }
+        ]
+      }
     }
   ],
 }
