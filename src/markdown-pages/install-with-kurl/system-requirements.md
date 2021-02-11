@@ -20,7 +20,7 @@ title: "System Requirements"
 * 4 CPUs or equivalent per machine
 * 8 GB of RAM per machine
 * 30 GB of Disk Space per machine
-* TCP ports 6443 and 6783 open between cluster nodes
+* TCP ports 2379, 2380, 6443, 6783, 10250, 10251 and 10252 open between cluster nodes
 * UDP ports 6783 and 6784 open between cluster nodes
 
 ## kURL Dependencies Directory
@@ -50,5 +50,48 @@ Firewall rules can be added after or preserved during an install, but because in
 See [Advanced Options](/docs/install-with-kurl/advanced-options) for installer flags that can preserve these rules.
 
 The following ports must be open between nodes for multi-node clusters:
-* TCP ports 6443 and 6783 
+* TCP ports 2379, 2380, 6443, 6783, 10250, 10251 and 10252
 * UDP ports 6783 and 6784
+
+These ports are required for the [Kubernetes control plane](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#control-plane-node-s) and [Weave](https://www.weave.works/docs/net/latest/faq/#ports).
+## High Availability Requirements
+
+In addition to the networking requirements described in the previous section, operating a cluster with high availability adds additional constraints.
+
+### Control Plane HA
+
+To operate the Kubernetes control plane in HA mode, it is recommended to have a minimum of 3 master nodes. 
+In the event that one of these nodes becomes unavailable, the remaining two will still be able to function with an etcd quorom. 
+As the cluster scales, dedicating these master nodes to control-plane only workloads using the `noSchedule` taint should be considered.
+This will affect the number of nodes that need to be provisioned.
+
+### Worker Node HA
+
+The number of required worker nodes is primarily a function of the desired application availability and throughput.
+By default, master nodes in kURL also run application workloads. 
+At least 2 nodes should be used for data durability for applications that use persistent storage (i.e. databases) deployed in-cluster.
+
+### Load Balancers
+
+```mermaid
+%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#f5f8fc'}}}%%
+graph TB
+    A(TCP Load Balancer)
+    A -->|Port 6443| B[Master Node]
+    A -->|Port 6443| C[Master Node]
+    A -->|Port 6443| D[Master Node]
+```
+
+Highly available cluster setups require a load balancer to route requests to healthy nodes. 
+The following requirements need to be met for load balancers used on the control plane (master nodes):
+1. The load balancer must be able to route TCP traffic, as opposed to Layer 7/HTTP traffic.
+1. The load balancer must support hairpinning, i.e. nodes referring to eachother through the load balancer IP.
+    * **Note**: On AWS, only internet-facing Network Load Balancers (NLBs) support hairpinning - internal AWS NLBs do not support this.<br /><br />
+1. Load balancer health checks should be configured using TCP probes of port 6443 on each master node.
+1. The load balancer should target each master node on port 6443.
+1. In accordance with the above firewall rules, port 6443 should be open on each master node.
+
+The IP or DNS name and port of the load balancer should be provided as an argument to kURL during the HA setup. 
+See [Highly Available K8s](/docs/install-with-kurl/#highly-available-k8s-ha) for more install information.
+
+Load balancer requirements for application workloads vary depending on workload.
