@@ -139,3 +139,18 @@ curl -sSL https://k8s.kurl.sh/<installer-id> | sudo bash -s auto-upgrades-enable
 
 Auto-upgrades are only supported on single-node online installations.
 This feature is only relevant for named installers that may have changes to kURL specs without changes to the url where the spec is hosted.
+
+#### Troubleshooting
+
+To view the logs from the last attempted upgrade, use the following command:
+
+```bash
+journalctl -u ekco-upgrade.service
+```
+
+Use this command to see the previous and next scheduled upgrade times for the ekco-upgrade service:
+
+```bash
+systemctl list-timers
+```
+
