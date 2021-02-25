@@ -86,7 +86,7 @@ Highly available cluster setups require a load balancer to route requests to hea
 The following requirements need to be met for load balancers used on the control plane (master nodes):
 1. The load balancer must be able to route TCP traffic, as opposed to Layer 7/HTTP traffic.
 1. The load balancer must support hairpinning, i.e. nodes referring to eachother through the load balancer IP.
-    * **Note**: On AWS, only internet-facing Network Load Balancers (NLBs) support hairpinning - internal AWS NLBs do not support this.<br /><br />
+    * **Note**: On AWS, only internet-facing Network Load Balancers (NLBs) and internal AWS NLBs **using IP targets** (not Instance targets) support this.<br /><br />
 1. Load balancer health checks should be configured using TCP probes of port 6443 on each master node.
 1. The load balancer should target each master node on port 6443.
 1. In accordance with the above firewall rules, port 6443 should be open on each master node.
