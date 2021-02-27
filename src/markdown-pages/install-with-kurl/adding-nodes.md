@@ -54,5 +54,5 @@ When removing a node it is safest to use the following steps:
 
 *NOTE: In order to safely remove a node it is required to have the [EKCO addon](/docs/add-ons/ekco) installed.*
 
-1. Run `ekco-purge-node [node name]` on another master.
 1. Power down the node or run the [reset script](/docs/install-with-kurl/adding-nodes#resetting-a-node)
+1. Run `ekco-purge-node [node name]` on another master.
