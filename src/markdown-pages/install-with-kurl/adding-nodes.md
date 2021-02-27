@@ -43,7 +43,7 @@ To safely reboot a node, use the following steps:
 
 *NOTE: In order to safely reboot a node it is required to have the [EKCO addon](/docs/add-ons/ekco) installed.*
 
-1. Run `/opt/ekco/shutdown.sh` on the node to be removed.
+1. Run `/opt/ekco/shutdown.sh` on the node.
 1. Reboot the node
 
 ## Removing a Node
