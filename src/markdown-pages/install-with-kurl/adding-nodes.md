@@ -75,7 +75,7 @@ On a one or two node cluster, the size of the Ceph cluster will always be one.
 
 Once the cluster is scaled up to three nodes, the Ceph cluster must be maintained at three nodes.
 If a Ceph Object Storage Daemon (OSD) is scheduled on a node that is removed, Ceph cluster health must be regained before removing any additional nodes.
-Once the node is removed, Ceph will reschedule the OSD on another node if available.
+Once the node is removed, Ceph will begin replicating its data to OSDs on remaining nodes.
 If the cluster is scaled below three, a new node must be added to regain cluster health.
 
 It is possible to check the Ceph cluster health by running the command `ceph status` in the `rook-ceph-tools` or `rook-ceph-operator` Pod in the `rook-ceph` namespace for Rook version 1.0.x or 1.4.x respectively.
