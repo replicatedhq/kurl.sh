@@ -16,7 +16,7 @@ The install script will print the command that can be run on **secondary** nodes
 ![add-nodes](/add-nodes.png)
 
 ## HA Installations
-For HA clusters, the install script will print out separate commands for joining **secondaries** and joining additional **primart** nodes. 
+For HA clusters, the install script will print out separate commands for joining **secondaries** and joining additional **primary** nodes. 
 See [Highly Available K8s](/docs/install-with-kurl/#highly-available-k8s-ha) for HA install details.
 
 ![add-nodes-ha](/add-nodes-ha.png)
