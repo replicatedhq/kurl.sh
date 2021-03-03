@@ -16,7 +16,7 @@ At its core, kURL is based on [kubeadm](https://kubernetes.io/docs/reference/set
 Compared to standard Kubernetes distributions, it's worth emphasizing that kURL is actually a flexible Kubernetes distribution creator. Most distributions make decisions about CRI, CNI, Storage, Ingress, etc. out of the box. Comparatively, [kurl.sh](https://kurl.sh) allows you to choose your own providers and versions of these components.
 
 ### Extensible
-The Kustomized-based, [open source add-on model](https://github.com/replicatedhq/kurl/tree/master/addons) means anyone in the community can contribute additional add-ons via Kustomizations or even host their own kurl.sh server (soon).
+The Kustomized-based, [open source add-on model](https://github.com/replicatedhq/kurl/tree/master/addons) means anyone in the community can contribute additional add-ons via Kustomizations.
 
 ### Airgap Enabled
 kURL builds and hosts airgap bundles with no additional configuration. Because each add-on specifies its required Docker images in a manifest file, a single `Installer` yaml is all that's required to specify a `tar.gz` bundle that can install a full stack into an airgapped environment.

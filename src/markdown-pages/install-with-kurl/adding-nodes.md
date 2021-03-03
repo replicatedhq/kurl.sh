@@ -80,14 +80,14 @@ If the cluster is scaled below three, a new node must be added to regain cluster
 
 It is possible to check the Ceph cluster health by running the command `ceph status` in the `rook-ceph-tools` or `rook-ceph-operator` Pod in the `rook-ceph` namespace for Rook version 1.0.x or 1.4.x respectively.
 
-**Rook 1.0.x**
-
-```
-kubectl -n rook-ceph exec $(kubectl -n rook-ceph get pods -l app=rook-ceph-tools --no-headers | awk '{print $1}') -- ceph status
-```
-
 **Rook 1.4.x**
 
 ```
-kubectl -n rook-ceph exec $(kubectl -n rook-ceph get pods -l app=rook-ceph-operator --no-headers | awk '{print $1}') -- ceph status
+kubectl -n rook-ceph exec deploy/rook-ceph-tools -- ceph status
+```
+
+**Rook 1.0.x**
+
+```
+kubectl -n rook-ceph exec deploy/rook-ceph-operator -- ceph status
 ```
