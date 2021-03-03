@@ -56,6 +56,16 @@
       "type": "string"
     },
     {
+      "flag": "preflightIgnore",
+      "description": "Ignore preflight failures and warnings.",
+      "type": "boolean"
+    },
+    {
+      "flag": "preflightIgnoreWarnings",
+      "description": "Ignore preflight warnings.",
+      "type": "boolean"
+    },
+    {
       "flag": "HACluster",
       "description": "Create the cluster as a high availability cluster (note that this needs a valid load balancer address and additional nodes to be a truly HA cluster.",
       "type": "boolean"
