@@ -51,23 +51,23 @@ See [Advanced Options](/docs/install-with-kurl/advanced-options) for installer f
 
 The following ports must be open between nodes for multi-node clusters:
 
-#### Control Plane Nodes:
+#### Primary Nodes:
 
-| Protocol | Direction | Port Range | Purpose                 | Used By       |
-| -------  | --------- | ---------- | ----------------------- | ------------- |
-| TCP      | Inbound   | 6443       | Kubernetes API server   | All           |
-| TCP      | Inbound   | 2379-2380  | etcd server client API  | Control plane |
-| TCP      | Inbound   | 10250      | kubelet API             | Control plane |
-| TCP      | Inbound   | 6783       | Weave Net control       | All           |
-| UDP      | Inbound   | 6783-6784  | Weave Net data          | All           |
+| Protocol | Direction | Port Range | Purpose                 | Used By |
+| -------  | --------- | ---------- | ----------------------- | ------- |
+| TCP      | Inbound   | 6443       | Kubernetes API server   | All     |
+| TCP      | Inbound   | 2379-2380  | etcd server client API  | Primary |
+| TCP      | Inbound   | 10250      | kubelet API             | Primary |
+| TCP      | Inbound   | 6783       | Weave Net control       | All     |
+| UDP      | Inbound   | 6783-6784  | Weave Net data          | All     |
 
-#### Worker Nodes:
+#### Secondary Nodes:
 
-| Protocol | Direction | Port Range | Purpose                 | Used By       |
-| -------  | --------- | ---------- | ----------------------- | ------------- |
-| TCP      | Inbound   | 10250      | kubelet API             | Control plane |
-| TCP      | Inbound   | 6783       | Weave Net control       | All           |
-| UDP      | Inbound   | 6783-6784  | Weave Net data          | All           |
+| Protocol | Direction | Port Range | Purpose                 | Used By |
+| -------  | --------- | ---------- | ----------------------- | ------- |
+| TCP      | Inbound   | 10250      | kubelet API             | Primary |
+| TCP      | Inbound   | 6783       | Weave Net control       | All     |
+| UDP      | Inbound   | 6783-6784  | Weave Net data          | All     |
 
 These ports are required for [Kubernetes](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#control-plane-node-s) and [Weave Net](https://www.weave.works/docs/net/latest/faq/#ports).
 
