@@ -50,10 +50,27 @@ Firewall rules can be added after or preserved during an install, but because in
 See [Advanced Options](/docs/install-with-kurl/advanced-options) for installer flags that can preserve these rules.
 
 The following ports must be open between nodes for multi-node clusters:
-* TCP ports 2379, 2380, 6443, 6783, 10250, 10251 and 10252
-* UDP ports 6783 and 6784
+
+#### Control Plane Nodes:
+
+| Protocol | Direction | Port Range | Purpose                 | Used By       |
+| -------  | --------- | ---------- | ----------------------- | ------------- |
+| TCP      | Inbound   | 6443       | Kubernetes API server   | All           |
+| TCP      | Inbound   | 2379-2380  | etcd server client API  | Control plane |
+| TCP      | Inbound   | 10250      | kubelet API             | Control plane |
+| TCP      | Inbound   | 6783       | Weave control port      | All           |
+| UDP      | Inbound   | 6783-6784  | Weave data ports        | All           |
+
+#### Worker Nodes:
+
+| Protocol | Direction | Port Range | Purpose                 | Used By       |
+| -------  | --------- | ---------- | ----------------------- | ------------- |
+| TCP      | Inbound   | 10250      | kubelet API             | Control plane |
+| TCP      | Inbound   | 6783       | Weave Net control       | All           |
+| UDP      | Inbound   | 6783-6784  | Weave Net data          | All           |
 
 These ports are required for the [Kubernetes control plane](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#control-plane-node-s) and [Weave](https://www.weave.works/docs/net/latest/faq/#ports).
+
 ## High Availability Requirements
 
 In addition to the networking requirements described in the previous section, operating a cluster with high availability adds additional constraints.
