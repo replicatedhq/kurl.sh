@@ -77,15 +77,15 @@ In addition to the networking requirements described in the previous section, op
 
 ### Control Plane HA
 
-To operate the Kubernetes control plane in HA mode, it is recommended to have a minimum of 3 master nodes. 
+To operate the Kubernetes control plane in HA mode, it is recommended to have a minimum of 3 primary nodes. 
 In the event that one of these nodes becomes unavailable, the remaining two will still be able to function with an etcd quorom. 
-As the cluster scales, dedicating these master nodes to control-plane only workloads using the `noSchedule` taint should be considered.
+As the cluster scales, dedicating these primary nodes to control-plane only workloads using the `noSchedule` taint should be considered.
 This will affect the number of nodes that need to be provisioned.
 
 ### Worker Node HA
 
-The number of required worker nodes is primarily a function of the desired application availability and throughput.
-By default, master nodes in kURL also run application workloads. 
+The number of required secondary nodes is primarily a function of the desired application availability and throughput.
+By default, primary nodes in kURL also run application workloads. 
 At least 2 nodes should be used for data durability for applications that use persistent storage (i.e. databases) deployed in-cluster.
 
 ### Load Balancers
@@ -94,19 +94,19 @@ At least 2 nodes should be used for data durability for applications that use pe
 %%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#f5f8fc'}}}%%
 graph TB
     A(TCP Load Balancer)
-    A -->|Port 6443| B[Master Node]
-    A -->|Port 6443| C[Master Node]
-    A -->|Port 6443| D[Master Node]
+    A -->|Port 6443| B[Primary Node]
+    A -->|Port 6443| C[Primary Node]
+    A -->|Port 6443| D[Primary Node]
 ```
 
 Highly available cluster setups require a load balancer to route requests to healthy nodes. 
-The following requirements need to be met for load balancers used on the control plane (master nodes):
+The following requirements need to be met for load balancers used on the control plane (primary nodes):
 1. The load balancer must be able to route TCP traffic, as opposed to Layer 7/HTTP traffic.
 1. The load balancer must support hairpinning, i.e. nodes referring to eachother through the load balancer IP.
     * **Note**: On AWS, only internet-facing Network Load Balancers (NLBs) and internal AWS NLBs **using IP targets** (not Instance targets) support this.<br /><br />
-1. Load balancer health checks should be configured using TCP probes of port 6443 on each master node.
-1. The load balancer should target each master node on port 6443.
-1. In accordance with the above firewall rules, port 6443 should be open on each master node.
+1. Load balancer health checks should be configured using TCP probes of port 6443 on each primary node.
+1. The load balancer should target each primary node on port 6443.
+1. In accordance with the above firewall rules, port 6443 should be open on each primary node.
 
 The IP or DNS name and port of the load balancer should be provided as an argument to kURL during the HA setup. 
 See [Highly Available K8s](/docs/install-with-kurl/#highly-available-k8s-ha) for more install information.

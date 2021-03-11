@@ -60,12 +60,12 @@ When enabled, the EKCO operator will automatically purge failed nodes that have 
 1. Exec into the Rook operator pod and run the command `ceph osd purge <id>`
 1. Delete the Node resource
 1. Remove the node from the CephCluster resource named rook-ceph in the rook-ceph namespace unless storage is managed automatically with `useAllNodes: true`
-1. (Masters only) Connect to the etcd cluster and remove the peer
-1. (Masters only) Remove the apiEndpoint for the node from the kubeadm-config ConfigMap in the kube-system namespace
+1. (Primaries only) Connect to the etcd cluster and remove the peer
+1. (Primaries only) Remove the apiEndpoint for the node from the kubeadm-config ConfigMap in the kube-system namespace
 
 #### Manual Node Purge
 
-A command will be made available on all master nodes to manually purge a node. This command takes a parameter `[name]` of the node you would like to purge. The command will inherit all configuration from the EKCO operator running in the cluster.
+A command will be made available on all primary nodes to manually purge a node. This command takes a parameter `[name]` of the node you would like to purge. The command will inherit all configuration from the EKCO operator running in the cluster.
 
 ```bash
 $ ekco-purge-node --help
@@ -78,8 +78,8 @@ Flags:
       --certificates_dir string       Kubernetes certificates directory (default "/etc/kubernetes/pki")
   -h, --help                          help for purge-node
       --maintain_rook_storage_nodes   Add and remove nodes to the ceph cluster and scale replication of pools
-      --min_ready_master_nodes int    Minimum number of ready master nodes required for auto-purge (default 2)
-      --min_ready_worker_nodes int    Minimum number of ready worker nodes required for auto-purge
+      --min_ready_master_nodes int    Minimum number of ready primary nodes required for auto-purge (default 2)
+      --min_ready_worker_nodes int    Minimum number of ready secondary nodes required for auto-purge
 
 Global Flags:
       --config string      Config file (default is /etc/ekco/config.yaml)
