@@ -69,7 +69,7 @@ The following ports must be open between nodes for multi-node clusters:
 | TCP      | Inbound   | 6783       | Weave Net control       | All           |
 | UDP      | Inbound   | 6783-6784  | Weave Net data          | All           |
 
-These ports are required for the [Kubernetes control plane](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#control-plane-node-s) and [Weave](https://www.weave.works/docs/net/latest/faq/#ports).
+These ports are required for [Kubernetes](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#control-plane-node-s) and [Weave](https://www.weave.works/docs/net/latest/faq/#ports).
 
 ## High Availability Requirements
 
