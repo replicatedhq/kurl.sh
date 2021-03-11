@@ -58,8 +58,8 @@ The following ports must be open between nodes for multi-node clusters:
 | TCP      | Inbound   | 6443       | Kubernetes API server   | All           |
 | TCP      | Inbound   | 2379-2380  | etcd server client API  | Control plane |
 | TCP      | Inbound   | 10250      | kubelet API             | Control plane |
-| TCP      | Inbound   | 6783       | Weave control port      | All           |
-| UDP      | Inbound   | 6783-6784  | Weave data ports        | All           |
+| TCP      | Inbound   | 6783       | Weave Net control       | All           |
+| UDP      | Inbound   | 6783-6784  | Weave Net data          | All           |
 
 #### Worker Nodes:
 
