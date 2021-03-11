@@ -27,12 +27,12 @@
     },
     {
       "flag": "certKey",
-      "description": " A secret needed for new master nodes to join an existing cluster (read-only).",
+      "description": " A secret needed for new primary nodes to join an existing cluster (read-only).",
       "type": "string"
     },
     {
       "flag": "controlPlane",
-      "description": "Used during a join script to indicate that the node will be an additional master (read-only).",
+      "description": "Used during a join script to indicate that the node will be an additional primary (read-only).",
       "type": "boolean"
     },
     {
@@ -420,7 +420,7 @@
     },
     {
       "flag": "minReadyMasterNodeCount",
-      "description": "Don't purge the node if it will result in less than this many ready masters. Default is 2.",
+      "description": "Don't purge the node if it will result in less than this many ready primaries. Default is 2.",
       "type": "number"
     },
     {
