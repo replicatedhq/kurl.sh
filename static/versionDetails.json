@@ -522,5 +522,22 @@
       "description": "The version of metrics server to be installed",
       "type": "string"
     }
+  ],
+  "longhorn": [
+    {
+      "flag": "version",
+      "description": "The version of Longhorn to be installed.",
+      "type": "string"
+    },
+    {
+      "flag": "uiBindPort",
+      "description": "The port number used for the NodePort service exposing the Longhorn UI. Default is 30880.",
+      "type": "number"
+    },
+    {
+      "flag": "uiReplicaCount",
+      "description": "The number of replicas created for the Longhorn UI Deployment. Default is 0.",
+      "type": "number"
+    }
   ]
 }
