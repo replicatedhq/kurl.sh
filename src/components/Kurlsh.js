@@ -531,7 +531,8 @@ class Kurlsh extends React.Component {
     if (!e.target.classList.contains("configDiv") && !e.target.classList.contains("addOnOption") && !e.target.classList.contains("versionLabel") &&
       !e.target.classList.contains("css-19bqh2r") && !e.target.classList.contains("css-tj5bde-Svg") && !e.target.classList.contains("css-9gakcf-option") && !e.target.classList.contains("css-1n7v3ny-option") &&
       !e.target.classList.contains("versionLabel--wrapper") && !e.target.classList.contains("css-1hwfws3") && e.target.localName !== "path" && !e.target.classList.contains("SelectVersion") &&
-      !e.target.classList.contains("css-tlfecz-indicatorContainer") && !e.target.classList.contains("css-1gtu0rj-indicatorContainer") && !e.target.classList.contains("css-1g48xl4-IndicatorsContainer")) {
+      !e.target.classList.contains("css-tlfecz-indicatorContainer") && !e.target.classList.contains("css-1gtu0rj-indicatorContainer") && !e.target.classList.contains("css-1g48xl4-IndicatorsContainer") && 
+      !e.target.classList.contains("AdvancedOptions--wrapper") &&  !e.target.classList.contains("Option--wrapper")) {
       this.setState({ isAddOnChecked: { ...this.state.isAddOnChecked, [name]: !this.state.isAddOnChecked[name] } }, () => {
         if (this.state.isAddOnChecked[name]) {
           if (name === "containerd" && this.state.selectedVersions.docker.version !== "None") {
@@ -714,7 +715,7 @@ class Kurlsh extends React.Component {
 
             return (
               <div className="OptionItem flex-column" key={`${data.flag}-${i}`}>
-                <div className="flex flex1 alignItems--center">
+                <div className="Option--wrapper flex flex1 alignItems--center">
                   <div className="flex">
                     {option.type !== "boolean" ?
                       <input
