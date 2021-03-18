@@ -1,9 +1,9 @@
 ---
-path: "/docs/install-with-kurl/configuring-public-cloud-load-balancers"
+path: "/docs/install-with-kurl/public-cloud-load-balancing"
 date: "2021-03-18"
 weight: 14
-linktitle: "Configuring Public Cloud Load Balancers"
-title: "Configuring Public Cloud Load Balancers"
+linktitle: "Public Cloud Load Balancing"
+title: "Public Cloud Load Balancing"
 ---
 Highly Available kURL installs require a Layer 4 TCP load balancer that supports hairpinning. This topic provides steps for a working configuration in AWS, Azure, and GCP.
 
