@@ -31,7 +31,7 @@ Internal NLBs in AWS do not support hairpinning or loopback, so in order to allo
         2. Set the port to `6443`
         3. Set the default action to forward to your `6443` target group that includes your kURL instance IPs
 
-**NOTE**: AWS Network Load Balancers do not have security groups associated with them. Ingress access to the IP addresses in your target group are defined by the security groups on the instances themselves. You need to ensure that the security group on your kURL EC2 instances allows traffic from the IP address of the AWS NLB. If the load balancer is public, you need to include the IP addresses of clients as well.
+**NOTE**: AWS Network Load Balancers do not have security groups associated with them. Ingress access to the IP addresses in your target group is defined by the security groups on the instances themselves. You need to ensure that the security group on your kURL EC2 instances allows traffic from the IP address of the AWS NLB. If the load balancer is public, you need to include the IP addresses of clients as well.
 
 ## Azure Load Balancer (Internet-Facing)
 Internal Load Balancers in Azure do not support hairpinning. There are workarounds such as adding a second NIC with static routes or creating a loopback interface, but those are out of scope of this topic.
