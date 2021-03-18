@@ -1,5 +1,5 @@
 ---
-path: "/docs/install-with-kurl/configuring-public-cload-load-balancers"
+path: "/docs/install-with-kurl/configuring-public-cloud-load-balancers"
 date: "2021-03-18"
 weight: 14
 linktitle: "Configuring Public Cloud Load Balancers"
