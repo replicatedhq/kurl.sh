@@ -87,7 +87,7 @@ Hairpinning is supported by default when using a machine image provided by GCP. 
         3. Under the health check drop-down select the health check you created earlier
     6. Create a Frontend Configuration
         1. Set the Network Service Tier per your requirements
-        2. Create an IP address and `Reserve a new static IP address`
+        2. Create an new reserved IP address or use an existing one
         3. Set the port to `6443`
         4. Create the load balancer
 
