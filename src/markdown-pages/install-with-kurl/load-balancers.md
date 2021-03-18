@@ -7,7 +7,7 @@ title: "Configuring Public Cloud Load Balancers"
 ---
 Highly Available kURL installs require a Layer 4 TCP load balancer that supports hairpinning. This topic provides steps for a working configuration in AWS, Azure, and GCP.
 
-**NOTE**: We recommend that you begin the kURL install with a single primary behind the load balancer, although this is only a strict requirement for GCP. This reduces the chance that a kURL install may fail due to the load balancer forwarding traffic to an instance which isn't yet initialized. You should add the additional primaries to the backend target groups/pools after you've joined them to the kURL cluster.
+**NOTE**: We recommend that you begin the kURL install with a single primary behind the load balancer. Although this is only a strict requirement for GCP, this reduces the chance that a kURL install may fail due to the load balancer forwarding traffic to an instance which isn't yet initialized. You should add the additional primaries to the backend target groups/pools after you've joined them to the kURL cluster.
 
 ## AWS Network Load Balancer (Internal/Internet-Facing)
 Internal NLBs in AWS do not support hairpinning or loopback, so in order to allow backend instances to access themselves through an internal load balancer, you must register instances in your target group by their IP and not the instance ID. If you are using an internet-facing load balancer, then both Instance and IP mode for the target group will work.
