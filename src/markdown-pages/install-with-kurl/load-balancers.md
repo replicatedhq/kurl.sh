@@ -83,7 +83,7 @@ Hairpinning is supported by default when using a machine image provided by GCP. 
     4. Continue to the next page and set a name for the load balancer
     5. Create a Backend Configuration
         1. Set the region to where the kURL instances live
-        2. Select your first kURL master in the `Select existing instances` tab
+        2. Select your first kURL primary in the `Select existing instances` tab
         3. Under the health check drop-down select the health check you created earlier
     6. Create a Frontend Configuration
         1. Set the `Network Service Tier` per your requirements
