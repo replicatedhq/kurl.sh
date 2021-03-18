@@ -20,7 +20,7 @@ Internal NLBs in AWS do not support hairpinning or loopback, so in order to allo
     5. Select the VPC where the kURL EC2 instances live
     6. Set the Health Check protocol to `TCP`
     7. The port for the health checks should be `Traffic Port` in the `Advanced health check settings` drop-down, otherwise, all other settings can be left to their defaults or set per your organization's requirements
-    8. Add the first kURL master to the target group
+    8. Add the first kURL primary to the target group
 2. Create an AWS Network Load Balancer
     1. Set a name for the load balancer
     2. Set the scheme appropriately based on if the load balancer will be public or private
