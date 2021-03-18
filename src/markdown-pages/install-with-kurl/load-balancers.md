@@ -10,7 +10,7 @@ Highly Available kURL installs require a Layer 4 TCP load balancer that supports
 **NOTE**: We recommend that you begin the kURL install with a single primary behind the load balancer, although this is only a strict requirement for GCP. This reduces the chance that a kURL install may fail due to the load balancer forwarding traffic to an instance which isn't yet initialized. You should add the additional primaries to the backend target groups/pools after you've joined them to the kURL cluster.
 
 ## AWS Network Load Balancer (Internal/Internet-Facing)
-Internal NLBs in AWS do not support hairpinning or loopback, so in order to allow backend instances to access themselves through an internal load balancer, you must register instances in your target group by their IP and not the instance ID. If you are using a internet-facing load balancer, then both Instance and IP mode for the target group will work.
+Internal NLBs in AWS do not support hairpinning or loopback, so in order to allow backend instances to access themselves through an internal load balancer, you must register instances in your target group by their IP and not the instance ID. If you are using an internet-facing load balancer, then both Instance and IP mode for the target group will work.
 
 1. Create a target group for port 6443
     1. Set the target type to `IP Addresses` if using an internal load balancer, otherwise, you can optionally set the target type to `Instances`
