@@ -52,7 +52,7 @@ Internal Load Balancers in Azure do not support hairpinning. There are workaroun
     1. Set a name for the probe
     2. Set the protocol to `TCP`
     3. Set the port to `6443`
-    4. If needed per your organization's requirements, change the defaults for `Interval` and `Unhealthy Threshold`
+    4. Unless needed per your organization's requirements, leave the defaults for `Interval` and `Unhealthy Threshold`
 4. Create a Load Balancer Rule
     1. Set a name for the rule
     2. Set IP Version to `IPv4`
