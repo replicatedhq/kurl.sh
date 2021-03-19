@@ -111,4 +111,6 @@ The following requirements need to be met for load balancers used on the control
 The IP or DNS name and port of the load balancer should be provided as an argument to kURL during the HA setup. 
 See [Highly Available K8s](/docs/install-with-kurl/#highly-available-k8s-ha) for more install information.
 
+For more information on configuring load balancers in the public cloud for kURL installs see [Public Cloud Load Balancing](/docs/install-with-kurl/public-cloud-load-balancing).
+
 Load balancer requirements for application workloads vary depending on workload.
