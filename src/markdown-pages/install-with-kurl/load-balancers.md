@@ -68,30 +68,30 @@ Internal Load Balancers in Azure do not support hairpinning. There are workaroun
 ## Google Cloud Platform (Internet-Facing)
 Hairpinning is supported by default when using a machine image provided by GCP. VM instances are automatically configured to route traffic destined for the load balancer to the loopback address of the VM where the traffic originated.
 
-**NOTE**: The below configuration does not cover the usage of instance groups.
-
-1. Create a Health Check
-    1. Set a name for the health check
-    2. Set the scope
-    3. Set the protocol to `TCP`
-    4. Set the port to `6443`
-    5. All other settings can be left to their defaults or set per your organization's requirements
+1. Create an Unmanaged Instance Group
+    1. Set a name for the Instance Group
+    2. Set the region and the zone to where the kURL VM instances live
+    3. Set the network to where the kURL VM instances live
+    4. Add your first kURL primary in the VM instances drop-down
 2. Create a TCP Load Balancer
     1. For `Internet facing or internal only` set `From Internet to my VMs`
     2. For `Multiple regions or single region` set `Single region only`
-    3. For `Backend type` set `Target Pool or Target Instance`
-    4. Continue to the next page and set a name for the load balancer
-    5. Create a Backend Configuration
+    3. For `Backend type` set `Backend Service`
+    4. Create a Backend Configuration
         1. Set the region to where the kURL instances live
-        2. Select your first kURL primary in the `Select existing instances` tab
-        3. Under the health check drop-down select the health check you created earlier
-    6. Create a Frontend Configuration
+        2. Select your Instance Group that contains the first kURL primary
+        3. Under the health check drop-down select `Create another health check`
+            1. Set a name for the health check
+            2. Set the protocol to `TCP`
+            3. Set the port to `6443`
+            4. Unless needed per your organization's requirements, leave the defaults for the remaining settings
+    5. Create a Frontend Configuration
         1. Set the `Network Service Tier` per your requirements
         2. Create a new reserved IP address or use an existing one
         3. Set the port to `6443`
         4. Create the load balancer
 
-**NOTE**: After the initial install is done, you need to join any additional primaries to the kURL cluster before adding them to the backend configuration of your load balancer to ensure the join script runs successfully.
+**NOTE**: After the initial install is done, you need to join any additional primaries to the kURL cluster before adding them to the Instance Group in use by your load balancer to ensure the join script runs successfully. If you want a mutli-zonal deployment, you can create additional Unmanaged Instance Groups and put your other kURL primaries in them.
 
 ### Adding Backend Configuration for NodePort services
 Due to GCP's workaround for hairpinning, traffic may blackhole when attempting to access NodePorts through the load balancer. This is because GCP automatically routes traffic destined for the load balancer to the loopback address of the VM the request was forwarded to, and kube-proxy does not listen on localhost. To workaround this and successfully access NodePorts through the load balancer, you will need to create an alias for the primary network interface that resolves to the load balancer's IP address e.g., `ifconfig eth0:0 <lb-ip> netmask 255.255.255.255 up` on each node in the kURL cluster. To persist these changes you will need to add them to your network interfaces configuration file.
