@@ -16,7 +16,7 @@ import ConfirmSelectionModal from "./modals/ConfirmSelectionModal";
 import "../scss/components/Kurlsh.scss";
 import versionDetails from "../../static/versionDetails.json"
 
-const hasAdvancedOptions = ["kubernetes", "weave", "contour", "rook", "registry", "docker", "velero", "kotsadm", "ekco", "fluentd", "minio", "openebs"];
+const hasAdvancedOptions = ["kubernetes", "weave", "antrea", "contour", "rook", "registry", "docker", "velero", "kotsadm", "ekco", "fluentd", "minio", "openebs"];
 function versionToState(version) {
   return {
     version
@@ -35,6 +35,9 @@ class Kurlsh extends React.Component {
 
     const weaveVersions = supportedVersions.weave.map(versionToState);
     weaveVersions.push({ version: "None" });
+
+    const antreaVersions = supportedVersions.antrea.map(versionToState);
+    antreaVersions.push({ version: "None" });
 
     const rookVersions = supportedVersions.rook.map(versionToState);
     rookVersions.push({ version: "None" });
@@ -56,9 +59,6 @@ class Kurlsh extends React.Component {
 
     const kotsadmVersions = supportedVersions.kotsadm.map(versionToState);
     kotsadmVersions.push({ version: "None" });
-
-    const calicoVersions = supportedVersions.calico.map(versionToState);
-    calicoVersions.push({ version: "None" });
 
     const ekcoVersions = supportedVersions.ekco.map(versionToState);
     ekcoVersions.push({ version: "None" });
@@ -85,6 +85,7 @@ class Kurlsh extends React.Component {
       versions: {
         kubernetes: kubernetesVersions,
         weave: weaveVersions,
+        antrea: antreaVersions,
         contour: contourVersions,
         rook: rookVersions,
         docker: dockerVersions,
@@ -93,7 +94,6 @@ class Kurlsh extends React.Component {
         containerd: containerdVersions,
         velero: veleroVersions,
         kotsadm: kotsadmVersions,
-        calico: calicoVersions,
         ekco: ekcoVersions,
         fluentd: fluentdVersions,
         minio: minioVersions,
@@ -105,6 +105,7 @@ class Kurlsh extends React.Component {
       selectedVersions: {
         kubernetes: { version: "latest" },
         weave: { version: "latest" },
+        antrea: { version: "None" },
         contour: { version: "latest" },
         rook: { version: "latest" },
         docker: { version: "latest" },
@@ -113,7 +114,6 @@ class Kurlsh extends React.Component {
         containerd: { version: "None" },
         velero: { version: "None" },
         kotsadm: { version: "None" },
-        calico: { version: "None" },
         ekco: { version: "latest" },
         fluentd: { version: "None" },
         minio: { version: "None" },
@@ -126,6 +126,7 @@ class Kurlsh extends React.Component {
       showAdvancedOptions: {
         "kubernetes": false,
         "weave": false,
+        "antrea": false,
         "contour": false,
         "rook": false,
         "prometheus": false,
@@ -143,6 +144,7 @@ class Kurlsh extends React.Component {
       advancedOptions: {
         kubernetes: {},
         weave: {},
+        antrea: {},
         contour: {},
         rook: {},
         registry: {},
@@ -159,6 +161,7 @@ class Kurlsh extends React.Component {
       },
       isAddOnChecked: {
         weave: true,
+        antrea: false,
         contour: true,
         rook: true,
         docker: true,
@@ -167,7 +170,6 @@ class Kurlsh extends React.Component {
         containerd: false,
         velero: false,
         kotsadm: false,
-        calico: false,
         ekco: true,
         fluentd: false,
         minio: false,
@@ -294,6 +296,20 @@ class Kurlsh extends React.Component {
       }
     }
 
+    if (selectedVersions.antrea.version !== "None") {
+      const diff = getDiff(optionDefaults["antrea"], options.antrea);
+      generatedInstaller.spec.antrea = {
+        version: selectedVersions.antrea.version
+      };
+
+      if (Object.keys(diff).length) {
+        generatedInstaller.spec.antrea = {
+          ...generatedInstaller.spec.antrea,
+          ...diff
+        };
+      }
+    }
+
     if (selectedVersions.rook.version !== "None") {
       const diff = getDiff(optionDefaults["rook"], options.rook);
       generatedInstaller.spec.rook = {
@@ -388,12 +404,6 @@ class Kurlsh extends React.Component {
           ...diff
         };
       }
-    }
-
-    if (selectedVersions.calico.version !== "None") {
-      generatedInstaller.spec.calico = {
-        version: selectedVersions.calico.version
-      };
     }
 
     if (selectedVersions.ekco.version !== "None") {
@@ -512,9 +522,9 @@ class Kurlsh extends React.Component {
       this.checkIncompatibleSelection({ containerd: value });
     } else if (name === "docker" && value.version !== "None" && this.state.selectedVersions.containerd.version !== "None") {
       this.checkIncompatibleSelection({ docker: value });
-    } else if (name === "calico" && value.version !== "None" && this.state.selectedVersions.weave.version !== "None") {
-      this.checkIncompatibleSelection({ calico: value });
-    } else if (name === "weave" && value.version !== "None" && this.state.selectedVersions.calico.version !== "None") {
+    } else if (name === "antrea" && value.version !== "None" && this.state.selectedVersions.weave.version !== "None") {
+      this.checkIncompatibleSelection({ antrea: value });
+    } else if (name === "weave" && value.version !== "None" && this.state.selectedVersions.antrea.version !== "None") {
       this.checkIncompatibleSelection({ weave: value });
     }
     else {
@@ -539,10 +549,10 @@ class Kurlsh extends React.Component {
             this.checkIncompatibleSelection({ containerd: { version: "latest" } });
           } else if (name === "docker" && this.state.selectedVersions.containerd.version !== "None") {
             this.checkIncompatibleSelection({ docker: { version: "latest" } });
-          } else if (name === "calico" && this.state.selectedVersions.weave.version !== "None") {
-            this.checkIncompatibleSelection({ calico: { version: "latest" } });
-          } else if (name === "weave" && this.state.selectedVersions.calico.version !== "None") {
+          } else if (name === "weave" && this.state.selectedVersions.antrea.version !== "None") {
             this.checkIncompatibleSelection({ weave: { version: "latest" } });
+          } else if (name === "antrea" && this.state.selectedVersions.weave.version !== "None") {
+            this.checkIncompatibleSelection({ antrea: { version: "latest" } });
           } else {
             this.setState({ selectedVersions: { ...this.state.selectedVersions, [name]: { version: "latest" } } }, () => {
               this.postToKurlInstaller(this.getYaml(this.state.installerSha));
@@ -926,34 +936,39 @@ class Kurlsh extends React.Component {
 
               <div className="flex flex-column u-marginTop--40">
                 <span className="u-fontSize--normal u-fontWeight--medium u-color--bermudaGray"> CNI plugin </span>
-                {/* hiding calico add on */}
-                <div className={`u-display--none AddOn--wrapper ${selectedVersions.calico.version !== "None" && "selected"} u-marginTop--15`} onClick={(e) => this.handleIsAddOnSelected("calico", e)}>
+                <div className={`AddOn--wrapper ${selectedVersions.antrea.version !== "None" && "selected"} flex flex-column u-marginTop--15`} onClick={(e) => this.handleIsAddOnSelected("antrea", e)}>
                   <div className="flex flex1">
                     <div className="flex flex1 alignItems--center">
                       <input
                         type="checkbox"
                         className="u-marginRight--normal"
-                        checked={selectedVersions.calico.version !== "None"}
+                        checked={selectedVersions.antrea.version !== "None"}
                       />
-                      <span className="icon u-calico u-marginBottom--small" />
+                      <span className="icon u-antrea u-marginBottom--small" />
                       <div className="flex flex-column u-marginLeft--15 u-marginTop--small">
-                        <div className="FormLabel"> Calico </div>
-                        <div className={`SelectVersion flex flex1 ${!this.state.isAddOnChecked["calico"] && "disabled"}`} style={{ width: "200px" }}>
-                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> {!this.state.isAddOnChecked["calico"] ? "Version None" : "Version"} </span>
+                        <div className="FormLabel"> Antrea </div>
+                        <div className={`SelectVersion flex flex1 ${!this.state.isAddOnChecked["antrea"] && "disabled"}`} style={{ width: "200px" }}>
+                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> {!this.state.isAddOnChecked["antrea"] ? "Version None" : "Version"} </span>
                           <Select
                             isSearchable={false}
-                            options={versions.calico}
+                            options={versions.antrea}
                             getOptionLabel={this.getLabel}
-                            getOptionValue={(calico) => calico}
-                            value={selectedVersions.calico}
-                            onChange={this.onVersionChange("calico")}
+                            getOptionValue={(antrea) => antrea}
+                            value={selectedVersions.antrea}
+                            onChange={this.onVersionChange("antrea")}
                             matchProp="value"
-                            isDisabled={!this.state.isAddOnChecked["calico"]}
+                            isDisabled={!this.state.isAddOnChecked["antrea"]}
                             isOptionSelected={() => false} />
                         </div>
                       </div>
                     </div>
+                    <div className="flex flex1 justifyContent--flexEnd alignItems--center">
+                      <div className="flex u-fontSize--small u-fontWeight--medium u-color--royalBlue u-marginTop--small u-cursor--pointer configDiv" onClick={() => this.onToggleShowAdvancedOptions("antrea")}>
+                        {showAdvancedOptions["antrea"] ? "Hide config" : "Show config"}
+                      </div>
+                    </div>
                   </div>
+                  {showAdvancedOptions["antrea"] && this.renderAdvancedOptions("antrea")}
                 </div>
                 <div className={`AddOn--wrapper ${selectedVersions.weave.version !== "None" && "selected"} flex flex-column u-marginTop--15`} onClick={(e) => this.handleIsAddOnSelected("weave", e)}>
                   <div className="flex flex1">

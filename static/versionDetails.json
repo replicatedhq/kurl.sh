@@ -93,6 +93,28 @@
       "type": "string"
     }
   ],
+  "antrea": [
+    {
+      "flag": "version",
+      "description": "The version of antrea to be installed.",
+      "type": "string"
+    },
+    {
+      "flag": "isEncryptionDisabled",
+      "description": "Encrypt network communication between nodes in the cluster.",
+      "type": "boolean"
+    },
+    {
+      "flag": "podCIDR",
+      "description": "The subnet where pods will be found.",
+      "type": "string"
+    },
+    {
+      "flag": "podCidrRange",
+      "description": "The size of the CIDR where pods can be found.",
+      "type": "string"
+    }
+  ],
   "contour": [
     {
       "flag": "version",

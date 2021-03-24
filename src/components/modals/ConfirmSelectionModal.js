@@ -21,10 +21,10 @@ class ConfirmSelectionModal extends React.Component {
       return;
     } else if (current === "docker") {
       this.setState({ addOnToRemove: { containerd: selectedVersions.containerd } });
-    } else if (current === "calico") {
+    } else if (current === "antrea") {
       this.setState({ addOnToRemove: { weave: selectedVersions.weave } });
     } else {
-      this.setState({ addOnToRemove: { calico: selectedVersions.calico } });
+      this.setState({ addOnToRemove: { antrea: selectedVersions.antrea } });
     }
   }
 
