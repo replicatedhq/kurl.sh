@@ -40,6 +40,8 @@ The available add-ons are:
 * [Prometheus](https://prometheus.io/)
 * [Nodeless](https://www.elotl.co/)
 * [Calico](https://www.projectcalico.org/)
-* AWS (enables the AWS cloud provider in Kubernetes)
 * [Velero](https://velero.io/)
 * [EKCO](https://github.com/replicatedhq/ekco)
+* [OpenEBS](https://openebs.io/)
+* [MinIO](https://min.io/)
+
