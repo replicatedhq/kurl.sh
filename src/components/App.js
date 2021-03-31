@@ -185,7 +185,6 @@ cat install.sh | sudo bash -s airgap
                     <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal"> Ubuntu 20.04 (Docker version >= 19.03.10) </li>
                     <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal"> CentOS 7.4, 7.5, 7.6, 7.7, 7.8, 7.9, 8.1, 8.2, 8.3 (CentOS 8.x requires Containerd) </li>
                     <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal"> RHEL 7.4, 7.5, 7.6, 7.7, 7.8, 7.9, 8.1, 8.2, 8.3 (RHEL 8.x requires Containerd) </li>
-                    <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal"> Oracle Linux 7.4, 7.5, 7.6, 7.7, 7.8, 7.9, 8.1, 8.2, 8.3 (OL 8.x requires Containerd) </li>
                     <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal"> Amazon Linux 2 </li>
                   </div>
                 </div>
