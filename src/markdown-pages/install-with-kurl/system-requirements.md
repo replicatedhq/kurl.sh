@@ -51,6 +51,7 @@ See [Advanced Options](/docs/install-with-kurl/advanced-options) for installer f
 
 The following ports must be open between nodes for multi-node clusters:
 
+
 #### Primary Nodes:
 
 | Protocol | Direction | Port Range | Purpose                 | Used By |
@@ -70,6 +71,23 @@ The following ports must be open between nodes for multi-node clusters:
 | UDP      | Inbound   | 6783-6784  | Weave Net data          | All     |
 
 These ports are required for [Kubernetes](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#control-plane-node-s) and [Weave Net](https://www.weave.works/docs/net/latest/faq/#ports).
+
+### Ports Available
+
+In addition to the ports listed above that must be open between nodes, the following ports should be available on the host for components to start TCP servers accepting local connections.
+
+| Port | Purpose                 |
+| ---- | ----------------------- |
+| 2381 | etcd health and metrics server |
+| 6781 | [weave](/docs/add-ons/weave) network policy controller metrics server |
+| 6782 | [weave](/docs/add-ons/weave) metrics server |
+| 10248 | kubelet health server |
+| 10249 | kube-proxy metrics server |
+| 9100 | [prometheus](/docs/add-ons/prometheus) node-exporter metrics server |
+| 10257 | kube-controller-manager health server |
+| 10259 | kube-scheduler health server |
+
+
 
 ## High Availability Requirements
 
