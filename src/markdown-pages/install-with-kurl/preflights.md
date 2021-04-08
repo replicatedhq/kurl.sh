@@ -22,7 +22,9 @@ The following checks run on all nodes where kURL is installed:
 * Firewalld is disabled.
 * SELinux is disabled.
 * At least one nameserver is accessible on a non-loopback address.
-* TCP port 10250 is available for kubelet.
+* TCP ports 10248 and 10250 are available for kubelet.
+* TCP port 10257 is available for the kube controller manager.
+* TCP port 10259 is available for the kube scheduler.
 * At least 4 GiB of memory is available. (Warn when less than 8GiB).
 * /var/lib/kubelet has at least 30GiB total space and is less than 80% full. (Warn when more than 60% full).
 * The server has at least 2 CPUs. (Warn when less than 4 CPUs).
@@ -32,7 +34,7 @@ The following checks run on all nodes where kURL is installed:
 These checks run only on new installs on primary nodes:
 
 * TCP port 6443 is available for the Kubernetes API server.
-* TCP ports 2379 and 2380 are available for etcd.
+* TCP ports 2379, 2380 and 2381 are available for etcd.
 * The load balancer address is propery configured to forward TCP traffic to the node. (This check only runs on the first primary).
 
 ## Join
@@ -47,8 +49,13 @@ Some checks run depending on the add-ons enabled in the installer and their conf
 
 ### Weave
 
-All existing nodes in the cluster can be reached on TCP port 6783.
+* All existing nodes in the cluster can be reached on TCP port 6783.
+* TCP ports 6781, 6782 and 6783 are available on the current host.
 
 ### Rook & OpenEBS
 
-If using block storage, a preflight will ensure that at least one block device is available with a minimum size of 10GiB.
+* If using block storage, check that at least one block device is available with a minimum size of 10GiB.
+
+### Prometheus
+
+* TCP port 9100 is available for the node exporter.
