@@ -561,5 +561,12 @@
       "description": "The number of replicas created for the Longhorn UI Deployment. Default is 0.",
       "type": "number"
     }
+  ],
+  "sonobuoy": [
+    {
+      "flag": "version",
+      "description": "The version of Sonobuoy to be installed.",
+      "type": "string"
+    }
   ]
 }
