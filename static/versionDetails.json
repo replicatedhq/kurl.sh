@@ -561,5 +561,22 @@
       "description": "The number of replicas created for the Longhorn UI Deployment. Default is 0.",
       "type": "number"
     }
+  ],
+  "ufw": [
+    {
+      "flag": "bypassUFWWarning",
+      "description": "By default, a kURL install will not continue with ufw active. When this flag is set, kURL will continue to install.",
+      "type": "boolean"
+    },
+    {
+      "flag": "disableUFW",
+      "description": "This is a flag that allows for disabling UFW during the install script without user interaction.",
+      "type": "boolean"
+    },
+    {
+      "flag": "hardFailOnUFW",
+      "description": "This is a flag that will stop and exit a current install if UFW is active.",
+      "type": "boolean"
+    }
   ]
 }
