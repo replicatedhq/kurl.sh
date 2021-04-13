@@ -578,5 +578,12 @@
       "description": "This is a flag that will stop and exit a current install if UFW is active.",
       "type": "boolean"
     }
+  ],
+  "sonobuoy": [
+    {
+      "flag": "version",
+      "description": "The version of Sonobuoy to be installed.",
+      "type": "string"
+    }
   ]
 }

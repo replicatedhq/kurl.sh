@@ -81,6 +81,9 @@ class Kurlsh extends React.Component {
     const certManagerVersions = supportedVersions["cert-manager"].map(versionToState);
     certManagerVersions.push({ version: "None" });
 
+    const sonobuoyVersions = supportedVersions["sonobuoy"].map(versionToState);
+    sonobuoyVersions.push({ version: "None" });
+
     this.state = {
       versions: {
         kubernetes: kubernetesVersions,
@@ -100,7 +103,8 @@ class Kurlsh extends React.Component {
         openebs: openebsVersions,
         collectd: collectdVersions,
         metricsServer: metricsServerVersions,
-        certManager: certManagerVersions
+        certManager: certManagerVersions,
+        sonobuoy: sonobuoyVersions
       },
       selectedVersions: {
         kubernetes: { version: "latest" },
@@ -120,7 +124,8 @@ class Kurlsh extends React.Component {
         openebs: { version: "None" },
         collectd: { version: "None" },
         metricsServer: { version: "None" },
-        certManager: { version: "None" }
+        certManager: { version: "None" },
+        sonobuoy: { version: "None" }
       },
       installerSha: "latest",
       showAdvancedOptions: {
@@ -139,7 +144,8 @@ class Kurlsh extends React.Component {
         "minio": false,
         "openebs": false,
         "metricsServer": false,
-        "certManager": false
+        "certManager": false,
+        "sonobuoy": false
       },
       advancedOptions: {
         kubernetes: {},
@@ -157,7 +163,8 @@ class Kurlsh extends React.Component {
         openebs: {},
         collectd: {},
         metricsServer: {},
-        certManager: {}
+        certManager: {},
+        sonobuoy: {}
       },
       isAddOnChecked: {
         weave: true,
@@ -176,7 +183,8 @@ class Kurlsh extends React.Component {
         openebs: false,
         collectd: false,
         metricsServer: false,
-        certManager: false
+        certManager: false,
+        sonobuoy: false
       },
       isLoading: false,
       optionDefaults: {},
@@ -499,6 +507,20 @@ class Kurlsh extends React.Component {
       if (Object.keys(diff).length) {
         generatedInstaller.spec.certManager = {
           ...generatedInstaller.spec.certManager,
+          ...diff
+        };
+      }
+    }
+
+    if (selectedVersions.sonobuoy.version !== "None") {
+      const diff = getDiff(optionDefaults.sonobuoy, options.sonobuoy);
+      generatedInstaller.spec.sonobuoy = {
+        version: selectedVersions.sonobuoy.version
+      };
+
+      if (Object.keys(diff).length) {
+        generatedInstaller.spec.sonobuoy = {
+          ...generatedInstaller.spec.sonobuoy,
           ...diff
         };
       }
@@ -1079,6 +1101,37 @@ class Kurlsh extends React.Component {
                     </div>
                   </div>
                   {showAdvancedOptions["ekco"] && this.renderAdvancedOptions("ekco")}
+                </div>
+
+                <div className={`AddOn--wrapper ${selectedVersions.sonobuoy.version !== "None" && "selected"} flex flex-column u-marginTop--15`} onClick={(e) => this.handleIsAddOnSelected("sonobuoy", e)}>
+                  <div className="flex flex1">
+                    <div className="flex flex1 alignItems--center">
+                      <input
+                        type="checkbox"
+                        className="u-marginRight--normal"
+                        checked={selectedVersions.sonobuoy.version !== "None"}
+                      />
+                      <span className="icon u-sonobuoy u-marginBottom--small" />
+                      <div className="flex flex-column u-marginLeft--15 u-marginTop--small">
+                        <div className="FormLabel"> Sonobuoy </div>
+                        <div className="flex flex1 alignItems--center">
+                          <div className={`SelectVersion flex flex1 ${!this.state.isAddOnChecked["sonobuoy"] && "disabled"}`}>
+                            <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> {!this.state.isAddOnChecked["sonobuoy"] ? "Version None" : "Version"} </span>
+                            <Select
+                              isSearchable={false}
+                              options={versions.sonobuoy}
+                              getOptionLabel={this.getLabel}
+                              getOptionValue={(sonobuoy) => sonobuoy}
+                              value={selectedVersions.sonobuoy}
+                              onChange={this.onVersionChange("sonobuoy")}
+                              matchProp="value"
+                              isDisabled={!this.state.isAddOnChecked["sonobuoy"]}
+                              isOptionSelected={() => false} />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
 
