@@ -9,7 +9,7 @@ addOn: "containerd"
 Containerd is an alternative CRI (Container Runtime Interface) to Docker.
 Please note that containerd must be specified in yaml spec, and that docker must not be present if containerd is.
 
-As CentOS and RHEL 8.x do not support Docker, the Containerd CRI is required.
+As CentOS, RHEL and Oracle Linux 8.x do not support Docker, the Containerd CRI is required.
 
 ## Advanced Install Options
 
