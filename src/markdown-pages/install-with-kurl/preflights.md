@@ -36,7 +36,7 @@ These checks run only on new installs on primary nodes:
 * TCP port 6443 is available for the Kubernetes API server.
 * TCP ports 2379, 2380 and 2381 are available for etcd.
 * The load balancer address is propery configured to forward TCP traffic to the node. (This check only runs on the first primary).
-* 99th percentile filesystem write latency in the etcd data directory is less than 20ms. (Warn when more than 10ms).
+* 99th percentile filesystem write latency in the etcd data directory is less than 20ms. (Warn when more than 10ms). [See cloud recommendations](/docs/install-with-kurl/system-requirements#cloud-disk-performance)
 
 ## Join
 
