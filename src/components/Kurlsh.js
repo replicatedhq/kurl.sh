@@ -589,7 +589,11 @@ class Kurlsh extends React.Component {
     }
   }
 
-  getLabel = ({ version }) => {
+  getLabel = name => ({ version }) => {
+    if (version === "latest") {
+      const latest = this.state.versions[name][1];
+      version = `latest (${latest.version})`;
+    }
     return (
       <div className="versionLabel--wrapper">
         <span className="versionLabel" style={{ fontSize: 14 }}>{version}</span>
@@ -871,7 +875,7 @@ class Kurlsh extends React.Component {
                         <Select
                           isSearchable={false}
                           options={versions.kubernetes}
-                          getOptionLabel={this.getLabel}
+                          getOptionLabel={this.getLabel("kubernetes")}
                           getOptionValue={(kubernetes) => kubernetes}
                           value={selectedVersions.kubernetes}
                           onChange={this.onVersionChange("kubernetes")}
@@ -908,7 +912,7 @@ class Kurlsh extends React.Component {
                           <Select
                             isSearchable={false}
                             options={versions.docker}
-                            getOptionLabel={this.getLabel}
+                            getOptionLabel={this.getLabel("docker")}
                             getOptionValue={(docker) => docker}
                             value={selectedVersions.docker}
                             onChange={this.onVersionChange("docker")}
@@ -942,7 +946,7 @@ class Kurlsh extends React.Component {
                           <Select
                             isSearchable={false}
                             options={versions.containerd}
-                            getOptionLabel={this.getLabel}
+                            getOptionLabel={this.getLabel("containerd")}
                             getOptionValue={(containerd) => containerd}
                             value={selectedVersions.containerd}
                             onChange={this.onVersionChange("containerd")}
@@ -974,7 +978,7 @@ class Kurlsh extends React.Component {
                           <Select
                             isSearchable={false}
                             options={versions.antrea}
-                            getOptionLabel={this.getLabel}
+                            getOptionLabel={this.getLabel("antrea")}
                             getOptionValue={(antrea) => antrea}
                             value={selectedVersions.antrea}
                             onChange={this.onVersionChange("antrea")}
@@ -1008,7 +1012,7 @@ class Kurlsh extends React.Component {
                           <Select
                             isSearchable={false}
                             options={versions.weave}
-                            getOptionLabel={this.getLabel}
+                            getOptionLabel={this.getLabel("weave")}
                             getOptionValue={(weave) => weave}
                             value={selectedVersions.weave}
                             onChange={this.onVersionChange("weave")}
@@ -1046,7 +1050,7 @@ class Kurlsh extends React.Component {
                           <Select
                             isSearchable={false}
                             options={versions.contour}
-                            getOptionLabel={this.getLabel}
+                            getOptionLabel={this.getLabel("contour")}
                             getOptionValue={(contour) => contour}
                             value={selectedVersions.contour}
                             onChange={this.onVersionChange("contour")}
@@ -1084,7 +1088,7 @@ class Kurlsh extends React.Component {
                           <Select
                             isSearchable={false}
                             options={versions.ekco}
-                            getOptionLabel={this.getLabel}
+                            getOptionLabel={this.getLabel("ekco")}
                             getOptionValue={(ekco) => ekco}
                             value={selectedVersions.ekco}
                             onChange={this.onVersionChange("ekco")}
@@ -1153,7 +1157,7 @@ class Kurlsh extends React.Component {
                           <Select
                             isSearchable={false}
                             options={versions.fluentd}
-                            getOptionLabel={this.getLabel}
+                            getOptionLabel={this.getLabel("fluentd")}
                             getOptionValue={(fluentd) => fluentd}
                             value={selectedVersions.fluentd}
                             onChange={this.onVersionChange("fluentd")}
@@ -1191,7 +1195,7 @@ class Kurlsh extends React.Component {
                           <Select
                             isSearchable={false}
                             options={versions.kotsadm}
-                            getOptionLabel={this.getLabel}
+                            getOptionLabel={this.getLabel("kotsadm")}
                             getOptionValue={(kotsadm) => kotsadm}
                             value={selectedVersions.kotsadm}
                             onChange={this.onVersionChange("kotsadm")}
@@ -1229,7 +1233,7 @@ class Kurlsh extends React.Component {
                           <Select
                             isSearchable={false}
                             options={versions.minio}
-                            getOptionLabel={this.getLabel}
+                            getOptionLabel={this.getLabel("minio")}
                             getOptionValue={(minio) => minio}
                             value={selectedVersions.minio}
                             onChange={this.onVersionChange("minio")}
@@ -1265,7 +1269,7 @@ class Kurlsh extends React.Component {
                             <Select
                               isSearchable={false}
                               options={versions.rook}
-                              getOptionLabel={this.getLabel}
+                              getOptionLabel={this.getLabel("rook")}
                               getOptionValue={(rook) => rook}
                               value={selectedVersions.rook}
                               onChange={this.onVersionChange("rook")}
@@ -1306,7 +1310,7 @@ class Kurlsh extends React.Component {
                           <Select
                             isSearchable={false}
                             options={versions.openebs}
-                            getOptionLabel={this.getLabel}
+                            getOptionLabel={this.getLabel("openebs")}
                             getOptionValue={(openebs) => openebs}
                             value={selectedVersions.openebs}
                             onChange={this.onVersionChange("openebs")}
@@ -1344,7 +1348,7 @@ class Kurlsh extends React.Component {
                           <Select
                             isSearchable={false}
                             options={versions.prometheus}
-                            getOptionLabel={this.getLabel}
+                            getOptionLabel={this.getLabel("prometheus")}
                             getOptionValue={(prometheus) => prometheus}
                             value={selectedVersions.prometheus}
                             onChange={this.onVersionChange("prometheus")}
@@ -1372,7 +1376,7 @@ class Kurlsh extends React.Component {
                           <Select
                             isSearchable={false}
                             options={versions.collectd}
-                            getOptionLabel={this.getLabel}
+                            getOptionLabel={this.getLabel("collectd")}
                             getOptionValue={(collectd) => collectd}
                             value={selectedVersions.collectd}
                             onChange={this.onVersionChange("collectd")}
@@ -1400,7 +1404,7 @@ class Kurlsh extends React.Component {
                           <Select
                             isSearchable={false}
                             options={versions["metricsServer"]}
-                            getOptionLabel={this.getLabel}
+                            getOptionLabel={this.getLabel("metricsServer")}
                             getOptionValue={(metricsServer) => metricsServer}
                             value={selectedVersions.metricsServer}
                             onChange={this.onVersionChange("metricsServer")}
@@ -1432,7 +1436,7 @@ class Kurlsh extends React.Component {
                           <Select
                             isSearchable={false}
                             options={versions.certManager}
-                            getOptionLabel={this.getLabel}
+                            getOptionLabel={this.getLabel("certManager")}
                             getOptionValue={(certManager) => certManager}
                             value={selectedVersions.certManager}
                             onChange={this.onVersionChange("certManager")}
@@ -1464,7 +1468,7 @@ class Kurlsh extends React.Component {
                           <Select
                             isSearchable={false}
                             options={versions.registry}
-                            getOptionLabel={this.getLabel}
+                            getOptionLabel={this.getLabel("registry")}
                             getOptionValue={(registry) => registry}
                             value={selectedVersions.registry}
                             onChange={this.onVersionChange("registry")}
@@ -1503,7 +1507,7 @@ class Kurlsh extends React.Component {
                             <Select
                               isSearchable={false}
                               options={versions.velero}
-                              getOptionLabel={this.getLabel}
+                              getOptionLabel={this.getLabel("velero")}
                               getOptionValue={(velero) => velero}
                               value={selectedVersions.velero}
                               onChange={this.onVersionChange("velero")}
