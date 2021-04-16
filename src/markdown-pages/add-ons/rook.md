@@ -25,6 +25,7 @@ spec:
     isBlockStorageEnabled: true
     storageClassName: "storage"
     hostpathRequiresPrivileged: false
+    bypassUpgradeWarning: false
 ```
 
 flags-table
