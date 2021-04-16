@@ -167,6 +167,11 @@
       "flag": "hostpathRequiresPrivileged",
       "description": "Runs Ceph Pods as privileged to be able to write to hostPaths in OpenShift with SELinux restrictions.",
       "type": "boolean"
+    },
+    {
+      "flag": "bypassUpgradeWarning",
+      "description": "Bypass upgrade warning prompt.",
+      "type": "boolean"
     }
   ],
   "docker": [
