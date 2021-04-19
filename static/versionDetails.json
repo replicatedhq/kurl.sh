@@ -167,6 +167,11 @@
       "flag": "hostpathRequiresPrivileged",
       "description": "Runs Ceph Pods as privileged to be able to write to hostPaths in OpenShift with SELinux restrictions.",
       "type": "boolean"
+    },
+    {
+      "flag": "bypassUpgradeWarning",
+      "description": "Bypass upgrade warning prompt.",
+      "type": "boolean"
     }
   ],
   "docker": [
@@ -577,6 +582,13 @@
       "flag": "hardFailOnUFW",
       "description": "This is a flag that will stop and exit a current install if UFW is active.",
       "type": "boolean"
+    }
+  ],
+  "sonobuoy": [
+    {
+      "flag": "version",
+      "description": "The version of Sonobuoy to be installed.",
+      "type": "string"
     }
   ]
 }
