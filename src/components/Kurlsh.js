@@ -590,6 +590,15 @@ class Kurlsh extends React.Component {
   }
 
   getLabel = name => ({ version }) => {
+    const generatedVersion = this.generateVersionLabel(name, version);
+    return (
+      <div className="versionLabel--wrapper">
+        <span className="versionLabel" style={{ fontSize: 14 }}>{generatedVersion}</span>
+      </div>
+    );
+  }
+
+  generateVersionLabel = (name, version) => {
     if (version === "latest") {
       if (name === "kubernetes") {
         const latest = this.state.versions[name][2]; // for k8s, the first version is a ".x" version
@@ -598,18 +607,14 @@ class Kurlsh extends React.Component {
         const latest = this.state.versions[name][1];
         version = `latest (${latest.version})`;
       }
-    } else if (version.endsWith(".x")) {
+    } else if (version.endsWith(".x") && name === "kubernetes") {
       const versionIndex = this.state.versions[name].findIndex((element) => element.version === version);
       if (this.state.versions[name].length > versionIndex) { // if there is a member of the array after the one specified
         const next = this.state.versions[name][versionIndex+1]
         version = `${version} (${next.version})`
       }
     }
-    return (
-      <div className="versionLabel--wrapper">
-        <span className="versionLabel" style={{ fontSize: 14 }}>{version}</span>
-      </div>
-    );
+    return version;
   }
 
   postToKurlInstaller = async (yaml) => {
@@ -848,28 +853,24 @@ class Kurlsh extends React.Component {
   }
 
   // add versions like "1.19.x" to the list of installable versions
-  addK8sVersions(actualVersions) {
+  addK8sVersions = (actualVersions) => {
     // get a list of the distinct minor versions
     const minorVersionsRegex = /^1\.[0-9]+/g;
-    let minorVersions = []
-    for (let index = 0; index < actualVersions.length; index++) {
-      let matches = actualVersions[index].version.match(minorVersionsRegex);
+    let minorVersions = [];
+    actualVersions.forEach(v => {
+      const matches = v.version.match(minorVersionsRegex);
       if (matches && matches.length === 1 && !minorVersions.includes(matches[0])) {
         minorVersions.push(matches[0]);
       }
-    }
-
+    })
     // for each minor version, find the first version in the actualVersions array that matches
     // and insert `1.minor.x` before it
-    for (let minorIndex = 0; minorIndex < minorVersions.length; minorIndex++) {
-      for (let actualIndex = 0; actualIndex < actualVersions.length; actualIndex++) {
-        if (actualVersions[actualIndex].version.startsWith(minorVersions[minorIndex])) {
-          actualVersions.splice(actualIndex, 0, {version: minorVersions[minorIndex]+".x"});
-          break;
-        }
+    minorVersions.forEach(mv => {
+      const isMatch = actualVersions.find(av => av.version.startsWith(mv));
+      if (!!isMatch) {
+        actualVersions.splice(actualVersions.indexOf(isMatch), 0, {version: mv+".x"});
       }
-    }
-
+    })
     return actualVersions
   }
 
