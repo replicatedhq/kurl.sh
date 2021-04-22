@@ -93,6 +93,12 @@ cat install.sh | sudo bash -s airgap ha
       version: "latest"
 ```
 
+The `latest` version of an addon is the most recent version that we at Replicated are confident will continue to work when upgraded to.
+This will change as new versions are released, allowing you to stay up to date more easily.
+
+For `kubernetes`, there are also versions of the form `1.19.x`.
+These versions will always resolve to the most recent patch version for the specified minor version of kubernetes.
+
 ## Using the kURL Installer CRD
 
 The kURL installer YAML is a valid Kubernetes Custom Resource. At the end of an
