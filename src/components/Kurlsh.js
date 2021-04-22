@@ -1575,7 +1575,7 @@ class Kurlsh extends React.Component {
           <div className={`${isMobile ? "u-marginTop--30 u-display--block " : "AbsoluteFixedWrapper flex flex-column"}`} id="fixed-wrapper">
             <span className="u-fontSize--24 u-fontWeight--bold u-color--mineShaft"> Installer YAML </span>
             <div className="MonacoEditor--wrapper flex u-width--full u-marginTop--20 u-position--relative">
-              {installerErrMsg.includes("is not supported") && this.renderVersionError(installerErrMsg)}
+              {(installerErrMsg.includes("is not supported") || installerErrMsg.includes("is not compatible")) && this.renderVersionError(installerErrMsg)}
               <div className="flex u-width--full u-overflow--auto" id="monaco">
                 {isLoading &&
                   <div className="flex-column flex-1-auto u-overflow--hidden justifyContent--center alignItems--center">
