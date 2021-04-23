@@ -159,6 +159,11 @@
       "type": "boolean"
     },
     {
+      "flag": "isSharedFilesystemDisabled",
+      "description": "Disable the rook-ceph shared filesystem, reducing CPU and Memory load by no longer needing to schedule several pods. 1.4.3+",
+      "type": "boolean"
+    },
+    {
       "flag": "blockDeviceFilter",
       "description": "Only use block devices matching this regex.",
       "type": "string"
