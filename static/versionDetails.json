@@ -420,7 +420,7 @@
     },
     {
       "flag": "isLocalPVEnabled",
-      "description": "Turn on localPV storage provisioning.",
+      "description": "Turn on localPV storage provisioning. localPV uses /var/openebs/local for storage and does not replicate data between nodes.",
       "type": "boolean"
     },
     {
@@ -430,7 +430,7 @@
     },
     {
       "flag": "isCstorEnabled",
-      "description": "Turn on cstor storage provisioning.",
+      "description": "Turn on cStor storage provisioning. cStor relies on block devices and supports replicating data between nodes.",
       "type": "boolean"
     },
     {
