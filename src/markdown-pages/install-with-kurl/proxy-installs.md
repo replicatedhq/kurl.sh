@@ -31,6 +31,8 @@ Any addresses set in either the `NO_PROXY` or `no_proxy` environment variable wi
 ## No Proxy Addresses
 
 All addresses set in the `additionalNoProxyAddresses` list will be added to the default set of no proxy addresses.
+Addresses can be specified as a single IP address or a range of addresses in CIDR notation.
+
 The default set of no proxy addresses includes:
 * The CIDR used for assigning IPs to Kubernetes services
 * The CIDR used for assigning IPs to pods
@@ -39,3 +41,5 @@ The default set of no proxy addresses includes:
 * The `.svc` and `.local` search domains for cluster services
 * Add-on namespaces
 * Other service hostnames referenced by add-ons without fully qualified domain names
+
+Addresses of all additional hosts in the cluster must be added manually to the `additionalNoProxyAddresses` parameter using a [YAML patch file](/docs/install-with-kurl/#modifying-an-install-using-a-yaml-patch-file-at-runtime) or passed into the install script using the `additional-no-proxy-addresses` [flag](/docs/install-with-kurl/advanced-options).

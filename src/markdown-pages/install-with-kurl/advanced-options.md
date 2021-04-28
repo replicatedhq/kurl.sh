@@ -10,6 +10,7 @@ The install scripts are idempotent. Re-run the scripts with different flags to c
 
 | Flag                             | Usage                                                                                                             |
 | -------------------------------- | ----------------------------------------------------------------------------------------------------------------  |
+| additional-no-proxy-addresses    | This indicates addresses that should not be proxied in addition to the private IP. Multiple addresses can be specified as a comma separated list of IPs or a range of addresses in CIDR notation. |
 | airgap                           | Do not attempt outbound Internet connections while installing.                                                    |
 | ha                               | Install will require a load balancer to allow for a highly available Kubernetes Control Plane.                    |
 | installer-spec-file              | This flag takes the path to a ‘patch’ yaml file. The config in this patch will be merged with the existing installer yaml, taking precedence where there is conflict, and will change the installation based on the final config. |
