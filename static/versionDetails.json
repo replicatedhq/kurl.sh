@@ -159,6 +159,11 @@
       "type": "boolean"
     },
     {
+      "flag": "isSharedFilesystemDisabled",
+      "description": "Disable the rook-ceph shared filesystem, reducing CPU and Memory load by no longer needing to schedule several pods. 1.4.3+",
+      "type": "boolean"
+    },
+    {
       "flag": "blockDeviceFilter",
       "description": "Only use block devices matching this regex.",
       "type": "string"
@@ -415,7 +420,7 @@
     },
     {
       "flag": "isLocalPVEnabled",
-      "description": "Turn on localPV storage provisioning.",
+      "description": "Turn on localPV storage provisioning. localPV uses /var/openebs/local for storage and does not replicate data between nodes.",
       "type": "boolean"
     },
     {
@@ -425,7 +430,7 @@
     },
     {
       "flag": "isCstorEnabled",
-      "description": "Turn on cstor storage provisioning.",
+      "description": "Turn on cStor storage provisioning. cStor relies on block devices and supports replicating data between nodes.",
       "type": "boolean"
     },
     {
