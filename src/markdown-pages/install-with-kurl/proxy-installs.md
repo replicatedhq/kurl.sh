@@ -44,4 +44,6 @@ The default set of no proxy addresses includes:
 
 Addresses of all hosts in the cluster must be to included in the `additionalNoProxyAddresses` parameter in advance of installing or joining additional nodes.
 This parameter can be set using a [YAML patch file](/docs/install-with-kurl/#modifying-an-install-using-a-yaml-patch-file-at-runtime) or passed into the install script using the `additional-no-proxy-addresses` [flag](/docs/install-with-kurl/advanced-options).
-When a host is added to the cluster, if the original list of addresses did not encompass this host's address, the install or upgrade script must be re-run on each host with the new host added to the `additionalNoProxyAddresses` parameter. For this reason it is recommended to use a range of addresses in CIDR notation to prevent the need for retroactively running the installer when adding additonal nodes.
+When a host is added to the cluster, if the original list of addresses did not encompass this host's address, the install or upgrade script must be re-run on each host with the new host added to the `additionalNoProxyAddresses` parameter. 
+
+For this reason it is recommended to use a range of addresses in CIDR notation to prevent the need for retroactively running the installer when adding additonal nodes.
