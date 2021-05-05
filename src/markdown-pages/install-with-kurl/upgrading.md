@@ -6,11 +6,11 @@ linktitle: "Upgrading"
 title: "Upgrading"
 ---
 
-To upgrade Kubernetes or an add-on in a kURL cluster, generate a new installer script and run it on the node where the original install was performed.
+To upgrade Kubernetes or an add-on in a kURL cluster, generate a new installer script and run it on any primary in the cluster.
 
 ## Kubernetes
 
-If the install script detects an upgrade of Kubernetes is required, it will first drain and upgrade the main primary where the script is running.
+If the install script detects an upgrade of Kubernetes is required, it will first drain and upgrade the primary where the script is running.
 Then if there are any remote primaries to upgrade, the script will drain each sequentially and print out a script that must be run on that node.
 The script will detect when Kubernetes has been upgraded on the remote node and proceed to drain the next node.
 After upgrading all primaries the same operation will be performed sequentially on all remote secondaries.
