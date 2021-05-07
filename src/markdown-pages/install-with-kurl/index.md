@@ -5,7 +5,7 @@ weight: 10
 linktitle: "Overview"
 title: "Install with kURL"
 ---
-For unauthenticated users, kURL will calculate a hash based on the selected components and their versions. This hash becomes the name & unique identifier of that installer for all installation methods (standard, HA and airgap). For example, the airgap installer for `fa57b02` can be found at `https://kurl.sh/bundle/fa57b02.tar.gz`.  
+For unauthenticated users, kURL will calculate a hash based on the selected components and their versions. This hash becomes the name & unique identifier of that installer for all installation methods (standard, HA and airgap). For example, the airgap installer for `fa57b02` can be found at `https://kurl.sh/bundle/fa57b02.tar.gz`.
 
 ## Online Usage
 To run the latest version of the install script:
@@ -52,7 +52,7 @@ This will automatically regenerate new certificates that include the new load ba
 ## Airgapped Usage
 To install Kubernetes in an airgapped environment, first fetch the installer archive:
 ```
-curl -LO https://k8s.kurl.sh/bundle/latest.tar.gz
+curl -LO https://kurl.sh/bundle/latest.tar.gz
 ```
 
 After copying the archive to your host, untar it and run the install script:
@@ -66,6 +66,23 @@ Airgapped HA is available through:
 tar xvzf latest.tar.gz
 cat install.sh | sudo bash -s airgap ha
 ```
+
+## Versioned Releases
+kURL supports pinning the installation to a specific release version.
+
+The version can be specified in the URL, for example:
+```
+curl https://kurl.sh/version/v2021.05.07-0/latest | sudo bash
+```
+
+Airgap bundles can be downloaded using a similar pattern:
+```
+curl -LO https://kurl.sh/bundle/version/v2021.05.07-0/latest.tar.gz
+```
+
+A list of releases can be found on the [kURL Releases](https://github.com/replicatedhq/kURL/releases) page.
+
+*NOTE: Version pinning is supported as of release `v2021.05.07-0`.*
 
 ## Latest
 `latest` is a specific distro that is managed by the team at Replicated. This installer provides the most recent version of several add-ons and the most recent version of Kubernetes that kURL supports. Currently the spec for `latest` is:  
