@@ -5,7 +5,7 @@ weight: 10
 linktitle: "Overview"
 title: "Install with kURL"
 ---
-For unauthenticated users, kURL will calculate a hash based on the selected components and their versions. This hash becomes the name & unique identifier of that installer for all installation methods (standard, HA and airgap). For example, the airgap installer for `fa57b02` can be found at `https://kurl.sh/bundle/fa57b02.tar.gz`.  
+For unauthenticated users, kURL will calculate a hash based on the selected components and their versions. This hash becomes the name & unique identifier of that installer for all installation methods (standard, HA and airgap). For example, the airgap installer for `fa57b02` can be found at `https://kurl.sh/bundle/fa57b02.tar.gz`.
 
 ## Online Usage
 To run the latest version of the install script:
@@ -52,7 +52,7 @@ This will automatically regenerate new certificates that include the new load ba
 ## Airgapped Usage
 To install Kubernetes in an airgapped environment, first fetch the installer archive:
 ```
-curl -LO https://k8s.kurl.sh/bundle/latest.tar.gz
+curl -LO https://kurl.sh/bundle/latest.tar.gz
 ```
 
 After copying the archive to your host, untar it and run the install script:
