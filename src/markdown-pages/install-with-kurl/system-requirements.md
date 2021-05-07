@@ -48,7 +48,7 @@ No outbound internet access is required for airgapped installations.
 
 The kURL install script will prompt to disable firewalld. 
 Note that firewall rules can affect communications between containers on the **same** machine, so it is recommended to disable these rules entirely for Kubernetes.
-Firewall rules can be added after or preserved during an install, but because installation parameters like pod and service CIDRS can vary based on local networking conditions, there is no general guidance available on default requirements. 
+Firewall rules can be added after or preserved during an install, but because installation parameters like pod and service CIDRs can vary based on local networking conditions, there is no general guidance available on default requirements. 
 See [Advanced Options](/docs/install-with-kurl/advanced-options) for installer flags that can preserve these rules.
 
 The following ports must be open between nodes for multi-node clusters:

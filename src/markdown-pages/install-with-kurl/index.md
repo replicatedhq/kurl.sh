@@ -67,6 +67,23 @@ tar xvzf latest.tar.gz
 cat install.sh | sudo bash -s airgap ha
 ```
 
+## Versioned Releases
+kURL supports pinning the installation to a specific release version.
+
+The version can be specified in the URL, for example:
+```
+curl https://kurl.sh/version/v2021.05.07-0/latest | sudo bash
+```
+
+Airgap bundles can be downloaded using a similar pattern:
+```
+curl -LO https://kurl.sh/bundle/version/v2021.05.07-0/latest.tar.gz
+```
+
+A list of releases can be found on the [kURL Releases](https://github.com/replicatedhq/kURL/releases) page.
+
+*NOTE: Version pinning is supported as of release `v2021.05.07-0`.*
+
 ## Latest
 `latest` is a specific distro that is managed by the team at Replicated. This installer provides the most recent version of several add-ons and the most recent version of Kubernetes that kURL supports. Currently the spec for `latest` is:  
 ```yaml
