@@ -196,7 +196,7 @@ for Pods and `10.96.0.0/16` for Services. If those ranges aren't available per t
 the installer will fallback to searching for available subnets in `10.0.0.0/8`.
 
 ```yaml
-  apiversion: cluster.kurl.sh/v1beta1
+  apiVersion: cluster.kurl.sh/v1beta1
   kind: Installer
   metadata:
     name: "patch"
