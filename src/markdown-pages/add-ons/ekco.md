@@ -131,7 +131,7 @@ spec:
 ```
 
 ```bash
-curl -sSL https://k8s.kurl.sh/<installer-id> | sudo bash -s auto-upgrades-enabled
+curl -sSL https://kurl.sh/<installer-id> | sudo bash -s auto-upgrades-enabled
 ```
 
 
