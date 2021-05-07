@@ -20,7 +20,8 @@ title: "System Requirements"
 
 * 4 CPUs or equivalent per machine
 * 8 GB of RAM per machine
-* 30 GB of Disk Space per machine
+* 40 GB of Disk Space per machine. 
+    * **Note**: 10GB of the total 40GB should be available to `/var/lib/rook`. For more information see [Rook](/docs/addons/rook)
 * TCP ports 2379, 2380, 6443, 6783, 10250, 10251 and 10252 open between cluster nodes
 * UDP ports 6783 and 6784 open between cluster nodes
 

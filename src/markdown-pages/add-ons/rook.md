@@ -10,7 +10,9 @@ addOn: "rook"
 The [Rook](https://rook.io/) add-on creates and manages a Ceph cluster along with a storage class for provisioning PVCs.
 It also runs the Ceph RGW object store to provide an S3-compatible store in the cluster.
 
-By default the cluster uses the filesystem for storage. Each node in the cluster will have a single OSD backed by a directory in `/opt/replicated/rook`.
+By default the cluster uses the filesystem for storage. Each node in the cluster will have a single OSD backed by a directory in `/opt/replicated/rook` as well as a Mon backed by a directory in `/var/lib/rook`.
+
+**Note**: At minimum, 10GB of disk space should be available to `/var/lib/rook` for the Ceph Monitors and other config. We recommend a separate partition to prevent a disruption in Ceph's operation as a result of `/var` or the root partition running out of space.
 
 The [EKCO](/docs/add-ons/ekco) add-on is recommended when installing Rook. EKCO is responsible for performing various operations to maintain the health of a Ceph cluster.
 
