@@ -28,6 +28,13 @@ module.exports = {
       },
     },
     {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `release-notes`,
+        path: `${__dirname}/src/release-notes`,
+      },
+    },
+    {
       resolve: `gatsby-plugin-sass`,
       options: {
         useResolveUrlLoader: true,
