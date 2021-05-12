@@ -76,7 +76,7 @@ export const pageQuery = graphql`
     }
     allMarkdownRemark(
       filter: { fields: { collection: { eq: "release-notes" } } }
-      sort: { order: DESC, fields: [frontmatter___date] }
+      sort: { fields: [frontmatter___weight], order: DESC }
       limit: $limit
       skip: $skip
     ) {
