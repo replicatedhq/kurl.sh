@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import classNames from "classnames";
-import { StaticQuery, graphql } from "gatsby";
+import { StaticQuery, graphql, Link } from "gatsby";
 import SidebarFileTree from "./shared/SidebarFileTree";
 import { parseLinksToTree } from "../utils/parse-links-to-tree";
 
@@ -38,6 +38,7 @@ export default class Sidebar extends Component {
               "Sidebar": !this.props.isMobile,
             })}>
               <div className={`${this.props.isMobile ? "u-paddingBottom--20" : "Sidebar-content u-position--relative"}`}>
+                <h3><Link to="/release-notes">Release Notes</Link></h3>
                 <SidebarFileTree
                   data={tree}
                   pathname={this.props.pathname}
