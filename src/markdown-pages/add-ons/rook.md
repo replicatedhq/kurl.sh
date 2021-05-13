@@ -14,6 +14,8 @@ By default the cluster uses the filesystem for storage. Each node in the cluster
 
 **Note**: At minimum, 10GB of disk space should be available to `/var/lib/rook` for the Ceph Monitors and other configs. We recommend a separate partition to prevent a disruption in Ceph's operation as a result of `/var` or the root partition running out of space.
 
+**Note**: All disks used for storage in the cluster should be of similar size. A cluster with large discrepancies in disk size may fail to replicate data to all available nodes.
+
 The [EKCO](/docs/add-ons/ekco) add-on is recommended when installing Rook. EKCO is responsible for performing various operations to maintain the health of a Ceph cluster.
 
 ## Advanced Install Options
@@ -38,6 +40,7 @@ For production clusters, Rook should be configured to use block devices rather t
 Enabling block storage is required with version 1.4.3+.
 The following spec enables block storage for the Rook add-on and automatically uses disks matching the regex `/sd[b-z]/`.
 Rook will start an OSD for each discovered disk, which could result in multiple OSDs running on a single node.
+Rook will ignore block devices that already have a filesystem on them.
 
 ```yaml
 spec:
