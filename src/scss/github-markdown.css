@@ -9,6 +9,18 @@
   vertical-align: text-bottom;
 }
 
+#span-classlabel-label-greennew-featuresspan .anchor svg {
+  visibility: hidden;
+}
+
+#span-classlabel-label-blueimprovementsspan .anchor svg {
+  visibility: hidden;
+}
+
+#span-classlabel-label-orangebug-fixesspan .anchor svg {
+  visibility: hidden;
+}
+
 .markdown-body .anchor {
   float: left;
   line-height: 1;
