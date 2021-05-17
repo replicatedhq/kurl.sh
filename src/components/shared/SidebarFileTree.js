@@ -119,7 +119,7 @@ export default class SidebarFileTree extends Component {
   }
 
   render() {
-    const { depth = 0, data, type, className, open, children } = this.props;
+    const { depth = 0, data, type, className, open, children, isReleaseNotes } = this.props;
     const { treeState } = this.state;
 
     if (treeState.length === 0 && depth === 0) {
@@ -133,7 +133,7 @@ export default class SidebarFileTree extends Component {
 
     return (
       <div
-        className={classNames(`SidebarFileTree depth-${depth} flex1 flex-column`, className)}
+        className={classNames(`SidebarFileTree flex1 flex-column ${isReleaseNotes ? "u-marginLeft--20" :  `depth-${depth}`}`, className)}
         onClick={type === "directory" ? this.onDirectoryClick : null}
         data-type={type}
         data-path={children && children.toString()}
@@ -154,12 +154,14 @@ export default class SidebarFileTree extends Component {
               </SidebarFileTree>
             );
           } else {
+            const key = isReleaseNotes ? `${depth}-${idx}-${entry.path}` : `${depth}-${idx}`
             return (
               <SidebarFileTree
-                key={`${depth}-${idx}`}
+                key={key}
                 depth={depth + 1}
                 open={entry.open}
                 type="file"
+                isReleaseNotes={isReleaseNotes}
               >
                 <Link
                   to={entry.path}

@@ -38,12 +38,13 @@ export default class Sidebar extends Component {
               "Sidebar": !this.props.isMobile,
             })}>
               <div className={`${this.props.isMobile ? "u-paddingBottom--20" : "Sidebar-content u-position--relative"}`}>
-                <h3>
+                <h3 className="u-paddingLeft--20 u-margin-none">
                   <Link to="/release-notes">Release Notes</Link>
                 </h3>
                 <SidebarFileTree
                   data={tree}
                   pathname={this.props.pathname}
+                  isReleaseNotes={true}
                 />
               </div>
             </div>
