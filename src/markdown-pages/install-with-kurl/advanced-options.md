@@ -14,6 +14,8 @@ The install scripts are idempotent. Re-run the scripts with different flags to c
 | airgap                           | Do not attempt outbound Internet connections while installing.                                                    |
 | force-reapply-addons             | Reinstall addons, whether or not they have changed since the last time kurl was run.                              |
 | ha                               | Install will require a load balancer to allow for a highly available Kubernetes Control Plane.                    |
+| ignore-remote-load-images-prompt | Bypass prompt to load images on remotes. This is useful for automating upgrades.                                  |
+| ignore-remote-upgrade-prompt     | Bypass prompt to upgrade remotes. This is useful for automating upgrades.                                         |
 | installer-spec-file              | This flag takes the path to a ‘patch’ yaml file. The config in this patch will be merged with the existing installer yaml, taking precedence where there is conflict, and will change the installation based on the final config. |
 | kurl-install-directory           | Override the base directory where kURL will install its dependencies. The path will be suffixed with "/kurl/" ("{kurl-install-directory}/kurl/"). This directory must be writeable by the kURL installer and must have sufficient disk space (5 GB). (default "/var/lib/") |
 | load-balancer-address            | IP:port of a load balancer for the Kubernetes API servers in HA mode.                                             |
