@@ -8,15 +8,13 @@ export default function Post({ post, link }) {
     title = <Link to={`/release-notes/${frontmatter.version}`}>{title}</Link>
   }
   return (
-    <div className="flex-column flex1 u-height--auto">
-      <div className="u-padding--20 markdown-body">
-        <h1>{title}</h1>
-        <small>Released on {frontmatter.date}</small>
-        <div
-          className="docs-content"
-          dangerouslySetInnerHTML={{ __html: html }}
-        />
-      </div>
+    <div className="u-padding--20 markdown-body">
+      <h1>{title}</h1>
+      <small>Released on {frontmatter.date}</small>
+      <div
+        className="docs-content"
+        dangerouslySetInnerHTML={{ __html: html }}
+      />
     </div>
   );
 };

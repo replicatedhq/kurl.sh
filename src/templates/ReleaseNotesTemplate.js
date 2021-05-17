@@ -12,7 +12,7 @@ export default function Template({
 
   return (
     <ReleaseNotesLayout location={location} title={"Release " + frontmatter.version}>
-      <div><Link to="/release-notes">&lt;- Release Notes</Link></div>
+      <div className="u-color--royalBlue"><Link to="/release-notes"><span className="icon u-backIcon" />Release Notes</Link></div>
       <Post post={markdownRemark} />
     </ReleaseNotesLayout>
   )

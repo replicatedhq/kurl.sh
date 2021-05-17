@@ -25,3 +25,27 @@ h3 {
     background-color: #5896bb;
   }
 }
+
+.paginator {
+  display: flex;
+  text-align: center;
+  width: 100%;
+  justify-content: center;
+
+  .pagination {
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+
+    li {
+      padding-right: 6px;
+      padding-left: 6px;
+
+      a {
+        &:active {
+          font-weight: bold;
+        }
+      }
+    }
+  }
+}

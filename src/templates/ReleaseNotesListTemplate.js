@@ -14,40 +14,30 @@ class ReleaseNotesIndex extends React.Component {
     const nextPage = `/release-notes/${currentPage + 1}`;
 
     const Posts = edges
-      .map(edge => <Post key={edge.node.frontmatter.title} post={edge.node} link={true} />);
+      .map((edge, i) => <Post key={`${edge.node.frontmatter.title}-${i}`} post={edge.node} link={true} />);
 
     return (
       <ReleaseNotesLayout location={{pathname: "/release-notes"}} title="Release Notes">
         {Posts}
+        <div className="paginator">
         <ul
-          style={{
-            display: 'flex',
-            flexWrap: 'wrap',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            listStyle: 'none',
-            padding: 0,
-          }}
+          className="pagination"
         >
           {!isFirst && (
             <Link to={prevPage} rel="prev">
-              ← Previous Page
+              <span className="icon u-backIcon" />
             </Link>
           )}
           {Array.from({ length: numPages }, (_, i) => (
             <li
               key={`pagination-number${i + 1}`}
-              style={{
-                margin: 0,
-              }}
             >
               <Link
                 to={i === 0 ? `/release-notes` : `/release-notes/${i + 1}`}
                 style={{
                   padding: .25,
-                  textDecoration: 'none',
-                  color: i + 1 === currentPage ? '#ffffff' : '',
-                  background: i + 1 === currentPage ? '#007acc' : '',
+                  textDecoration: "none",
+                  color: i + 1 === currentPage ? "#4A4A4A" : "#326DE6",
                 }}
               >
                 {i + 1}
@@ -56,10 +46,11 @@ class ReleaseNotesIndex extends React.Component {
           ))}
           {!isLast && (
             <Link to={nextPage} rel="next">
-              Next Page →
+              <span className="icon u-forwardIcon" /> 
             </Link>
           )}
         </ul>
+        </div>
       </ReleaseNotesLayout>
     );
   }
