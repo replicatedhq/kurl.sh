@@ -1,0 +1,51 @@
+
+h3 {
+  .label {
+    border-radius: 25px !important;
+    color: #fff;
+    padding: .2em .6em .3em;
+    display: inline;
+    font-weight: normal;
+    font-size: 18px;
+  }
+  
+  .label-grey {
+    background-color: #848586;
+  }
+  
+  .label-orange {
+    background-color: #f1844a;
+  }
+  
+  .label-green {
+    background-color: #7FC65E;
+  }
+  
+  .label-blue {
+    background-color: #5896bb;
+  }
+}
+
+.paginator {
+  display: flex;
+  text-align: center;
+  width: 100%;
+  justify-content: center;
+
+  .pagination {
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+
+    li {
+      padding-right: 6px;
+      padding-left: 6px;
+
+      a {
+        &:active {
+          font-weight: bold;
+        }
+      }
+    }
+  }
+}
