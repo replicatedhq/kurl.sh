@@ -40,6 +40,7 @@ exports.createSchemaCustomization = ({ actions }) => {
       frontmatter: Frontmatter
     }
     type Frontmatter {
+      version: String
       isBeta: Boolean
       isAlpha: Boolean
     }
@@ -47,10 +48,27 @@ exports.createSchemaCustomization = ({ actions }) => {
   createTypes(typeDefs)
 }
 
+exports.onCreateNode = ({ node, actions, getNode }) => {
+  const { createNodeField } = actions;
+
+  if (node.internal && node.internal.type === `MarkdownRemark`) {
+    // Get the parent node
+    const parent = getNode(node.parent);
+
+    createNodeField({
+      node,
+      name: "collection",
+      value: parent.sourceInstanceName,
+    });
+  }
+};
+
 exports.createPages = async ({ actions, graphql, reporter }) => {
   const { createPage, createRedirect } = actions
   const docsTemplate = path.resolve(__dirname, 'src/templates/DocsTemplate.js/');
-  const result = await graphql(`
+  const releaseNotesTemplate = path.resolve(__dirname, 'src/templates/ReleaseNotesTemplate.js/');
+  const releaseNotesListTemplate = path.resolve(__dirname, 'src/templates/ReleaseNotesListTemplate.js');
+  const results = await graphql(`
     {
       allMarkdownRemark(
         sort: { order: DESC, fields: [frontmatter___weight] }
@@ -58,11 +76,15 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
       ) {
         edges {
           node {
+            fields {
+              collection
+            }
             frontmatter {
               path
               linktitle
               title
               addOn
+              version
               isBeta
               isAlpha
             }
@@ -70,7 +92,22 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
         }
       }
     }
-  `)
+  `);
+
+  // Handle errors
+  if (results.errors) {
+    reporter.panicOnBuild(`Error while running GraphQL query.`)
+    return
+  }
+
+  const allEdges = results.data.allMarkdownRemark.edges;
+
+  const docEdges = allEdges.filter(
+    edge => edge.node.fields.collection === `markdown-pages`
+  );
+  const releaseNotesEdges = allEdges.filter(
+    edge => edge.node.fields.collection === `release-notes`
+  );
 
   createRedirect({
     isPermanant: true,
@@ -79,12 +116,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
     toPath: "/docs/introduction/"
   });
 
-  // Handle errors
-  if (result.errors) {
-    reporter.panicOnBuild(`Error while running GraphQL query.`)
-    return
-  }
-  result.data.allMarkdownRemark.edges.forEach(({ node }) => {
+  docEdges.forEach(({ node }) => {
     const { path, linktitle, title } = node.frontmatter;
     const { html } = node;
     createPage({
@@ -92,7 +124,38 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
       linktitle,
       title,
       html,
-      component: docsTemplate
+      component: docsTemplate,
+    })
+  });
+
+  releaseNotesEdges.forEach(({ node }) => {
+    const { version } = node.frontmatter;
+    const { html } = node;
+    createPage({
+      path: `/release-notes/${version}`,
+      title: `Release ${version}`,
+      linktitle: version,
+      html,
+      component: releaseNotesTemplate,
+      context: {
+        version,
+      },
+    })
+  });
+
+  // Create release-notes pages
+  const releaseNotesPerPage = 10
+  const releaseNotesNumPages = Math.ceil(releaseNotesEdges.length / releaseNotesPerPage)
+  Array.from({ length: releaseNotesNumPages }).forEach((_, i) => {
+    createPage({
+      path: i === 0 ? `/release-notes` : `/release-notes/${i + 1}`,
+      component: releaseNotesListTemplate,
+      context: {
+        limit: releaseNotesPerPage,
+        skip: i * releaseNotesPerPage,
+        numPages: releaseNotesNumPages,
+        currentPage: i + 1,
+      },
     })
   })
 }

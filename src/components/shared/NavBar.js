@@ -35,6 +35,7 @@ export class NavBar extends React.Component {
       { linkTo: "/", label: "Kurl" },
       { linkTo: "/add-ons", label: "Supported add-ons" },
       { linkTo: "/docs/introduction/", label: "Documentation" },
+      { linkTo: "/release-notes", label: "Release Notes" },
     ];
 
     return (
@@ -65,6 +66,9 @@ export class NavBar extends React.Component {
                       </div>
                       <div className="flex-column flex-auto u-marginRight--20 justifyContent--center">
                         <Link to="/docs/introduction/" className="u-fontWeight--medium  u-color--royalBlue u-lineHeight--normal u-fontSize--normal u-textDecoration--underlineOnHover"> Docs </Link>
+                      </div>
+                      <div className="flex-column flex-auto u-marginRight--20 justifyContent--center">
+                        <Link to="/release-notes" className="u-fontWeight--medium  u-color--royalBlue u-lineHeight--normal u-fontSize--normal u-textDecoration--underlineOnHover"> Release Notes </Link>
                       </div>
                     </div>
                     <div className="flex flex-auto">
