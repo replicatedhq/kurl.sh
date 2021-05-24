@@ -1161,7 +1161,7 @@ class Kurlsh extends React.Component {
                             <Select
                               isSearchable={false}
                               options={versions.sonobuoy}
-                              getOptionLabel={this.getLabel}
+                              getOptionLabel={this.getLabel("sonobuoy")}
                               getOptionValue={(sonobuoy) => sonobuoy}
                               value={selectedVersions.sonobuoy}
                               onChange={this.onVersionChange("sonobuoy")}
