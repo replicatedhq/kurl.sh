@@ -9,6 +9,8 @@ export default class AppVersionCard extends React.Component {
       return "KOTS";
     } else if (name === "openebs") {
       return "OpenEBS";
+    } else if (name === "longhorn") {
+      return "Longhorn";
     } else if (name === "certManager") {
       return "Cert manager"
     } else if (name === "metricsServer") {

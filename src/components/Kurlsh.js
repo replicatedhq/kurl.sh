@@ -16,7 +16,7 @@ import ConfirmSelectionModal from "./modals/ConfirmSelectionModal";
 import "../scss/components/Kurlsh.scss";
 import versionDetails from "../../static/versionDetails.json"
 
-const hasAdvancedOptions = ["kubernetes", "weave", "antrea", "contour", "rook", "registry", "docker", "velero", "kotsadm", "ekco", "fluentd", "minio", "openebs"];
+const hasAdvancedOptions = ["kubernetes", "weave", "antrea", "contour", "rook", "registry", "docker", "velero", "kotsadm", "ekco", "fluentd", "minio", "openebs", "longhorn"];
 function versionToState(version) {
   return {
     version
@@ -72,6 +72,9 @@ class Kurlsh extends React.Component {
     const openebsVersions = supportedVersions.openebs.map(versionToState);
     openebsVersions.push({ version: "None" });
 
+    const longhornVersions = supportedVersions.longhorn.map(versionToState);
+    longhornVersions.push({ version: "None" });
+
     const collectdVersions = supportedVersions.collectd.map(versionToState);
     collectdVersions.push({ version: "None" });
 
@@ -101,6 +104,7 @@ class Kurlsh extends React.Component {
         fluentd: fluentdVersions,
         minio: minioVersions,
         openebs: openebsVersions,
+        longhorn: longhornVersions,
         collectd: collectdVersions,
         metricsServer: metricsServerVersions,
         certManager: certManagerVersions,
@@ -122,6 +126,7 @@ class Kurlsh extends React.Component {
         fluentd: { version: "None" },
         minio: { version: "None" },
         openebs: { version: "None" },
+        longhorn: { version: "None" },
         collectd: { version: "None" },
         metricsServer: { version: "None" },
         certManager: { version: "None" },
@@ -143,6 +148,7 @@ class Kurlsh extends React.Component {
         "fluentd": false,
         "minio": false,
         "openebs": false,
+        "longhorn": false,
         "metricsServer": false,
         "certManager": false,
         "sonobuoy": false
@@ -161,6 +167,7 @@ class Kurlsh extends React.Component {
         fluentd: {},
         minio: {},
         openebs: {},
+        longhorn: {},
         collectd: {},
         metricsServer: {},
         certManager: {},
@@ -181,6 +188,7 @@ class Kurlsh extends React.Component {
         fluentd: false,
         minio: false,
         openebs: false,
+        longhorn: false,
         collectd: false,
         metricsServer: false,
         certManager: false,
@@ -465,6 +473,20 @@ class Kurlsh extends React.Component {
       if (Object.keys(diff).length) {
         generatedInstaller.spec.openebs = {
           ...generatedInstaller.spec.openebs,
+          ...diff
+        };
+      }
+    }
+
+    if (selectedVersions.longhorn.version !== "None") {
+      const diff = getDiff(optionDefaults["longhorn"], options.longhorn);
+      generatedInstaller.spec.longhorn = {
+        version: selectedVersions.longhorn.version
+      };
+
+      if (Object.keys(diff).length) {
+        generatedInstaller.spec.longhorn = {
+          ...generatedInstaller.spec.longhorn,
           ...diff
         };
       }
@@ -1331,6 +1353,41 @@ class Kurlsh extends React.Component {
 
               <div className="flex flex-column u-marginTop--40">
                 <span className="u-fontSize--normal u-fontWeight--medium u-color--bermudaGray"> PVC Provisioner </span>
+                <div className={`AddOn--wrapper ${selectedVersions.longhorn.version !== "None" && "selected"} flex flex-column u-marginTop--15`} onClick={(e) => this.handleIsAddOnSelected("longhorn", e)}>
+                  <div className="flex flex1">
+                    <div className="flex flex1 alignItems--center">
+                      <input
+                        type="checkbox"
+                        className="u-marginRight--normal"
+                        checked={selectedVersions.longhorn.version !== "None"}
+                      />
+                      <span className="icon u-longhorn u-marginBottom--small" />
+                      <div className="flex flex-column u-marginLeft--15 u-marginTop--small">
+                        <div className="FormLabel"> Longhorn </div>
+                        <div className={`SelectVersion flex flex1 ${!this.state.isAddOnChecked["longhorn"] && "disabled"}`} style={{ width: "200px" }}>
+                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> {!this.state.isAddOnChecked["longhorn"] ? "Version None" : "Version"} </span>
+                          <Select
+                            isSearchable={false}
+                            options={versions.longhorn}
+                            getOptionLabel={this.getLabel("longhorn")}
+                            getOptionValue={(longhorn) => longhorn}
+                            value={selectedVersions.longhorn}
+                            onChange={this.onVersionChange("longhorn")}
+                            matchProp="value"
+                            isDisabled={!this.state.isAddOnChecked["longhorn"]}
+                            isOptionSelected={() => false} />
+                        </div>
+                      </div>
+                    </div>
+                    <div className="flex flex1 justifyContent--flexEnd alignItems--center">
+                      <div className="flex u-fontSize--small u-fontWeight--medium u-color--royalBlue u-marginTop--small u-cursor--pointer configDiv" onClick={() => this.onToggleShowAdvancedOptions("longhorn")}>
+                        {showAdvancedOptions["longhorn"] ? "Hide config" : "Show config"}
+                      </div>
+                    </div>
+                  </div>
+                  {showAdvancedOptions["longhorn"] && this.renderAdvancedOptions("longhorn")}
+                </div>
+
                 <div className={`AddOn--wrapper ${selectedVersions.openebs.version !== "None" && "selected"} flex flex-column u-marginTop--15`} onClick={(e) => this.handleIsAddOnSelected("openebs", e)}>
                   <div className="flex flex1">
                     <div className="flex flex1 alignItems--center">
