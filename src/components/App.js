@@ -232,6 +232,8 @@ cat install.sh | sudo bash -s airgap
                     <AppVersionCard selectedSpec={selectedSpec} name={"fluentd"} installerData={installerData.spec.fluentd} whatYouGet={this.whatYouGet} />}
                   {installerData.spec.openebs &&
                     <AppVersionCard selectedSpec={selectedSpec} name={"openebs"} installerData={installerData.spec.openebs} whatYouGet={this.whatYouGet} />}
+                  {installerData.spec.longhorn &&
+                    <AppVersionCard selectedSpec={selectedSpec} name={"longhorn"} installerData={installerData.spec.longhorn} whatYouGet={this.whatYouGet} />}
                   {installerData.spec.ekco &&
                     <AppVersionCard selectedSpec={selectedSpec} name={"ekco"} installerData={installerData.spec.ekco} whatYouGet={this.whatYouGet} />}
                   {installerData.spec.collectd &&
