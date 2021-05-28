@@ -60,3 +60,7 @@ Some checks run depending on the add-ons enabled in the installer and their conf
 ### Prometheus
 
 * TCP port 9100 is available for the node exporter.
+
+### Longhorn
+
+* /var/lib/longhorn has at least 50GiB total space and is less than 80% full. (Warn when more than 60% full).
