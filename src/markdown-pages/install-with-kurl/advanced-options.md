@@ -24,5 +24,5 @@ The install scripts are idempotent. Re-run the scripts with different flags to c
 | preserve-docker-config           | This flag will make the kURL installer keep the current docker config of the node, overriding any yaml config.    |
 | preserve-iptables-config         | This flag will make the kURL installer keep the current Iptables config of the node, overriding any yaml config.  |
 | preserve-firewalld-config        | This flag will make the kURL installer keep the current Firewalld config of the node, overriding any yaml config. |
-| preserve-selinux-config          | This flag will make the kURL installer keep the current Selinux config of the node, overriding any yaml config.   |
+| preserve-selinux-config          | This flag will make the kURL installer keep the current SELinux config of the node, overriding any yaml config.   |
 | public-address                   | The public IP address.                                                                                            |

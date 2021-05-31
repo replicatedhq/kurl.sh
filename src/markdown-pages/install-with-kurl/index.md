@@ -146,7 +146,7 @@ curl https://kurl.sh/latest | sudo bash -s installer-spec-file=[path to YAML pat
 ```
 
 This file must be in a valid installer CRD format, a minimum version of a
-patch YAML file is shown below. Note that is must contain the proper apiVersion
+patch YAML file is shown below. Note that it must contain the proper apiVersion
 and kind, as well as have a name.
 
 ```yaml
