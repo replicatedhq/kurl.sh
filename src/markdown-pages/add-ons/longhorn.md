@@ -24,3 +24,18 @@ spec:
 ```
 
 flags-table
+
+## Longhorn UI
+
+The Longhorn UI deployment does not run by default because it is an unauthenticated application.
+It can be enabled by setting the replica count to `1` in the longhorn spec.
+This will make the UI available on port `30880` on all nodes in the cluster.
+
+```yaml
+spec:
+  longhorn:
+    version: latest
+    uiReplicaCount: 1
+```
+
+To enable the UI without re-running the installer, use the command `kubectl -n longhorn-system scale deployment longhorn-ui --replicas=1`.
