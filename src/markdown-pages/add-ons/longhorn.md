@@ -27,7 +27,7 @@ flags-table
 
 ## Longhorn UI
 
-By default the Longhorn UI deployment is not running because it is an unauthenticated application.
+The Longhorn UI deployment does not run by default because it is an unauthenticated application.
 It can be enabled by setting the replica count to `1` in the longhorn spec.
 This will make the UI available on port `30880` on all nodes in the cluster.
 
