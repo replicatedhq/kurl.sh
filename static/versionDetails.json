@@ -532,6 +532,16 @@
       "flag": "version",
       "description": "The version of containerd to be installed",
       "type": "string"
+    },
+    {
+      "flag": "tomlConfig",
+      "description": "Containerd config settings that will be merged into /etc/containerd/config.toml",
+      "type": "string"
+    },
+    {
+      "flag": "preserveConfig",
+      "description": "This flag will ensure that nothing is changed in the existing containerd config on the system, regardless of other options.",
+      "type": "boolean"
     }
   ],
   "collectd": [
