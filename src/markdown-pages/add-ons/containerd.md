@@ -20,7 +20,7 @@ spec:
     preserveConfig: false
     tomlConfig: |
       [debug]
-        "level": "info"
+        "level" = "info"
 ```
 
 flags-table
