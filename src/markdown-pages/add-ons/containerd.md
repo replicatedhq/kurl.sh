@@ -16,7 +16,11 @@ As CentOS, RHEL and Oracle Linux 8.x do not support Docker, the Containerd CRI i
 ```yaml
 spec:
   containerd:
-    version: "1.3.7"
+    version: 1.4.4
+    preserveConfig: false
+    tomlConfig: |
+      [debug]
+        "level" = "info"
 ```
 
 flags-table
