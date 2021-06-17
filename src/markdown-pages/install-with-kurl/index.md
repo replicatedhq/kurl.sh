@@ -80,6 +80,20 @@ Airgap bundles can be downloaded using a similar pattern:
 curl -LO https://kurl.sh/bundle/version/v2021.05.07-0/latest.tar.gz
 ```
 
+A release can be pinned within the installer yaml, as well:
+```yaml
+  apiVersion: "cluster.kurl.sh/v1beta1"
+  kind: "Installer"
+  metadata:
+    name: ""
+  spec:
+    kurl:
+      installerVersion: "v2021.06.15-0"
+```
+
+If an installer version is specified in both the yaml and the URL, the URL version will be used.
+
+
 A list of releases can be found on the [kURL Releases](https://github.com/replicatedhq/kURL/releases) page.
 
 *NOTE: Version pinning is supported as of release `v2021.05.07-0`.*
