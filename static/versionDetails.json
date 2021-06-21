@@ -378,6 +378,11 @@
       "flag": "hostnameCheck",
       "description": "This is an option for use during a join script to ensure that the join is only run on the node it is targeted for.",
       "type": "string"
+    },
+    {
+      "flag": "installerVersion",
+      "description": "The release version of kURL to install with.",
+      "type": "string"
     }
   ],
   "selinux": [
