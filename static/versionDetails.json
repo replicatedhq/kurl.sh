@@ -610,5 +610,12 @@
       "description": "The version of Sonobuoy to be installed.",
       "type": "string"
     }
+  ],
+  "goldpinger": [
+    {
+      "flag": "version",
+      "description": "The version of Goldpinger to be installed.",
+      "type": "string"
+    }
   ]
 }
