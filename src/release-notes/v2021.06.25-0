@@ -16,3 +16,4 @@ weight: 202106250
 
 ### <span class="label label-orange">Bug Fixes</span>
 - Fixed an issue that would cause an upgrade of Prometheus from version 0.44.1 to any later version to cause the Contour Pods to crash.
+- Fixed an issue in earlier versions of the Prometheus add-on which prevented the Grafana Dashboard from connecting to the Prometheus data store.
