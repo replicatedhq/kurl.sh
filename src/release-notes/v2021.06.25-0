@@ -8,6 +8,7 @@ weight: 202106250
 - Added [KOTS](https://kurl.sh/docs/add-ons/kotsadm) add-on version 1.45.0
 - Added [Containerd](https://kurl.sh/docs/add-ons/containerd) add-on version 1.4.6
 - Added [Contour](https://kurl.sh/docs/add-ons/contour) add-on version 1.16.0
+- Added [EKCO](https://kurl.sh/docs/add-ons/ekco) add-on version 0.10.3
 - Added [Rook](https://kurl.sh/docs/add-ons/rook) add-on version 1.5.12
 - Added [Velero](https://kurl.sh/docs/add-ons/velero) add-on version 1.6.1
 
