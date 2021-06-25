@@ -6,6 +6,7 @@ weight: 202106250
 
 ### <span class="label label-green">New Features</span>
 - Added [KOTS](https://kurl.sh/docs/add-ons/kotsadm) add-on version 1.45.0
+- Added [Contour](https://kurl.sh/docs/addons/contour) add-on version 1.16.0
 - Added [Rook](https://kurl.sh/docs/addons/rook) add-on version 1.5.12
 - Added [Velero](https://kurl.sh/docs/addons/velero) add-on version 1.6.1
 
