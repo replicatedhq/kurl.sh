@@ -11,9 +11,6 @@ weight: 202106250
 - Added [Rook](https://kurl.sh/docs/add-ons/rook) add-on version 1.5.12
 - Added [Velero](https://kurl.sh/docs/add-ons/velero) add-on version 1.6.1
 
-### <span class="label label-blue">Improvements</span>
-- 
-
 ### <span class="label label-orange">Bug Fixes</span>
 - Fixed an issue that would cause an upgrade of Prometheus from version 0.44.1 to any later version to cause the Contour Pods to crash.
 - Fixed an issue in earlier versions of the Prometheus add-on which prevented the Grafana Dashboard from connecting to the Prometheus data store.
