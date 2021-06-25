@@ -87,6 +87,9 @@ class Kurlsh extends React.Component {
     const sonobuoyVersions = supportedVersions["sonobuoy"].map(versionToState);
     sonobuoyVersions.push({ version: "None" });
 
+    const goldpingerVersions = supportedVersions["goldpinger"].map(versionToState);
+    goldpingerVersions.push({ version: "None" });
+
     this.state = {
       versions: {
         kubernetes: kubernetesVersions,
@@ -108,7 +111,8 @@ class Kurlsh extends React.Component {
         collectd: collectdVersions,
         metricsServer: metricsServerVersions,
         certManager: certManagerVersions,
-        sonobuoy: sonobuoyVersions
+        sonobuoy: sonobuoyVersions,
+        goldpinger: goldpingerVersions
       },
       selectedVersions: {
         kubernetes: { version: "latest" },
@@ -130,7 +134,8 @@ class Kurlsh extends React.Component {
         collectd: { version: "None" },
         metricsServer: { version: "None" },
         certManager: { version: "None" },
-        sonobuoy: { version: "None" }
+        sonobuoy: { version: "None" },
+        goldpinger: { version: "None" }
       },
       installerSha: "latest",
       showAdvancedOptions: {
@@ -151,7 +156,8 @@ class Kurlsh extends React.Component {
         "longhorn": false,
         "metricsServer": false,
         "certManager": false,
-        "sonobuoy": false
+        "sonobuoy": false,
+        "goldpinger": false
       },
       advancedOptions: {
         kubernetes: {},
@@ -171,7 +177,8 @@ class Kurlsh extends React.Component {
         collectd: {},
         metricsServer: {},
         certManager: {},
-        sonobuoy: {}
+        sonobuoy: {},
+        goldpinger: {},
       },
       isAddOnChecked: {
         weave: true,
@@ -192,7 +199,8 @@ class Kurlsh extends React.Component {
         collectd: false,
         metricsServer: false,
         certManager: false,
-        sonobuoy: false
+        sonobuoy: false,
+        goldpinger: false,
       },
       isLoading: false,
       optionDefaults: {},
@@ -543,6 +551,20 @@ class Kurlsh extends React.Component {
       if (Object.keys(diff).length) {
         generatedInstaller.spec.sonobuoy = {
           ...generatedInstaller.spec.sonobuoy,
+          ...diff
+        };
+      }
+    }
+
+    if (selectedVersions.goldpinger.version !== "None") {
+      const diff = getDiff(optionDefaults.goldpinger, options.goldpinger);
+      generatedInstaller.spec.goldpinger = {
+        version: selectedVersions.goldpinger.version
+      };
+
+      if (Object.keys(diff).length) {
+        generatedInstaller.spec.goldpinger = {
+          ...generatedInstaller.spec.goldpinger,
           ...diff
         };
       }
@@ -1504,6 +1526,34 @@ class Kurlsh extends React.Component {
                             onChange={this.onVersionChange("metricsServer")}
                             matchProp="value"
                             isDisabled={!this.state.isAddOnChecked["metricsServer"]}
+                            isOptionSelected={() => false} />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className={`AddOn--wrapper ${selectedVersions.goldpinger.version !== "None" && "selected"} flex flex-column u-marginTop--15`} onClick={(e) => this.handleIsAddOnSelected("goldpinger", e)}>
+                  <div className="flex flex1">
+                    <div className="flex flex1 alignItems--center">
+                      <input
+                        type="checkbox"
+                        className="u-marginRight--normal"
+                        checked={selectedVersions.goldpinger.version !== "None"}
+                      />
+                      <span className="icon u-kubernetes u-marginBottom--small" />
+                      <div className="flex flex-column u-marginLeft--15 u-marginTop--small">
+                        <div className="FormLabel"> Goldpinger </div>
+                        <div className={`SelectVersion flex flex1 ${!this.state.isAddOnChecked["goldpinger"] && "disabled"}`} style={{ width: "200px" }}>
+                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> {!this.state.isAddOnChecked["goldpinger"] ? "Version None" : "Version"} </span>
+                          <Select
+                            isSearchable={false}
+                            options={versions["goldpinger"]}
+                            getOptionLabel={this.getLabel("goldpinger")}
+                            getOptionValue={(goldpinger) => goldpinger}
+                            value={selectedVersions.goldpinger}
+                            onChange={this.onVersionChange("goldpinger")}
+                            matchProp="value"
+                            isDisabled={!this.state.isAddOnChecked["goldpinger"]}
                             isOptionSelected={() => false} />
                         </div>
                       </div>
