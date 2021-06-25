@@ -16,4 +16,4 @@ weight: 202106250
 ### <span class="label label-orange">Bug Fixes</span>
 - Fixed an issue that would cause an upgrade of Prometheus from version 0.44.1 to any later version to cause the Contour Pods to crash.
 - Fixed an issue in earlier versions of the Prometheus add-on which prevented the Grafana Dashboard from connecting to the Prometheus data store.
-- Fixed an issue that could cause an upgrade of kURL to fail if new addons had been added to kURL (even if they were not used in that installer).
+- Fixed an issue that could cause an upgrade of kURL to fail if new add-ons had been added to kURL (even if they were not used in that installer).
