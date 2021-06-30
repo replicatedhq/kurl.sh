@@ -16,7 +16,7 @@ import ConfirmSelectionModal from "./modals/ConfirmSelectionModal";
 import "../scss/components/Kurlsh.scss";
 import versionDetails from "../../static/versionDetails.json"
 
-const hasAdvancedOptions = ["kubernetes", "weave", "antrea", "contour", "rook", "registry", "docker", "velero", "kotsadm", "ekco", "fluentd", "minio", "openebs", "longhorn"];
+const hasAdvancedOptions = ["kubernetes", "weave", "antrea", "contour", "rook", "registry", "docker", "velero", "kotsadm", "ekco", "fluentd", "minio", "openebs", "longhorn", "prometheus"];
 function versionToState(version) {
   return {
     version
@@ -179,6 +179,7 @@ class Kurlsh extends React.Component {
         certManager: {},
         sonobuoy: {},
         goldpinger: {},
+        prometheus: {},
       },
       isAddOnChecked: {
         weave: true,
@@ -377,9 +378,17 @@ class Kurlsh extends React.Component {
     }
 
     if (selectedVersions.prometheus.version !== "None") {
+      const diff = getDiff(optionDefaults["prometheus"], options.prometheus);
       generatedInstaller.spec.prometheus = {
         version: selectedVersions.prometheus.version
       };
+
+      if (Object.keys(diff).length) {
+        generatedInstaller.spec.prometheus = {
+          ...generatedInstaller.spec.prometheus,
+          ...diff
+        };
+      }
     }
 
     if (selectedVersions.registry.version !== "None") {
@@ -515,7 +524,7 @@ class Kurlsh extends React.Component {
     }
 
     if (selectedVersions.metricsServer.version !== "None") {
-      const diff = getDiff(optionDefaults.metricsServer, options.metricsServer);
+      const diff = getDiff(optionDefaults["metricsServer"], options.metricsServer);
       generatedInstaller.spec.metricsServer = {
         version: selectedVersions.metricsServer.version
       };
@@ -529,7 +538,7 @@ class Kurlsh extends React.Component {
     }
 
     if (selectedVersions.certManager.version !== "None") {
-      const diff = getDiff(optionDefaults.certManager, options.certManager);
+      const diff = getDiff(optionDefaults["certManager"], options.certManager);
       generatedInstaller.spec.certManager = {
         version: selectedVersions.certManager.version
       };
@@ -543,7 +552,7 @@ class Kurlsh extends React.Component {
     }
 
     if (selectedVersions.sonobuoy.version !== "None") {
-      const diff = getDiff(optionDefaults.sonobuoy, options.sonobuoy);
+      const diff = getDiff(optionDefaults["sonobuoy"], options.sonobuoy);
       generatedInstaller.spec.sonobuoy = {
         version: selectedVersions.sonobuoy.version
       };
@@ -557,7 +566,7 @@ class Kurlsh extends React.Component {
     }
 
     if (selectedVersions.goldpinger.version !== "None") {
-      const diff = getDiff(optionDefaults.goldpinger, options.goldpinger);
+      const diff = getDiff(optionDefaults["goldpinger"], options.goldpinger);
       generatedInstaller.spec.goldpinger = {
         version: selectedVersions.goldpinger.version
       };
@@ -1474,7 +1483,13 @@ class Kurlsh extends React.Component {
                         </div>
                       </div>
                     </div>
+                    <div className="flex flex1 justifyContent--flexEnd alignItems--center">
+                      <div className="flex u-fontSize--small u-fontWeight--medium u-color--royalBlue u-marginTop--small u-cursor--pointer configDiv" onClick={() => this.onToggleShowAdvancedOptions("prometheus")}>
+                        {showAdvancedOptions["prometheus"] ? "Hide config" : "Show config"}
+                      </div>
+                    </div>
                   </div>
+                  {showAdvancedOptions["prometheus"] && this.renderAdvancedOptions("prometheus")}
                 </div>
                 <div className={`AddOn--wrapper ${selectedVersions.collectd.version !== "None" && "selected"} flex flex-column u-marginTop--15`} onClick={(e) => this.handleIsAddOnSelected("collectd", e)}>
                   <div className="flex flex1">
