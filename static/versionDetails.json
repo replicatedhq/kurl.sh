@@ -221,6 +221,11 @@
       "flag": "version",
       "description": "The version of prometheus to be installed.",
       "type": "string"
+    },
+    {
+      "flag": "serviceType",
+      "description": "The kubernetes service type to use for prometheus and grafana. Currently supported options are ClusterIP and NodePort.",
+      "type": "string"
     }
   ],
   "registry": [
