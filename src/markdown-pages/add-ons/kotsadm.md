@@ -1,13 +1,13 @@
 ---
-path: "/docs/add-ons/kotsadm"
+path: "/docs/add-ons/kots"
 date: "2020-04-23"
-linktitle: "Kotsadm Add-On"
+linktitle: "KOTS Add-On"
 weight: 38
-title: "Kotsadm Add-On"
+title: "KOTS Add-On"
 addOn: "kotsadm"
 ---
 
-The [kotsadm add-on](https://kots.io/kotsadm/installing/installing-a-kots-app/) installs an admin console for managing KOTS apps.
+The [KOTS add-on](https://kots.io/kotsadm/installing/installing-a-kots-app/) installs an admin console for managing KOTS apps.
 
 This add-on requires an S3-Compatible object store be available in the cluster.
 Both the rook and the minio add-ons satisfy the object store requirement.
