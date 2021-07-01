@@ -17,7 +17,7 @@ The next page allows you to configure your TLS certificates:
 
 To continue with the preinstalled self-signed TLS certificates, click "skip & continue".  Otherwise upload your signed TLS certificates as describe on this page.  The hostname is an optional field, and when its specified, its used to redirect your browser to the specified host. 
 
-Once you complete this process then you'll no longer be presented this page when logging into the KOTS Admin console.  If you direct your browser to `http://<ip>:8800` you'll always be redirected to `https://<ip>:8800`.  
+Once you complete this process then you'll no longer be presented this page when logging into the KOTS Admin Console.  If you direct your browser to `http://<ip>:8800` you'll always be redirected to `https://<ip>:8800`.  
     
 ## KOTS TLS Secret
 
@@ -46,7 +46,7 @@ It's best to complete this process as soon as possible to avoid anyone from nefa
 
 ### KOTS TLS Certificate Renewal
 
-The certificate used to serve the kotsadm console will be renewed automatically at thirty days prior to expiration if the [ecko add-on](/docs/add-ons/ekco) is enabled with version 0.7.0+.
+The certificate used to serve the KOTS Admin Console will be renewed automatically at thirty days prior to expiration if the [ecko add-on](/docs/add-ons/ekco) is enabled with version 0.7.0+.
 Only the default self-signed certificate will be renewed.
 If a custom certificate has been uploaded then no renewal will be attempted, even if the certificate is expired.
 

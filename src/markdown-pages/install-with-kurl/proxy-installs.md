@@ -19,7 +19,7 @@ spec:
     noProxy: false
 ```
 
-The proxy configuration will be used to download packages required for the installation script to complete and will be applied to the docker and kotsadm add-ons.
+The proxy configuration will be used to download packages required for the installation script to complete and will be applied to the docker and KOTS add-ons.
 See [Modifying an Install Using a YAML Patch File](/docs/install-with-kurl#modifying-an-install-using-a-yaml-patch-file-at-runtime) for more details on using patch files.
 
 ## Proxy Environment Variables
