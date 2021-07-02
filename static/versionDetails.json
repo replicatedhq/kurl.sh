@@ -285,7 +285,7 @@
     },
     {
       "flag": "uiBindPort",
-      "description": "This is the port where the kots admin panel can be interacted with via browser",
+      "description": "This is the port where the KOTS admin console can be interacted with via browser",
       "type": "number"
     },
     {

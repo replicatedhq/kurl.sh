@@ -15,7 +15,7 @@ Beyond contributing new add-ons, we're always interested in new contributions to
 1. Airgap only - build the Docker package: `make build/packages/docker/18.09.8/ubuntu-18.04`
 1. OPTIONAL - when developing the kurl-util image `export SYNC_KURL_UTIL_IMAGE=1`
 1. Run the task to watch for code changes and copy them to your server: `REMOTES=<user>@<hostname>,<user>@<hostname2> make watchrsync`
-1. Edit scripts/Manifest to configure Kubernetes and addons.
+1. Edit scripts/Manifest to configure Kubernetes and add-ons.
 
 That will place the installer in your HOME's kurl directory and sync any changes you make locally to the scripts/ directory.
 If you rebuild the OS packages, you'll need to manually run `rsync -r build/ ${USER}@${HOST}:kurl` to push those changes.
