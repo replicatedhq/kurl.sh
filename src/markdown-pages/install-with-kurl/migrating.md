@@ -6,17 +6,17 @@ linktitle: "Migrating"
 title: "Migrating to Change kURL Add-Ons"
 ---
 
-Changing the CRI, CSI, or CNI provider on a kURL install is possible by migrating a [Kots](https://kots.io/) application to a new cluster.
+Changing the CRI, CSI, or CNI provider on a kURL install is possible by migrating a [KOTS](https://kots.io/) application to a new cluster.
 
 ## Requirements
 
-* The Kotsadm application must be configured to support [full snapshots](https://kots.io/kotsadm/snapshots/overview/#full-snapshots-recommended).
+* The KOTS application must be configured to support [full snapshots](https://kots.io/kotsadm/snapshots/overview/#full-snapshots-recommended).
 * Velero must be configured to use an external snapshot destination accessible to both the old and new clusters, such as S3.
 * Both the old and new clusters must have the same airgap status. Migrating from airgap to online clusters or vice versa is not supported.
 * The velero add-on version must be at least 1.5.1.
-* The Kotsadm add-on version must be at least 1.45.0 in order for the Kotsadm console certificate to be migrated.
+* The KOTS add-on version must be at least 1.45.0 in order for the KOTS Admin Console certificate to be migrated.
 * If the application makes direct use of an object store add-on such as Rook or Minio, it must use [backup](https://velero.io/docs/v1.6/backup-hooks/) and [restore](https://velero.io/docs/v1.6/restore-hooks/) hooks to migrate buckets with required data from the old to the new cluster. Only the kotsadm and docker-registry buckets will be migrated automatically. [See here for an example of how the registry add-on uses hooks to migrate its bucket](https://github.com/replicatedhq/kURL/blob/v2021.06.30-0/addons/registry/2.7.1/tmpl-configmap-velero.yaml).
-* For airgapped installs, both the old and new clusters must have the same versions of the Kotsadm and registry add-ons.
+* For airgapped installs, both the old and new clusters must have the same versions of the KOTS and registry add-ons.
 
 ## Non-Requirements
 
@@ -24,7 +24,7 @@ Changing the CRI, CSI, or CNI provider on a kURL install is possible by migratin
 * Old and new clusters do not need to have the same HA status.
 * Old and new clusters do not need the same versions of add-ons except as noted above.
 * Old and new clusters do not need to be on the same operating system.
-* Old and new clusters do not need to use the same proxy settings. The proxy settings from the new cluster will be applied to Kotsadm when it is restored. Any application pods that use [proxy template functions](https://kots.io/reference/template-functions/static-context/#httpproxy) will need to be redeployed after restore.
+* Old and new clusters do not need to use the same proxy settings. The proxy settings from the new cluster will be applied to KOTS when it is restored. Any application pods that use [proxy template functions](https://kots.io/reference/template-functions/static-context/#httpproxy) will need to be redeployed after restore.
 
 ## Procedure
 
