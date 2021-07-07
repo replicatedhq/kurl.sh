@@ -28,9 +28,9 @@ Changing the CRI, CSI, or CNI provider on a kURL install is possible by migratin
 
 ## Procedure
 
-1. Take a full snapshot on the old cluster with an external object store provider, such as S3.
-1. Install a new cluster with a new spec.
-1. On the new cluster use the [kots CLI](https://kots.io/kots-cli/velero/) to configure velero to use the same snapshot destination as the old cluster.
+1. Use [KOTS Snapshots](https://kots.io/kotsadm/snapshots/overview/) to take a full snapshot on the old cluster with an external object store provider, such as S3.
+1. [Install a new cluster](https://kurl.sh/docs/install-with-kurl/) with a new spec.
+1. On the new cluster, use the kots CLI to [configure Velero](https://kots.io/kots-cli/velero/) to use the same snapshot destination as the old cluster.
 1. Wait until the `velero backup get` command on the new cluster shows the backup taken on the old cluster.
 1. Run `kubectl kots restore --from-backup instance-<name>` on the new cluster.
 
