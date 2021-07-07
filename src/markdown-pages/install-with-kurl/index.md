@@ -128,7 +128,7 @@ The `latest` version of an add-on is the most recent version that we at Replicat
 This will change as new versions are released, allowing you to stay up to date more easily.
 
 Additionally, for each add-ons it is possible to specify the version in the form `1.19.x`.
-These versions will always resolve to the most recent patch version for the specified minor version of kubernetes.
+These versions will always resolve to the most recent patch version for the specified major and minor version of the add-on.
 
 ## Using the kURL Installer CRD
 
