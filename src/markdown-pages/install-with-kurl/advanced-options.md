@@ -12,7 +12,7 @@ The install scripts are idempotent. Re-run the scripts with different flags to c
 | -------------------------------- | ----------------------------------------------------------------------------------------------------------------  |
 | additional-no-proxy-addresses    | This indicates addresses that should not be proxied in addition to the private IP. Multiple addresses can be specified as a comma separated list of IPs or a range of addresses in CIDR notation. |
 | airgap                           | Do not attempt outbound Internet connections while installing.                                                    |
-| force-reapply-addons             | Reinstall addons, whether or not they have changed since the last time kurl was run.                              |
+| force-reapply-addons             | Reinstall add-ons, whether or not they have changed since the last time kurl was run.                              |
 | ha                               | Install will require a load balancer to allow for a highly available Kubernetes Control Plane.                    |
 | ignore-remote-load-images-prompt | Bypass prompt to load images on remotes. This is useful for automating upgrades.                                  |
 | ignore-remote-upgrade-prompt     | Bypass prompt to upgrade remotes. This is useful for automating upgrades.                                         |
