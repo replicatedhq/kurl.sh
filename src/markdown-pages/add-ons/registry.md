@@ -8,7 +8,7 @@ addOn: "registry"
 ---
 
 [Docker registry](https://github.com/docker/distribution) is an OCI compatible image registry.
-This addon deploys it to the `kurl` namespace.
+This add-on deploys it to the `kurl` namespace.
 
 ## Advanced Install Options
 

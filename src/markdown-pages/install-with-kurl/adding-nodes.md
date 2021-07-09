@@ -41,7 +41,7 @@ cat ./tasks.sh | sudo bash -s reset
 
 To safely reboot a node, use the following steps:
 
-*NOTE: In order to safely reboot a node it is required to have the [EKCO addon](/docs/add-ons/ekco) installed.*
+*NOTE: In order to safely reboot a node it is required to have the [EKCO add-on](/docs/add-ons/ekco) installed.*
 
 1. Run `/opt/ekco/shutdown.sh` on the node.
 1. Reboot the node
@@ -49,7 +49,7 @@ To safely reboot a node, use the following steps:
 ## Removing a Node
 
 It is possible to remove a node from a multi-node cluster.
-In order to safely remove a node it is required to have the [EKCO addon](/docs/add-ons/ekco) installed.
+In order to safely remove a node it is required to have the [EKCO add-on](/docs/add-ons/ekco) installed.
 When removing a node it is always safest to add back a node or check the health of the cluster before removing an additional node.
 
 When removing a node it is safest to use the following steps:

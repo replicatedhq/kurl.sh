@@ -124,11 +124,11 @@ A list of releases can be found on the [kURL Releases](https://github.com/replic
       version: "latest"
 ```
 
-The `latest` version of an addon is the most recent version that we at Replicated are confident will continue to work when upgraded to.
+The `latest` version of an add-on is the most recent version that we at Replicated are confident will continue to work when upgraded to.
 This will change as new versions are released, allowing you to stay up to date more easily.
 
-For `kubernetes`, there are also versions of the form `1.19.x`.
-These versions will always resolve to the most recent patch version for the specified minor version of kubernetes.
+Additionally, for each add-on it is possible to specify the version in the form `1.19.x`.
+These versions will always resolve to the greatest patch version for the specified major and minor version of the add-on.
 
 ## Using the kURL Installer CRD
 
