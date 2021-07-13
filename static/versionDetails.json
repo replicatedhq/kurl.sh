@@ -297,6 +297,11 @@
       "flag": "applicationNamespace",
       "description": "An additional namespace that should be pre-created during the install (For applications that install to other namespaces outside of the one where kotsadm is running)",
       "type": "string"
+    },
+    {
+      "flag": "disableS3",
+      "description": "Migrate application archives and support bundles from S3 and use a local volume in the kotsadm statefulset instead. The migration process is irreversible and will replace the kotsadm deployment with a statefulset. Defaults to 'false'",
+      "type": "boolean"
     }
   ],
   "firewalld": [
