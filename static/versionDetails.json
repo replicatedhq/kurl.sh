@@ -533,6 +533,11 @@
       "flag": "hostPath",
       "description": "Configure minio to use a local hostPath for storing data.",
       "type": "string"
+    },
+    {
+      "flag": "migrateFromRGW",
+      "description": "Automatically migrate data from the rook add-on's object store (RGW) into minio and update kotsadm, registry and velero add-ons to begin using minio",
+      "type": "string"
     }
   ],
   "calico": [

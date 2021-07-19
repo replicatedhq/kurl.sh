@@ -18,6 +18,23 @@ spec:
     version: "latest"
     namespace: "minio"
     hostPath: /mnt/nfs_share
+    migrateFromRGW: true
 ```
 
 flags-table
+
+## Migrate from Rook/Ceph RGW bject Store
+
+There are two options for replacing the RGW object store included with the Rook add-on with Minio.
+The first option is to enable automatic migrations in the kURL spec with the `migrateFromRGW` flag, as shown above.
+The second option is to use the `migrate-rgw-to-minio` task:
+
+```
+curl -L https://k8s.kurl.sh/latest/tasks.sh | sudo bash -s migrate-rgw-to-minio
+```
+
+Or for airgap installs:
+
+```
+cat tasks.sh | sudo bash -s migrate-rgw-to-minio
+```
