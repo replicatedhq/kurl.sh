@@ -30,7 +30,13 @@ spec:
 ```
 
 ## Versions
-For add-ons that are using `version: "latest"` this will be pinned to the latest version of the component that is supported by our installer. This means that when an update to the component is shipped, your installer will automatically be updated. This may be desirable in some scenarios, while other installers may want to have tested, locked and predictable installed versions. You can also list a specific (supported) version of an add on and it will be locked to that version.
+To pin a specific version of an add-on, you can specify a (supported) version of that add-on. Supported versions for each add-on can be found on the [add-ons](/add-ons) page. Since specifying a particular version will lock your installer to that version, you will not continue to get patch updates that include bug fixes and security patches. For this reason, it is recommended to use the [`.x` patch versions](#x-patch-versions) functionality.
+
+### Latest Versions
+When `"latest"` is the specified version for an add-on, this will resolve to the latest recommended version of the component that is supported by our installer. This means that when an update to the component is shipped, your installer will automatically be updated. This may be desirable in some scenarios, but more often installers should use tested, locked and predictable installed versions.
+
+### `.x` Patch Versions
+For add-ons that use [semantic versioning](https://semver.org), you can specify the version in the form `Major.Minor.x`. These versions will always resolve to the greatest patch version for the specified major and minor version of the add-on (e.g., 1.19.x). This is a great way to ensure you are using tested and predictable versions while continuing to receive bug fixes and security patches.
 
 ## Distro Hash
 The hash for a specific distro is immutable, each hash references a specific combination of components and versions. Mutable, vanity urls are available for Replicated customers as described below in **Managing a kURL Installer**.
