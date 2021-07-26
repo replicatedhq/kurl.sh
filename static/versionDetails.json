@@ -300,7 +300,7 @@
     },
     {
       "flag": "disableS3",
-      "description": "Migrate application archives and support bundles from S3 and use a local volume in the kotsadm statefulset instead. The migration process is irreversible and will replace the kotsadm deployment with a statefulset. While this reduces KOTS' dependency on an object store for the application archive and support bundle features, an object store is still required to deploy KOTS. Defaults to 'false'",
+      "description": "Migrate application archives and support bundles from S3 and use a local volume in the kotsadm statefulset instead. The migration process is irreversible and will replace the kotsadm deployment with a statefulset. While this reduces KOTS' dependency on an object store for the application archives and support bundles, an object store is still required to deploy KOTS. Defaults to 'false'",
       "type": "boolean"
     }
   ],
