@@ -27,7 +27,6 @@ The following checks run on all nodes where kURL is installed:
 * TCP port 10259 is available for the kube scheduler.
 * At least 4 GiB of memory is available. (Warn when less than 8GiB).
 * /var/lib/kubelet has at least 30GiB total space and is less than 80% full. (Warn when more than 60% full).
-* /var/lib/docker has at least 30GiB total space and is less than 80% full. (Warn when more than 60% full).
 * The server has at least 2 CPUs. (Warn when less than 4 CPUs).
 * The system clock is synchronized and the time zone is set to UTC.
 
@@ -66,3 +65,8 @@ Some checks run depending on the add-ons enabled in the installer and their conf
 ### Longhorn
 
 * /var/lib/longhorn has at least 50GiB total space and is less than 80% full. (Warn when more than 60% full).
+
+### Docker
+
+* /var/lib/docker has at least 30GiB total space and is less than 80% full. (Warn when more than 60% full).
+
