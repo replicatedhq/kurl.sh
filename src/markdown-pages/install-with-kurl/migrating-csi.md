@@ -7,6 +7,7 @@ title: "Migrating to Change kURL CSI Add-Ons"
 ---
 
 As of kURL [v2021.07.30-0](https://kurl.sh/release-notes/v2021.07.30-0), MinIO and Longhorn support migrating data from Rook.
+If you need to migrate to a different storage provider than Longhorn, check out [Migrating](docs/install-with-kurl/migrating)
 
 When initially installing the following kURL spec:
 
