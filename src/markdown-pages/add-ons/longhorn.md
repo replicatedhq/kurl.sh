@@ -39,3 +39,10 @@ spec:
 ```
 
 To enable the UI without re-running the installer, use the command `kubectl -n longhorn-system scale deployment longhorn-ui --replicas=1`.
+
+## Migration from Rook
+
+If Rook was previously installed but no longer specified in the kURL spec, Longhorn 1.1.2+ will migrate data from Rook PVCs to Longhorn.
+This will involve stopping all pods mounting Rook PVCs while the migration takes place.
+
+If Minio is also installed and completes its migration process, Rook will be removed to free up resources.

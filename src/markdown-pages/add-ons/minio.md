@@ -21,3 +21,9 @@ spec:
 ```
 
 flags-table
+
+## Migration from Rook
+
+If Rook was previously installed but no longer specified in the kURL spec, MinIO will migrate data from Rook's object store to MinIO.
+
+If Longhorn is also installed and completes its migration process, Rook will be removed to free up resources.
