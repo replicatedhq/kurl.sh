@@ -42,7 +42,7 @@ To enable the UI without re-running the installer, use the command `kubectl -n l
 
 ## Migration from Rook
 
-If Rook was previously installed but no longer specified in the kURL spec, Longhorn 1.1.2+ will migrate data from Rook PVCs to Longhorn.
+If Rook was previously installed but is no longer specified in the kURL spec and Longhorn 1.1.2+ is specified instead, Longhorn will migrate data from Rook PVCs to Longhorn.
 This will involve stopping all pods mounting Rook PVCs while the migration takes place.
 
-If Minio is also installed and completes its migration process, Rook will be removed to free up resources.
+If MinIO is also specified in the new kURL spec and completes its migration process successfully, Rook will be removed to free up resources.
