@@ -39,7 +39,7 @@ See the [Load Balancer Requirements](/docs/install-with-kurl/system-requirements
 
 ### HA Recovery
 
-[Learn more](/docs/add-ons/ekco#clear-nodes) about how the ekco add-on ensures pods recover during node failure events.
+[Learn more](/docs/add-ons/ekco#clear-nodes) about how the EKCO add-on ensures pods recover during node failure events.
 
 ### Converting to HA
 
@@ -50,7 +50,7 @@ curl https://kurl.sh/latest | sudo bash -s ha
 ```
 
 To change the load balancer of an existing HA cluster, re-run the install script with the new load balancer address.
-This requires that the [ekco add-on](/docs/add-ons/ekco) is enabled with version 0.6.0+.
+This requires that the [EKCO add-on](/docs/add-ons/ekco) is enabled with version 0.6.0+.
 
 ```bash
 curl https://kurl.sh/latest | sudo bash -s ha load-balancer-address=k8slb.somebigbank.com:6443

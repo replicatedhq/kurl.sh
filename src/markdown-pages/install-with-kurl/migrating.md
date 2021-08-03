@@ -16,7 +16,7 @@ If you are only changing the CSI from Rook to Longhorn, check out [Migrating CSI
 * Both the old and new clusters must have the same airgap status. Migrating from airgap to online clusters or vice versa is not supported.
 * The velero add-on version must be at least 1.5.1.
 * The KOTS add-on version must be at least 1.45.0 in order for the KOTS Admin Console certificate to be migrated.
-* If the application makes direct use of an object store add-on such as Rook or Minio, it must use [backup](https://velero.io/docs/v1.6/backup-hooks/) and [restore](https://velero.io/docs/v1.6/restore-hooks/) hooks to migrate buckets with required data from the old to the new cluster. Only the kotsadm and docker-registry buckets will be migrated automatically. [See here for an example of how the registry add-on uses hooks to migrate its bucket](https://github.com/replicatedhq/kURL/blob/v2021.06.30-0/addons/registry/2.7.1/tmpl-configmap-velero.yaml).
+* If the application makes direct use of an object store add-on such as Rook or MinIO, it must use [backup](https://velero.io/docs/v1.6/backup-hooks/) and [restore](https://velero.io/docs/v1.6/restore-hooks/) hooks to migrate buckets with required data from the old to the new cluster. Only the kotsadm and docker-registry buckets will be migrated automatically. [See here for an example of how the registry add-on uses hooks to migrate its bucket](https://github.com/replicatedhq/kURL/blob/v2021.06.30-0/addons/registry/2.7.1/tmpl-configmap-velero.yaml).
 * For airgapped installs, both the old and new clusters must have the same versions of the KOTS and registry add-ons.
 
 ## Non-Requirements
