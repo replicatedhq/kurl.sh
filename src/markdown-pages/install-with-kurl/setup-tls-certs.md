@@ -46,13 +46,13 @@ It's best to complete this process as soon as possible to avoid anyone from nefa
 
 ### KOTS TLS Certificate Renewal
 
-The certificate used to serve the KOTS Admin Console will be renewed automatically at thirty days prior to expiration if the [ecko add-on](/docs/add-ons/ekco) is enabled with version 0.7.0+.
+The certificate used to serve the KOTS Admin Console will be renewed automatically at thirty days prior to expiration if the [EKCO add-on](/docs/add-ons/ekco) is enabled with version 0.7.0+.
 Only the default self-signed certificate will be renewed.
 If a custom certificate has been uploaded then no renewal will be attempted, even if the certificate is expired.
 
 ## Registry
 
-The TLS certificate for the [registry add-on](/docs/add-ons/registry) will be renewed automatically at thirty days prior to expiration if the [ekco add-on](/docs/add-ons/ekco) is enabled with version 0.5.0+.
+The TLS certificate for the [registry add-on](/docs/add-ons/registry) will be renewed automatically at thirty days prior to expiration if the [EKCO add-on](/docs/add-ons/ekco) is enabled with version 0.5.0+.
 
 To manually renew the certificate for the registry prior to automatic renewal, re-run the kURL install script.
 
@@ -60,7 +60,7 @@ To manually renew the certificate for the registry prior to automatic renewal, r
 
 The certificates for Kubernetes control plane components are valid for one year.
 These certificates are renewed whenever the Kubernetes version is upgraded.
-Installations that do not routinely upgrade Kubernetes will need to rely on automatic certificate renewal provided by ekco or manual renewal.
+Installations that do not routinely upgrade Kubernetes will need to rely on automatic certificate renewal provided by EKCO or manual renewal.
 
 To check how long certificates have remaining until expiration, run this command on every primary node:
 ```bash
@@ -69,7 +69,7 @@ kubeadm alpha certs check-expiration
 
 ### Automatic Renewal
 
-The certificates for the Kubernetes control plane will be renewed automatically at thirty days prior to expiration if the [ekco add-on](/docs/add-ons/ekco) is enabled with version 0.5.0+.
+The certificates for the Kubernetes control plane will be renewed automatically at thirty days prior to expiration if the [EKCO add-on](/docs/add-ons/ekco) is enabled with version 0.5.0+.
 
 Renewing the Kubernetes control plane certificates will trigger a restart of the Kubernetes API server, which may briefly affect applications running in the cluster.
 

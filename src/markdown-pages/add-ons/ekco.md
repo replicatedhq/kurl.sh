@@ -46,7 +46,7 @@ This can cause applications using PVCs to be unavailable longer than the five mi
 
 To avoid extended downtime, the EKCO operator will watch for nodes in the Unknown state for more than five minutes and force delete all pods on them that have been terminating for at least thirty seconds.
 Along with the 5 minute 40 second latency period before Kubernetes begins deleting pods on unreachable nodes, this means a minimum of 6 minutes 10 seconds will pass before pods can begin to be rescheduled.
-In practice pods take 7 to 10 minutes to be rescheduled due to a variety of factors, such as whether ekco itself was on the lost node and image pull times on the healthy nodes.
+In practice pods take 7 to 10 minutes to be rescheduled due to a variety of factors, such as whether EKCO itself was on the lost node and image pull times on the healthy nodes.
 
 The clear node feature is a safer alternative to the purge node feature and is enabled by default.
 When using the clear node and a node is lost, the cluster will be degraded until the node is cleaned up.
@@ -117,7 +117,7 @@ To avoid race conditions, manually run the ekco-reboot service's shutdown script
 ### Internal Load Balancer
 
 EKCO 0.11.0+ can maintain an internal load balancer forwarding all traffic from host port 6444 to one of the Kubernetes API server pods.
-To do this, ekco runs HAProxy as a [static pod](https://kubernetes.io/docs/tasks/configure-pod-container/static-pod/) on all nodes.
+To do this, EKCO runs HAProxy as a [static pod](https://kubernetes.io/docs/tasks/configure-pod-container/static-pod/) on all nodes.
 EKCO ensures that when new nodes are added and removed from the cluster that the correct HAProxy configuration is applied on all nodes.
 
 ### Auto-Upgrades (Experimental)

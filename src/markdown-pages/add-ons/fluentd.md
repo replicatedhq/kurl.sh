@@ -15,7 +15,7 @@ To use a vendor supplied fluent.conf, simply create a configuration and include 
 
 There is also an optional [Elasticsearch](https://www.elastic.co/elasticsearch/) and [Kibana](https://www.elastic.co/kibana) integration for complete EFK logging stack and visualization.
 
-Elasticsearch requires 1gb of memory for stability. Default storage is set to 20GB. Log rotation is not done by default. It uses the existing rook/ceph setups to handle the persistent volume claims.
+Elasticsearch requires 1gb of memory for stability. Default storage is set to 20GB. Log rotation is not done by default. It uses the existing Rook/Ceph setups to handle the persistent volume claims.
 
 ## Advanced Install Options
 
