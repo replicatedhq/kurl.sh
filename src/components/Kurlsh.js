@@ -336,6 +336,32 @@ class Kurlsh extends React.Component {
     }
 
     if (selectedVersions.rook.version !== "None") {
+      const rookVersion = selectedVersions.rook.version
+      console.log("options")
+      console.log(options)
+      if ((rookVersion !== "latest") && (rookVersion !== "1.0.x") && (rookVersion === "1.4.x" || rookVersion === "1.5.x" || (semver.gte(rookVersion, "1.4.0")))) {
+        console.log("before state")
+        console.log(this.state)
+        selectedVersions.rook.isBlockStorageEnabled = true
+        options.rook.isBlockStorageEnabled = true
+        var currentState = this.state
+        currentState.advancedOptions.rook.checked = true
+        currentState.advancedOptions.rook.isChecked = true
+        currentState.advancedOptions.rook.isBlockStorageEnabled = true
+        // attempt to handle option change
+        // this.handleOptionChange("rook.isBlockStorageEnabled", '<input type="checkbox" class="addOnOption" name="isBlockStorageEnabled" id="rook_isBlockStorageEnabled" data-focus-id="rook_isBlockStorageEnabled" value="true">', "boolean")
+        
+        /*   Removes the option altogether...
+        currentState.optionDefaults.rook =  currentState.optionDefaults.rook.filter((element) => {
+          return element.flag !== "isBlockStorageEnabled"
+        })
+        */
+        currentState.showAdvancedOptions.rook = true
+        this.setState(currentState)
+        this.render()
+        console.log("after state:")
+        console.log(this.state)
+      }
       const diff = getDiff(optionDefaults["rook"], options.rook);
       generatedInstaller.spec.rook = {
         version: selectedVersions.rook.version
@@ -611,7 +637,7 @@ class Kurlsh extends React.Component {
       })
     }
   }
-
+// handling addon
   handleIsAddOnSelected = (name, e) => {
     if (!e.target.classList.contains("configDiv") && !e.target.classList.contains("addOnOption") && !e.target.classList.contains("versionLabel") &&
       !e.target.classList.contains("css-19bqh2r") && !e.target.classList.contains("css-tj5bde-Svg") && !e.target.classList.contains("css-9gakcf-option") && !e.target.classList.contains("css-1n7v3ny-option") &&
@@ -700,6 +726,10 @@ class Kurlsh extends React.Component {
   }
 
   handleOptionChange = (path, currentTarget, type) => {
+    console.log("handleOptionChange")
+    console.log(path)
+    console.log(currentTarget)
+    console.log(type)
     let addOnData = {}
     let elementToFocus;
     const [field, key] = path.split('.');
@@ -1715,7 +1745,7 @@ class Kurlsh extends React.Component {
           <div className={`${isMobile ? "u-marginTop--30 u-display--block " : "AbsoluteFixedWrapper flex flex-column"}`} id="fixed-wrapper">
             <span className="u-fontSize--24 u-fontWeight--bold u-color--mineShaft"> Installer YAML </span>
             <div className="MonacoEditor--wrapper flex u-width--full u-marginTop--20 u-position--relative">
-              {(installerErrMsg.includes("is not supported") || installerErrMsg.includes("require blockStorageEnabled") || installerErrMsg.includes("is not compatible")) && this.renderVersionError(installerErrMsg)}
+              {(installerErrMsg)  && this.renderVersionError(installerErrMsg)}
               <div className="flex u-width--full u-overflow--auto" id="monaco">
                 {isLoading &&
                   <div className="flex-column flex-1-auto u-overflow--hidden justifyContent--center alignItems--center">
