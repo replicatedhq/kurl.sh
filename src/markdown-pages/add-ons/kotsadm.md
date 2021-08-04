@@ -10,7 +10,7 @@ addOn: "kotsadm"
 The [KOTS add-on](https://kots.io/kotsadm/installing/installing-a-kots-app/) installs an admin console for managing KOTS apps.
 
 This add-on requires an S3-Compatible object store be available in the cluster.
-Both the rook and the minio add-ons satisfy the object store requirement.
+Both the Rook and the MinIO add-ons satisfy the object store requirement.
 
 ## Advanced Install Options
 
@@ -50,7 +50,7 @@ spec:
     version: latest
 ```
 
-## Online Example with Minio
+## Online Example with MinIO
 
 ```
 apiVersion: "cluster.kurl.sh/v1beta1"

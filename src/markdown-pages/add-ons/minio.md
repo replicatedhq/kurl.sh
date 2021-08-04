@@ -1,9 +1,9 @@
 ---
 path: "/docs/add-ons/minio"
 date: "2021-01-28"
-linktitle: "Minio Add-On"
+linktitle: "MinIO Add-On"
 weight: 40
-title: "Minio Add-On"
+title: "MinIO Add-On"
 addOn: "minio"
 ---
 MinIO is an S3-compatible object storage server.
