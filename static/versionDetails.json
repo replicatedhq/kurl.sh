@@ -155,7 +155,7 @@
     },
     {
       "flag": "isBlockStorageEnabled",
-      "description": "Use block devices instead of the filesystem for storage in the Ceph cluster. This flag will be ignored for versions 1.4.3+.",
+      "description": "Use block devices instead of the filesystem for storage in the Ceph cluster.",
       "type": "boolean"
     },
     {
