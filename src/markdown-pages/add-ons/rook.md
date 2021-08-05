@@ -37,7 +37,7 @@ flags-table
 ## Block Storage
 
 For production clusters, Rook should be configured to use block devices rather than the filesystem.
-Enabling block storage is required with version 1.4.3+.
+Enabling block storage is required with version 1.4.3+.  Therefore, the isBlockStorageEnabled option will always be set to true when using version 1.4.3+.
 The following spec enables block storage for the Rook add-on and automatically uses disks matching the regex `/sd[b-z]/`.
 Rook will start an OSD for each discovered disk, which could result in multiple OSDs running on a single node.
 Rook will ignore block devices that already have a filesystem on them.
