@@ -7,6 +7,7 @@ title: "Migrating to Change kURL Add-Ons"
 ---
 
 Changing the CRI, CSI, or CNI provider on a kURL install is possible by migrating a [KOTS](https://kots.io/) application to a new cluster.
+If you are only changing the CSI from Rook to Longhorn, check out [Migrating CSI](docs/install-with-kurl/migrating-csi).
 
 ## Requirements
 
@@ -14,8 +15,8 @@ Changing the CRI, CSI, or CNI provider on a kURL install is possible by migratin
 * Velero must be configured to use an external snapshot destination accessible to both the old and new clusters, such as S3.
 * Both the old and new clusters must have the same airgap status. Migrating from airgap to online clusters or vice versa is not supported.
 * The velero add-on version must be at least 1.5.1.
-* The KOTS add-on version must be at least 1.45.0 in order for the KOTS console certificate to be migrated.
-* If the application makes direct use of an object store add-on such as Rook or Minio, it must use [backup](https://velero.io/docs/v1.6/backup-hooks/) and [restore](https://velero.io/docs/v1.6/restore-hooks/) hooks to migrate buckets with required data from the old to the new cluster. Only the kotsadm and docker-registry buckets will be migrated automatically. [See here for an example of how the registry add-on uses hooks to migrate its bucket](https://github.com/replicatedhq/kURL/blob/v2021.06.30-0/addons/registry/2.7.1/tmpl-configmap-velero.yaml).
+* The KOTS add-on version must be at least 1.45.0 in order for the KOTS Admin Console certificate to be migrated.
+* If the application makes direct use of an object store add-on such as Rook or MinIO, it must use [backup](https://velero.io/docs/v1.6/backup-hooks/) and [restore](https://velero.io/docs/v1.6/restore-hooks/) hooks to migrate buckets with required data from the old to the new cluster. Only the kotsadm and docker-registry buckets will be migrated automatically. [See here for an example of how the registry add-on uses hooks to migrate its bucket](https://github.com/replicatedhq/kURL/blob/v2021.06.30-0/addons/registry/2.7.1/tmpl-configmap-velero.yaml).
 * For airgapped installs, both the old and new clusters must have the same versions of the KOTS and registry add-ons.
 
 ## Non-Requirements
@@ -28,9 +29,9 @@ Changing the CRI, CSI, or CNI provider on a kURL install is possible by migratin
 
 ## Procedure
 
-1. Take a [full snapshot](https://kots.io/kotsadm/snapshots/overview/#full-snapshots-recommended) on the old cluster with an external object store provider, such as S3.
-1. Install a new cluster with a new spec.
-1. On the new cluster use the [KOTS CLI](https://kots.io/kots-cli/velero/) to configure velero to use the same snapshot destination as the old cluster.
+1. Use [KOTS Snapshots](https://kots.io/kotsadm/snapshots/overview/) to take a full snapshot on the old cluster with an external object store provider, such as S3.
+1. [Install a new cluster](https://kurl.sh/docs/install-with-kurl/) with a new spec.
+1. On the new cluster, use the KOTS CLI to [configure Velero](https://kots.io/kots-cli/velero/) to use the same snapshot destination as the old cluster.
 1. Wait until the `velero backup get` command on the new cluster shows the backup taken on the old cluster.
 1. Run `kubectl kots restore --from-backup instance-<name>` on the new cluster.
 

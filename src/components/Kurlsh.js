@@ -28,66 +28,66 @@ class Kurlsh extends React.Component {
     super(props);
     const { supportedVersions } = props;
 
-    const kubernetesVersions = this.addK8sVersions(supportedVersions.kubernetes.map(versionToState));
+    const kubernetesVersions = this.addDotXVersions(supportedVersions.kubernetes.map(versionToState));
 
-    const contourVersions = supportedVersions.contour.map(versionToState);
+    const contourVersions = this.addDotXVersions(supportedVersions.contour.map(versionToState));
     contourVersions.push({ version: "None" });
 
-    const weaveVersions = supportedVersions.weave.map(versionToState);
+    const weaveVersions = this.addDotXVersions(supportedVersions.weave.map(versionToState));
     weaveVersions.push({ version: "None" });
 
-    const antreaVersions = supportedVersions.antrea.map(versionToState);
+    const antreaVersions = this.addDotXVersions(supportedVersions.antrea.map(versionToState));
     antreaVersions.push({ version: "None" });
 
-    const rookVersions = supportedVersions.rook.map(versionToState);
+    const rookVersions = this.addDotXVersions(supportedVersions.rook.map(versionToState));
     rookVersions.push({ version: "None" });
 
-    const dockerVersions = supportedVersions.docker.map(versionToState);
+    const dockerVersions = this.addDotXVersions(supportedVersions.docker.map(versionToState));
     dockerVersions.push({ version: "None" });
 
-    const prometheusVersions = supportedVersions.prometheus.map(versionToState);
+    const prometheusVersions = this.addDotXVersions(supportedVersions.prometheus.map(versionToState));
     prometheusVersions.push({ version: "None" });
 
-    const registryVersions = supportedVersions.registry.map(versionToState);
+    const registryVersions = this.addDotXVersions(supportedVersions.registry.map(versionToState));
     registryVersions.push({ version: "None" });
 
-    const containerdVersions = supportedVersions.containerd.map(versionToState);
+    const containerdVersions = this.addDotXVersions(supportedVersions.containerd.map(versionToState));
     containerdVersions.push({ version: "None" });
 
-    const veleroVersions = supportedVersions.velero.map(versionToState);
+    const veleroVersions = this.addDotXVersions(supportedVersions.velero.map(versionToState));
     veleroVersions.push({ version: "None" });
 
-    const kotsadmVersions = supportedVersions.kotsadm.map(versionToState);
+    const kotsadmVersions = this.addDotXVersions(supportedVersions.kotsadm.map(versionToState));
     kotsadmVersions.push({ version: "None" });
 
-    const ekcoVersions = supportedVersions.ekco.map(versionToState);
+    const ekcoVersions = this.addDotXVersions(supportedVersions.ekco.map(versionToState));
     ekcoVersions.push({ version: "None" });
 
-    const fluentdVersions = supportedVersions.fluentd.map(versionToState);
+    const fluentdVersions = this.addDotXVersions(supportedVersions.fluentd.map(versionToState));
     fluentdVersions.push({ version: "None" });
 
-    const minioVersions = supportedVersions.minio.map(versionToState);
+    const minioVersions = this.addDotXVersions(supportedVersions.minio.map(versionToState));
     minioVersions.push({ version: "None" });
 
-    const openebsVersions = supportedVersions.openebs.map(versionToState);
+    const openebsVersions = this.addDotXVersions(supportedVersions.openebs.map(versionToState));
     openebsVersions.push({ version: "None" });
 
-    const longhornVersions = supportedVersions.longhorn.map(versionToState);
+    const longhornVersions = this.addDotXVersions(supportedVersions.longhorn.map(versionToState));
     longhornVersions.push({ version: "None" });
 
-    const collectdVersions = supportedVersions.collectd.map(versionToState);
+    const collectdVersions = this.addDotXVersions(supportedVersions.collectd.map(versionToState));
     collectdVersions.push({ version: "None" });
 
-    const metricsServerVersions = supportedVersions["metrics-server"].map(versionToState);
+    const metricsServerVersions = this.addDotXVersions(supportedVersions["metrics-server"].map(versionToState));
     metricsServerVersions.push({ version: "None" });
 
-    const certManagerVersions = supportedVersions["cert-manager"].map(versionToState);
+    const certManagerVersions = this.addDotXVersions(supportedVersions["cert-manager"].map(versionToState));
     certManagerVersions.push({ version: "None" });
 
-    const sonobuoyVersions = supportedVersions["sonobuoy"].map(versionToState);
+    const sonobuoyVersions = this.addDotXVersions(supportedVersions["sonobuoy"].map(versionToState));
     sonobuoyVersions.push({ version: "None" });
 
-    const goldpingerVersions = supportedVersions["goldpinger"].map(versionToState);
+    const goldpingerVersions = this.addDotXVersions(supportedVersions["goldpinger"].map(versionToState));
     goldpingerVersions.push({ version: "None" });
 
     this.state = {
@@ -653,14 +653,12 @@ class Kurlsh extends React.Component {
 
   generateVersionLabel = (name, version) => {
     if (version === "latest") {
-      if (name === "kubernetes") {
-        const latest = this.state.versions[name][2]; // for k8s, the first version is a ".x" version
-        version = `latest (${latest.version})`;
-      } else {
-        const latest = this.state.versions[name][1];
-        version = `latest (${latest.version})`;
+      let latest = this.state.versions[name][1];
+      if (latest.version.indexOf(".x") !== -1) {
+        latest = this.state.versions[name][2]; // the first version is a ".x" version
       }
-    } else if (version.endsWith(".x") && name === "kubernetes") {
+      version = `latest (${latest.version})`;
+    } else if (version.endsWith(".x")) {
       const versionIndex = this.state.versions[name].findIndex((element) => element.version === version);
       if (this.state.versions[name].length > versionIndex) { // if there is a member of the array after the one specified
         const next = this.state.versions[name][versionIndex+1]
@@ -906,20 +904,20 @@ class Kurlsh extends React.Component {
   }
 
   // add versions like "1.19.x" to the list of installable versions
-  addK8sVersions = (actualVersions) => {
+  addDotXVersions = (actualVersions) => {
     // get a list of the distinct minor versions
-    const minorVersionsRegex = /^1\.[0-9]+/g;
+    const minorVersionsRegex = /(^[0-9]+\.[0-9]+)\.[0-9]+/;
     let minorVersions = [];
     actualVersions.forEach(v => {
       const matches = v.version.match(minorVersionsRegex);
-      if (matches && matches.length === 1 && !minorVersions.includes(matches[0])) {
-        minorVersions.push(matches[0]);
+      if (matches && matches.length > 1 && !minorVersions.includes(matches[1])) {
+        minorVersions.push(matches[1]);
       }
     })
     // for each minor version, find the first version in the actualVersions array that matches
     // and insert `1.minor.x` before it
     minorVersions.forEach(mv => {
-      const isMatch = actualVersions.find(av => av.version.startsWith(mv));
+      const isMatch = actualVersions.find(av => av.version.startsWith(mv+"."));
       if (!!isMatch) {
         actualVersions.splice(actualVersions.indexOf(isMatch), 0, {version: mv+".x"});
       }
@@ -993,6 +991,7 @@ class Kurlsh extends React.Component {
                         type="checkbox"
                         className="u-marginRight--normal"
                         checked={selectedVersions.docker.version !== "None"}
+                        readOnly
                       />
                       <span className="icon u-docker u-marginBottom--small" />
                       <div className="flex flex-column u-marginLeft--15 u-marginTop--small">
@@ -1027,6 +1026,7 @@ class Kurlsh extends React.Component {
                         type="checkbox"
                         className="u-marginRight--normal"
                         checked={selectedVersions.containerd.version !== "None"}
+                        readOnly
                       />
                       <span className="icon u-containerd u-marginBottom--small" />
                       <div className="flex flex-column u-marginLeft--15 u-marginTop--small">
@@ -1059,6 +1059,7 @@ class Kurlsh extends React.Component {
                         type="checkbox"
                         className="u-marginRight--normal"
                         checked={selectedVersions.antrea.version !== "None"}
+                        readOnly
                       />
                       <span className="icon u-antrea u-marginBottom--small" />
                       <div className="flex flex-column u-marginLeft--15 u-marginTop--small">
@@ -1093,6 +1094,7 @@ class Kurlsh extends React.Component {
                         type="checkbox"
                         className="u-marginRight--normal"
                         checked={selectedVersions.weave.version !== "None"}
+                        readOnly
                       />
                       <span className="icon u-weave u-marginBottom--small" />
                       <div className="flex flex-column u-marginLeft--15 u-marginTop--small">
@@ -1131,6 +1133,7 @@ class Kurlsh extends React.Component {
                         type="checkbox"
                         className="u-marginRight--normal"
                         checked={selectedVersions.contour.version !== "None"}
+                        readOnly
                       />
                       <span className="icon u-contour u-marginBottom--small" />
                       <div className="flex flex-column u-marginLeft--15 u-marginTop--small">
@@ -1169,6 +1172,7 @@ class Kurlsh extends React.Component {
                         type="checkbox"
                         className="u-marginRight--normal"
                         checked={selectedVersions.ekco.version !== "None"}
+                        readOnly
                       />
                       <span className="icon u-kubernetes u-marginBottom--small" />
                       <div className="flex flex-column u-marginLeft--15 u-marginTop--small">
@@ -1204,6 +1208,7 @@ class Kurlsh extends React.Component {
                         type="checkbox"
                         className="u-marginRight--normal"
                         checked={selectedVersions.sonobuoy.version !== "None"}
+                        readOnly
                       />
                       <span className="icon u-sonobuoy u-marginBottom--small" />
                       <div className="flex flex-column u-marginLeft--15 u-marginTop--small">
@@ -1238,6 +1243,7 @@ class Kurlsh extends React.Component {
                         type="checkbox"
                         className="u-marginRight--normal"
                         checked={selectedVersions.fluentd.version !== "None"}
+                        readOnly
                       />
                       <span className="icon u-fluentd u-marginBottom--small" />
                       <div className="flex flex-column u-marginLeft--15 u-marginTop--small">
@@ -1276,6 +1282,7 @@ class Kurlsh extends React.Component {
                         type="checkbox"
                         className="u-marginRight--normal"
                         checked={selectedVersions.kotsadm.version !== "None"}
+                        readOnly
                       />
                       <span className="icon u-kotsadm u-marginBottom--small" />
                       <div className="flex flex-column u-marginLeft--15 u-marginTop--small">
@@ -1314,6 +1321,7 @@ class Kurlsh extends React.Component {
                         type="checkbox"
                         className="u-marginRight--normal"
                         checked={selectedVersions.minio.version !== "None"}
+                        readOnly
                       />
                       <span className="icon u-minio u-marginBottom--small" />
                       <div className="flex flex-column u-marginLeft--15 u-marginTop--small">
@@ -1349,6 +1357,7 @@ class Kurlsh extends React.Component {
                         type="checkbox"
                         className="u-marginRight--normal"
                         checked={selectedVersions.rook.version !== "None"}
+                        readOnly
                       />
                       <span className="icon u-rook u-marginBottom--small" />
                       <div className="flex flex-column u-marginLeft--15 u-marginTop--small">
@@ -1391,6 +1400,7 @@ class Kurlsh extends React.Component {
                         type="checkbox"
                         className="u-marginRight--normal"
                         checked={selectedVersions.longhorn.version !== "None"}
+                        readOnly
                       />
                       <span className="icon u-longhorn u-marginBottom--small" />
                       <div className="flex flex-column u-marginLeft--15 u-marginTop--small">
@@ -1426,6 +1436,7 @@ class Kurlsh extends React.Component {
                         type="checkbox"
                         className="u-marginRight--normal"
                         checked={selectedVersions.openebs.version !== "None"}
+                        readOnly
                       />
                       <span className="icon u-openebs u-marginBottom--small" />
                       <div className="flex flex-column u-marginLeft--15 u-marginTop--small">
@@ -1464,6 +1475,7 @@ class Kurlsh extends React.Component {
                         type="checkbox"
                         className="u-marginRight--normal"
                         checked={selectedVersions.prometheus.version !== "None"}
+                        readOnly
                       />
                       <span className="icon u-prometheus u-marginBottom--small" />
                       <div className="flex flex-column u-marginLeft--15 u-marginTop--small">
@@ -1498,6 +1510,7 @@ class Kurlsh extends React.Component {
                         type="checkbox"
                         className="u-marginRight--normal"
                         checked={selectedVersions.collectd.version !== "None"}
+                        readOnly
                       />
                       <span className="icon u-collectd u-marginBottom--small" />
                       <div className="flex flex-column u-marginLeft--15 u-marginTop--small">
@@ -1526,6 +1539,7 @@ class Kurlsh extends React.Component {
                         type="checkbox"
                         className="u-marginRight--normal"
                         checked={selectedVersions.metricsServer.version !== "None"}
+                        readOnly
                       />
                       <span className="icon u-kubernetes u-marginBottom--small" />
                       <div className="flex flex-column u-marginLeft--15 u-marginTop--small">
@@ -1554,6 +1568,7 @@ class Kurlsh extends React.Component {
                         type="checkbox"
                         className="u-marginRight--normal"
                         checked={selectedVersions.goldpinger.version !== "None"}
+                        readOnly
                       />
                       <span className="icon u-kubernetes u-marginBottom--small" />
                       <div className="flex flex-column u-marginLeft--15 u-marginTop--small">
@@ -1586,6 +1601,7 @@ class Kurlsh extends React.Component {
                         type="checkbox"
                         className="u-marginRight--normal"
                         checked={selectedVersions.certManager.version !== "None"}
+                        readOnly
                       />
                       <span className="icon u-certManager u-marginBottom--small" />
                       <div className="flex flex-column u-marginLeft--15 u-marginTop--small">
@@ -1618,6 +1634,7 @@ class Kurlsh extends React.Component {
                         type="checkbox"
                         className="u-marginRight--normal"
                         checked={selectedVersions.registry.version !== "None"}
+                        readOnly
                       />
                       <span className="icon u-registry u-marginBottom--small" />
                       <div className="flex flex-column u-marginLeft--15 u-marginTop--small">
@@ -1656,6 +1673,7 @@ class Kurlsh extends React.Component {
                         type="checkbox"
                         className="u-marginRight--normal"
                         checked={selectedVersions.velero.version !== "None"}
+                        readOnly
                       />
                       <span className="icon u-velero u-marginBottom--small" />
                       <div className="flex flex-column u-marginLeft--15 u-marginTop--small">
@@ -1697,7 +1715,7 @@ class Kurlsh extends React.Component {
           <div className={`${isMobile ? "u-marginTop--30 u-display--block " : "AbsoluteFixedWrapper flex flex-column"}`} id="fixed-wrapper">
             <span className="u-fontSize--24 u-fontWeight--bold u-color--mineShaft"> Installer YAML </span>
             <div className="MonacoEditor--wrapper flex u-width--full u-marginTop--20 u-position--relative">
-              {(installerErrMsg.includes("is not supported") || installerErrMsg.includes("is not compatible")) && this.renderVersionError(installerErrMsg)}
+              {(installerErrMsg.includes("is not supported") || installerErrMsg.includes("require blockStorageEnabled") || installerErrMsg.includes("is not compatible")) && this.renderVersionError(installerErrMsg)}
               <div className="flex u-width--full u-overflow--auto" id="monaco">
                 {isLoading &&
                   <div className="flex-column flex-1-auto u-overflow--hidden justifyContent--center alignItems--center">

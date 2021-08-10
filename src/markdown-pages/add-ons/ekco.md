@@ -26,6 +26,7 @@ spec:
     shouldDisableClearNodes: false
     shouldEnablePurgeNodes: false
     autoUpgradeSchedule: Sat 17:30
+    enableInternalLoadBalancer: true
 ```
 
 flags-table
@@ -45,7 +46,7 @@ This can cause applications using PVCs to be unavailable longer than the five mi
 
 To avoid extended downtime, the EKCO operator will watch for nodes in the Unknown state for more than five minutes and force delete all pods on them that have been terminating for at least thirty seconds.
 Along with the 5 minute 40 second latency period before Kubernetes begins deleting pods on unreachable nodes, this means a minimum of 6 minutes 10 seconds will pass before pods can begin to be rescheduled.
-In practice pods take 7 to 10 minutes to be rescheduled due to a variety of factors, such as whether ekco itself was on the lost node and image pull times on the healthy nodes.
+In practice pods take 7 to 10 minutes to be rescheduled due to a variety of factors, such as whether EKCO itself was on the lost node and image pull times on the healthy nodes.
 
 The clear node feature is a safer alternative to the purge node feature and is enabled by default.
 When using the clear node and a node is lost, the cluster will be degraded until the node is cleaned up.
@@ -94,11 +95,11 @@ EKCO is also responsible for adjusting the Ceph block pool, filesystem and objec
 
 ### TLS Certificate Rotation
 
-Ekco supports automatic certificate rotation for the [registry add-on](/docs/install-with-kurl/setup-tls-certs#registry) and the [Kubernetes control plane](/docs/install-with-kurl/setup-tls-certs#kubernetes-control-plane) since version 0.5.0 and for the [kotsadm add-on](/docs/install-with-kurl/setup-tls-certs#kots-tls-certificate-renewal) since version 0.7.0.
+EKCO supports automatic certificate rotation for the [registry add-on](/docs/install-with-kurl/setup-tls-certs#registry) and the [Kubernetes control plane](/docs/install-with-kurl/setup-tls-certs#kubernetes-control-plane) since version 0.5.0 and for the [KOTS add-on](/docs/install-with-kurl/setup-tls-certs#kots-tls-certificate-renewal) since version 0.7.0.
 
 ### Reboot
 
-Ekco installs the `ekco-reboot.service` to safely unmount pod volumes before system shutdown.
+EKCO installs the `ekco-reboot.service` to safely unmount pod volumes before system shutdown.
 This service runs `/opt/ekco/shutdown.sh` when it is stopped, which happens automatically when the system begins to shutdown.
 The shutdown script deletes pods on the current node that mount volumes provisioned by Rook and cordons the node.
 
@@ -112,6 +113,12 @@ To avoid race conditions, manually run the ekco-reboot service's shutdown script
 ```bash
 /opt/ekco/shutdown.sh
 ```
+
+### Internal Load Balancer
+
+EKCO 0.11.0+ can maintain an internal load balancer forwarding all traffic from host port 6444 to one of the Kubernetes API server pods.
+To do this, EKCO runs HAProxy as a [static pod](https://kubernetes.io/docs/tasks/configure-pod-container/static-pod/) on all nodes.
+EKCO ensures that when new nodes are added and removed from the cluster that the correct HAProxy configuration is applied on all nodes.
 
 ### Auto-Upgrades (Experimental)
 

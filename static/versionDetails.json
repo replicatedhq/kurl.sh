@@ -285,7 +285,7 @@
     },
     {
       "flag": "uiBindPort",
-      "description": "This is the port where the kots admin panel can be interacted with via browser",
+      "description": "This is the port where the KOTS admin console can be interacted with via browser",
       "type": "number"
     },
     {
@@ -297,6 +297,11 @@
       "flag": "applicationNamespace",
       "description": "An additional namespace that should be pre-created during the install (For applications that install to other namespaces outside of the one where kotsadm is running)",
       "type": "string"
+    },
+    {
+      "flag": "disableS3",
+      "description": "Migrate application archives and support bundles from S3 and use a local volume in the kotsadm statefulset instead. The migration process is irreversible and will replace the kotsadm deployment with a statefulset. While this reduces KOTS's dependency on an object store for the application archives and support bundles, an object store is still required to deploy KOTS. Defaults to 'false.'",
+      "type": "boolean"
     }
   ],
   "firewalld": [
@@ -494,6 +499,11 @@
 			"flag": "autoUpgradeSchedule",
 			"description": "Schedule to automatically check for and install updates, when `auto-upgrades-enabled` is used",
 			"type": "string"
+		},
+		{
+			"flag": "enableInternalLoadBalancer",
+			"description": "Run an internal load balanacer with HAProxy listening on localhost:6444 on all nodes",
+			"type": "boolean"
 		}
   ],
   "fluentd": [

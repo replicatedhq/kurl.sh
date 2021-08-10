@@ -20,13 +20,28 @@ kURL installers support a handful of end-user defined advanced options that can 
 ```
 curl https://kurl.sh/latest | sudo bash -s ha
 ```
-HA installs will prompt and wait for an optional load balancer address to be provided in the install process. This will route external and internal traffic to the API servers. In the absence of a load balancer address, all traffic will be routed to the first primary. This prompt can be bypassed during the install process by specifying the address in the flag `load-balancer-address=<address>` in the install script.
+HA installs will prompt and wait for an optional load balancer address to be provided that can route external and internal traffic to the API servers.
+In the absence of a load balancer address, kURL will enable [the EKCO add-on's internal load balancer](/docs/add-ons/ekco#internal-load-balancer).
+(If EKCO 0.11.0+ is not available, then kURL will default to using the first primary instead of a load balancer. This is not recommended for production installs.)
+This prompt can be bypassed during the install process by specifying `enableInternalLoadBalancer: true` in the kURL yaml spec for the [EKCO add-on](/docs/add-ons/ekco#advanced-install-options).
 
-See the [Load Balancer Requirements](/docs/install-with-kurl/system-requirements#load-balancer-requirements) for detailed information on load balancer configuration for HA setups.
+### External Load Balancer
 
-[Learn more](/docs/add-ons/ekco#clear-nodes) about how the ekco add-on ensures pods recover during node failure events.
 
-### Converting to HA (Beta)
+To use an external load balancer instead of the internal load balancer, either specify the load balancer address at the prompt or beforehand with the `load-balancer-address=<address>` flag.
+An external load balancer may be preferred when clients outside the cluster need access to the cluster's Kubernetes API.
+
+```
+curl https://kurl.sh/latest | sudo bash -s ha load-balancer-address=k8slb.somebigbank.com:6443
+```
+
+See the [Load Balancer Requirements](/docs/install-with-kurl/system-requirements#load-balancers) for detailed information on external load balancer configuration for HA setups.
+
+### HA Recovery
+
+[Learn more](/docs/add-ons/ekco#clear-nodes) about how the EKCO add-on ensures pods recover during node failure events.
+
+### Converting to HA
 
 To convert a non-HA cluster to an HA cluster, re-run the install script with the `ha` flag:
 
@@ -34,14 +49,8 @@ To convert a non-HA cluster to an HA cluster, re-run the install script with the
 curl https://kurl.sh/latest | sudo bash -s ha
 ```
 
-If the cluster has remote nodes, the install script will print out a command that must be run on every node to update clients to use the new load balancer address:
-
-```bash
-curl https://kurl.sh/latest/tasks.sh | sudo bash -s set-kubeconfig-server https://k8slb.somebigbank.com:6443
-```
-
 To change the load balancer of an existing HA cluster, re-run the install script with the new load balancer address.
-This requires that the [ekco add-on](/docs/add-ons/ekco) is enabled with version 0.6.0+.
+This requires that the [EKCO add-on](/docs/add-ons/ekco) is enabled with version 0.6.0+.
 
 ```bash
 curl https://kurl.sh/latest | sudo bash -s ha load-balancer-address=k8slb.somebigbank.com:6443
@@ -124,11 +133,10 @@ A list of releases can be found on the [kURL Releases](https://github.com/replic
       version: "latest"
 ```
 
-The `latest` version of an addon is the most recent version that we at Replicated are confident will continue to work when upgraded to.
+The `latest` version of an add-on is the most recent version that we at Replicated are confident will continue to work when upgraded to.
 This will change as new versions are released, allowing you to stay up to date more easily.
 
-For `kubernetes`, there are also versions of the form `1.19.x`.
-These versions will always resolve to the most recent patch version for the specified minor version of kubernetes.
+While the `latest` spec may be suitable for some situations, it is typically better to specify particular versions that are tested and predictable. For more information on add-on versions, see [Versions](/docs/create-installer/#versions).
 
 ## Using the kURL Installer CRD
 
