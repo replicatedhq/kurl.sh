@@ -35,7 +35,7 @@ An external load balancer may be preferred when clients outside the cluster need
 curl https://kurl.sh/latest | sudo bash -s ha load-balancer-address=k8slb.somebigbank.com:6443
 ```
 
-See the [Load Balancer Requirements](/docs/install-with-kurl/system-requirements#load-balancer-requirements) for detailed information on external load balancer configuration for HA setups.
+See the [Load Balancer Requirements](/docs/install-with-kurl/system-requirements#load-balancers) for detailed information on external load balancer configuration for HA setups.
 
 ### HA Recovery
 
