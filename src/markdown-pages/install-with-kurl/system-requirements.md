@@ -119,7 +119,7 @@ graph TB
     A -->|Port 6443| D[Primary Node]
 ```
 
-Highly available cluster setups require a load balancer to route requests to healthy nodes. 
+Highly available cluster setups that do not leverage EKCO's [internal load balancing capability](/docs/add-ons/ekco#internal-load-balancer) require a load balancer to route requests to healthy nodes. 
 The following requirements need to be met for load balancers used on the control plane (primary nodes):
 1. The load balancer must be able to route TCP traffic, as opposed to Layer 7/HTTP traffic.
 1. The load balancer must support hairpinning, i.e. nodes referring to eachother through the load balancer IP.
