@@ -5,7 +5,7 @@ weight: 14
 linktitle: "Public Cloud Load Balancing"
 title: "Public Cloud Load Balancing"
 ---
-Highly Available kURL installs require a Layer 4 TCP load balancer that supports hairpinning. This topic provides steps for a working configuration in AWS, Azure, and GCP.
+If you choose to bring your own external load balancer for a highly available kURL install instead of using EKCO's [internal load balancing capability](/docs/add-ons/ekco#internal-load-balancer), the load balancer must be a Layer 4 TCP load balancer that supports hairpinning. This topic provides steps for a working configuration in AWS, Azure, and GCP.
 
 **NOTE**: We recommend that you begin the kURL install with a single primary behind the load balancer. Although this is only a strict requirement for GCP, this reduces the chance that a kURL install may fail due to the load balancer forwarding traffic to an instance which isn't yet initialized. You should add the additional primaries to the backend target groups/pools after you've joined them to the kURL cluster.
 
