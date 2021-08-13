@@ -76,6 +76,23 @@ tar xvzf latest.tar.gz
 cat install.sh | sudo bash -s airgap ha
 ```
 
+## Vendor Licensing Agreement (Beta)
+
+kURL supports requiring acceptance to a vendor-supplied license agreement prior to installation. This license will be presented at installation run time and requires an explicit 'y' or 'Y' to continue or the installation will be aborted. The URL provided should link directly to a text file and not to a web page. (eg [web-page](https://github.com/replicatedhq/kURL/blob/master/LICENSE) vs [text-file](https://raw.githubusercontent.com/replicatedhq/kURL/master/LICENSE)).
+
+A license can be defined within the install yaml:
+```
+ apiVersion: "cluster.kurl.sh/v1beta1"
+  kind: "Installer"
+  metadata:
+    name: ""
+  spec:
+    kurl:
+      licenseURL: https://somecompany.com/license-agreement.txt
+```
+
+NOTE: This is not yet supported for Airgap installs. 
+
 ## Versioned Releases
 kURL supports pinning the installation to a specific release version.
 

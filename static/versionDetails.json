@@ -393,6 +393,11 @@
       "flag": "installerVersion",
       "description": "The release version of kURL to install with.",
       "type": "string"
+    },
+    {
+      "flag": "licenseURL",
+      "description": "A URL to a licensing agreement text file that will be presented during installation and needs to be accepted for the install to continue.",
+      "type": "string"
     }
   ],
   "selinux": [
