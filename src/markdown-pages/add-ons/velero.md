@@ -39,7 +39,7 @@ Refer to the [Velero documentation](https://velero.io/docs/) for more advanced t
 Velero requires a backend object store where it will save your backups.
 For the initial install the local Ceph Object Gateway will be configured as the backend if the Rook add-on is enabled.
 This is not suitable for disaster recovery because loss of the cluster will mean loss of backups.
-The add-on includes plugins for using AWS, Azure, or GCP object stores as backends.
+The add-on includes plugins for using AWS, Azure, or GCP object stores as backends, as well as the [local-volume-provider](https://github.com/replicatedhq/local-volume-provider) plugin for direct-to-disk backups.
 
 #### AWS S3
 
@@ -140,6 +140,22 @@ You must create a secret named `google-credentials` in the velero namespace.
 
 ```bash
 kubectl -n velero create secret generic google-credentials --from-file=cloud=./credentials-velero
+```
+
+### Local-Volume-Provider
+
+The [local-volume-provider](https://github.com/replicatedhq/local-volume-provider) plugin can be used to store snapshots directly on the host machine (hostpath) or to a Network File Share (NFS) location. 
+
+Hostpath backups are only recommended for SINGLE NODE clusters that will never be extended with more nodes. To create a hostpath backup location:
+
+```bash
+velero backup-location create my-hostpath-backend --provider replicated.com/hostpath --bucket <friendly volume name> --config path=</path/to/hostpath>,resticRepoPrefix=/var/local-volume-provider/<bucket>/restic
+```
+
+To create an NFS backup location:
+
+```bash
+velero backup-location create my-nfs-backend --provider replicated.com/nfs --bucket <friendly volume name> --config path=</path/on/share>,server=<server host or ip>,resticRepoPrefix=/var/local-volume-provider/<bucket>/restic
 ```
 
 ### Create a Single Backup with the CLI
