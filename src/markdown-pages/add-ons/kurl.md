@@ -20,7 +20,7 @@ spec:
     additionalNoProxyAddresses:
     - .corporate.internal
     noProxy: false
-    licenseURL: https://raw.githubusercontent.com/replicatedhq/kURL/master/LICENSE
+    licenseURL: https://somecompany.com/license-agreement.txt
     nameserver: 8.8.8.8
 ```
 

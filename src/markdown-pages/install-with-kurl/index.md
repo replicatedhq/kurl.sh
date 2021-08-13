@@ -88,7 +88,7 @@ A license can be defined within the install yaml:
     name: ""
   spec:
     kurl:
-      licenseURL: https://raw.githubusercontent.com/replicatedhq/kURL/master/LICENSE
+      licenseURL: https://somecompany.com/license-agreement.txt
 ```
 
 NOTE: This is not yet supported for Airgap installs.
