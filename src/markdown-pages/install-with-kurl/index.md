@@ -78,7 +78,7 @@ cat install.sh | sudo bash -s airgap ha
 
 ## Licensing Agreement
 
-kURL supports requiring acceptance to a license agreement prior to installation. This license will be presented at installation run time and requires an explicit 'y' or 'Y' to continue or the installation will be aborted.
+kURL supports requiring acceptance to a vendor-supplied license agreement prior to installation. This license will be presented at installation run time and requires an explicit 'y' or 'Y' to continue or the installation will be aborted.
 
 A license can be defined within the install yaml:
 ```
