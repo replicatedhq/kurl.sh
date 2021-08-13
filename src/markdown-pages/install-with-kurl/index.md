@@ -76,7 +76,7 @@ tar xvzf latest.tar.gz
 cat install.sh | sudo bash -s airgap ha
 ```
 
-## Licensing Agreement
+## Vendor Licensing Agreement (Beta)
 
 kURL supports requiring acceptance to a vendor-supplied license agreement prior to installation. This license will be presented at installation run time and requires an explicit 'y' or 'Y' to continue or the installation will be aborted.
 
