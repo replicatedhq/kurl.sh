@@ -396,7 +396,7 @@
     },
     {
       "flag": "licenseURL",
-      "description": "A URL to a licensing agreement that will be presented during installation and needs to be accepted for the install to continue.",
+      "description": "A URL to a licensing agreement text file that will be presented during installation and needs to be accepted for the install to continue.",
       "type": "string"
     }
   ],
