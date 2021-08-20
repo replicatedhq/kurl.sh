@@ -543,6 +543,11 @@
       "flag": "hostPath",
       "description": "Configure minio to use a local hostPath for storing data.",
       "type": "string"
+    },
+    {
+      "flag": "claimSize",
+      "description": "Sets the size of the PVC used by minio, defaulting to '10Gi'.",
+      "type": "string"
     }
   ],
   "calico": [
