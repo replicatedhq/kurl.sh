@@ -161,7 +161,12 @@ class Kurlsh extends React.Component {
       },
       advancedOptions: {
         kubernetes: {},
-        weave: {},
+        weave: {
+          "noMasqLocal": {
+            "inputValue": true, 
+            "isChecked": true 
+          },
+        },
         antrea: {},
         contour: {},
         rook: {},
