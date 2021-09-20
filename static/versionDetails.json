@@ -91,6 +91,11 @@
       "flag": "podCidrRange",
       "description": "The size of the CIDR where pods can be found.",
       "type": "string"
+    },
+    {
+      "flag": "noMasqLocal",
+      "description": "Default true. Set to false to disable preserving the client source IP address when accessing Service annotated with service.spec.externalTrafficPolicy=Local.",
+      "type": "boolean"
     }
   ],
   "antrea": [
