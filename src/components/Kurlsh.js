@@ -243,22 +243,35 @@ class Kurlsh extends React.Component {
     this.setState({ displayConfirmSelectionModal: true, currentSelection: current });
   }
 
-  helperToGenerateOptionsForYaml = (newObj) => {
+  helperToGenerateOptionsForYaml = (advancedOptionSelections, addonVersionDetails) => {
     let result = {};
-    for (let i = 0; i < Object.keys(newObj).length; ++i) {
-      const obj = Object.keys(newObj)[i];
-      if (newObj[obj].isChecked) {
-        result[obj] = newObj[obj].inputValue
+
+    const defaultObj = {}
+    if (addonVersionDetails) {
+        addonVersionDetails.forEach(attribute => {
+            defaultObj[attribute.flag] = attribute;
+        })
+    }
+
+    for (let i = 0; i < Object.keys(advancedOptionSelections).length; ++i) {
+      const addonPropertyName = Object.keys(advancedOptionSelections)[i];
+
+      const checkedAndDoesntHaveDefault = advancedOptionSelections[addonPropertyName].isChecked && defaultObj[addonPropertyName].defaultValue === undefined
+      const checkedAndHasFalseDefault = advancedOptionSelections[addonPropertyName].isChecked && !defaultObj[addonPropertyName].defaultValue
+      const uncheckedAndHasTrueDefault = !advancedOptionSelections[addonPropertyName].isChecked && defaultObj[addonPropertyName].defaultValue
+
+      if ( checkedAndDoesntHaveDefault || checkedAndHasFalseDefault || uncheckedAndHasTrueDefault ) {
+        result[addonPropertyName] = advancedOptionSelections[addonPropertyName].inputValue
       }
     }
     return result;
   }
 
-  generateAdvancedOptionsForYaml = (advancedOptions) => {
+  generateAdvancedOptionsForYaml = (advancedOptions, optionDefaults) => {
     let result = {};
     for (let i = 0; i < Object.keys(advancedOptions).length; ++i) {
       const objX = Object.keys(advancedOptions)[i];
-      result[objX] = this.helperToGenerateOptionsForYaml(advancedOptions[objX])
+      result[objX] = this.helperToGenerateOptionsForYaml(advancedOptions[objX], optionDefaults[objX])
     }
     return result;
   }
@@ -294,7 +307,7 @@ class Kurlsh extends React.Component {
       return diff;
     }
 
-    const options = this.generateAdvancedOptionsForYaml(advancedOptions);
+    const options = this.generateAdvancedOptionsForYaml(advancedOptions, optionDefaults);
 
     if (options.kubernetes) {
       const diff = getDiff(optionDefaults["kubernetes"], options.kubernetes);
@@ -309,6 +322,7 @@ class Kurlsh extends React.Component {
 
     if (selectedVersions.weave.version !== "None") {
       const diff = getDiff(optionDefaults["weave"], options.weave);
+
       generatedInstaller.spec.weave = {
         version: selectedVersions.weave.version
       };
@@ -838,8 +852,7 @@ class Kurlsh extends React.Component {
                         id={`${addOn}_${data.flag}`}
                         data-focus-id={`${addOn}_${data.flag}`}
                         onChange={e => this.handleOptionChange(`${addOn}.${data.flag}`, e.currentTarget, option.type)}
-                        checked={currentOption ? currentOption.isChecked : false}
-                        value={currentOption && currentOption.inputValue}
+                        checked={currentOption ? currentOption.isChecked : option.defaultValue ? true : false }     // Need the literals here to keep component controlled
                       />
                     }
                     <label
