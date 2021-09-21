@@ -830,9 +830,6 @@ class Kurlsh extends React.Component {
             const currentOption = find(advancedOptions[addOn], (key, value) => value === data.flag);
             const doesCurrentErrExist = installerErrMsg ? installerErrMsg.includes(data.flag) : false;
 
-            const optionSelected = currentOption && currentOption.inputValue
-            const optionUndefinedWithDefault = currentOption === undefined && option.defaultValue
-
             return (
               <div className="OptionItem flex-column" key={`${data.flag}-${i}`}>
                 <div className="Option--wrapper flex flex1 alignItems--center">
@@ -855,8 +852,7 @@ class Kurlsh extends React.Component {
                         id={`${addOn}_${data.flag}`}
                         data-focus-id={`${addOn}_${data.flag}`}
                         onChange={e => this.handleOptionChange(`${addOn}.${data.flag}`, e.currentTarget, option.type)}
-                        checked={currentOption ? currentOption.isChecked : currentOption === undefined ? option.defaultValue : false }
-                        value={optionSelected || optionUndefinedWithDefault }
+                        checked={currentOption ? currentOption.isChecked : option.defaultValue ? true : false }     // Need the literals here to keep component controlled
                       />
                     }
                     <label
