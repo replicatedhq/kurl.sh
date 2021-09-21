@@ -95,7 +95,8 @@
     {
       "flag": "noMasqLocal",
       "description": "Default true. Set to false to disable preserving the client source IP address when accessing Service annotated with service.spec.externalTrafficPolicy=Local.",
-      "type": "boolean"
+      "type": "boolean",
+      "defaultValue": true
     }
   ],
   "antrea": [
