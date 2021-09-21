@@ -204,6 +204,8 @@ patch YAML, the patch YAML will take precedence in the final merged YAML. Fields
 that are only present in one of the YAML files will also be preserved in the
 final merged YAML.
 
+Note that changing add-on versions in a patch file is not supported for airgap installs, because the downloaded airgap archive will only contain the version in the original spec.
+
 Once the install is finished, the merged YAML that represents the install can be
 viewed by running the following command to show the current state of the cluster. 
 
