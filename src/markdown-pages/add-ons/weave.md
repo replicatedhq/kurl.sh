@@ -18,6 +18,7 @@ spec:
     isEncryptionDisabled: true
     podCIDR: "10.10.0.0/16"
     podCidrRange: "/16"
+    noMasqLocal: true
 ```
 
 flags-table
