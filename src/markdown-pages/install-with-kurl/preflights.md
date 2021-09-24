@@ -49,10 +49,6 @@ These checks run on all primary and secondary nodes joining an existing cluster:
 
 Some checks run depending on the add-ons enabled in the installer and their configuration:
 
-## Custom defined preflights
-
-Additional host preflight checks can be added in the kurl installer spec under `spec.kurl.hostPreflights`. See [Kurl Add-on](/docs/add-ons/kurl) for additional information.
-
 ### Weave
 
 * All existing nodes in the cluster can be reached on TCP port 6783.
@@ -74,3 +70,6 @@ Additional host preflight checks can be added in the kurl installer spec under `
 
 * /var/lib/docker has at least 30GiB total space and is less than 80% full. (Warn when more than 60% full).
 
+## Adding custom host preflights
+
+Additional host preflight checks can be added in the kURL installer spec under `spec.kurl.hostPreflights`. See the [kURL add-on docs](/docs/add-ons/kurl) for an example and additional information. See the [Troubleshoot docs](https://troubleshoot.sh/docs/preflight/introduction/) to learn more about writing Troubleshoot specs.

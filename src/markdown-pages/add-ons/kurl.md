@@ -30,16 +30,16 @@ spec:
           - cpu: {}
         analyzers:
           - cpu:
-              checkName: High Number of CPU check
+              checkName: Number of CPU check
               outcomes:
+                - warn:
+                    when: "count < 6"
+                    message: This server has less than 4 CPU cores
                 - fail:
                     when: "count < 4"
-                    message: This server has less than 4 CPU cores
-                - warn:
-                    when: "count < 2"
                     message: This server has less than 2 CPU cores
                 - pass:
-                    when: "count >= 4"
+                    when: "count >= 6"
                     message: This server has at least 4 CPU cores
 ```
 
