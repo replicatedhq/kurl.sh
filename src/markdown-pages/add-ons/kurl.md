@@ -22,6 +22,25 @@ spec:
     noProxy: false
     licenseURL: https://somecompany.com/license-agreement.txt
     nameserver: 8.8.8.8
+    hostPreflights:
+      apiVersion: troubleshoot.sh/v1beta2
+      kind: HostPreflight
+      spec:
+        collectors:
+          - cpu: {}
+        analyzers:
+          - cpu:
+              checkName: High Number of CPU check
+              outcomes:
+                - fail:
+                    when: "count < 4"
+                    message: This server has less than 4 CPU cores
+                - warn:
+                    when: "count < 2"
+                    message: This server has less than 2 CPU cores
+                - pass:
+                    when: "count >= 4"
+                    message: This server has at least 4 CPU cores
 ```
 
 flags-table

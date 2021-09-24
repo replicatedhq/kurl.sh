@@ -49,6 +49,10 @@ These checks run on all primary and secondary nodes joining an existing cluster:
 
 Some checks run depending on the add-ons enabled in the installer and their configuration:
 
+## Custom defined preflights
+
+Additional host preflight checks can be added in the kurl installer spec under `spec.kurl.hostPreflights`. See [Kurl Add-on](/docs/add-ons/kurl) for additional information.
+
 ### Weave
 
 * All existing nodes in the cluster can be reached on TCP port 6783.
