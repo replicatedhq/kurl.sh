@@ -70,6 +70,6 @@ Some checks run depending on the add-ons enabled in the installer and their conf
 
 * /var/lib/docker has at least 30GiB total space and is less than 80% full. (Warn when more than 60% full).
 
-## Adding custom host preflights
+## Adding custom host preflights (Beta)
 
 Additional host preflight checks can be added in the kURL installer spec under `spec.kurl.hostPreflights`. See the [kURL add-on docs](/docs/add-ons/kurl) for an example and additional information. See the [Troubleshoot docs](https://troubleshoot.sh/docs/preflight/introduction/) to learn more about writing Troubleshoot specs.
