@@ -24,7 +24,7 @@ flags-table
 
 ## Registry Storage Backends 
 
-When installed as part of a kURL spec that contains an object store (e.g. Rook or Minio), the Registry addon will use that API as a storage backend.
+When installed as part of a kURL spec that contains an object store (e.g., Rook or MinIO), the Registry add-on will use that API as a storage backend.
 If an object store is not available, a Persistent Volume Claim (PVC) will be used as the storage backend.
 Once an object storage backend is selected, future kURL upgrades will not modify this selection.
 There is currently no migration path between storage backends.
