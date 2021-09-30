@@ -9,7 +9,6 @@ addOn: "registry"
 
 [Docker registry](https://github.com/docker/distribution) is an OCI compatible image registry.
 This add-on deploys it to the `kurl` namespace.
-By default, two pod replicas are deployed.
 
 ## Advanced Install Options
 
@@ -28,3 +27,8 @@ When installed as part of a kURL spec that contains an object store (e.g., Rook 
 If an object store is not available, a Persistent Volume Claim (PVC) will be used as the storage backend.
 Once an object storage backend is selected, future kURL upgrades will not modify this selection.
 There is currently no migration path between storage backends.
+
+For object store backends, 2 replicas of the registry service are deployed by default.
+
+For PVC backends, 1 replica will be used with a `ReadWriteOnce` PVC. 
+If Longhorn >=1.1.0 is available as the CSI provider (which supports `ReadWriteMany` [RWX] volumes), 2 replicas will be deployed with a RWX volume. 
