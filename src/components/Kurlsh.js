@@ -15,7 +15,6 @@ import ConfirmSelectionModal from "./modals/ConfirmSelectionModal";
 
 import "../scss/components/Kurlsh.scss";
 import versionDetails from "../../static/versionDetails.json"
-import { stubFalse } from "lodash";
 
 const hasAdvancedOptions = ["kubernetes", "weave", "antrea", "contour", "rook", "registry", "docker", "velero", "kotsadm", "ekco", "fluentd", "minio", "openebs", "longhorn", "prometheus"];
 function versionToState(version) {
