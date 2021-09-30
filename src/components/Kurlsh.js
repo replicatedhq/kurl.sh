@@ -15,6 +15,7 @@ import ConfirmSelectionModal from "./modals/ConfirmSelectionModal";
 
 import "../scss/components/Kurlsh.scss";
 import versionDetails from "../../static/versionDetails.json"
+import { stubFalse } from "lodash";
 
 const hasAdvancedOptions = ["kubernetes", "weave", "antrea", "contour", "rook", "registry", "docker", "velero", "kotsadm", "ekco", "fluentd", "minio", "openebs", "longhorn", "prometheus"];
 function versionToState(version) {
@@ -120,10 +121,10 @@ class Kurlsh extends React.Component {
         antrea: { version: "None" },
         contour: { version: "latest" },
         rook: { version: "latest" },
-        docker: { version: "latest" },
+        docker: { version: "None" },
         prometheus: { version: "latest" },
         registry: { version: "latest" },
-        containerd: { version: "None" },
+        containerd: { version: "latest" },
         velero: { version: "None" },
         kotsadm: { version: "None" },
         ekco: { version: "latest" },
@@ -186,10 +187,10 @@ class Kurlsh extends React.Component {
         antrea: false,
         contour: true,
         rook: true,
-        docker: true,
+        docker: false,
         prometheus: true,
         registry: true,
-        containerd: false,
+        containerd: true,
         velero: false,
         kotsadm: false,
         ekco: true,
