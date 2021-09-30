@@ -36,6 +36,16 @@
       "type": "boolean"
     },
     {
+      "flag": "containerLogMaxSize",
+      "description": "A quantity defining the maximum size of the container log file before it is rotated. For example: \"5Mi\" or \"256Ki\". This does not work with Docker. For Docker, check out https://docs.docker.com/config/containers/logging/json-file.",
+      "type": "string"
+    },
+    {
+      "flag": "containerLogMaxFiles",
+      "description": "Specifies the maximum number of container log files that can be present for a container. This does not work with Docker. For Docker, check out https://docs.docker.com/config/containers/logging/json-file.",
+      "type": "number"
+    },
+    {
       "flag": "kubeadmToken",
       "description": "Generated during the install script, used for nodes joining (read-only).",
       "type": "string"
