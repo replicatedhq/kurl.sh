@@ -26,3 +26,5 @@ The install scripts are idempotent. Re-run the scripts with different flags to c
 | preserve-firewalld-config        | This flag will make the kURL installer keep the current Firewalld config of the node, overriding any yaml config. |
 | preserve-selinux-config          | This flag will make the kURL installer keep the current SELinux config of the node, overriding any yaml config.   |
 | public-address                   | The public IP address.                                                                                            |
+| container-log-max-size           | A quantity defining the maximum size of the container log file before it is rotated. For example: \"5Mi\" or \"256Ki\". This does not work with Docker. For Docker, check out https://docs.docker.com/config/containers/logging/json-file. |
+| container-log-max-files          | Specifies the maximum number of container log files that can be present for a container. This does not work with Docker. For Docker, check out https://docs.docker.com/config/containers/logging/json-file. |
