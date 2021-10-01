@@ -142,7 +142,7 @@ A list of releases can be found on the [kURL Releases](https://github.com/replic
       version: "latest"
     contour:
       version: "latest"
-    docker:
+    containerd:
       version: "latest"
     prometheus:
       version: "latest"
