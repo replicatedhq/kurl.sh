@@ -11,9 +11,9 @@ title: "System Requirements"
 * Ubuntu 16.04<sup>*</sup> (Kernel version >= 4.15)
 * Ubuntu 18.04
 * Ubuntu 20.04 (Docker version >= 19.03.10)
-* CentOS 7.4<sup>\*</sup>, 7.5<sup>\*</sup>, 7.6<sup>\*</sup>, 7.7<sup>\*</sup>, 7.8<sup>\*</sup>, 7.9, 8.1, 8.2, 8.3, 8.4 (CentOS 8.x requires Containerd)
-* RHEL 7.4<sup>\*</sup>, 7.5<sup>\*</sup>, 7.6<sup>\*</sup>, 7.7<sup>\*</sup>, 7.8<sup>\*</sup>, 7.9, 8.1, 8.2, 8.3, 8.4 (RHEL 8.x requires Containerd)
-* Oracle Linux 7.4<sup>\*</sup>, 7.5<sup>\*</sup>, 7.6<sup>\*</sup>, 7.7<sup>\*</sup>, 7.8<sup>\*</sup>, 7.9, 8.1, 8.2, 8.3, 8.4 (OL 8.x requires Containerd)
+* CentOS 7.4<sup>\*</sup>, 7.5<sup>\*</sup>, 7.6<sup>\*</sup>, 7.7<sup>\*</sup>, 7.8<sup>\*</sup>, 7.9, 8.0<sup>\*</sup>, 8.1, 8.2, 8.3, 8.4 (CentOS 8.x requires Containerd)
+* RHEL 7.4<sup>\*</sup>, 7.5<sup>\*</sup>, 7.6<sup>\*</sup>, 7.7<sup>\*</sup>, 7.8<sup>\*</sup>, 7.9, 8.0<sup>\*</sup>, 8.1, 8.2, 8.3, 8.4 (RHEL 8.x requires Containerd)
+* Oracle Linux 7.4<sup>\*</sup>, 7.5<sup>\*</sup>, 7.6<sup>\*</sup>, 7.7<sup>\*</sup>, 7.8<sup>\*</sup>, 7.9, 8.0<sup>\*</sup>, 8.1, 8.2, 8.3, 8.4 (OL 8.x requires Containerd)
 * Amazon Linux 2
 
 *: This version is deprecated since it is no longer supported by its creator. We continue to support it, but support will be removed in the future.
