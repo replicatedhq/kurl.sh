@@ -31,4 +31,3 @@ There is currently no migration path between storage backends.
 For object store backends, 2 replicas of the registry service are deployed by default.
 
 For PVC backends, 1 replica will be used with a `ReadWriteOnce` PVC. 
-If Longhorn >=1.1.0 is available as the CSI provider (which supports `ReadWriteMany` [RWX] volumes), 2 replicas will be deployed with a RWX volume. 
