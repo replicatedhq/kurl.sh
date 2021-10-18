@@ -44,4 +44,5 @@ The available add-ons are:
 * [EKCO](https://github.com/replicatedhq/ekco)
 * [OpenEBS](https://openebs.io/)
 * [MinIO](https://min.io/)
+* [NGINX Ingress](https://kubernetes.github.io/ingress-nginx/)
 

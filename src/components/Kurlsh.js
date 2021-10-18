@@ -16,7 +16,7 @@ import ConfirmSelectionModal from "./modals/ConfirmSelectionModal";
 import "../scss/components/Kurlsh.scss";
 import versionDetails from "../../static/versionDetails.json"
 
-const hasAdvancedOptions = ["kubernetes", "weave", "antrea", "contour", "rook", "registry", "docker", "velero", "kotsadm", "ekco", "fluentd", "minio", "openebs", "longhorn", "prometheus"];
+const hasAdvancedOptions = ["kubernetes", "weave", "antrea", "contour", "rook", "registry", "docker", "velero", "kotsadm", "ekco", "fluentd", "minio", "openebs", "longhorn", "prometheus", "nginx"];
 function versionToState(version) {
   return {
     version
@@ -90,6 +90,9 @@ class Kurlsh extends React.Component {
     const goldpingerVersions = this.addDotXVersions(supportedVersions["goldpinger"].map(versionToState));
     goldpingerVersions.push({ version: "None" });
 
+    const nginxVersions = this.addDotXVersions(supportedVersions["nginx"].map(versionToState));
+    nginxVersions.push({ version: "None" });
+
     this.state = {
       versions: {
         kubernetes: kubernetesVersions,
@@ -112,7 +115,8 @@ class Kurlsh extends React.Component {
         metricsServer: metricsServerVersions,
         certManager: certManagerVersions,
         sonobuoy: sonobuoyVersions,
-        goldpinger: goldpingerVersions
+        goldpinger: goldpingerVersions,
+        nginx: nginxVersions,
       },
       selectedVersions: {
         kubernetes: { version: "latest" },
@@ -135,7 +139,8 @@ class Kurlsh extends React.Component {
         metricsServer: { version: "None" },
         certManager: { version: "None" },
         sonobuoy: { version: "None" },
-        goldpinger: { version: "None" }
+        goldpinger: { version: "None" },
+        nginx: { version: "None" }
       },
       installerSha: "latest",
       showAdvancedOptions: {
@@ -157,7 +162,8 @@ class Kurlsh extends React.Component {
         "metricsServer": false,
         "certManager": false,
         "sonobuoy": false,
-        "goldpinger": false
+        "goldpinger": false,
+        "nginx": false
       },
       advancedOptions: {
         kubernetes: {},
@@ -180,6 +186,7 @@ class Kurlsh extends React.Component {
         sonobuoy: {},
         goldpinger: {},
         prometheus: {},
+        nginx: {},
       },
       isAddOnChecked: {
         weave: true,
@@ -202,6 +209,7 @@ class Kurlsh extends React.Component {
         certManager: false,
         sonobuoy: false,
         goldpinger: false,
+        nginx: false,
       },
       isLoading: false,
       optionDefaults: {},
@@ -592,6 +600,20 @@ class Kurlsh extends React.Component {
         };
       }
     }
+
+    if (selectedVersions.nginx.version !== "None") {
+        const diff = getDiff(optionDefaults["nginx"], options.nginx);
+        generatedInstaller.spec.nginx = {
+          version: selectedVersions.nginx.version
+        };
+  
+        if (Object.keys(diff).length) {
+          generatedInstaller.spec.nginx = {
+            ...generatedInstaller.spec.nginx,
+            ...diff
+          };
+        }
+      }
 
     return json2yaml.stringify(generatedInstaller).replace("---\n", "").replace(/^ {2}/gm, "");
   }
@@ -1173,6 +1195,42 @@ class Kurlsh extends React.Component {
                     </div>
                   </div>
                   {showAdvancedOptions["contour"] && this.renderAdvancedOptions("contour")}
+                </div>
+                <div className={`AddOn--wrapper ${selectedVersions.nginx.version !== "None" && "selected"} flex flex-column u-marginTop--15`} onClick={(e) => this.handleIsAddOnSelected("nginx", e)}>
+                  <div className="flex flex1">
+                    <div className="flex flex1 alignItems--center">
+                      <input
+                        type="checkbox"
+                        className="u-marginRight--normal"
+                        checked={selectedVersions.nginx.version !== "None"}
+                        readOnly
+                      />
+                      {/* (dans) TODO - NGINX Icon
+                      <span className="icon u-nginx u-marginBottom--small" /> */}
+                      <div className="flex flex-column u-marginLeft--15 u-marginTop--small">
+                        <div className="FormLabel"> NGINX </div>
+                        <div className={`SelectVersion flex flex1 ${!this.state.isAddOnChecked["nginx"] && "disabled"}`} style={{ width: "200px" }}>
+                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> {!this.state.isAddOnChecked["nginx"] ? "Version None" : "Version"} </span>
+                          <Select
+                            isSearchable={false}
+                            options={versions.nginx}
+                            getOptionLabel={this.getLabel("nginx")}
+                            getOptionValue={(nginx) => nginx}
+                            value={selectedVersions.nginx}
+                            onChange={this.onVersionChange("nginx")}
+                            matchProp="value"
+                            isDisabled={!this.state.isAddOnChecked["nginx"]}
+                            isOptionSelected={() => false} />
+                        </div>
+                      </div>
+                    </div>
+                    <div className="flex flex1 justifyContent--flexEnd alignItems--center">
+                      <div className="flex u-fontSize--small u-fontWeight--medium u-color--royalBlue u-marginTop--small u-cursor--pointer configDiv" onClick={() => this.onToggleShowAdvancedOptions("nginx")}>
+                        {showAdvancedOptions["nginx"] ? "Hide config" : "Show config"}
+                      </div>
+                    </div>
+                  </div>
+                  {showAdvancedOptions["nginx"] && this.renderAdvancedOptions("nginx")}
                 </div>
               </div>
 
