@@ -663,5 +663,22 @@
       "description": "The version of Goldpinger to be installed.",
       "type": "string"
     }
+  ],
+  "nginx": [
+    {
+      "flag": "version",
+      "description": "The version of NGINX ingress to be installed.",
+      "type": "string"
+    },
+    {
+      "flag": "httpPort",
+      "description": "The NodePort exposed for http Ingress.",
+      "type": "number"
+    },
+    {
+      "flag": "httpsPort",
+      "description": "The NodePort exposed for https (TLS) Ingress.",
+      "type": "number"
+    }
   ]
 }
