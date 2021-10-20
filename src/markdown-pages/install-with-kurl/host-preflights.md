@@ -1,15 +1,16 @@
 ---
-path: "/docs/install-with-kurl/preflights"
+path: "/docs/install-with-kurl/host-preflights"
 date: "2021-04-05"
 weight: 18
-linktitle: "Preflights"
-title: "Preflights"
+linktitle: "Host Preflights"
+title: "Host Preflights"
 ---
 
-The kURL installer runs several preflight checks to detect problems with the target environment early in the installation process.
+The kURL installer runs several host preflight checks to detect problems with the target environment early in the installation process.
 Some checks run conditionally depending on whether the installer is performing an upgrade or a join.
 Additional checks may be enabled by add-ons included in the installer.
-Warnings and errors can be bypassed with the [preflight-ignore and preflight-ignore-warnings flags](/docs/install-with-kurl/advanced-options).
+Custom host preflights can also be added to the kURL installer spec. These will run in addition to kURL's default host preflights.
+Warnings and errors can be bypassed with the [`preflight-ignore` and `preflight-ignore-warnings` flags](/docs/install-with-kurl/advanced-options).
 
 ## Checks Run on All Nodes
 
@@ -45,7 +46,7 @@ These checks run on all primary and secondary nodes joining an existing cluster:
 
 * Can connect to the Kubernetes API server address
 
-## Add-on preflights
+## Add-on host preflights
 
 Some checks run depending on the add-ons enabled in the installer and their configuration:
 
