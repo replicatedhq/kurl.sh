@@ -1205,8 +1205,7 @@ class Kurlsh extends React.Component {
                         checked={selectedVersions.nginx.version !== "None"}
                         readOnly
                       />
-                      {/* (dans) TODO - NGINX Icon
-                      <span className="icon u-nginx u-marginBottom--small" /> */}
+                      <span className="icon u-nginx u-marginBottom--small" />
                       <div className="flex flex-column u-marginLeft--15 u-marginTop--small">
                         <div className="FormLabel"> NGINX </div>
                         <div className={`SelectVersion flex flex1 ${!this.state.isAddOnChecked["nginx"] && "disabled"}`} style={{ width: "200px" }}>
