@@ -163,7 +163,12 @@ systemctl list-timers
 
 ### Auto Resource Scaling
 
-Introduced in version 0.13.0. Various cluster resources have scheduling requirements that make it impossible to have 
-the desired replica fulfilled until all nodes join the cluster.  This can lead to some unfavorable outcomes (such 
-as false positives in health check error reporting).  To avoid this, EKCO will auto scale specific resources that 
-were installed from kURL, to ensure proper cluster state.    
+With auto resource scaling, EKCO automatically scales specific cluster resources that 
+were installed by kURL.
+
+Auto resource scaling is useful because many cluster resources require that all
+nodes join the cluster before the desired replica can be fulfilled. This can cause
+issues such as false positives in health check error reporting. Auto resource
+scaling helps to avoid issues like this by ensuring proper cluster state.
+
+Auto resource sclaing is available in v0.13.0 and later.
