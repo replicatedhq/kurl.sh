@@ -165,5 +165,5 @@ systemctl list-timers
 
 Introduced in version 0.13.0. Various cluster resources have scheduling requirements that make it impossible to have 
 the desired replica fulfilled until all nodes join the cluster.  This can lead to some unfavorable outcomes (such 
-as false positives in health check error reporting).  To avoid this, EKCO will auto scale specific resources, that 
+as false positives in health check error reporting).  To avoid this, EKCO will auto scale specific resources that 
 were installed from kURL, to ensure proper cluster state.    
