@@ -15,6 +15,7 @@ import ConfirmSelectionModal from "./modals/ConfirmSelectionModal";
 
 import "../scss/components/Kurlsh.scss";
 import versionDetails from "../../static/versionDetails.json"
+import _ from "lodash";
 
 const hasAdvancedOptions = ["kubernetes", "weave", "antrea", "contour", "rook", "registry", "docker", "velero", "kotsadm", "ekco", "fluentd", "minio", "openebs", "longhorn", "prometheus"];
 function versionToState(version) {
@@ -115,29 +116,29 @@ class Kurlsh extends React.Component {
         goldpinger: goldpingerVersions
       },
       selectedVersions: {
-        kubernetes: { version: "latest" },
-        weave: { version: "latest" },
+        kubernetes: { version: "None" },
+        weave: { version: "None" },
         antrea: { version: "None" },
-        contour: { version: "latest" },
+        contour: { version: "None" },
         rook: { version: "None" },
         docker: { version: "None" },
-        prometheus: { version: "latest" },
-        registry: { version: "latest" },
-        containerd: { version: "latest" },
+        prometheus: { version: "None" },
+        registry: { version: "None" },
+        containerd: { version: "None" },
         velero: { version: "None" },
         kotsadm: { version: "None" },
-        ekco: { version: "latest" },
+        ekco: { version: "None" },
         fluentd: { version: "None" },
-        minio: { version: "latest" },
+        minio: { version: "None" },
         openebs: { version: "None" },
-        longhorn: { version: "latest" },
+        longhorn: { version: "None" },
         collectd: { version: "None" },
         metricsServer: { version: "None" },
         certManager: { version: "None" },
         sonobuoy: { version: "None" },
         goldpinger: { version: "None" }
       },
-      installerSha: "latest",
+      installerSha: "",
       showAdvancedOptions: {
         "kubernetes": false,
         "weave": false,
@@ -182,28 +183,28 @@ class Kurlsh extends React.Component {
         prometheus: {},
       },
       isAddOnChecked: {
-        weave: true,
+        weave: false,
         antrea: false,
-        contour: true,
+        contour: false,
         rook: false,
         docker: false,
-        prometheus: true,
-        registry: true,
-        containerd: true,
+        prometheus: false,
+        registry: false,
+        containerd: false,
         velero: false,
         kotsadm: false,
-        ekco: true,
+        ekco: false,
         fluentd: false,
-        minio: true,
+        minio: false,
         openebs: false,
-        longhorn: true,
+        longhorn: false,
         collectd: false,
         metricsServer: false,
         certManager: false,
         sonobuoy: false,
         goldpinger: false,
       },
-      isLoading: false,
+      isEditorLoading: false,
       optionDefaults: {},
       installerErrMsg: "",
       displayConfirmSelectionModal: false,
@@ -700,10 +701,39 @@ class Kurlsh extends React.Component {
         this.setState({ installerSha });
       } else {
         const body = await response.json();
-        this.setState({ installerErrMsg: body.error.message })
+        this.setState({ installerErrMsg: body.error.message || "something went wrong" });
       }
     } catch (err) {
-      this.setState({ installerErrMsg: err })
+      this.setState({ installerErrMsg: `${err}` });
+    }
+  }
+
+  getKurlInstaller = async (installerSha) => {
+    this.setState({ installerErrMsg: "" })
+    const url = `${process.env.KURL_INSTALLER_URL}/${installerSha || "latest"}`;
+    try {
+      const response = await fetch(url, {
+        method: "GET",
+        headers: {
+          "Accept": "application/json",
+        },
+      });
+      if (response.ok) {
+        const res = await response.json();
+        const state = {
+          installerSha: installerSha || "latest",
+          isAddOnChecked: _.defaults(_.mapValues(res.spec, (value) => (_.get(value, "version") || "None") !== "None"), _.mapValues(this.state.isAddOnChecked, () => false)),
+          selectedVersions: _.defaults(_.mapValues(res.spec, (value) => _.pick(value, ["version"])), _.mapValues(this.state.selectedVersions, () => { return { version: "None" } })),
+          showAdvancedOptions: _.defaults(_.mapValues(res.spec, (value) => !_.isEmpty(_.omit(value, ["version"]))), _.mapValues(this.state.showAdvancedOptions, () => false)),
+          advancedOptions: _.defaults(_.mapValues(res.spec, (value) => _.omit(value, ["version"])), _.mapValues(this.state.advancedOptions, () => { return {} })),
+        };
+        this.setState(state);
+      } else {
+        const body = await response.json();
+        this.setState({ installerErrMsg: body.error.message || "something went wrong" });
+      }
+    } catch (err) {
+      this.setState({ installerErrMsg: `${err}` });
     }
   }
 
@@ -764,7 +794,7 @@ class Kurlsh extends React.Component {
         const el = document.getElementById(elementToFocus);
         el.focus();
       }
-      if (this.state.installerSha) {
+      if (this.state.installerSha && window.monacoEditor) {
         window.monacoEditor.setValue(this.getYaml(this.state.installerSha));
         this.postToKurlInstaller(this.getYaml(this.state.installerSha));
       }
@@ -783,16 +813,18 @@ class Kurlsh extends React.Component {
         scrollBeyondLastLine: false,
         lineNumbers: "off",
       });
-      this.setState({ isLoading: false });
+      this.setState({ isEditorLoading: false });
     });
   }
 
   componentDidMount() {
     this.setState({
-      isLoading: true
+      isEditorLoading: true
     }, () => {
       this.renderMonacoEditor();
     });
+
+    this.getKurlInstaller("latest");
 
     let options = {}
     hasAdvancedOptions.forEach(version => {
@@ -808,11 +840,11 @@ class Kurlsh extends React.Component {
 
   componentDidUpdate(lastProps, lastState) {
     if (typeof window !== "undefined") {
-      if (this.state.selectedVersions !== lastState.selectedVersions && this.state.installerSha) {
+      if (this.state.selectedVersions !== lastState.selectedVersions && this.state.installerSha && window.monacoEditor) {
         window.monacoEditor.setValue(this.getYaml(this.state.installerSha));
       }
     }
-    if (this.state.installerSha !== lastState.installerSha && this.state.installerSha) {
+    if (this.state.installerSha !== lastState.installerSha && this.state.installerSha && window.monacoEditor) {
       window.monacoEditor.setValue(this.getYaml(this.state.installerSha));
     }
   }
@@ -939,7 +971,7 @@ class Kurlsh extends React.Component {
   }
 
   render() {
-    const { versions, selectedVersions, installerSha, showAdvancedOptions, isLoading, installerErrMsg } = this.state;
+    const { versions, selectedVersions, installerSha, showAdvancedOptions, isEditorLoading, installerErrMsg } = this.state;
     const { isMobile } = this.props;
 
     const installCommand = `curl ${process.env.API_URL}/${installerSha} | sudo bash`;
@@ -1730,7 +1762,7 @@ class Kurlsh extends React.Component {
             <div className="MonacoEditor--wrapper flex u-width--full u-marginTop--20 u-position--relative">
               {(installerErrMsg.includes("is not supported") || installerErrMsg.includes("require blockStorageEnabled") || installerErrMsg.includes("is not compatible")) && this.renderVersionError(installerErrMsg)}
               <div className="flex u-width--full u-overflow--auto" id="monaco">
-                {isLoading &&
+                {isEditorLoading &&
                   <div className="flex-column flex-1-auto u-overflow--hidden justifyContent--center alignItems--center">
                     <Loader
                       size="70"
