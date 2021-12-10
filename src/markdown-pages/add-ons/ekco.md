@@ -161,3 +161,16 @@ Use this command to see the previous and next scheduled upgrade times for the ek
 systemctl list-timers
 ```
 
+### Auto Resource Scaling
+
+With auto resource scaling, EKCO automatically scales some cluster resources that 
+were installed by kURL to the specified replica count.
+
+Auto resource scaling is useful because a subset of cluster resources require that all
+nodes join the cluster before the desired replica count can be fulfilled. This can cause
+issues such as false positives in health check error reporting.
+
+Auto resource scaling helps to avoid issues like this by scaling this subset of custom
+resources to the specified replica count without requiring that all nodes join the cluster.
+
+Auto resource sclaing is available in v0.13.0 and later.

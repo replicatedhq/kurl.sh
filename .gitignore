@@ -3,6 +3,8 @@ dist
 pdf-work
 kurl.pdf
 
+.idea
+
 # gatsby files
 .cache/
 **/.cache
