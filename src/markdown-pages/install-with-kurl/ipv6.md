@@ -1,9 +1,10 @@
 ---
 path: "/docs/install-with-kurl/ipv6"
 date: "2021-12-14"
-weight: 14
+weight: 25
 linktitle: "IPv6"
 title: "IPv6"
+isAlpha: true
 ---
 kURL can be installed on IPv6 enabled hosts by passing the `ipv6` flag to the installer or by setting the `kurl.ipv6` field to `true` in the yaml spec.
 
