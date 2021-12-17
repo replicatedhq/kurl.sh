@@ -63,17 +63,24 @@ There is no auto-detection of ipv6 or fall-back to ipv4 when ipv6 is not enabled
 
 ## Troubleshooting
 
-Problem: joining 2nd node to cluster fails
+### Problem: joining 2nd node to cluster fails
+
 Symptom: nodes in cluster can't ping6 each other.
+
 Symptom: `ip -6 route` shows no default route
+
 Solution: `sudo ip -6 route add default dev ens5`
 
-Problem: upload license fails with `failed to execute get request: Get "https://replicated.app/license/ipv6": dial tcp: lookup replicated.app on [fd00:c00b:2::a]:53: server misbehaving`
+### Problem: upload license fails with `failed to execute get request: Get "https://replicated.app/license/ipv6": dial tcp: lookup replicated.app on [fd00:c00b:2::a]:53: server misbehaving`
+
 Solution: deploy a NAT64 server
+
 Solution: use airgap or just set env var "DISABLE_OUTBOUND_CONNECTIONS=1" on the kotsadm deployment
+
 Solution: wait for AAAA records to be added to replicated.app
 
-Problem: networking check fails in curl installer
+### Problem: networking check fails in curl installer
+
 Symptom: antrea-agent logs show:
 ```
 E1210 19:44:12.494994       1 route_linux.go:119] Failed to initialize iptables: error checking if chain ANTREA-PREROUTING exists in table raw: running [/usr/sbin/ip6tables -t raw -S ANTREA-PREROUTING 1 
@@ -81,5 +88,7 @@ E1210 19:44:12.494994       1 route_linux.go:119] Failed to initialize iptables:
 ip6tables v1.8.4 (legacy): can't initialize ip6tables table `raw': Table does not exist (do you need to insmod?)
 Perhaps ip6tables or your kernel needs to be upgraded.
 ```
+
 Symptom: `sudo lsmod | grep ip6` is empty
+
 Solution: `sudo modprobe ip6_tables`
