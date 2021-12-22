@@ -29,7 +29,7 @@ spec:
 
 flags-table
 
-## Side Effects of the `disableS3` Flag
+## Effects of the `disableS3` Flag
 
 Object storage is used by the KOTS add-on in the following ways:
 1. Directly, as a way for the admin console to store support bundles and previous versions of your application.
