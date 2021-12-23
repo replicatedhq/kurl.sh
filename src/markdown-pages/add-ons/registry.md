@@ -24,9 +24,10 @@ flags-table
 ## Registry Storage Backends 
 
 When installed as part of a kURL spec that contains an object store (e.g., Rook or MinIO), the Registry add-on will use that API as a storage backend.
-If an object store is not available, a Persistent Volume Claim (PVC) will be used as the storage backend.
-Once an object storage backend is selected, future kURL upgrades will not modify this selection.
-There is currently no migration path between storage backends.
+If an object store is not available, a persistent volume (PV) will be used as the storage backend.
+Migrations are performed on upgrade/re-install from an object store to a PV if both of the following are true:
+1. The object store (e.g., Rook or MinIO) is completely removed from the installer spec.
+1. The `kotsadm.disableS3` flag is set to `true` in the installer spec.
 
 For object store backends, 2 replicas of the registry service are deployed by default.
 
