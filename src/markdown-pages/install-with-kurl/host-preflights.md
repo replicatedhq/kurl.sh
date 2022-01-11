@@ -82,3 +82,82 @@ Some checks run depending on the add-ons enabled in the installer and their conf
 ## Adding custom host preflights (Beta)
 
 Additional host preflight checks can be added in the kURL installer spec under `spec.kurl.hostPreflights`. See the [kURL add-on docs](/docs/add-ons/kurl) for an example and additional information. See the [Troubleshoot docs](https://troubleshoot.sh/docs/preflight/introduction/) to learn more about writing Troubleshoot specs.
+
+## Excluding the default built-in host preflights
+
+The default built-in host preflight checks can be excluded by setting the `spec.kurl.excludeBuiltinPreflights` field to `true`. See the [kURL add-on docs](/docs/add-ons/kurl) for additional information.
+
+The relevant YAML for the default built-in host preflight checks can be found in the [kURL](https://github.com/replicatedhq/kURL) repo:
+
+### Generic host preflight checks
+
+The generic host preflight checks can be found [here](https://github.com/replicatedhq/kURL/blob/main/pkg/preflight/assets/host-preflights.yaml).
+
+### Add-on specific host preflight checks
+
+To find the host preflight checks file for a specific version of an addon, the file path structure would be like so:
+
+`https://github.com/replicatedhq/kURL/blob/main/addons/<addon-name>/<addon-version>/host-preflight.yaml`
+
+So for example, for Weave version 2.6.5 the host preflight checks can be found in: https://github.com/replicatedhq/kURL/blob/main/addons/weave/2.6.5/host-preflight.yaml
+
+### Combining multiple host preflight checks
+
+To merge multiple checks together, you can just combine the list of collectors and analyzers for each.
+For example, the below YAML combines the host preflight checks for [longhorn v1.2.2](https://github.com/replicatedhq/kURL/blob/main/addons/longhorn/1.2.2/host-preflight.yaml) and [prometheus v0.49.0-17.1.3](https://github.com/replicatedhq/kURL/blob/main/addons/prometheus/0.49.0-17.1.3/host-preflight.yaml):
+
+```yaml
+apiVersion: troubleshoot.sh/v1beta2
+kind: HostPreflight
+metadata:
+  name: longhorn-and-prometheus
+spec:
+  collectors:
+    - diskUsage:
+        collectorName: "Longhorn Disk Usage"
+        path: /var/lib/longhorn
+    - tcpPortStatus:
+        collectorName: "Node Exporter Metrics Server TCP Port Status"
+        port: 9100
+        exclude: '{{kurl .IsUpgrade }}'
+
+  analyzers:
+    - diskUsage:
+        checkName: "Longhorn Disk Usage"
+        collectorName: "Longhorn Disk Usage"
+        exclude: '{{kurl .IsUpgrade }}' # only run if this is not an upgrade
+        outcomes:
+          - fail:
+              when: "total < 50Gi"
+              message: The disk containing directory /var/lib/longhorn has less than 50Gi of total space
+          - fail:
+              when: "used/total > 80%"
+              message: The disk containing directory /var/lib/longhorn is more than 80% full
+          - warn:
+              when: "used/total > 60%"
+              message: The disk containing directory /var/lib/longhorn is more than 60% full
+          - pass:
+              message: The disk containing directory /var/lib/longhorn has at least 20Gi disk space available and is at least 50Gi in size
+    - tcpPortStatus:
+        checkName: "Node Exporter Metrics Server TCP Port Status"
+        collectorName: "Node Exporter Metrics Server TCP Port Status"
+        exclude: '{{kurl .IsUpgrade }}'
+        outcomes:
+          - fail:
+              when: "connection-refused"
+              message: Connection to port 9100 was refused. This is likely to be a routing problem since this preflight configures a test server to listen on this port.
+          - warn:
+              when: "address-in-use"
+              message: Another process was already listening on port 9100.
+          - fail:
+              when: "connection-timeout"
+              message: Timed out connecting to port 9100. Check your firewall.
+          - fail:
+              when: "error"
+              message: Unexpected port status
+          - pass:
+              when: "connected"
+              message: Port 9100 is available
+          - warn:
+              message: Unexpected port status
+```
