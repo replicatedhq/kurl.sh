@@ -73,11 +73,11 @@ Some checks run depending on the add-ons enabled in the installer and their conf
 
 ### Containerd
 
-* If using v1.4.8 or higher, check that it's not being installed on Ubuntu 16.04.
+* Containerd version 1.4.8 or higher is not being installed on Ubuntu 16.04.
 
-### Kotsadm
+### KOTS
 
-* For online installs, check that the Replicated API is accessible/reachable.
+* The Replicated API is accessible/reachable (online installs only).
 
 ## Adding custom host preflights (Beta)
 
