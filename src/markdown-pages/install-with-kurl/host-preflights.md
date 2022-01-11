@@ -19,7 +19,6 @@ The following checks run on all nodes where kURL is installed:
 * The installer is running on a 64-bit platform.
 * The installer is running on a [supported OS](/docs/install-with-kurl/system-requirements#supported-operating-systems).
 * Swap is disabled.
-* Docker is not being installed on EL 8.
 * Firewalld is disabled.
 * SELinux is disabled.
 * At least one nameserver is accessible on a non-loopback address.
@@ -69,6 +68,7 @@ Some checks run depending on the add-ons enabled in the installer and their conf
 
 ### Docker
 
+* Docker is not being installed on EL 8.
 * /var/lib/docker has at least 30GiB total space and is less than 80% full. (Warn when more than 60% full).
 
 ### Containerd
