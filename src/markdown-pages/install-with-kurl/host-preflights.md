@@ -25,19 +25,19 @@ The following checks run on all nodes where kURL is installed:
 * TCP ports 10248 and 10250 are available for kubelet.
 * TCP port 10257 is available for the kube controller manager.
 * TCP port 10259 is available for the kube scheduler.
-* At least 4 GiB of memory is available. (Warn when less than 8GiB).
-* /var/lib/kubelet has at least 30GiB total space and is less than 80% full. (Warn when more than 60% full).
-* The server has at least 2 CPUs. (Warn when less than 4 CPUs).
+* At least 4 GiB of memory is available. (Warn when less than 8GiB.)
+* /var/lib/kubelet has at least 30GiB total space and is less than 80% full. (Warn when more than 60% full.)
+* The server has at least 2 CPUs. (Warn when less than 4 CPUs.)
 * The system clock is synchronized and the time zone is set to UTC.
 
-## Initial Primary
+## Primaries
 
 These checks run only on new installs on primary nodes:
 
 * TCP port 6443 is available for the Kubernetes API server.
 * TCP ports 2379, 2380 and 2381 are available for etcd.
-* The load balancer address is propery configured to forward TCP traffic to the node. (This check only runs on the first primary).
-* 99th percentile filesystem write latency in the etcd data directory is less than 20ms. (Warn when more than 10ms). [See cloud recommendations](/docs/install-with-kurl/system-requirements#cloud-disk-performance)
+* The load balancer address is propery configured to forward TCP traffic to the node. (This check only runs on the first primary.)
+* 99th percentile filesystem write latency in the etcd data directory is less than 20ms. (Warn when more than 10ms.) [See cloud recommendations](/docs/install-with-kurl/system-requirements#cloud-disk-performance)
 
 ## Join
 
@@ -64,12 +64,12 @@ Some checks run depending on the add-ons enabled in the installer and their conf
 
 ### Longhorn
 
-* /var/lib/longhorn has at least 50GiB total space and is less than 80% full. (Warn when more than 60% full).
+* /var/lib/longhorn has at least 50GiB total space and is less than 80% full. (Warn when more than 60% fulll.)
 
 ### Docker
 
 * Docker is not being installed on EL 8.
-* /var/lib/docker has at least 30GiB total space and is less than 80% full. (Warn when more than 60% full).
+* /var/lib/docker has at least 30GiB total space and is less than 80% full. (Warn when more than 60% full.)
 
 ### Containerd
 
