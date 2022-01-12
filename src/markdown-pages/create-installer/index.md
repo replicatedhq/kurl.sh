@@ -14,16 +14,22 @@ metadata:
   name: "my-installer"
 spec:
   kubernetes:
-    version: "latest"
-  docker:
-    version: "latest"
+    version: "1.21.x"
   weave:
-    version: "latest"
-  rook:
-    version: "latest"
-  ekco:
-    version: "latest"
+    version: "2.6.x"
   contour:
+    version: "1.19.x"
+  minio:
+    version: "2020-01-25T02-50-51Z"
+  registry:
+   version: "2.7.x"
+  prometheus:
+    version: "0.49.x"
+  containerd:
+    version: "1.4.x"
+  longhorn:
+    version: "1.2.x"
+  ekco:
     version: "latest"
   kotsadm:
     version: "latest"
