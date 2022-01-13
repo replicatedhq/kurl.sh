@@ -8,14 +8,14 @@ title: "Host System Packages"
 
 The host system packages preflight check is useful for validating that certain packages are installed for a specific OS. The preflight check consists of two parts, a collector, and an analyzer.
 
-# System Packages Collector
+## System Packages Collector
 
 The `systemPackages` collector will collect information about the specified host system packages depending on the OS the packages are listed under.
 The collector will automatically detect the OS id/name and version that it's running on, and check if it has a match for that OS id/name (and optionally the version) in the spec, and then collect information about the packages that are listed under it. 
 
 This collector does not require sudo priviliges.
 
-## Parameters
+### Parameters
 
 In addition to the [shared collector properties](https://troubleshoot.sh/docs/collect/collectors/#shared-properties), the `systemPackages` collector accepts the following parameters:
 
@@ -79,11 +79,11 @@ An array of the names of packages to collect information about if the OS is `Ama
 
 An array of the names of packages to collect information about if the OS is `Amazon Linux` and the OS version is `2.x`.
 
-## Included resources
+### Included resources
 
 When this collector is executed, it will store the information in the following files:
 
-### `/system/[collector-name-]packages.json`
+#### `/system/[collector-name-]packages.json`
 
 example file names:
 - `/system/packages.json`
@@ -113,7 +113,7 @@ This file contains the following information about the packages:
 }
 ```
 
-# System Packages Analyzer
+## System Packages Analyzer
 
 The `systemPackages` analyzer is used to analyze the collected packages information.
 For example, the analyzer can check if a certain package is installed or not, if it's greater than or equal to a certain version, in addition to some other details as well.

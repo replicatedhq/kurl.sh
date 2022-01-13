@@ -8,11 +8,11 @@ title: "TCP Load Balancer"
  
 The TCP load balancer preflight check can be used to check and validate the connection to a specified TCP load balancer.
 
-# TCP Connect Collector
+## TCP Connect Collector
 
 The `tcpLoadBalancer` collector will collect information about the ability to connect to the the specified TCP load balancer address.
 
-## Parameters
+### Parameters
 
 In addition to the [shared collector properties](https://troubleshoot.sh/docs/collect/collectors/#shared-properties), the `tcpLoadBalancer` collector accepts the following parameters:
 
@@ -24,7 +24,7 @@ The address to check the connection to.
 
 The port number to use.
 
-# TCP Load Balancer Analyzer
+## TCP Load Balancer Analyzer
 
 The `tcpLoadBalancer` analyzer supports multiple outcomes:
 
@@ -35,7 +35,7 @@ The `tcpLoadBalancer` analyzer supports multiple outcomes:
 `connected`: Successfully connected to the load balancer address.<br/>
 `error`: Unexpected error connecting to the load balancer address.
 
-# Example
+## Example
 
 Here is an example of how to use the TCP load balancer host preflight check:
 

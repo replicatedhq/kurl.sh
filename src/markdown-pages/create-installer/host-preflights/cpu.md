@@ -8,22 +8,22 @@ title: "CPU"
  
 The CPU preflight check can be used to detect and validate the total number of CPU cores on the machine.
 
-# CPU Collector
+## CPU Collector
 
 The `cpu` collector will collect information about the number of CPU cores.
 
-## Parameters
+### Parameters
 
 The `cpu` collector accepts the [shared collector properties](https://troubleshoot.sh/docs/collect/collectors/#shared-properties).
 
-# CPU Analyzer
+## CPU Analyzer
 
 The `cpu` analyzer supports multiple outcomes by validating the number of CPU cores. For example:
 
 `count < 32`: Less than 32 CPU cores were detected.<br/>
 `count > 4`: More than 4 CPU cores were detected.
 
-# Example
+## Example
 
 Here is an example of how to use the CPU host preflight check:
 

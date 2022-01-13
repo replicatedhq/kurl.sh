@@ -8,11 +8,11 @@ title: "TCP Connect"
  
 The TCP connect preflight check is useful for validating that machine is able to connect to a certain TCP address.
 
-# TCP Connect Collector
+## TCP Connect Collector
 
 The `tcpConnect` collector will collect information about the ability to connect to the the specified TCP address.
 
-## Parameters
+### Parameters
 
 In addition to the [shared collector properties](https://troubleshoot.sh/docs/collect/collectors/#shared-properties), the `tcpConnect` collector accepts the following parameters:
 
@@ -20,7 +20,7 @@ In addition to the [shared collector properties](https://troubleshoot.sh/docs/co
 
 The address to check the connection to.
 
-# TCP Connect Analyzer
+## TCP Connect Analyzer
 
 The `tcpConnect` analyzer supports multiple outcomes:
 
@@ -29,7 +29,7 @@ The `tcpConnect` analyzer supports multiple outcomes:
 `connected`: Successfully connected to the address.<br/>
 `error`: Unexpected error connecting to the address.
 
-# Example
+## Example
 
 Here is an example of how to use the TCP connect host preflight check:
 

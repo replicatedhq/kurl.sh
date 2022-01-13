@@ -8,15 +8,15 @@ title: "Time"
  
 The time preflight check is can be used to check the system clock, if it's synchronized or not, and the timezone.
 
-# Time Collector
+## Time Collector
 
 The `time` collector will collect information about the system clock.
 
-## Parameters
+### Parameters
 
 The `time` collector accepts the [shared collector properties](https://troubleshoot.sh/docs/collect/collectors/#shared-properties).
 
-# Time Analyzer
+## Time Analyzer
 
 The `time` analyzer supports multiple outcomes, by either checking the `ntp` status, or the timezone. For example:
 
@@ -26,7 +26,7 @@ The `time` analyzer supports multiple outcomes, by either checking the `ntp` sta
 `timezone != UTC`: Non UTC timezone.<br/>
 `timezone == UTC`: Timezone is set to UTC.
 
-# Example
+## Example
 
 Here is an example of how to use the time host preflight check:
 

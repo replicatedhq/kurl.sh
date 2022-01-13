@@ -8,11 +8,11 @@ title: "Disk Usage"
  
 The disk usage preflight check can be used to detect and validate the usage of a disk in which a particular directory lives.
 
-# Disk Usage Collector
+## Disk Usage Collector
 
 The `diskUsage` collector will collect information about the disk usage.
 
-## Parameters
+### Parameters
 
 In addition to the [shared collector properties](https://troubleshoot.sh/docs/collect/collectors/#shared-properties), the `diskUsage` collector accepts the following parameters:
 
@@ -20,7 +20,7 @@ In addition to the [shared collector properties](https://troubleshoot.sh/docs/co
 
 The path to the directory to check the disk usage for.
 
-# Disk Usage Analyzer
+## Disk Usage Analyzer
 
 The `diskUsage` analyzer supports multiple outcomes by validating the disk usage of the directory. For example:
 
@@ -28,7 +28,7 @@ The `diskUsage` analyzer supports multiple outcomes by validating the disk usage
 `used/total > 80%`: The disk containing the directory is more than 80% full.<br/>
 `available < 10Gi`: The disk containing the directory has less than 10Gi of disk space available.
 
-# Example
+## Example
 
 Here is an example of how to use the disk usage host preflight check:
 

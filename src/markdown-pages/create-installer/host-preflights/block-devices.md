@@ -8,15 +8,15 @@ title: "Block Devices"
  
 The block devices preflight check is useful for detecting and validating the block devices attached to the machine.
 
-# Block Devices Collector
+## Block Devices Collector
 
 The `blockDevices` collector will collect information about the block devices.
 
-## Parameters
+### Parameters
 
 The `blockDevices` collector accepts the [shared collector properties](https://troubleshoot.sh/docs/collect/collectors/#shared-properties).
 
-# Block Devices Analyzer
+## Block Devices Analyzer
 
 The `blockDevices` analyzer supports multiple paramters to filter by:
 
@@ -25,10 +25,10 @@ The `blockDevices` analyzer supports multiple paramters to filter by:
 
 Example outcomes:
 
-`.* == 1`: One available block device detected.
+`.* == 1`: One available block device detected.<br/>
 `.* > 1`: Multiple available block devices detected.
 
-# Example
+## Example
 
 Here is an example of how to use the block devices host preflight check:
 

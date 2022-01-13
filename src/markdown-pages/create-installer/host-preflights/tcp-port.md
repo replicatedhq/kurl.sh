@@ -8,11 +8,11 @@ title: "TCP Port Status"
  
 The TCP port status preflight check is useful for detecting the status of a TCP port to check if it's open and available or not.
 
-# TCP Port Status Collector
+## TCP Port Status Collector
 
 The `tcpPortStatus` collector will collect information about the specified TCP port.
 
-## Parameters
+### Parameters
 
 In addition to the [shared collector properties](https://troubleshoot.sh/docs/collect/collectors/#shared-properties), the `tcpPortStatus` collector accepts the following parameters:
 
@@ -20,7 +20,7 @@ In addition to the [shared collector properties](https://troubleshoot.sh/docs/co
 
 The port number to check.
 
-# TCP Port Status Analyzer
+## TCP Port Status Analyzer
 
 The `tcpPortStatus` analyzer supports multiple outcomes:
 
@@ -30,7 +30,7 @@ The `tcpPortStatus` analyzer supports multiple outcomes:
 `connected`: Port is open.<br/>
 `error`: Unexpected port status.
 
-# Example
+## Example
 
 Here is an example of how to use the TCP port status host preflight check:
 

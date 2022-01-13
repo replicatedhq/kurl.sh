@@ -8,22 +8,22 @@ title: "Host OS"
  
 The host OS preflight check can be used to detect and validate the name and version of the OS installed on the machine.
 
-# Host OS Collector
+## Host OS Collector
 
 The `hostOS` collector will collect information about the OS installed on the machine.
 
-## Parameters
+### Parameters
 
 The `hostOS` collector accepts the [shared collector properties](https://troubleshoot.sh/docs/collect/collectors/#shared-properties).
 
-# Host OS Analyzer
+## Host OS Analyzer
 
 The `hostOS` analyzer supports multiple outcomes by validating the name and version of the detected OS. For example:
 
 `centos = 7`: The detected OS is CentOS 7.<br/>
 `ubuntu = 20.04`: The detected OS is Ubuntu 20.04.
 
-# Example
+## Example
 
 Here is an example of how to use the host OS host preflight check:
 

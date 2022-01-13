@@ -8,22 +8,22 @@ title: "Memory"
  
 The memory preflight check can be used to detect and validate the total amount of memory on the machine.
 
-# Memory Collector
+## Memory Collector
 
 The `memory` collector will collect information about the total amount of memory on the machine.
 
-## Parameters
+### Parameters
 
 The `memory` collector accepts the [shared collector properties](https://troubleshoot.sh/docs/collect/collectors/#shared-properties).
 
-# Memory Analyzer
+## Memory Analyzer
 
 The `memory` analyzer supports multiple outcomes by validating the total amount of memory. For example:
 
 `< 32G`: Less than 32G of memory was detected.<br/>
 `> 4G`: More than 4G of memory was detected.
 
-# Example
+## Example
 
 Here is an example of how to use the memory host preflight check:
 
