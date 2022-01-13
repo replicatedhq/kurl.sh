@@ -24,9 +24,9 @@ The address to check the connection to.
 
 The `tcpConnect` analyzer supports multiple outcomes:
 
-`connection-refused`: Connection to the address was refused.</br>
-`connection-timeout`: Timed out connecting to the address.</br>
-`connected`: Successfully connected to the address.</br>
+`connection-refused`: Connection to the address was refused.<br/>
+`connection-timeout`: Timed out connecting to the address.<br/>
+`connected`: Successfully connected to the address.<br/>
 `error`: Unexpected error connecting to the address.
 
 # Example

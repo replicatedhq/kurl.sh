@@ -24,8 +24,8 @@ The path to the directory to check the disk usage for.
 
 The `diskUsage` analyzer supports multiple outcomes by validating the disk usage of the directory. For example:
 
-`total < 30Gi`: The disk containing the directory has less than 30Gi of total space.</br>
-`used/total > 80%`: The disk containing the directory is more than 80% full.</br>
+`total < 30Gi`: The disk containing the directory has less than 30Gi of total space.<br/>
+`used/total > 80%`: The disk containing the directory is more than 80% full.<br/>
 `available < 10Gi`: The disk containing the directory has less than 10Gi of disk space available.
 
 # Example

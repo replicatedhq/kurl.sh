@@ -20,7 +20,7 @@ The `memory` collector accepts the [shared collector properties](https://trouble
 
 The `memory` analyzer supports multiple outcomes by validating the total amount of memory. For example:
 
-`< 32G`: Less than 32G of memory was detected.</br>
+`< 32G`: Less than 32G of memory was detected.<br/>
 `> 4G`: More than 4G of memory was detected.
 
 # Example

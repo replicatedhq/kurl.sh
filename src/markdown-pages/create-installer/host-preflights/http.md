@@ -20,8 +20,8 @@ In addition to the [shared collector properties](https://troubleshoot.sh/docs/co
 
 The `get` parameter accepts the following fields:
 
-`url` (string): the URL to issue the GET request to.</br>
-`insecureSkipVerify` (boolean): Whether to enable insecure TLS verification or not.</br>
+`url` (string): the URL to issue the GET request to.<br/>
+`insecureSkipVerify` (boolean): Whether to enable insecure TLS verification or not.<br/>
 `headers` (map): A map of the headers to send with the request.
 
 #### `post`

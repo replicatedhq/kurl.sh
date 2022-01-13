@@ -20,7 +20,7 @@ The `hostOS` collector accepts the [shared collector properties](https://trouble
 
 The `hostOS` analyzer supports multiple outcomes by validating the name and version of the detected OS. For example:
 
-`centos = 7`: The detected OS is CentOS 7.</br>
+`centos = 7`: The detected OS is CentOS 7.<br/>
 `ubuntu = 20.04`: The detected OS is Ubuntu 20.04.
 
 # Example

@@ -28,11 +28,11 @@ The port number to use.
 
 The `tcpLoadBalancer` analyzer supports multiple outcomes:
 
-`invalid-address`: The load balancer address is not valid.</br>
-`connection-refused`: Connection to the load balancer address was refused.</br>
-`connection-timeout`: Timed out connecting to the load balancer address.</br>
-`address-in-use`: Specified port is unavailable.</br>
-`connected`: Successfully connected to the load balancer address.</br>
+`invalid-address`: The load balancer address is not valid.<br/>
+`connection-refused`: Connection to the load balancer address was refused.<br/>
+`connection-timeout`: Timed out connecting to the load balancer address.<br/>
+`address-in-use`: Specified port is unavailable.<br/>
+`connected`: Successfully connected to the load balancer address.<br/>
 `error`: Unexpected error connecting to the load balancer address.
 
 # Example

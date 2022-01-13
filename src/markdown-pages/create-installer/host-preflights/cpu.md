@@ -20,7 +20,7 @@ The `cpu` collector accepts the [shared collector properties](https://troublesho
 
 The `cpu` analyzer supports multiple outcomes by validating the number of CPU cores. For example:
 
-`count < 32`: Less than 32 CPU cores were detected.</br>
+`count < 32`: Less than 32 CPU cores were detected.<br/>
 `count > 4`: More than 4 CPU cores were detected.
 
 # Example

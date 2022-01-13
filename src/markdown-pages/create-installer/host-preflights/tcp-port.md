@@ -24,10 +24,10 @@ The port number to check.
 
 The `tcpPortStatus` analyzer supports multiple outcomes:
 
-`address-in-use`: Another process is already listening on the port.</br>
-`connection-refused`: Connection to the port was refused.</br>
-`connection-timeout`: Timed out connecting to the port. Check your firewall.</br>
-`connected`: Port is open.</br>
+`address-in-use`: Another process is already listening on the port.<br/>
+`connection-refused`: Connection to the port was refused.<br/>
+`connection-timeout`: Timed out connecting to the port. Check your firewall.<br/>
+`connected`: Port is open.<br/>
 `error`: Unexpected port status.
 
 # Example

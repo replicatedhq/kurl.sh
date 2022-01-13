@@ -20,7 +20,7 @@ The `hostServices` collector accepts the [shared collector properties](https://t
 
 The `hostServices` analyzer supports multiple outcomes by validating the status of certain host system services. For example:
 
-`ufw = active`: UFW system service is active.</br>
+`ufw = active`: UFW system service is active.<br/>
 `connman = inactive`: ConnMan system service is inactive.
 
 # Example

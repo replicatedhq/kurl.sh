@@ -20,7 +20,7 @@ The `blockDevices` collector accepts the [shared collector properties](https://t
 
 The `blockDevices` analyzer supports multiple paramters to filter by:
 
-`includeUnmountedPartitions`: Include unmounted partitions in the analysis. Disabled by default.</br>
+`includeUnmountedPartitions`: Include unmounted partitions in the analysis. Disabled by default.<br/>
 `minimumAcceptableSize`: The minimum acceptable size to filter the available block devices by during analysis. Disabled by default.
 
 Example outcomes:

@@ -20,10 +20,10 @@ The `time` collector accepts the [shared collector properties](https://troublesh
 
 The `time` analyzer supports multiple outcomes, by either checking the `ntp` status, or the timezone. For example:
 
-`ntp == unsynchronized+inactive`: System clock is not synchronized.</br>
-`ntp == unsynchronized+active`: System clock not yet synchronized.</br>
-`ntp == synchronized+active`: System clock is synchronized.</br>
-`timezone != UTC`: Non UTC timezone.</br>
+`ntp == unsynchronized+inactive`: System clock is not synchronized.<br/>
+`ntp == unsynchronized+active`: System clock not yet synchronized.<br/>
+`ntp == synchronized+active`: System clock is synchronized.<br/>
+`timezone != UTC`: Non UTC timezone.<br/>
 `timezone == UTC`: Timezone is set to UTC.
 
 # Example
