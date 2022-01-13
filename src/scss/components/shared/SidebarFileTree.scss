@@ -29,10 +29,24 @@ $base-padding: 8px;
    }
   }
 
-  @for $spacing from 0 through 1 {
-    .depth-#{$spacing} {
-      margin-left: 24px;
-      padding-top: 20px;
-    }
+  .depth-1 {
+    margin-left: 24px;
+  }
+  .depth-1:not(:first-child) {
+    margin-top: 20px;
+  }
+
+  .depth-2 {
+    margin-left: 0px;
+  }
+
+  .depth-3 {
+    margin-left: 16px;
+  }
+
+  .sub-directory {
+    margin-left: 16px;
+    margin-top: 8px;
+    margin-bottom: 8px;
   }
 }

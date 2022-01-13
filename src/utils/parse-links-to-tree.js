@@ -28,6 +28,7 @@ const parseLinksToTree = pages => {
               pwd.links = [
                 ...pwd.links,
                 {
+                  path: [pwd.path || "", segment].join("/").replace(/^\/+/g, ''),
                   directory: segment,
                   links: [],
                 },
