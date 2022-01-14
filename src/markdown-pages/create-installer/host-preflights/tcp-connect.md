@@ -6,7 +6,7 @@ linktitle: "TCP Connect"
 title: "TCP Connect"
 ---
  
-The TCP connect preflight check is useful for validating that machine is able to connect to a certain TCP address.
+The TCP connect host preflight check can be used to validate that the machine is able to connect to a certain TCP address.
 
 ## TCP Connect Collector
 
@@ -43,6 +43,7 @@ spec:
     - tcpConnect:
         collectorName: "Kubernetes API TCP Connection Status"
         address: '{{kurl .Installer.Spec.Kubernetes.MasterAddress }}'
+        # Run when joining nodes
         exclude: '{{kurl and .Installer.Spec.Kubernetes.Version .Installer.Spec.Kubernetes.MasterAddress .IsJoin | not }}'
   analyzers:
     - tcpConnect:

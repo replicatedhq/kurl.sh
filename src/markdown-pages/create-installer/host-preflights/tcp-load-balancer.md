@@ -6,7 +6,7 @@ linktitle: "TCP Load Balancer"
 title: "TCP Load Balancer"
 ---
  
-The TCP load balancer preflight check can be used to check and validate the connection to a specified TCP load balancer.
+The TCP load balancer host preflight check can be used to check and validate the connection to a specified TCP load balancer.
 
 ## TCP Connect Collector
 
@@ -51,21 +51,21 @@ spec:
         port: 6443
         address: {{kurl .Installer.Spec.Kubernetes.LoadBalancerAddress }}
         timeout: 3m
-        # ha and is first master (primary and not join) and not is upgrade
+        # HA and is first primary node (primary and not join) and is not upgrade
         exclude: '{{kurl and .Installer.Spec.Kubernetes.Version .Installer.Spec.Kubernetes.LoadBalancerAddress .IsPrimary (not .IsJoin) (not .IsUpgrade) | not }}'
   analyzers:
     - tcpLoadBalancer:
         checkName: "Kubernetes API Server Load Balancer"
         collectorName: "Kubernetes API Server Load Balancer"
-        # ha and is first master (primary and not join) and not is upgrade
+        # HA and is first primary node (primary and not join) and is not upgrade
         exclude: '{{kurl and .Installer.Spec.Kubernetes.Version .Installer.Spec.Kubernetes.LoadBalancerAddress .IsPrimary (not .IsJoin) (not .IsUpgrade) | not }}'
         outcomes:
           - fail:
               when: "invalid-address"
-              message: The load balancer address {{kurl .Installer.Spec.Kubernetes.LoadBalancerAddress }} is not valid.
+              message: The load balancer address {{kurl .Installer.Spec.Kubernetes.LoadBalancerAddress }} is not valid
           - warn:
               when: "connection-refused"
-              message: Connection to {{kurl .Installer.Spec.Kubernetes.LoadBalancerAddress }} via load balancer was refused.
+              message: Connection to {{kurl .Installer.Spec.Kubernetes.LoadBalancerAddress }} via load balancer was refused
           - warn:
               when: "connection-timeout"
               message: Timed out connecting to {{kurl .Installer.Spec.Kubernetes.LoadBalancerAddress }} via load balancer. Check your firewall.

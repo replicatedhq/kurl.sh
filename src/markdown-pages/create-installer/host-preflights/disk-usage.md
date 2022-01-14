@@ -6,7 +6,7 @@ linktitle: "Disk Usage"
 title: "Disk Usage"
 ---
  
-The disk usage preflight check can be used to detect and validate the usage of a disk in which a particular directory lives.
+The disk usage host preflight check can be used to detect and validate the usage of a disk on which a particular directory lives.
 
 ## Disk Usage Collector
 
@@ -18,7 +18,7 @@ In addition to the [shared collector properties](https://troubleshoot.sh/docs/co
 
 #### `path`
 
-The path to the directory to check the disk usage for.
+The path to the directory for which disk usage will be checked.
 
 ## Disk Usage Analyzer
 
@@ -60,5 +60,5 @@ spec:
               when: "available < 10Gi"
               message: The disk containing directory /var/lib/kubelet has less than 10Gi of disk space available
           - pass:
-              message: The disk containing directory /var/lib/kubelet has at least 10Gi of disk space available and is not nearly full
+              message: The disk containing directory /var/lib/kubelet has at least 30Gi of total space, has at least 10Gi of disk space available, and is less than 60% full
 ```

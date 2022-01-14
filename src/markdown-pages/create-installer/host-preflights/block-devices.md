@@ -6,7 +6,7 @@ linktitle: "Block Devices"
 title: "Block Devices"
 ---
  
-The block devices preflight check is useful for detecting and validating the block devices attached to the machine.
+The block devices host preflight check can be used to detect and validate the block devices attached to the machine.
 
 ## Block Devices Collector
 
@@ -18,7 +18,7 @@ The `blockDevices` collector accepts the [shared collector properties](https://t
 
 ## Block Devices Analyzer
 
-The `blockDevices` analyzer supports multiple paramters to filter by:
+The `blockDevices` analyzer supports multiple parameters for filtering:
 
 `includeUnmountedPartitions`: Include unmounted partitions in the analysis. Disabled by default.<br/>
 `minimumAcceptableSize`: The minimum acceptable size to filter the available block devices by during analysis. Disabled by default.
@@ -40,11 +40,10 @@ metadata:
 spec:
   collectors:
     - blockDevices:
-        # cstor is enabled and not upgrade
+        # cStor is enabled and not upgrade
         exclude: '{{kurl and (and .Installer.Spec.OpenEBS.Version .Installer.Spec.OpenEBS.IsCstorEnabled) (not .IsUpgrade) | not }}'
   analyzers:
     - blockDevices:
-        # cstor is enabled and not upgrade
         includeUnmountedPartitions: true
         minimumAcceptableSize: 10737418240 # 1024 ^ 3 * 10, 10GiB
         exclude: '{{kurl and (and .Installer.Spec.OpenEBS.Version .Installer.Spec.OpenEBS.IsCstorEnabled) (not .IsUpgrade) | not }}'

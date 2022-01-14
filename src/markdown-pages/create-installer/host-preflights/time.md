@@ -6,7 +6,7 @@ linktitle: "Time"
 title: "Time"
 ---
  
-The time preflight check is can be used to check the system clock, if it's synchronized or not, and the timezone.
+The time host preflight check can be used to check the timezone of the system clock and whether the system clock is synchronized.
 
 ## Time Collector
 
@@ -18,12 +18,12 @@ The `time` collector accepts the [shared collector properties](https://troublesh
 
 ## Time Analyzer
 
-The `time` analyzer supports multiple outcomes, by either checking the `ntp` status, or the timezone. For example:
+The `time` analyzer supports multiple outcomes, by checking either the `ntp` status or the timezone. For example:
 
 `ntp == unsynchronized+inactive`: System clock is not synchronized.<br/>
 `ntp == unsynchronized+active`: System clock not yet synchronized.<br/>
 `ntp == synchronized+active`: System clock is synchronized.<br/>
-`timezone != UTC`: Non UTC timezone.<br/>
+`timezone != UTC`: Timezone is not set to UTC.<br/>
 `timezone == UTC`: Timezone is set to UTC.
 
 ## Example

@@ -6,7 +6,7 @@ linktitle: "CPU"
 title: "CPU"
 ---
  
-The CPU preflight check can be used to detect and validate the total number of CPU cores on the machine.
+The CPU host preflight check can be used to detect and validate the total number of CPU cores on the machine.
 
 ## CPU Collector
 

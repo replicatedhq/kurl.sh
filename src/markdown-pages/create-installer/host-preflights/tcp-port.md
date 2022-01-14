@@ -6,7 +6,7 @@ linktitle: "TCP Port Status"
 title: "TCP Port Status"
 ---
  
-The TCP port status preflight check is useful for detecting the status of a TCP port to check if it's open and available or not.
+The TCP port status host preflight check can be usee to detect the status of a TCP port to check whether it's open and available.
 
 ## TCP Port Status Collector
 
@@ -44,6 +44,7 @@ spec:
     - tcpPortStatus:
         collectorName: "Kubernetes API TCP Port Status"
         port: 6443
+        # Is primary node and is not upgrade
         exclude: '{{kurl and .IsPrimary (not .IsUpgrade) | not }}'
   analyzers:
     - tcpPortStatus:

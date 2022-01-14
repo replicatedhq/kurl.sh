@@ -6,7 +6,7 @@ linktitle: "Memory"
 title: "Memory"
 ---
  
-The memory preflight check can be used to detect and validate the total amount of memory on the machine.
+The memory host preflight check can be used to detect and validate the total amount of memory on the machine.
 
 ## Memory Collector
 

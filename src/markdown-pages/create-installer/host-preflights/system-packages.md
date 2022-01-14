@@ -2,18 +2,18 @@
 path: "/docs/create-installer/host-preflights/system-packages"
 date: "2022-01-13"
 weight: 33
-linktitle: "Host System Packages"
-title: "Host System Packages"
+linktitle: "System Packages"
+title: "System Packages"
 ---
 
-The host system packages preflight check is useful for validating that certain packages are installed for a specific OS. The preflight check consists of two parts, a collector, and an analyzer.
+The system packages host preflight check can be used to validate that certain packages are installed for a specific operating system.
 
 ## System Packages Collector
 
-The `systemPackages` collector will collect information about the specified host system packages depending on the OS the packages are listed under.
-The collector will automatically detect the OS id/name and version that it's running on, and check if it has a match for that OS id/name (and optionally the version) in the spec, and then collect information about the packages that are listed under it. 
+The `systemPackages` collector will collect information about the specified host system packages depending on the operating system the packages are listed under.
+The collector will automatically detect the operating system ID/name and the version, and check if it has a match for that operating system ID/name (and optionally the version) in the spec. If so, it will collect information about the packages specified in the spec.
 
-This collector does not require sudo priviliges.
+This collector does not require sudo privileges.
 
 ### Parameters
 
@@ -21,63 +21,63 @@ In addition to the [shared collector properties](https://troubleshoot.sh/docs/co
 
 #### `ubuntu` (Optional)
 
-An array of the names of packages to collect information about if the OS is `Ubuntu`, regardless of the OS version.
+An array of the names of packages to collect information about if the operating system is `Ubuntu`, regardless of the version.
 
 #### `ubuntu16` (Optional)
 
-An array of the names of packages to collect information about if the OS is `Ubuntu` and the OS version is `16.x`.
+An array of the names of packages to collect information about if the operating system is `Ubuntu` version `16.x`.
 
 #### `ubuntu18` (Optional)
 
-An array of the names of packages to collect information about if the OS is `Ubuntu` and the OS version is `18.x`.
+An array of the names of packages to collect information about if the operating system is `Ubuntu` version `18.x`.
 
 #### `ubuntu20` (Optional)
 
-An array of the names of packages to collect information about if the OS is `Ubuntu` and the OS version is `20.x`.
+An array of the names of packages to collect information about if the operating system is `Ubuntu` version `20.x`.
 
 #### `rhel` (Optional)
 
-An array of the names of packages to collect information about if the OS is `RHEL`, regardless of the OS version.
+An array of the names of packages to collect information about if the operating system is `RHEL`, regardless of the version.
 
 #### `rhel7` (Optional)
 
-An array of the names of packages to collect information about if the OS is `RHEL` and the OS version is `7.x`.
+An array of the names of packages to collect information about if the operating system is `RHEL` version `7.x`.
 
 #### `rhel8` (Optional)
 
-An array of the names of packages to collect information about if the OS is `RHEL` and the OS version is `8.x`.
+An array of the names of packages to collect information about if the operating system is `RHEL` version `8.x`.
 
 #### `centos` (Optional)
 
-An array of the names of packages to collect information about if the OS is `CentOS`, regardless of the OS version.
+An array of the names of packages to collect information about if the operating system is `CentOS`, regardless of the version.
 
 #### `centos7` (Optional)
 
-An array of the names of packages to collect information about if the OS is `CentOS` and the OS version is `7.x`.
+An array of the names of packages to collect information about if the operating system is `CentOS` version `7.x`.
 
 #### `centos8` (Optional)
 
-An array of the names of packages to collect information about if the OS is `CentOS` and the OS version is `8.x`.
+An array of the names of packages to collect information about if the operating system is `CentOS` version `8.x`.
 
 #### `ol` (Optional)
 
-An array of the names of packages to collect information about if the OS is `Oracle Linux`, regardless of the OS version.
+An array of the names of packages to collect information about if the operating system is `Oracle Linux`, regardless of the version.
 
 #### `ol7` (Optional)
 
-An array of the names of packages to collect information about if the OS is `Oracle Linux` and the OS version is `7.x`.
+An array of the names of packages to collect information about if the operating system is `Oracle Linux` version `7.x`.
 
 #### `ol8` (Optional)
 
-An array of the names of packages to collect information about if the OS is `Oracle Linux` and the OS version is `8.x`.
+An array of the names of packages to collect information about if the operating system is `Oracle Linux` version `8.x`.
 
 #### `amzn` (Optional)
 
-An array of the names of packages to collect information about if the OS is `Amazon Linux`, regardless of the OS version.
+An array of the names of packages to collect information about if the operating system is `Amazon Linux`, regardless of the version.
 
 #### `amzn2` (Optional)
 
-An array of the names of packages to collect information about if the OS is `Amazon Linux` and the OS version is `2.x`.
+An array of the names of packages to collect information about if the operating system is `Amazon Linux` version `2.x`.
 
 ### Included resources
 
@@ -115,11 +115,11 @@ This file contains the following information about the packages:
 
 ## System Packages Analyzer
 
-The `systemPackages` analyzer is used to analyze the collected packages information.
-For example, the analyzer can check if a certain package is installed or not, if it's greater than or equal to a certain version, in addition to some other details as well.
+The `systemPackages` analyzer is used to analyze information about the collected packages.
+For example, the analyzer can check whether a certain package is installed, if the version of a package is greater than or equal to a certain version, and more.
 The analyzer also supports template functions to help customize the outcomes as desired.
 
-Some of the fields that are accessible using template functions are detailed in the following json object:
+Some of the fields that are accessible using template functions are detailed in the following JSON object:
 
 ```json
 {
@@ -134,7 +134,7 @@ Some of the fields that are accessible using template functions are detailed in 
 }
 ```
 
-In addition, the analyzer also has access to the fields in the details about the package from the collector. For example, in the "details" field in the collector output above, you can use the "Version" field in the template function like so: `{{ .Version }}`
+The analyzer also has access to the fields in the `details` field for a package from the collector. For example, in the `details` field in the [collector output above](#included-resources), you can reference the `Version` field with `{{ .Version }}`.
 
 # Example
 
@@ -148,7 +148,7 @@ metadata:
 spec:
   collectors:
     - systemPackages:
-        collectorName: mycollector
+        collectorName: "System Packages"
         ubuntu:
           - open-iscsi
         ubuntu20:
@@ -163,11 +163,11 @@ spec:
           - openssl
   analyzers:
     - systemPackages:
-        collectorName: mycollector
+        collectorName: "System Packages"
         outcomes:
         - fail:
             when: '{{ not .IsInstalled }}'
-            message: Package {{ .Name }} is not installed.
+            message: Package {{ .Name }} is not installed
         - pass:
-            message: Package {{ .Name }} is installed.
+            message: Package {{ .Name }} is installed
 ```
