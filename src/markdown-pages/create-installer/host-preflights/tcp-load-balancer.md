@@ -6,7 +6,7 @@ linktitle: "TCP Load Balancer"
 title: "TCP Load Balancer"
 ---
  
-The TCP load balancer host preflight check can be used to check and validate the connection to a specified TCP load balancer.
+The TCP load balancer host preflight check is used to check and validate the connection to a specified TCP load balancer.
 
 ## TCP Connect Collector
 

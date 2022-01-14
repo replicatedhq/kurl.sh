@@ -6,7 +6,7 @@ linktitle: "HTTP"
 title: "HTTP"
 ---
  
-The HTTP host preflight check can be used to validate that the machine is able to connect to a certain HTTP address.
+The HTTP host preflight check is used to validate that the machine is able to connect to a certain HTTP address.
 
 ## HTTP Collector
 

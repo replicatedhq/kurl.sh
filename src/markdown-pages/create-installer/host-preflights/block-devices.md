@@ -6,7 +6,7 @@ linktitle: "Block Devices"
 title: "Block Devices"
 ---
  
-The block devices host preflight check can be used to detect and validate the block devices attached to the machine.
+The block devices host preflight check is used to detect and validate the block devices attached to the machine.
 
 ## Block Devices Collector
 
@@ -21,7 +21,7 @@ The `blockDevices` collector accepts the [shared collector properties](https://t
 The `blockDevices` analyzer supports multiple parameters for filtering:
 
 `includeUnmountedPartitions`: Include unmounted partitions in the analysis. Disabled by default.<br/>
-`minimumAcceptableSize`: The minimum acceptable size to filter the available block devices by during analysis. Disabled by default.
+`minimumAcceptableSize`: The minimum acceptable size to filter the available block devices during analysis. This parameter is disabled by default.
 
 Example outcomes:
 

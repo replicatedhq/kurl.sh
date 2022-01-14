@@ -6,14 +6,14 @@ linktitle: "System Packages"
 title: "System Packages"
 ---
 
-The system packages host preflight check can be used to validate that certain packages are installed for a specific operating system.
+The system packages host preflight check is used to validate that certain packages are installed for a specific operating system.
 
 ## System Packages Collector
 
 The `systemPackages` collector will collect information about the specified host system packages depending on the operating system the packages are listed under.
 The collector will automatically detect the operating system ID/name and the version, and check if it has a match for that operating system ID/name (and optionally the version) in the spec. If so, it will collect information about the packages specified in the spec.
 
-This collector does not require sudo privileges.
+Note: This collector does not require sudo privileges.
 
 ### Parameters
 

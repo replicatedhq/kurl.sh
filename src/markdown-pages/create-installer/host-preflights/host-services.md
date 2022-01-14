@@ -6,7 +6,7 @@ linktitle: "Host Services"
 title: "Host Services"
 ---
  
-The host services host preflight check can be used to detect and validate the status of certain host system services.
+The host services host preflight check is used to detect and validate the status of certain host system services.
 
 ## Host Services Collector
 

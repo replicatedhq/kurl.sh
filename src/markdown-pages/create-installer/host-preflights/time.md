@@ -6,7 +6,7 @@ linktitle: "Time"
 title: "Time"
 ---
  
-The time host preflight check can be used to check the timezone of the system clock and whether the system clock is synchronized.
+The time host preflight check is used to check the timezone of the system clock and whether the system clock is synchronized.
 
 ## Time Collector
 

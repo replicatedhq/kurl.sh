@@ -6,7 +6,7 @@ linktitle: "Operating System"
 title: "Operating System"
 ---
  
-The operating system host preflight check can be used to detect and validate the name and version of the OS installed on the machine.
+The operating system host preflight check is used to detect and validate the name and version of the OS installed on the machine.
 
 ## Operating System Collector
 

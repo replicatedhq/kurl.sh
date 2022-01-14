@@ -6,7 +6,7 @@ linktitle: "TCP Port Status"
 title: "TCP Port Status"
 ---
  
-The TCP port status host preflight check can be usee to detect the status of a TCP port to check whether it's open and available.
+The TCP port status host preflight check is used to detect the status of a TCP port to check whether it's open and available.
 
 ## TCP Port Status Collector
 

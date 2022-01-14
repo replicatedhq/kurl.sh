@@ -6,7 +6,7 @@ linktitle: "Disk Usage"
 title: "Disk Usage"
 ---
  
-The disk usage host preflight check can be used to detect and validate the usage of a disk on which a particular directory lives.
+The disk usage host preflight check is used to detect and validate the usage of a disk for a specific directory.
 
 ## Disk Usage Collector
 
