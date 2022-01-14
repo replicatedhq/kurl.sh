@@ -29,9 +29,7 @@ export default class SidebarFileTree extends Component {
     const mapLinks = entry => {
       const copy = {
         ...entry,
-        open: entry.directory
-          ? dirPath.includes(entry.directory)
-          : dirPath.includes(entry.path),
+        open: dirPath.includes(entry.path)
       };
       if (entry.directory) {
         copy.links = entry.links.map(mapLinks);
