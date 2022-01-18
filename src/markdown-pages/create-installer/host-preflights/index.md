@@ -9,7 +9,7 @@ title: "Customizing Host Preflights"
 While there are [default host preflights](/docs/install-with-kurl/host-preflights) that kURL runs during an install or upgrade, these host preflights are customizable.
 There are two mechanisms for customizing host preflights: 
 * Supplying additional host preflights as part of the kURL installer spec
-* Disabling the default host preflights.
+* Disabling the default host preflights
 Combined, these two mechanisms let you add custom host preflights that will run in addition to the defaults, or disable the default host preflights and run your own customized host preflight checks.
 
 ## Adding Custom Host Preflights
