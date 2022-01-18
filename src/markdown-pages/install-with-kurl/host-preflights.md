@@ -29,7 +29,7 @@ The following checks run on all nodes during installations and upgrades:
 * The installer is running on a 64-bit platform.
 * The installer is running on a [supported OS](/docs/install-with-kurl/system-requirements#supported-operating-systems).
 * The server has at least 2 CPUs. (Warns when there are less than 4 CPUs.)
-* At least 4 GiB of memory is available. (Warna when there is less than 8GiB.)
+* At least 4 GiB of memory is available. (Warns when there is less than 8GiB.)
 * Swap is disabled.
 * Firewalld is disabled.
 * SELinux is disabled.
@@ -76,7 +76,7 @@ These checks only run on installations with Weave:
 These checks only run on installations with Rook:
 
 * If using block storage, checks that at least one block device is available with a minimum size of 10GiB.
-* If using Rook version 1.0.4 or 1.0.4-14.2.21, checks that /opt/replicated/rook has at least 10GiB and is less than 80% full. (Warn when less than 25GiB is available.)
+* If using Rook version 1.0.4 or 1.0.4-14.2.21, checks that /opt/replicated/rook has at least 10GiB and is less than 80% full. (Warns when less than 25GiB is available.)
 
 #### OpenEBS
 
