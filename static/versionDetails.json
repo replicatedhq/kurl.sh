@@ -417,7 +417,7 @@
     },
     {
       "flag": "hostPreflights",
-      "description": "(Beta) A troubleshoot.sh/v1beta2 spec for adding additional preflight checks prior to a kURL installation. Information on writing preflight checks can be found at https://troubleshoot.sh/docs/preflight/introduction/.",
+      "description": "A troubleshoot.sh/v1beta2 spec for adding additional preflight checks prior to a kURL installation. Information on writing preflight checks can be found at https://troubleshoot.sh/docs/preflight/introduction/.",
       "type": "troubleshoot.sh/v1beta2"
     },
     {

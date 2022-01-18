@@ -12,7 +12,7 @@ These checks can also run conditionally depending on whether the installer is pe
 
 The installer has default host preflight checks that run to ensure that certain conditions are met (e.g., supported operating systems, disk usage, etc.).
 These default host preflights are designed and maintained to ensure the successful installation and ongoing health of the cluster.
-These defaults are also customizable. New host preflights can be added to run in addition to the defaults, or the defaults can be disabled in order to provide a new set of host preflights that should run instead. For more information on customizing host preflights, see []().
+These defaults are also customizable. New host preflights can be added to run in addition to the defaults, or the defaults can be disabled in order to provide a new set of host preflights that should run instead. Learn more about customizing host preflights [here](/docs/create-installer/host-preflights).
 
 While failures and warnings block the install from continuing, the warnings and failures can be bypassed with the [`preflight-ignore-warnings` and `preflight-ignore` flags](/docs/install-with-kurl/advanced-options).
 
@@ -45,13 +45,13 @@ The following checks run on all nodes during installs only:
 * TCP port 10257 is available for the kube controller manager.
 * TCP port 10259 is available for the kube scheduler.
 
-### Initial Primary Nodes
+### Primary Nodes
 
 These checks run only on primary nodes during new installs:
 
 * TCP port 6443 is available for the Kubernetes API server.
 * TCP ports 2379, 2380 and 2381 are available for etcd.
-* The load balancer address is properly configured to forward TCP traffic to the node. (This check only runs for HA installs.)
+* The load balancer address is properly configured to forward TCP traffic to the node. (This check only runs during HA installs on first primary node.)
 * 99th percentile filesystem write latency in the etcd data directory is less than 20ms. (Warn when more than 10ms.) [See cloud recommendations](/docs/install-with-kurl/system-requirements#cloud-disk-performance).
 
 ### Joining Nodes
@@ -80,7 +80,7 @@ These checks only run on installs with Rook:
 
 #### OpenEBS
 
-These checks only run on installs with OpenEBS when cStor is enabled:
+This check only runs on installs with OpenEBS when cStor is enabled:
 
 * If using block storage, check that at least one block device is available with a minimum size of 10GiB.
 
@@ -98,7 +98,7 @@ This check only runs on installs with Longhorn:
 
 #### Docker
 
-This check only runs on installs with Docker:
+These checks only run on installs with Docker:
 
 * Docker is not being installed on EL 8.
 * /var/lib/docker has at least 30GiB total space and is less than 80% full. (Warn when less than 10GiB available or when more than 60% full.)
@@ -111,11 +111,6 @@ This check runs on installs and upgrades with Containerd:
 
 #### KOTS
 
-This check runs on online installs and upgrades with KOTS:
+This check runs on online (not airgap) installs and upgrades with KOTS:
 
 * The Replicated API is accessible/reachable.
-
-## Customizing Host Preflights
-
-While kURL includes default host preflights, these host preflights can be customized in various ways.
-For more information, check out the documentation on [customizing host preflights](/docs/create-installers/host-preflights).
