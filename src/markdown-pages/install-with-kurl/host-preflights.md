@@ -60,7 +60,7 @@ These checks run on all primary and secondary nodes joining an existing cluster:
 
 * Can connect to the Kubernetes API server address
 
-### Add-on Host Preflights
+### Add-on Host Preflight Checks
 
 Some checks only run when certain add-ons are enabled or configured in a certain way in the installer:
 
