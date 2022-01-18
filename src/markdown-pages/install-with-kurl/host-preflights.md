@@ -10,36 +10,36 @@ The kURL installer runs host preflight checks to detect problems with the target
 A variety of different types of host preflights can be run to check for various conditions.
 These checks can also run conditionally, depending on whether the installer is performing an upgrade or a join, whether it's an air gap installation, and so on.
 
-The installer has default host preflight checks that run to ensure that certain conditions are met (e.g., supported operating systems, disk usage, etc.).
-These default host preflights are designed and maintained to ensure the successful installation and ongoing health of the cluster.
-These defaults are also customizable. New host preflights can be added to run in addition to the defaults, or the defaults can be disabled in order to provide a new set of host preflights that should run instead. Learn more about customizing host preflights [here](/docs/create-installer/host-preflights).
+The installer has default host preflight checks that run to ensure that certain conditions are met (such as supported operating systems, disk usage, and so on).
+The default host preflight checks are designed and maintained to help ensure the successful installation and ongoing health of the cluster.
+The default preflight checks are also customizable. New host preflight checks can be added to run in addition to the defaults, or the default checks can be disabled to allow for a new set of host preflight checks that should run instead. For more information, see [customizing host preflight checks](/docs/create-installer/host-preflights).
 
-While failures and warnings block the install from continuing, the warnings and failures can be bypassed with the [`preflight-ignore-warnings` and `preflight-ignore` flags](/docs/install-with-kurl/advanced-options).
+While failures and warnings block the installation from continuing, the warnings and failures can be bypassed with the [`preflight-ignore-warnings` and `preflight-ignore` flags](/docs/install-with-kurl/advanced-options).
 
 ## Default Host Preflights
 
-The following sections detail the host preflights that run by default.
+The following sections detail the default host preflight checks.
 
 ### All Nodes
 
-#### Installs and Upgrades
+#### Installationss and Upgrades
 
-The following checks run on all nodes during both installs and upgrades:
+The following checks run on all nodes during installations and upgrades:
 
 * The installer is running on a 64-bit platform.
 * The installer is running on a [supported OS](/docs/install-with-kurl/system-requirements#supported-operating-systems).
-* The server has at least 2 CPUs. (Warn when less than 4 CPUs.)
-* At least 4 GiB of memory is available. (Warn when less than 8GiB.)
+* The server has at least 2 CPUs. (Warns when there are less than 4 CPUs.)
+* At least 4 GiB of memory is available. (Warna when there is less than 8GiB.)
 * Swap is disabled.
 * Firewalld is disabled.
 * SELinux is disabled.
 * At least one nameserver is accessible on a non-loopback address.
-* /var/lib/kubelet has at least 30GiB total space and is less than 80% full. (Warn when less than 10GiB available or when more than 60% full.)
+* /var/lib/kubelet has at least 30GiB total space and is less than 80% full. (Warns when less than 10GiB available or when it is more than 60% full.)
 * The system clock is synchronized and the time zone is set to UTC.
 
-#### Installs Only
+#### Installations Only
 
-The following checks run on all nodes during installs only:
+The following checks run on all nodes during installations only:
 
 * TCP ports 10248 and 10250 are available for kubelet.
 * TCP port 10257 is available for the kube controller manager.
@@ -47,12 +47,12 @@ The following checks run on all nodes during installs only:
 
 ### Primary Nodes
 
-These checks run only on primary nodes during new installs:
+These checks run only on primary nodes during new installations:
 
 * TCP port 6443 is available for the Kubernetes API server.
 * TCP ports 2379, 2380 and 2381 are available for etcd.
 * The load balancer address is properly configured to forward TCP traffic to the node. (This check only runs during HA installs on first primary node.)
-* 99th percentile filesystem write latency in the etcd data directory is less than 20ms. (Warn when more than 10ms.) [See cloud recommendations](/docs/install-with-kurl/system-requirements#cloud-disk-performance).
+* 99th percentile filesystem write latency in the etcd data directory is less than 20ms. (Warn when latency is more than 10ms.) For more information, see[cloud recommendations](/docs/install-with-kurl/system-requirements#cloud-disk-performance).
 
 ### Joining Nodes
 
@@ -66,23 +66,23 @@ Some checks only run when certain add-ons are enabled or configured in a certain
 
 #### Weave
 
-These checks only run on installs with Weave:
+These checks only run on installations with Weave:
 
 * All existing nodes in the cluster can be reached on TCP port 6783.
 * TCP ports 6781, 6782 and 6783 are available on the current host.
 
 #### Rook
 
-These checks only run on installs with Rook:
+These checks only run on installations with Rook:
 
-* If using block storage, check that at least one block device is available with a minimum size of 10GiB.
-* If using Rook version 1.0.4 or 1.0.4-14.2.21, check that /opt/replicated/rook has at least 10GiB and is less than 80% full. (Warn when less than 25GiB available.)
+* If using block storage, checks that at least one block device is available with a minimum size of 10GiB.
+* If using Rook version 1.0.4 or 1.0.4-14.2.21, checks that /opt/replicated/rook has at least 10GiB and is less than 80% full. (Warn when less than 25GiB is available.)
 
 #### OpenEBS
 
-This check only runs on installs with OpenEBS when cStor is enabled:
+This check only runs on installations with OpenEBS when cStor is enabled:
 
-* If using block storage, check that at least one block device is available with a minimum size of 10GiB.
+* If using block storage, checks that at least one block device is available with a minimum size of 10GiB.
 
 #### Prometheus
 
@@ -92,25 +92,25 @@ This check only runs on installs with Prometheus:
 
 #### Longhorn
 
-This check only runs on installs with Longhorn:
+This check only runs on installations with Longhorn:
 
-* /var/lib/longhorn has at least 50GiB total space and is less than 80% full. (Warn when more than 60% full.)
+* /var/lib/longhorn has at least 50GiB total space and is less than 80% full. (Warns when it is more than 60% full.)
 
 #### Docker
 
-These checks only run on installs with Docker:
+These checks only run on installations with Docker:
 
 * Docker is not being installed on EL 8.
-* /var/lib/docker has at least 30GiB total space and is less than 80% full. (Warn when less than 10GiB available or when more than 60% full.)
+* /var/lib/docker has at least 30GiB total space and is less than 80% full. (Warns when less than 10GiB is available or when it is more than 60% full.)
 
 #### Containerd
 
-This check runs on installs and upgrades with Containerd:
+This check runs on installations and upgrades with Containerd:
 
 * Containerd version 1.4.8 or higher is not being installed on Ubuntu 16.04.
 
 #### KOTS
 
-This check runs on online (not airgap) installs and upgrades with KOTS:
+This check runs on online (not air gap) installations and upgrades with KOTS:
 
 * The Replicated API is accessible/reachable.
