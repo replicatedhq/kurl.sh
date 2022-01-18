@@ -1,5 +1,5 @@
 ---
-path: "/docs/install-with-kurl/host-preflights/"
+path: "/docs/create-installer/host-preflights/"
 date: "2022-01-13"
 weight: 24
 linktitle: "Customizing Host Preflights"
