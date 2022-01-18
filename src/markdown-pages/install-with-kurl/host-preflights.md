@@ -1,9 +1,9 @@
 ---
-path: "/docs/install-with-kurl/default-host-preflights"
+path: "/docs/install-with-kurl/host-preflights"
 date: "2021-04-05"
 weight: 18
-linktitle: "Default Host Preflights"
-title: "Default Host Preflights"
+linktitle: "Host Preflights"
+title: "Host Preflights"
 ---
 
 The kURL installer runs host preflight checks to detect problems with the target environment early in the installation process.
