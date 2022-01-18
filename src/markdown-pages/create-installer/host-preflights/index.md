@@ -10,14 +10,15 @@ While there are [default host preflight checks](/docs/install-with-kurl/host-pre
 There are two mechanisms for customizing host preflight checks: 
 * Supplying additional host preflight checks as part of the kURL installer spec
 * Disabling the default host preflight checks
+
 Combined, these two mechanisms let you add custom host preflight checks that will run in addition to the defaults, or disable the default host preflight checks and run your own customized host preflight checks.
 
 ## Adding Custom Host Preflight Checks
 
 To add custom host preflight checks to your installer, you can supply a `HostPreflight` spec in the kURL installer spec.
 Specifically, those host preflight checks can be added in the kURL installer spec under `spec.kurl.hostPreflights`.
-For more information about `HostPreflight` field,  see the [kURL add-on](/docs/add-ons/kurl) documentation.
-For examples of host preflight specs, see the following sections on [reproducing the default host preflights](#reproducing-the-default-host-preflights) and [finding the add-on host preflights](#finding-the-add-on-host-preflights). These will show the host preflight specs that kURL uses by default.
+For more information about the `spec.kurl.hostPreflights` field, see the [kURL add-on](/docs/add-ons/kurl) documentation.
+For examples of host preflight specs, see the following sections on [reproducing the default host preflight checks](#reproducing-the-default-host-preflight-checks) and [finding the add-on host preflight checks](#finding-the-add-on-host-preflight-checks). These will show the host preflight specs that kURL uses by default.
 
 ## Excluding the Default Host Preflight Checks
 
@@ -34,7 +35,7 @@ To reproduce the default host preflight checks, you must combine the general hos
 For more information about the general host preflight checks that run with all installers, see [the kURL host preflights YAML](https://github.com/replicatedhq/kURL/blob/main/pkg/preflight/assets/host-preflights.yaml). These run for all installers, regardless of which add-ons are included.
 The add-on host preflight checks can be found in directories that are specific to that add-on.
 
-#### Finding the Add-On Host Preflights Checks
+#### Finding the Add-On Host Preflight Checks
 
 For each of the add-ons that you are using that have default host preflight checks: 
     1. Go to the add-on directory linked below
@@ -54,6 +55,7 @@ KOTS: https://github.com/replicatedhq/kURL/tree/main/addons/kotsadm
 #### Merging Host Preflight Checks into One Spec
 
 After you have found the general host preflight checks and the add-on host preflight checks that you need, you can merge these into one host preflight spec by combining the list of collectors and analyzers for each.
+
 For example, the following YAML combines the host preflight checks for [Longhorn v1.2.2](https://github.com/replicatedhq/kURL/blob/main/addons/longhorn/1.2.2/host-preflight.yaml) and [Prometheus v0.49.0-17.1.3](https://github.com/replicatedhq/kURL/blob/main/addons/prometheus/0.49.0-17.1.3/host-preflight.yaml):
 ```yaml
 apiVersion: troubleshoot.sh/v1beta2

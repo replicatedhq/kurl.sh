@@ -22,7 +22,7 @@ The following sections detail the default host preflight checks.
 
 ### All Nodes
 
-#### Installationss and Upgrades
+#### Installations and Upgrades
 
 The following checks run on all nodes during installations and upgrades:
 
