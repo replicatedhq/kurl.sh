@@ -9,12 +9,6 @@ function titleize(string) {
     .map(s => s[0].toUpperCase() + s.slice(1))
     .join(" ");
 }
-function untitleize(string) {
-  return string
-    .split(" ")
-    .map(s => s[0].toLowerCase() + s.slice(1))
-    .join("-");
-}
 
 export default class SidebarFileTree extends Component {
   constructor(props) {
@@ -25,46 +19,26 @@ export default class SidebarFileTree extends Component {
     };
   }
 
-  onDirectoryClick = event => {
-    event.stopPropagation();
+  onDirectoryClick = (e, dirPath) => {
+    e.stopPropagation();
     const { treeState } = this.state;
-    const isDirectory = event.currentTarget.dataset.type === "directory";
-    const path = event.currentTarget.dataset.path;
-
-    if (this.props.onDirectoryClick && isDirectory) {
-      const mockEvent = {
-        stopPropagation: () => { },
-        currentTarget: {
-          dataset: {
-            type: "directory",
-            path
-          }
-        }
-      }
-      this.props.onDirectoryClick(mockEvent);
-    } else {
-      const linkingToFirstSubItem = this.DFS(treeState, null, untitleize(path));
-      if (linkingToFirstSubItem) {
-        navigate(linkingToFirstSubItem.path);
-      }
-      const dirpath = untitleize(path);
-      const mapLinks = entry => {
-        const copy = {
-          ...entry,
-          open: entry.directory
-            ? entry.directory.includes(dirpath)
-            : entry.path.includes(dirpath),
-        };
-
-        if (entry.directory) {
-          copy.links = entry.links.map(mapLinks);
-        }
-        return copy;
-      };
-      this.setState({
-        treeState: treeState.map(mapLinks)
-      });
+    const linkingToFirstSubItem = this.DFS(treeState, null, dirPath);
+    if (linkingToFirstSubItem) {
+      navigate(linkingToFirstSubItem.path);
     }
+    const mapLinks = entry => {
+      const copy = {
+        ...entry,
+        open: dirPath.includes(entry.path)
+      };
+      if (entry.directory) {
+        copy.links = entry.links.map(mapLinks);
+      }
+      return copy;
+    };
+    this.setState({
+      treeState: treeState.map(mapLinks)
+    });
   }
 
   onLinkClick = event => {
@@ -109,7 +83,7 @@ export default class SidebarFileTree extends Component {
       for (let i = 0; i < links.length; ++i) {
         let subPath = links[i];
         if (subPath.directory) {
-          let subPathObject = this.DFS(subPath.links, subPath.directory, targetPath);
+          let subPathObject = this.DFS(subPath.links, subPath.path, targetPath);
           if (subPathObject) {
             return subPathObject;
           }
@@ -119,7 +93,7 @@ export default class SidebarFileTree extends Component {
   }
 
   render() {
-    const { depth = 0, data, type, className, open, children, isReleaseNotes } = this.props;
+    const { depth = 0, data, type, className, open, children, path, isReleaseNotes } = this.props;
     const { treeState } = this.state;
 
     if (treeState.length === 0 && depth === 0) {
@@ -131,12 +105,12 @@ export default class SidebarFileTree extends Component {
       ? treeState
       : data;
 
+    const onDirectoryClick = this.props.onDirectoryClick || this.onDirectoryClick; // always call the top level function because it has the right state
+
     return (
       <div
         className={classNames(`SidebarFileTree flex1 flex-column ${isReleaseNotes ? "u-marginLeft--20" :  `depth-${depth}`}`, className)}
-        onClick={type === "directory" ? this.onDirectoryClick : null}
-        data-type={type}
-        data-path={children && children.toString()}
+        onClick={type === "directory" ? (e) => onDirectoryClick(e, path) : null}
       >
         {children}
         {(open || depth === 0) && dataToRender && dataToRender.map((entry, idx) => {
@@ -147,14 +121,19 @@ export default class SidebarFileTree extends Component {
                 depth={depth + 1}
                 type="directory"
                 open={entry.open}
-                onDirectoryClick={this.onDirectoryClick}
+                path={entry.path}
+                onDirectoryClick={onDirectoryClick}
                 data={entry.links}
               >
-                {titleize(entry.directory)}
+                <span className={classNames({ "sub-directory": depth > 0 })}>
+                  {titleize(entry.directory)}
+                </span>
               </SidebarFileTree>
             );
           } else {
-            const key = isReleaseNotes ? `${depth}-${idx}-${entry.path}` : `${depth}-${idx}`
+            const key = isReleaseNotes ? `${depth}-${idx}-${entry.path}` : `${depth}-${idx}`;
+            const isInSubdirectory = depth > 1;
+            const isFirstElement = idx === 0;
             return (
               <SidebarFileTree
                 key={key}
@@ -164,6 +143,7 @@ export default class SidebarFileTree extends Component {
                 isReleaseNotes={isReleaseNotes}
               >
                 <Link
+                  className={classNames({ "u-marginTop--12": isFirstElement && !isInSubdirectory })}
                   to={entry.path}
                   activeClassName="active"
                   onClick={this.onLinkClick}
