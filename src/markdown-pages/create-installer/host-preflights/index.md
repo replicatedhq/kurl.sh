@@ -15,7 +15,7 @@ Combined, these two mechanisms allow you to add custom host preflights that will
 In order to add custom host preflights to your installer, you can supply a `HostPreflight` spec in the kURL installer spec.
 Specifically, those host preflight checks can be added in the kURL installer spec under `spec.kurl.hostPreflights`.
 More information on that field can be found in the documentation on the [kURL add-on](/docs/add-ons/kurl).
-For examples of host preflight specs, see the following sections on [general host preflight checks](#general-host-preflight-checks) and [add-on host preflight checks](#add-on-host-preflight-checks). These will show the host preflight specs that kURL uses by default.
+For examples of host preflight specs, see the following sections on [reproducing the default host preflights](#reproducing-the-default-host-preflights) and [finding the add-on host preflights](#finding-the-add-on-host-preflights). These will show the host preflight specs that kURL uses by default.
 
 ## Excluding the Default Host Preflights
 
@@ -23,7 +23,7 @@ The default host preflight checks can be excluded by setting the `spec.kurl.excl
 
 ## Modifying the Default Host Preflights
 
-In order to modify the default host preflights, you should exclude the default host preflights and provide your own custom host preflights to replace them.
+In order to modify the default host preflights, you should exclude the default host preflights and [provide your own custom host preflights](#adding-custom-host-preflights) to replace them.
 The best way to do this is to reproduce the default host preflights run by kURL, make your needed changes, and include that host preflight spec in your kURL installer spec.
 
 ### Reproducing the Default Host Preflights
@@ -36,7 +36,7 @@ The add-on host preflights can be found in directories that are specific to that
 
 For each of the add-ons that you are using that have default host preflight checks, go to the add-on directory linked below, choose the directory for the appropriate version of that add-on, and find the `host-preflight.yaml` file.
 
-For example, if your installer includes KOTS version 1.59.0, you would find the host preflight file at this link: (https://github.com/replicatedhq/kURL/blob/main/addons/kotsadm/1.59.0/host-preflight.yaml).
+For example, if your installer includes KOTS version 1.59.0, you would find the host preflight file at this link: https://github.com/replicatedhq/kURL/blob/main/addons/kotsadm/1.59.0/host-preflight.yaml.
 
 Weave: https://github.com/replicatedhq/kURL/tree/main/addons/weave<br>
 Rook: https://github.com/replicatedhq/kURL/tree/main/addons/rook<br>
