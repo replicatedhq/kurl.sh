@@ -8,7 +8,7 @@ title: "Host Preflights"
 
 The kURL installer runs host preflight checks to detect problems with the target environment early in the installation process.
 A variety of different types of host preflights can be run to check for various conditions.
-These checks can also run conditionally depending on whether the installer is performing an upgrade or a join, whether it's an airgap install, and more.
+These checks can also run conditionally, depending on whether the installer is performing an upgrade or a join, whether it's an air gap installation, and so on.
 
 The installer has default host preflight checks that run to ensure that certain conditions are met (e.g., supported operating systems, disk usage, etc.).
 These default host preflights are designed and maintained to ensure the successful installation and ongoing health of the cluster.
