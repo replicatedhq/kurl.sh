@@ -1,0 +1,53 @@
+name: auto-release-notes
+on:
+  repository_dispatch:
+    types: [auto-release-notes]
+
+jobs:
+  build-pr-release-notes:
+    runs-on: ubuntu-20.04
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Create Release Notes Template
+      id: release-notes
+      env:
+        KURL_VERSION: ${{ github.event.client_payload.version }}
+      run: |
+        KURL_VERSION=$( echo $KURL_VERSION | sed -E -e 's/v(.*)/\1/g' )
+        echo "::set-output name=parsed_kurl_version::$KURL_VERSION"
+        
+        cp ./hack/release-notes.md.tmpl ./src/release-notes/${KURL_VERSION}.md
+        DATE=$(date +%F)
+        WEIGHT=$(echo $KURL_VERSION | tr -d "v\.\-")
+        sed -i "s/__DATE__/$DATE/g" ./content/release-notes/${KURL_VERSION}.md
+        sed -i "s/__VERSION__/$KURL_VERSION/g" ./content/release-notes/${KURL_VERSION}.md
+
+    - name: Create Pull Request # creates a PR if there are differences
+      uses: peter-evans/create-pull-request@v3
+      id: cpr
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        commit-message: draft release notes kurl ${{ github.event.client_payload.version }}
+        title: '[${{ github.event.client_payload.version }}] Triggered Release Notes'
+        branch: automation/release-notes-${{ steps.release-notes.outputs.parsed_kurl_version }}-${{github.run_id}}  # Create a unique branch to prevent overwrites on re-tag
+        delete-branch: true
+        labels: |
+          release-notes
+          automated
+        draft: true
+        base: "main"
+        body: "Automated changes by the [auto-release-notes](https://github.com/replicatedhq/kurl.sh/blob/main/.github/workflows/update-release-notes.yaml) GitHub action"
+
+    - name: Check outputs
+      run: |
+        echo "Pull Request Number - ${{ steps.cpr.outputs.pull-request-number }}"
+        echo "Pull Request URL - ${{ steps.cpr.outputs.pull-request-url }}"
+
+    - name: Slack Notification
+      id: slack
+      uses: slackapi/slack-github-action@v1.16.0
+      with: 
+        payload: "{\"message\":\"Pull request #${{steps.cpr.outputs.pull-request-number }} is ready for kURL.sh release notes: ${{steps.cpr.outputs.pull-request-url}}\",\"version\":\"${{ steps.release-notes.outputs.parsed_kurl_version }}\"}" 
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.KOTS_RELEASE_SLACK_WEBHOOK }}
