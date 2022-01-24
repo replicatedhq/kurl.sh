@@ -23,7 +23,7 @@ spec:
     licenseURL: https://somecompany.com/license-agreement.txt
     nameserver: 8.8.8.8
     skipSystemPackageInstall: false
-    excludeBuiltinPreflights: false
+    excludeBuiltinHostPreflights: false
     hostPreflights:
       apiVersion: troubleshoot.sh/v1beta2
       kind: HostPreflight
