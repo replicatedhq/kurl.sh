@@ -22,7 +22,7 @@ For examples of host preflight specs, see the following sections on [reproducing
 
 ## Excluding the Default Host Preflight Checks
 
-The default host preflight checks can be excluded by setting the `spec.kurl.excludeBuiltinPreflights` field to `true`. See the [kURL add-on docs](/docs/add-ons/kurl) for additional information.
+The default host preflight checks can be excluded by setting the `spec.kurl.excludeBuiltinHostPreflights` field to `true`. See the [kURL add-on docs](/docs/add-ons/kurl) for additional information.
 
 ## Modifying the Default Host Preflight Checks
 
