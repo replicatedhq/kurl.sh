@@ -427,7 +427,7 @@
     },
     {
       "flag": "excludeBuiltinHostPreflights",
-      "description": "Excludes the default built-in host preflights for kURL.",
+      "description": "Excludes the default built-in host preflights for kURL. Defaults to false.",
       "type": "boolean"
     }
   ],
