@@ -12,9 +12,14 @@ These checks can also run conditionally, depending on whether the installer is p
 
 The installer has default host preflight checks that run to ensure that certain conditions are met (such as supported operating systems, disk usage, and so on).
 The default host preflight checks are designed and maintained to help ensure the successful installation and ongoing health of the cluster.
-The default preflight checks are also customizable. New host preflight checks can be added to run in addition to the defaults, or the default checks can be disabled to allow for a new set of host preflight checks that should run instead. For more information, see [customizing host preflight checks](/docs/create-installer/host-preflights).
+The default preflight checks are also customizable. New host preflight checks can be added to run in addition to the defaults, or the default checks can be disabled to allow for a new set of host preflight checks to run instead. 
+For more information, see [customizing host preflight checks](/docs/create-installer/host-preflights).
 
-While failures and warnings block the installation from continuing, the warnings and failures can be bypassed with the [`preflight-ignore-warnings` and `preflight-ignore` flags](/docs/install-with-kurl/advanced-options).
+Host prelight failures block the installation from continuing and exit with a non-zero return code. 
+This behavior can be changed as follows:
+* Failures can be bypassed with the [`host-preflight-ignore` flag](/docs/install-with-kurl/advanced-options). 
+* For a more conservative approach, the [`host-preflight-enforce-warngings` flag](/docs/install-with-kurl/advanced-options) can be used to block the installation on warnings.
+* The [`exclude-builtin-host-preflights` flag](/docs/install-with-kurl/advanced-options) can be used to skip the default host preflight checks and run only the custom checks.
 
 ## Default Host Preflights
 
