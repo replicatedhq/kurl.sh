@@ -133,20 +133,22 @@ A list of releases can be found on the [kURL Releases](https://github.com/replic
     name: ""
   spec:
     kubernetes:
-      version: "latest"
+      version: "1.21.x"
     weave:
-      version: "latest"
-    rook:
-      version: "latest"
-    ekco:
-      version: "latest"
+      version: "2.6.x"
     contour:
-      version: "latest"
-    docker:
+      version: "1.19.x"
+    minio:
+      version: "2020-01-25T02-50-51Z"
+    registry:
       version: "latest"
     prometheus:
       version: "latest"
-    registry:
+    containerd:
+      version: "1.4.x"
+    longhorn:
+      version: "1.2.x"
+    ekco:
       version: "latest"
 ```
 
