@@ -14,14 +14,13 @@ jobs:
       env:
         KURL_VERSION: ${{ github.event.client_payload.version }}
       run: |
-        KURL_VERSION=$( echo $KURL_VERSION | sed -E -e 's/v(.*)/\1/g' )
-        echo "::set-output name=parsed_kurl_version::$KURL_VERSION"
+        echo "::set-output name=kurl_version::$KURL_VERSION"
         
         cp ./hack/release-notes.md.tmpl ./src/release-notes/${KURL_VERSION}.md
         DATE=$(date +%F)
         WEIGHT=$(echo $KURL_VERSION | tr -d "v\.\-")
-        sed -i "s/__DATE__/$DATE/g" ./content/release-notes/${KURL_VERSION}.md
-        sed -i "s/__VERSION__/$KURL_VERSION/g" ./content/release-notes/${KURL_VERSION}.md
+        sed -i "s/__DATE__/$DATE/g" ./src/release-notes/${KURL_VERSION}.md
+        sed -i "s/__VERSION__/$KURL_VERSION/g" ./src/release-notes/${KURL_VERSION}.md
 
     - name: Create Pull Request # creates a PR if there are differences
       uses: peter-evans/create-pull-request@v3
@@ -30,7 +29,7 @@ jobs:
         token: ${{ secrets.GITHUB_TOKEN }}
         commit-message: draft release notes kurl ${{ github.event.client_payload.version }}
         title: '[${{ github.event.client_payload.version }}] Triggered Release Notes'
-        branch: automation/release-notes-${{ steps.release-notes.outputs.parsed_kurl_version }}-${{github.run_id}}  # Create a unique branch to prevent overwrites on re-tag
+        branch: automation/release-notes-${{ steps.release-notes.outputs.kurl_version }}-${{github.run_id}}  # Create a unique branch to prevent overwrites on re-tag
         delete-branch: true
         labels: |
           release-notes
