@@ -14,7 +14,7 @@ Antrea is implemented with Open vSwitch and IPSec.
 By default, Antrea [encrypts traffic](https://antrea.io/docs/v1.4.0/docs/traffic-encryption/) between nodes. 
 kURL does not install the necessary kernel modules to enable traffic encryption.
 An installer is blocked if encryption is enabled and the host does not have the required `wireguard` module installed.
-Disabling encryption by setting `isEncryptionDisabled` to `true` prevents the need to manually install `wireguard`.
+If you do not want to install `wireguard` manually, you can disable encryption by setting `isEncryptionDisabled` to `true`. 
 
 ## Advanced Install Options
 
