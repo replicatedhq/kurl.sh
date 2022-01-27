@@ -18,7 +18,7 @@ For more information, see [customizing host preflight checks](/docs/create-insta
 Host prelight failures block the installation from continuing and exit with a non-zero return code. 
 This behavior can be changed as follows:
 * Failures can be bypassed with the [`host-preflight-ignore` flag](/docs/install-with-kurl/advanced-options). 
-* For a more conservative approach, the [`host-preflight-enforce-warngings` flag](/docs/install-with-kurl/advanced-options) can be used to block the installation on warnings.
+* For a more conservative approach, the [`host-preflight-enforce-warnings` flag](/docs/install-with-kurl/advanced-options) can be used to block the installation on warnings.
 * The [`exclude-builtin-host-preflights` flag](/docs/install-with-kurl/advanced-options) can be used to skip the default host preflight checks and run only the custom checks.
 
 ## Default Host Preflights
