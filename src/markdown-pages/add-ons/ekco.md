@@ -173,4 +173,4 @@ issues such as false positives in health check error reporting.
 Auto resource scaling helps to avoid issues like this by scaling this subset of custom
 resources to the specified replica count without requiring that all nodes join the cluster.
 
-Auto resource sclaing is available in v0.13.0 and later.
+Auto resource scaling is available in v0.13.0 and later.
