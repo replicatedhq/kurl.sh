@@ -11,6 +11,8 @@ If docker was previously installed and containerd is enabled in the yaml spec, t
 
 As CentOS, RHEL and Oracle Linux 8.x do not support Docker, the Containerd CRI is required.
 
+Containerd 1.4.8+ has dropped support for Ubuntu 16.04.
+
 ## Advanced Install Options
 
 ```yaml
