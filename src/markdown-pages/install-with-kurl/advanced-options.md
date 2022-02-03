@@ -29,3 +29,4 @@ The install scripts are idempotent. Re-run the scripts with different flags to c
 | preserve-iptables-config         | This flag will make the kURL installer keep the current Iptables config of the node, overriding any yaml config.  |
 | preserve-selinux-config          | This flag will make the kURL installer keep the current SELinux config of the node, overriding any yaml config.   |
 | public-address                   | The public IP address.                                                                                            |
+| skip-system-package-install      | This flag will tell kURL to skip installing system packages. The user is responsible for installing the required packages beforehand. |
