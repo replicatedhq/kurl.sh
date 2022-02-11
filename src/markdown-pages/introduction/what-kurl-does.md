@@ -45,3 +45,5 @@ The available add-ons are:
 * [OpenEBS](https://openebs.io/)
 * [MinIO](https://min.io/)
 
+## kURL and K3s/RKE2 (Beta)
+As an alternative to using kubeadm, kURL can use the RKE2 or K3s Kubernetes distributions. These distributions are more opinionated and come with several add-ons already—such as for networking, storage, and ingress. Other kURL add-ons can still be included in the kURL spec, so long as the limitations specified in the [K3s](/add-ons/k3s#limitations) and [RKE2](/add-ons/rke2#limitations) add-on documentation are considered.
