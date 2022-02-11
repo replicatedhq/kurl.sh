@@ -9,7 +9,7 @@ addOn: "rke2"
 
 [RKE2](https://rke2.io/), also known as RKE Government, is a full-conformant Kubernetes distribution from Rancher.
 
-Rather than using the [Kubernetes add-on](/add-ons/kubernetes), which uses kubeadm to install Kubernetes, the RKE2 add-on can be used to install the RKE2 distribution. This distribution includes Kubernetes as well as several add-ons for networking, ingress, and more.
+Rather than using the [Kubernetes add-on](/docs/add-ons/kubernetes), which uses kubeadm to install Kubernetes, the RKE2 add-on can be used to install the RKE2 distribution. This distribution includes Kubernetes as well as several add-ons for networking, ingress, and more.
 
 In contrast to K3s, which has deviated from upstream Kubernetes to better support edge deployments, RKE2 maintains closer alignment with upstream Kubernetes.
 
@@ -22,16 +22,16 @@ The following are included by default with RKE2:
 * CoreDNS
 * Nginx (Ingress)
 * Kube-proxy
-* [Metrics Server](/add-ons/metrics-server)
-* [containerd](/add-ons/containerd) (CRI)
+* [Metrics Server](/docs/add-ons/metrics-server)
+* [containerd](/docs/add-ons/containerd) (CRI)
 
 RKE2 has been tested with the following add-ons:
-* [KOTS](/add-ons/KOTS)
-* [MinIO](/add-ons/minio)
-* [OpenEBS](/add-ons/openebs)
-* [Velero](/add-ons/velero)
-* [Registry](/add-ons/registry)
-* [Rook](/add-ons/rook)
+* [KOTS](/docs/add-ons/KOTS)
+* [MinIO](/docs/add-ons/minio)
+* [OpenEBS](/docs/add-ons/openebs)
+* [Velero](/docs/add-ons/velero)
+* [Registry](/docs/add-ons/registry)
+* [Rook](/docs/add-ons/rook)
 
 ## Limitations
 Because RKE2 support is currently in beta, there are several limitations. The following are not currently supported.

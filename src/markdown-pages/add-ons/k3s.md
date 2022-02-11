@@ -9,7 +9,7 @@ addOn: "k3s"
 
 [K3s](https://k3s.io/) is a lightweight Kubernetes distribution built by Rancher for IoT and edge computing.
 
-Rather than using the [Kubernetes add-on](/add-ons/kubernetes), which uses kubeadm to install Kubernetes, the K3s add-on can be used to install the K3s distribution. This distribution includes Kubernetes as well as several add-ons for networking, ingress, and more.
+Rather than using the [Kubernetes add-on](/docs/add-ons/kubernetes), which uses kubeadm to install Kubernetes, the K3s add-on can be used to install the K3s distribution. This distribution includes Kubernetes as well as several add-ons for networking, ingress, and more.
 
 K3s is packaged as a single binary that is less than 50MB. It reduces the dependencies and steps needed to install, run, and update Kubernetes, as compared to kubeadm.
 
@@ -24,17 +24,17 @@ The following are included by default with K3s:
 * CoreDNS
 * Traefik (Ingress)
 * Kube-proxy
-* [Metrics Server](/add-ons/metrics-server)
-* [containerd](/add-ons/containerd) (CRI)
+* [Metrics Server](/docs/add-ons/metrics-server)
+* [containerd](/docs/add-ons/containerd) (CRI)
 * Local path provisioner (CSI)
 
 K3s has been tested with the following add-ons:
-* [KOTS](/add-ons/KOTS)
-* [MinIO](/add-ons/minio)
-* [OpenEBS](/add-ons/openebs)
-* [Velero](/add-ons/velero)
-* [Registry](/add-ons/registry)
-* [Rook](/add-ons/rook)
+* [KOTS](/docs/add-ons/KOTS)
+* [MinIO](/docs/add-ons/minio)
+* [OpenEBS](/docs/add-ons/openebs)
+* [Velero](/docs/add-ons/velero)
+* [Registry](/docs/add-ons/registry)
+* [Rook](/docs/add-ons/rook)
 
 ## Limitations
 Because K3s support is currently in beta, there are several limitations. The following are not currently supported.
