@@ -17,6 +17,31 @@ import "../scss/components/Kurlsh.scss";
 import versionDetails from "../../static/versionDetails.json"
 import _ from "lodash";
 
+const NIL_VERSIONS = {
+  kubernetes: { version: "None" },
+  rke2: { version: "None" },
+  k3s: { version: "None" },
+  weave: { version: "None" },
+  antrea: { version: "None" },
+  contour: { version: "None" },
+  rook: { version: "None" },
+  docker: { version: "None" },
+  prometheus: { version: "None" },
+  registry: { version: "None" },
+  containerd: { version: "None" },
+  velero: { version: "None" },
+  kotsadm: { version: "None" },
+  ekco: { version: "None" },
+  fluentd: { version: "None" },
+  minio: { version: "None" },
+  openebs: { version: "None" },
+  longhorn: { version: "None" },
+  collectd: { version: "None" },
+  metricsServer: { version: "None" },
+  certManager: { version: "None" },
+  sonobuoy: { version: "None" },
+  goldpinger: { version: "None" }
+}
 const hasAdvancedOptions = ["kubernetes", "weave", "antrea", "contour", "rook", "registry", "docker", "velero", "kotsadm", "ekco", "fluentd", "minio", "openebs", "longhorn", "prometheus"];
 function versionToState(version) {
   return {
@@ -30,6 +55,13 @@ class Kurlsh extends React.Component {
     const { supportedVersions } = props;
 
     const kubernetesVersions = this.addDotXVersions(supportedVersions.kubernetes.map(versionToState));
+    kubernetesVersions.push({version: "None"});
+
+    const rke2Versions = this.addDotXVersions(supportedVersions.rke2.map(versionToState));
+    rke2Versions.push({version: "None"});
+
+    const k3sVersions = this.addDotXVersions(supportedVersions.k3s.map(versionToState));
+    k3sVersions.push({version: "None"});
 
     const contourVersions = this.addDotXVersions(supportedVersions.contour.map(versionToState));
     contourVersions.push({ version: "None" });
@@ -94,6 +126,8 @@ class Kurlsh extends React.Component {
     this.state = {
       versions: {
         kubernetes: kubernetesVersions,
+        rke2: rke2Versions,
+        k3s: k3sVersions,
         weave: weaveVersions,
         antrea: antreaVersions,
         contour: contourVersions,
@@ -115,32 +149,12 @@ class Kurlsh extends React.Component {
         sonobuoy: sonobuoyVersions,
         goldpinger: goldpingerVersions
       },
-      selectedVersions: {
-        kubernetes: { version: "None" },
-        weave: { version: "None" },
-        antrea: { version: "None" },
-        contour: { version: "None" },
-        rook: { version: "None" },
-        docker: { version: "None" },
-        prometheus: { version: "None" },
-        registry: { version: "None" },
-        containerd: { version: "None" },
-        velero: { version: "None" },
-        kotsadm: { version: "None" },
-        ekco: { version: "None" },
-        fluentd: { version: "None" },
-        minio: { version: "None" },
-        openebs: { version: "None" },
-        longhorn: { version: "None" },
-        collectd: { version: "None" },
-        metricsServer: { version: "None" },
-        certManager: { version: "None" },
-        sonobuoy: { version: "None" },
-        goldpinger: { version: "None" }
-      },
+      selectedVersions: NIL_VERSIONS,
       installerSha: "",
       showAdvancedOptions: {
         "kubernetes": false,
+        "rke2": false,
+        "k3s": false,
         "weave": false,
         "antrea": false,
         "contour": false,
@@ -162,6 +176,8 @@ class Kurlsh extends React.Component {
       },
       advancedOptions: {
         kubernetes: {},
+        rke2: {},
+        k3s: {},
         weave: {},
         antrea: {},
         contour: {},
@@ -183,6 +199,9 @@ class Kurlsh extends React.Component {
         prometheus: {},
       },
       isAddOnChecked: {
+        kubernetes: false,
+        rke2: false,
+        k3s: false,  
         weave: false,
         antrea: false,
         contour: false,
@@ -291,9 +310,6 @@ class Kurlsh extends React.Component {
         name: sha
       },
       spec: {
-        kubernetes: {
-          version: selectedVersions.kubernetes.version
-        }
       }
     };
 
@@ -310,12 +326,46 @@ class Kurlsh extends React.Component {
 
     const options = this.generateAdvancedOptionsForYaml(advancedOptions, optionDefaults);
 
-    if (options.kubernetes) {
+    if (selectedVersions.kubernetes.version !== "None") {
       const diff = getDiff(optionDefaults["kubernetes"], options.kubernetes);
+
+      generatedInstaller.spec.kubernetes = {
+        version: selectedVersions.kubernetes.version
+      };
 
       if (Object.keys(diff).length) {
         generatedInstaller.spec.kubernetes = {
           ...generatedInstaller.spec.kubernetes,
+          ...diff
+        };
+      }
+    }
+
+    if (selectedVersions.rke2.version !== "None") {
+      const diff = getDiff(optionDefaults["rke2"], options.rke2);
+
+      generatedInstaller.spec.rke2 = {
+        version: selectedVersions.rke2.version
+      };
+
+      if (Object.keys(diff).length) {
+        generatedInstaller.spec.rke2 = {
+          ...generatedInstaller.spec.rke2,
+          ...diff
+        };
+      }
+    }
+
+    if (selectedVersions.k3s.version !== "None") {
+      const diff = getDiff(optionDefaults["k3s"], options.k3s);
+
+      generatedInstaller.spec.k3s = {
+        version: selectedVersions.k3s.version
+      };
+
+      if (Object.keys(diff).length) {
+        generatedInstaller.spec.k3s = {
+          ...generatedInstaller.spec.k3s,
           ...diff
         };
       }
@@ -608,6 +658,12 @@ class Kurlsh extends React.Component {
   }
 
   onVersionChange = name => value => {
+    if (name === "kubernetes" || name === "rke2" || name === "k3s") {
+      if (value.version === "None") {
+        // can't be deselected, deselection happens when changing between them
+        return;
+      }
+    }
     if (name === "containerd" && value.version !== "None" && this.state.selectedVersions.docker.version !== "None") {
       this.checkIncompatibleSelection({ containerd: value });
     } else if (name === "docker" && value.version !== "None" && this.state.selectedVersions.containerd.version !== "None") {
@@ -616,8 +672,7 @@ class Kurlsh extends React.Component {
       this.checkIncompatibleSelection({ antrea: value });
     } else if (name === "weave" && value.version !== "None" && this.state.selectedVersions.antrea.version !== "None") {
       this.checkIncompatibleSelection({ weave: value });
-    }
-    else {
+    } else {
       this.setState({ selectedVersions: { ...this.state.selectedVersions, [name]: value } }, () => {
         if (value.version === "None") {
           this.setState({ isAddOnChecked: { ...this.state.isAddOnChecked, [name]: !this.state.isAddOnChecked[name] } })
@@ -632,10 +687,26 @@ class Kurlsh extends React.Component {
       !e.target.classList.contains("css-19bqh2r") && !e.target.classList.contains("css-tj5bde-Svg") && !e.target.classList.contains("css-9gakcf-option") && !e.target.classList.contains("css-1n7v3ny-option") &&
       !e.target.classList.contains("versionLabel--wrapper") && !e.target.classList.contains("css-1hwfws3") && e.target.localName !== "path" && !e.target.classList.contains("SelectVersion") &&
       !e.target.classList.contains("css-tlfecz-indicatorContainer") && !e.target.classList.contains("css-1gtu0rj-indicatorContainer") && !e.target.classList.contains("css-1g48xl4-IndicatorsContainer") && 
-      !e.target.classList.contains("AdvancedOptions--wrapper") &&  !e.target.classList.contains("Option--wrapper")) {
+      !e.target.classList.contains("AdvancedOptions--wrapper") &&  !e.target.classList.contains("Option--wrapper"))
+    {
+      if (name === "kubernetes" || name === "rke2" || name === "k3s") {
+        if (this.state.isAddOnChecked[name]) {
+          // can't be deselected, deselection happens when changing between them
+          return;
+        }
+      }
       this.setState({ isAddOnChecked: { ...this.state.isAddOnChecked, [name]: !this.state.isAddOnChecked[name] } }, () => {
         if (this.state.isAddOnChecked[name]) {
-          if (name === "containerd" && this.state.selectedVersions.docker.version !== "None") {
+          if (name === "kubernetes") {
+            const selectedVersions = {...this.state.selectedVersions, kubernetes: { version: "latest" }};
+            selectedVersions["k3s"] = { version: "None" };
+            selectedVersions["rke2"] = { version: "None" };
+            this.setState({ selectedVersions }, () => this.postToKurlInstaller(this.getYaml(this.state.installerSha)));
+          } else if (name === "rke2") {
+            this.setState({ selectedVersions: NIL_VERSIONS}, () => this.getKurlInstaller("rke2"));
+          } else if (name === "k3s") {
+            this.setState({ selectedVersions: NIL_VERSIONS}, () => this.getKurlInstaller("k3s"));
+          } else if (name === "containerd" && this.state.selectedVersions.docker.version !== "None") {
             this.checkIncompatibleSelection({ containerd: { version: "latest" } });
           } else if (name === "docker" && this.state.selectedVersions.containerd.version !== "None") {
             this.checkIncompatibleSelection({ docker: { version: "latest" } });
@@ -646,14 +717,14 @@ class Kurlsh extends React.Component {
           } else {
             this.setState({ selectedVersions: { ...this.state.selectedVersions, [name]: { version: "latest" } } }, () => {
               this.postToKurlInstaller(this.getYaml(this.state.installerSha));
-            })
+            });
           }
         } else {
           this.setState({ selectedVersions: { ...this.state.selectedVersions, [name]: { version: "None" } } }, () => {
             this.postToKurlInstaller(this.getYaml(this.state.installerSha));
-          })
+          });
         }
-      })
+      });
     }
   }
 
@@ -720,12 +791,24 @@ class Kurlsh extends React.Component {
       });
       if (response.ok) {
         const res = await response.json();
+
+        const advancedOptions = _.defaults(_.mapValues(res.spec, (value) => _.omit(value, ["version"])), _.mapValues(this.state.advancedOptions, () => { return {} }));
+        for (const addonName in advancedOptions) {
+          const addOnFlags = advancedOptions[addonName];
+          for (const flag in addOnFlags) {
+            addOnFlags[flag] = {
+              inputValue: addOnFlags[flag],
+              isChecked: true
+            };
+          }
+        }
+
         const state = {
           installerSha: installerSha || "latest",
           isAddOnChecked: _.defaults(_.mapValues(res.spec, (value) => (_.get(value, "version") || "None") !== "None"), _.mapValues(this.state.isAddOnChecked, () => false)),
           selectedVersions: _.defaults(_.mapValues(res.spec, (value) => _.pick(value, ["version"])), _.mapValues(this.state.selectedVersions, () => { return { version: "None" } })),
           showAdvancedOptions: _.defaults(_.mapValues(res.spec, (value) => !_.isEmpty(_.omit(value, ["version"]))), _.mapValues(this.state.showAdvancedOptions, () => false)),
-          advancedOptions: _.defaults(_.mapValues(res.spec, (value) => _.omit(value, ["version"])), _.mapValues(this.state.advancedOptions, () => { return {} })),
+          advancedOptions: advancedOptions,
         };
         this.setState(state);
       } else {
@@ -824,8 +907,6 @@ class Kurlsh extends React.Component {
       this.renderMonacoEditor();
     });
 
-    this.getKurlInstaller("latest");
-
     let options = {}
     hasAdvancedOptions.forEach(version => {
       options = {
@@ -835,6 +916,8 @@ class Kurlsh extends React.Component {
     })
     this.setState({ optionDefaults: options });
     window.addEventListener("scroll", this.handleScroll, true);
+
+    this.getKurlInstaller("latest");
   }
 
 
@@ -997,36 +1080,106 @@ class Kurlsh extends React.Component {
           <div className={`${!isMobile && "u-marginRight--30"} flex1 flex-column`}>
             <div className={`${!isMobile && "left-content-wrap"}`}>
               <span className="u-fontSize--24 u-fontWeight--bold u-color--mineShaft"> Select add-ons </span>
-              <div className="AddOn--wrapper selected flex flex-column u-marginTop--20">
-                <div className="flex flex1">
-                  <div className="flex flex1 alignItems--center">
-                    <span className="icon u-kubernetes u-marginBottom--small" />
-                    <div className="flex flex-column u-marginLeft--15 u-marginTop--small">
-                      <div className="FormLabel "> Kubernetes </div>
-                      <div className="SelectVersion flex flex1" style={{ width: "200px" }}>
-                        <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> Version </span>
-                        <Select
-                          isSearchable={false}
-                          options={versions.kubernetes}
-                          getOptionLabel={this.getLabel("kubernetes")}
-                          getOptionValue={(kubernetes) => kubernetes}
-                          value={selectedVersions.kubernetes}
-                          onChange={this.onVersionChange("kubernetes")}
-                          matchProp="value"
-                          isOptionSelected={() => false}
-                        />
+              <div className="flex flex-column u-marginTop--5">
+                <span className="u-fontSize--normal u-fontWeight--medium u-color--bermudaGray flex flex-column u-marginTop--40"> Distribution </span>
+                <div className={`AddOn--wrapper ${selectedVersions.kubernetes.version !== "None" && "selected"} flex flex-column u-marginTop--15`} onClick={(e) => this.handleIsAddOnSelected("kubernetes", e)}>
+                  <div className="flex flex1">
+                    <div className="flex flex1 alignItems--center">
+                      <input
+                        type="radio"
+                        className="u-marginRight--normal"
+                        checked={selectedVersions.kubernetes.version !== "None"}
+                        readOnly
+                      />
+                      <span className="icon u-kubernetes u-marginBottom--small" />
+                      <div className="flex flex-column u-marginLeft--15 u-marginTop--small">
+                        <div className="FormLabel "> Kubernetes (Kubeadm) </div>
+                        <div className={`SelectVersion flex flex1 ${!this.state.isAddOnChecked["kubernetes"] && "disabled"}`} style={{ width: "200px" }}>
+                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> {!this.state.isAddOnChecked["kubernetes"] ? "Version None" : "Version"} </span>
+                          <Select
+                            isSearchable={false}
+                            options={versions.kubernetes.filter(v => v.version !== "None")}
+                            getOptionLabel={this.getLabel("kubernetes")}
+                            getOptionValue={(kubernetes) => kubernetes}
+                            value={selectedVersions.kubernetes}
+                            onChange={this.onVersionChange("kubernetes")}
+                            matchProp="value"
+                            isDisabled={!this.state.isAddOnChecked["kubernetes"]}
+                            isOptionSelected={() => false}
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="flex flex1 justifyContent--flexEnd alignItems--center">
+                      <div className="flex u-fontSize--small u-fontWeight--medium u-color--royalBlue u-marginTop--small u-cursor--pointer configDiv" onClick={() => this.onToggleShowAdvancedOptions("kubernetes")}>
+                        {showAdvancedOptions["kubernetes"] ? "Hide config" : "Show config"}
                       </div>
                     </div>
                   </div>
-                  <div className="flex flex1 justifyContent--flexEnd alignItems--center">
-                    <div className="flex u-fontSize--small u-fontWeight--medium u-color--royalBlue u-marginTop--small u-cursor--pointer configDiv" onClick={() => this.onToggleShowAdvancedOptions("kubernetes")}>
-                      {showAdvancedOptions["kubernetes"] ? "Hide config" : "Show config"}
+                  {showAdvancedOptions["kubernetes"] && this.renderAdvancedOptions("kubernetes")}
+                </div>
+                <div className={`AddOn--wrapper ${selectedVersions.rke2.version !== "None" && "selected"} flex flex-column u-marginTop--15`} onClick={(e) => this.handleIsAddOnSelected("rke2", e)}>
+                  <div className="flex flex1">
+                    <div className="flex flex1 alignItems--center">
+                      <input
+                        type="radio"
+                        className="u-marginRight--normal"
+                        checked={selectedVersions.rke2.version !== "None"}
+                        readOnly
+                      />
+                      <span className="icon u-kubernetes u-marginBottom--small" />
+                      <div className="flex flex-column u-marginLeft--15 u-marginTop--small">
+                        <div className="FormLabel "> RKE2 </div>
+                        <div className={`SelectVersion flex flex1 ${!this.state.isAddOnChecked["rke2"] && "disabled"}`} style={{ width: "200px" }}>
+                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> {!this.state.isAddOnChecked["rke2"] ? "Version None" : "Version"} </span>
+                          <Select
+                            isSearchable={false}
+                            options={versions.rke2.filter(v => v.version !== "None")}
+                            getOptionLabel={this.getLabel("rke2")}
+                            getOptionValue={(rke2) => rke2}
+                            value={selectedVersions.rke2}
+                            onChange={this.onVersionChange("rke2")}
+                            matchProp="value"
+                            isDisabled={!this.state.isAddOnChecked["rke2"]}
+                            isOptionSelected={() => false}
+                          />
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
-                {showAdvancedOptions["kubernetes"] && this.renderAdvancedOptions("kubernetes")}
+                <div className={`AddOn--wrapper ${selectedVersions.k3s.version !== "None" && "selected"} flex flex-column u-marginTop--15`} onClick={(e) => this.handleIsAddOnSelected("k3s", e)}>
+                  <div className="flex flex1">
+                    <div className="flex flex1 alignItems--center">
+                      <input
+                        type="radio"
+                        className="u-marginRight--normal"
+                        checked={selectedVersions.k3s.version !== "None"}
+                        readOnly
+                      />
+                      <span className="icon u-kubernetes u-marginBottom--small" />
+                      <div className="flex flex-column u-marginLeft--15 u-marginTop--small">
+                        <div className="FormLabel "> K3s </div>
+                        <div className={`SelectVersion flex flex1 ${!this.state.isAddOnChecked["k3s"] && "disabled"}`} style={{ width: "200px" }}>
+                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> {!this.state.isAddOnChecked["k3s"] ? "Version None" : "Version"} </span>
+                          <Select
+                            isSearchable={false}
+                            options={versions.k3s.filter(v => v.version !== "None")}
+                            getOptionLabel={this.getLabel("k3s")}
+                            getOptionValue={(k3s) => k3s}
+                            value={selectedVersions.k3s}
+                            onChange={this.onVersionChange("k3s")}
+                            matchProp="value"
+                            isDisabled={!this.state.isAddOnChecked["k3s"]}
+                            isOptionSelected={() => false}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
-
               <div className="flex flex-column u-marginTop--40">
                 <span className="u-fontSize--normal u-fontWeight--medium u-color--bermudaGray"> CRI </span>
                 <div className={`AddOn--wrapper ${selectedVersions.docker.version !== "None" && "selected"} flex flex-column u-marginTop--15`} onClick={(e) => this.handleIsAddOnSelected("docker", e)}>
@@ -1738,7 +1891,7 @@ class Kurlsh extends React.Component {
                               isOptionSelected={() => false} />
                           </div>
                           {this.checkKotsVeleroIncompatibility(selectedVersions.velero.version, selectedVersions.kotsadm.version) &&
-                          <span className="u-fontSize--small u-fontWeight--medium u-color--fiord flex alignItems--center" style={{ lineHeight: "12px" }}> <span className="icon u-blueExclamationMark" style={{ marginRight: "6px" }} /> Version {selectedVersions.velero.version} is not compatible with KOTS {selectedVersions.kotsadm.version} </span>}
+                            <span className="u-fontSize--small u-fontWeight--medium u-color--fiord flex alignItems--center" style={{ lineHeight: "12px" }}> <span className="icon u-blueExclamationMark" style={{ marginRight: "6px" }} /> Version {selectedVersions.velero.version} is not compatible with KOTS {selectedVersions.kotsadm.version} </span>}
                         </div>
                       </div>
                     </div>
@@ -1760,7 +1913,7 @@ class Kurlsh extends React.Component {
           <div className={`${isMobile ? "u-marginTop--30 u-display--block " : "AbsoluteFixedWrapper flex flex-column"}`} id="fixed-wrapper">
             <span className="u-fontSize--24 u-fontWeight--bold u-color--mineShaft"> Installer YAML </span>
             <div className="MonacoEditor--wrapper flex u-width--full u-marginTop--20 u-position--relative">
-              {(installerErrMsg.includes("is not supported") || installerErrMsg.includes("require blockStorageEnabled") || installerErrMsg.includes("is not compatible")) && this.renderVersionError(installerErrMsg)}
+              {installerErrMsg && this.renderVersionError(installerErrMsg)}
               <div className="flex u-width--full u-overflow--auto" id="monaco">
                 {isEditorLoading &&
                   <div className="flex-column flex-1-auto u-overflow--hidden justifyContent--center alignItems--center">
