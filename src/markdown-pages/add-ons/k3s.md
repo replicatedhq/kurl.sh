@@ -40,8 +40,8 @@ K3s has been tested with the following add-ons:
 Because K3s support is currently in beta, there are several limitations. The following are not currently supported.
 * Joining additional nodes.
 * Upgrading from one version of K3s to another.
-* Selecting a CRI or CNI provider (since containerd and Canal are already included).
-* The NodePort range in K3s is 30000-32767, so the `kotsadm.uiBindPort` must be set to something in this range.
+* Selecting a CRI or CNI provider (since containerd and Flannel are already included).
+* The NodePort range in K3s is 30000-32767, so `kotsadm.uiBindPort` must be set to something in this range.
 * While Rook and OpenEBS have been tested, they are not recommended.
 * Due to limitations with Velero and Restic, volumes provisioned using the default Local Path Provisioner (or volumes based on host paths) cannot be snapshotted.
 * While K3s has experimental support for SELinux, this cannot currently be enabled through kURL, so SELinux should be disabled on the host.

@@ -38,5 +38,5 @@ Because RKE2 support is currently in beta, there are several limitations. The fo
 * Joining additional nodes.
 * Upgrading from one version of RKE2 to another.
 * Selecting a CRI or CNI provider (since containerd and Canal are already included).
-* The NodePort range in RKE2 is 30000-32767, so the `kotsadm.uiBindPort` must be set to something in this range.
+* The NodePort range in RKE2 is 30000-32767, so `kotsadm.uiBindPort` must be set to something in this range.
 * While Rook has been tested, it is not recommended.
