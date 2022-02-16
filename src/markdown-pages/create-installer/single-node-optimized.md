@@ -45,9 +45,9 @@ spec:
     disableS3: true
   openebs:
     version: 1.12.x
-    isLocalPVEnabled: true,
-    localPVStorageClassName: "default",
-    isCstorEnabled: false,
+    isLocalPVEnabled: true
+    localPVStorageClassName: "default"
+    isCstorEnabled: false
   velero:
     version: 1.7.x
 ```
