@@ -16,7 +16,7 @@ There are several reasons to use RKE2 instead of Kubernetes (Kubeadm). The main 
 In contrast to K3s, which has deviated from upstream Kubernetes to better support edge deployments, RKE2 maintains closer alignment with upstream Kubernetes.
 
 ## Operating System Compatibility
-The RKE2 add-on is currently only supported on CentOS 7 or 8.
+The RKE2 add-on is currently only supported on CentOS 7.
 
 ## Add-On Compatibility
 The following are included by default with RKE2:
