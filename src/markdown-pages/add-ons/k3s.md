@@ -11,7 +11,7 @@ addOn: "k3s"
 
 Rather than using the [Kubernetes add-on](/docs/add-ons/kubernetes), which uses kubeadm to install Kubernetes, the K3s add-on can be used to install the K3s distribution. This distribution includes Kubernetes as well as several add-ons for networking, ingress, and more.
 
-K3s is packaged as a single binary that is less than 50MB. It reduces the dependencies and steps needed to install, run, and update Kubernetes, as compared to kubeadm.
+There are several reasons to use K3s instead of Kubernetes (Kubeadm). The main reason is that K3s is simpler than upstream Kubernetes, so it is easier to support. K3s is packaged as a single binary that is less than 50MB. It reduces the dependencies and steps needed to install, run, and update Kubernetes, as compared to kubeadm. In addition, K3s has lower [CPU and RAM requirements](https://rancher.com/docs/k3s/latest/en/installation/installation-requirements/#hardware).
 
 By default, K3s uses sqlite3 as the storage backend instead of etcd.
 

@@ -11,6 +11,8 @@ addOn: "rke2"
 
 Rather than using the [Kubernetes add-on](/docs/add-ons/kubernetes), which uses kubeadm to install Kubernetes, the RKE2 add-on can be used to install the RKE2 distribution. This distribution includes Kubernetes as well as several add-ons for networking, ingress, and more.
 
+There are several reasons to use RKE2 instead of Kubernetes (Kubeadm). The main reason is that RKE2 is simpler than upstream Kubernetes, so it is easier to support. RKE2 is packaged as a single binary, reducing the dependencies and steps needed to install, run, and update Kubernetes, as compared to kubeadm.
+
 In contrast to K3s, which has deviated from upstream Kubernetes to better support edge deployments, RKE2 maintains closer alignment with upstream Kubernetes.
 
 ## Operating System Compatibility
