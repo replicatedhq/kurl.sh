@@ -11,7 +11,7 @@ While kURL is flexible and capable of supporting a variety of different distribu
 ## Installer Specs
  Because this is a beta feature, we have two possible optimized installer specs. One uses [K3s](/docs/add-ons/k3s) and the other uses [RKE2](/docs/add-ons/rke2). Additional information on these distributions and their limitations while in beta can be found in the linked documentation.
 
- Both K3s and RKE2 are Kubernetes distributions from Rancher that are packaged as a single binary. This makes these distributions smaller and simpler to support as compared to Kubernetes (Kubeadm). In addition, these distributions include several add-ons out of the box. In the case of storage, for example, K3s include the [Local Path Provisioner](https://github.com/rancher/local-path-provisioner), which is a simpler storage solution that creates `hostPath` based volumes. Likewise, the included networking solutions for K3s and RKE2 (Flannel and Canal, respectively) are simpler and more suited for single-node installations.
+ Both K3s and RKE2 are Kubernetes distributions from Rancher that are packaged as a single binary. This makes these distributions smaller and simpler to support as compared to Kubernetes (Kubeadm). In addition, these distributions include several add-ons out of the box. In the case of storage, for example, K3s includes the [Local Path Provisioner](https://github.com/rancher/local-path-provisioner), which is a simpler storage solution that creates `hostPath` based volumes. Likewise, the included networking solutions for K3s and RKE2 (Flannel and Canal, respectively) are simpler and more suited for single-node installations.
 
 ### K3s
 ```yaml

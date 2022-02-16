@@ -29,7 +29,7 @@ The following are included by default with K3s:
 * Local path provisioner (CSI)
 
 K3s has been tested with the following add-ons:
-* [KOTS](/docs/add-ons/KOTS)
+* [KOTS](/docs/add-ons/kotsadm)
 * [MinIO](/docs/add-ons/minio)
 * [OpenEBS](/docs/add-ons/openebs)
 * [Velero](/docs/add-ons/velero)
