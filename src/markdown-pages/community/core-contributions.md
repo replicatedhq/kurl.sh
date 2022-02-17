@@ -2,7 +2,7 @@
 path: "/docs/community/core-contributions"
 date: "2019-10-15"
 linktitle: "Core Contributions"
-weight: 61
+weight: 51
 title: "Core Contributions"
 ---
 

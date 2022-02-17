@@ -1,7 +1,7 @@
 ---
 path: "/docs/create-installer/host-preflights/"
 date: "2022-01-13"
-weight: 24
+weight: 20
 linktitle: "Customizing Host Preflights"
 title: "Customizing Host Preflights"
 ---

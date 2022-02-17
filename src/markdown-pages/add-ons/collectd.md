@@ -2,7 +2,7 @@
 path: "/docs/add-ons/collectd"
 date: "2020-11-02"
 linktitle: "Collectd Add-On"
-weight: 31
+weight: 32
 title: "Collectd Add-On"
 addOn: "collectd"
 ---

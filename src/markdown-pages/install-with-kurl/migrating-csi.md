@@ -1,7 +1,7 @@
 ---
 path: "/docs/install-with-kurl/migrating-csi"
 date: "2021-06-30"
-weight: 21
+weight: 22
 linktitle: "Migrating CSI"
 title: "Migrating to Change kURL CSI Add-Ons"
 ---

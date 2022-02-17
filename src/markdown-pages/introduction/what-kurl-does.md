@@ -1,7 +1,7 @@
 ---
 path: "/docs/introduction/what-kurl-does"
 date: "2019-12-19"
-weight: 2
+weight: 02
 linktitle: "What kURL Does"
 title: "What kURL Does"
 ---

@@ -1,7 +1,7 @@
 ---
 path: "/docs/install-with-kurl/public-cloud-load-balancing"
 date: "2021-03-18"
-weight: 14
+weight: 15
 linktitle: "Public Cloud Load Balancing"
 title: "Public Cloud Load Balancing"
 ---

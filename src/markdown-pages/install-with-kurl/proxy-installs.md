@@ -1,7 +1,7 @@
 ---
 path: "/docs/install-with-kurl/proxy-installs"
 date: "2020-06-01"
-weight: 17
+weight: 16
 linktitle: "Proxy Installs"
 title: "Proxy Installs"
 ---
