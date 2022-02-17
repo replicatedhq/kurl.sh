@@ -48,6 +48,4 @@ spec:
     isLocalPVEnabled: true
     localPVStorageClassName: "default"
     isCstorEnabled: false
-  velero:
-    version: 1.7.x
 ```
