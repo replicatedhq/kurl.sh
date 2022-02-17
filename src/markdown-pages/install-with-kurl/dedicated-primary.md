@@ -1,7 +1,7 @@
 ---
 path: "/docs/install-with-kurl/dedicated-primary"
 date: "2021-05-14"
-weight: 19
+weight: 20
 linktitle: "Dedicated Primary"
 title: "Dedicated Primary"
 ---

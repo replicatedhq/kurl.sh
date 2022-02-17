@@ -2,7 +2,7 @@
 path: "/docs/add-ons/antrea"
 date: "2020-05-13"
 linktitle: "Antrea Add-On"
-weight: 29
+weight: 30
 title: "Antrea Add-On"
 addOn: "antrea"
 ---

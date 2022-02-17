@@ -1,7 +1,7 @@
 ---
 path: "/docs/create-installer/host-preflights/tcp-load-balancer"
 date: "2022-01-13"
-weight: 36
+weight: 30
 linktitle: "TCP Load Balancer"
 title: "TCP Load Balancer"
 ---

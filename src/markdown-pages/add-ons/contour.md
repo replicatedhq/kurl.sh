@@ -2,7 +2,7 @@
 path: "/docs/add-ons/contour"
 date: "2021-01-20"
 linktitle: "Contour Add-On"
-weight: 32
+weight: 34
 title: "Contour Add-On"
 addOn: "contour"
 ---
