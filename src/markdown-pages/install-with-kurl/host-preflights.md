@@ -1,7 +1,7 @@
 ---
 path: "/docs/install-with-kurl/host-preflights"
 date: "2021-04-05"
-weight: 18
+weight: 12
 linktitle: "Host Preflights"
 title: "Host Preflights"
 ---

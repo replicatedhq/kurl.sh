@@ -1,7 +1,7 @@
 ---
 path: "/docs/install-with-kurl/system-requirements"
 date: "2019-12-19"
-weight: 16
+weight: 11
 linktitle: "System Requirements"
 title: "System Requirements"
 ---

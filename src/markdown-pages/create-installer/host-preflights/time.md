@@ -1,7 +1,7 @@
 ---
 path: "/docs/create-installer/host-preflights/time"
 date: "2022-01-13"
-weight: 27
+weight: 32
 linktitle: "Time"
 title: "Time"
 ---
