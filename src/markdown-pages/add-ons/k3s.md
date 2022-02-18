@@ -7,7 +7,7 @@ title: "K3s Add-On (Beta)"
 addOn: "k3s"
 ---
 
-[K3s](https://k3s.io/) is a lightweight Kubernetes distribution built by Rancher for the Internet of Things (IoT) and edge computing.
+[K3s](https://k3s.io/) is a lightweight Kubernetes distribution built by Rancher for Internet of Things (IoT) and edge computing.
 
 Rather than using the [Kubernetes add-on](/docs/add-ons/kubernetes), which uses `kubeadm` to install Kubernetes, the K3s add-on can be used to install the K3s distribution. This distribution includes Kubernetes as well as several add-ons for networking, ingress, and more.
 
@@ -38,7 +38,7 @@ K3s has been tested with the following add-ons:
 ## Limitations
 Because K3s support is currently in beta, there are several limitations:
 * Joining additional nodes is not supported.
-* Upgrading from one version of K3s to another if not supported.
+* Upgrading from one version of K3s to another is not supported.
 * Selecting a CRI or CNI provider is not supported because containerd and Flannel are already included.
 * The NodePort range in K3s is 30000-32767, so `kotsadm.uiBindPort` must be set to something in this range.
 * While Rook and OpenEBS have been tested, they are not recommended.
