@@ -7,7 +7,7 @@ title: "Advanced Options"
 addOn: "kubernetes"
 ---
 
-The Kubernetes Installers (kURL) reference documentation. Each add-on is listed with all supported keys, and the default for the key, if not present.
+The Kubernetes installer (kURL) reference documentation. Each add-on is listed with all supported keys, and the default for the key, if not present.
 
 ## Application Vendor YAML Options and Flags
 
