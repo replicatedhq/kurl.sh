@@ -7,13 +7,13 @@ title: "K3s Add-On (Beta)"
 addOn: "k3s"
 ---
 
-[K3s](https://k3s.io/) is a lightweight Kubernetes distribution built by Rancher for IoT and edge computing.
+[K3s](https://k3s.io/) is a lightweight Kubernetes distribution built by Rancher for the Internet of Things (IoT) and edge computing.
 
-Rather than using the [Kubernetes add-on](/docs/add-ons/kubernetes), which uses kubeadm to install Kubernetes, the K3s add-on can be used to install the K3s distribution. This distribution includes Kubernetes as well as several add-ons for networking, ingress, and more.
+Rather than using the [Kubernetes add-on](/docs/add-ons/kubernetes), which uses `kubeadm` to install Kubernetes, the K3s add-on can be used to install the K3s distribution. This distribution includes Kubernetes as well as several add-ons for networking, ingress, and more.
 
-There are several reasons to use K3s instead of Kubernetes (Kubeadm). The main reason is that K3s is simpler than upstream Kubernetes, so it is easier to support. K3s is packaged as a single binary that is less than 50MB. It reduces the dependencies and steps needed to install, run, and update Kubernetes, as compared to kubeadm. In addition, K3s has lower [CPU and RAM requirements](https://rancher.com/docs/k3s/latest/en/installation/installation-requirements/#hardware).
+There are several reasons to use K3s instead of Kubernetes (`kubeadm`). The main reason is that K3s is simpler than upstream Kubernetes, so it is easier to support. K3s is packaged as a single binary that is less than 50MB. It reduces the dependencies and steps needed to install, run, and update Kubernetes, as compared to `kubeadm`. In addition, K3s has lower [CPU and RAM requirements](https://rancher.com/docs/k3s/latest/en/installation/installation-requirements/#hardware).
 
-By default, K3s uses sqlite3 as the storage backend instead of etcd.
+By default, K3s uses `sqlite3` as the storage backend instead of etcd.
 
 ## Operating System Compatibility
 The K3s add-on is currently supported on CentOS and Ubuntu.
@@ -36,10 +36,10 @@ K3s has been tested with the following add-ons:
 * [Rook](/docs/add-ons/rook)
 
 ## Limitations
-Because K3s support is currently in beta, there are several limitations. The following are not currently supported.
-* Joining additional nodes.
-* Upgrading from one version of K3s to another.
-* Selecting a CRI or CNI provider (since containerd and Flannel are already included).
+Because K3s support is currently in beta, there are several limitations:
+* Joining additional nodes is not supported.
+* Upgrading from one version of K3s to another if not supported.
+* Selecting a CRI or CNI provider is not supported because containerd and Flannel are already included.
 * The NodePort range in K3s is 30000-32767, so `kotsadm.uiBindPort` must be set to something in this range.
 * While Rook and OpenEBS have been tested, they are not recommended.
 * Due to limitations with Velero and Restic, volumes provisioned using the default Local Path Provisioner (or volumes based on host paths) cannot be snapshotted.
