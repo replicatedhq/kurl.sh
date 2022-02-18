@@ -32,7 +32,6 @@ K3s has been tested with the following add-ons:
 * [KOTS](/docs/add-ons/kotsadm)
 * [MinIO](/docs/add-ons/minio)
 * [OpenEBS](/docs/add-ons/openebs)
-* [Velero](/docs/add-ons/velero)
 * [Registry](/docs/add-ons/registry)
 * [Rook](/docs/add-ons/rook)
 
