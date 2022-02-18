@@ -1,16 +1,20 @@
 ---
 path: "/docs/introduction/"
 date: "2019-10-15"
-weight: 0
+weight: 01
 linktitle: "Overview"
 title: "Introduction to kURL"
 ---
 
 The Kubernetes URL Creator is a framework for creating custom Kubernetes distributions. These distros can then be shared as URLs (to install via `curl` and `bash`) or as downloadable packages (to install in airgapped environments). kURL relies on [kubeadm](https://kubernetes.io/docs/reference/setup-tools/kubeadm/kubeadm/) to bring up the Kubernetes control plane, but there are a variety of tasks a system administrator must perform both before and after running kubeadm init in order to have a production-ready Kubernetes cluster. kURL is open source, with a growing list of [add-on components](/add-ons) (including Rook, Weave, Contour, Prometheus, and more) which is easily extensible by [contributing additional add-ons](/docs/add-on-author/).
 
+As an alternative to using `kubeadm`, kURL has beta support for [K3s](/add-ons/k3s) and [RKE2](/add-ons/rke2), Kubernetes distributions from Rancher.
+
 ## kURL vs. Standard Distros  
 ### Production Grade Upstream Kubernetes
 At its core, kURL is based on [kubeadm](https://kubernetes.io/docs/reference/setup-tools/kubeadm/kubeadm/), the cluster management tool built by the core Kubernetes team and owned by sig-cluster-lifecycle. This means it benefits from the latest Kubernetes updates, patches and security hot-fixes as they are shipped by Kubernetes maintainers. kURL is a framework for declaring the layers that exist before and after the services that kubeadm provides.
+
+kURL can also leverage the K3s and RKE2 distributions instead of `kubeadm`. kURL support of these distributions is currently in beta. Several components are already prepackaged with these distributions, such as for networking, storage, and ingress, but other kURL add-ons can still be included.
 
 ### Flexible
 Compared to standard Kubernetes distributions, it's worth emphasizing that kURL is actually a flexible Kubernetes distribution creator. Most distributions make decisions about CRI, CNI, Storage, Ingress, etc. out of the box. Comparatively, [kurl.sh](https://kurl.sh) allows you to choose your own providers and versions of these components.

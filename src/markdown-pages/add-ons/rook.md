@@ -2,7 +2,7 @@
 path: "/docs/add-ons/rook"
 date: "2020-04-01"
 linktitle: "Rook Add-On"
-weight: 44
+weight: 52
 title: "Rook Add-On"
 addOn: "rook"
 ---
