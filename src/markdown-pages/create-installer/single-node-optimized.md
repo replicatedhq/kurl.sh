@@ -1,6 +1,6 @@
 ---
 path: "/docs/create-installer/single-node-optimized"
-date: "2022-02-11"
+date: "2022-02-18"
 weight: 21
 linktitle: "Single-Node Optimized (Beta)"
 title: "Single-Node Optimized (Beta)"

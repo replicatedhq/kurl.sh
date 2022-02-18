@@ -1,6 +1,6 @@
 ---
 path: "/docs/add-ons/kubernetes"
-date: "2021-02-11"
+date: "2021-02-18"
 linktitle: "Kubernetes (kubeadm) Add-On"
 weight: 43
 title: "Kubernetes (kubeadm) Add-On"

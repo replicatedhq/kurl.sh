@@ -1,6 +1,6 @@
 ---
 path: "/docs/add-ons/k3s"
-date: "2021-02-11"
+date: "2021-02-18"
 linktitle: "K3s Add-On (Beta)"
 weight: 41
 title: "K3s Add-On (Beta)"
