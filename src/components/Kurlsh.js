@@ -1130,7 +1130,7 @@ class Kurlsh extends React.Component {
                       />
                       <span className="icon u-rke2 u-marginBottom--small" />
                       <div className="flex flex-column u-marginLeft--15 u-marginTop--small">
-                        <div className="FormLabel "> RKE2 </div>
+                        <div className="FormLabel "> RKE2 (Beta) </div>
                         <div className={`SelectVersion flex flex1 ${!this.state.isAddOnChecked["rke2"] && "disabled"}`} style={{ width: "200px" }}>
                           <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> {!this.state.isAddOnChecked["rke2"] ? "Version None" : "Version"} </span>
                           <Select
@@ -1160,7 +1160,7 @@ class Kurlsh extends React.Component {
                       />
                       <span className="icon u-k3s u-marginBottom--small" />
                       <div className="flex flex-column u-marginLeft--15 u-marginTop--small">
-                        <div className="FormLabel "> K3s </div>
+                        <div className="FormLabel "> K3s (Beta) </div>
                         <div className={`SelectVersion flex flex1 ${!this.state.isAddOnChecked["k3s"] && "disabled"}`} style={{ width: "200px" }}>
                           <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> {!this.state.isAddOnChecked["k3s"] ? "Version None" : "Version"} </span>
                           <Select
