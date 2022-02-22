@@ -1091,7 +1091,7 @@ class Kurlsh extends React.Component {
                         checked={selectedVersions.kubernetes.version !== "None"}
                         readOnly
                       />
-                      <span className="icon u-kubernetes u-marginBottom--small" />
+                      <span className="icon u-kubeadm u-marginBottom--small" />
                       <div className="flex flex-column u-marginLeft--15 u-marginTop--small">
                         <div className="FormLabel "> Kubernetes (Kubeadm) </div>
                         <div className={`SelectVersion flex flex1 ${!this.state.isAddOnChecked["kubernetes"] && "disabled"}`} style={{ width: "200px" }}>
@@ -1128,7 +1128,7 @@ class Kurlsh extends React.Component {
                         checked={selectedVersions.rke2.version !== "None"}
                         readOnly
                       />
-                      <span className="icon u-kubernetes u-marginBottom--small" />
+                      <span className="icon u-rke2 u-marginBottom--small" />
                       <div className="flex flex-column u-marginLeft--15 u-marginTop--small">
                         <div className="FormLabel "> RKE2 </div>
                         <div className={`SelectVersion flex flex1 ${!this.state.isAddOnChecked["rke2"] && "disabled"}`} style={{ width: "200px" }}>
@@ -1158,7 +1158,7 @@ class Kurlsh extends React.Component {
                         checked={selectedVersions.k3s.version !== "None"}
                         readOnly
                       />
-                      <span className="icon u-kubernetes u-marginBottom--small" />
+                      <span className="icon u-k3s u-marginBottom--small" />
                       <div className="flex flex-column u-marginLeft--15 u-marginTop--small">
                         <div className="FormLabel "> K3s </div>
                         <div className={`SelectVersion flex flex1 ${!this.state.isAddOnChecked["k3s"] && "disabled"}`} style={{ width: "200px" }}>
