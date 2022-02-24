@@ -7,7 +7,7 @@ title: "RKE2 Add-On (Beta)"
 addOn: "rke2"
 ---
 
-[RKE2](https://rke2.io/), also known as RKE Government, is a full-conformant Kubernetes distribution from Rancher.
+[RKE2](https://rke2.io/), also known as RKE Government, is a fully-conformant Kubernetes distribution from Rancher.
 
 Rather than using the [Kubernetes add-on](/docs/add-ons/kubernetes), which uses `kubeadm` to install Kubernetes, the RKE2 add-on can be used to install the RKE2 distribution. This distribution includes Kubernetes as well as several add-ons for networking, ingress, and more.
 
