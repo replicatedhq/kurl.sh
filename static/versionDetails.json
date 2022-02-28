@@ -628,9 +628,9 @@
   ],
   "longhorn": [
     {
-      "flag": "version",
-      "description": "The version of Longhorn to be installed.",
-      "type": "string"
+      "flag": "storageOverProvisioningPercentage",
+      "description": "Determines the amount of PVC capacity that Longhorn will allow to be provisioned based on the real, available disk space. Default is 200 See <a href=\"https://longhorn.io/docs/1.2.3/references/settings/#storage-over-provisioning-percentage\">Longhorn Documentation</a> for a thorough explanation. ",
+      "type": "number"
     },
     {
       "flag": "uiBindPort",
@@ -641,7 +641,12 @@
       "flag": "uiReplicaCount",
       "description": "The number of replicas created for the Longhorn UI Deployment. Default is 0.",
       "type": "number"
-    }
+    },
+    {
+        "flag": "version",
+        "description": "The version of Longhorn to be installed.",
+        "type": "string"
+      }
   ],
   "ufw": [
     {

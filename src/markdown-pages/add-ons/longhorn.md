@@ -18,9 +18,10 @@ For production installs, an SSD should be mounted at `/var/lib/longhorn`.
 ```yaml
 spec:
   longhorn:
-    version: latest
+    storageOverProvisioningPercentage: 200
     uiBindPort: 30880
     uiReplicaCount: 0
+    version: latest
 ```
 
 flags-table
