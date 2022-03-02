@@ -1,16 +1,16 @@
 ---
 path: "/docs/create-installer/host-preflights/filesystem-performance"
-date: "2022-02-17"
+date: "2022-03-02"
 weight: 29
 linktitle: "Filesystem Performance"
 title: "Filesystem Performance"
 ---
  
-The filesystem performance host preflight check is used to .
+The filesystem performance host preflight check is used to benchmark a filesystem's latency.
 
 ## Filesystem Performance Collector
 
-The `filesystemPerformance` collector will collect information about .
+The `filesystemPerformance` collector will collect information about a filesystem's latency.
 
 ### Parameters
 

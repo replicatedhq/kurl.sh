@@ -1,7 +1,7 @@
 ---
 path: "/docs/create-installer/host-preflights/tcp-connect"
 date: "2022-01-13"
-weight: 29
+weight: 30
 linktitle: "TCP Connect"
 title: "TCP Connect"
 ---
