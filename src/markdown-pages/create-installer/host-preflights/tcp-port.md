@@ -1,7 +1,7 @@
 ---
 path: "/docs/create-installer/host-preflights/tcp-port-status"
 date: "2022-01-13"
-weight: 31
+weight: 32
 linktitle: "TCP Port Status"
 title: "TCP Port Status"
 ---
