@@ -6,11 +6,12 @@ linktitle: "Filesystem Performance"
 title: "Filesystem Performance"
 ---
  
-The filesystem performance host preflight check is used to benchmark a filesystem's latency.
+The filesystem performance host preflight check is used to benchmark a filesystem's write latency.
 
 ## Filesystem Performance Collector
 
-The `filesystemPerformance` collector will collect information about a filesystem's latency.
+The `filesystemPerformance` collector benchmarks sequential write latency on a single file.
+The optional background IOPS feature attempts to mimic real-world conditions by running read and write workloads prior to and during benchmark execution.
 
 ### Parameters
 
