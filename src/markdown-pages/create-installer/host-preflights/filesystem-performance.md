@@ -19,62 +19,62 @@ In addition to the [shared collector properties](https://troubleshoot.sh/docs/co
 
 #### `timeout`
 
-Total timeout, including background IOPS setup and warmup if enabled.
+Specifies the total timeout, including background IOPS setup and warmup if enabled.
 
 #### `directory`
 
-The directory where the benchmark will create files.
+Specifies the directory where the benchmark will create files.
 
 #### `fileSize`
 
-The size of the file used in the benchmark.
+Specifies the size of the file used in the benchmark.
 The number of IO operations for the benchmark will be `fileSize` / `operationSizeBytes`.
-Accepts valid Kubernetes resource units such as Mi.
+This accepts valid Kubernetes resource units, such as Mi.
 
 #### `operationSizeBytes`
 
-The size of each write operation performed while benchmarking.
+Specifies the size of each write operation performed while benchmarking.
 This does not apply to the background IOPS feature if enabled, since those must be fixed at 4096.
 
 #### `sync`
 
-Whether to call sync on the file after each write. Does not apply to background IOPS task.
+Specifies whether to call sync on the file after each write. This does not apply to background IOPS task.
 
 #### `datasync`
 
-Whether to call datasync on the file after each write.
-Skipped if `sync` is also true.
-Does not apply to background IOPS task.
+Specifies whether to call datasync on the file after each write.
+This is skipped if `sync` is also true.
+It does not apply to background IOPS task.
 
 #### `enableBackgroundIOPS`
 
-Enable the background IOPS feature.
+Enables the background IOPS feature.
 
 #### `backgroundIOPSWarmupSeconds`
 
-How long to run the background IOPS read and write workloads prior to starting the benchmarks.
+Specifies how long to run the background IOPS read and write workloads prior to starting the benchmarks.
 
 #### `backgroundWriteIOPS`
 
-The target write IOPS to run while benchmarking.
+Specifies the target write IOPS to run while benchmarking.
 This is a limit and there is no guarantee it will be reached.
 This is the total IOPS for all background write jobs.
 
 #### `backgroundReadIOPS`
 
-The target read IOPS to run while benchmarking.
+Specifies the target read IOPS to run while benchmarking.
 This is a limit and there is no guarantee it will be reached.
 This is the total IOPS for all background read jobs.
 
 #### `backgroundWriteIOPSJobs`
 
-Number of threads to use for background write IOPS.
+Specifies the number of threads to use for background write IOPS.
 This should be set high enough to reach the target specified in `backgroundWriteIOPS`.
 For example, if `backgroundWriteIOPS` is 100 and write latency is 10ms, then a single job would barely be able to reach 100 IOPS, so this should be at least 2.
 
 #### `backgroundReadIOPSJobs`
 
-Number of threads to use for background read IOPS.
+Specifies the number of threads to use for background read IOPS.
 This should be set high enough to reach the target specified in `backgroundReadIOPS`.
 
 ## Filesystem Performance Analyzer
