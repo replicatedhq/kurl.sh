@@ -28,7 +28,7 @@ The directory where the benchmark will create files.
 #### `fileSize`
 
 The size of the file used in the benchmark.
-The number of IO operations for the benchmark will be FileSize / OperationSizeBytes.
+The number of IO operations for the benchmark will be `fileSize` / `operationSizeBytes`.
 Accepts valid Kubernetes resource units such as Mi.
 
 #### `operationSizeBytes`
@@ -43,7 +43,7 @@ Whether to call sync on the file after each write. Does not apply to background 
 #### `datasync`
 
 Whether to call datasync on the file after each write.
-Skipped if Sync is also true.
+Skipped if `sync` is also true.
 Does not apply to background IOPS task.
 
 #### `enableBackgroundIOPS`
@@ -69,13 +69,13 @@ This is the total IOPS for all background read jobs.
 #### `backgroundWriteIOPSJobs`
 
 Number of threads to use for background write IOPS.
-This should be set high enough to reach the target specified in BackgroundWriteIOPS.
-Example: If BackgroundWriteIOPS is 100 and write latency is 10ms then a single job would barely be able to reach 100 IOPS so this should be at least 2.
+This should be set high enough to reach the target specified in `backgroundWriteIOPS`.
+Example: If `backgroundWriteIOPS` is 100 and write latency is 10ms, then a single job would barely be able to reach 100 IOPS, so this should be at least 2.
 
 #### `backgroundReadIOPSJobs`
 
 Number of threads to use for background read IOPS.
-This should be set high enough to reach the target specified in BackgrounReadIOPS.
+This should be set high enough to reach the target specified in `backgroundReadIOPS`.
 
 ## Filesystem Performance Analyzer
 
