@@ -1,7 +1,7 @@
 ---
 path: "/docs/create-installer/host-preflights/memory"
 date: "2022-01-13"
-weight: 26
+weight: 27
 linktitle: "Memory"
 title: "Memory"
 ---
