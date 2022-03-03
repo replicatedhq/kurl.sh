@@ -70,7 +70,7 @@ This is the total IOPS for all background read jobs.
 
 Number of threads to use for background write IOPS.
 This should be set high enough to reach the target specified in `backgroundWriteIOPS`.
-Example: If `backgroundWriteIOPS` is 100 and write latency is 10ms, then a single job would barely be able to reach 100 IOPS, so this should be at least 2.
+For example, if `backgroundWriteIOPS` is 100 and write latency is 10ms, then a single job would barely be able to reach 100 IOPS, so this should be at least 2.
 
 #### `backgroundReadIOPSJobs`
 
@@ -81,7 +81,7 @@ This should be set high enough to reach the target specified in `backgroundReadI
 
 The `filesystemPerformance` analyzer supports multiple outcomes by validating the filesystem latency results. For example:
 
-`p99 < 10ms`: The p99 write latency is less than 10ms.
+`p99 < 10ms`: The p99 write latency is less than 10ms.<br/>
 `p90 > 20ms`: The p90 write latency is greater than 20ms.
 
 ## Example
