@@ -27,7 +27,7 @@ kURL will set up a Kubernetes secret called `kotsadm-tls`.  The secret stores th
 
 If you've already gone through the setup process once, and you want to upload new TLS certificates, you must run this command to restore the ability to upload new TLS certificates:
 
-`kubectl -n default annotate secret kotsadm-tls acceptAnonymousUploads=1`
+`kubectl -n default annotate secret kotsadm-tls acceptAnonymousUploads=1 --overwrite`
 
 <span style="color:red">**Warning: adding this annotation will temporarily create a vulnerability for an attacker to maliciously upload TLS certificates.  Once TLS certificates have been uploaded then the vulnerability is closed again.**</span>
 
