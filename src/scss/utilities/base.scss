@@ -115,6 +115,24 @@ body a {
   z-index: 100;
   padding: 14px 30px;
 
+  &.deprecated {
+    background-color: #FFF1DA;
+    span {
+      color: #4A4A4A;
+      width: 100%;
+      text-align: center;
+      margin: 5px auto;
+      font-size: 14px;
+      font-weight: 400;
+    }
+    a {
+      color: #326DE6;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+  }
+
   .repl-logo-white {
     width: 83px;
     height: 20px;
@@ -157,6 +175,24 @@ body a {
   left: 0;
   z-index: 100;
   padding: 10px 15px;
+
+  &.deprecated {
+    background-color: #FFF1DA;
+    span {
+      color: #4A4A4A;
+      width: 100%;
+      text-align: center;
+      margin: 5px auto;
+      font-size: 14px;
+      font-weight: 400;
+    }
+    a {
+      color: #326DE6;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+  }
 
   .repl-logo-white {
     width: 83px;

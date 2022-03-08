@@ -75,16 +75,21 @@ class ReleaseNotesLayout extends Component {
       `}
         render={data => (
           <div className="flex-column flex1">
-            {!isMobile ?
-              <div className="suite-banner">
+            {!isMobile ? [
+              <div className="suite-banner" key="suite-banner">
                 <div className="flex flex-row justifyContent--spaceBetween">
                   <div className="repl-logo-white"></div>
                   <div>
                     <a href="https://blog.replicated.com/kurl-with-replicated-kots/" target="_blank" rel="noopener noreferrer">Learn more about how kURL works with Replicated KOTS<span className="banner-arrow"></span></a>
                   </div>
                 </div>
-              </div>
-              :
+              </div>,
+              <div className="suite-banner deprecated" key="deprecated-banner">
+                <div className="flex flex-row u-textAlign--center">
+                  <span>As of March 8, 2022, the latest kURL release notes for Replicated vendors are available at <a href="https://docs.replicated.com/release-notes/rn-kubernetes-installer" target="_blank" rel="noopener noreferrer">Kubernetes Installer Release Notes</a> on the Replicated documentation site. Open source users should see the <a href="https://github.com/replicatedhq/kURL/releases" target="_blank" rel="noopener noreferrer">kURL changelog</a>.</span>
+                </div>
+              </div>]
+              : [
               <div className="mobile-suite-banner">
                 <div className="flex flex-row justifyContent--spaceBetween">
                   <div className="flex flex1 alignItems--center">
@@ -94,7 +99,12 @@ class ReleaseNotesLayout extends Component {
                     <a href="https://blog.replicated.com/kurl-with-replicated-kots/" target="_blank" rel="noopener noreferrer">Learn more about how kURL works with Replicated KOTS<span className="banner-arrow"></span></a>
                   </div>
                 </div>
-              </div>
+              </div>,
+              <div className="mobile-suite-banner deprecated" key="deprecated-banner">
+                <div className="flex flex-row u-textAlign--center">
+                  <span>As of March 8, 2022, the <a href="/">kots.io</a> documentation is no longer maintained on this site. For up-to-date documentation, see <a href="https://docs.replicated.com/" target="_blank" rel="noopener noreferrer">docs.replicated.com</a>.</span>
+                </div>
+              </div>]
             }
             <Helmet>
               <meta charSet="utf-8" />
