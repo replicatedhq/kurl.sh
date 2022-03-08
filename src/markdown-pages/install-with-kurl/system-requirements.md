@@ -43,8 +43,9 @@ IP addresses for these services can be found in [replicatedhq/ips](https://githu
 | Host          | Description                                                                                                                                                                                                                                                                                      |
 |---------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | amazonaws.com | tar.gz packages are downloaded from Amazon S3 during embedded cluster installations. The IP ranges to allowlist for accessing these can be scraped dynamically from the [AWS IP Address](https://docs.aws.amazon.com/general/latest/gr/aws-ip-ranges.html#aws-ip-download) Ranges documentation. |
-| k8s.kurl.sh   | Kubernetes cluster installation scripts and artifacts are served from [kurl.sh](https://kurl.sh). Bash scripts and binary executables are served from kurl.sh. This domain is owned by Replicated, Inc which is headquartered in Los Angeles, CA.                                                |
 | k8s.gcr.io   | Kubernetes component images are downloaded from the Kubernetes registry on [GCR](https://cloud.google.com/container-registry). These components include the following: `kubeadm, kube-controller-manager, kube-scheduler, kube-proxy, pause, etcd, and coredns`. For more details on these Kubernetes tools, please visit the [Kubernetes documentation](https://kubernetes.io/docs/home/). |
+| k8s.kurl.sh   | Kubernetes cluster installation scripts and artifacts are served from [kurl.sh](https://kurl.sh). Bash scripts and binary executables are served from kurl.sh. This domain is owned by Replicated, Inc which is headquartered in Los Angeles, CA.                                                |
+
 
 No outbound internet access is required for airgapped installations.
 ### Host Firewall Rules
