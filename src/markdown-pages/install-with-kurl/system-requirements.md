@@ -46,7 +46,6 @@ IP addresses for these services can be found in [replicatedhq/ips](https://githu
 | k8s.gcr.io   | Images for the Kubernetes control plane are downloaded from the [Google Container Registry](https://cloud.google.com/container-registry) repository used to publish official container images for Kubernetes. For more information on the Kubernetes control plane components, see the [Kubernetes documentation](https://kubernetes.io/docs/concepts/overview/components/#control-plane-components). |
 | k8s.kurl.sh   | Kubernetes cluster installation scripts and artifacts are served from [kurl.sh](https://kurl.sh). Bash scripts and binary executables are served from kurl.sh. This domain is owned by Replicated, Inc which is headquartered in Los Angeles, CA.                                                |
 
-
 No outbound internet access is required for airgapped installations.
 ### Host Firewall Rules
 
