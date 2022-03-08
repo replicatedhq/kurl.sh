@@ -86,7 +86,7 @@ class ReleaseNotesLayout extends Component {
               </div>,
               <div className="suite-banner deprecated" key="deprecated-banner">
                 <div className="flex flex-row u-textAlign--center">
-                  <span>Beginning on March 8, 2022, the latest kURL release notes for Replicated vendors are available at <a href="https://docs.replicated.com/release-notes/rn-kubernetes-installer" target="_blank" rel="noopener noreferrer">Kubernetes Installer Release Notes</a> on the Replicated documentation site. Open source users should see the <a href="https://github.com/replicatedhq/kURL/releases" target="_blank" rel="noopener noreferrer">kURL changelog</a>.</span>
+                  <span>As of March 8, 2022, the latest kURL release notes for Replicated vendors are available at <a href="https://docs.replicated.com/release-notes/rn-kubernetes-installer" target="_blank" rel="noopener noreferrer">Kubernetes Installer Release Notes</a> on the Replicated documentation site. Open source users should see the <a href="https://github.com/replicatedhq/kURL/releases" target="_blank" rel="noopener noreferrer">kURL changelog</a>.</span>
                 </div>
               </div>]
               : [
@@ -102,7 +102,7 @@ class ReleaseNotesLayout extends Component {
               </div>,
               <div className="mobile-suite-banner deprecated" key="deprecated-banner">
                 <div className="flex flex-row u-textAlign--center">
-                  <span>Beginning on March 8, 2022, the <a href="/">kots.io</a> documentation is no longer maintained on this site. For up-to-date documentation, see <a href="https://docs.replicated.com/" target="_blank" rel="noopener noreferrer">docs.replicated.com</a>.</span>
+                  <span>As of March 8, 2022, the <a href="/">kots.io</a> documentation is no longer maintained on this site. For up-to-date documentation, see <a href="https://docs.replicated.com/" target="_blank" rel="noopener noreferrer">docs.replicated.com</a>.</span>
                 </div>
               </div>]
             }
