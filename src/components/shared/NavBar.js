@@ -35,7 +35,7 @@ export class NavBar extends React.Component {
       { linkTo: "/", label: "Kurl" },
       { linkTo: "/add-ons", label: "Supported add-ons" },
       { linkTo: "/docs/introduction/", label: "Documentation" },
-      { linkTo: "/release-notes", label: "Release Notes" },
+      { href: "https://github.com/replicatedhq/kURL/releases", label: "kURL Changelog" },
     ];
 
     return (
@@ -68,7 +68,7 @@ export class NavBar extends React.Component {
                         <Link to="/docs/introduction/" className="u-fontWeight--medium  u-color--royalBlue u-lineHeight--normal u-fontSize--normal u-textDecoration--underlineOnHover"> Docs </Link>
                       </div>
                       <div className="flex-column flex-auto u-marginRight--20 justifyContent--center">
-                        <Link to="/release-notes" className="u-fontWeight--medium  u-color--royalBlue u-lineHeight--normal u-fontSize--normal u-textDecoration--underlineOnHover"> Release Notes </Link>
+                        <a href="https://github.com/replicatedhq/kURL/releases" target="_blank" rel="noopener noreferrer" className="u-fontWeight--medium  u-color--royalBlue u-lineHeight--normal u-fontSize--normal u-textDecoration--underlineOnHover"> kURL Changelog </a>
                       </div>
                     </div>
                     <div className="flex flex-auto">
