@@ -174,3 +174,18 @@ Auto resource scaling helps to avoid issues like this by scaling this subset of 
 resources to the specified replica count without requiring that all nodes join the cluster.
 
 Auto resource scaling is available in v0.13.0 and later.
+
+### Pod Image Overrides
+
+EKCO adds an admission controller which can be configured to override container images in Pods.
+
+A list can be specified in the `podImageOverrides` property as an array of strings in the format `[original]=[overridden]`.
+
+For example:
+
+```yaml
+ekco:
+  version: latest
+  podImageOverrides:
+    - projectcontour/contour:v1.18.0=myregistry.io/contour:v1.18.0-fips
+```
