@@ -7,7 +7,7 @@ title: "KOTS Add-On"
 addOn: "kotsadm"
 ---
 
-The [KOTS add-on](https://kots.io/kotsadm/installing/installing-a-kots-app/) installs an admin console for managing KOTS apps.
+The [KOTS add-on](https://docs.replicated.com/enterprise/installing-overview) installs an admin console for managing KOTS apps.
 
 By default, this add-on requires an S3-compatible object store be available in the cluster.
 Both the Rook and the MinIO add-ons satisfy the object store requirement.
