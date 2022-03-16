@@ -21,6 +21,8 @@ For example, the following command installs kURL with the `force-reapply-addons`
 curl https://kurl.sh/latest | sudo bash -s force-reapply-addons
 ```
 
+For more information about installing with kURL with advanced options, see [Install with kURL](https://kurl.sh/docs/install-with-kurl/).
+
 The install scripts are idempotent. Re-run the scripts with different flags to change the behavior of the installer.
 
 ## Reference
