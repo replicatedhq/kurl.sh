@@ -128,36 +128,23 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
     })
   });
 
+  createRedirect({
+    isPermanant: true,
+    redirectInBrowser: true,
+    fromPath: `/release-notes/`,
+    toPath: `https://docs.replicated.com/release-notes/rn-kubernetes-installer`,
+  })
+  
   releaseNotesEdges.forEach(({ node }) => {
     const { version } = node.frontmatter;
-    const { html } = node;
-    createPage({
-      path: `/release-notes/${version}`,
-      title: `Release ${version}`,
-      linktitle: version,
-      html,
-      component: releaseNotesTemplate,
-      context: {
-        version,
-      },
+    const versionForURL = version.replace(/\./g, "");
+    createRedirect({
+      isPermanant: true,
+      redirectInBrowser: true,
+      fromPath: `/release-notes/${version}`,
+      toPath: `https://docs.replicated.com/release-notes/rn-kubernetes-installer#release-${versionForURL}`,
     })
   });
-
-  // Create release-notes pages
-  const releaseNotesPerPage = 10
-  const releaseNotesNumPages = Math.ceil(releaseNotesEdges.length / releaseNotesPerPage)
-  Array.from({ length: releaseNotesNumPages }).forEach((_, i) => {
-    createPage({
-      path: i === 0 ? `/release-notes` : `/release-notes/${i + 1}`,
-      component: releaseNotesListTemplate,
-      context: {
-        limit: releaseNotesPerPage,
-        skip: i * releaseNotesPerPage,
-        numPages: releaseNotesNumPages,
-        currentPage: i + 1,
-      },
-    })
-  })
 }
 
 exports.onCreatePage = async ({ page, actions }) => {
