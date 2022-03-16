@@ -131,7 +131,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
   createRedirect({
     isPermanant: true,
     redirectInBrowser: true,
-    fromPath: `/release-notes/`,
+    fromPath: `/release-notes`,
     toPath: `https://docs.replicated.com/release-notes/rn-kubernetes-installer`,
   })
   
