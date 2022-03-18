@@ -6,7 +6,26 @@ linktitle: "Advanced Options"
 title: "Advanced Options"
 ---
 
+## Syntax for Advanced Options
+
+To include advanced options in the kURL installation script, use the following syntax with `-s` before the advanced option flag:
+
+```
+curl https://kurl.sh/latest | sudo bash -s ADVANCED_FLAG
+```
+Where `ADVANCED_FLAG` is the flag for the advanced option.
+
+For example, the following command installs kURL with the `force-reapply-addons` option enabled:
+
+```
+curl https://kurl.sh/latest | sudo bash -s force-reapply-addons
+```
+
+For more information about installing with kURL with advanced options, see [Install with kURL](https://kurl.sh/docs/install-with-kurl/).
+
 The install scripts are idempotent. Re-run the scripts with different flags to change the behavior of the installer.
+
+## Reference
 
 | Flag                             | Usage                                                                                                             |
 | -------------------------------- | ----------------------------------------------------------------------------------------------------------------  |
