@@ -4,7 +4,7 @@ date: "2021-12-14"
 weight: 24
 linktitle: "CIS Compliance"
 title: "CIS Compliance"
-isAlpha: true
+isAlpha: false
 ---
 The kURL installer can be configured to be Center for Internet Security (CIS) compliant. This is an opt-in feature that is configured in the kURL specification by setting the `kurl.cisCompliance` field to `true`.
 
@@ -47,4 +47,4 @@ spec:
 * Ecko is required to use this flag.
 * This flag only works with kubeadmn.
 * If `protectKernelDefaults` is set to `true`, the Kubelet sends errors if the kernel flags are not as expected.
-Typically, the Kubelet attempts to modify kernel flags to match its expectation. If the cisCompliance flag is set to `true`, the kernel_defaults details should be copied. Otherwise, non-standard kernel_default details can block the Kubelet script from initializing, which is difficult to triage because the error messages return limited information.
+Typically, the Kubelet attempts to modify kernel flags to match its expectation. If the `cisCompliance` flag is set to `true`, the kernel default settings should be copied. Otherwise, non-standard kernel default setting can block the Kubelet script from initializing and are difficult to triage because the error messages return limited information.
