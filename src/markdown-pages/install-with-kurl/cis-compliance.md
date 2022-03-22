@@ -61,7 +61,7 @@ spec:
 
 ## Known Limitations
 
-* The Ecko [EKCO add-on](/docs/add-ons/ekco) v0.19.0 and later is required to use this feature.
+* The [EKCO add-on](/docs/add-ons/ekco) v0.19.0 and later is required to use this feature.
 * This feature works with the [Kubernetes (kubeadmn) add-on](https://kurl.sh.docs/add-ons/kubernetes) only.
 * To meet CIS compliance, admin.conf permissions are changed from the default `root:sudo 440` to `root:root 444`.
 * Kubelet no longer attempts to modify non-standard kernel flags. Using non-standard kernel flags can block the Kubelet from initializing and causes the installation to fail.
