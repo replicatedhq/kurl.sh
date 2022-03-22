@@ -14,7 +14,7 @@ For information about known limitations, see [Known Limitations](#known-limitati
 
 For more information about CIS security compliance for Kubernetes, see the [CIS benchmark information](https://www.cisecurity.org/benchmark/kubernetes).
 
-This YAMl file example shows a valid specification for CIS compliance:
+This YAML file example shows a valid specification for CIS compliance:
 
 ```
 apiVersion: cluster.kurl.sh/v1beta1
