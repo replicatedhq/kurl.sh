@@ -22,7 +22,7 @@ The admin.conf file ownership is set to `root:root`.
 
 **Kubelet configuration:**
 
-`--protect-kernel-defaults`is set to `true`.
+`--protect-kernel-defaults` is set to `true`.
 
 ## Example YAML
 
