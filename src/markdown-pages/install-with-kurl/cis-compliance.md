@@ -6,11 +6,25 @@ linktitle: "CIS Compliance"
 title: "CIS Compliance"
 isAlpha: false
 ---
-The kURL installer can be configured to be Center for Internet Security (CIS) compliant. This is an opt-in feature that is configured in the kURL specification by setting the `kurl.cisCompliance` field to `true`.
+The kURL installer can be configured to be Center for Internet Security (CIS) compliant. This is an opt-in feature that is configured in the kURL specification by setting the `kurl.cisCompliance` field to `true`. For information about known limitations, see [Known Limitations](#known-limitations). For more information about CIS security compliance for Kubernetes, see the [CIS benchmark information](https://www.cisecurity.org/benchmark/kubernetes).
 
-For information about known limitations, see [Known Limitations](#known-limitations).
+The following settings are changed when `cisCompliance` is set to `true`:
 
-For more information about CIS security compliance for Kubernetes, see the [CIS benchmark information](https://www.cisecurity.org/benchmark/kubernetes).
+**Primary node configuration:**
+
+The admin.conf file ownership is set to `root:root`.
+
+**API server configuration:**
+
+* `--kubelet-certificate-authority` is set as appropriate.
+* The admission control plugin `PodSecurityPolicy` is enabled.
+* `--insecure-port` is set to `0`.
+
+**Kubelet configuration:**
+
+`--protect-kernel-defaults`is set to `true`.
+
+## Example YAML
 
 This YAML file example shows a valid specification for CIS compliance:
 
