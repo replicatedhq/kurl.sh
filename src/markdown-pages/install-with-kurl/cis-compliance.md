@@ -17,31 +17,29 @@ This YAML file example shows a valid specification for CIS compliance:
 ```
 apiVersion: "cluster.kurl.sh/v1beta1"
 kind: "Installer"
-metadata: 
-  name: "latest"
-spec: 
+metadata:
+ name: "latest"
+spec:
+ kubernetes: 
+   version: "1.23.x"
+ weave:
+   version: "2.6.x"
+ contour:
+   version: "1.20.x"
+ prometheus:
+   version: "0.53.x"
+ registry:
+   version: "2.7.x"
+ containerd:
+   version: "1.4.x"
+ ekco:
+   version: "latest"
+ minio:
+   version: "2020-01-25T02-50-51Z"
+ longhorn:
+   version: "1.2.x"
   kurl:
     cisCompliance: true
-  kotsadm:
-    version: "latest"
-  kubernetes: 
-    version: "1.23.x"
-  weave: 
-    version: "2.6.x"
-  contour: 
-    version: "1.20.x"
-  prometheus: 
-    version: "0.53.x"
-  registry: 
-    version: "2.7.x"
-  containerd: 
-    version: "1.4.x"
-  ekco: 
-    version: "latest"
-  minio: 
-    version: "2020-01-25T02-50-51Z"
-  longhorn: 
-    version: "1.2.x"
 ```
 
 ## Known Limitations
