@@ -15,29 +15,33 @@ For more information about CIS security compliance for Kubernetes, see the [CIS 
 This YAML file example shows a valid specification for CIS compliance:
 
 ```
-apiVersion: cluster.kurl.sh/v1beta1
-kind: Installer
-metadata:
-  name: cisCompliance
-spec:
+apiVersion: "cluster.kurl.sh/v1beta1"
+kind: "Installer"
+metadata: 
+  name: "latest"
+spec: 
   kurl:
     cisCompliance: true
-  kubernetes:
-    version: 1.19.15
-  containerd:
-    version: 1.4.6
-  antrea:
-    version: 1.4.0
-  rook:
-    version: 1.5.12
   kotsadm:
-    version: 1.58.1
-  ekco:
-    version: 0.13.0
-  registry:
-    version: 2.7.1
-  velero:
-    version: 1.7.1
+    version: "latest"
+  kubernetes: 
+    version: "1.23.x"
+  weave: 
+    version: "2.6.x"
+  contour: 
+    version: "1.20.x"
+  prometheus: 
+    version: "0.53.x"
+  registry: 
+    version: "2.7.x"
+  containerd: 
+    version: "1.4.x"
+  ekco: 
+    version: "latest"
+  minio: 
+    version: "2020-01-25T02-50-51Z"
+  longhorn: 
+    version: "1.2.x"
 ```
 
 ## Known Limitations
