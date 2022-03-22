@@ -20,7 +20,11 @@ kind: "Installer"
 metadata:
  name: "latest"
 spec:
- kubernetes: 
+ kurl:
+   cisCompliance: true
+ kotsadm:
+   version: "latest"
+ kubernetes:
    version: "1.23.x"
  weave:
    version: "2.6.x"
@@ -38,8 +42,7 @@ spec:
    version: "2020-01-25T02-50-51Z"
  longhorn:
    version: "1.2.x"
-  kurl:
-    cisCompliance: true
+
 ```
 
 ## Known Limitations
