@@ -18,7 +18,7 @@ This example shows a valid spec for ipv6.
 apiVersion: "cluster.kurl.sh/v1beta1"
 kind: "Installer"
 metadata: 
-  name: "latest"
+  name: "ipv6"
 spec: 
   kurl:
     ipv6: true
