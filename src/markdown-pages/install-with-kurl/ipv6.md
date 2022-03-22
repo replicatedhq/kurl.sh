@@ -26,8 +26,8 @@ spec:
     version: "1.23.x"
   kotsadm:
     version: "latest"
-  weave: 
-    version: "2.6.x"
+  antrea: 
+    version: "latest"
   contour: 
     version: "1.20.x"
   prometheus: 
