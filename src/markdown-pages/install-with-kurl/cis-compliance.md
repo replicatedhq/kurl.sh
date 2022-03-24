@@ -34,12 +34,11 @@ kind: "Installer"
 metadata:
  name: "latest"
 spec:
- kurl:
-   cisCompliance: true
  kotsadm:
    version: "latest"
  kubernetes:
    version: "1.23.x"
+   cisCompliance: true
  weave:
    version: "2.6.x"
  contour:
