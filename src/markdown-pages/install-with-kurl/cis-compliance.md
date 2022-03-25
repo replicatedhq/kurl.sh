@@ -34,12 +34,11 @@ kind: "Installer"
 metadata:
  name: "latest"
 spec:
- kurl:
-   cisCompliance: true
  kotsadm:
    version: "latest"
  kubernetes:
    version: "1.23.x"
+   cisCompliance: true
  weave:
    version: "2.6.x"
  contour:
@@ -59,6 +58,25 @@ spec:
 
 ```
 
+## Requirements and Known Limitations
+
+* The [EKCO add-on](/docs/add-ons/ekco) v0.19.0 and later is required to use this feature.
+* This feature works with the [Kubernetes (kubeadm) add-on](https://kurl.sh/docs/add-ons/kubernetes) only.
+* To meet CIS compliance, admin.conf permissions are changed from the default `root:sudo 440` to `root:root 444`.
+* Kubelet no longer attempts to change kernel parameters at runtime. Using kernel parameters other than those expected by Kubernetes can block kubelet from initializing and causes the installation to fail.
+* This feature has been tested with kURL upgrades, however we strongly recommend testing this with your development environments prior to upgrading production.
+
+## AWS Amazon Linux 2 (AL2) Considerations
+The kernel defaults of this Amazon Machine Image (AMI) are not set properly for CIS compliance. CIS compliance does not allow Kubernetes to change kernel settings itself. You must change the kernel defaults to the following settings before installing with kURL:
+
+``` bash 
+sudo sysctl vm.overcommit_memory=1
+sudo sysctl kernel.panic=10
+sudo sysctl kernel.panic_on_oops=1
+```
+
+Failure to set these values will result in kubelet crashing.
+These settings must also be configured on AL2 instance nodes before upgrading them to a CIS compliant kURL specification. 
 ## Known Limitations
 
 * The [EKCO add-on](/docs/add-ons/ekco) v0.19.0 and later is required to use this feature.
