@@ -64,13 +64,13 @@ spec:
 * This feature works with the [Kubernetes (kubeadm) add-on](https://kurl.sh/docs/add-ons/kubernetes) only.
 * To meet CIS compliance, admin.conf permissions are changed from the default `root:sudo 440` to `root:root 444`.
 * Kubelet no longer attempts to modify non-standard kernel flags. Using non-standard kernel flags can block the Kubelet from initializing and causes the installation to fail.
-* This feature is not supported for upgrades of existing kURL installations because the settings that are changed can introduce adverse effects and render the existing kURL node unusuable.
+* This feature has been tested with kURL upgrades however it is strongly suggested to test this with your development environments first before upgrading production.
 
-## AWS Amazon Linux 2 Considerations
-The kernel defaults of this Amazon Machine Image (AMI) are not set properly for CIS compliance. CIS compliance requires that Kubernetes is not allowed to change kernel settings itself. Considering this, the following kernel defaults must be adjusted prior to installing with kURL:
+## AWS Amazon Linux 2 (AL2) Considerations
+The kernel defaults of this Amazon Machine Image (AMI) are not set properly for CIS compliance. CIS compliance does not allow Kubernetes to change kernel settings itself. It is required that the following kernel defaults must be set prior to installing with kURL:
 ``` bash 
 sudo sysctl vm.overcommit_memory=1
 sudo sysctl kernel.panic=10
 sudo sysctl kernel.panic_on_oops=1
 ```
-Failure to set these values will result in kernel panics. 
+Failure to set these values will result in kernel panics. These settings must also be configured on AL2 instance nodes prior to upgrading them to a CIS compliant kURL specification. 
