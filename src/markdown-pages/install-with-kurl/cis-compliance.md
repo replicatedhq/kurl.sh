@@ -73,4 +73,5 @@ sudo sysctl vm.overcommit_memory=1
 sudo sysctl kernel.panic=10
 sudo sysctl kernel.panic_on_oops=1
 ```
-Failure to set these values will result in kernel panics. These settings must also be configured on AL2 instance nodes prior to upgrading them to a CIS compliant kURL specification. 
+Failure to set these values will result in kubelet crashing.
+These settings must also be configured on AL2 instance nodes prior to upgrading them to a CIS compliant kURL specification. 
