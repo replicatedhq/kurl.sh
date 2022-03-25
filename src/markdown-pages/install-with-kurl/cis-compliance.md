@@ -77,3 +77,10 @@ sudo sysctl kernel.panic_on_oops=1
 
 Failure to set these values will result in kubelet crashing.
 These settings must also be configured on AL2 instance nodes before upgrading them to a CIS compliant kURL specification. 
+## Known Limitations
+
+* The [EKCO add-on](/docs/add-ons/ekco) v0.19.0 and later is required to use this feature.
+* This feature works with the [Kubernetes (kubeadmn) add-on](https://kurl.sh.docs/add-ons/kubernetes) only.
+* To meet CIS compliance, admin.conf permissions are changed from the default `root:sudo 440` to `root:root 444`.
+* Kubelet no longer attempts to modify non-standard kernel flags. Using non-standard kernel flags can block the Kubelet from initializing and causes the installation to fail.
+* This feature is not supported for upgrades of existing kURL installations because the settings that are changed can introduce adverse effects.
