@@ -63,7 +63,7 @@ spec:
 * The [EKCO add-on](/docs/add-ons/ekco) v0.19.0 and later is required to use this feature.
 * This feature works with the [Kubernetes (kubeadm) add-on](https://kurl.sh/docs/add-ons/kubernetes) only.
 * To meet CIS compliance, admin.conf permissions are changed from the default `root:sudo 440` to `root:root 444`.
-* Kubelet no longer attempts to modify non-standard kernel flags. Using non-standard kernel flags can block the Kubelet from initializing and causes the installation to fail.
+* Kubelet no longer attempts to change kernel parameters at runtime. Using kernel parameters other than those expected by kubernetes can block Kubelet from initializing and causes the installation to fail.
 * This feature has been tested with kURL upgrades however it is strongly suggested to test this with your development environments first before upgrading production.
 
 ## AWS Amazon Linux 2 (AL2) Considerations
