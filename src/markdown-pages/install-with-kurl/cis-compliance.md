@@ -58,7 +58,7 @@ spec:
 
 ```
 
-## Known Limitations
+## Requirements and Known Limitations
 
 * The [EKCO add-on](/docs/add-ons/ekco) v0.19.0 and later is required to use this feature.
 * This feature works with the [Kubernetes (kubeadm) add-on](https://kurl.sh/docs/add-ons/kubernetes) only.
