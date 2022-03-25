@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "@reach/router";
-import ("../../scss/components/shared/Footer.scss");
+import "../../scss/components/shared/Footer.scss";
 
 const Footer = ({isMobile}) => {
   function getItems() {
