@@ -39,22 +39,24 @@ This section describes maintenance tasks that the EKCO operator performs.
 The clear nodes feature ensures that pods running on an unreachable node are quickly rescheduled to healthy nodes.
 When a node is unreachable for more than forty seconds, Kubernetes changes the node's ready status to `Unknown`.
 After five minutes in the Unknown state, Kubernetes deletes all of the pods on the unreachable node so they can be rescheduled on healthy nodes.
-The deleted pods are likely to remain in the Terminating state since kubelet is not reachable to confirm that the pods have stopped.
-If a pod mounts a PVC, it maintains its' lock on the PVC while stuck in the Terminating state and replacement pods are not able to start.
+The deleted pods are typically
+3.remain in the Terminating state since kubelet is not reachable to confirm that the pods have stopped.
+If a pod mounts a PVC, it maintains its lock on the PVC while stuck in the Terminating state and replacement pods are not able to start.
 This can cause applications using PVCs to be unavailable longer than the five minute grace period applied by Kubernetes.
 
-To avoid extended downtime, the EKCO operator watches for nodes in the Unknown state for more than five minutes and force deletes all pods on those nodes that have been terminating for at least thirty seconds.
-Along with the 5 minute 40 second latency period before Kubernetes begins deleting pods on unreachable nodes, this means that a minimum of 6 minutes 10 seconds passes before pods can begin to be rescheduled.
+To avoid extended downtime, the EKCO operator watches for nodes in the Unknown state for more than five minutes and force deletes all pods on those nodes that have been terminating for at least 30 seconds. This 30 seconds, in addition to the 5 minute 40 second latency period before Kubernetes begins deleting pods on unreachable nodes, means that a minimum of 6 minutes 10 seconds passes before pods can begin to be rescheduled.
 In practice, pods take 7 to 10 minutes to be rescheduled due to a variety of factors, such as whether EKCO itself was on the lost node and image pull times on the healthy nodes.
 
 The clear node feature is a safer alternative to the purge node feature and is enabled by default.
-When using the clear node and a node is lost, the cluster is degraded until the node is cleaned up.
-In a degraded state, new nodes cannot join the cluster, the cluster cannot be upgraded, and cluster components will report health warnings.
+When using the clear node feature and a node is lost, the cluster is degraded until the node is cleaned up.
+In a degraded state, new nodes cannot join the cluster, the cluster cannot be upgraded, and cluster components report health warnings.
 For more information, see to the command [below](/docs/add-ons/ekco#manual-node-purge) for manually purging a lost node.
 
 ### Purge nodes
 
-When enabled, the EKCO operator automatically purges failed nodes that have been unreachable for more than `node_unreachable_toleration` (default 5m). The following steps are taken during a purge:
+When enabled, the EKCO operator automatically purges failed nodes that have been unreachable for more than `node_unreachable_toleration` (**Default:** 5 minutes). 
+
+The following steps are taken during a purge:
 
 1. Delete the Deployment resource for the OSD from the rook-ceph namespace.
 1. Exec into the Rook operator pod and run the command `ceph osd purge <id>`.
@@ -65,7 +67,7 @@ When enabled, the EKCO operator automatically purges failed nodes that have been
 
 #### Manual Node Purge
 
-A command is made available on all primary nodes to manually purge a node. This command takes a parameter `[name]` of the node that you want to purge. The command inherits all configuration from the EKCO operator running in the cluster.
+A command is made available on all primary nodes to manually purge a node. This command takes a parameter `[name]` of the node that you want to purge. The command inherits all of the configuration from the EKCO operator running in the cluster.
 
 ```bash
 $ ekco-purge-node --help
@@ -90,7 +92,7 @@ Global Flags:
 
 The EKCO operator is responsible for appending nodes to the CephCluster `storage.nodes` setting to include the node in the list of nodes used by Ceph for storage. This operation only appends nodes. Removing nodes is done during the purge.
 
-EKCO is also responsible for adjusting the Ceph block pool, filesystem and object store replication factor up and down in accordance with the size of the cluster from `min_ceph_pool_replication` (default 1) to `max_ceph_pool_replication` (default 3).
+EKCO is also responsible for adjusting the Ceph block pool, filesystem, and object store replication factor up and down in accordance with the size of the cluster from `min_ceph_pool_replication` (**Default:** 1) to `max_ceph_pool_replication` (**Default:** 3).
 
 ### TLS Certificate Rotation
 
@@ -98,7 +100,7 @@ EKCO supports automatic certificate rotation for the [registry add-on](/docs/ins
 
 ### Reboot
 
-EKCO installs the `ekco-reboot.service` to safely unmount pod volumes before system shutdown.
+EKCO installs the `ekco-reboot.service` to safely unmount pod volumes before the system shutdown.
 This service runs `/opt/ekco/shutdown.sh` when it is stopped, which happens automatically when the system begins to shutdown.
 The shutdown script deletes pods on the current node that mount volumes provisioned by Rook and cordons the node.
 
@@ -107,7 +109,7 @@ This happens automatically when the system starts after docker is running.
 This script uncordons the node.
 
 The shutdown script can fail to complete because it depends on services running on the node to be available to delete pods, but these services can be shutting down already.
-To avoid race conditions, manually run the ekco-reboot service's shutdown script before proceeding with system shutdown or reboot:
+To avoid race conditions, manually run the ekco-reboot service's shutdown script before proceeding with the system shutdown or reboot:
 
 ```bash
 /opt/ekco/shutdown.sh
@@ -121,13 +123,13 @@ EKCO ensures that, when new nodes are added and removed from the cluster, the co
 
 ### Auto-upgrades (Experimental)
 
-If an auto-upgrade schedule is included in your kURL spec and the end user passes the `auto-upgrades-enabled` flag to the install script, a systemd service named `ekco-upgrade` is installed to automatically check for and install updates to Kubernetes and the add-ons.
+If an auto-upgrade schedule is included in your kURL specification and the end user passes the `auto-upgrades-enabled` flag to the install script, a systemd service named `ekco-upgrade` is installed to automatically check for and install updates to Kubernetes and the add-ons.
 The schedule must be a valid [systemd calendar event time](https://manpages.debian.org/testing/systemd/systemd.time.7.en.html#CALENDAR_EVENTS).
 This feature is available in version 0.8.0+.
 
 ### Example
 
-The following spec and command enables automatic upgrades for an installation:
+The following specification and command enables automatic upgrades for an installation:
 
 ```yaml
 spec:
@@ -173,7 +175,7 @@ Auto-resource scaling is available in v0.13.0 and later.
 
 ### Pod Image Overrides
 
-EKCO adds an admission controller which can be configured to override container images in p ods.
+EKCO adds an admission controller that can be configured to override container images in pods.
 
 A list can be specified in the `podImageOverrides` property as an array of strings in the format `[original]=[overridden]`.
 
