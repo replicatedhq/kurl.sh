@@ -44,7 +44,7 @@ If a pod mounts a PVC, it maintains its lock on the PVC while stuck in the Termi
 This can cause applications using PVCs to be unavailable longer than the five minute grace period applied by Kubernetes.
 
 To avoid extended downtime, the EKCO operator watches for nodes in the Unknown state for more than five minutes and force deletes all pods on those nodes that have been terminating for at least 30 seconds. This 30 seconds, in addition to the 5 minute 40 second latency period before Kubernetes begins deleting pods on unreachable nodes, means that a minimum of 6 minutes 10 seconds passes before pods can begin to be rescheduled.
-In practice, pods take 7 to 10 minutes to be rescheduled due to a variety of factors, such as whether EKCO itself was on the lost node and image pull times on the healthy nodes.
+In practice, pods take 7 to 10 minutes to be rescheduled due to a variety of factors, such as whether EKCO itself was on the lost node and the image pull times on the healthy nodes.
 
 The clear node feature is a safer alternative to the purge node feature and is enabled by default.
 When using the clear node feature and a node is lost, the cluster is degraded until the node is cleaned up.
