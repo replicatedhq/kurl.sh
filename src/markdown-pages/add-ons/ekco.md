@@ -39,8 +39,7 @@ This section describes maintenance tasks that the EKCO operator performs.
 The clear nodes feature ensures that pods running on an unreachable node are quickly rescheduled to healthy nodes.
 When a node is unreachable for more than forty seconds, Kubernetes changes the node's ready status to `Unknown`.
 After five minutes in the Unknown state, Kubernetes deletes all of the pods on the unreachable node so they can be rescheduled on healthy nodes.
-The deleted pods are typically
-3.remain in the Terminating state since kubelet is not reachable to confirm that the pods have stopped.
+The deleted pods typically remain in the Terminating state since kubelet is not reachable to confirm that the pods have stopped.
 If a pod mounts a PVC, it maintains its lock on the PVC while stuck in the Terminating state and replacement pods are not able to start.
 This can cause applications using PVCs to be unavailable longer than the five minute grace period applied by Kubernetes.
 
