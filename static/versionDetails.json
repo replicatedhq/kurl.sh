@@ -79,6 +79,11 @@
       "flag": "HACluster",
       "description": "Create the cluster as a high availability cluster (note that this needs a valid load balancer address and additional nodes to be a truly HA cluster.",
       "type": "boolean"
+    },
+    {
+      "flag": "cisCompliance",
+      "description": "Indicates if this install should meet all CIS compliance requirements.",
+      "type": "boolean"
     }
   ],
   "weave": [
