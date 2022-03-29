@@ -11,7 +11,7 @@ addOn: "kubernetes"
 `kubeadm` brings up the Kubernetes control plane before other add-ons are applied.
 
 In addition to supporting Kubernetes using `kubeadm`, kURL can install [RKE2](/docs/add-ons/rke2) and [K3s](/docs/add-ons/k3s).
-Support for both of these distributions is in beta, and more information on limitations and instructions can be found on their respective add-on pages.
+Support for both of these distributions is in beta. For more information about limitations and instructions, see the respective add-on pages.
 
 
 flags-table
