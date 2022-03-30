@@ -565,6 +565,12 @@
 			"flag": "enableInternalLoadBalancer",
 			"description": "Run an internal load balanacer with HAProxy listening on localhost:6444 on all nodes",
 			"type": "boolean"
+		},
+		{
+			"flag": "podImageOverrides",
+			"description": "A list of Pod container image overrides in the format \"[original]=[overridden]\"",
+			"type": "array[string]",
+			"hidden": true
 		}
   ],
   "fluentd": [
