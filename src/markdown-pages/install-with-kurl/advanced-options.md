@@ -47,6 +47,11 @@ The install scripts are idempotent. Re-run the scripts with different flags to c
   </td>
 </tr>
 <tr>
+  <td><code>app-version-label</code></td>
+  <td>A version label that indicates to KOTS which version of an application to install. KOTS will install the latest version if this flag is not passed.
+  </td>
+</tr>
+<tr>
   <td><code>container-log-max-files</code></td>
   <td>Specifies the maximum number of container log files that can be present for a container. This does not work with Docker. For Docker, see <a href="https://docs.docker.com/config/containers/logging/json-file">JSON File logging driver</a>.
   <br/>
