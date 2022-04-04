@@ -945,6 +945,10 @@ class Kurlsh extends React.Component {
             const currentOption = find(advancedOptions[addOn], (key, value) => value === data.flag);
             const doesCurrentErrExist = installerErrMsg ? installerErrMsg.includes(data.flag) : false;
 
+            if (option.hidden) {
+              return null;
+            }
+
             return (
               <div className="OptionItem flex-column" key={`${data.flag}-${i}`}>
                 <div className="Option--wrapper flex flex1 alignItems--center">
