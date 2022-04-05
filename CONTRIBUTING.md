@@ -1,5 +1,5 @@
 # Contributing
 
-Deploying to staging happens automatically when merging to the `master` branch.
+Deploying to staging happens automatically when merging to the `main` branch.
 
-Deploying to production happens through the `release` branch. Create a pull request to that branch and once it's approved and merged, the changes will be deployed to production. Note: pull requests to the `release` branch should come from the `master` branch.
+Use the `release` branch to deploy to production. Create a pull request to the `release` branch. After it is approved and merged, the changes are deployed to production. **Note:** Pull requests to the `release` branch should come from the `master` branch.
