@@ -19,9 +19,9 @@ flags-table
 
 ### Kube Reserved
 
-When the `kubeReserved` flag is set to true, CPU, memory, and disk resources are reserved for Kubernetes system daemons.
+CPU, memory, and disk resources are reserved for Kubernetes system daemons when the `kubeReserved` flag is set to `true`. 
 
-Allocatable resources are calculated in the following way:    
+Allocatable resources are calculated using the following equation:    
 `ALLOCATABLE = CAPACITY - RESERVED - EVICTION-THRESHOLD`
 
 For memory resources, kURL reserves the following:
