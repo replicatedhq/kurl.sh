@@ -17,7 +17,7 @@ Support for both of these distributions is in beta. For more information about l
 
 flags-table
 
-### Kube Reserved CPU, memory and disk allocation for Kubernetes
+### Kube Reserved
 
 When the `kubeReserved` flag is set to true, CPU, memory, and disk resources are reserved for Kubernetes system daemons.
 
