@@ -13,13 +13,15 @@ addOn: "kubernetes"
 In addition to supporting Kubernetes using `kubeadm`, kURL can install [RKE2](/docs/add-ons/rke2) and [K3s](/docs/add-ons/k3s).
 Support for both of these distributions is in beta. For more information about limitations and instructions, see the respective add-on pages.
 
+## Advanced Install Options
 
 flags-table
 
+### Kube Reserved CPU, memory and disk allocation for Kubernetes
 
-### KubeReserved CPU, memory and disk allocation for Kubernetes
+When the `kubeReserved` flag is set to true, CPU, memory, and disk resources are reserved for Kubernetes system daemons.
 
-When `kubeReserved` flag is set to true, CPU, memory and disk resources are calculated in the following way:    
+Allocatable resources are calculated in the following way:    
 `ALLOCATABLE = CAPACITY - RESERVED - EVICTION-THRESHOLD`
 
 For memory resources, kURL reserves the following:
@@ -36,6 +38,6 @@ For CPU resources, kURL reserves the following:
 * 0.5% of the next 2 cores (up to 4 cores)
 * 0.25% of any cores above 4 cores
 
-For ephemeral storage, kURL reserves a static of 1Gi.
+For ephemeral storage, kURL reserves 1Gi.
 
-kURL is using the CPU and memory ranges from GKE cluster architecture (https://cloud.google.com/kubernetes-engine/docs/concepts/cluster-architecture#node_allocatable)
+kURL uses the CPU and memory ranges from [GKE cluster architecture](https://cloud.google.com/kubernetes-engine/docs/concepts/cluster-architecture#node_allocatable).
