@@ -215,6 +215,16 @@ The install scripts are idempotent. Re-run the scripts with different flags to c
   </td>
 </tr>
 <tr>
+  <td><code>private-address</code></td>
+  <td>The private IP address of the host.
+  <br/>
+  <br/>
+  <strong>Example:</strong>
+  <br/>
+  <code>curl https://kurl.sh/latest | sudo bash -s private-address="10.128.0.26"</code>
+  </td>
+</tr>
+<tr>
   <td><code>public-address</code></td>
   <td>The public IP address.
   <br/>
