@@ -82,7 +82,7 @@
     },
     {
       "flag": "cisCompliance",
-      "description": "Indicates if this install should meet all CIS compliance requirements.",
+      "description": "Indicates if this install should meet all CIS compliance requirements. See <a href=\"https://kurl.sh/docs/install-with-kurl/cis-compliance\">CIS compliance</a>.",
       "type": "boolean"
     },
     {
@@ -92,12 +92,12 @@
     },
     {
       "flag": "evictionThresholdResources",
-      "description": "Provided as evictionHard to kubelet configuration as described in https://kubernetes.io/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration.",
+      "description": "Provided as evictionHard to kubelet configuration as described in the <a target=\"blank\" href=\"https://kubernetes.io/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration\">kubelet configuration</a> section of the Kubernetes documentation.",
       "type": "string"
     },
     {
       "flag": "systemReservedResources",
-      "description": "Provided as systemReserved to kubelet configuration as described in https://kubernetes.io/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration.",
+      "description": "Provided as systemReserved to kubelet configuration as described in the <a target=\"blank\" href=\"https://kubernetes.io/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration\">kubelet configuration</a> section of the Kubernetes documentation.",
       "type": "string"
     }
   ],

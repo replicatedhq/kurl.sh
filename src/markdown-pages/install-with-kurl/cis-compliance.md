@@ -6,9 +6,9 @@ linktitle: "CIS Compliance"
 title: "CIS Compliance"
 isAlpha: false
 ---
-The kURL installer can be configured to be Center for Internet Security (CIS) compliant. This is an opt-in feature that is configured in the kURL specification by setting the `kurl.cisCompliance` field to `true`. For information about known limitations, see [Known Limitations](#known-limitations). For more information about CIS security compliance for Kubernetes, see the [CIS benchmark information](https://www.cisecurity.org/benchmark/kubernetes).
+You can configure the kURL installer to be Center for Internet Security (CIS) compliant. Opt-in to this feature by setting the `kurl.cisCompliance` field to `true` in the kURL specification . For information about known limitations, see [Known Limitations](#known-limitations). For more information about CIS security compliance for Kubernetes, see the [CIS benchmark information](https://www.cisecurity.org/benchmark/kubernetes).
 
-The following settings are changed when `cisCompliance` is set to `true`:
+When you set `cisCompliance` is set to `true`, the following settings are changed from the default settings:
 
 **Primary node configuration:**
 
@@ -69,18 +69,11 @@ spec:
 ## AWS Amazon Linux 2 (AL2) Considerations
 The kernel defaults of this Amazon Machine Image (AMI) are not set properly for CIS compliance. CIS compliance does not allow Kubernetes to change kernel settings itself. You must change the kernel defaults to the following settings before installing with kURL:
 
-``` bash 
+``` bash
 sudo sysctl vm.overcommit_memory=1
 sudo sysctl kernel.panic=10
 sudo sysctl kernel.panic_on_oops=1
 ```
 
 Failure to set these values will result in kubelet crashing.
-These settings must also be configured on AL2 instance nodes before upgrading them to a CIS compliant kURL specification. 
-## Known Limitations
-
-* The [EKCO add-on](/docs/add-ons/ekco) v0.19.0 and later is required to use this feature.
-* This feature works with the [Kubernetes (kubeadmn) add-on](https://kurl.sh.docs/add-ons/kubernetes) only.
-* To meet CIS compliance, admin.conf permissions are changed from the default `root:sudo 440` to `root:root 444`.
-* Kubelet no longer attempts to modify non-standard kernel flags. Using non-standard kernel flags can block the Kubelet from initializing and causes the installation to fail.
-* This feature is not supported for upgrades of existing kURL installations because the settings that are changed can introduce adverse effects.
+These settings must also be configured on AL2 instance nodes before upgrading them to a CIS compliant kURL specification.
