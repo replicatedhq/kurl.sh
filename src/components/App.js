@@ -198,9 +198,6 @@ cat install.sh | sudo bash -s airgap
                   </p>
                   <div className="AppList--wrapper flex flexWrap--wrap">
                     <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal">
-                      Ubuntu 16.04 (Kernel version >= 4.15)
-                    </li>
-                    <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal">
                       Ubuntu 18.04 (Recommended)
                     </li>
                     <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal">
