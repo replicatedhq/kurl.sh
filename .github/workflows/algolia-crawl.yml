@@ -18,6 +18,6 @@ jobs:
           ALGOLIA_API_KEY: ${{ secrets.KURL_SH_ALGOLIA_API_KEY }}
         run: |
           docker run \
-          -e KURL_SH_ALGOLIA_APP_ID -e KURL_SH_ALGOLIA_API_KEY \
+          -e ALGOLIA_APP_ID -e ALGOLIA_API_KEY \
           -e CONFIG="$(cat algolia-config.json)" \
           algolia/docsearch-scraper
