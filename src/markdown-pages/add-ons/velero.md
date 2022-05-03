@@ -25,6 +25,7 @@ spec:
     disableCLI: true
     localBucket: "local"
     resticRequiresPrivileged: true
+    resticTimeout: "12h0m0s"
 ```
 
 flags-table

@@ -244,4 +244,14 @@ The install scripts are idempotent. Re-run the scripts with different flags to c
   <code>curl https://kurl.sh/latest | sudo bash -s skip-system-package-install</code>
   </td>
 </tr>
+<tr>
+  <td><code>velero-restic-timeout</code></td>
+  <td>How long backups/restores of pod volumes should be allowed to run before timing out.
+  <br/>
+  <br/>
+  <strong>Example:</strong>
+  <br/>
+  <code>curl https://kurl.sh/latest | sudo bash -s velero-restic-timeout=12h0m0s</code>
+  </td>
+</tr>
 </table>
