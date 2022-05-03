@@ -294,3 +294,17 @@
   visibility: visible;
   opacity: 1;
 }
+
+/* DocSearch Styling */
+
+:root {
+  --docsearch-primary-color: #326DE6 !important;
+  --docsearch-logo-color: #326DE6 !important;
+}
+
+.DocSearch-Button {
+  margin: 0 16px !important;
+  // border-radius: 4px !important;
+  // border: 1px solid #326DE6 !important;
+}
+

@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "gatsby";
 import MobileNavBar from "./MobileNavBar";
+import Search from "../Search";
 
 import "../../scss/components/shared/NavBar.scss";
 require("react-github-button/assets/style.css");
@@ -55,6 +56,7 @@ export class NavBar extends React.Component {
                 <Link to="/" tabIndex="-1">
                   <div className="HeaderMobileText flex flex1">{this.props.title}</div>
                 </Link>
+                <Search />
               </div>
               :
               <div className="NavBarContainer flex flex1 alignItems--center">
@@ -81,7 +83,8 @@ export class NavBar extends React.Component {
                       </div>
                     </div>
                     <div className="flex flex1 justifyContent--flexEnd">
-                      <div className="flex-column flex-auto justifyContent--center">
+                      <div className="flex flex-auto justifyContent--center alignItems--center">
+                        <Search />
                         <a href="https://github.com/replicatedhq/kurl/" target="_blank" rel="noopener noreferrer" className="github-btn flex justifyContent--center alignItems--center">
                           <span className="icon github-icon" />
                           View on GitHub
