@@ -76,6 +76,12 @@
   background-color: #F5F8FC;
 }
 
+@media screen and (max-width: 310px) {
+  .MobileKurlHeader {
+    height: 90px;
+  }
+}
+
 .MobileDocKurlHeader {
   padding: 0;
   height: 60px;
@@ -156,7 +162,7 @@
   color: #326DE6;
   font-weight: 700;
   align-self: center;
-  padding: 30px;
+  padding-left: 30px;
   cursor: pointer;
 }
 

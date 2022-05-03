@@ -44,6 +44,7 @@ export class NavBar extends React.Component {
         <div className={`flex flex-auto ${documentation ? "MobileDocNavBarWrapper" : isMobile ? "MobileNavBarWrapper" : "NavBarWrapper"}`} id="nav-header">
           <div className={`${documentation ? "MobileDocKurlHeader" : isMobile ? "MobileKurlHeader" : "KurlHeader"} flex flex1`} id="kurl-header">
             {isMobile ?
+            <div className="flex alignItems--center justifyContent--spaceBetween" style={{width:"100%"}}>
               <div className="flex flex1 alignItems--center">
                 <span
                   className={`icon clickable ${mobileNavIsOpen ? "u-closeIcon" : "u-hamburgerMenu"} u-marginLeft--20`}
@@ -56,8 +57,9 @@ export class NavBar extends React.Component {
                 <Link to="/" tabIndex="-1">
                   <div className="HeaderMobileText flex flex1">{this.props.title}</div>
                 </Link>
-                <Search />
               </div>
+                <Search />
+            </div>
               :
               <div className="NavBarContainer flex flex1 alignItems--center">
                 <div className="flex1 justifyContent--spaceBetween u-marginTop--10 u-marginBottom--10">
