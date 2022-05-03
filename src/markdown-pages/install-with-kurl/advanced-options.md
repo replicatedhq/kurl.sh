@@ -161,7 +161,7 @@ The install scripts are idempotent. Re-run the scripts with different flags to c
   <br/>
   <strong>Example:</strong>
   <br/>
-  <code>curl https://kurl.sh/latest | sudo bash -s labels="gpu=enabled,type=data"</code>
+  <code>curl https://kurl.sh/latest | sudo bash -s labels=gpu=enabled,type=data</code>
   </td>
 </tr>
 <tr>
