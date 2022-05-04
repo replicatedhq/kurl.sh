@@ -246,7 +246,7 @@ The install scripts are idempotent. Re-run the scripts with different flags to c
 </tr>
 <tr>
   <td><code>velero-restic-timeout</code></td>
-  <td>How long backups/restores of pod volumes should be allowed to run before timing out. Default is '4h0m0s'.
+  <td>The time interval that backups/restores of pod volumes are allowed to run before timing out. Default is '4h0m0s'.
   <br/>
   <br/>
   <strong>Example:</strong>
