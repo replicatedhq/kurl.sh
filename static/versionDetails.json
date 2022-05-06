@@ -306,6 +306,11 @@
       "flag": "resticRequiresPrivileged",
       "description": "Runs Restic container in privileged mode",
       "type": "boolean"
+    },
+    {
+      "flag": "resticTimeout",
+      "description": "The time interval that backups/restores of pod volumes are allowed to run before timing out. Default is '4h0m0s'",
+      "type": "string"
     }
   ],
   "kotsadm": [
