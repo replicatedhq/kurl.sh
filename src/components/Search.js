@@ -6,9 +6,9 @@ import '@docsearch/css';
 function Search() {
   return (
     <DocSearch
-      appId={process.env.ALGOLIA_APP_ID}
+      appId={process.env.GATSBY_ALGOLIA_API_KEY}
       indexName="kurl-algolia-config"
-      apiKey={process.env.ALGOLIA_API_KEY}
+      apiKey={process.env.GATSBY_ALGOLIA_API_KEY}
   />
   );
 }
