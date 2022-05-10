@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "gatsby";
 import MobileNavBar from "./MobileNavBar";
+import Search from "../Search";
 
 import "../../scss/components/shared/NavBar.scss";
 require("react-github-button/assets/style.css");
@@ -43,6 +44,7 @@ export class NavBar extends React.Component {
         <div className={`flex flex-auto ${documentation ? "MobileDocNavBarWrapper" : isMobile ? "MobileNavBarWrapper" : "NavBarWrapper"}`} id="nav-header">
           <div className={`${documentation ? "MobileDocKurlHeader" : isMobile ? "MobileKurlHeader" : "KurlHeader"} flex flex1`} id="kurl-header">
             {isMobile ?
+            <div className="flex alignItems--center justifyContent--spaceBetween u-width--full">
               <div className="flex flex1 alignItems--center">
                 <span
                   className={`icon clickable ${mobileNavIsOpen ? "u-closeIcon" : "u-hamburgerMenu"} u-marginLeft--20`}
@@ -56,6 +58,8 @@ export class NavBar extends React.Component {
                   <div className="HeaderMobileText flex flex1">{this.props.title}</div>
                 </Link>
               </div>
+                <Search />
+            </div>
               :
               <div className="NavBarContainer flex flex1 alignItems--center">
                 <div className="flex1 justifyContent--spaceBetween u-marginTop--10 u-marginBottom--10">
@@ -81,7 +85,8 @@ export class NavBar extends React.Component {
                       </div>
                     </div>
                     <div className="flex flex1 justifyContent--flexEnd">
-                      <div className="flex-column flex-auto justifyContent--center">
+                      <div className="flex flex-auto justifyContent--center alignItems--center">
+                        <Search />
                         <a href="https://github.com/replicatedhq/kurl/" target="_blank" rel="noopener noreferrer" className="github-btn flex justifyContent--center alignItems--center">
                           <span className="icon github-icon" />
                           View on GitHub
