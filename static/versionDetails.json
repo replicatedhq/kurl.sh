@@ -99,6 +99,11 @@
       "flag": "systemReservedResources",
       "description": "Provided as systemReserved to kubelet configuration as described in the <a target=\"blank\" href=\"https://kubernetes.io/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration\">kubelet configuration</a> section of the Kubernetes documentation.",
       "type": "string"
+    },
+    {
+      "flag": "clusterName",
+      "description": "The name of the Kubernetes cluster (default \"kubernetes\").",
+      "type": "string"
     }
   ],
   "weave": [
@@ -713,6 +718,19 @@
       "flag": "version",
       "description": "The version of Goldpinger to be installed.",
       "type": "string"
+    }
+  ],
+  "aws": [
+    {
+      "flag": "version",
+      "description": "The version of aws to be installed.",
+      "type": "string"
+    },
+    {
+      "flag": "excludeStorageClass",
+      "description": "Exclude aws-ebs provisioner storage class provided by the AWS add-on.",
+      "type": "boolean",
+      "defaultValue": false
     }
   ]
 }
