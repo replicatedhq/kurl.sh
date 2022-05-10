@@ -659,7 +659,7 @@ class Kurlsh extends React.Component {
       };
 
       if (Object.keys(diff).length) {
-        generatedInstaller.spec.aws= {
+        generatedInstaller.spec.aws = {
           ...generatedInstaller.spec.aws,
           ...diff
         };
