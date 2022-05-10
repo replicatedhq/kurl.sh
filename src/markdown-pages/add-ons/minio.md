@@ -2,7 +2,7 @@
 path: "/docs/add-ons/minio"
 date: "2021-01-28"
 linktitle: "MinIO Add-On"
-weight: 47
+weight: 48
 title: "MinIO Add-On"
 addOn: "minio"
 ---

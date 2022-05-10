@@ -2,7 +2,7 @@
 path: "/docs/add-ons/registry"
 date: "2020-05-13"
 linktitle: "Registry Add-On"
-weight: 50
+weight: 51
 title: "Registry Add-On"
 addOn: "registry"
 ---
@@ -21,7 +21,7 @@ spec:
 
 flags-table
 
-## Registry Storage Backends 
+## Registry Storage Backends
 
 When installed as part of a kURL spec that contains an object store (e.g., Rook or MinIO), the Registry add-on will use that API as a storage backend.
 If an object store is not available, a persistent volume (PV) will be used as the storage backend.
@@ -31,4 +31,4 @@ Migrations are performed on upgrade/re-install from an object store to a PV if b
 
 For object store backends, 2 replicas of the registry service are deployed by default.
 
-For PVC backends, 1 replica will be used with a `ReadWriteOnce` PVC. 
+For PVC backends, 1 replica will be used with a `ReadWriteOnce` PVC.

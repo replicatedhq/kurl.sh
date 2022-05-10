@@ -2,7 +2,7 @@
 path: "/docs/add-ons/kotsadm"
 date: "2020-04-23"
 linktitle: "KOTS Add-On"
-weight: 42
+weight: 43
 title: "KOTS Add-On"
 addOn: "kotsadm"
 ---
@@ -11,14 +11,14 @@ The [KOTS add-on](https://docs.replicated.com/enterprise/installing-overview) in
 
 By default, this add-on requires an S3-compatible object store be available in the cluster.
 Both the Rook and the MinIO add-ons satisfy the object store requirement.
-To deploy KOTS without an object store, set the `disableS3` flag in the installer to `true`. 
+To deploy KOTS without an object store, set the `disableS3` flag in the installer to `true`.
 This will install KOTS as a StatefulSet using a persistent volume (PV) for storage.
 
 ## Advanced Install Options
 
 ```yaml
 spec:
-  kotsadm: 
+  kotsadm:
     version: "latest"
     applicationSlug: "slug"
     uiBindPort: 8800
@@ -54,7 +54,7 @@ kind: "Installer"
 spec:
   kubernetes:
     version: latest
-  containerd: 
+  containerd:
     version: latest
   weave:
     version: latest
@@ -64,7 +64,7 @@ spec:
     version: latest
   registry:
     version: latest
-  kotsadm: 
+  kotsadm:
     version: latest
 ```
 
@@ -76,7 +76,7 @@ kind: "Installer"
 spec:
   kubernetes:
     version: latest
-  containerd: 
+  containerd:
     version: latest
   weave:
     version: latest
@@ -88,7 +88,7 @@ spec:
     version: latest
   registry:
     version: latest
-  kotsadm: 
+  kotsadm:
     version: latest
 ```
 
@@ -100,7 +100,7 @@ kind: "Installer"
 spec:
   kubernetes:
     version: latest
-  docker: 
+  docker:
     version: latest
   weave:
     version: latest
@@ -108,7 +108,7 @@ spec:
     version: latest
   registry:
     version: latest
-  kotsadm: 
+  kotsadm:
     version: latest
     disableS3: true
 ```
