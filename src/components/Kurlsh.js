@@ -40,9 +40,10 @@ const NIL_VERSIONS = {
   metricsServer: { version: "None" },
   certManager: { version: "None" },
   sonobuoy: { version: "None" },
-  goldpinger: { version: "None" }
+  goldpinger: { version: "None" },
+  aws: { version: "None" }
 }
-const hasAdvancedOptions = ["kubernetes", "weave", "antrea", "contour", "rook", "registry", "docker", "velero", "kotsadm", "ekco", "fluentd", "minio", "openebs", "longhorn", "prometheus"];
+const hasAdvancedOptions = ["kubernetes", "weave", "antrea", "contour", "rook", "registry", "docker", "velero", "kotsadm", "ekco", "fluentd", "minio", "openebs", "longhorn", "prometheus", "aws"];
 function versionToState(version) {
   return {
     version
@@ -123,6 +124,9 @@ class Kurlsh extends React.Component {
     const goldpingerVersions = this.addDotXVersions(supportedVersions["goldpinger"].map(versionToState));
     goldpingerVersions.push({ version: "None" });
 
+    const awsVersions = this.addDotXVersions(supportedVersions["aws"].map(versionToState));
+    awsVersions.push({ version: "None" });
+
     this.state = {
       versions: {
         kubernetes: kubernetesVersions,
@@ -147,7 +151,8 @@ class Kurlsh extends React.Component {
         metricsServer: metricsServerVersions,
         certManager: certManagerVersions,
         sonobuoy: sonobuoyVersions,
-        goldpinger: goldpingerVersions
+        goldpinger: goldpingerVersions,
+        aws: awsVersions
       },
       selectedVersions: NIL_VERSIONS,
       installerSha: "",
@@ -172,7 +177,8 @@ class Kurlsh extends React.Component {
         "metricsServer": false,
         "certManager": false,
         "sonobuoy": false,
-        "goldpinger": false
+        "goldpinger": false,
+        "aws": false
       },
       advancedOptions: {
         kubernetes: {},
@@ -197,6 +203,7 @@ class Kurlsh extends React.Component {
         sonobuoy: {},
         goldpinger: {},
         prometheus: {},
+        aws: {}
       },
       isAddOnChecked: {
         kubernetes: false,
@@ -222,6 +229,7 @@ class Kurlsh extends React.Component {
         certManager: false,
         sonobuoy: false,
         goldpinger: false,
+        aws: false,
       },
       isEditorLoading: false,
       optionDefaults: {},
@@ -639,6 +647,20 @@ class Kurlsh extends React.Component {
       if (Object.keys(diff).length) {
         generatedInstaller.spec.goldpinger = {
           ...generatedInstaller.spec.goldpinger,
+          ...diff
+        };
+      }
+    }
+
+    if (selectedVersions.aws.version !== "None") {
+      const diff = getDiff(optionDefaults["aws"], options.aws);
+      generatedInstaller.spec.aws = {
+        version: selectedVersions.aws.version
+      };
+
+      if (Object.keys(diff).length) {
+        generatedInstaller.spec.aws = {
+          ...generatedInstaller.spec.aws,
           ...diff
         };
       }
@@ -1906,6 +1928,47 @@ class Kurlsh extends React.Component {
                     </div>
                   </div>
                   {showAdvancedOptions["velero"] && this.renderAdvancedOptions("velero")}
+                </div>
+              </div>
+
+              <div className="flex flex-column u-marginTop--40">
+                <span className="u-fontSize--normal u-fontWeight--medium u-color--bermudaGray"> Cloud Provider </span>
+                <div className={`AddOn--wrapper ${selectedVersions.aws.version !== "None" && "selected"} flex flex-column u-marginTop--15`} onClick={(e) => this.handleIsAddOnSelected("aws", e)}>
+                  <div className="flex flex1">
+                    <div className="flex flex-auto alignItems--center">
+                      <input
+                        type="checkbox"
+                        className="u-marginRight--normal"
+                        checked={selectedVersions.aws.version !== "None"}
+                        readOnly
+                      />
+                      <span className="icon u-aws u-marginBottom--small" />
+                      <div className="flex flex-column u-marginLeft--15 u-marginTop--small">
+                        <div className="FormLabel"> AWS </div>
+                        <div className="flex flex1 alignItems--center">
+                          <div className={`SelectVersion flex flex1 ${!this.state.isAddOnChecked["aws"] && "disabled"}`} style={{ width: "200px" }}>
+                            <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> {!this.state.isAddOnChecked["aws"] ? "Version None" : "Version"} </span>
+                            <Select
+                              isSearchable={false}
+                              options={versions.aws}
+                              getOptionLabel={this.getLabel("aws")}
+                              getOptionValue={(aws) => aws}
+                              value={selectedVersions.aws}
+                              onChange={this.onVersionChange("aws")}
+                              matchProp="value"
+                              isDisabled={!this.state.isAddOnChecked["aws"]}
+                              isOptionSelected={() => false} />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="flex flex1 justifyContent--flexEnd alignItems--center">
+                      <div className="flex u-fontSize--small u-fontWeight--medium u-fontWeight--medium u-color--royalBlue u-marginTop--small u-cursor--pointer configDiv" onClick={() => this.onToggleShowAdvancedOptions("aws")}>
+                        {showAdvancedOptions["aws"] ? "Hide config" : "Show config"}
+                      </div>
+                    </div>
+                  </div>
+                  {showAdvancedOptions["aws"] && this.renderAdvancedOptions("aws")}
                 </div>
               </div>
 
