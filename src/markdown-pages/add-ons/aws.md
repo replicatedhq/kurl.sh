@@ -24,6 +24,6 @@ flags-table
 
 ## Requirements and Limitations
 
-* When used, a volume provisioner add-on does not need to be included in the kURL specification as [AWS EBS](https://aws.amazon.com/ebs/) will be used.
+* When enabled, a volume provisioner add-on is not necessary in the kURL specification as the [AWS EBS](https://aws.amazon.com/ebs/) volume provisioner may be used.
 * This add-on currently only configures the above mentioned portions of the Kubernetes control plane and only uses AWS for storage provisioner services.
 * This add-on is only intended to be used on AWS.  
