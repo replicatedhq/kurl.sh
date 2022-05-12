@@ -11,7 +11,7 @@ The AWS add-on enables the Amazon Web Services (AWS) cloud provider integration 
 
 The AWS cloud provider provides the interface between a Kubernetes cluster and AWS service APIs. It enables dynamic provisioning of Elastic Block Store (EBS) volumes as well as dynamic provisioning and configuration of Elastic Load Balancers (ELBs) for exposing Kubernetes Service objects.
 
-For more information about the AWS cloud provider, see the [AWS cloud provider](https://github.com/kubernetes/cloud-provider-aws) repository in GitHub.
+For more information about the AWS cloud provider, see the [AWS cloud provider](https://cloud-provider-aws.sigs.k8s.io/) online documentation.
 
 ## Prerequisite
 
