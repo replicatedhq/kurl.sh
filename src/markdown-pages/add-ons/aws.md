@@ -7,9 +7,22 @@ title: "AWS Add-On"
 addOn: "aws"
 ---
 
-The AWS add-on enables the [AWS cloud provider](https://github.com/kubernetes/cloud-provider-aws) integration with the [Kubernetes (kubeadm) add-on](/docs/addon-ons/kubernetes). The AWS cloud provider provides the interface between a Kubernetes cluster and AWS service APIs. This project enables dynamic provisioning of Elastic Block Store (EBS) volumes as well as dynamic provisioning/configuration of Elastic Load Balancers (ELBs) for exposing Kubernetes Service objects.
+The AWS add-on enables the Amazon Web Services (AWS) cloud provider integration with the Kubernetes (kubeadm) kURL add-on. For information about the kubeadm add-on, see [Kubernetes (kubeadm) Add-On](/docs/addon-ons/kubernetes).
 
-Because the AWS cloud controller manager performs some tasks on behalf of the operator, like creating an ELB or an EBS volume, you will need to create IAM policies and assign them to your EC2 instances. Please see the [prerequisites guide](https://kubernetes.github.io/cloud-provider-aws/prerequisites/) for the permissions needed.
+The AWS cloud provider provides the interface between a Kubernetes cluster and AWS service APIs. It enables dynamic provisioning of Elastic Block Store (EBS) volumes as well as dynamic provisioning and configuration of Elastic Load Balancers (ELBs) for exposing Kubernetes Service objects.
+
+For more information about the AWS cloud provider, see the [AWS cloud provider](https://github.com/kubernetes/cloud-provider-aws) repository in GitHub.
+
+## Prerequisite
+
+Because the AWS cloud controller manager performs some tasks on behalf of the operator, such as creating an ELB or an EBS volume, you must create Identity and Access Management (IAM) policies in AWS and assign them to your Elastic Compute Cloud (EC2) instances.
+
+For more information about the required permissions, see [Prerequisites](https://kubernetes.github.io/cloud-provider-aws/prerequisites/) in the AWS cloud provider documentation.
+
+## Requirements and Limitations
+
+* The AWS add-on is supported only when the cluster created by kURL is installed on an AWS EC2 instance.
+* The AWS add-on is supported only with the [Kubernetes (kubeadm) add-on](/docs/addon-ons/kubernetes). The AWS add-on is not supported for the [K3s](/docs/addon-ons/k3s) or [RKE2](/docs/addon-ons/rke2) add-ons.
 
 ## Advanced Install Options
 
@@ -22,8 +35,8 @@ spec:
 
 flags-table
 
-## Requirements and Limitations
+## Using a Volume Provisioner with the AWS Add-On
 
-* When enabled, a volume provisioner add-on is not necessary in the kURL specification as the [AWS EBS](https://aws.amazon.com/ebs/) volume provisioner may be used.
-* This add-on currently only configures the above mentioned portions of the Kubernetes control plane and only uses AWS for storage provisioner services.
-* This add-on is only intended to be used on AWS.  
+When the AWS add-on is enabled, you do not need to add a volume provisioner add-on to the kURL specification because you can use the default AWS EBS volume provisioner.
+
+For more information about the AWS EBS volume provisioner, see [Amazon Elastic Block Store (EBS)](https://aws.amazon.com/ebs/) on the AWS website.
