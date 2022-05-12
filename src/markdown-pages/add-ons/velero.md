@@ -2,7 +2,7 @@
 path: "/docs/add-ons/velero"
 date: "2019-11-20"
 linktitle: "Velero Add-On"
-weight: 56
+weight: 57
 title: "Velero Add-On"
 addOn: "velero"
 ---
@@ -153,7 +153,7 @@ kubectl -n velero create secret generic google-credentials --from-file=cloud=./c
 
 ### Local-Volume-Provider
 
-The [local-volume-provider](https://github.com/replicatedhq/local-volume-provider) plugin can be used to store snapshots directly on the host machine (hostpath) or to a Network File Share (NFS) location. 
+The [local-volume-provider](https://github.com/replicatedhq/local-volume-provider) plugin can be used to store snapshots directly on the host machine (hostpath) or to a Network File Share (NFS) location.
 
 Hostpath backups are only recommended for SINGLE NODE clusters that will never be extended with more nodes. To create a hostpath backup location:
 
