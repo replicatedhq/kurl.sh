@@ -7,7 +7,9 @@ title: "AWS Add-On"
 addOn: "aws"
 ---
 
-The AWS add-on allows you to customize the configuration of the [Kubernetes (kubeadm)](/docs/addon-ons/kubernetes) control plane to interface to the AWS cloud provider service for storage classes. This means that the apiserver, controllermanager, and kubelet will all be started with the extra argument specifying that the cloud provider is AWS. This enables you to have Kubernetes provision [persistent volumes](https://kubernetes.io/docs/concepts/storage/persistent-volumes/) directly from the default storage classes available from AWS to the machine that kURL is installed on running in AWS. If needed, the advanced option `ExcludeStorageClass` may be used to exclude the `aws-ebs` provisioner storage class provided by the AWS add-on. For more information about the AWS cloud provider for Kubernetes, see the [cloud-provider-aws](https://github.com/kubernetes/cloud-provider-aws) repository in GitHub.
+The AWS add-on enables the [AWS cloud provider](https://github.com/kubernetes/cloud-provider-aws) integration with the [Kubernetes (kubeadm) add-on](/docs/addon-ons/kubernetes). The AWS cloud provider provides the interface between a Kubernetes cluster and AWS service APIs. This project enables dynamic provisioning of Elastic Block Store (EBS) volumes as well as dynamic provisioning/configuration of Elastic Load Balancers (ELBs) for exposing Kubernetes Service objects.
+
+Because the AWS cloud controller manager performs some tasks on behalf of the operator, like creating an ELB or an EBS volume, you will need to create IAM policies and assign them to your EC2 instances. Please see the [prerequisites guide](https://kubernetes.github.io/cloud-provider-aws/prerequisites/) for the permissions needed.
 
 ## Advanced Install Options
 
