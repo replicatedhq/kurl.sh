@@ -2,7 +2,7 @@
 path: "/docs/add-ons/kubernetes"
 date: "2021-02-18"
 linktitle: "Kubernetes (kubeadm) Add-On"
-weight: 43
+weight: 44
 title: "Kubernetes (kubeadm) Add-On"
 addOn: "kubernetes"
 ---
@@ -19,7 +19,7 @@ flags-table
 
 ### Kube Reserved
 
-CPU, memory, and disk resources are reserved for Kubernetes system daemons when the `kubeReserved` flag is set to `true`. 
+CPU, memory, and disk resources are reserved for Kubernetes system daemons when the `kubeReserved` flag is set to `true`.
 
 Allocatable resources are calculated using the following equation:    
 `ALLOCATABLE = CAPACITY - RESERVED - EVICTION-THRESHOLD`

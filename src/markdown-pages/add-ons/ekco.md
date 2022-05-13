@@ -2,7 +2,7 @@
 path: "/docs/add-ons/ekco"
 date: "2020-02-27"
 linktitle: "EKCO Add-On"
-weight: 36
+weight: 37
 title: "Embedded kURL Cluster Operator (EKCO) Add-On"
 addOn: "ekco"
 ---
@@ -53,7 +53,7 @@ For more information, see to the command [below](/docs/add-ons/ekco#manual-node-
 
 ### Purge nodes
 
-When enabled, the EKCO operator automatically purges failed nodes that have been unreachable for more than `node_unreachable_toleration` (**Default:** 5 minutes). 
+When enabled, the EKCO operator automatically purges failed nodes that have been unreachable for more than `node_unreachable_toleration` (**Default:** 5 minutes).
 
 The following steps are taken during a purge:
 
@@ -163,7 +163,7 @@ systemctl list-timers
 
 ### Auto-resource Scaling
 
-With auto-resource scaling, EKCO automatically scales some cluster resources that 
+With auto-resource scaling, EKCO automatically scales some cluster resources that
 were installed by kURL to the specified replica count.
 
 Auto-resource scaling is useful because a subset of cluster resources require that all

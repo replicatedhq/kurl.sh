@@ -2,7 +2,7 @@
 path: "/docs/add-ons/openebs"
 date: "2019-02-20"
 linktitle: "OpenEBS Add-On"
-weight: 48
+weight: 49
 title: "OpenEBS Add-On"
 addOn: "openebs"
 ---
@@ -34,7 +34,7 @@ PersistentVolumes provisioned with localPV will not be relocatable to a new node
 Data in these PersistentVolumes will not be replicated across nodes to protect against data loss.
 The localPV provisioner is suitable as the default provisioner for single-node clusters.
 
-## cStor 
+## cStor
 
 The [cStor provisioner](https://docs.openebs.io/docs/next/ugcstor.html) relies on block devices for storage.
 The OpenEBS NodeDeviceManager runs a DaemonSet to automatically incorporate available block devices into a storage pool named `cstor-disk`.

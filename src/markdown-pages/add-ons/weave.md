@@ -2,7 +2,7 @@
 path: "/docs/add-ons/weave"
 date: "2020-05-13"
 linktitle: "Weave Add-On"
-weight: 57
+weight: 58
 title: "Weave Add-On"
 addOn: "weave"
 ---
