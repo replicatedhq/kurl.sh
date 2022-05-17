@@ -2,7 +2,7 @@ name: scrape
 on: 
   push:
     branches:
-      algolia-search
+      release
 jobs:
   scrape:
     runs-on: ubuntu-latest
