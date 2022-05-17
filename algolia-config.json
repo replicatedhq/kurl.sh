@@ -1,7 +1,7 @@
 {
     "index_name": "kurl-algolia-config",
     "start_urls": [
-      "https://kurl.sh/docs/"
+      "https://kurl.sh"
     ],
     "selectors": {
       "default" : {
