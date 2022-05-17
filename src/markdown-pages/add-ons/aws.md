@@ -9,7 +9,7 @@ addOn: "aws"
 
 The AWS add-on enables the Amazon Web Services (AWS) cloud provider integration with the Kubernetes (kubeadm) kURL add-on. For information about the kubeadm add-on, see [Kubernetes (kubeadm) Add-On](/docs/addon-ons/kubernetes).
 
-The AWS cloud provider provides the interface between a Kubernetes cluster and AWS service APIs. It enables dynamic provisioning of Elastic Block Store (EBS) volumes as well as dynamic provisioning and configuration of Elastic Load Balancers (ELBs) for exposing Kubernetes Service objects.
+The AWS cloud provider integration provides the interface between a Kubernetes cluster and AWS service APIs. It enables dynamic provisioning of Elastic Block Store (EBS) volumes as well as dynamic provisioning and configuration of Elastic Load Balancers (ELBs) for exposing Kubernetes Service objects.
 
 For more information about the AWS cloud provider, see the [AWS cloud provider](https://cloud-provider-aws.sigs.k8s.io/) online documentation.
 
