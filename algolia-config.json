@@ -1,12 +1,12 @@
 {
     "index_name": "kurl-algolia-config",
     "start_urls": [
-      "https://kurl.sh"
+      "https://kurl.sh/docs/"
     ],
     "selectors": {
       "default" : {
         "lvl0": {
-            "selector": ".markdown-body h1",
+            "selector": ".docs-container h1",
             "global": true
           },
         "lvl1": ".markdown-body h1",
