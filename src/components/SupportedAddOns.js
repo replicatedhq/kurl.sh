@@ -150,6 +150,8 @@ class SupportedAddOns extends React.Component {
         return "OpenEBS";
       case "iptables":
         return "iptables"
+      case "aws":
+        return "AWS";
       default:
         return name.charAt(0).toUpperCase() + name.slice(1);
     }
