@@ -2,13 +2,29 @@
     "index_name": "kurl-algolia-config",
     "start_urls": [
       "https://kurl.sh",
+      "https://kurl.sh/docs/introduction/what-kurl-does",
       "https://kurl.sh/docs/install-with-kurl/",
+      "https://kurl.sh/docs/install-with-kurl/connecting-remotely",
+      "https://kurl.sh/docs/install-with-kurl/proxy-installs",
+      "https://kurl.sh/docs/install-with-kurl/upgrading",
+      "https://kurl.sh/docs/install-with-kurl/adding-nodes",
+      "https://kurl.sh/docs/install-with-kurl/ipv6",
       "https://kurl.sh/docs/create-installer/",
+      "https://kurl.sh/docs/create-installer/single-node-optimized",
       "https://kurl.sh/docs/add-ons/antrea",
-      "https://kurl.sh/docs/add-on-author/",
-      "https://kurl.sh/docs/community/",
-      "https://kurl.sh/docs/install-with-kurl/adding-nodes"
-
+      "https://kurl.sh/docs/add-ons/aws",
+      "https://kurl.sh/docs/add-ons/cert-manager",
+      "https://kurl.sh/docs/add-ons/collectd",
+      "https://kurl.sh/docs/add-ons/contour",
+      "https://kurl.sh/docs/add-ons/docker",
+      "https://kurl.sh/docs/add-ons/firewalld",
+      "https://kurl.sh/docs/add-ons/fluentd",
+      "https://kurl.sh/docs/add-ons/goldpinger",
+      "https://kurl.sh/docs/add-ons/iptables",
+      "https://kurl.sh/docs/add-ons/longhorn",
+      "https://kurl.sh/docs/add-ons/selinux",
+      "https://kurl.sh/docs/add-ons/sonobuoy",
+      "https://kurl.sh/docs/add-ons/ufw"
     ],
     "selectors": {
       "default" : {
