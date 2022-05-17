@@ -6,13 +6,14 @@
       "https://kurl.sh/docs/create-installer/",
       "https://kurl.sh/docs/add-ons/antrea",
       "https://kurl.sh/docs/add-on-author/",
-      "https://kurl.sh/docs/community/"
+      "https://kurl.sh/docs/community/",
+      "https://kurl.sh/docs/install-with-kurl/adding-nodes"
 
     ],
     "selectors": {
       "default" : {
         "lvl0": {
-            "selector": ".docs-container h1",
+            "selector": "title",
             "global": true
           },
         "lvl1": ".docs-container h1",
