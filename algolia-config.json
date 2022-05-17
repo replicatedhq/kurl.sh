@@ -6,7 +6,7 @@
     "selectors": {
       "default" : {
         "lvl0": {
-            "selector": "title",
+            "selector": ".markdown-body h1",
             "global": true
           },
         "lvl1": ".markdown-body h1",
