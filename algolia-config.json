@@ -9,7 +9,7 @@
             "selector": ".docs-container h1",
             "global": true
           },
-        "lvl1": ".markdown-body h1",
+        "lvl1": ".docs-container h1",
         "lvl2": ".docs-content h2",
         "lvl3": ".docs-content h3",
         "lvl4": ".docs-content h4",
