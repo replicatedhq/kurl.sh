@@ -6,7 +6,7 @@
     "selectors": {
       "default" : {
         "lvl0": {
-            "selector": ".docs-container h1",
+            "selector": ".Sidebar-wrapper a",
             "global": true
           },
         "lvl1": ".docs-container h1",
