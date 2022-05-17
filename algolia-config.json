@@ -1,12 +1,18 @@
 {
     "index_name": "kurl-algolia-config",
     "start_urls": [
-      "https://kurl.sh"
+      "https://kurl.sh",
+      "https://kurl.sh/docs/install-with-kurl/",
+      "https://kurl.sh/docs/create-installer/",
+      "https://kurl.sh/docs/add-ons/antrea",
+      "https://kurl.sh/docs/add-on-author/",
+      "https://kurl.sh/docs/community/"
+
     ],
     "selectors": {
       "default" : {
         "lvl0": {
-            "selector": ".Sidebar-wrapper a",
+            "selector": ".docs-container h1",
             "global": true
           },
         "lvl1": ".docs-container h1",
