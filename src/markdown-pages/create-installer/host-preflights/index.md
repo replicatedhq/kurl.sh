@@ -7,7 +7,7 @@ title: "Customizing Host Preflights"
 ---
 
 While there are [default host preflight checks](/docs/install-with-kurl/host-preflights) that kURL runs during an installation or upgrade, these host preflight checks are customizable.
-There are two mechanisms for customizing host preflight checks: 
+There are two mechanisms for customizing host preflight checks:
 * Supplying additional host preflight checks as part of the kURL installer spec
 * Disabling the default host preflight checks
 
@@ -22,7 +22,7 @@ For examples of host preflight specs, see the following sections on [reproducing
 
 ## Excluding the Default Host Preflight Checks
 
-The default host preflight checks can be excluded by setting the `spec.kurl.excludeBuiltinHostPreflights` field to `true`. See the [kURL add-on docs](/docs/add-ons/kurl) for additional information.
+The default host preflight checks can be excluded by setting the `spec.kurl.excludeBuiltinHostPreflights` field to `true`.
 
 ## Modifying the Default Host Preflight Checks
 
@@ -37,7 +37,7 @@ The add-on host preflight checks can be found in directories that are specific t
 
 #### Finding the Add-On Host Preflight Checks
 
-For each of the add-ons that you are using that have default host preflight checks: 
+For each of the add-ons that you are using that have default host preflight checks:
     1. Go to the add-on directory linked below
     1. Choose the directory for the appropriate version of that add-on
     1. Find the `host-preflight.yaml` file
