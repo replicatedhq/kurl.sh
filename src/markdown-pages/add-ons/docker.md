@@ -9,7 +9,6 @@ addOn: "docker"
 Docker is a CRI (Container Runtime Interface).
 If Docker is not used, an alternative CRI must be used in its place.
 See [containerd documentation](/docs/add-ons/containerd) for more information.
-
 Kubenetes 1.24.0+ has dropped support for Dockershim and the [containerd](/docs/add-ons/containerd) CRI must be used. 
 
 ## Advanced Install Options
