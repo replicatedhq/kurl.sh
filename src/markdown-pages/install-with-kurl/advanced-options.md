@@ -254,4 +254,14 @@ The install scripts are idempotent. Re-run the scripts with different flags to c
   <code>curl https://kurl.sh/latest | sudo bash -s velero-restic-timeout=12h0m0s</code>
   </td>
 </tr>
+<tr>
+  <td><code>ekco-enable-internal-load-balancer</code></td>
+  <td>Run an internal load balanacer with HAProxy listening on localhost:6444 on all nodes.
+  <br/>
+  <br/>
+  <strong>Example:</strong>
+  <br/>
+  <code>curl https://kurl.sh/latest | sudo bash -s ekco-enable-internal-load-balancer</code>
+  </td>
+</tr>
 </table>

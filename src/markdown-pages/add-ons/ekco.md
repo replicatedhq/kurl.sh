@@ -120,6 +120,12 @@ EKCO 0.11.0+ can maintain an internal load balancer forwarding all traffic from 
 To do this, EKCO runs HAProxy as a [static pod](https://kubernetes.io/docs/tasks/configure-pod-container/static-pod/) on all nodes.
 EKCO ensures that, when new nodes are added and removed from the cluster, the correct HAProxy configuration is applied on all nodes.
 
+In addition to the `ekco.enableInternalLoadBalancer` parameter, the `ekco-enable-internal-load-balancer` flag can be specified at install time to enable this feature.
+
+```bash
+curl https://kurl.sh/latest | sudo bash -s ekco-enable-internal-load-balancer
+```
+
 ### Auto-upgrades (Experimental)
 
 If an auto-upgrade schedule is included in your kURL specification and the end user passes the `auto-upgrades-enabled` flag to the install script, a systemd service named `ekco-upgrade` is installed to automatically check for and install updates to Kubernetes and the add-ons.
