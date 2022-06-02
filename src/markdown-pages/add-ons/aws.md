@@ -18,10 +18,11 @@ The AWS cloud provider integration creates an interface between the Kubernetes c
 For more information about the AWS cloud provider, see the [AWS cloud provider](https://cloud-provider-aws.sigs.k8s.io/) online documentation.
 
 ## Prerequisite
-
-Because the AWS cloud controller manager performs some tasks on behalf of the operator, such as creating an ELB or an EBS volume, you must create Identity and Access Management (IAM) policies in AWS and assign them to your Elastic Compute Cloud (EC2) instances.
+### IAM Roles and Policies
+Since the AWS cloud controller manager performs some tasks on behalf of the operator, such as creating an ELB or an EBS volume, you must create Identity and Access Management (IAM) policies in AWS and assign them to your Elastic Compute Cloud (EC2) instances. For more information about applying policies to your EC2 instance, see [IAM roles for Amazon EC2](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/iam-roles-for-amazon-ec2.html) as well as this example for [Allowwing mangingg EC2 security groups with a specific tag key-value pair](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_examples_ec2_securitygroups-vpc.html). The tag key is `kubernetes.io/cluster/<cluster-name>` and by default, the [Kubernetes add-on](https://kurl.sh/docs/add-ons/kubernetes#advanced-install-options) uses the cluster name `kubernetes`. 
 
 For more information about the required permissions, see [Prerequisites](https://kubernetes.github.io/cloud-provider-aws/prerequisites/) in the AWS cloud provider documentation.
+
 
 ## Requirements and Limitations
 
