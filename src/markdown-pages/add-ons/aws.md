@@ -36,6 +36,9 @@ The AWS add-on is supported only:
 
 The AWS add-on is not supported for the [K3s](/docs/addon-ons/k3s) or [RKE2](/docs/addon-ons/rke2) add-ons.
 
+### Integration with Elastic Load Balancer Service
+The [AWS cloud provider](https://cloud-provider-aws.sigs.k8s.io/) requires that a minimum of two nodes are available in the cluster and that one of the nodes is assigned the `worker` node role in order to use this integration. 
+
 ## Advanced Install Options
 
 ```yaml
