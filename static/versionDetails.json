@@ -728,7 +728,7 @@
     },
     {
       "flag": "excludeStorageClass",
-      "description": "Exclude AWS-EBS provisioner storage class provided by the AWS add-on. When `true`, another storage provisioner, such as <a href=\"https://kurl.sh/docs/add-ons/longhorn\">Longhorn</a> must be used.",
+      "description": "Exclude AWS-EBS provisioner storage class provided by the AWS add-on. When `true`, another storage provisioner, such as <a href=\"https://kurl.sh/docs/add-ons/longhorn\">Longhorn</a>, must be used.",
       "type": "boolean",
       "defaultValue": false
     }
