@@ -23,7 +23,7 @@ The `make watchrsync` command requires Node with the `gaze-run-interrupt` packag
 
 On the remote instance run `cd ~/kurl && sudo bash install.sh` to test your changes.
 
-*Additional details can be found [here](https://github.com/replicatedhq/kURL/blob/master/test/dev.md).*
+*Additional details can be found [here](https://github.com/replicatedhq/kURL/blob/main/CONTRIBUTING.md).*
 
 
 ## How It Works
