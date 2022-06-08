@@ -1722,7 +1722,7 @@ class Kurlsh extends React.Component {
                       />
                       <span className="icon u-localPathProvisioner u-marginBottom--small" />
                       <div className="flex flex-column u-marginLeft--15 u-marginTop--small">
-                        <div className="FormLabel"> Local Path Provisioner </div>
+                        <div className="FormLabel"> Local Path Provisioner (Beta) </div>
                         <div className={`SelectVersion flex flex1 ${!this.state.isAddOnChecked["localPathProvisioner"] && "disabled"}`} style={{ width: "200px" }}>
                           <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> {!this.state.isAddOnChecked["localPathProvisioner"] ? "Version None" : "Version"} </span>
                           <Select

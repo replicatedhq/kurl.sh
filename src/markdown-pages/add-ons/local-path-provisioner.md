@@ -1,9 +1,9 @@
 ---
 path: "/docs/add-ons/local-path-provisioner"
 date: "2022-06-08"
-linktitle: "Local Path Provisioner Add-On"
+linktitle: "Local Path Provisioner Add-On (Beta)"
 weight: 46
-title: "Local Path Provisioner Add-On"
+title: "Local Path Provisioner Add-On (Beta)"
 addOn: "localPathProvisioner"
 ---
 
@@ -19,3 +19,7 @@ spec:
   localPathProvisioner:
     version: 0.0.22
 ```
+
+## Limitations
+Because this project is not yet considered stable by Rancher, the upstream developer, it cannot be considered stable here.
+Volume capacity limits are not enforced.
