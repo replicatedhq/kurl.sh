@@ -1,0 +1,21 @@
+---
+path: "/docs/add-ons/local-path-provisioner"
+date: "2022-06-08"
+linktitle: "Local Path Provisioner Add-On"
+weight: 46
+title: "Local Path Provisioner Add-On"
+addOn: "localPathProvisioner"
+---
+
+[Local Path Provisioner](https://github.com/rancher/local-path-provisioner/) is a minimal PVC provisioner that exposes node-local storage.
+
+Local Path Provisioner uses the `/opt/local-path-provisioner` directory for storage on all nodes.
+This directory should have enough space to hold a complete copy of every PersistentVolumeClaim that will be on a given node.
+
+## Advanced Install Options
+
+```yaml
+spec:
+  localPathProvisioner:
+    version: 0.0.22
+```

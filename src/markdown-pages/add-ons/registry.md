@@ -2,7 +2,7 @@
 path: "/docs/add-ons/registry"
 date: "2020-05-13"
 linktitle: "Registry Add-On"
-weight: 51
+weight: 52
 title: "Registry Add-On"
 addOn: "registry"
 ---

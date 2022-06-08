@@ -2,7 +2,7 @@
 path: "/docs/add-ons/sonobuoy"
 date: "2021-04-09"
 linktitle: "Sonobuoy Add-On"
-weight: 55
+weight: 56
 title: "Sonobuoy Add-On"
 addOn: "Sonobuoy"
 ---

@@ -2,7 +2,7 @@
 path: "/docs/add-ons/openebs"
 date: "2019-02-20"
 linktitle: "OpenEBS Add-On"
-weight: 49
+weight: 50
 title: "OpenEBS Add-On"
 addOn: "openebs"
 ---
