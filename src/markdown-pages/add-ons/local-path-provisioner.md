@@ -11,6 +11,8 @@ addOn: "localPathProvisioner"
 
 Local Path Provisioner uses the `/opt/local-path-provisioner` directory for storage on all nodes.
 This directory should have enough space to hold a complete copy of every PersistentVolumeClaim that will be on a given node.
+Every GB of storage used within a PVC will result in a GB of disk usage.
+As volume capacity limits are not enforced, using a separate volume for this directory is recommended.
 
 ## Advanced Install Options
 
