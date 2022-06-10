@@ -23,5 +23,5 @@ spec:
 ```
 
 ## Limitations
-Because this project is not yet considered stable by Rancher, the upstream developer, it cannot be considered stable here.
+Because this project is not yet considered stable by [Rancher](https://github.com/rancher/local-path-provisioner), the upstream developer, it cannot be considered stable here.
 Volume capacity limits are not enforced.
