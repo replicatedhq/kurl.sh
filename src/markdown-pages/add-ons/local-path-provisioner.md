@@ -7,12 +7,12 @@ title: "Local Path Provisioner Add-On (Beta)"
 addOn: "localPathProvisioner"
 ---
 
-[Local Path Provisioner](https://github.com/rancher/local-path-provisioner/) is a minimal PVC provisioner that exposes node-local storage.
+Local Path Provisioner is a minimal PersistentVolumeClaim (PVC) provisioner that uses the Kubernetes Local Persistent Volume feature to expose node-local storage. For more information, see [Local Path Provisioner](https://github.com/rancher/local-path-provisioner/) in the Rancher GitHub organization.
 
 Local Path Provisioner uses the `/opt/local-path-provisioner` directory for storage on all nodes.
-This directory should have enough space to hold a complete copy of every PersistentVolumeClaim that will be on a given node.
-Every GB of storage used within a PVC will result in a GB of disk usage.
-As volume capacity limits are not enforced, using a separate volume for this directory is recommended.
+This directory must have enough space to hold a complete copy of each PVC on a given node.
+To determine how much space is required on the directory, note that each GB of storage used in a PVC requires 1 GB of disk usage.
+Because volume capacity limits are not enforced, using a separate volume for this directory is recommended.
 
 ## Advanced Install Options
 
@@ -23,5 +23,8 @@ spec:
 ```
 
 ## Limitations
-Because this project is not yet considered stable by [Rancher](https://github.com/rancher/local-path-provisioner), the upstream developer, it cannot be considered stable here.
-Volume capacity limits are not enforced.
+
+The Local Path Provisioner add-on has the following limitations:
+
+- The Local Path Provisioner add-on is Beta. Rancher, the upstream developer, does not consider the Local Path Provisioner project to be stable. For more information, see [Local Path Provisioner](https://github.com/rancher/local-path-provisioner/) in the Rancher GitHub organization.
+- Volume capacity limits are not enforced.
