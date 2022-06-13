@@ -163,14 +163,18 @@ class SupportedAddOns extends React.Component {
     const activeSupportedVersionCategory = categoryVersionsToShow.find(c => c.name === addOn.name);
     const versions = supportedVersions[addOn.name];
 
-
     return (
       <div className={`${isMobile ? "mobileAddOns--wrapper" : filteredCategories ? "AddOns--wrapper fixedHeight flex flex-column" : "AddOns--wrapper flex flex-column"}`} key={`${addOn}-${i}`}>
         <div className="addOnsBackground flex alignItems--center">
           <div className="flex flex1 alignItems--center">
             <span className={`icon u-${addOn.name === "ekco" || addOn.name === "metrics-server" ? "kubernetes" : addOn.name === "cert-manager" ? "certManager" : addOn.name.toLowerCase()} u-marginBottom--small`}></span>
             <div className="flex-column">
-              <span className="u-fontSize--largest u-fontWeight--medium u-color--tuna  u-marginLeft--10">{this.generateVersionName(addOn.name)}</span>
+              <span className="u-fontSize--largest u-fontWeight--medium u-color--tuna  u-marginLeft--10">
+                {this.generateVersionName(addOn.name)}
+                {addOn.name === "aws" && (
+                  <span className="prerelease-tag sidebar beta">beta</span>
+                )}
+              </span>
               <div className="flex flex1 u-marginTop--small">
                 {addOn.fulfills.map((category, i) => {
                   return (
