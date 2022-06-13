@@ -1,7 +1,7 @@
 ---
 path: "/docs/add-ons/aws"
 date: "2022-05-10"
-linktitle: "AWS Add-On"
+linktitle: "AWS"
 weight: 31
 title: "AWS Add-On"
 addOn: "aws"

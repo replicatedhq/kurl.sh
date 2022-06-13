@@ -1,7 +1,7 @@
 ---
 path: "/docs/add-ons/k3s"
 date: "2021-02-18"
-linktitle: "K3s Add-On"
+linktitle: "K3s"
 weight: 42
 title: "K3s Add-On"
 addOn: "k3s"

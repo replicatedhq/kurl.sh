@@ -1,7 +1,7 @@
 ---
 path: "/docs/add-ons/rke2"
 date: "2021-02-18"
-linktitle: "RKE2 Add-On"
+linktitle: "RKE2"
 weight: 52
 title: "RKE2 Add-On"
 addOn: "rke2"

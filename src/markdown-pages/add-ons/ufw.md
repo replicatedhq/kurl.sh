@@ -1,7 +1,7 @@
 ---
 path: "/docs/add-ons/ufw"
 date: "2021-04-13"
-linktitle: "UFW Add-On"
+linktitle: "UFW"
 weight: 56
 title: "UFW Add-On"
 addOn: "ufw"
