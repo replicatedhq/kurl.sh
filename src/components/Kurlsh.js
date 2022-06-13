@@ -1944,7 +1944,7 @@ class Kurlsh extends React.Component {
                       />
                       <span className="icon u-aws u-marginBottom--small" />
                       <div className="flex flex-column u-marginLeft--15 u-marginTop--small">
-                        <div className="FormLabel"> AWS </div>
+                        <div className="FormLabel"> AWS (Beta) </div>
                         <div className="flex flex1 alignItems--center">
                           <div className={`SelectVersion flex flex1 ${!this.state.isAddOnChecked["aws"] && "disabled"}`} style={{ width: "200px" }}>
                             <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> {!this.state.isAddOnChecked["aws"] ? "Version None" : "Version"} </span>
