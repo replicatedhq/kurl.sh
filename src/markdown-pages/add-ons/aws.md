@@ -1,10 +1,11 @@
 ---
 path: "/docs/add-ons/aws"
 date: "2022-05-10"
-linktitle: "AWS Add-On"
+linktitle: "AWS"
 weight: 31
 title: "AWS Add-On"
 addOn: "aws"
+isBeta: true
 ---
 
 The AWS add-on enables the Amazon Web Services (AWS) cloud provider integration with the Kubernetes (kubeadm) kURL add-on. For information about the kubeadm add-on, see [Kubernetes (kubeadm) Add-On](/docs/addon-ons/kubernetes).

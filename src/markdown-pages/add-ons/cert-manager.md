@@ -1,7 +1,7 @@
 ---
 path: "/docs/add-ons/cert-manager"
 date: "2020-11-02"
-linktitle: "Cert Manager Add-On"
+linktitle: "Cert Manager"
 weight: 32
 title: "Cert Manager Add-On"
 addOn: "certManager"

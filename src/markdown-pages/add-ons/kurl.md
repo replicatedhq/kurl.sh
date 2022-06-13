@@ -1,7 +1,7 @@
 ---
 path: "/docs/add-ons/kurl"
 date: "2020-05-01"
-linktitle: "Kurl Add-On"
+linktitle: "Kurl"
 weight: 45
 title: "Kurl Add-On"
 addOn: "kurl"

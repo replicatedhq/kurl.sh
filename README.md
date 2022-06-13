@@ -19,7 +19,7 @@ Before you are able to run this locally you need to have NodeJS above v.8.12.
 
 ## Updating documentation flags 
 
-1. When updating add ons flaga JSON should be updated (`/static/versionDetails.json`). 
+1. When updating add-ons flags JSON should be updated (`/static/versionDetails.json`). 
 2. In a markdown file those flags should be called as `flags-table`.
 
 ## Releasing the documentation
