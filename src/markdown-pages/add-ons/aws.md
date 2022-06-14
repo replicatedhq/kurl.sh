@@ -65,6 +65,8 @@ There are additional requirements when creating a `LoadBalancer` service:
 
 ## Advanced Install Options
 
+The following example shows the exclusion of AWS-EBS provisioner storage class provided by the AWS add-on:
+
 ```yaml
 spec:
   aws:
