@@ -1,7 +1,7 @@
 ---
 path: "/docs/add-ons/containerd"
 date: "2020-06-13"
-linktitle: "Containerd Add-On"
+linktitle: "Containerd"
 weight: 34
 title: "Containerd Add-On"
 addOn: "containerd"
