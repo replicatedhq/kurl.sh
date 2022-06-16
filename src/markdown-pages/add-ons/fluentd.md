@@ -1,7 +1,7 @@
 ---
 path: "/docs/add-ons/fluentd"
 date: "2019-02-20"
-linktitle: "Fluentd Add-On"
+linktitle: "Fluentd"
 weight: 39
 title: "Fluentd Add-On"
 addOn: "fluentd"

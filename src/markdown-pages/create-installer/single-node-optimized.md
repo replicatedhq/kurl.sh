@@ -2,8 +2,9 @@
 path: "/docs/create-installer/single-node-optimized"
 date: "2022-02-18"
 weight: 21
-linktitle: "Single-Node Optimized (Beta)"
-title: "Single-Node Optimized (Beta)"
+linktitle: "Single-Node Optimized"
+title: "Single-Node Optimized"
+isBeta: true
 ---
 
 While kURL is flexible and capable of supporting a variety of different distributions, there is beta support for an installer specification that is optimized for use with single-node installations that are not intended to scale to multiple nodes. Some use cases only require a single node, and this installer specification is optimized for these use cases.

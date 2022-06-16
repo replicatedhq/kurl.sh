@@ -1,10 +1,11 @@
 ---
 path: "/docs/add-ons/rke2"
 date: "2021-02-18"
-linktitle: "RKE2 Add-On (Beta)"
+linktitle: "RKE2"
 weight: 53
-title: "RKE2 Add-On (Beta)"
+title: "RKE2 Add-On"
 addOn: "rke2"
+isBeta: true
 ---
 
 [RKE2](https://rke2.io/), also known as RKE Government, is a fully-conformant Kubernetes distribution from Rancher.

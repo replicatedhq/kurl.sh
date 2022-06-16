@@ -4,10 +4,17 @@ import { Link, navigate } from "gatsby";
 import "../../scss/components/shared/SidebarFileTree.scss";
 
 function titleize(string) {
-  return string
+  const title = string
     .split("-")
     .map(s => s[0].toUpperCase() + s.slice(1))
     .join(" ");
+  if (title === "Add Ons") {
+    return "Add-Ons";
+  }
+  if (title === "Add On Author") {
+    return "Add-On Author";
+  }
+  return title;
 }
 
 export default class SidebarFileTree extends Component {

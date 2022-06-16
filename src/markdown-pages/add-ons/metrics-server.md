@@ -1,7 +1,7 @@
 ---
 path: "/docs/add-ons/metrics-server"
 date: "2020-11-02"
-linktitle: "Metrics Server Add-On"
+linktitle: "Metrics Server"
 weight: 48
 title: "Metrics Server Add-On"
 addOn: "metricsServer"

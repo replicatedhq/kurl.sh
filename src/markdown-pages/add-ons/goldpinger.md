@@ -1,7 +1,7 @@
 ---
 path: "/docs/add-ons/goldpinger"
 date: "2021-06-24"
-linktitle: "Goldpinger Add-On"
+linktitle: "Goldpinger"
 weight: 40
 title: "Goldpinger Add-On"
 addOn: "goldpinger"

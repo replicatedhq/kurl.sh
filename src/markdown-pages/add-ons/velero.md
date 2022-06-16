@@ -1,7 +1,7 @@
 ---
 path: "/docs/add-ons/velero"
 date: "2019-11-20"
-linktitle: "Velero Add-On"
+linktitle: "Velero"
 weight: 58
 title: "Velero Add-On"
 addOn: "velero"
