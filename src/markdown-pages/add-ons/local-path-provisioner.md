@@ -1,10 +1,11 @@
 ---
 path: "/docs/add-ons/local-path-provisioner"
 date: "2022-06-08"
-linktitle: "Local Path Provisioner Add-On (Beta)"
+linktitle: "Local Path Provisioner Add-On"
 weight: 46
-title: "Local Path Provisioner Add-On (Beta)"
+title: "Local Path Provisioner Add-On"
 addOn: "localPathProvisioner"
+isBeta: true
 ---
 
 Local Path Provisioner is a minimal PersistentVolumeClaim (PVC) provisioner that uses the Kubernetes Local Persistent Volume feature to expose node-local storage. For more information, see [Local Path Provisioner](https://github.com/rancher/local-path-provisioner/) in the Rancher GitHub organization.
