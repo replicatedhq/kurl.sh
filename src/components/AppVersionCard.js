@@ -15,6 +15,8 @@ export default class AppVersionCard extends React.Component {
       return "Cert manager"
     } else if (name === "metricsServer") {
       return "Metrics server"
+    } else if (name === "localPathProvisioner") {
+      return "Local Path Storage"
     } else {
       return Utilities.toTitleCase(name);
     }
