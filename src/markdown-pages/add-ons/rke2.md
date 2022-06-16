@@ -2,7 +2,7 @@
 path: "/docs/add-ons/rke2"
 date: "2021-02-18"
 linktitle: "RKE2"
-weight: 52
+weight: 53
 title: "RKE2 Add-On"
 addOn: "rke2"
 isBeta: true

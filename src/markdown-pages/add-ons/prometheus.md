@@ -2,7 +2,7 @@
 path: "/docs/add-ons/prometheus"
 date: "2020-05-13"
 linktitle: "Prometheus"
-weight: 50
+weight: 51
 title: "Prometheus Add-On"
 addOn: "prometheus"
 ---

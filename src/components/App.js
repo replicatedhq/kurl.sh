@@ -286,6 +286,8 @@ cat install.sh | sudo bash -s airgap
                     <AppVersionCard selectedSpec={selectedSpec} name={"certManager"} installerData={installerData.spec.certManager} whatYouGet={this.whatYouGet} />}
                   {installerData.spec.sonobuoy &&
                     <AppVersionCard selectedSpec={selectedSpec} name={"sonobuoy"} installerData={installerData.spec.sonobuoy} whatYouGet={this.whatYouGet} />}
+                  {installerData.spec.localPathProvisioner &&
+                    <AppVersionCard selectedSpec={selectedSpec} name={"sonobuoy"} installerData={installerData.spec.localPathProvisioner} whatYouGet={this.whatYouGet} />}
                 </div>
               }
               {installerData &&

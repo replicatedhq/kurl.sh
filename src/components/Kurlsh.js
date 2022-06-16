@@ -41,7 +41,8 @@ const NIL_VERSIONS = {
   certManager: { version: "None" },
   sonobuoy: { version: "None" },
   goldpinger: { version: "None" },
-  aws: { version: "None" }
+  aws: { version: "None" },
+  localPathProvisioner: { version: "None" }
 }
 const hasAdvancedOptions = ["kubernetes", "weave", "antrea", "contour", "rook", "registry", "docker", "velero", "kotsadm", "ekco", "fluentd", "minio", "openebs", "longhorn", "prometheus", "aws"];
 function versionToState(version) {
@@ -127,6 +128,9 @@ class Kurlsh extends React.Component {
     const awsVersions = this.addDotXVersions(supportedVersions["aws"].map(versionToState));
     awsVersions.push({ version: "None" });
 
+    const localPathProvisionerVersions = this.addDotXVersions(supportedVersions["local-path-provisioner"].map(versionToState));
+    localPathProvisionerVersions.push({ version: "None" });
+
     this.state = {
       versions: {
         kubernetes: kubernetesVersions,
@@ -152,7 +156,8 @@ class Kurlsh extends React.Component {
         certManager: certManagerVersions,
         sonobuoy: sonobuoyVersions,
         goldpinger: goldpingerVersions,
-        aws: awsVersions
+        aws: awsVersions,
+        localPathProvisioner: localPathProvisionerVersions,
       },
       selectedVersions: NIL_VERSIONS,
       installerSha: "",
@@ -178,7 +183,8 @@ class Kurlsh extends React.Component {
         "certManager": false,
         "sonobuoy": false,
         "goldpinger": false,
-        "aws": false
+        "aws": false,
+        "localPathProvisioner": false,
       },
       advancedOptions: {
         kubernetes: {},
@@ -203,7 +209,8 @@ class Kurlsh extends React.Component {
         sonobuoy: {},
         goldpinger: {},
         prometheus: {},
-        aws: {}
+        aws: {},
+        localPathProvisioner: {}
       },
       isAddOnChecked: {
         kubernetes: false,
@@ -230,6 +237,7 @@ class Kurlsh extends React.Component {
         sonobuoy: false,
         goldpinger: false,
         aws: false,
+        localPathProvisioner: false,
       },
       isEditorLoading: false,
       optionDefaults: {},
@@ -661,6 +669,20 @@ class Kurlsh extends React.Component {
       if (Object.keys(diff).length) {
         generatedInstaller.spec.aws = {
           ...generatedInstaller.spec.aws,
+          ...diff
+        };
+      }
+    }
+
+    if (selectedVersions.localPathProvisioner.version !== "None") {
+      const diff = getDiff(optionDefaults["localPathProvisioner"], options.localPathProvisioner);
+      generatedInstaller.spec.localPathProvisioner = {
+        version: selectedVersions.localPathProvisioner.version
+      };
+
+      if (Object.keys(diff).length) {
+        generatedInstaller.spec.localPathProvisioner = {
+          ...generatedInstaller.spec.localPathProvisioner,
           ...diff
         };
       }
@@ -1687,6 +1709,36 @@ class Kurlsh extends React.Component {
                     </div>
                   </div>
                   {showAdvancedOptions["openebs"] && this.renderAdvancedOptions("openebs")}
+                </div>
+
+                <div className={`AddOn--wrapper ${selectedVersions.localPathProvisioner.version !== "None" && "selected"} flex flex-column u-marginTop--15`} onClick={(e) => this.handleIsAddOnSelected("localPathProvisioner", e)}>
+                  <div className="flex flex1">
+                    <div className="flex flex1 alignItems--center">
+                      <input
+                        type="checkbox"
+                        className="u-marginRight--normal"
+                        checked={selectedVersions.localPathProvisioner.version !== "None"}
+                        readOnly
+                      />
+                      <span className="icon u-localPathProvisioner u-marginBottom--small" />
+                      <div className="flex flex-column u-marginLeft--15 u-marginTop--small">
+                        <div className="FormLabel"> Local Path Provisioner (Beta) </div>
+                        <div className={`SelectVersion flex flex1 ${!this.state.isAddOnChecked["localPathProvisioner"] && "disabled"}`} style={{ width: "200px" }}>
+                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> {!this.state.isAddOnChecked["localPathProvisioner"] ? "Version None" : "Version"} </span>
+                          <Select
+                            isSearchable={false}
+                            options={versions.localPathProvisioner}
+                            getOptionLabel={this.getLabel("localPathProvisioner")}
+                            getOptionValue={(localPathProvisioner) => localPathProvisioner}
+                            value={selectedVersions.localPathProvisioner}
+                            onChange={this.onVersionChange("localPathProvisioner")}
+                            matchProp="value"
+                            isDisabled={!this.state.isAddOnChecked["localPathProvisioner"]}
+                            isOptionSelected={() => false} />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
 

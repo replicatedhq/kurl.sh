@@ -2,7 +2,7 @@
 path: "/docs/add-ons/longhorn"
 date: "2021-03-12"
 linktitle: "Longhorn"
-weight: 46
+weight: 47
 title: "Longhorn Add-On"
 addOn: "longhorn"
 ---
