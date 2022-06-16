@@ -7,9 +7,9 @@ title: "AWS Add-On"
 addOn: "aws"
 ---
 
-The AWS add-on enables the use of the Amazon Web Services (AWS) cloud provider integration with the Kubernetes (kubeadm) kURL add-on. For more information about this service, see the [Kubernetes `cloud-provider-aws`](https://github.com/kubernetes/cloud-provider-aws/) repository. For information about the kubeadm add-on, see [Kubernetes (kubeadm) Add-On](/docs/addon-ons/kubernetes).
+The AWS add-on enables the Kubernetes control plane to be configured to use the [Amazon Web Services (AWS) cloud provider integration](https://cloud-provider-aws.sigs.k8s.io/). For more information about these components, see the [Kubernetes `cloud-provider-aws`](https://github.com/kubernetes/cloud-provider-aws/#components) repository. For information about the kubeadm add-on, see [Kubernetes (kubeadm) Add-On](/docs/addon-ons/kubernetes).
 
-This integration creates an interface between the Kubernetes cluster and specific Amazon Web Services APIs. This enables the:
+This integration, provided by Kubernetes, creates an interface between the Kubernetes cluster and specific Amazon Web Service APIs. This enables the:
 
 - Dynamic provisioning of Elastic Block Store (EBS) volumes. See [Amazon Elastic Block Store (EBS)](https://aws.amazon.com/ebs/) in the AWS documentation.
 - Image retrieval from Elastic Container Registry (ECR). See [Amazon Elastic Container Registry](https://aws.amazon.com/ecr/) in the AWS documentation.
@@ -52,11 +52,11 @@ The AWS add-on is supported only:
 
 The AWS add-on is **not** supported for the K3s or RKE2 add-ons. See [K3s](/docs/addon-ons/k3s) and [RKE2](/docs/addon-ons/rke2).
 
-### ELB and LoadBalancer Service Requirements
+### AWS ELB and Kubernetes LoadBalancer Service Requirements
 
 There are additional requirements when creating a `LoadBalancer` service:
 
-- The AWS cloud provider requires that a minimum of two nodes are available in the cluster and that one of the nodes is assigned the `worker` node role to use this integration. See [Kubernetes AWS Cloud Provider](https://cloud-provider-aws.sigs.k8s.io/) in the Kubernetes documentation.
+- The AWS cloud provider requires that a minimum of two nodes are available in the cluster and that one of the nodes is assigned the `worker` node role to use this integration. See [Kubernetes AWS Cloud Provider](https://cloud-provider-aws.sigs.k8s.io/) in the Kubernetes documentation. **Failure to have two nodes available, one of which is a worker node, will require an AWS administrator for your account to manually register the ELB in the AWS management console.**
 
 - When creating a `LoadBalancer` service where there is more than one security group attached to your cluster nodes, you must tag only one of the security groups as `owned` so that Kubernetes knows which group to add and remove rules from. A single, untagged security group is allowed, however, sharing this untagged security group between clusters is not recommended.
  
