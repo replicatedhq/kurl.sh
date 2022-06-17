@@ -39,7 +39,6 @@ The available add-ons are:
 * [Docker Registry](https://docs.docker.com/registry/)
 * [Prometheus](https://prometheus.io/)
 * [Nodeless](https://www.elotl.co/)
-* [Calico](https://www.projectcalico.org/)
 * [Velero](https://velero.io/)
 * [EKCO](https://github.com/replicatedhq/ekco)
 * [OpenEBS](https://openebs.io/)
