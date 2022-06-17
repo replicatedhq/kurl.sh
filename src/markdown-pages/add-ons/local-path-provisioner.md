@@ -28,4 +28,4 @@ The Local Path Provisioner add-on has the following limitations:
 
 - The Local Path Provisioner add-on is Beta. Rancher, the upstream developer, does not consider the Local Path Provisioner project to be stable. For more information, see [Local Path Provisioner](https://github.com/rancher/local-path-provisioner/) in the Rancher GitHub organization.
 - Volume capacity limits are not enforced.
-- The Local Path Provisioner is incompatible with the [Velero add-on](/docs/add-ons/velero) as [Velero](https://github.com/vmware-tanzu/velero/discussions/3378) does not support hostPath volumes. 
+- The Local Path Provisioner is incompatible with the [Velero add-on](/docs/add-ons/velero) as Restic [does not support `hostPath` volumes](https://github.com/vmware-tanzu/velero/blob/master/site/docs/master/restic.md#limitations). 
