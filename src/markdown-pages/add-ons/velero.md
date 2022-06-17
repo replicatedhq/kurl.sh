@@ -15,7 +15,7 @@ The Kurl add-on installs:
 * CRDs for configuring backups and restores
 
 ## Limitations
-It is recommended to familiarize the documented [Velero limitations](https://github.com/vmware-tanzu/velero/blob/master/site/docs/master/restic.md#limitations) when using this add-on.  
+The limitations of Velero apply to this add-on. For more information, see [Limitations](https://github.com/vmware-tanzu/velero/blob/master/site/docs/master/restic.md#limitations) in the Velero GitHub repository.  
 
 ## Advanced Install Options
 
