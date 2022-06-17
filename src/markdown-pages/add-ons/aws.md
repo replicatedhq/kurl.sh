@@ -9,7 +9,7 @@ addOn: "aws"
 
 The AWS add-on enables the Kubernetes control plane to be configured to use the [Amazon Web Services (AWS) cloud provider integration](https://cloud-provider-aws.sigs.k8s.io/). For more information about these components, see the [Kubernetes `cloud-provider-aws`](https://github.com/kubernetes/cloud-provider-aws/#components) repository. For information about the kubeadm add-on, see [Kubernetes (kubeadm) Add-On](/docs/addon-ons/kubernetes).
 
-This integration, provided by Kubernetes, creates an interface between the Kubernetes cluster and specific Amazon Web Service APIs. This enables the:
+This integration, provided by Kubernetes, creates an interface between the Kubernetes cluster and specific AWS APIs. This enables the:
 
 - Dynamic provisioning of Elastic Block Store (EBS) volumes. See [Amazon Elastic Block Store (EBS)](https://aws.amazon.com/ebs/) in the AWS documentation.
 - Image retrieval from Elastic Container Registry (ECR). See [Amazon Elastic Container Registry](https://aws.amazon.com/ecr/) in the AWS documentation.
