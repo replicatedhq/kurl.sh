@@ -19,8 +19,7 @@ title: "System Requirements"
 
 ## Minimum System Requirements
 
-* 4 CPUs or equivalent per machine
-    * ARM64 CPUs are not supported at this time
+* 4 AMD64 CPUs or equivalent per machine
 * 8 GB of RAM per machine
 * 40 GB of Disk Space per machine. 
     * **Note**: 10GB of the total 40GB should be available to `/var/lib/rook`. For more information see [Rook](/docs/add-ons/rook)
