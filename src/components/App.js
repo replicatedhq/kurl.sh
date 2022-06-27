@@ -51,7 +51,9 @@ class AppComponent extends React.Component {
   }
 
   checkS3Response = async (sha) => {
-    const url = `${process.env.KURL_BUNDLE_URL}/${sha}.tar.gz`
+    const bundleUrl = `${process.env.KURL_BUNDLE_URL}/${sha}.tar.gz`
+    // Make sure the installer sha actually exists
+    const installerUrl = `${process.env.KURL_INSTALLER_URL}/${sha}`
     this.setState({ loadingBundleUrl: true });
     let mode = "same-origin"
     if (process.env.IS_DEVELOPMENT === "true") {
@@ -60,11 +62,11 @@ class AppComponent extends React.Component {
       // for dev, it allows access to existing bundles but fails for bundles that don't exist (as we don't provide accept headers for 404s)
     }
     try {
-      const response = await fetch(url, {
+      const response = await fetch(installerUrl, {
         method: "HEAD",
         mode: mode
       });
-      this.setState({ responseStatusCode: response.status, bundleUrl: url, loadingBundleUrl: false })
+      this.setState({ responseStatusCode: response.status, bundleUrl: bundleUrl, loadingBundleUrl: false })
     } catch (error) {
       console.log(error);
       this.setState({ loadingBundleUrl: false });

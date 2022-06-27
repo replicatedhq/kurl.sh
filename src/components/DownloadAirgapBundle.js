@@ -18,7 +18,9 @@ class DownloadAirgapBundle extends React.Component {
   }
 
   checkS3Response = async (sha) => {
-    const url = `${process.env.KURL_BUNDLE_URL}/${sha}.tar.gz`
+    const bundleUrl = `${process.env.KURL_BUNDLE_URL}/${sha}.tar.gz`
+    // Make sure the installer sha actually exists
+    const installerUrl = `${process.env.KURL_INSTALLER_URL}/${sha}`
     this.setState({ loadingBundleUrl: true });
     let mode = "same-origin"
     if (process.env.IS_DEVELOPMENT === "true") {
@@ -27,11 +29,11 @@ class DownloadAirgapBundle extends React.Component {
       // for dev, it allows access to existing bundles but fails for bundles that don't exist (as we don't provide accept headers for 404s)
     }
     try {
-      const response = await fetch(url, {
+      const response = await fetch(installerUrl, {
         method: "HEAD",
         mode: mode
       });
-      this.setState({ responseStatusCode: response.status, bundleUrl: url })
+      this.setState({ responseStatusCode: response.status, bundleUrl: bundleUrl })
     } catch (error) {
       console.log(error);
       return;
