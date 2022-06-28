@@ -51,7 +51,9 @@ class AppComponent extends React.Component {
   }
 
   checkS3Response = async (sha) => {
-    const url = `${process.env.KURL_BUNDLE_URL}/${sha}.tar.gz`
+    const bundleUrl = `${process.env.KURL_BUNDLE_URL}/${sha}.tar.gz`
+    // Make sure the installer sha actually exists
+    const installerUrl = `${process.env.KURL_INSTALLER_URL}/${sha}`
     this.setState({ loadingBundleUrl: true });
     let mode = "same-origin"
     if (process.env.IS_DEVELOPMENT === "true") {
@@ -60,29 +62,16 @@ class AppComponent extends React.Component {
       // for dev, it allows access to existing bundles but fails for bundles that don't exist (as we don't provide accept headers for 404s)
     }
     try {
-      const response = await fetch(url, {
+      const response = await fetch(installerUrl, {
         method: "HEAD",
         mode: mode
       });
-      this.setState({ responseStatusCode: response.status, bundleUrl: url, loadingBundleUrl: false })
+      this.setState({ responseStatusCode: response.status, bundleUrl: bundleUrl, loadingBundleUrl: false })
     } catch (error) {
       console.log(error);
       this.setState({ loadingBundleUrl: false });
       return;
     }
-  }
-
-  handleDownloadBundle = () => {
-    const hiddenIFrameID = "hiddenDownloader";
-    let iframe = document.getElementById(hiddenIFrameID);
-    const url = this.state.bundleUrl;
-    if (iframe === null) {
-      iframe = document.createElement("iframe");
-      iframe.id = hiddenIFrameID;
-      iframe.style.display = "none";
-      document.body.appendChild(iframe);
-    }
-    iframe.src = url;
   }
 
   whatYouGet = (spec) => {
@@ -116,9 +105,10 @@ class AppComponent extends React.Component {
     const { loadingBundleUrl, installerData, selectedSpec, fetchingInstallerDataError } = this.state;
     const { isMobile } = this.props;
     const sha = this.props.sha;
-    const bundleUrl = `curl ${process.env.API_URL}/${sha} | sudo bash`
+    const installCommand = `curl -LO ${process.env.API_URL}/${sha} | sudo bash`
+    const downloadUrl = `${process.env.KURL_BUNDLE_URL}/${sha}.tar.gz`
     const installBundleCommand = `
-curl -LO ${process.env.KURL_URL}/bundle/${sha}.tar.gz
+curl -LO ${process.env.KURL_BUNDLE_URL}/${sha}.tar.gz
 tar xvzf ${sha}.tar.gz
 cat install.sh | sudo bash -s airgap
     `
@@ -156,7 +146,7 @@ cat install.sh | sudo bash -s airgap
                   canCopy={true}
                   onCopyText={<span className="u-color--vidaLoca">Command has been copied to your clipboard</span>}
                 >
-                  {bundleUrl}
+                  {installCommand}
                 </CodeSnippet>
               </div>
               <div className="u-marginTop--normal u-borderTop--gray">
@@ -164,13 +154,7 @@ cat install.sh | sudo bash -s airgap
                   Install airgap
                 </div>
                 <div className="u-marginTop--normal u-marginBottom--normal">
-                  <button
-                    type="button"
-                    className="Button secondary"
-                    onClick={() => this.handleDownloadBundle()}
-                  >
-                    Download airgap bundle
-                  </button>
+                <a href={downloadUrl} type="button" className="Button primary">Download airgap bundle</a>
                 </div>
                 <span className="u-fontSize--small u-fontWeight--normal u-color--dustyGray u-lineHeight--normal u-marginBottom--more">
                   After copying the archive to your host, untar it and run the install script.
