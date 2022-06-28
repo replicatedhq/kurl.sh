@@ -154,14 +154,7 @@ cat install.sh | sudo bash -s airgap
                   Install airgap
                 </div>
                 <div className="u-marginTop--normal u-marginBottom--normal">
-                <a href={downloadUrl}> 
-                  <button 
-                    type="button" 
-                    className="Button secondary" 
-                  > 
-                  Download airgap bundle 
-                  </button>
-                </a>
+                <a href={downloadUrl} type="button" className="Button primary">Download airgap bundle</a>
                 </div>
                 <span className="u-fontSize--small u-fontWeight--normal u-color--dustyGray u-lineHeight--normal u-marginBottom--more">
                   After copying the archive to your host, untar it and run the install script.
