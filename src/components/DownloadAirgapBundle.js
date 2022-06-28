@@ -18,7 +18,7 @@ class DownloadAirgapBundle extends React.Component {
   }
 
   checkS3Response = async (sha) => {
-    const bundleUrl = `${process.env.KURL_INSTALLER_URL}/${sha}.tar.gz`
+    const bundleUrl = `${process.env.KURL_BUNDLE_URL}/${sha}.tar.gz`
     // Make sure the installer sha actually exists
     const installerUrl = `${process.env.KURL_INSTALLER_URL}/${sha}`
     this.setState({ loadingBundleUrl: true });
@@ -73,7 +73,14 @@ cat install.sh | sudo bash -s airgap
                   <div className="FormLabel u-marginBottom--5"> Download airgap installer </div>
                   <span className="u-fontSize--small u-fontWeight--normal u-color--scorpion u-lineHeight--normal u-marginBottom--more"> You can get the airgap bundle a couple of ways. You can download it directly from here or via a CLI. </span>
                   <div className="u-marginTop--normal">
-                  <a href={downloadUrl}> Download airgap Bundle </a>
+                  <a href={downloadUrl}> 
+                    <button 
+                      type="button" 
+                      className="Button primary" 
+                    > 
+                    Download airgap bundle 
+                    </button>
+                  </a>
                   </div>
                 </div>
                 <div className="u-marginTop--normal u-borderTop--gray">

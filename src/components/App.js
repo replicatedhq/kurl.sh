@@ -105,8 +105,8 @@ class AppComponent extends React.Component {
     const { loadingBundleUrl, installerData, selectedSpec, fetchingInstallerDataError } = this.state;
     const { isMobile } = this.props;
     const sha = this.props.sha;
-    const bundleUrl = `curl -LO ${process.env.KURL_BUNDLE_URL}/${sha} | sudo bash`
-    const downloadUrl = `${process.env.KURL_BUNDLE_URL}/${sha} | sudo bash`
+    const installCommand = `curl -LO ${process.env.API_URL}/${sha} | sudo bash`
+    const downloadUrl = `${process.env.KURL_BUNDLE_URL}/${sha}.tar.gz`
     const installBundleCommand = `
 curl -LO ${process.env.KURL_BUNDLE_URL}/${sha}.tar.gz
 tar xvzf ${sha}.tar.gz
@@ -146,7 +146,7 @@ cat install.sh | sudo bash -s airgap
                   canCopy={true}
                   onCopyText={<span className="u-color--vidaLoca">Command has been copied to your clipboard</span>}
                 >
-                  {bundleUrl}
+                  {installCommand}
                 </CodeSnippet>
               </div>
               <div className="u-marginTop--normal u-borderTop--gray">
@@ -154,7 +154,14 @@ cat install.sh | sudo bash -s airgap
                   Install airgap
                 </div>
                 <div className="u-marginTop--normal u-marginBottom--normal">
-                <a href={downloadUrl}> Download airgap Bundle </a>
+                <a href={downloadUrl}> 
+                  <button 
+                    type="button" 
+                    className="Button secondary" 
+                  > 
+                  Download airgap bundle 
+                  </button>
+                </a>
                 </div>
                 <span className="u-fontSize--small u-fontWeight--normal u-color--dustyGray u-lineHeight--normal u-marginBottom--more">
                   After copying the archive to your host, untar it and run the install script.
