@@ -40,18 +40,6 @@ class DownloadAirgapBundle extends React.Component {
     }
   }
 
-  handleDownloadBundle = () => {
-    const hiddenIFrameID = "hiddenDownloader";
-    let iframe = document.getElementById(hiddenIFrameID);
-    const url = this.state.bundleUrl;
-    if (iframe === null) {
-      iframe = document.createElement("iframe");
-      iframe.id = hiddenIFrameID;
-      iframe.style.display = "none";
-      document.body.appendChild(iframe);
-    }
-    iframe.src = url;
-  }
 
   render() {
     const { responseStatusCode } = this.state;
