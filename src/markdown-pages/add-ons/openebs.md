@@ -39,7 +39,10 @@ The localPV provisioner is suitable as the default provisioner for single-node c
 The [cStor provisioner](https://docs.openebs.io/docs/next/ugcstor.html) relies on block devices for storage.
 The OpenEBS NodeDeviceManager runs a DaemonSet to automatically incorporate available block devices into a storage pool named `cstor-disk`.
 The first available block device on each node in the cluster will automatically be added to this pool.
-cStor is not supported for OpenEBS 2.12.9+.
+
+### Limitations
+
+Due to minimal uptake and high maintenence burden, cStor is not supported for OpenEBS 2.12.9+.
 
 
 ### Adding Disks
