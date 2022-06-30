@@ -739,13 +739,18 @@ class Kurlsh extends React.Component {
           return;
         }
       }
-      this.setState({ isAddOnChecked: { ...this.state.isAddOnChecked, [name]: !this.state.isAddOnChecked[name] } }, () => {
+      this.setState({
+        isAddOnChecked: {
+          ...this.state.isAddOnChecked,
+          kubernetes: false,
+          rke2: false,
+          k3s: false,
+          [name]: !this.state.isAddOnChecked[name],
+        }
+      }, () => {
         if (this.state.isAddOnChecked[name]) {
           if (name === "kubernetes") {
-            const selectedVersions = {...this.state.selectedVersions, kubernetes: { version: "latest" }};
-            selectedVersions["k3s"] = { version: "None" };
-            selectedVersions["rke2"] = { version: "None" };
-            this.setState({ selectedVersions }, () => this.postToKurlInstaller(this.getYaml(this.state.installerSha)));
+            this.setState({ selectedVersions: NIL_VERSIONS}, () => this.getKurlInstaller("latest"));
           } else if (name === "rke2") {
             this.setState({ selectedVersions: NIL_VERSIONS}, () => this.getKurlInstaller("rke2"));
           } else if (name === "k3s") {
@@ -839,10 +844,12 @@ class Kurlsh extends React.Component {
         const advancedOptions = _.defaults(_.mapValues(res.spec, (value) => _.omit(value, ["version"])), _.mapValues(this.state.advancedOptions, () => { return {} }));
         for (const addonName in advancedOptions) {
           const addOnFlags = advancedOptions[addonName];
+          const addOnDefaults = this.state.optionDefaults[addonName];
           for (const flag in addOnFlags) {
+            const flagDefault = _.find(addOnDefaults, { 'flag': flag });
             addOnFlags[flag] = {
               inputValue: addOnFlags[flag],
-              isChecked: true
+              isChecked: _.get(flagDefault, "type") === "boolean" ? addOnFlags[flag] : true,
             };
           }
         }
