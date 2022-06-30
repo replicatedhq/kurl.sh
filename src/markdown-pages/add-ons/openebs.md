@@ -42,7 +42,7 @@ The first available block device on each node in the cluster will automatically 
 
 ### Limitations
 
-Due to minimal uptake and high maintenence burden, cStor is not supported for OpenEBS 2.12.9+.
+cStor is no longer supported for OpenEBS add-on versions 2.12.9+.
 
 
 ### Adding Disks
