@@ -11,15 +11,15 @@ title: "System Requirements"
 * Ubuntu 18.04
 * Ubuntu 20.04 (Docker version >= 19.03.10)
 * CentOS 7.4<sup>\*</sup>, 7.5<sup>\*</sup>, 7.6<sup>\*</sup>, 7.7<sup>\*</sup>, 7.8<sup>\*</sup>, 7.9, 8.0<sup>\*</sup>, 8.1<sup>\*</sup>, 8.2<sup>\*</sup>, 8.3<sup>\*</sup>, 8.4<sup>\*</sup> (CentOS 8.x requires Containerd)
-* RHEL 7.4<sup>\*</sup>, 7.5<sup>\*</sup>, 7.6<sup>\*</sup>, 7.7<sup>\*</sup>, 7.8<sup>\*</sup>, 7.9, 8.0<sup>\*</sup>, 8.1, 8.2, 8.3, 8.4 (RHEL 8.x requires Containerd)
-* Oracle Linux 7.4<sup>\*</sup>, 7.5<sup>\*</sup>, 7.6<sup>\*</sup>, 7.7<sup>\*</sup>, 7.8<sup>\*</sup>, 7.9, 8.0<sup>\*</sup>, 8.1, 8.2, 8.3, 8.4, 8.5 (OL 8.x requires Containerd)
+* RHEL 7.4<sup>\*</sup>, 7.5<sup>\*</sup>, 7.6<sup>\*</sup>, 7.7<sup>\*</sup>, 7.8<sup>\*</sup>, 7.9, 8.0<sup>\*</sup>, 8.1, 8.2, 8.3, 8.4, 8.5, 8.6 (RHEL 8.x requires Containerd)
+* Oracle Linux 7.4<sup>\*</sup>, 7.5<sup>\*</sup>, 7.6<sup>\*</sup>, 7.7<sup>\*</sup>, 7.8<sup>\*</sup>, 7.9, 8.0<sup>\*</sup>, 8.1, 8.2, 8.3, 8.4, 8.5, 8.6 (OL 8.x requires Containerd)
 * Amazon Linux 2
 
 *: This version is deprecated since it is no longer supported by its creator. We continue to support it, but support will be removed in the future.
 
 ## Minimum System Requirements
 
-* 4 CPUs or equivalent per machine
+* 4 AMD64 CPUs or equivalent per machine
 * 8 GB of RAM per machine
 * 40 GB of Disk Space per machine. 
     * **Note**: 10GB of the total 40GB should be available to `/var/lib/rook`. For more information see [Rook](/docs/add-ons/rook)

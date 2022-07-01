@@ -40,6 +40,10 @@ The [cStor provisioner](https://docs.openebs.io/docs/next/ugcstor.html) relies o
 The OpenEBS NodeDeviceManager runs a DaemonSet to automatically incorporate available block devices into a storage pool named `cstor-disk`.
 The first available block device on each node in the cluster will automatically be added to this pool.
 
+### Limitations
+
+cStor is no longer supported for OpenEBS add-on versions 2.12.9+.
+
 
 ### Adding Disks
 
