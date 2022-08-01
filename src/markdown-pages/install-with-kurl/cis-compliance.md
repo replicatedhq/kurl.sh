@@ -6,7 +6,7 @@ linktitle: "CIS Compliance"
 title: "CIS Compliance"
 isAlpha: false
 ---
-You can configure the kURL installer to be Center for Internet Security (CIS) compliant. Opt-in to this feature by setting the `kurl.cisCompliance` field to `true` in the kURL specification . For information about known limitations, see [Known Limitations](#known-limitations). For more information about CIS security compliance for Kubernetes, see the [CIS benchmark information](https://www.cisecurity.org/benchmark/kubernetes).
+You can configure the kURL installer to be Center for Internet Security (CIS) compliant. Opt-in to this feature by setting the `kurl.cisCompliance` field to `true` in the kURL specification. For information about known limitations, see [Known Limitations](#known-limitations). For more information about CIS security compliance for Kubernetes, see the [CIS benchmark information](https://www.cisecurity.org/benchmark/kubernetes).
 
 When you set `cisCompliance` is set to `true`, the following settings are changed from the default settings:
 
@@ -62,7 +62,7 @@ spec:
 
 * The [EKCO add-on](/docs/add-ons/ekco) v0.19.0 and later is required to use this feature.
 * This feature works with the [Kubernetes (kubeadm) add-on](https://kurl.sh/docs/add-ons/kubernetes) only.
-* To meet CIS compliance, admin.conf permissions are changed from the default `root:sudo 440` to `root:root 444`.
+* To meet CIS compliance, admin.conf permissions are changed from the default `root:sudo 440` to `root:root 400`.
 * Kubelet no longer attempts to change kernel parameters at runtime. Using kernel parameters other than those expected by Kubernetes can block kubelet from initializing and causes the installation to fail.
 * This feature has been tested with kURL upgrades, however we strongly recommend testing this with your development environments prior to upgrading production.
 
