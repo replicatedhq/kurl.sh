@@ -81,6 +81,11 @@
       "type": "boolean"
     },
     {
+      "flag": "cisCompliance",
+      "description": "Indicates if this install should meet all CIS compliance requirements. See <a href=\"https://kurl.sh/docs/install-with-kurl/cis-compliance\">CIS compliance</a>.",
+      "type": "boolean"
+    },
+    {
       "flag": "kubeReserved",
       "description": "Reserved CPU, memory and disk for kubernetes.",
       "type": "boolean"
