@@ -77,3 +77,4 @@ spec:
 
 It is not possible to upgrade multiple minor versions of the Rook add-on at once.
 Step upgrades from one version to the next are required for upgrading multiple minor versions.
+For example, in order to upgrade from `1.4.3` to `1.6.10`, you would first need to install `1.5.10`, `1.5.11` or `1.5.12`.
