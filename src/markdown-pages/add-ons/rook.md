@@ -72,3 +72,8 @@ spec:
       storage: 1Gi
   storageClassName: rook-cephfs
 ```
+
+## Upgrades
+
+It is not possible to upgrade multiple minor versions of the Rook add-on at once.
+Step upgrades from one version to the next are required for upgrading multiple minor versions.
