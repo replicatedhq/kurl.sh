@@ -65,6 +65,10 @@ spec:
 * To meet CIS compliance, admin.conf permissions are changed from the default `root:sudo 440` to `root:root 400`.
 * Kubelet no longer attempts to change kernel parameters at runtime. Using kernel parameters other than those expected by Kubernetes can block kubelet from initializing and causes the installation to fail.
 * This feature has been tested with kURL upgrades, however we strongly recommend testing this with your development environments prior to upgrading production.
+* The following failure was identified in kURL testing with `kube-bench` v0.6.8:
+```bash
+[FAIL] 1.1.12 Ensure that the etcd data directory ownership is set to etcd:etcd (Automated)
+```
 
 ## AWS Amazon Linux 2 (AL2) Considerations
 The kernel defaults of this Amazon Machine Image (AMI) are not set properly for CIS compliance. CIS compliance does not allow Kubernetes to change kernel settings itself. You must change the kernel defaults to the following settings before installing with kURL:
