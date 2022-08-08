@@ -105,7 +105,7 @@ class AppComponent extends React.Component {
     const { loadingBundleUrl, installerData, selectedSpec, fetchingInstallerDataError } = this.state;
     const { isMobile } = this.props;
     const sha = this.props.sha;
-    const installCommand = `curl -LO ${process.env.API_URL}/${sha} | sudo bash`
+    const installCommand = `curl -L ${process.env.API_URL}/${sha} | sudo bash`
     const downloadUrl = `${process.env.KURL_BUNDLE_URL}/${sha}.tar.gz`
     const installBundleCommand = `
 curl -LO ${process.env.KURL_BUNDLE_URL}/${sha}.tar.gz
