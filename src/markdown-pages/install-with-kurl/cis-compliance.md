@@ -65,7 +65,7 @@ spec:
 * To meet CIS compliance, admin.conf permissions are changed from the default `root:sudo 440` to `root:root 400`.
 * Kubelet no longer attempts to change kernel parameters at runtime. Using kernel parameters other than those expected by Kubernetes can block kubelet from initializing and causes the installation to fail.
 * This feature has been tested with kURL upgrades, however we strongly recommend testing this with your development environments prior to upgrading production.
-* The following failure was identified in kURL testing with `kube-bench` v0.6.8:
+* The following failure was identified in kURL testing with `kube-bench` v0.6.8 and is believed to be due to [this issue](https://github.com/aquasecurity/kube-bench/issues/1221):
 ```bash
 [FAIL] 1.1.12 Ensure that the etcd data directory ownership is set to etcd:etcd (Automated)
 ```
