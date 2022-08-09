@@ -182,7 +182,7 @@ cat install.sh | sudo bash -s airgap
                   </p>
                   <div className="AppList--wrapper flex flexWrap--wrap">
                     <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal">
-                      Ubuntu 18.04 (Recommended)
+                      Ubuntu 18.04
                     </li>
                     <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal">
                       Ubuntu 20.04 (Docker version >= 19.03.10)
