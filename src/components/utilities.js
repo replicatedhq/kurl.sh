@@ -28,12 +28,34 @@ export const Utilities = {
   },
 
   async getSupportedVersions() {
-    try {
-      const resp = await fetch(process.env.SUPPORTED_VERSIONS_JSON);
-      const data = await resp.json();
-      return { ...data.supportedVersions };
-    } catch (error) {
-      throw error;
-    }
+    const internalAddonVersions = fetch(process.env.SUPPORTED_VERSIONS_JSON)
+        .then(response => response.json())
+        .then(response => response.supportedVersions);
+
+    const externalAddonVersions = fetch("https://kurl-sh.s3.amazonaws.com/external/addon-registry.json")
+        .then(response => response.json());
+
+    return this.mergeAddonVersions(...await Promise.all([internalAddonVersions, externalAddonVersions]));
+  },
+
+  mergeAddonVersions(internalAddonVersions, externalAddonVersions) {
+    const addons = {};
+    Object.keys(externalAddonVersions).forEach(externalAddonName => {
+      const fileName = externalAddonName.slice(0, externalAddonName.length - 7);
+      const [name, version] = fileName.split("-");
+        if(!addons[name]) {
+          addons[name] = [version]
+        } else {
+          addons[name].unshift(version);
+        }
+    });
+    Object.keys(internalAddonVersions).forEach(internalAddonName => {
+      if(!addons[internalAddonName]) {
+        addons[internalAddonName] = internalAddonVersions[internalAddonName];
+      } else {
+        addons[internalAddonName].push(...internalAddonVersions[internalAddonName]);
+      }
+    });
+    return addons;
   }
 }
