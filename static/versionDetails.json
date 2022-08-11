@@ -66,16 +66,6 @@
       "type": "string"
     },
     {
-      "flag": "preflightIgnore",
-      "description": "Ignore preflight failures and warnings.",
-      "type": "boolean"
-    },
-    {
-      "flag": "preflightIgnoreWarnings",
-      "description": "Ignore preflight warnings.",
-      "type": "boolean"
-    },
-    {
       "flag": "HACluster",
       "description": "Create the cluster as a high availability cluster (note that this needs a valid load balancer address and additional nodes to be a truly HA cluster.",
       "type": "boolean"
@@ -449,6 +439,16 @@
       "flag": "licenseURL",
       "description": "A URL to a licensing agreement text file that will be presented during installation and needs to be accepted for the install to continue.",
       "type": "string"
+    },
+    {
+      "flag": "hostPreflightEnforceWarnings",
+      "description": "Block installations on host preflight failures and warnings.",
+      "type": "boolean"
+    },
+    {
+      "flag": "hostPreflightIgnore",
+      "description": "Ignore host preflight failures and warnings.",
+      "type": "boolean"
     },
     {
       "flag": "hostPreflights",

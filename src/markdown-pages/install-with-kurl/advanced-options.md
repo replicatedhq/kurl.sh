@@ -102,6 +102,16 @@ The install scripts are idempotent. Re-run the scripts with different flags to c
   </td>
 </tr>
 <tr>
+  <td><code>host-preflight-enforce-warnings</code></td>
+  <td>Block installations on host preflight failures and warnings.
+  <br/>
+  <br/>
+  <strong>Example:</strong>
+  <br/>
+  <code>curl https://kurl.sh/latest | sudo bash -s host-preflight-enforce-warnings</code>
+  </td>
+</tr>
+<tr>
   <td><code>host-preflight-ignore</code></td>
   <td>Ignore host preflight failures and warnings.
   <br/>
