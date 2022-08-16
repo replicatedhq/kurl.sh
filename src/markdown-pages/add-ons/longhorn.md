@@ -41,6 +41,12 @@ spec:
 
 To enable the UI without re-running the installer, use the command `kubectl -n longhorn-system scale deployment longhorn-ui --replicas=1`.
 
+## Upgrades
+
+It is not possible to upgrade multiple minor versions of the Longhorn add-on at once.
+Individual upgrades from one version to the next are required for upgrading multiple minor versions.
+For example, to upgrade from `1.1.2` to `1.3.1`, you must first install `1.2.2` or `1.2.4`.
+
 ## Migration from Rook
 
 If Rook was previously installed but is no longer specified in the kURL spec and Longhorn 1.1.2+ is specified instead, Longhorn will migrate data from Rook PVCs to Longhorn.
