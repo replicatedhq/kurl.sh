@@ -80,5 +80,6 @@ Individual upgrades from one version to the next are required for upgrading mult
 For example, to upgrade from `1.4.3` to `1.6.11`, you must first install `1.5.10`, `1.5.11` or `1.5.12`.
 
 The only supported way to upgrade from Rook `1.0.x` to `1.4.9` is with `curl https://k8s.kurl.sh/latest/tasks.sh | sudo bash -s rook_10_to_14`.
-This will migrate data off of any hostpath-based OSDs in favor of block device-based OSDs and upgrade through Rook `1.1.9`, `1.2.7` and `1.3.11` before installing `1.4.9`. The upstream Rook project introduced a requirement for block storage in versions 1.4.x and later. 
+This will migrate data off of any hostpath-based OSDs in favor of block device-based OSDs and upgrade through Rook `1.1.9`, `1.2.7` and `1.3.11` before installing `1.4.9`.
+The upstream Rook project introduced a requirement for block storage in versions 1.3.x and later. 
 This currently only works on internet-connected installations.
