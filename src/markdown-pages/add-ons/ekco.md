@@ -93,7 +93,7 @@ The EKCO operator is responsible for appending nodes to the CephCluster `storage
 
 EKCO is also responsible for adjusting the Ceph block pool, filesystem, and object store replication factor up and down in accordance with the size of the cluster from `min_ceph_pool_replication` (**Default:** 1) to `max_ceph_pool_replication` (**Default:** 3).
 
-In order to allow for single node Rook clusters, the kURL install script will ease the pod anti-affinity rules for the Rook MDS daemons.
+In order to allow for single node Rook clusters, the kURL install script makes the pod anti-affinity rules less strict for the Rook MDS daemons.
 Once the cluster is scaled beyond one node, EKCO will revert this change in anti-affinity and rebalance the MDS pods.
 This functionality can be disabled by setting the `ekco.rookShouldDisableReconcileMDSPlacement` property to `true`.
 
