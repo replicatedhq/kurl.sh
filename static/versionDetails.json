@@ -552,6 +552,11 @@
       "type": "boolean"
     },
     {
+      "flag": "rookShouldDisableReconcileMDSPlacement",
+      "description": "This will disable reconciliation of CephFilesystem MDS placement when the cluster is scaled beyond one node.",
+      "type": "boolean"
+    },
+    {
       "flag": "shouldDisableRebootServices",
       "description": "Do not install the systemd shutdown service that cordons a node and deletes pods with PVC and Shared FS volumes mounted.",
       "type": "boolean"
@@ -565,11 +570,6 @@
 			"flag": "shouldEnablePurgeNodes",
 			"description": "Automatically delete and cleanup unreachable nodes",
 			"type": "boolean"
-		},
-		{
-			"flag": "autoUpgradeSchedule",
-			"description": "Schedule to automatically check for and install updates, when `auto-upgrades-enabled` is used",
-			"type": "string"
 		},
 		{
 			"flag": "enableInternalLoadBalancer",

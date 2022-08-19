@@ -21,10 +21,10 @@ spec:
     minReadyMasterNodeCount: 2
     minReadyWorkerNodeCount: 0
     rookShouldUseAllNodes: true
+    rookShouldDisableReconcileMDSPlacement: false
     shouldDisableRebootServices: true
     shouldDisableClearNodes: false
     shouldEnablePurgeNodes: false
-    autoUpgradeSchedule: Sat 17:30
     enableInternalLoadBalancer: true
 ```
 
@@ -93,6 +93,10 @@ The EKCO operator is responsible for appending nodes to the CephCluster `storage
 
 EKCO is also responsible for adjusting the Ceph block pool, filesystem, and object store replication factor up and down in accordance with the size of the cluster from `min_ceph_pool_replication` (**Default:** 1) to `max_ceph_pool_replication` (**Default:** 3).
 
+In order to allow for single node Rook clusters, the kURL install script will ease the pod anti-affinity rules for the Rook MDS daemons.
+Once the cluster is scaled beyond one node, EKCO will revert this change in anti-affinity and rebalance the MDS pods.
+This functionality can be disabled by setting the `ekco.rookShouldDisableReconcileMDSPlacement` property to `true`.
+
 ### TLS Certificate Rotation
 
 EKCO supports automatic certificate rotation for the [registry add-on](/docs/install-with-kurl/setup-tls-certs#registry) and the [Kubernetes control plane](/docs/install-with-kurl/setup-tls-certs#kubernetes-control-plane) since version 0.5.0 and for the [KOTS add-on](/docs/install-with-kurl/setup-tls-certs#kots-tls-certificate-renewal) since version 0.7.0.
@@ -124,47 +128,6 @@ In addition to the `ekco.enableInternalLoadBalancer` parameter, the `ekco-enable
 
 ```bash
 curl https://kurl.sh/latest | sudo bash -s ekco-enable-internal-load-balancer
-```
-
-### Auto-upgrades (Experimental)
-
-If an auto-upgrade schedule is included in your kURL specification and the end user passes the `auto-upgrades-enabled` flag to the install script, a systemd service named `ekco-upgrade` is installed to automatically check for and install updates to Kubernetes and the add-ons.
-The schedule must be a valid [systemd calendar event time](https://manpages.debian.org/testing/systemd/systemd.time.7.en.html#CALENDAR_EVENTS).
-This feature is available in version 0.8.0+.
-
-### Example
-
-The following specification and command enables automatic upgrades for an installation:
-
-```yaml
-spec:
-  ekco:
-    version: "latest"
-    autoUpgradeSchedule: Sat 17:30
-```
-
-```bash
-curl -sSL https://kurl.sh/<installer-id> | sudo bash -s auto-upgrades-enabled
-```
-
-
-#### Limitations
-
-Auto-upgrades are only supported on single-node online installations.
-This feature is only relevant for named installers that have changes to kURL specifications without changes to the URL where the specification is hosted.
-
-#### Troubleshooting
-
-To view the logs from the last attempted upgrade, use the following command:
-
-```bash
-journalctl -u ekco-upgrade.service
-```
-
-Use this command to see the previous and next scheduled upgrade times for the ekco-upgrade service:
-
-```bash
-systemctl list-timers
 ```
 
 ### Auto-resource Scaling
