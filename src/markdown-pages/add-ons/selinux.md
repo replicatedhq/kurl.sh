@@ -2,7 +2,7 @@
 path: "/docs/add-ons/selinux"
 date: "2020-05-01"
 linktitle: "SELinux"
-weight: 55
+weight: 54
 title: "SELinux Add-On"
 addOn: "selinux"
 ---
