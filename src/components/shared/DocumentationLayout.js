@@ -80,7 +80,7 @@ class DocumentationLayout extends Component {
                 <div className="flex flex-row justifyContent--spaceBetween">
                   <div className="repl-logo-white"></div>
                   <div>
-                    <a href="https://blog.replicated.com/kurl-with-replicated-kots/" target="_blank" rel="noopener noreferrer">Learn more about how kURL works with Replicated KOTS<span className="banner-arrow"></span></a>
+                    <a href="https://www.replicated.com/" target="_blank" rel="noopener noreferrer">Learn more about Replicated to operationalize your application<span className="banner-arrow"></span></a>
                   </div>
                 </div>
               </div>
@@ -91,7 +91,7 @@ class DocumentationLayout extends Component {
                     <div className="repl-logo-white"></div>
                   </div>
                   <div className="u-marginLeft--normal">
-                    <a href="https://blog.replicated.com/kurl-with-replicated-kots/" target="_blank" rel="noopener noreferrer">Learn more about how kURL works with Replicated KOTS<span className="banner-arrow"></span></a>
+                    <a href="https://www.replicated.com/" target="_blank" rel="noopener noreferrer">Learn more about how kURL works with Replicated KOTS<span className="banner-arrow"></span></a>
                   </div>
                 </div>
               </div>
