@@ -69,7 +69,7 @@ spec:
     ```bash
     [FAIL] 1.1.12 Ensure that the etcd data directory ownership is set to etcd:etcd (Automated)
     ```
-    * Note: this check only fails when `kube-bench` is deployed as a Kubernetes Job running on a control plane node.
+    * Note: This check only fails when `kube-bench` is deployed as a Kubernetes Job running on a control plane node.
     * For more information about the etcd data directory ownership check failure issue, see [this issue in GitHub](https://github.com/aquasecurity/kube-bench/issues/1221).
 
 ## AWS Amazon Linux 2 (AL2) Considerations
