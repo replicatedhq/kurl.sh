@@ -732,12 +732,5 @@
       "type": "boolean",
       "defaultValue": false
     }
-  ],
-  "localPathProvisioner": [
-    {
-      "flag": "version",
-      "description": "The version of Local Path Storage to be installed.",
-      "type": "string"
-    }
   ]
 }
