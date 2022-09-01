@@ -11,14 +11,20 @@ After kURL install has completed, you'll be prompted to set up the KOTS Admin Co
 ![tls-certs-insecure](/tls-certs-insecure.png)
 
 
-The next page allows you to configure your TLS certificates:
+The next page lets you configure your TLS certificates:
 <br><br><br>
 ![tls-certs-setup](/tls-certs-setup.png)
 
-To continue with the preinstalled self-signed TLS certificates, click "skip & continue".  Otherwise upload your signed TLS certificates as describe on this page.  The hostname is an optional field, and when its specified, its used to redirect your browser to the specified host. 
+**Hostname** is a required field that is used when generating self-signed certificates and custom certificates, and redirects your browser to the specified host.
 
-Once you complete this process then you'll no longer be presented this page when logging into the KOTS Admin Console.  If you direct your browser to `http://<ip>:8800` you'll always be redirected to `https://<ip>:8800`.  
-    
+Do one of the following steps to configure TLS certificates:
+
+ - To use the preinstalled self-signed TLS certificates, enter the hostname and click **Skip & continue**.
+
+ - To use a custom certificate, enter the hostname and then upload your signed TLS certificates as described on this page.  
+
+After you complete this process then you'll no longer be presented this page when logging into the KOTS Admin Console.  If you direct your browser to `http://<ip>:8800` you'll always be redirected to `https://<ip>:8800`.  
+
 ## KOTS TLS Secret
 
 kURL will set up a Kubernetes secret called `kotsadm-tls`.  The secret stores the TLS certificate, key, and hostname.  Initially the secret will have an annotation set called `acceptAnonymousUploads`.  This indicates that a new TLS certificate can be uploaded as described above.  
@@ -31,7 +37,7 @@ If you've already gone through the setup process once, and you want to upload ne
 
 <span style="color:red">**Warning: adding this annotation will temporarily create a vulnerability for an attacker to maliciously upload TLS certificates.  Once TLS certificates have been uploaded then the vulnerability is closed again.**</span>
 
-After adding the annotation, you will need to restart the kurl proxy server.  The simplest way is to delete the kurl-proxy pod (the pod will automatically get restarted): 
+After adding the annotation, you will need to restart the kurl proxy server.  The simplest way is to delete the kurl-proxy pod (the pod will automatically get restarted):
 
 `kubectl delete pods PROXY_SERVER`
 
@@ -40,8 +46,8 @@ The following command should provide the name of the kurl-proxy server:
 `kubectl get pods -A | grep kurl-proxy | awk '{print $2}'`
 
 After the pod has been restarted direct your browser to `http://<ip>:8800/tls` and run through the upload process as described above.  
-    
-It's best to complete this process as soon as possible to avoid anyone from nefariously uploading TLS certificates.  After this process has completed, the vulnerability will be closed, and uploading new TLS certificates will be disallowed again.  In order to upload new TLS certificates you must repeat the steps above. 
+
+It's best to complete this process as soon as possible to avoid anyone from nefariously uploading TLS certificates.  After this process has completed, the vulnerability will be closed, and uploading new TLS certificates will be disallowed again.  In order to upload new TLS certificates you must repeat the steps above.
 <br><br><br>
 
 ### KOTS TLS Certificate Renewal
