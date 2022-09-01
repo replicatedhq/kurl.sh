@@ -19,7 +19,7 @@ The next page lets you configure your TLS certificates:
 
 Do one of the following steps to configure TLS certificates:
 
- - To use the preinstalled self-signed TLS certificates, enter the hostname and click **Skip & continue**.
+ - To use the preinstalled, self-signed TLS certificates, enter the hostname and click **Skip & continue**.
 
  - To use a custom certificate, enter the hostname and then upload your signed TLS certificates as described on this page.  
 
