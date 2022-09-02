@@ -15,13 +15,15 @@ The next page lets you configure your TLS certificates:
 <br><br><br>
 ![tls-certs-setup](/tls-certs-setup.png)
 
-**Hostname** is a required field that is used when generating self-signed certificates and custom certificates, and redirects your browser to the specified host.
+**Hostname** is an optional field unless you are using identity service. Hostname is required for identity service, as it is used when generating self-signed certificates and custom certificates, and redirects your browser to the specified host.
 
-Do one of the following steps to configure TLS certificates:
+To configure TLS certificates:
 
- - To use the preinstalled, self-signed TLS certificates, enter the hostname and click **Skip & continue**.
+1. If you are configuring identity service, enter the hostname.
 
- - To use a custom certificate, enter the hostname and then upload your signed TLS certificates as described on this page.  
+1. To use the preinstalled, self-signed TLS certificates, click **Skip & continue**.
+
+1. To use a custom certificate, upload your signed TLS certificates as described on this page.  
 
 After you complete this process then you'll no longer be presented this page when logging into the KOTS Admin Console.  If you direct your browser to `http://<ip>:8800` you'll always be redirected to `https://<ip>:8800`.  
 
