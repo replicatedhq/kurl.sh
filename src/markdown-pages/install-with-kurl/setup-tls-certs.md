@@ -64,7 +64,7 @@ Installations that do not routinely upgrade Kubernetes will need to rely on auto
 
 To check how long certificates have remaining until expiration, run this command on every primary node:
 ```bash
-kubeadm alpha certs check-expiration
+kubeadm certs check-expiration
 ```
 
 ### Automatic Renewal
@@ -79,7 +79,7 @@ If running an HA cluster with a load balancer, use this procedure to manually ro
 This will prevent Kubernetes API servers from restarting while handling client traffic.
 
 1. Remove the first primary node from your load balancer's target group.
-1. Run `kubeadm alpha certs renew all` on the node.
+1. Run `kubeadm certs renew all` on the node.
 1. Run `mv /etc/kubernetes/manifests/kube-apiserver.yaml /tmp/ && sleep 1 && mv /tmp/kube-apiserver.yaml /etc/kubernetes/manifests/`
 1. Run `mv /etc/kubernetes/manifests/kube-controller-manager.yaml /tmp/ && sleep 1 && mv /tmp/kube-controller-manager.yaml /etc/kubernetes/manifests/`
 1. Run `mv /etc/kubernetes/manifests/kube-scheduler.yaml /tmp/ && sleep 1 && mv /tmp/kube-scheduler.yaml /etc/kubernetes/manifests/`
