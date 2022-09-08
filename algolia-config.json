@@ -1,20 +1,22 @@
 {
-    "index_name": "kurl-algolia-config",
-    "start_urls": [
-      "https://kurl.sh"
-    ],
-    "selectors": {
-      "default" : {
-        "lvl0": {
-            "selector": "title",
-            "global": true
-          },
-        "lvl1": ".markdown-body h1",
-        "lvl2": ".docs-content h2",
-        "lvl3": ".docs-content h3",
-        "lvl4": ".docs-content h4",
-        "lvl5": ".docs-content h5,.docs-content h6",
-        "text": ".docs-content p,.docs-content li"
-      }
+  "index_name": "kurl-algolia-config",
+  "start_urls": [
+    "https://kurl.sh/docs/"
+  ],
+  "js_render": true,
+  "js_wait": 2,
+  "selectors": {
+    "default" : {
+      "lvl0": {
+        "selector": "title",
+        "global": true
+      },
+      "lvl1": ".markdown-body h1",
+      "lvl2": ".markdown-body .docs-content h2",
+      "lvl3": ".markdown-body .docs-content h3",
+      "lvl4": ".markdown-body .docs-content h4",
+      "lvl5": ".markdown-body .docs-content h5,.markdown-body .docs-content h6",
+      "text": ".markdown-body .docs-content p,.markdown-body .docs-content li"
     }
   }
+}
