@@ -125,7 +125,7 @@ A list of releases can be found on the [kURL Releases](https://github.com/replic
 *NOTE: Version pinning is supported as of release `v2021.05.07-0`.*
 
 ## Latest
-`latest` is a specific distro that is managed by Replicated. This installer typically provides the most recent version of several add-ons and the most recent version of Kubernetes that kURL supports. The `latest` version of an add-on is the most recent version that Replicated is confident will continue to work when you upgrade to it.
+`latest` is a specific distribution that is managed by Replicated. This installer typically provides the most recent version of several add-ons and the most recent version of Kubernetes that kURL supports. The `latest` version of an add-on is the most recent version that Replicated is confident will continue to work when you upgrade to it.
 
 While the `latest` specification can be suitable for some situations, Replicated strongly recommends that you specify particular versions that are tested and predictable for your installation use case, and that you revisit these version declarations at least monthly as new add-on versions become available. For more information about add-on versions, see [Versions](/docs/create-installer/#versions).
 
