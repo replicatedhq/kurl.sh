@@ -8,8 +8,6 @@ import { Resizer } from "../components/shared/Resize";
 import { BreakpointConfig } from "../services/breakpoints";
 import { Utilities } from "../components/utilities";
 
-import Bugsnag from '@bugsnag/js'
-import BugsnagPluginReact from '@bugsnag/plugin-react'
 
 @Resizer(BreakpointConfig)
 class Kurl extends React.Component {
@@ -43,27 +41,9 @@ class Kurl extends React.Component {
     const { isMobile, supportedVersions } = this.state;
     const { location } = this.props;
 
-    // If there's no bugsnag api key, then use the ReplicatedErrorBoundary
-    //const bugsnagClient = import.meta.env.VITE_BUGSNAG_API_KEY
-    const bugsnagApiKey = "d9853b1ecad8ac8750308fe7ce9335b8"
-    const bugsnagClient = bugsnagApiKey
-      ? Bugsnag.start({
-          //apiKey: import.meta.env.VITE_BUGSNAG_API_KEY,
-          apiKey: bugsnagApiKey,
-          //appVersion: import.meta.env.VITE_VENDOR_WEB_BUILD_VERSION,
-          //releaseStage: import.meta.env.VITE_BUGSNAG_RELEASE_STAGE,
-          //notifyReleaseStages: ["production", "staging"],
-          plugins: [new BugsnagPluginReact()]
-        })
-      : null;
-
-    const BugsnagErrorBoundary = bugsnagClient
-      ? bugsnagClient.getPlugin("react").createErrorBoundary(React)
-      : <div></div>;
 
     return (
       <Layout isMobile={isMobile} title={"kURL - Open Source Kubernetes Installer"}>
-        <BugsnagErrorBoundary>
         <FadeTransitionRouter>
           {supportedVersions && location.pathname === "/"
             ? <Kurlsh path="/" isMobile={isMobile} supportedVersions={supportedVersions} />
@@ -71,7 +51,6 @@ class Kurl extends React.Component {
           }
           <AppComponent path="/:sha" isMobile={isMobile} />
         </FadeTransitionRouter>
-        </BugsnagErrorBoundary>
       </Layout>
     )
   }
