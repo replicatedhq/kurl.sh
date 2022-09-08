@@ -3,7 +3,7 @@ const Bugsnag = require('@bugsnag/js').default
 const BugsnagPluginReact = require('@bugsnag/plugin-react').default
 
 Bugsnag.start({
-  apiKey: 'd9853b1ecad8ac8750308fe7ce9335b8',
+  apiKey: `${process.env.BUGSNAG_API_KEY}`,
   plugins: [new BugsnagPluginReact()],
 })
 
