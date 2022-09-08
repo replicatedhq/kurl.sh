@@ -17,7 +17,7 @@ After upgrading all primaries the same operation will be performed sequentially 
 
 The install script supports upgrading at most two minor versions of Kubernetes.
 When upgrading two minor versions, the skipped minor version will be installed before proceeding to the desired version.
-For example, it's possible to upgrade directly from Kubernetes 1.17 to 1.19 but the install script will complete the installation of 1.18 before proceeding to 1.19.
+For example, it is possible to upgrade directly from Kubernetes 1.22 to 1.24, but the install script completes the installation of 1.23 before proceeding to 1.24.
 
 ## Container Runtimes
 

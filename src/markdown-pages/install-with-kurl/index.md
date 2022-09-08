@@ -125,7 +125,11 @@ A list of releases can be found on the [kURL Releases](https://github.com/replic
 *NOTE: Version pinning is supported as of release `v2021.05.07-0`.*
 
 ## Latest
-`latest` is a specific distro that is managed by the team at Replicated. This installer provides the most recent version of several add-ons and the most recent version of Kubernetes that kURL supports. Currently the spec for `latest` is:  
+`latest` is a specific distribution that is managed by Replicated. This installer typically provides the most recent version of several add-ons and the most recent version of Kubernetes that kURL supports. The `latest` version of an add-on is the most recent version that Replicated is confident will continue to work when you upgrade to it.
+
+While the `latest` specification can be suitable for some situations, Replicated strongly recommends that you specify particular versions that are tested and predictable for your installation use case, and that you revisit these version declarations at least monthly as new add-on versions become available. For more information about add-on versions, see [Versions](/docs/create-installer/#versions).
+
+An example of how `latest` can be used in a spec is:  
 ```yaml
   apiVersion: "cluster.kurl.sh/v1beta1"
   kind: "Installer"
@@ -133,29 +137,24 @@ A list of releases can be found on the [kURL Releases](https://github.com/replic
     name: ""
   spec:
     kubernetes:
-      version: "1.21.x"
+      version: "1.24.x"
     weave:
       version: "2.6.x"
     contour:
-      version: "1.19.x"
+      version: "1.22.x"
     minio:
-      version: "2020-01-25T02-50-51Z"
+      version: "latest"
     registry:
       version: "latest"
     prometheus:
       version: "latest"
     containerd:
-      version: "1.4.x"
+      version: "1.5.x"
     longhorn:
-      version: "1.2.x"
+      version: "1.3.x"
     ekco:
       version: "latest"
 ```
-
-The `latest` version of an add-on is the most recent version that we at Replicated are confident will continue to work when upgraded to.
-This will change as new versions are released, allowing you to stay up to date more easily.
-
-While the `latest` spec may be suitable for some situations, it is typically better to specify particular versions that are tested and predictable. For more information on add-on versions, see [Versions](/docs/create-installer/#versions).
 
 ## Using the kURL Installer CRD
 
