@@ -16,6 +16,7 @@ import ConfirmSelectionModal from "./modals/ConfirmSelectionModal";
 import "../scss/components/Kurlsh.scss";
 import versionDetails from "../../static/versionDetails.json"
 import _ from "lodash";
+import Bugsnag from '@bugsnag/js'
 
 const NIL_VERSIONS = {
   kubernetes: { version: "None" },
@@ -680,12 +681,24 @@ class Kurlsh extends React.Component {
   }
 
   onVersionChange = name => value => {
+    console.log("+++++ Test error snag it")
+    Bugsnag.notify(new Error('Test error'))
     if (name === "kubernetes" || name === "rke2" || name === "k3s") {
       if (value.version === "None") {
         // can't be deselected, deselection happens when changing between them
         return;
       }
     }
+    console.log("+++++ one more error snag it")
+    Bugsnag.notify(new Error('One more error'))
+
+    Bugsnag.notify(new Error('uh oh'), null, function (err, event) {
+      if (err) {
+        console.log('Failed to send report because of:\n' + err.stack)
+      } else {
+        console.log('Successfully sent report "' + event.errors[0].errorMessage + '"')
+      }
+    })
     if (name === "containerd" && value.version !== "None" && this.state.selectedVersions.docker.version !== "None") {
       this.checkIncompatibleSelection({ containerd: value });
     } else if (name === "docker" && value.version !== "None" && this.state.selectedVersions.containerd.version !== "None") {
