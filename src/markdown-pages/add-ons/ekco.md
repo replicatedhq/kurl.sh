@@ -110,23 +110,6 @@ The duration can be adjusted by changing the `ekco.envoyPodsNotReadyDuration` pr
 
 EKCO supports automatic certificate rotation for the [registry add-on](/docs/install-with-kurl/setup-tls-certs#registry) and the [Kubernetes control plane](/docs/install-with-kurl/setup-tls-certs#kubernetes-control-plane) since version 0.5.0 and for the [KOTS add-on](/docs/install-with-kurl/setup-tls-certs#kots-tls-certificate-renewal) since version 0.7.0.
 
-### Reboot
-
-EKCO installs the `ekco-reboot.service` to safely unmount pod volumes before the system shutdown.
-This service runs `/opt/ekco/shutdown.sh` when it is stopped, which happens automatically when the system begins to shutdown.
-The shutdown script deletes pods on the current node that mount volumes provisioned by Rook and cordons the node.
-
-When the `ekco-reboot.service` is started, it runs `/opt/ekco/startup.sh`.
-This happens automatically when the system starts after docker is running.
-This script uncordons the node.
-
-The shutdown script can fail to complete because it depends on services running on the node to be available to delete pods, but these services can be shutting down already.
-To avoid race conditions, manually run the ekco-reboot service's shutdown script before proceeding with the system shutdown or reboot:
-
-```bash
-/opt/ekco/shutdown.sh
-```
-
 ### Internal Load Balancer
 
 EKCO 0.11.0+ can maintain an internal load balancer forwarding all traffic from host port 6444 to one of the Kubernetes API server pods.
@@ -163,4 +146,21 @@ ekco:
   version: latest
   podImageOverrides:
     - projectcontour/contour:v1.18.0=myregistry.io/contour:v1.18.0-fips
+```
+
+## Reboot
+
+EKCO installs the `ekco-reboot.service` to safely unmount pod volumes before the system shutdown.
+This service runs `/opt/ekco/shutdown.sh` when it is stopped, which happens automatically when the system begins to shutdown.
+The shutdown script deletes pods on the current node that mount volumes provisioned by Rook and cordons the node.
+
+When the `ekco-reboot.service` is started, it runs `/opt/ekco/startup.sh`.
+This happens automatically when the system starts after docker is running.
+This script uncordons the node.
+
+The shutdown script can fail to complete because it depends on services running on the node to be available to delete pods, but these services can be shutting down already.
+To avoid race conditions, manually run the ekco-reboot service's shutdown script before proceeding with the system shutdown or reboot:
+
+```bash
+/opt/ekco/shutdown.sh
 ```
