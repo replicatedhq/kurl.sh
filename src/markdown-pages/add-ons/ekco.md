@@ -26,6 +26,8 @@ spec:
     shouldDisableClearNodes: false
     shouldEnablePurgeNodes: false
     enableInternalLoadBalancer: true
+    shouldDisableRestartFailedEnvoyPods: false
+    envoyPodsNotReadyDuration: 5m
 ```
 
 flags-table
@@ -96,6 +98,13 @@ EKCO is also responsible for adjusting the Ceph block pool, filesystem, and obje
 In order to allow for single node Rook clusters, the kURL install script will ease the pod anti-affinity rules for the Rook MDS daemons.
 Once the cluster is scaled beyond one node, EKCO will revert this change in anti-affinity and rebalance the MDS pods.
 This functionality can be disabled by setting the `ekco.rookShouldDisableReconcileMDSPlacement` property to `true`.
+
+### Contour
+
+The EKCO operator will forcefully delete Envoy pods that change from a ready state to one where the Envoy container is not ready and have been in that state for at least 5 minutes.
+This has been added to work around a [known issue](https://github.com/projectcontour/contour/issues/3192) that may be caused by resource contention.
+This functionality can be disabled by setting the `ekco.shouldDisableRestartFailedEnvoyPods` property to `true`.
+The duration can be adjusted by changing the `ekco.envoyPodsNotReadyDuration` property.
 
 ### TLS Certificate Rotation
 
