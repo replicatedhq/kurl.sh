@@ -12,6 +12,7 @@ import CodeSnippet from "./shared/CodeSnippet";
 import Loader from "./shared/Loader";
 import OptionWrapper from "./shared/OptionWrapper";
 import ConfirmSelectionModal from "./modals/ConfirmSelectionModal";
+import { injectYamlOpenebsComment } from "../utils/kurl-yaml";
 
 import "../scss/components/Kurlsh.scss";
 import versionDetails from "../../static/versionDetails.json"
@@ -666,7 +667,13 @@ class Kurlsh extends React.Component {
       }
     }
 
-    return json2yaml.stringify(generatedInstaller).replace("---\n", "").replace(/^ {2}/gm, "");
+    let renderedYaml = json2yaml.stringify(generatedInstaller).replace("---\n", "").replace(/^ {2}/gm, "");
+
+    if (sha === "latest") {
+      renderedYaml = injectYamlOpenebsComment(renderedYaml);
+    }
+
+    return renderedYaml;
   }
 
   onConfirmSelection = (currentSelection, addOnToRemove) => {
