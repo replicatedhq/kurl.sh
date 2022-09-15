@@ -57,7 +57,8 @@ spec:
   # applications that handle data replication
   # between nodes themselves (MongoDB, Cassandra,
   # etc). If your requirements are different than
-  # this, contact us at contact@replicated.com.
+  # this, contact us at
+  # https://community.replicated.com.
   #
   openebs:
     version: 3.3.x
