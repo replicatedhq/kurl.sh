@@ -1,11 +1,11 @@
 
-exports.openebsComment = `# OpenEBS is the default PVC provisioner, and
+exports.openebsComment = `# OpenEBS is the default PV provisioner, and
 # will work for single node clusters, or for
 # applications that handle data replication
 # between nodes themselves (MongoDB, Cassandra,
 # etc). If your requirements are different than
 # this, contact us at
-# https://community.replicated.com.
+# https://community.replicated.com .
 #`
 
 exports.injectYamlOpenebsComment = (yaml) => {
