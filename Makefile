@@ -10,6 +10,10 @@ clean:
 deps:
 	yarn --silent --frozen-lockfile
 
+.PHONY: test
+test:
+	yarn run test
+
 .PHONY: serve
 serve: deps
 	yarn start
