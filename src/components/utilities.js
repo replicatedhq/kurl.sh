@@ -29,9 +29,8 @@ export const Utilities = {
 
   async getSupportedVersions() {
     try {
-      const resp = await fetch(process.env.SUPPORTED_VERSIONS_JSON);
-      const data = await resp.json();
-      return { ...data.supportedVersions };
+      const resp = await fetch(process.env.KURL_INSTALLER_URL);
+      return await resp.json();
     } catch (error) {
       throw error;
     }
