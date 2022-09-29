@@ -56,77 +56,77 @@ class Kurlsh extends React.Component {
     super(props);
     const { supportedVersions } = props;
 
-    const kubernetesVersions = this.addDotXVersions(supportedVersions.kubernetes.map(versionToState));
-    kubernetesVersions.push({version: "None"});
+    let kubernetesVersions = this.addDotXVersions(supportedVersions.kubernetes.map(versionToState));
+    kubernetesVersions = this.prepareVersions(kubernetesVersions)
 
-    const rke2Versions = this.addDotXVersions(supportedVersions.rke2.map(versionToState));
-    rke2Versions.push({version: "None"});
+    let rke2Versions = this.addDotXVersions(supportedVersions.rke2.map(versionToState));
+    rke2Versions = this.prepareVersions(rke2Versions);
 
-    const k3sVersions = this.addDotXVersions(supportedVersions.k3s.map(versionToState));
-    k3sVersions.push({version: "None"});
+    let k3sVersions = this.addDotXVersions(supportedVersions.k3s.map(versionToState));
+    k3sVersions = this.prepareVersions(k3sVersions);
 
-    const contourVersions = this.addDotXVersions(supportedVersions.contour.map(versionToState));
-    contourVersions.push({ version: "None" });
+    let contourVersions = this.addDotXVersions(supportedVersions.contour.map(versionToState));
+    contourVersions = this.prepareVersions(contourVersions);
 
-    const weaveVersions = this.addDotXVersions(supportedVersions.weave.map(versionToState));
-    weaveVersions.push({ version: "None" });
+    let weaveVersions = this.addDotXVersions(supportedVersions.weave.map(versionToState));
+    weaveVersions = this.prepareVersions(weaveVersions);
 
-    const antreaVersions = this.addDotXVersions(supportedVersions.antrea.map(versionToState));
-    antreaVersions.push({ version: "None" });
+    let antreaVersions = this.addDotXVersions(supportedVersions.antrea.map(versionToState));
+    antreaVersions = this.prepareVersions(antreaVersions);
 
-    const rookVersions = this.addDotXVersions(supportedVersions.rook.map(versionToState));
-    rookVersions.push({ version: "None" });
+    let rookVersions = this.addDotXVersions(supportedVersions.rook.map(versionToState));
+    rookVersions = this.prepareVersions(rookVersions);
 
-    const dockerVersions = this.addDotXVersions(supportedVersions.docker.map(versionToState));
-    dockerVersions.push({ version: "None" });
+    let dockerVersions = this.addDotXVersions(supportedVersions.docker.map(versionToState));
+    dockerVersions = this.prepareVersions(dockerVersions);
 
-    const prometheusVersions = this.addDotXVersions(supportedVersions.prometheus.map(versionToState));
-    prometheusVersions.push({ version: "None" });
+    let prometheusVersions = this.addDotXVersions(supportedVersions.prometheus.map(versionToState));
+    prometheusVersions = this.prepareVersions(prometheusVersions);
 
-    const registryVersions = this.addDotXVersions(supportedVersions.registry.map(versionToState));
-    registryVersions.push({ version: "None" });
+    let registryVersions = this.addDotXVersions(supportedVersions.registry.map(versionToState));
+    registryVersions = this.prepareVersions(registryVersions);
 
-    const containerdVersions = this.addDotXVersions(supportedVersions.containerd.map(versionToState));
-    containerdVersions.push({ version: "None" });
+    let containerdVersions = this.addDotXVersions(supportedVersions.containerd.map(versionToState));
+    containerdVersions = this.prepareVersions(containerdVersions);
 
-    const veleroVersions = this.addDotXVersions(supportedVersions.velero.map(versionToState));
-    veleroVersions.push({ version: "None" });
+    let veleroVersions = this.addDotXVersions(supportedVersions.velero.map(versionToState));
+    veleroVersions = this.prepareVersions(veleroVersions);
 
-    const kotsadmVersions = this.addDotXVersions(supportedVersions.kotsadm.map(versionToState));
-    kotsadmVersions.push({ version: "None" });
+    let kotsadmVersions = this.addDotXVersions(supportedVersions.kotsadm.map(versionToState));
+    kotsadmVersions = this.prepareVersions(kotsadmVersions);
 
-    const ekcoVersions = this.addDotXVersions(supportedVersions.ekco.map(versionToState));
-    ekcoVersions.push({ version: "None" });
+    let ekcoVersions = this.addDotXVersions(supportedVersions.ekco.map(versionToState));
+    ekcoVersions = this.prepareVersions(ekcoVersions);
 
-    const fluentdVersions = this.addDotXVersions(supportedVersions.fluentd.map(versionToState));
-    fluentdVersions.push({ version: "None" });
+    let fluentdVersions = this.addDotXVersions(supportedVersions.fluentd.map(versionToState));
+    fluentdVersions = this.prepareVersions(fluentdVersions);
 
-    const minioVersions = this.addDotXVersions(supportedVersions.minio.map(versionToState));
-    minioVersions.push({ version: "None" });
+    let minioVersions = this.addDotXVersions(supportedVersions.minio.map(versionToState));
+    minioVersions = this.prepareVersions(minioVersions);
 
-    const openebsVersions = this.addDotXVersions(supportedVersions.openebs.map(versionToState));
-    openebsVersions.push({ version: "None" });
+    let openebsVersions = this.addDotXVersions(supportedVersions.openebs.map(versionToState));
+    openebsVersions = this.prepareVersions(openebsVersions);
 
-    const longhornVersions = this.addDotXVersions(supportedVersions.longhorn.map(versionToState));
-    longhornVersions.push({ version: "None" });
+    let longhornVersions = this.addDotXVersions(supportedVersions.longhorn.map(versionToState));
+    longhornVersions = this.prepareVersions(longhornVersions);
 
-    const collectdVersions = this.addDotXVersions(supportedVersions.collectd.map(versionToState));
-    collectdVersions.push({ version: "None" });
+    let collectdVersions = this.addDotXVersions(supportedVersions.collectd.map(versionToState));
+    collectdVersions = this.prepareVersions(collectdVersions);
 
-    const metricsServerVersions = this.addDotXVersions(supportedVersions["metrics-server"].map(versionToState));
-    metricsServerVersions.push({ version: "None" });
+    let metricsServerVersions = this.addDotXVersions(supportedVersions["metrics-server"].map(versionToState));
+    metricsServerVersions = this.prepareVersions(metricsServerVersions);
 
-    const certManagerVersions = this.addDotXVersions(supportedVersions["cert-manager"].map(versionToState));
-    certManagerVersions.push({ version: "None" });
+    let certManagerVersions = this.addDotXVersions(supportedVersions["cert-manager"].map(versionToState));
+    certManagerVersions = this.prepareVersions(certManagerVersions);
 
-    const sonobuoyVersions = this.addDotXVersions(supportedVersions["sonobuoy"].map(versionToState));
-    sonobuoyVersions.push({ version: "None" });
+    let sonobuoyVersions = this.addDotXVersions(supportedVersions["sonobuoy"].map(versionToState));
+    sonobuoyVersions = this.prepareVersions(sonobuoyVersions);
 
-    const goldpingerVersions = this.addDotXVersions(supportedVersions["goldpinger"].map(versionToState));
-    goldpingerVersions.push({ version: "None" });
+    let goldpingerVersions = this.addDotXVersions(supportedVersions["goldpinger"].map(versionToState));
+    goldpingerVersions = this.prepareVersions(goldpingerVersions);
 
-    const awsVersions = this.addDotXVersions(supportedVersions["aws"].map(versionToState));
-    awsVersions.push({ version: "None" });
+    let awsVersions = this.addDotXVersions(supportedVersions["aws"].map(versionToState));
+    awsVersions = this.prepareVersions(awsVersions);
 
     this.state = {
       versions: {
@@ -238,6 +238,51 @@ class Kurlsh extends React.Component {
       displayConfirmSelectionModal: false,
       currentSelection: {}
     };
+  }
+
+  prepareVersions = versions => {
+    // the list of versions returned by the api has, as it first item, a version called
+    // "latest", the item immediately after it is the actual version we consider to be
+    // the latest. we save it here so we can remember where we need to insert it after.
+    let latest = versions[1].version;
+
+    // remove the "latest" version from the list and sort the resulting array. we will
+    // re-insert "latest" after sorting the array as it has to be the option just before
+    // the "actual" latest version.
+    const sorted = versions.filter(obj => {
+        return obj.version !== "latest";
+    }).sort(this.compareVersions);
+
+    let result = []
+    for (let i=0; i < sorted.length; i++) {
+      if (sorted[i].version === latest) {
+        result.push({version: "latest"});
+      }
+      result.push(sorted[i]);
+    }
+
+    result.push({ version: "None" });
+    return result;
+  }
+
+  // compareVersions do the best to sort out versions returned by the api. this function
+  // only considers versions that ressembles the semantic version format, if the version
+  // does not look like a semantic version this function simply returns 0.
+  compareVersions = (x, y) => {
+    let xver = x.version
+    if (xver.endsWith(".x")) {
+      xver = xver.replace(".x", ".99999");
+    }
+
+    let yver = y.version
+    if (yver.endsWith(".x")) {
+      yver = yver.replace(".x", ".99999");
+    }
+
+    if (semver.valid(xver) === null || semver.valid(yver) === null) {
+      return 0;
+    }
+    return semver.gt(yver, xver) ? 1 : -1;
   }
 
   componentWillUnmount() {
@@ -773,9 +818,10 @@ class Kurlsh extends React.Component {
 
   generateVersionLabel = (name, version) => {
     if (version === "latest") {
-      let latest = this.state.versions[name][1];
+      let idx = this.state.versions[name].findIndex(val => { return val.version === "latest" })
+      let latest = this.state.versions[name][idx + 1];
       if (latest.version.indexOf(".x") !== -1) {
-        latest = this.state.versions[name][2]; // the first version is a ".x" version
+        latest = this.state.versions[name][idx+2]; // the latest version is a ".x" version
       }
       version = `latest (${latest.version})`;
     } else if (version.endsWith(".x")) {
