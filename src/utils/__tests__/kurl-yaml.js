@@ -1,6 +1,5 @@
-const { describe, it } = require("mocha");
 const { expect } = require("chai");
-const { injectYamlOpenebsComment } = require("./kurl-yaml");
+const { injectYamlOpenebsComment } = require("../kurl-yaml");
 
 describe("injectYamlOpenebsComment", () => {
   it("will inject the comment if openebs is included", async () => {
