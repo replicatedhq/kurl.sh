@@ -6,7 +6,7 @@
     "start": "gatsby develop -p 8072",
     "build-staging": "GATSBY_ACTIVE_ENV=staging gatsby build",
     "build": "gatsby build",
-    "test": "mocha --recursive src/**/*-test.js"
+    "test": "mocha --recursive src/**/*-test.js && jest"
   },
   "repository": "git@github.com:replicatedhq/kurl.sh.git",
   "author": "Jelena <jelena.gruica@gmail.com>",
@@ -49,11 +49,13 @@
     "semver": "^7.3.2"
   },
   "devDependencies": {
-    "@babel/plugin-proposal-class-properties": "^7.5.5",
+    "@babel/core": "^7.19.3",
+    "@babel/plugin-proposal-class-properties": "^7.18.6",
     "@babel/plugin-proposal-object-rest-spread": "^7.6.2",
     "@babel/plugin-transform-runtime": "^7.6.2",
+    "babel-jest": "^29.1.0",
     "babel-loader": "^8.0.6",
-    "babel-preset-gatsby": "^0.2.14",
+    "babel-preset-gatsby": "^0.2.36",
     "chai": "^4.3.6",
     "copy-webpack-plugin": "^5.0.4",
     "css-hot-loader": "^1.4.4",
@@ -62,9 +64,12 @@
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.2.0",
     "html-webpack-template": "^6.2.0",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^29.1.1",
     "mocha": "^10.0.0",
     "postcss-loader": "^3.0.0",
     "prettier": "^1.18.2",
+    "react-test-renderer": "^18.2.0",
     "resolve-url-loader": "^3.1.0",
     "sass": "^1.49.9",
     "sass-loader": "^11.1.1",
