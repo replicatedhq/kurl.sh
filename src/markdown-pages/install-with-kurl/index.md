@@ -137,7 +137,7 @@ An example of how `latest` can be used in a spec is:
     name: ""
   spec:
     kubernetes:
-      version: "1.24.x"
+      version: "1.25.x"
     weave:
       version: "2.6.x"
     contour:
