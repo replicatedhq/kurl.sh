@@ -4,8 +4,8 @@ const openebsComment = `# OpenEBS is the default PV provisioner, and
 # applications that handle data replication
 # between nodes themselves (MongoDB, Cassandra,
 # etc). If your requirements are different than
-# this, contact us at
-# https://community.replicated.com .
+# this, see
+# https://kurl.sh/docs/create-installer/choosing-a-pv-provisioner
 #`
 
 exports.injectYamlOpenebsComment = (yaml) => {
