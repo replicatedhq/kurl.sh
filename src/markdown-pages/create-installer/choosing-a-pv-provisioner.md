@@ -1,7 +1,7 @@
 ---
 path: "/docs/create-installer/choosing-a-pv-provisioner"
 date: "2022-10-07"
-weight: 35
+weight: 21
 linktitle: "Choosing a PV Provisioner"
 title: "Choosing a PV Provisioner"
 ---

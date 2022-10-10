@@ -1,7 +1,7 @@
 ---
 path: "/docs/create-installer/host-preflights/host-services"
 date: "2022-01-13"
-weight: 25
+weight: 35
 linktitle: "Host Services"
 title: "Host Services"
 ---

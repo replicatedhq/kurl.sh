@@ -1,7 +1,7 @@
 ---
 path: "/docs/create-installer/host-preflights/disk-usage"
 date: "2022-01-13"
-weight: 23
+weight: 33
 linktitle: "Disk Usage"
 title: "Disk Usage"
 ---

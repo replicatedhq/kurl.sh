@@ -1,7 +1,7 @@
 ---
 path: "/docs/create-installer/host-preflights/block-devices"
 date: "2022-01-13"
-weight: 21
+weight: 31
 linktitle: "Block Devices"
 title: "Block Devices"
 ---
