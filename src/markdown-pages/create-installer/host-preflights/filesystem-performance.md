@@ -1,7 +1,7 @@
 ---
 path: "/docs/create-installer/host-preflights/filesystem-performance"
 date: "2022-03-03"
-weight: 24
+weight: 34
 linktitle: "Filesystem Performance"
 title: "Filesystem Performance"
 ---
