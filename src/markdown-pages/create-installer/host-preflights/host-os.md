@@ -1,7 +1,7 @@
 ---
 path: "/docs/create-installer/host-preflights/operating-system"
 date: "2022-01-13"
-weight: 28
+weight: 38
 linktitle: "Operating System"
 title: "Operating System"
 ---

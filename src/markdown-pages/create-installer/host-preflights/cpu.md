@@ -1,7 +1,7 @@
 ---
 path: "/docs/create-installer/host-preflights/cpu"
 date: "2022-01-13"
-weight: 22
+weight: 32
 linktitle: "CPU"
 title: "CPU"
 ---

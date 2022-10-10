@@ -1,5 +1,5 @@
 
-exports.openebsComment = `# OpenEBS is the default PV provisioner, and
+const openebsComment = `# OpenEBS is the default PV provisioner, and
 # will work for single node clusters, or for
 # applications that handle data replication
 # between nodes themselves (MongoDB, Cassandra,
@@ -15,7 +15,7 @@ exports.injectYamlOpenebsComment = (yaml) => {
   }
   const indent = getIndentCount(m[0]);
   return `${yaml.slice(0, m.index)}
-${indentString(this.openebsComment, indent)}
+${indentString(openebsComment, indent)}
 ${yaml.slice(m.index)}`;
 };
 
