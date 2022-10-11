@@ -12,7 +12,7 @@ This topic describes how to manage nodes on kURL clusters. It includes procedure
 
 Before you can manage a node on a kURL cluster, you must install the Embedded kURL Cluster Operator (EKCO) add-on on the cluster. The EKCO add-on is a utility tool used to perform maintenance operations on a kURL cluster.
 
-Each of the procedures in this topic for managing nodes on kURL cluster use the EKCO shutdown script. The shutdown script deletes any Pods on the node that mount volumes provisioned by Rook. It also cordons the node, so that the node is marked as unschedulable and kURL does not start any new containers on the node.
+Each of the procedures in this topic for managing nodes use the EKCO shutdown script. The shutdown script deletes any Pods on the node that mount volumes provisioned by Rook. It also cordons the node, so that the node is marked as unschedulable and kURL does not start any new containers on the node.
 
 For information on how to add EKCO to a kURL cluster, see [EKCO Add-on](/docs/add-ons/ekco).
 
@@ -22,7 +22,7 @@ Resetting a node attempts to remove all Kubernetes packages and host files from 
 
 Using the kURL reset script to reset a node can be useful if you are creating and testing a kURL specification in a non-production environment. Some larger changes to a kURL specification cannot be deployed for testing by rerunning the kURL installation script on an existing node. In this case, you can attempt to reset the node so that you can reinstall kURL to test the change to the kURL specification.   
 
-_**Important**_: Do not attempt to reset a node on a cluster in a production environment. Attempting to reset a node can permanently damage the cluster, which makes any data from the node irretrievable. Reset a node on a cluster only if you are prepared to delete the host VM and provision a new VM if the reset script does not successfully complete.
+_**Important**_: Do not attempt to reset a node on a cluster in a production environment. Attempting to reset a node can permanently damage the cluster, which makes any data from the cluster irretrievable. Reset a node on a cluster only if you are able to delete the host VM and provision a new VM if the reset script does not successfully complete.
 
 To reset a node on a cluster managed by kURL:
 
@@ -61,32 +61,93 @@ To reboot a node on a cluster managed by kURL:
 
 ## Remove a Node
 
-As part of performing maintenance on a multi-node cluster managed by kURL, it is often required to
-remove a node from the cluster and transfer its data to a new node. For example, you might need to remove one or more nodes during hardware maintenance.
+As part of performing maintenance on a multi-node cluster managed by kURL, it is often required to remove a node from the cluster and transfer its data to a new node. For example, you might need to remove one or more nodes during hardware maintenance.
 
-### Ceph and etcd Considerations
+This section describes how to safely remove nodes from a kURL cluster that uses Rook Ceph for storage.
 
-Once the cluster is scaled up to three nodes, the Ceph cluster must be maintained at three nodes.
-If a Ceph Object Storage Daemon (OSD) is scheduled on a node that is removed, Ceph cluster health must be regained before removing any additional nodes.
-Once the node is removed, Ceph will begin replicating its data to OSDs on remaining nodes.
-If the cluster is scaled below three, a new node must be added to regain cluster health.
+For information about how to drain and remove a node from a cluster that does not use Rook Ceph, see [kubectl drain](https://kubernetes.io/docs/tasks/administer-cluster/safely-drain-node/) in the Kubernetes documentation.
 
-For more information about the Rook add-on, see [Rook Add-on](/docs/add-ons/rook).
+If your kURL cluster uses the Rook add-on to manage storage with Rook Ceph, there are additional steps that you must take when removing a node to ensure that the Rook Ceph cluster remains healthy. For more information about the Rook add-on, see [Rook Add-on](/docs/add-ons/rook).
 
-When removing a node on a cluster that uses ectd, you must maintain etcd quorum.
-* There must always be one primary node
-* After you scale up the cluster to three primary nodes, you must maintain a minimum of three primary nodes to maintain quorum.
-
-### Remove a Node
+This procedure demonstrates how to avoid losing quorum in the Ceph Storage Cluster when removing a node and replicating its data to a new node. This procedure ensures that all data held in Ceph is replicated to new nodes safely by weighting the Ceph OSDs to `0` on each of the nodes that you want to remove, waiting for the cluster to rebalance, removing the OSDs that are on the node, and then finally removing the node.
 
 To remove a node from a cluster managed by kURL:
 
-1. Do the following to avoid data loss when removing a node from kURL clusters that have the Rook add-on:
-   * (Recommended) Upgrade Rook Ceph to v1.4 or later.
-   * In the kURL specification, set `isBlockStorageEnabled` to `true`. This is the default for rook-ceph v1.4 and later.
-   * Ensure that you can access the ceph CLI from a Pod that can communicate with the Ceph cluster.
+1. Run the EKCO shutdown script on the node:
 
-1. If the Rook add-on is installed on the cluster, ensure that Ceph is in a healthy state before you attempt to remove a node. To verify the health of Ceph, run one of the following `ceph status` commands in the `rook-ceph-tools` or `rook-ceph-operator` Pod in the `rook-ceph` namespace:
+   ```
+   /opt/ekco/shutdown.sh
+   ```
+
+   The shutdown script deletes any Pods on the node that mount volumes provisioned by Rook. It also cordons the node, so that the node is marked as unschedulable and kURL does not start any new containers on the node. For more information, see [EKCO Add-on](/docs/add-ons/ekco).
+
+1. Power down the node.
+
+1. On another primary node in the cluster, run the EKCO purge script on the node that you powered down in the previous step:
+
+   ```
+   ekco-purge-node NODE_NAME
+   ```
+   Replace `NODE_NAME` with the name of the node that you powered down in the previous step.
+
+   For information about the EKCO purge script, see [Purge Nodes](/docs/add-ons/ekco#purge-nodes) in _EKCO Add-on_.
+
+1. Remove the node from the cluster.
+
+   After you remove the node, you can run the kURL reset script to remove kURL and Kubernetes assets from the node to prep it to re-join the cluster at a later time. Or, delete the VM and provision a new VM.
+
+
+In general it is best practice to replace a node in a 3 node cluster by going 3->4->3 not 3->2->3.
+
+### Rook Ceph and etcd Quorum Requirement
+
+When removing nodes on cluster that use either Rook Ceph or etcd, you must maintain quorum:
+  * **etcd**:
+  * **Rook Ceph**: When you grow a Ceph Storage Cluster to three or more Ceph Object Storage Daemons (OSDs), such as when you add additional manager or worker nodes to the cluster, the Ceph Storage Cluster can no longer be scaled down to fewer than three OSDs. If you reduce the number of OSDs to less than three in this case, then the Ceph Storage Cluster loses quorum.
+
+
+### Rook Ceph Prerequisites
+
+Complete the following prerequisites to avoid data loss when removing nodes from Rook Ceph clusters:
+
+   * (Recommended) Upgrade Rook Ceph to v1.4 or later.
+
+   * In the kURL specification, set `isBlockStorageEnabled` to `true`. This is the default for Rook Ceph v1.4 and later.
+
+   * Ensure that you can access the ceph CLI from inside a Pod that can communicate with the Ceph Storage Cluster. Do one of the following:      
+      * (Recommended) Use the `rook-ceph-tools` Pod to access the ceph CLI. Use the same version of the Rook toolbox as the version of Rook Ceph installed in the cluster. For information about how to create a `rook-ceph-tools` Pod for Rook Ceph v1.5, see [Rook Toolbox](https://rook.io/docs/rook/v1.5/ceph-toolbox.html) in the Rook Ceph documentation.
+      * Use `kubectl exec` to enter the `rook-ceph-operator` Pod, where the ceph CLI is available.
+
+         If you use `kubectl exec` to access the ceph CLI, you can either open an interactive shell to run multiple ceph CLI commands in a row, or you can precede each ceph CLI command that you run with `kubectl exec`. The following shows an example of each method:
+
+         * Create an interactive shell to run multiple commands in a row.
+
+            **Example**:
+
+            Open an interactive shell:
+
+            ```
+            kubectl exec -it -n rook-ceph rook-ceph-tools-54ff78f9b6-gqsfm -- /bin/bash
+            ```
+            Then, run ceph CLI commands from the interactive shell:
+
+            ```
+            ceph status
+            ```
+
+         * Precede each ceph CLI command with `kubectl exec`.
+
+            **Example**:
+
+            ```
+            kubectl exec -it -n rook-ceph rook-ceph-tools-54ff78f9b6-gqsfm -- ceph status
+            ```
+
+### Remove a Node from Rook Ceph Clusters
+
+To remove a node from a kURL cluster that has the Rook add-on:
+
+1. Verify that Ceph is in a healthy state by running one of the following `ceph status` commands in the `rook-ceph-tools` or `rook-ceph-operator` Pod in the `rook-ceph` namespace:
 
     * **Rook v1.4.x**:
 
@@ -99,25 +160,50 @@ To remove a node from a cluster managed by kURL:
       kubectl -n rook-ceph exec deploy/rook-ceph-operator -- ceph status
       ```
 
-1. Run the EKCO shutdown script on the node:
+      The output of the command shows `health: HEALTH_OK` if Ceph is in a healthy state.
+
+      _**Note**_: You check the health of Ceph before each step in this procedure in which you make any change to the Ceph Storage Cluster.
+
+1. Add the same number of additional nodes to the cluster that you intend to remove. For example, if you need to remove two nodes, then add two additional nodes to the cluster.
+
+1. Run `ceph status` to check the progress of the replication to the new OSDs.
+
+1. On each node that you intend to remove, run the following ceph CLI command to re-weight the OSDs from the cluster:
 
    ```
-   /opt/ekco/shutdown.sh
+   ceph osd reweight OSD_NAME 0
    ```
+   Replace `OSD_NAME` with the name of the Ceph OSD on the given node.
 
-   The shutdown script deletes any Pods on the node that mount volumes provisioned by Rook. It also cordons the node, so that the node is marked as unschedulable and kURL does not start any new containers on the node. For more information, see see [EKCO Add-on](/docs/add-ons/ekco).
+   Ceph rebalances the placement groups off the OSD that you specify in the `ceph osd reweight` command. You can run `watch ceph status` to view the progress.
 
-1. Power down the node.
+1. Verify Ceph healthy by running `ceph status` reports `HEALTH_OK` we can proceed to
 
-1. On another primary node in the cluster, run the EKCO purge script on the node that you powered down in the previous step:
+1. Remove the OSDs from the Ceph cluster:
+
+1. On each node that you intend to remove, run the following ceph CLI command to mark the OSD as `down`:
 
    ```
-   ekco-purge-node NODE_NAME
+   ceph osd down OSD_NAME
    ```
-   Replace NODE_NAME with the name of the node that you powered down in the previous step.
+1. For each OSD on each node that you intend to remove, use the kubectl command-line tool to scale the OSD deployments to 0 replicas:
 
-   For information about the EKCO purge script, see [Purge Nodes](/docs/add-ons/ekco#purge-nodes) in _EKCO Add-on_.
+   ```
+   kubectl scale deployment -n rook-ceph rook-ceph-osd-1 --replicas 0
+   ```   
+1. Check ceph status and ceph osd tree
 
-1. Remove the node from the cluster.
+1.
 
-   After you remove the node, you can run the kURL reset script to remove kURL and Kubernetes assets from the node to prep it to re-join the cluster at a later time. Or, delete the VM and provision a new VM.
+1. Remove the node.
+
+   Once the node is removed, Ceph will begin replicating its data to OSDs on remaining nodes. If a Ceph Object Storage Daemon (OSD) is scheduled on a node that is removed, Ceph cluster health must be regained before removing any additional nodes.
+
+
+
+
+### etcd
+
+you must maintain etcd quorum.
+* There must always be one primary node
+* After you scale up the cluster to three primary nodes, you must maintain a minimum of three primary nodes to maintain quorum.
