@@ -115,7 +115,7 @@ Complete the following prerequisites to avoid data loss when removing nodes from
 
 ### Remove Nodes from Rook Ceph Clusters
 
-This procedure ensures that all data held in Ceph is replicated to new nodes safely by weighting the Ceph OSDs to `0` on each of the nodes that you want to remove, waiting for the cluster to rebalance, removing the OSDs that are on the node, and then finally removing the node.
+This procedure ensures that all data held in Rook Ceph is replicated to new nodes safely by first weighting the Ceph OSDs to `0` on each of the nodes that you want to remove, waiting for Ceph to rebalance the OSDs, removing the OSDs that are on the node that you want to remove, and then finally removing the node.
 
 To remove nodes from a kURL cluster with Rook Ceph:
 
@@ -177,27 +177,30 @@ To remove nodes from a kURL cluster with Rook Ceph:
 
    Once the node is removed, Ceph will begin replicating its data to OSDs on remaining nodes. If a Ceph Object Storage Daemon (OSD) is scheduled on a node that is removed, Ceph cluster health must be regained before removing any additional nodes.
 
+
+--   
+
 To remove a node from a cluster managed by kURL:
 
-   1. Run the EKCO shutdown script on the node:
+1. Run the EKCO shutdown script on the node:
 
-      ```
-      /opt/ekco/shutdown.sh
-      ```
+  ```
+  /opt/ekco/shutdown.sh
+  ```
 
-      The shutdown script deletes any Pods on the node that mount volumes provisioned by Rook. It also cordons the node, so that the node is marked as unschedulable and kURL does not start any new containers on the node. For more information, see [EKCO Add-on](/docs/add-ons/ekco).
+  The shutdown script deletes any Pods on the node that mount volumes provisioned by Rook. It also cordons the node, so that the node is marked as unschedulable and kURL does not start any new containers on the node. For more information, see [EKCO Add-on](/docs/add-ons/ekco).
 
-   1. Power down the node.
+1. Power down the node.
 
-   1. On another primary node in the cluster, run the EKCO purge script on the node that you powered down in the previous step:
+1. On another primary node in the cluster, run the EKCO purge script on the node that you powered down in the previous step:
 
-      ```
-      ekco-purge-node NODE_NAME
-      ```
-      Replace `NODE_NAME` with the name of the node that you powered down in the previous step.
+  ```
+  ekco-purge-node NODE_NAME
+  ```
+  Replace `NODE_NAME` with the name of the node that you powered down in the previous step.
 
-      For information about the EKCO purge script, see [Purge Nodes](/docs/add-ons/ekco#purge-nodes) in _EKCO Add-on_.
+  For information about the EKCO purge script, see [Purge Nodes](/docs/add-ons/ekco#purge-nodes) in _EKCO Add-on_.
 
-   1. Remove the node from the cluster.
+1. Remove the node from the cluster.
 
-      After you remove the node, you can run the kURL reset script to remove kURL and Kubernetes assets from the node to prep it to re-join the cluster at a later time. Or, delete the VM and provision a new VM.
+  After you remove the node, you can run the kURL reset script to remove kURL and Kubernetes assets from the node to prep it to re-join the cluster at a later time. Or, delete the VM and provision a new VM.
