@@ -10,6 +10,13 @@ isAlpha: false
 It is relatively common to initially allocate less (or more) storage than is required for an installation in practice.
 Some storage providers allow this to be done easily, while others require far more effort.
 
+
+# OpenEBS LocalPV
+
+OpenEBS LocalPV consumes a host's storage at `/var/openebs/local`.
+If you increase the amount of storage available here, OpenEBS will use it.
+If it shrinks, OpenEBS will have less storage to use.
+
 # Rook-Ceph
 
 ## Expanding Storage
@@ -121,54 +128,53 @@ When completed, every PG should be active+clean, and none should be in any other
 
 There should be no progress bar at the bottom, and it will look similar to this:
 ```
-[root@rook-ceph-tools-7c878bf856-2nlcl /]# ceph status
+[rook@rook-ceph-tools-6fb84b545-js4rg /]$ ceph status
   cluster:
-    id:     bbda49de-24b8-4f28-9ea5-ee56b570a7c9
-    health: HEALTH_WARN
-            11 pool(s) have no replicas configured
+    id:     be2c8681-a8a8-4f84-bf78-5afe2d88e48e
+    health: HEALTH_OK
 
   services:
-    mon: 1 daemons, quorum a (age 23h)
-    mgr: a(active, since 22h)
-    mds: rook-shared-fs:1 {0=rook-shared-fs-a=up:active} 1 up:standby-replay
-    osd: 2 osds: 2 up (since 23h), 1 in (since 86s)
-    rgw: 1 daemon active (rook.ceph.store.a)
-
-  task status:
-    scrub status:
-        mds.rook-shared-fs-a: idle
-        mds.rook-shared-fs-b: idle
+    mon: 1 daemons, quorum a (age 112m)
+    mgr: a(active, since 111m)
+    mds: 1/1 daemons up, 1 hot standby
+    osd: 5 osds: 5 up (since 95m), 4 in (since 75m)
+    rgw: 1 daemon active (1 hosts, 1 zones)
 
   data:
+    volumes: 1/1 healthy
     pools:   11 pools, 177 pgs
-    objects: 1.43k objects, 3.9 GiB
-    usage:   5.9 GiB used, 194 GiB / 200 GiB avail
+    objects: 18.02k objects, 68 GiB
+    usage:   137 GiB used, 363 GiB / 500 GiB avail
     pgs:     177 active+clean
 
   io:
-    client:   5.0 KiB/s rd, 12 KiB/s wr, 5 op/s rd, 1 op/s wr
+    client:   136 MiB/s rd, 51 KiB/s wr, 580 op/s rd, 1 op/s wr
 ```
 
 You can then run `ceph osd df` to ensure that the OSD to be removed is empty:
 ```
-[root@rook-ceph-tools-7c878bf856-2nlcl /]# ceph osd df
-ID  CLASS  WEIGHT   REWEIGHT  SIZE     RAW USE  DATA     OMAP     META      AVAIL    %USE  VAR   PGS  STATUS
- 0    ssd  0.09769   1.00000  100 GiB  4.9 GiB  3.9 GiB  625 KiB  1023 MiB   95 GiB  4.92  1.00  177      up
- 1    ssd  0.09769         0      0 B      0 B      0 B      0 B       0 B      0 B     0     0    0      up
-                       TOTAL  200 GiB  5.9 GiB  3.9 GiB  661 KiB   2.0 GiB  194 GiB  4.92
-MIN/MAX VAR: 1.00/1.00  STDDEV: 0
+[rook@rook-ceph-tools-6fb84b545-js4rg /]$ ceph osd df
+ID  CLASS  WEIGHT   REWEIGHT  SIZE     RAW USE  DATA     OMAP  META     AVAIL    %USE   VAR   PGS  STATUS
+ 0    ssd  0.09769   1.00000  100 GiB   26 GiB   25 GiB   0 B  225 MiB   74 GiB  25.64  0.93   56      up
+ 1    ssd  0.09769         0      0 B      0 B      0 B   0 B      0 B      0 B      0     0    0      up
+ 2    ssd  0.19530   1.00000  200 GiB   43 GiB   43 GiB   0 B  423 MiB  157 GiB  21.51  0.78  121      up
+ 3    ssd  0.04880   1.00000   50 GiB   15 GiB   15 GiB   0 B  133 MiB   35 GiB  29.91  1.09   49      up
+ 4    ssd  0.14650   1.00000  150 GiB   54 GiB   53 GiB   0 B  470 MiB   96 GiB  35.77  1.30  128      up
+                       TOTAL  500 GiB  137 GiB  136 GiB   0 B  1.2 GiB  363 GiB  27.46
+MIN/MAX VAR: 0.78/1.30  STDDEV: 5.34
 ```
 
 And additionally run `ceph osd safe-to-destroy osd.<num>` to ensure that ceph really is done with the drive:
 ```
-[root@rook-ceph-tools-7c878bf856-2nlcl /]# ceph osd safe-to-remove osd.1
-OSD(s) 1 are safe to destroy without reducing data durability
+[rook@rook-ceph-tools-6fb84b545-js4rg /]$ ceph osd safe-to-destroy osd.1
+OSD(s) 1 are safe to destroy without reducing data durability.
 ```
 
 ### Disabling OSDs
 The next set of commands will need to be run with kubectl, so you can exit the rook-ceph-tools shell with `exit`.
 
-First, scale the rook-ceph-operator to 0 replicas to keep it from undoing things. `kubectl -n rook-ceph scale deployment rook-ceph-operator --replicas=0`. Then, scale down the OSD you wish to remove with `kubectl -n rook-ceph scale deployment rook-ceph-osd-<num> --replicas=0`.
+First, scale the rook-ceph-operator to 0 replicas to keep it from undoing things. `kubectl -n rook-ceph scale deployment rook-ceph-operator --replicas=0`.
+Then, scale down the OSD you wish to remove with `kubectl -n rook-ceph scale deployment rook-ceph-osd-<num> --replicas=0`.
 
 After this, it's time to TEST AND MAKE SURE NOTHING IS BROKEN before actually deleting things for real.
 
@@ -177,7 +183,7 @@ Can you make a support bundle through the web UI?
 Can you browse the files of a release?
 Does the application itself still function?
 
-If any of the above answers are "no", you should scale the rook-ceph-operator and rook-ceph-osd deployments back to 1 replica.
+If any of the above answers are "no", you should scale the rook-ceph-operator and rook-ceph-osd-<num> deployments back to 1 replica.
 
 ### Destroying OSDs
 
@@ -187,21 +193,19 @@ An OSD can be destroyed with `ceph osd purge 1 --yes-i-really-mean-it`.
 If you do not in fact "mean it", please do not run this.
 
 ```
-[root@rook-ceph-tools-7c878bf856-2nlcl /]# ceph osd purge 1 --yes-i-really-mean-it
+[rook@rook-ceph-tools-6fb84b545-js4rg /]$ ceph osd purge 1 --yes-i-really-mean-it
 purged osd.1
-[root@rook-ceph-tools-7c878bf856-2nlcl /]# ceph osd df
-ID  CLASS  WEIGHT   REWEIGHT  SIZE     RAW USE  DATA     OMAP     META      AVAIL   %USE  VAR   PGS  STATUS
- 0    ssd  0.09769   1.00000  100 GiB  5.0 GiB  4.0 GiB  625 KiB  1023 MiB  95 GiB  4.97  1.00  177      up
-                       TOTAL  100 GiB  5.0 GiB  4.0 GiB  625 KiB  1023 MiB  95 GiB  4.97
-MIN/MAX VAR: 1.00/1.00  STDDEV: 0
+[rook@rook-ceph-tools-6fb84b545-js4rg /]$ ceph osd df
+ID  CLASS  WEIGHT   REWEIGHT  SIZE     RAW USE  DATA     OMAP  META     AVAIL    %USE   VAR   PGS  STATUS
+ 0    ssd  0.09769   1.00000  100 GiB   26 GiB   25 GiB   0 B  287 MiB   74 GiB  25.72  0.93   58      up
+ 2    ssd  0.19530   1.00000  200 GiB   43 GiB   43 GiB   0 B  500 MiB  157 GiB  21.63  0.78  119      up
+ 3    ssd  0.04880   1.00000   50 GiB   15 GiB   15 GiB   0 B  162 MiB   35 GiB  29.97  1.09   48      up
+ 4    ssd  0.14650   1.00000  150 GiB   54 GiB   53 GiB   0 B  573 MiB   96 GiB  35.99  1.30  127      up
+                       TOTAL  500 GiB  138 GiB  136 GiB   0 B  1.5 GiB  362 GiB  27.59
+MIN/MAX VAR: 0.78/1.30  STDDEV: 5.37
 ```
 
 Once the OSD has been purged, you can `exit` the toolbox again and reformat the freed disk for your purposes, or remove it from the instance entirely.
 
 After the free block device has been made unavailable for use by rook-ceph, you can restore the operator with `kubectl -n rook-ceph scale deployment rook-ceph-operator --replicas=1`, because the operator is needed for normal use.
 
-# Openebs localpv
-
-## Expanding Storage
-
-## Contracting Storage
