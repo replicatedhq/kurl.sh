@@ -10,7 +10,7 @@ isAlpha: false
 It is relatively common to initially allocate less (or more) storage than is required for an installation in practice.
 Some storage providers allow this to be done easily, while others require far more effort.
 
-This guide is not for changing the size of an individual PVC, but instead the storage of the entire PVC provisioner.
+This guide is not for changing the size of an individual PVC, but instead the storage of the entire PV provisioner.
 
 # OpenEBS LocalPV
 
@@ -26,7 +26,7 @@ Rook does not support expanding the storage of existing block devices, only addi
 However, a 100GB block device added to a node that already had a 100GB block device used by rook will be treated similarly to a freshly created instance with a single 200GB disk.
 In general, all nodes in a cluster should have the same amount of storage, and lopsided amounts of storage can lead to inefficiencies.
 
-Rook will use all block devices attached to the host unless a `blockDeviceFilter` is set, explained [here](docs/add-ons/rook#block-storage).
+Rook will use all block devices attached to the host unless a `blockDeviceFilter` is set, explained [here](/docs/add-ons/rook#block-storage).
 
 ## Contracting Storage
 
