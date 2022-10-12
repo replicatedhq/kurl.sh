@@ -1,5 +1,5 @@
 ---
-path: "/docs/install-with-kurl/adding-nodes"
+path: "/docs/install-with-kurl/managing-nodes"
 date: "2019-12-19"
 title: "Managing Nodes"
 ---
