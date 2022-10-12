@@ -191,6 +191,8 @@ To manually rebalance data and remove a node:
 
    After the node is removed, Ceph replicates its data to OSDs on remaining nodes. If a Ceph OSD is scheduled on the node that you removed, verify that Ceph is in a healthy state.
 
+1. (Optional) After the node is removed, you can run the kURL reset script to remove kURL and Kubernetes assets from the node to prep it to re-join the cluster at a later time. Or, delete the VM and provision a new VM.
+
 Repeat the steps in this procedure for any remaining nodes that you want to remove. Verify that Ceph is in a healthy state before you remove any additional nodes.
 
 ### Remove Nodes with ECKO
