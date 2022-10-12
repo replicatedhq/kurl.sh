@@ -10,6 +10,7 @@ isAlpha: false
 It is relatively common to initially allocate less (or more) storage than is required for an installation in practice.
 Some storage providers allow this to be done easily, while others require far more effort.
 
+This guide is not for changing the size of an individual PVC, but instead the storage of the entire PVC provisioner.
 
 # OpenEBS LocalPV
 
@@ -23,12 +24,17 @@ If it shrinks, OpenEBS will have less storage to use.
 
 Rook does not support expanding the storage of existing block devices, only adding new ones.
 However, a 100GB block device added to a node that already had a 100GB block device used by rook will be treated similarly to a freshly created instance with a single 200GB disk.
+In general, all nodes in a cluster should have the same amount of storage, and lopsided amounts of storage can lead to inefficiencies.
+
+Rook will use all block devices attached to the host unless a `blockDeviceFilter` is set, explained [here](docs/add-ons/rook#block-storage).
 
 ## Contracting Storage
 
 Rook does not support shrinking a block device once it has been allocated to Rook.
 However, entire block devices can be removed from the cluster.
-The procedure to do so is long and painful, but it does exist.
+This procedure is not intended to be used on a regular basis, but can be very helpful if you have accidentally added a disk to Rook that was intended for something else.
+
+Removing all OSDs from a node will fail if there would be less than three nodes with sufficient storage for your usage remaining.
 
 ### Identifying OSDs
 The first step is to determine what OSD number corresponds to the block device you wish to be freed up.
@@ -57,18 +63,19 @@ ID  CLASS  WEIGHT   REWEIGHT  SIZE     RAW USE  DATA     OMAP  META     AVAIL   
 MIN/MAX VAR: 0.76/1.44  STDDEV: 4.05
 ```
 If this is enough to identify your disk already, fantastic!
-For instance, a 200GB disk on `laverya-rook-main` would be osd.2 above.
+For instance, a 150GB disk on `laverya-rook-worker` would be osd.4 above.
+However, a 100GB disk on `laverya-rook-main` could be either osd.0 or osd.1.
 
 If this is not enough - for instance if you have multiple disks of the same size on the same instance - you can use kubectl from the host.
 You can get the list of rook-ceph OSDs with `kubectl get pods -n rook-ceph -l ceph_daemon_type=osd`, and then check each one by searching the describe output for `ROOK_BLOCK_PATH`.
 
 ```
-kubectl describe pod -n rook-ceph rook-ceph-osd-0-6cf7c5cb7-z7c8p | grep ROOK_BLOCK_PATH
+kubectl describe pod -n rook-ceph rook-ceph-osd-1-6cf7c5cb7-z7c8p | grep ROOK_BLOCK_PATH
       DEVICE="$ROOK_BLOCK_PATH"
-      ROOK_BLOCK_PATH:              /dev/sdb
-      ROOK_BLOCK_PATH:              /dev/sdb
+      ROOK_BLOCK_PATH:              /dev/sdc
+      ROOK_BLOCK_PATH:              /dev/sdc
 ```
-From this we can tell that the OSD using /dev/sdb is OSD 0.
+From this we can tell that the OSD using /dev/sdc is osd.1.
 
 ### Draining OSDs
 Once this is known, there are many commands to be run within the rook-ceph-tools deployment.
