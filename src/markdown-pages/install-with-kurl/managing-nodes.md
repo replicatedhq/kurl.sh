@@ -1,8 +1,6 @@
 ---
 path: "/docs/install-with-kurl/adding-nodes"
 date: "2019-12-19"
-weight: 20
-linktitle: "Managing Nodes"
 title: "Managing Nodes"
 ---
 
