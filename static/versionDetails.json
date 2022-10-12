@@ -557,6 +557,11 @@
       "type": "boolean"
     },
     {
+      "flag": "rookShouldDisableReconcileCephCSIResources",
+      "description": "This will disable reconciliation of Ceph CSI provisioner and plugin resources to their recommendations once the cluster is scaled to three nodes.",
+      "type": "boolean"
+    },
+    {
       "flag": "shouldDisableRebootServices",
       "description": "Do not install the systemd shutdown service that cordons a node and deletes pods with PVC and Shared FS volumes mounted.",
       "type": "boolean"
