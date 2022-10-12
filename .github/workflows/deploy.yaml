@@ -1,0 +1,64 @@
+name: deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+
+  deploy-staging-netlify:
+    environment: 
+      name: staging
+      url: https://staging.kurl.sh
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: yarn
+
+      - name: build
+        run: make deps build-staging
+
+      - name: release
+        uses: nwtgck/actions-netlify@v1.2
+        with:
+          publish-dir: public
+          production-branch: main
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          deploy-message: "Deploy staging.kurl.sh from GitHub Actions"
+          github-deployment-environment: staging
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: 9cc8b96a-2c23-4f71-bb0f-cbdc19ccbf76
+        timeout-minutes: 1
+
+  deploy-production-netlify:
+    environment: 
+      name: production
+      url: https://kurl.sh
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: yarn
+
+      - name: build
+        run: make deps build-production
+
+      - name: release
+        uses: nwtgck/actions-netlify@v1.2
+        with:
+          publish-dir: public
+          production-branch: main
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          deploy-message: "Deploy kurl.sh from GitHub Actions"
+          github-deployment-environment: production
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: 7e8d8070-273a-45a3-9c84-885a52d8ab69
+        timeout-minutes: 1
