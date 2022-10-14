@@ -99,7 +99,7 @@ Complete the following prerequisites before you remove one or more nodes from a 
     Open an interactive shell in the `rook-ceph-tools` or `rook-ceph-operator` Pod:
 
     ```
-    kubectl exec -it -n rook-ceph rook-ceph-tools-54ff78f9b6-gqsfm -- /bin/bash
+    kubectl exec -it -n rook-ceph deployment/rook-ceph-tools -- bash
     ```
     Then, run ceph CLI commands from the interactive shell:
 
