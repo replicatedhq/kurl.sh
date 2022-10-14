@@ -191,7 +191,8 @@ For example, if you intend to remove a total of two nodes, add two new nodes.
 
 1. Remove the node.
 
-   After the node is removed, Ceph replicates its data to OSDs on remaining nodes. If a Ceph OSD is scheduled on the node that you removed, verify that Ceph is in a healthy state.
+   After the node is removed, Ceph replicates its data to OSDs on remaining nodes.
+   If a Ceph OSD was scheduled on the node that you removed, verify that Ceph is in a healthy state.
 
 1. (Optional) After the node is removed, you can run the kURL reset script to remove kURL and Kubernetes assets from the node to prep it to re-join the cluster at a later time. Or, delete the VM and provision a new VM.
 
