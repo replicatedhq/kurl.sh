@@ -135,7 +135,8 @@ Complete the following prerequisites before you remove one or more nodes from a 
 This procedure ensures that the data held in Rook Ceph is safely replicated to a new node before you remove a node.
 Rebalancing your data is critical for preventing data loss that can occur when removing a node if the data stored in Ceph has not been properly replicated.
 
-To manually remove a node, you first use the ceph CLI to weigh the Ceph OSD to `0` on the node that you want to remove and wait for Ceph to rebalance the data across OSDs. Then, you can remove the OSD from the node, and finally remove the node.
+To manually remove a node, you first use the Ceph CLI to reweight the Ceph OSD to `0` on the node that you want to remove and wait for Ceph to rebalance the data across OSDs.
+Then, you can remove the OSD from the node, and finally remove the node.
 
 To manually rebalance data and remove a node:
 
