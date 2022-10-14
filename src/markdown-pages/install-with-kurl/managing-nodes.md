@@ -168,7 +168,8 @@ For example, if you intend to remove a total of two nodes, add two new nodes.
    ```
    Replace `OSD_NAME` with the name of the Ceph OSD on the node that you intend to remove.
 
-   Ceph rebalances the placement groups off the OSD that you specify in the `ceph osd reweight` command. To view progress, run `watch ceph status`.
+   Ceph rebalances the placement groups off the OSD that you specify in the `ceph osd reweight` command.
+   To view progress, run `ceph status`.
 
 1. After the `ceph osd reweight` command completes, verify that Ceph is in a healthy state:
 
