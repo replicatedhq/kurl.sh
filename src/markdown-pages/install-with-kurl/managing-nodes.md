@@ -144,7 +144,8 @@ To manually rebalance data and remove a node:
 
 1. Complete the [Rook Ceph Cluster Prerequisites](#rook-ceph-cluster-prerequisites) above.
 
-1. Add the same number of new nodes to the cluster that you intended to remove. For example, if you intend to remove a total of two nodes, add two new nodes.
+1. Add the same number of new nodes to the cluster that you intended to remove.
+For example, if you intend to remove a total of two nodes, add two new nodes.
 
    Ceph rebalances the existing placement groups to the new OSDs. To view progress, run:
 
