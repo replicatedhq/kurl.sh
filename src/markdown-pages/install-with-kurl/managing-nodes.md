@@ -112,7 +112,7 @@ Complete the following prerequisites before you remove one or more nodes from a 
     **Example**:
 
     ```
-    kubectl exec -it -n rook-ceph rook-ceph-tools-54ff78f9b6-gqsfm -- ceph status
+    kubectl exec -it -n rook-ceph deployment/rook-ceph-tools -- ceph status
     ```
 
 * Verify that Ceph is in a healthy state by running one of the following `ceph status` commands in the `rook-ceph-tools` Pod in the `rook-ceph` namespace:
