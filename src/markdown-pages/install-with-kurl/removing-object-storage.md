@@ -1,7 +1,7 @@
 ---
 path: "/docs/install-with-kurl/removing-object-storage"
 date: "2021-12-17"
-weight: 23
+weight: 24
 linktitle: "Removing Object Storage"
 title: "Removing Object Storage Dependencies"
 ---
