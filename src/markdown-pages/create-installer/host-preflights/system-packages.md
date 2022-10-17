@@ -1,7 +1,7 @@
 ---
 path: "/docs/create-installer/host-preflights/system-packages"
 date: "2022-01-13"
-weight: 39
+weight: 29
 linktitle: "System Packages"
 title: "System Packages"
 ---

@@ -1,7 +1,7 @@
 ---
 path: "/docs/create-installer/host-preflights/http"
 date: "2022-01-13"
-weight: 36
+weight: 26
 linktitle: "HTTP"
 title: "HTTP"
 ---

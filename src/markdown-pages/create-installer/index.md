@@ -15,7 +15,7 @@ metadata:
   name: "my-installer"
 spec:
   kubernetes:
-    version: "1.25.x"
+    version: "1.24.x"
   weave:
     version: "2.6.x"
   contour:
