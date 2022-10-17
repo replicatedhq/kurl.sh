@@ -62,7 +62,7 @@ To reboot a node on a cluster managed by kURL:
    /opt/ekco/shutdown.sh
    ```
 
-   The shutdown script deletes any Pods on the node that mount volumes provisioned by Rook. It also cordons the node, so that the node is marked as unschedulable and kURL does not start any new containers on the node. For more information, see see [EKCO Add-on](/docs/add-ons/ekco).
+   The shutdown script deletes any Pods on the node that mount volumes provisioned by Rook. It also cordons the node, so that the node is marked as unschedulable and kURL does not start any new containers on the node. For more information, see [EKCO Add-on](/docs/add-ons/ekco).
 
 1. Reboot the node.
 
@@ -224,8 +224,8 @@ _**Warnings**_: Consider the following warnings about data loss before you proce
   For example, in a single-node cluster, there are not multiple machines where Ceph can replicate data.
   In this case, even if Ceph reports healthy, removing a node results in data loss because the data was not properly replicated across multiple OSDs on multiple machines.
 
-  If you are not certain that Ceph data replication was configured and completed properly, or if Ceph is not in a healthy state, it is recommended that you first rebalance the data off the node that you intend to remove to avoid data loss.
-  For more information, see [(Recommended) Manually Rebalance Ceph and Remove a Node](#ecommended-manually-rebalance-ceph-and-remove-a-node) above.
+     If you are not certain that Ceph data replication was configured and completed properly, or if Ceph is not in a healthy state, it is recommended that you first rebalance the data off the node that you intend to remove to avoid data loss.
+     For more information, see [(Recommended) Manually Rebalance Ceph and Remove a Node](#recommended-manually-rebalance-ceph-and-remove-a-node) above.
 
 To use the EKCO add-on to remove a node:
 

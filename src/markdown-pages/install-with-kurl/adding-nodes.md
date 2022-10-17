@@ -6,7 +6,7 @@ linktitle: "Adding Nodes"
 title: "Adding Nodes"
 ---
 
-This topic describes how to add additional nodes to kURL clusters. For information about managing nodes on kURL clusters, including removing, rebooting, and resetting nodes, see [Managing Nodes](managing-nodes)
+This topic describes how to add additional nodes to kURL clusters. For information about managing nodes on kURL clusters, including removing, rebooting, and resetting nodes, see [Managing Nodes](/docs/install-with-kurl/managing-nodes).
 
 ## About Adding Nodes
 
