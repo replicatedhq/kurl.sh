@@ -30,7 +30,8 @@ Reset a node on a cluster only if you are able to delete the host VM and provisi
 
 To reset a node on a cluster managed by kURL:
 
-1. Run the kURL reset script on a VM that you are able to delete if the script is unsuccessful. The kURL reset script first runs the ECKO shutdown script to cordon the node. Then, it attempts to remove all Kubernetes packages and host files from the node.
+1. Run the kURL reset script on a VM that you are able to delete if the script is unsuccessful.
+The kURL reset script first runs the ECKO shutdown script to cordon the node. Then, it attempts to remove all Kubernetes packages and host files from the node.
 
    * **Online**:
 
@@ -137,7 +138,8 @@ Rebalancing your data is critical for preventing data loss that can occur when r
 To manually remove a node, you first use the Ceph CLI to reweight the Ceph OSD to `0` on the node that you want to remove and wait for Ceph to rebalance the data across OSDs.
 Then, you can remove the OSD from the node, and finally remove the node.
 
-**Note**: The commands in this procedure assume that you created an interactive shell in the `rook-ceph-tools` or `rook-ceph-operator` Pod. For more information, see [Rook Ceph Cluster Prerequisites](#rook-ceph-cluster-prerequisites) above.
+**Note**: The commands in this procedure assume that you created an interactive shell in the `rook-ceph-tools` or `rook-ceph-operator` Pod.
+For more information, see [Rook Ceph Cluster Prerequisites](#rook-ceph-cluster-prerequisites) above.
 
 To manually rebalance data and remove a node:
 
@@ -209,22 +211,21 @@ Repeat the steps in this procedure for any remaining nodes that you want to remo
 You can use EKCO add-on scripts to programmatically cordon and purge a node so that you can then remove the node from the cluster.
 
 _**Warnings**_: Consider the following warnings about data loss before you proceed with this procedure:
+  * **Ceph health**: The EKCO scripts in this procedure provide a quick method for cordoning a node and purging Ceph OSDs so that you can remove the node. This procedure is _not_ recommended unless you are able to confirm that Ceph is in a healthy state. If Ceph is not in a healthy state before you remove a node, you risk data loss.
 
-    * **Ceph health**: The EKCO scripts in this procedure provide a quick method for cordoning a node and purging Ceph OSDs so that you can remove the node. This procedure is _not_ recommended unless you are able to confirm that Ceph is in a healthy state. If Ceph is not in a healthy state before you remove a node, you risk data loss.
+     To verify that Ceph is in a healthy state, run the following `ceph status` command in the `rook-ceph-tools` or `rook-ceph-operator` Pod in the `rook-ceph` namespace for Rook Ceph v1.4 or later:
 
-       To verify that Ceph is in a healthy state, run the following `ceph status` command in the `rook-ceph-tools` or `rook-ceph-operator` Pod in the `rook-ceph` namespace for Rook Ceph v1.4 or later:
+     ```
+     kubectl -n rook-ceph exec deploy/rook-ceph-tools -- ceph status
+     ```
 
-       ```
-       kubectl -n rook-ceph exec deploy/rook-ceph-tools -- ceph status
-       ```
+  * **Data replication**: A common Ceph configuration is three data replicas across three Ceph OSDs.
+  It is possible for Ceph to report a healthy status without data being replicated properly across all OSDs.
+  For example, in a single-node cluster, there are not multiple machines where Ceph can replicate data.
+  In this case, even if Ceph reports healthy, removing a node results in data loss because the data was not properly replicated across multiple OSDs on multiple machines.
 
-    * **Data replication**: A common Ceph configuration is three data replicas across three Ceph OSDs.
-    It is possible for Ceph to report a healthy status without data being replicated properly across all OSDs.
-    For example, in a single-node cluster, there are not multiple machines where Ceph can replicate data.
-    In this case, even if Ceph reports healthy, removing a node results in data loss because the data was not properly replicated across multiple OSDs on multiple machines.
-
-    If you are not certain that Ceph data replication was configured and completed properly, or if Ceph is not in a healthy state, it is recommended that you first rebalance the data off the node that you intend to remove to avoid data loss.
-    For more information, see [(Recommended) Manually Rebalance Ceph and Remove a Node](#ecommended-manually-rebalance-ceph-and-remove-a-node) above.
+  If you are not certain that Ceph data replication was configured and completed properly, or if Ceph is not in a healthy state, it is recommended that you first rebalance the data off the node that you intend to remove to avoid data loss.
+  For more information, see [(Recommended) Manually Rebalance Ceph and Remove a Node](#ecommended-manually-rebalance-ceph-and-remove-a-node) above.
 
 To use the EKCO add-on to remove a node:
 
@@ -240,21 +241,22 @@ To use the EKCO add-on to remove a node:
 
 1. Run the EKCO shutdown script on the node:
 
- ```
- /opt/ekco/shutdown.sh
- ```
+   ```
+   /opt/ekco/shutdown.sh
+   ```
 
- The shutdown script deletes any Pods on the node that mount volumes provisioned by Rook. It also cordons the node, so that the node is marked as unschedulable and kURL does not start any new containers on the node. For more information, see [EKCO Add-on](/docs/add-ons/ekco).
+   The shutdown script deletes any Pods on the node that mount volumes provisioned by Rook.
+   It also cordons the node, so that the node is marked as unschedulable and kURL does not start any new containers on the node. For more information, see [EKCO Add-on](/docs/add-ons/ekco).
 
 1. Power down the node.
 
 1. On another primary node in the cluster, run the EKCO purge script for the node that you intend to remove:
 
- ```
- ekco-purge-node NODE_NAME
- ```
- Replace `NODE_NAME` with the name of the node that you powered down in the previous step.
+   ```
+   ekco-purge-node NODE_NAME
+   ```
+   Replace `NODE_NAME` with the name of the node that you powered down in the previous step.
 
- The EKCO purge script For information about the EKCO purge script, see [Purge Nodes](/docs/add-ons/ekco#purge-nodes) in _EKCO Add-on_.
+   The EKCO purge script For information about the EKCO purge script, see [Purge Nodes](/docs/add-ons/ekco#purge-nodes) in _EKCO Add-on_.
 
 1. Remove the node from the cluster.
