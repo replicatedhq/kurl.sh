@@ -1,7 +1,7 @@
 ---
 path: "/docs/install-with-kurl/ipv6"
 date: "2021-12-14"
-weight: 24
+weight: 25
 linktitle: "IPv6"
 title: "IPv6"
 isAlpha: true
@@ -17,30 +17,30 @@ This example shows a valid spec for ipv6.
 ```
 apiVersion: "cluster.kurl.sh/v1beta1"
 kind: "Installer"
-metadata: 
+metadata:
   name: "ipv6"
-spec: 
+spec:
   kurl:
     ipv6: true
-  kubernetes: 
+  kubernetes:
     version: "1.23.x"
   kotsadm:
     version: "latest"
-  antrea: 
+  antrea:
     version: "latest"
-  contour: 
+  contour:
     version: "1.20.x"
-  prometheus: 
+  prometheus:
     version: "0.53.x"
-  registry: 
+  registry:
     version: "2.7.x"
-  containerd: 
+  containerd:
     version: "1.4.x"
-  ekco: 
+  ekco:
     version: "latest"
-  minio: 
+  minio:
     version: "2020-01-25T02-50-51Z"
-  longhorn: 
+  longhorn:
     version: "1.2.x"
 ```
 
@@ -91,7 +91,7 @@ The kURL installer includes a networking check after antrea is installed.
 If this fails, check the logs for the antrea-agent daemonset in the kube-system namespace.
 An error like the following indicates the ip6_tables kernel module is not available:
 ```
-E1210 19:44:12.494994       1 route_linux.go:119] Failed to initialize iptables: error checking if chain ANTREA-PREROUTING exists in table raw: running [/usr/sbin/ip6tables -t raw -S ANTREA-PREROUTING 1 
+E1210 19:44:12.494994       1 route_linux.go:119] Failed to initialize iptables: error checking if chain ANTREA-PREROUTING exists in table raw: running [/usr/sbin/ip6tables -t raw -S ANTREA-PREROUTING 1
 --wait]: exit status 3: modprobe: FATAL: Module ip6_tables not found in directory /lib/modules/4.18.0-193.19.1.el8_2.x86_64
 ip6tables v1.8.4 (legacy): can't initialize ip6tables table `raw': Table does not exist (do you need to insmod?)
 Perhaps ip6tables or your kernel needs to be upgraded.

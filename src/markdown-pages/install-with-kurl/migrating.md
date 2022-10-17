@@ -1,7 +1,7 @@
 ---
 path: "/docs/install-with-kurl/migrating"
 date: "2021-06-30"
-weight: 21
+weight: 22
 linktitle: "Migrating"
 title: "Migrating to Change kURL Add-Ons"
 ---
