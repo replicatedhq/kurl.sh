@@ -37,7 +37,7 @@ For more information see [kURL Advanced Install Options](/docs/install-with-kurl
 ## Networking Requirements
 ### Firewall Openings for Online Installations
 
-The following domains need to accessible from servers performing online kURL installs. 
+The following domains need to be accessible from servers performing online kURL installs. 
 IP addresses for these services can be found in [replicatedhq/ips](https://github.com/replicatedhq/ips/blob/master/ip_addresses.json).
 
 | Host          | Description                                                                                                                                                                                                                                                                                      |

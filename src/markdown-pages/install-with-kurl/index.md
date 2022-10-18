@@ -164,14 +164,14 @@ install, the install time options can be easily viewed via kubectl.
 For example, if the install was done using the following command:
 
 ```
-curl https://kurl.sh/latest
+curl https://kurl.sh/latest | sudo bash
 ```
 
 Once the install is complete you can view the current state of the cluster and every option that was
 changed in the kURL YAML spec with the following command.
 
 ```
-kubectl get installer latest
+kubectl get installer latest -n default
 ```
 
 ## Modifying an Install Using a YAML Patch File at Runtime.
@@ -211,7 +211,7 @@ Once the install is finished, the merged YAML that represents the install can be
 viewed by running the following command to show the current state of the cluster. 
 
 ```
-kubectl get installer merged
+kubectl get installer merged -n default
 ```
 
 ## Select Examples of Using a Patch YAML File
