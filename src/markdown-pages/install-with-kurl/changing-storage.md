@@ -1,7 +1,7 @@
 ---
 path: "/docs/install-with-kurl/changing-storage"
 date: "2022-10-10"
-weight: 27
+weight: 25
 linktitle: "Changing Storage"
 title: "Changing Storage"
 isAlpha: false

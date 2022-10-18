@@ -1,7 +1,7 @@
 ---
 path: "/docs/install-with-kurl/cis-compliance"
 date: "2022-03-23"
-weight: 26
+weight: 27
 linktitle: "CIS Compliance"
 title: "CIS Compliance"
 isAlpha: false

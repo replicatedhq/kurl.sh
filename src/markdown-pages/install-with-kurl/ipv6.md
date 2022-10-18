@@ -1,7 +1,7 @@
 ---
 path: "/docs/install-with-kurl/ipv6"
 date: "2021-12-14"
-weight: 25
+weight: 26
 linktitle: "IPv6"
 title: "IPv6"
 isAlpha: true
