@@ -852,7 +852,11 @@ class Kurlsh extends React.Component {
         this.setState({ installerSha });
       } else {
         const body = await response.json();
-        this.setState({ installerErrMsg: body.error.message || "something went wrong" });
+        if (Array.isArray(body)) {
+          this.setState({ installerErrMsg: body[0].message || "something went wrong" });
+        } else {
+          this.setState({ installerErrMsg: body.error.message || "something went wrong" });
+        }
       }
     } catch (err) {
       this.setState({ installerErrMsg: `${err}` });
