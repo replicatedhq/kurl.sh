@@ -3,10 +3,12 @@ path: "/docs/add-ons/rke2"
 date: "2021-02-18"
 linktitle: "RKE2"
 weight: 52
-title: "RKE2 Add-On"
+title: "RKE2 Add-On - Deprecated"
 addOn: "rke2"
 isBeta: true
 ---
+
+**Note: The add-on is considered deprecated, and will be removed from kURL in the near future.**
 
 [RKE2](https://rke2.io/), also known as RKE Government, is a fully-conformant Kubernetes distribution from Rancher.
 
