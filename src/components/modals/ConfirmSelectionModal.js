@@ -21,10 +21,24 @@ class ConfirmSelectionModal extends React.Component {
       return;
     } else if (current === "docker") {
       this.setState({ addOnToRemove: { containerd: selectedVersions.containerd } });
+    } else if (current === "flannel") {
+      if (selectedVersions.weave.version !== "None") {
+        this.setState({ addOnToRemove: { weave: selectedVersions.weave } });
+      } else {
+        this.setState({ addOnToRemove: { antrea: selectedVersions.antrea } });
+      }
     } else if (current === "antrea") {
-      this.setState({ addOnToRemove: { weave: selectedVersions.weave } });
+      if (selectedVersions.weave.version !== "None") {
+        this.setState({ addOnToRemove: { weave: selectedVersions.weave } });
+      } else {
+        this.setState({ addOnToRemove: { flannel: selectedVersions.flannel } });
+      }
     } else {
-      this.setState({ addOnToRemove: { antrea: selectedVersions.antrea } });
+      if (selectedVersions.antrea.version !== "None") {
+        this.setState({ addOnToRemove: { antrea: selectedVersions.antrea } });
+      } else {
+        this.setState({ addOnToRemove: { flannel: selectedVersions.flannel } });
+      }
     }
   }
 

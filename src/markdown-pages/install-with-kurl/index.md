@@ -249,10 +249,9 @@ replace, not add to commands that may exist on the base YAML.
         - ["-A", "INPUT", "-s", "1.1.1.1", "-j", "DROP"]
 ```
 
-The following patch YAML can be used to configure the IP adddress ranges
-of Pods and Services. Note that the installer will attempt to default to `10.32.0.0/16`
-for Pods and `10.96.0.0/16` for Services. If those ranges aren't available per the routing table, 
-the installer will fallback to searching for available subnets in `10.0.0.0/8`.
+The following patch YAML can be used to configure the IP adddress ranges of Pods and Services.
+Note that the installer will attempt to default to `10.32.0.0/20` for Pods and `10.96.0.0/22` for Services.
+If not available, the installer will attempt to find an available range with prefix bits of 20 and 22 respectively in the `10.32.0.0/16` or `10.0.0.0/8` address spaces.
 
 ```yaml
   apiVersion: cluster.kurl.sh/v1beta1

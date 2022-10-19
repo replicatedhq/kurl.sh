@@ -96,6 +96,23 @@
       "type": "string"
     }
   ],
+  "flannel": [
+    {
+      "flag": "version",
+      "description": "The version of Flannel to be installed.",
+      "type": "string"
+    },
+    {
+      "flag": "podCIDR",
+      "description": "The subnet used by Pods.",
+      "type": "string"
+    },
+    {
+      "flag": "podCIDRRange",
+      "description": "The size of the subnet used by Pods.",
+      "type": "string"
+    }
+  ],
   "weave": [
     {
       "flag": "version",
@@ -109,12 +126,12 @@
     },
     {
       "flag": "podCIDR",
-      "description": "The subnet where pods will be found.",
+      "description": "The subnet used by Pods.",
       "type": "string"
     },
     {
       "flag": "podCidrRange",
-      "description": "The size of the CIDR where pods can be found.",
+      "description": "The size of the subnet used by Pods.",
       "type": "string"
     },
     {
@@ -137,12 +154,12 @@
     },
     {
       "flag": "podCIDR",
-      "description": "The subnet where pods will be found.",
+      "description": "The subnet used by Pods.",
       "type": "string"
     },
     {
       "flag": "podCidrRange",
-      "description": "The size of the CIDR where pods can be found.",
+      "description": "The size of the subnet used by Pods.",
       "type": "string"
     }
   ],
