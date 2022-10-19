@@ -3,10 +3,12 @@ path: "/docs/add-ons/k3s"
 date: "2021-02-18"
 linktitle: "K3s"
 weight: 42
-title: "K3s Add-On"
+title: "K3s Add-On - Deprecated"
 addOn: "k3s"
 isBeta: true
 ---
+
+**Note: The add-on is considered deprecated, and will be removed from kURL in the near future.**
 
 [K3s](https://k3s.io/) is a lightweight Kubernetes distribution built by Rancher for Internet of Things (IoT) and edge computing.
 
