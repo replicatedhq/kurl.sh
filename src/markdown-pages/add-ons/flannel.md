@@ -29,3 +29,11 @@ flags-table
 The Pod subnet will default to `10.32.0.0/20` if available.
 If not available, the installer will attempt to find an available range with prefix bits 20 in the `10.32.0.0/16` or `10.0.0.0/8` address spaces.
 This can be overridden using the `podCIDR` to specify a specific address space, or `podCIDRRange` to specify a different prefix bits.
+
+## Limitations
+
+* Migrations from Weave CNI are not supported
+* Migrations from Antrea CNI are not supported
+* Network Policies are not supported
+* IPv6 and dual stack networks are not supported
+* Encryption is not supported
