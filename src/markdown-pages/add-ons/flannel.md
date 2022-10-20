@@ -5,6 +5,7 @@ linktitle: "Flannel"
 weight: 38
 title: "Flannel Add-On"
 addOn: "flannel"
+isBeta: true
 ---
 
 [Flannel](https://github.com/flannel-io/flannel) implements the Container Network Interface (CNI) to enable pod networking in a Kubernetes cluster.
