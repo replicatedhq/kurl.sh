@@ -97,4 +97,4 @@ The following shows an example of the Ceph cluster dashboard in Grafana:
 
 To access the Ceph cluster dashboard, log in to Grafana in the `monitoring` namespace of the kURL cluster using your Grafana admin credentials.
 
-For more information about installing with the Prometheus add-on and updating the Grafana credentials, see [Prometheus](/docs/add-ons/prometheus).
+For more information about installing with the Prometheus add-on and updating the Grafana credentials, see [Prometheus Add-on](/docs/add-ons/prometheus).
