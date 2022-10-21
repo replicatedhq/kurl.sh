@@ -84,3 +84,7 @@ Alternatively, the upgrade from `1.0.x` to `1.4.9` can be triggered independentl
 This upgrade migrates data off of any hostpath-based OSDs in favor of block device-based OSDs and upgrades through Rook `1.1.9`, `1.2.7` and `1.3.11` before installing `1.4.9` (and then optionally `1.5.x`).
 The upstream Rook project introduced a requirement for block storage in versions 1.3.x and later.
 In instances without internet access, this requires supplying an additional file when prompted.
+
+## Monitoring
+
+Beginning with version `1.9.12` and later, Ceph metrics collection is enabled and a Ceph cluster statistics Grafana dashboard is created when installed with the [Prometheus](/docs/add-ons/prometheus) add-on.
