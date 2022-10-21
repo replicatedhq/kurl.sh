@@ -84,3 +84,17 @@ Alternatively, the upgrade from `1.0.x` to `1.4.9` can be triggered independentl
 This upgrade migrates data off of any hostpath-based OSDs in favor of block device-based OSDs and upgrades through Rook `1.1.9`, `1.2.7` and `1.3.11` before installing `1.4.9` (and then optionally `1.5.x`).
 The upstream Rook project introduced a requirement for block storage in versions 1.3.x and later.
 In instances without internet access, this requires supplying an additional file when prompted.
+
+## Monitor Rook Ceph
+
+For Rook version 1.9.12 and later, when you install with both the Rook add-on and the Prometheus add-on, kURL enables Ceph metrics collection and creates a Ceph cluster statistics Grafana dashboard.
+
+The Ceph cluster statistics dashboard in Grafana displays metrics that help you monitor the health of the Rook Ceph cluster, including the status of the Ceph object storage daemons (OSDs), the available cluster capacity, the OSD commit and apply latency, and more.
+
+The following shows an example of the Ceph cluster dashboard in Grafana:
+
+![Graphs and metrics on the Ceph Grafana dashboard](/ceph-grafana-dashboard.png)
+
+To access the Ceph cluster dashboard, log in to Grafana in the `monitoring` namespace of the kURL cluster using your Grafana admin credentials.
+
+For more information about installing with the Prometheus add-on and updating the Grafana credentials, see [Prometheus Add-on](/docs/add-ons/prometheus).
