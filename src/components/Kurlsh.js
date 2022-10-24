@@ -841,7 +841,7 @@ class Kurlsh extends React.Component {
           this.setState({ hasSpecChanged: true });
 
           let selectedVersion = this.state.versions[name][0].version;
-          if (selectedVersion === "latest") {
+          if (selectedVersion === "latest" && name !== "ekco") {
             selectedVersion = this.state.versions[name][1].version;
           }
 
