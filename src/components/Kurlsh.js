@@ -22,6 +22,7 @@ const NIL_VERSIONS = {
   kubernetes: { version: "None" },
   rke2: { version: "None" },
   k3s: { version: "None" },
+  flannel: { version: "None" },
   weave: { version: "None" },
   antrea: { version: "None" },
   contour: { version: "None" },
@@ -44,7 +45,7 @@ const NIL_VERSIONS = {
   goldpinger: { version: "None" },
   aws: { version: "None" },
 }
-const hasAdvancedOptions = ["kubernetes", "weave", "antrea", "contour", "rook", "registry", "docker", "velero", "kotsadm", "ekco", "fluentd", "minio", "openebs", "longhorn", "prometheus", "aws"];
+const hasAdvancedOptions = ["kubernetes", "flannel", "weave", "antrea", "contour", "rook", "registry", "docker", "velero", "kotsadm", "ekco", "fluentd", "minio", "openebs", "longhorn", "prometheus", "aws"];
 function versionToState(version) {
   return {
     version
@@ -56,76 +57,79 @@ class Kurlsh extends React.Component {
     super(props);
     const { supportedVersions } = props;
 
-    let kubernetesVersions = this.addDotXVersions(supportedVersions.kubernetes.map(versionToState));
+    let kubernetesVersions = this.addDotXVersions(supportedVersions.kubernetes ? supportedVersions.kubernetes.map(versionToState) : []);
     kubernetesVersions = this.prepareVersions(kubernetesVersions)
 
-    let rke2Versions = this.addDotXVersions(supportedVersions.rke2.map(versionToState));
+    let rke2Versions = this.addDotXVersions(supportedVersions.rke2 ? supportedVersions.rke2.map(versionToState) : []);
     rke2Versions = this.prepareVersions(rke2Versions);
 
-    let k3sVersions = this.addDotXVersions(supportedVersions.k3s.map(versionToState));
+    let k3sVersions = this.addDotXVersions(supportedVersions.k3s ? supportedVersions.k3s.map(versionToState) : []);
     k3sVersions = this.prepareVersions(k3sVersions);
 
-    let contourVersions = this.addDotXVersions(supportedVersions.contour.map(versionToState));
+    let contourVersions = this.addDotXVersions(supportedVersions.contour ? supportedVersions.contour.map(versionToState) : []);
     contourVersions = this.prepareVersions(contourVersions);
 
-    let weaveVersions = this.addDotXVersions(supportedVersions.weave.map(versionToState));
+    let flannelVersions = this.addDotXVersions(supportedVersions.flannel ? supportedVersions.flannel.map(versionToState) : []);
+    flannelVersions = this.prepareVersions(flannelVersions);
+
+    let weaveVersions = this.addDotXVersions(supportedVersions.weave ? supportedVersions.weave.map(versionToState) : []);
     weaveVersions = this.prepareVersions(weaveVersions);
 
-    let antreaVersions = this.addDotXVersions(supportedVersions.antrea.map(versionToState));
+    let antreaVersions = this.addDotXVersions(supportedVersions.antrea ? supportedVersions.antrea.map(versionToState) : []);
     antreaVersions = this.prepareVersions(antreaVersions);
 
-    let rookVersions = this.addDotXVersions(supportedVersions.rook.map(versionToState));
+    let rookVersions = this.addDotXVersions(supportedVersions.rook ? supportedVersions.rook.map(versionToState) : []);
     rookVersions = this.prepareVersions(rookVersions);
 
-    let dockerVersions = this.addDotXVersions(supportedVersions.docker.map(versionToState));
+    let dockerVersions = this.addDotXVersions(supportedVersions.docker ? supportedVersions.docker.map(versionToState) : []);
     dockerVersions = this.prepareVersions(dockerVersions);
 
-    let prometheusVersions = this.addDotXVersions(supportedVersions.prometheus.map(versionToState));
+    let prometheusVersions = this.addDotXVersions(supportedVersions.prometheus ? supportedVersions.prometheus.map(versionToState) : []);
     prometheusVersions = this.prepareVersions(prometheusVersions);
 
-    let registryVersions = this.addDotXVersions(supportedVersions.registry.map(versionToState));
+    let registryVersions = this.addDotXVersions(supportedVersions.registry ? supportedVersions.registry.map(versionToState) : []);
     registryVersions = this.prepareVersions(registryVersions);
 
-    let containerdVersions = this.addDotXVersions(supportedVersions.containerd.map(versionToState));
+    let containerdVersions = this.addDotXVersions(supportedVersions.containerd ? supportedVersions.containerd.map(versionToState) : []);
     containerdVersions = this.prepareVersions(containerdVersions);
 
-    let veleroVersions = this.addDotXVersions(supportedVersions.velero.map(versionToState));
+    let veleroVersions = this.addDotXVersions(supportedVersions.velero ? supportedVersions.velero.map(versionToState) : []);
     veleroVersions = this.prepareVersions(veleroVersions);
 
-    let kotsadmVersions = this.addDotXVersions(supportedVersions.kotsadm.map(versionToState));
+    let kotsadmVersions = this.addDotXVersions(supportedVersions.kotsadm ? supportedVersions.kotsadm.map(versionToState) : []);
     kotsadmVersions = this.prepareVersions(kotsadmVersions);
 
-    let ekcoVersions = this.addDotXVersions(supportedVersions.ekco.map(versionToState));
+    let ekcoVersions = this.addDotXVersions(supportedVersions.ekco ? supportedVersions.ekco.map(versionToState) : []);
     ekcoVersions = this.prepareVersions(ekcoVersions);
 
-    let fluentdVersions = this.addDotXVersions(supportedVersions.fluentd.map(versionToState));
+    let fluentdVersions = this.addDotXVersions(supportedVersions.fluentd ? supportedVersions.fluentd.map(versionToState) : []);
     fluentdVersions = this.prepareVersions(fluentdVersions);
 
-    let minioVersions = this.addDotXVersions(supportedVersions.minio.map(versionToState));
+    let minioVersions = this.addDotXVersions(supportedVersions.minio ? supportedVersions.minio.map(versionToState) : []);
     minioVersions = this.prepareVersions(minioVersions);
 
-    let openebsVersions = this.addDotXVersions(supportedVersions.openebs.map(versionToState));
+    let openebsVersions = this.addDotXVersions(supportedVersions.openebs ? supportedVersions.openebs.map(versionToState) : []);
     openebsVersions = this.prepareVersions(openebsVersions);
 
-    let longhornVersions = this.addDotXVersions(supportedVersions.longhorn.map(versionToState));
+    let longhornVersions = this.addDotXVersions(supportedVersions.longhorn ? supportedVersions.longhorn.map(versionToState) : []);
     longhornVersions = this.prepareVersions(longhornVersions);
 
-    let collectdVersions = this.addDotXVersions(supportedVersions.collectd.map(versionToState));
+    let collectdVersions = this.addDotXVersions(supportedVersions.collectd ? supportedVersions.collectd.map(versionToState) : []);
     collectdVersions = this.prepareVersions(collectdVersions);
 
-    let metricsServerVersions = this.addDotXVersions(supportedVersions["metrics-server"].map(versionToState));
+    let metricsServerVersions = this.addDotXVersions(supportedVersions["metrics-server"] ? supportedVersions["metrics-server"].map(versionToState) : []);
     metricsServerVersions = this.prepareVersions(metricsServerVersions);
 
-    let certManagerVersions = this.addDotXVersions(supportedVersions["cert-manager"].map(versionToState));
+    let certManagerVersions = this.addDotXVersions(supportedVersions["cert-manager"] ? supportedVersions["cert-manager"].map(versionToState) : []);
     certManagerVersions = this.prepareVersions(certManagerVersions);
 
-    let sonobuoyVersions = this.addDotXVersions(supportedVersions["sonobuoy"].map(versionToState));
+    let sonobuoyVersions = this.addDotXVersions(supportedVersions.sonobuoy ? supportedVersions.sonobuoy.map(versionToState) : []);
     sonobuoyVersions = this.prepareVersions(sonobuoyVersions);
 
-    let goldpingerVersions = this.addDotXVersions(supportedVersions["goldpinger"].map(versionToState));
+    let goldpingerVersions = this.addDotXVersions(supportedVersions.goldpinger ? supportedVersions.goldpinger.map(versionToState) : []);
     goldpingerVersions = this.prepareVersions(goldpingerVersions);
 
-    let awsVersions = this.addDotXVersions(supportedVersions["aws"].map(versionToState));
+    let awsVersions = this.addDotXVersions(supportedVersions.aws ? supportedVersions.aws.map(versionToState) : []);
     awsVersions = this.prepareVersions(awsVersions);
 
     this.state = {
@@ -133,6 +137,7 @@ class Kurlsh extends React.Component {
         kubernetes: kubernetesVersions,
         rke2: rke2Versions,
         k3s: k3sVersions,
+        flannel: flannelVersions,
         weave: weaveVersions,
         antrea: antreaVersions,
         contour: contourVersions,
@@ -161,6 +166,7 @@ class Kurlsh extends React.Component {
         "kubernetes": false,
         "rke2": false,
         "k3s": false,
+        "flannel": false,
         "weave": false,
         "antrea": false,
         "contour": false,
@@ -185,6 +191,7 @@ class Kurlsh extends React.Component {
         kubernetes: {},
         rke2: {},
         k3s: {},
+        flannel: {},
         weave: {},
         antrea: {},
         contour: {},
@@ -209,7 +216,8 @@ class Kurlsh extends React.Component {
       isAddOnChecked: {
         kubernetes: false,
         rke2: false,
-        k3s: false,  
+        k3s: false, 
+        flannel: false, 
         weave: false,
         antrea: false,
         contour: false,
@@ -244,7 +252,7 @@ class Kurlsh extends React.Component {
     // the list of versions returned by the api has, as it first item, a version called
     // "latest", the item immediately after it is the actual version we consider to be
     // the latest. we save it here so we can remember where we need to insert it after.
-    let latest = versions[1].version;
+    let latest = versions.length > 1 ? versions[1].version : undefined;
 
     // remove the "latest" version from the list and sort the resulting array. we will
     // re-insert "latest" after sorting the array as it has to be the option just before
@@ -420,6 +428,21 @@ class Kurlsh extends React.Component {
       if (Object.keys(diff).length) {
         generatedInstaller.spec.k3s = {
           ...generatedInstaller.spec.k3s,
+          ...diff
+        };
+      }
+    }
+
+    if (selectedVersions.flannel.version !== "None") {
+      const diff = getDiff(optionDefaults["flannel"], options.flannel);
+
+      generatedInstaller.spec.flannel = {
+        version: selectedVersions.flannel.version
+      };
+
+      if (Object.keys(diff).length) {
+        generatedInstaller.spec.flannel = {
+          ...generatedInstaller.spec.flannel,
           ...diff
         };
       }
@@ -742,9 +765,11 @@ class Kurlsh extends React.Component {
       this.checkIncompatibleSelection({ containerd: value });
     } else if (name === "docker" && value.version !== "None" && this.state.selectedVersions.containerd.version !== "None") {
       this.checkIncompatibleSelection({ docker: value });
-    } else if (name === "antrea" && value.version !== "None" && this.state.selectedVersions.weave.version !== "None") {
+    } else if (name === "flannel" && value.version !== "None" && (this.state.selectedVersions.weave.version !== "None" || this.state.selectedVersions.antrea.version !== "None")) {
+      this.checkIncompatibleSelection({ flannel: value });
+    } else if (name === "antrea" && value.version !== "None" && (this.state.selectedVersions.weave.version !== "None" || this.state.selectedVersions.flannel.version !== "None")) {
       this.checkIncompatibleSelection({ antrea: value });
-    } else if (name === "weave" && value.version !== "None" && this.state.selectedVersions.antrea.version !== "None") {
+    } else if (name === "weave" && value.version !== "None" && (this.state.selectedVersions.antrea.version !== "None" || this.state.selectedVersions.flannel.version !== "None")) {
       this.checkIncompatibleSelection({ weave: value });
     } else {
       this.setState({ selectedVersions: { ...this.state.selectedVersions, [name]: value } }, () => {
@@ -789,9 +814,11 @@ class Kurlsh extends React.Component {
             this.checkIncompatibleSelection({ containerd: { version: "latest" } });
           } else if (name === "docker" && this.state.selectedVersions.containerd.version !== "None") {
             this.checkIncompatibleSelection({ docker: { version: "latest" } });
-          } else if (name === "weave" && this.state.selectedVersions.antrea.version !== "None") {
+          } else if (name === "flannel" && (this.state.selectedVersions.weave.version !== "None" || this.state.selectedVersions.antrea.version !== "None")) {
+            this.checkIncompatibleSelection({ flannel: { version: "latest" } });
+          } else if (name === "weave" && (this.state.selectedVersions.antrea.version !== "None" || this.state.selectedVersions.flannel.version !== "None")) {
             this.checkIncompatibleSelection({ weave: { version: "latest" } });
-          } else if (name === "antrea" && this.state.selectedVersions.weave.version !== "None") {
+          } else if (name === "antrea" && (this.state.selectedVersions.weave.version !== "None" || this.state.selectedVersions.flannel.version !== "None")) {
             this.checkIncompatibleSelection({ antrea: { version: "latest" } });
           } else {
             this.setState({ selectedVersions: { ...this.state.selectedVersions, [name]: { version: "latest" } } }, () => {
@@ -1340,41 +1367,42 @@ class Kurlsh extends React.Component {
 
               <div className="flex flex-column u-marginTop--40">
                 <span className="u-fontSize--normal u-fontWeight--medium u-color--bermudaGray"> CNI plugin </span>
-                <div className={`AddOn--wrapper ${selectedVersions.antrea.version !== "None" && "selected"} flex flex-column u-marginTop--15`} onClick={(e) => this.handleIsAddOnSelected("antrea", e)}>
+                { versions.flannel.length > 1 &&
+                <div className={`AddOn--wrapper ${selectedVersions.flannel.version !== "None" && "selected"} flex flex-column u-marginTop--15`} onClick={(e) => this.handleIsAddOnSelected("flannel", e)}>
                   <div className="flex flex1">
                     <div className="flex flex1 alignItems--center">
                       <input
                         type="checkbox"
                         className="u-marginRight--normal"
-                        checked={selectedVersions.antrea.version !== "None"}
+                        checked={selectedVersions.flannel.version !== "None"}
                         readOnly
                       />
-                      <span className="icon u-antrea u-marginBottom--small" />
+                      <span className="icon u-flannel u-marginBottom--small" />
                       <div className="flex flex-column u-marginLeft--15 u-marginTop--small">
-                        <div className="FormLabel"> Antrea </div>
-                        <div className={`SelectVersion flex flex1 ${!this.state.isAddOnChecked["antrea"] && "disabled"}`} style={{ width: "200px" }}>
-                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> {!this.state.isAddOnChecked["antrea"] ? "Version None" : "Version"} </span>
+                        <div className="FormLabel"> Flannel </div>
+                        <div className={`SelectVersion flex flex1 ${!this.state.isAddOnChecked["flannel"] && "disabled"}`} style={{ width: "200px" }}>
+                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> {!this.state.isAddOnChecked["flannel"] ? "Version None" : "Version"} </span>
                           <Select
                             isSearchable={false}
-                            options={versions.antrea}
-                            getOptionLabel={this.getLabel("antrea")}
-                            getOptionValue={(antrea) => antrea}
-                            value={selectedVersions.antrea}
-                            onChange={this.onVersionChange("antrea")}
+                            options={versions.flannel}
+                            getOptionLabel={this.getLabel("flannel")}
+                            getOptionValue={(flannel) => flannel}
+                            value={selectedVersions.flannel}
+                            onChange={this.onVersionChange("flannel")}
                             matchProp="value"
-                            isDisabled={!this.state.isAddOnChecked["antrea"]}
+                            isDisabled={!this.state.isAddOnChecked["flannel"]}
                             isOptionSelected={() => false} />
                         </div>
                       </div>
                     </div>
                     <div className="flex flex1 justifyContent--flexEnd alignItems--center">
-                      <div className="flex u-fontSize--small u-fontWeight--medium u-color--royalBlue u-marginTop--small u-cursor--pointer configDiv" onClick={() => this.onToggleShowAdvancedOptions("antrea")}>
-                        {showAdvancedOptions["antrea"] ? "Hide config" : "Show config"}
+                      <div className="flex u-fontSize--small u-fontWeight--medium u-color--royalBlue u-marginTop--small u-cursor--pointer configDiv" onClick={() => this.onToggleShowAdvancedOptions("flannel")}>
+                        {showAdvancedOptions["flannel"] ? "Hide config" : "Show config"}
                       </div>
                     </div>
                   </div>
-                  {showAdvancedOptions["antrea"] && this.renderAdvancedOptions("antrea")}
-                </div>
+                  {showAdvancedOptions["flannel"] && this.renderAdvancedOptions("flannel")}
+                </div> }
                 <div className={`AddOn--wrapper ${selectedVersions.weave.version !== "None" && "selected"} flex flex-column u-marginTop--15`} onClick={(e) => this.handleIsAddOnSelected("weave", e)}>
                   <div className="flex flex1">
                     <div className="flex flex1 alignItems--center">
@@ -1409,6 +1437,41 @@ class Kurlsh extends React.Component {
                     </div>
                   </div>
                   {showAdvancedOptions["weave"] && this.renderAdvancedOptions("weave")}
+                </div>
+                <div className={`AddOn--wrapper ${selectedVersions.antrea.version !== "None" && "selected"} flex flex-column u-marginTop--15`} onClick={(e) => this.handleIsAddOnSelected("antrea", e)}>
+                  <div className="flex flex1">
+                    <div className="flex flex1 alignItems--center">
+                      <input
+                        type="checkbox"
+                        className="u-marginRight--normal"
+                        checked={selectedVersions.antrea.version !== "None"}
+                        readOnly
+                      />
+                      <span className="icon u-antrea u-marginBottom--small" />
+                      <div className="flex flex-column u-marginLeft--15 u-marginTop--small">
+                        <div className="FormLabel"> Antrea </div>
+                        <div className={`SelectVersion flex flex1 ${!this.state.isAddOnChecked["antrea"] && "disabled"}`} style={{ width: "200px" }}>
+                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> {!this.state.isAddOnChecked["antrea"] ? "Version None" : "Version"} </span>
+                          <Select
+                            isSearchable={false}
+                            options={versions.antrea}
+                            getOptionLabel={this.getLabel("antrea")}
+                            getOptionValue={(antrea) => antrea}
+                            value={selectedVersions.antrea}
+                            onChange={this.onVersionChange("antrea")}
+                            matchProp="value"
+                            isDisabled={!this.state.isAddOnChecked["antrea"]}
+                            isOptionSelected={() => false} />
+                        </div>
+                      </div>
+                    </div>
+                    <div className="flex flex1 justifyContent--flexEnd alignItems--center">
+                      <div className="flex u-fontSize--small u-fontWeight--medium u-color--royalBlue u-marginTop--small u-cursor--pointer configDiv" onClick={() => this.onToggleShowAdvancedOptions("antrea")}>
+                        {showAdvancedOptions["antrea"] ? "Hide config" : "Show config"}
+                      </div>
+                    </div>
+                  </div>
+                  {showAdvancedOptions["antrea"] && this.renderAdvancedOptions("antrea")}
                 </div>
               </div>
 

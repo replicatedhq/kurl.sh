@@ -10,6 +10,7 @@ const defaultProps = {
     "containerd": [ "latest", "1.6.8", "1.6.7", "1.6.6" ],
     "contour": [ "latest", "1.22.1", "1.22.0", "1.21.1" ],
     "ekco": [ "latest", "0.21.0", "0.20.0", "0.19.9" ],
+    "flannel": [ "latest", "0.20.0" ],
     "fluentd": [ "latest", "1.7.4" ],
     "goldpinger": [ "latest", "3.5.1-5.2.0", "3.3.0-5.1.0", "3.2.0-5.0.0" ],
     "kotsadm": [ "latest", "1.85.0", "1.84.0", "1.83.0", "1.82.0" ],
