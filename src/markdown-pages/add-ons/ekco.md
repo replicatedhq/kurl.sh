@@ -112,7 +112,7 @@ The duration can be adjusted by changing the `ekco.envoyPodsNotReadyDuration` pr
 
 ### TLS Certificate Rotation
 
-EKCO supports automatic certificate rotation for the [registry add-on](/docs/install-with-kurl/setup-tls-certs#registry) and the [Kubernetes control plane](/docs/install-with-kurl/setup-tls-certs#kubernetes-control-plane) since version 0.5.0 and for the KOTS add-on since version 0.7.0. For more information about the KOTS add-on, see [KOTS add-on](/docs/add-ons/kotsadm). For more information about automatic certificate rotation in Replicated app manager (which uses the KOTS add-on), see [Using TLS Certificates](https://docs.replicated.com/vendor/packaging-using-tls-certs) in the Replicated documentation.
+EKCO supports automatic certificate rotation for the [registry add-on](/docs/install-with-kurl/setup-tls-certs#registry) and the [Kubernetes control plane](/docs/install-with-kurl/setup-tls-certs#kubernetes-control-plane) since version 0.5.0 and for the KOTS add-on since version 0.7.0. For more information about automatic certificate rotation for the KOTS add-on, which is used by the Replicated app manager, see [Using TLS Certificates](https://docs.replicated.com/vendor/packaging-using-tls-certs) in the Replicated documentation.
 
 ### Internal Load Balancer
 
