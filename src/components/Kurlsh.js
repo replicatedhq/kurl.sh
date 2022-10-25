@@ -20,8 +20,6 @@ import _ from "lodash";
 
 const NIL_VERSIONS = {
   kubernetes: { version: "None" },
-  rke2: { version: "None" },
-  k3s: { version: "None" },
   flannel: { version: "None" },
   weave: { version: "None" },
   antrea: { version: "None" },
@@ -59,12 +57,6 @@ class Kurlsh extends React.Component {
 
     let kubernetesVersions = this.addDotXVersions(supportedVersions.kubernetes ? supportedVersions.kubernetes.map(versionToState) : []);
     kubernetesVersions = this.prepareVersions(kubernetesVersions)
-
-    let rke2Versions = this.addDotXVersions(supportedVersions.rke2 ? supportedVersions.rke2.map(versionToState) : []);
-    rke2Versions = this.prepareVersions(rke2Versions);
-
-    let k3sVersions = this.addDotXVersions(supportedVersions.k3s ? supportedVersions.k3s.map(versionToState) : []);
-    k3sVersions = this.prepareVersions(k3sVersions);
 
     let contourVersions = this.addDotXVersions(supportedVersions.contour ? supportedVersions.contour.map(versionToState) : []);
     contourVersions = this.prepareVersions(contourVersions);
@@ -135,8 +127,6 @@ class Kurlsh extends React.Component {
     this.state = {
       versions: {
         kubernetes: kubernetesVersions,
-        rke2: rke2Versions,
-        k3s: k3sVersions,
         flannel: flannelVersions,
         weave: weaveVersions,
         antrea: antreaVersions,
@@ -164,8 +154,6 @@ class Kurlsh extends React.Component {
       installerSha: "",
       showAdvancedOptions: {
         "kubernetes": false,
-        "rke2": false,
-        "k3s": false,
         "flannel": false,
         "weave": false,
         "antrea": false,
@@ -189,8 +177,6 @@ class Kurlsh extends React.Component {
       },
       advancedOptions: {
         kubernetes: {},
-        rke2: {},
-        k3s: {},
         flannel: {},
         weave: {},
         antrea: {},
@@ -215,8 +201,6 @@ class Kurlsh extends React.Component {
       },
       isAddOnChecked: {
         kubernetes: false,
-        rke2: false,
-        k3s: false, 
         flannel: false, 
         weave: false,
         antrea: false,
@@ -240,7 +224,6 @@ class Kurlsh extends React.Component {
         goldpinger: false,
         aws: false,
       },
-      hasSpecChanged: false,
       optionDefaults: {},
       installerErrMsg: "",
       displayConfirmSelectionModal: false,
@@ -399,36 +382,6 @@ class Kurlsh extends React.Component {
       if (Object.keys(diff).length) {
         generatedInstaller.spec.kubernetes = {
           ...generatedInstaller.spec.kubernetes,
-          ...diff
-        };
-      }
-    }
-
-    if (isAddOnChecked.rke2) {
-      const diff = getDiff(optionDefaults["rke2"], options.rke2);
-
-      generatedInstaller.spec.rke2 = {
-        version: selectedVersions.rke2.version
-      };
-
-      if (Object.keys(diff).length) {
-        generatedInstaller.spec.rke2 = {
-          ...generatedInstaller.spec.rke2,
-          ...diff
-        };
-      }
-    }
-
-    if (isAddOnChecked.k3s) {
-      const diff = getDiff(optionDefaults["k3s"], options.k3s);
-
-      generatedInstaller.spec.k3s = {
-        version: selectedVersions.k3s.version
-      };
-
-      if (Object.keys(diff).length) {
-        generatedInstaller.spec.k3s = {
-          ...generatedInstaller.spec.k3s,
           ...diff
         };
       }
@@ -756,7 +709,7 @@ class Kurlsh extends React.Component {
   }
 
   onVersionChange = name => value => {
-    if (name === "kubernetes" || name === "rke2" || name === "k3s") {
+    if (name === "kubernetes") {
       if (value.version === "None") {
         // can't be deselected, deselection happens when changing between them
         return;
@@ -789,7 +742,7 @@ class Kurlsh extends React.Component {
       !e.target.classList.contains("css-tlfecz-indicatorContainer") && !e.target.classList.contains("css-1gtu0rj-indicatorContainer") && !e.target.classList.contains("css-1g48xl4-IndicatorsContainer") && 
       !e.target.classList.contains("AdvancedOptions--wrapper") &&  !e.target.classList.contains("Option--wrapper"))
     {
-      if (name === "kubernetes" || name === "rke2" || name === "k3s") {
+      if (name === "kubernetes") {
         if (this.state.isAddOnChecked[name]) {
           // can't be deselected, deselection happens when changing between them
           return;
@@ -798,12 +751,10 @@ class Kurlsh extends React.Component {
       let nextIsAddOnChecked = {
         ...this.state.isAddOnChecked,
       };
-      if (name === "kubernetes" || name === "rke2" || name === "k3s") {
+      if (name === "kubernetes") {
         nextIsAddOnChecked = {
           ...nextIsAddOnChecked,
           kubernetes: false,
-          rke2: false,
-          k3s: false,
         };
       }
       this.setState({
@@ -816,29 +767,9 @@ class Kurlsh extends React.Component {
           let nextSelectedVersions = {
             ...this.state.selectedVersions,
           };
-          if (!this.state.hasSpecChanged) {
-            if (name === "kubernetes") {
-              this.setState({ selectedVersions: NIL_VERSIONS}, () => this.getKurlInstaller("latest"));
-              return;
-            } else if (name === "rke2") {
-              this.setState({ selectedVersions: NIL_VERSIONS}, () => this.getKurlInstaller("rke2"));
-              return;
-            } else if (name === "k3s") {
-              this.setState({ selectedVersions: NIL_VERSIONS}, () => this.getKurlInstaller("k3s"));
-              return;
-            }
-          } else {
-            if (name === "kubernetes" || name === "rke2" || name === "k3s") {
-              nextSelectedVersions = {
-                ...nextSelectedVersions,
-                kubernetes: { version: "None" },
-                rke2: { version: "None" },
-                k3s: { version: "None" },
-              };
-            }
+          if (name === "kubernetes") {
+            return; // cannot be deselected, it is the only option
           }
-
-          this.setState({ hasSpecChanged: true });
 
           let selectedVersion = this.state.versions[name][0].version;
           if (selectedVersion === "latest" && name !== "ekco") {
@@ -1247,32 +1178,6 @@ class Kurlsh extends React.Component {
                   showAdvancedOptions={showAdvancedOptions["kubernetes"]}
                   onToggleShowAdvancedOptions={() => this.onToggleShowAdvancedOptions("kubernetes")}
                   renderAdvancedOptions={() => this.renderAdvancedOptions("kubernetes")}
-                  />
-                <AddOnWrapper
-                  addOnId="rke2"
-                  addOnTitle="RKE2"
-                  isBeta={true}
-                  isAddOnChecked={isAddOnChecked["rke2"]}
-                  options={versions.rke2}
-                  getOptionLabel={this.getLabel("rke2")}
-                  getOptionValue={(selected) => selected}
-                  value={selectedVersions.rke2}
-                  onVersionChange={this.onVersionChange("rke2")}
-                  handleIsAddOnSelected={(e) => this.handleIsAddOnSelected("rke2", e)}
-                  disableAdvancedOptions={true}
-                  />
-                <AddOnWrapper
-                  addOnId="k3s"
-                  addOnTitle="K3s"
-                  isBeta={true}
-                  isAddOnChecked={isAddOnChecked["k3s"]}
-                  options={versions.k3s}
-                  getOptionLabel={this.getLabel("k3s")}
-                  getOptionValue={(selected) => selected}
-                  value={selectedVersions.k3s}
-                  onVersionChange={this.onVersionChange("k3s")}
-                  handleIsAddOnSelected={(e) => this.handleIsAddOnSelected("k3s", e)}
-                  disableAdvancedOptions={true}
                   />
               </div>
               <div className="flex flex-column u-marginTop--40">
