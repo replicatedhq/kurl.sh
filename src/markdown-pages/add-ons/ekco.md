@@ -111,15 +111,17 @@ This has been added to work around a [known issue](https://github.com/projectcon
 This functionality can be disabled by setting the `ekco.shouldDisableRestartFailedEnvoyPods` property to `true`.
 The duration can be adjusted by changing the `ekco.envoyPodsNotReadyDuration` property.
 
-### MinIO
+### Manage MinIO with EKCO
 
-The EKCO operator will enable a 6-replica statefulset for MinIO when at least three nodes are healthy (and OpenEBS localpv is available), and will migrate data from the original MinIO deployment before deleting it.
-MinIO will be temporarily unavailable while the migration is in progress.
+When you install kURL with `ekco.minioShouldDisableManagement` set to `false`, the EKCO operator manages data in the MinIO deployment to ensure that the data is properly replicated and has high availability.
 
-After the HA statefulset is running, EKCO will ensure that replicas are evenly distributed across nodes.
+To manage data in MinIO, the EKCO operator first enables a high availability six-replica StatefulSet when at least three nodes are healthy and the OpenEBS localpv storage class is available.
 
-EKCO's management of MinIO can be disabled by setting `ekco.minioShouldDisableManagement` to true.
-If this is set, EKCO will not enable the statefulset, migrate data to it, or ensure that replicas of the statefulset are evenly distributed.
+Then, EKCO migrates data from the original MinIO deployment to the StatefulSet before deleting the data. MinIO is temporarily unavailable while the data migration is in progress.
+
+After the StatefulSet is running, EKCO ensures that replicas are evenly distributed across nodes.
+
+To disable EKCO's management of data in MinIO, set `ekco.minioShouldDisableManagement` to `true`.
 
 ### TLS Certificate Rotation
 
