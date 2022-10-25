@@ -29,6 +29,7 @@ spec:
     enableInternalLoadBalancer: true
     shouldDisableRestartFailedEnvoyPods: false
     envoyPodsNotReadyDuration: 5m
+    minioShouldDisableManagement: false
 ```
 
 flags-table
@@ -109,6 +110,16 @@ The EKCO operator will forcefully delete Envoy pods that change from a ready sta
 This has been added to work around a [known issue](https://github.com/projectcontour/contour/issues/3192) that may be caused by resource contention.
 This functionality can be disabled by setting the `ekco.shouldDisableRestartFailedEnvoyPods` property to `true`.
 The duration can be adjusted by changing the `ekco.envoyPodsNotReadyDuration` property.
+
+### MinIO
+
+The EKCO operator will enable a 6-replica statefulset for MinIO when at least three nodes are healthy (and OpenEBS localpv is available), and will migrate data from the original MinIO deployment before deleting it.
+MinIO will be temporarily unavailable while the migration is in progress.
+
+After the HA statefulset is running, EKCO will ensure that replicas are evenly distributed across nodes.
+
+EKCO's management of MinIO can be disabled by setting `ekco.minioShouldDisableManagement` to true.
+If this is set, EKCO will not enable the statefulset, migrate data to it, or ensure that replicas of the statefulset are evenly distributed.
 
 ### TLS Certificate Rotation
 

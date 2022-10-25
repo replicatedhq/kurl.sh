@@ -27,3 +27,10 @@ flags-table
 If Rook was previously installed but is no longer specified in the kURL spec and MinIO is specified instead, MinIO will migrate data from Rook's object store to MinIO.
 
 If Longhorn is also specified in the new kURL spec and completes its migration process successfully, Rook will be removed to free up resources.
+
+## High Availability
+
+By default, and upon initial installation, MinIO runs as a single replica and relies on the storage it uses being available on every node.
+
+When there is non-distributed storage available on at least three nodes, [EKCO](/docs/add-ons/ekco#minio) will upgrade MinIO to run 6 replicas in a highly-available fashion.
+While this upgrade is in process, MinIO will temporarily go offline.
