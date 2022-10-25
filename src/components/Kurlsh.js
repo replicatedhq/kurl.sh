@@ -3,13 +3,13 @@ import { Link } from "@reach/router";
 
 import ReactTooltip from "react-tooltip";
 import json2yaml from "json2yaml";
-import Select from "react-select";
 import isEmpty from "lodash/isEmpty";
 import find from "lodash/find";
 import semver from "semver";
 
 import CodeSnippet from "./shared/CodeSnippet";
 import Loader from "./shared/Loader";
+import AddOnWrapper from "./shared/AddOnWrapper";
 import OptionWrapper from "./shared/OptionWrapper";
 import ConfirmSelectionModal from "./modals/ConfirmSelectionModal";
 import { injectYamlOpenebsComment } from "../utils/kurl-yaml";
@@ -1234,904 +1234,400 @@ class Kurlsh extends React.Component {
               <span className="u-fontSize--24 u-fontWeight--bold u-color--mineShaft"> Select add-ons </span>
               <div className="flex flex-column u-marginTop--5">
                 <span className="u-fontSize--normal u-fontWeight--medium u-color--bermudaGray flex flex-column u-marginTop--40"> Distribution </span>
-                <div className={`AddOn--wrapper ${isAddOnChecked["kubernetes"] && "selected"} flex flex-column u-marginTop--15`} onClick={(e) => this.handleIsAddOnSelected("kubernetes", e)}>
-                  <div className="flex flex1">
-                    <div className="flex flex1 alignItems--center">
-                      <input
-                        type="radio"
-                        className="u-marginRight--normal"
-                        checked={isAddOnChecked["kubernetes"]}
-                        readOnly
-                      />
-                      <span className="icon u-kubeadm u-marginBottom--small" />
-                      <div className="flex flex-column u-marginLeft--15 u-marginTop--small">
-                        <div className="FormLabel "> Kubernetes (Kubeadm) </div>
-                        <div className={`SelectVersion flex flex1 ${!isAddOnChecked["kubernetes"] && "disabled"}`} style={{ width: "200px" }}>
-                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> {!isAddOnChecked["kubernetes"] ? "Version None" : "Version"} </span>
-                          <Select
-                            isSearchable={false}
-                            options={versions.kubernetes.filter(v => v.version !== "None")}
-                            getOptionLabel={this.getLabel("kubernetes")}
-                            getOptionValue={(kubernetes) => kubernetes}
-                            value={selectedVersions.kubernetes}
-                            onChange={this.onVersionChange("kubernetes")}
-                            matchProp="value"
-                            isDisabled={!isAddOnChecked["kubernetes"]}
-                            isOptionSelected={() => false}
-                          />
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="flex flex1 justifyContent--flexEnd alignItems--center">
-                      <div className="flex u-fontSize--small u-fontWeight--medium u-color--royalBlue u-marginTop--small u-cursor--pointer configDiv" onClick={() => this.onToggleShowAdvancedOptions("kubernetes")}>
-                        {showAdvancedOptions["kubernetes"] ? "Hide config" : "Show config"}
-                      </div>
-                    </div>
-                  </div>
-                  {showAdvancedOptions["kubernetes"] && this.renderAdvancedOptions("kubernetes")}
-                </div>
-                <div className={`AddOn--wrapper ${isAddOnChecked["rke2"] && "selected"} flex flex-column u-marginTop--15`} onClick={(e) => this.handleIsAddOnSelected("rke2", e)}>
-                  <div className="flex flex1">
-                    <div className="flex flex1 alignItems--center">
-                      <input
-                        type="radio"
-                        className="u-marginRight--normal"
-                        checked={isAddOnChecked["rke2"]}
-                        readOnly
-                      />
-                      <span className="icon u-rke2 u-marginBottom--small" />
-                      <div className="flex flex-column u-marginLeft--15 u-marginTop--small">
-                        <div className="FormLabel "> RKE2 <span className="prerelease-tag sidebar beta">beta</span> </div>
-                        <div className={`SelectVersion flex flex1 ${!isAddOnChecked["rke2"] && "disabled"}`} style={{ width: "200px" }}>
-                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> {!isAddOnChecked["rke2"] ? "Version None" : "Version"} </span>
-                          <Select
-                            isSearchable={false}
-                            options={versions.rke2.filter(v => v.version !== "None")}
-                            getOptionLabel={this.getLabel("rke2")}
-                            getOptionValue={(rke2) => rke2}
-                            value={selectedVersions.rke2}
-                            onChange={this.onVersionChange("rke2")}
-                            matchProp="value"
-                            isDisabled={!isAddOnChecked["rke2"]}
-                            isOptionSelected={() => false}
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className={`AddOn--wrapper ${isAddOnChecked["k3s"] && "selected"} flex flex-column u-marginTop--15`} onClick={(e) => this.handleIsAddOnSelected("k3s", e)}>
-                  <div className="flex flex1">
-                    <div className="flex flex1 alignItems--center">
-                      <input
-                        type="radio"
-                        className="u-marginRight--normal"
-                        checked={isAddOnChecked["k3s"]}
-                        readOnly
-                      />
-                      <span className="icon u-k3s u-marginBottom--small" />
-                      <div className="flex flex-column u-marginLeft--15 u-marginTop--small">
-                        <div className="FormLabel "> K3s <span className="prerelease-tag sidebar beta">beta</span> </div>
-                        <div className={`SelectVersion flex flex1 ${!isAddOnChecked["k3s"] && "disabled"}`} style={{ width: "200px" }}>
-                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> {!isAddOnChecked["k3s"] ? "Version None" : "Version"} </span>
-                          <Select
-                            isSearchable={false}
-                            options={versions.k3s.filter(v => v.version !== "None")}
-                            getOptionLabel={this.getLabel("k3s")}
-                            getOptionValue={(k3s) => k3s}
-                            value={selectedVersions.k3s}
-                            onChange={this.onVersionChange("k3s")}
-                            matchProp="value"
-                            isDisabled={!isAddOnChecked["k3s"]}
-                            isOptionSelected={() => false}
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <AddOnWrapper
+                  addOnId="kubernetes"
+                  addOnTitle="Kubernetes (Kubeadm)"
+                  isAddOnChecked={isAddOnChecked["kubernetes"]}
+                  options={versions.kubernetes}
+                  getOptionLabel={this.getLabel("kubernetes")}
+                  getOptionValue={(selected) => selected}
+                  value={selectedVersions.kubernetes}
+                  onVersionChange={this.onVersionChange("kubernetes")}
+                  handleIsAddOnSelected={(e) => this.handleIsAddOnSelected("kubernetes", e)}
+                  showAdvancedOptions={showAdvancedOptions["kubernetes"]}
+                  onToggleShowAdvancedOptions={() => this.onToggleShowAdvancedOptions("kubernetes")}
+                  renderAdvancedOptions={() => this.renderAdvancedOptions("kubernetes")}
+                  />
+                <AddOnWrapper
+                  addOnId="rke2"
+                  addOnTitle="RKE2"
+                  isBeta={true}
+                  isAddOnChecked={isAddOnChecked["rke2"]}
+                  options={versions.rke2}
+                  getOptionLabel={this.getLabel("rke2")}
+                  getOptionValue={(selected) => selected}
+                  value={selectedVersions.rke2}
+                  onVersionChange={this.onVersionChange("rke2")}
+                  handleIsAddOnSelected={(e) => this.handleIsAddOnSelected("rke2", e)}
+                  disableAdvancedOptions={true}
+                  />
+                <AddOnWrapper
+                  addOnId="k3s"
+                  addOnTitle="K3s"
+                  isBeta={true}
+                  isAddOnChecked={isAddOnChecked["k3s"]}
+                  options={versions.k3s}
+                  getOptionLabel={this.getLabel("k3s")}
+                  getOptionValue={(selected) => selected}
+                  value={selectedVersions.k3s}
+                  onVersionChange={this.onVersionChange("k3s")}
+                  handleIsAddOnSelected={(e) => this.handleIsAddOnSelected("k3s", e)}
+                  disableAdvancedOptions={true}
+                  />
               </div>
               <div className="flex flex-column u-marginTop--40">
                 <span className="u-fontSize--normal u-fontWeight--medium u-color--bermudaGray"> CRI </span>
-                <div className={`AddOn--wrapper ${isAddOnChecked["docker"] && "selected"} flex flex-column u-marginTop--15`} onClick={(e) => this.handleIsAddOnSelected("docker", e)}>
-                  <div className="flex flex1">
-                    <div className="flex flex1 alignItems--center">
-                      <input
-                        type="checkbox"
-                        className="u-marginRight--normal"
-                        checked={isAddOnChecked.docker}
-                        readOnly
-                      />
-                      <span className="icon u-docker u-marginBottom--small" />
-                      <div className="flex flex-column u-marginLeft--15 u-marginTop--small">
-                        <div className="FormLabel "> Docker </div>
-                        <div className={`SelectVersion flex flex1 ${!isAddOnChecked["docker"] && "disabled"}`} style={{ width: "200px" }}>
-                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> {!isAddOnChecked["docker"] ? "Version None" : "Version"} </span>
-                          <Select
-                            isSearchable={false}
-                            options={versions.docker}
-                            getOptionLabel={this.getLabel("docker")}
-                            getOptionValue={(docker) => docker}
-                            value={selectedVersions.docker}
-                            onChange={this.onVersionChange("docker")}
-                            matchProp="value"
-                            isDisabled={!isAddOnChecked["docker"]}
-                            isOptionSelected={() => false} />
-                        </div>
-                      </div>
-                    </div>
-                    <div className="flex flex1 justifyContent--flexEnd alignItems--center">
-                      <div className="flex u-fontSize--small u-fontWeight--medium u-color--royalBlue u-marginTop--small u-cursor--pointer configDiv" onClick={() => this.onToggleShowAdvancedOptions("docker")}>
-                        {showAdvancedOptions["docker"] ? "Hide config" : "Show config"}
-                      </div>
-                    </div>
-                  </div>
-                  {showAdvancedOptions["docker"] && this.renderAdvancedOptions("docker")}
-                </div>
-                <div className={`AddOn--wrapper ${isAddOnChecked["containerd"] && "selected"} flex flex-column u-marginTop--15`} onClick={(e) => this.handleIsAddOnSelected("containerd", e)}>
-                  <div className="flex flex1">
-                    <div className="flex flex1 alignItems--center">
-                      <input
-                        type="checkbox"
-                        className="u-marginRight--normal"
-                        checked={isAddOnChecked["containerd"]}
-                        readOnly
-                      />
-                      <span className="icon u-containerd u-marginBottom--small" />
-                      <div className="flex flex-column u-marginLeft--15 u-marginTop--small">
-                        <div className="FormLabel"> Containerd </div>
-                        <div className={`SelectVersion flex flex1 ${!isAddOnChecked["containerd"] && "disabled"}`} style={{ width: "200px" }}>
-                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> {!isAddOnChecked["containerd"] ? "Version None" : "Version"} </span>
-                          <Select
-                            isSearchable={false}
-                            options={versions.containerd}
-                            getOptionLabel={this.getLabel("containerd")}
-                            getOptionValue={(containerd) => containerd}
-                            value={selectedVersions.containerd}
-                            onChange={this.onVersionChange("containerd")}
-                            matchProp="value"
-                            isDisabled={!isAddOnChecked["containerd"]}
-                            isOptionSelected={() => false} />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <AddOnWrapper
+                  addOnId="docker"
+                  addOnTitle="Docker"
+                  isAddOnChecked={isAddOnChecked["docker"]}
+                  options={versions.docker}
+                  getOptionLabel={this.getLabel("docker")}
+                  getOptionValue={(selected) => selected}
+                  value={selectedVersions.docker}
+                  onVersionChange={this.onVersionChange("docker")}
+                  handleIsAddOnSelected={(e) => this.handleIsAddOnSelected("docker", e)}
+                  showAdvancedOptions={showAdvancedOptions["docker"]}
+                  onToggleShowAdvancedOptions={() => this.onToggleShowAdvancedOptions("docker")}
+                  renderAdvancedOptions={() => this.renderAdvancedOptions("docker")}
+                  />
+                <AddOnWrapper
+                  addOnId="containerd"
+                  addOnTitle="Containerd"
+                  isAddOnChecked={isAddOnChecked["containerd"]}
+                  options={versions.containerd}
+                  getOptionLabel={this.getLabel("containerd")}
+                  getOptionValue={(selected) => selected}
+                  value={selectedVersions.containerd}
+                  onVersionChange={this.onVersionChange("containerd")}
+                  handleIsAddOnSelected={(e) => this.handleIsAddOnSelected("containerd", e)}
+                  disableAdvancedOptions={true}
+                  />
               </div>
 
               <div className="flex flex-column u-marginTop--40">
                 <span className="u-fontSize--normal u-fontWeight--medium u-color--bermudaGray"> CNI plugin </span>
                 { versions.flannel.length > 1 &&
-                <div className={`AddOn--wrapper ${isAddOnChecked["flannel"] && "selected"} flex flex-column u-marginTop--15`} onClick={(e) => this.handleIsAddOnSelected("flannel", e)}>
-                  <div className="flex flex1">
-                    <div className="flex flex1 alignItems--center">
-                      <input
-                        type="checkbox"
-                        className="u-marginRight--normal"
-                        checked={isAddOnChecked["flannel"]}
-                        readOnly
-                      />
-                      <span className="icon u-flannel u-marginBottom--small" />
-                      <div className="flex flex-column u-marginLeft--15 u-marginTop--small">
-                        <div className="FormLabel"> Flannel </div>
-                        <div className={`SelectVersion flex flex1 ${!isAddOnChecked["flannel"] && "disabled"}`} style={{ width: "200px" }}>
-                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> {!isAddOnChecked["flannel"] ? "Version None" : "Version"} </span>
-                          <Select
-                            isSearchable={false}
-                            options={versions.flannel}
-                            getOptionLabel={this.getLabel("flannel")}
-                            getOptionValue={(flannel) => flannel}
-                            value={selectedVersions.flannel}
-                            onChange={this.onVersionChange("flannel")}
-                            matchProp="value"
-                            isDisabled={!isAddOnChecked["flannel"]}
-                            isOptionSelected={() => false} />
-                        </div>
-                      </div>
-                    </div>
-                    <div className="flex flex1 justifyContent--flexEnd alignItems--center">
-                      <div className="flex u-fontSize--small u-fontWeight--medium u-color--royalBlue u-marginTop--small u-cursor--pointer configDiv" onClick={() => this.onToggleShowAdvancedOptions("flannel")}>
-                        {showAdvancedOptions["flannel"] ? "Hide config" : "Show config"}
-                      </div>
-                    </div>
-                  </div>
-                  {showAdvancedOptions["flannel"] && this.renderAdvancedOptions("flannel")}
-                </div> }
-                <div className={`AddOn--wrapper ${isAddOnChecked["weave"] && "selected"} flex flex-column u-marginTop--15`} onClick={(e) => this.handleIsAddOnSelected("weave", e)}>
-                  <div className="flex flex1">
-                    <div className="flex flex1 alignItems--center">
-                      <input
-                        type="checkbox"
-                        className="u-marginRight--normal"
-                        checked={isAddOnChecked["weave"]}
-                        readOnly
-                      />
-                      <span className="icon u-weave u-marginBottom--small" />
-                      <div className="flex flex-column u-marginLeft--15 u-marginTop--small">
-                        <div className="FormLabel"> Weave </div>
-                        <div className={`SelectVersion flex flex1 ${!isAddOnChecked["weave"] && "disabled"}`} style={{ width: "200px" }}>
-                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> {!isAddOnChecked["weave"] ? "Version None" : "Version"} </span>
-                          <Select
-                            isSearchable={false}
-                            options={versions.weave}
-                            getOptionLabel={this.getLabel("weave")}
-                            getOptionValue={(weave) => weave}
-                            value={selectedVersions.weave}
-                            onChange={this.onVersionChange("weave")}
-                            matchProp="value"
-                            isDisabled={!isAddOnChecked["weave"]}
-                            isOptionSelected={() => false} />
-                        </div>
-                      </div>
-                    </div>
-                    <div className="flex flex1 justifyContent--flexEnd alignItems--center">
-                      <div className="flex u-fontSize--small u-fontWeight--medium u-color--royalBlue u-marginTop--small u-cursor--pointer configDiv" onClick={() => this.onToggleShowAdvancedOptions("weave")}>
-                        {showAdvancedOptions["weave"] ? "Hide config" : "Show config"}
-                      </div>
-                    </div>
-                  </div>
-                  {showAdvancedOptions["weave"] && this.renderAdvancedOptions("weave")}
-                </div>
-                <div className={`AddOn--wrapper ${isAddOnChecked["antrea"] && "selected"} flex flex-column u-marginTop--15`} onClick={(e) => this.handleIsAddOnSelected("antrea", e)}>
-                  <div className="flex flex1">
-                    <div className="flex flex1 alignItems--center">
-                      <input
-                        type="checkbox"
-                        className="u-marginRight--normal"
-                        checked={isAddOnChecked["antrea"]}
-                        readOnly
-                      />
-                      <span className="icon u-antrea u-marginBottom--small" />
-                      <div className="flex flex-column u-marginLeft--15 u-marginTop--small">
-                        <div className="FormLabel"> Antrea </div>
-                        <div className={`SelectVersion flex flex1 ${!isAddOnChecked["antrea"] && "disabled"}`} style={{ width: "200px" }}>
-                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> {!isAddOnChecked["antrea"] ? "Version None" : "Version"} </span>
-                          <Select
-                            isSearchable={false}
-                            options={versions.antrea}
-                            getOptionLabel={this.getLabel("antrea")}
-                            getOptionValue={(antrea) => antrea}
-                            value={selectedVersions.antrea}
-                            onChange={this.onVersionChange("antrea")}
-                            matchProp="value"
-                            isDisabled={!isAddOnChecked["antrea"]}
-                            isOptionSelected={() => false} />
-                        </div>
-                      </div>
-                    </div>
-                    <div className="flex flex1 justifyContent--flexEnd alignItems--center">
-                      <div className="flex u-fontSize--small u-fontWeight--medium u-color--royalBlue u-marginTop--small u-cursor--pointer configDiv" onClick={() => this.onToggleShowAdvancedOptions("antrea")}>
-                        {showAdvancedOptions["antrea"] ? "Hide config" : "Show config"}
-                      </div>
-                    </div>
-                  </div>
-                  {showAdvancedOptions["antrea"] && this.renderAdvancedOptions("antrea")}
-                </div>
+                <AddOnWrapper
+                  addOnId="flannel"
+                  addOnTitle="Flannel"
+                  addOnIcon="u-kubernetes"
+                  isBeta={true}
+                  isAddOnChecked={isAddOnChecked["flannel"]}
+                  options={versions.flannel}
+                  getOptionLabel={this.getLabel("flannel")}
+                  getOptionValue={(selected) => selected}
+                  value={selectedVersions.flannel}
+                  onVersionChange={this.onVersionChange("flannel")}
+                  handleIsAddOnSelected={(e) => this.handleIsAddOnSelected("flannel", e)}
+                  showAdvancedOptions={showAdvancedOptions["flannel"]}
+                  onToggleShowAdvancedOptions={() => this.onToggleShowAdvancedOptions("flannel")}
+                  renderAdvancedOptions={() => this.renderAdvancedOptions("flannel")}
+                  /> }
+                <AddOnWrapper
+                  addOnId="weave"
+                  addOnTitle="Weave"
+                  isAddOnChecked={isAddOnChecked["weave"]}
+                  options={versions.weave}
+                  getOptionLabel={this.getLabel("weave")}
+                  getOptionValue={(selected) => selected}
+                  value={selectedVersions.weave}
+                  onVersionChange={this.onVersionChange("weave")}
+                  handleIsAddOnSelected={(e) => this.handleIsAddOnSelected("weave", e)}
+                  showAdvancedOptions={showAdvancedOptions["weave"]}
+                  onToggleShowAdvancedOptions={() => this.onToggleShowAdvancedOptions("weave")}
+                  renderAdvancedOptions={() => this.renderAdvancedOptions("weave")}
+                  />
+                <AddOnWrapper
+                  addOnId="antrea"
+                  addOnTitle="Antrea"
+                  isAddOnChecked={isAddOnChecked["antrea"]}
+                  options={versions.antrea}
+                  getOptionLabel={this.getLabel("antrea")}
+                  getOptionValue={(selected) => selected}
+                  value={selectedVersions.antrea}
+                  onVersionChange={this.onVersionChange("antrea")}
+                  handleIsAddOnSelected={(e) => this.handleIsAddOnSelected("antrea", e)}
+                  showAdvancedOptions={showAdvancedOptions["antrea"]}
+                  onToggleShowAdvancedOptions={() => this.onToggleShowAdvancedOptions("antrea")}
+                  renderAdvancedOptions={() => this.renderAdvancedOptions("antrea")}
+                  />
               </div>
 
               <div className="flex flex-column u-marginTop--40">
                 <span className="u-fontSize--normal u-fontWeight--medium u-color--bermudaGray"> Ingress </span>
-                <div className={`AddOn--wrapper ${isAddOnChecked["contour"] && "selected"} flex flex-column u-marginTop--15`} onClick={(e) => this.handleIsAddOnSelected("contour", e)}>
-                  <div className="flex flex1">
-                    <div className="flex flex1 alignItems--center">
-                      <input
-                        type="checkbox"
-                        className="u-marginRight--normal"
-                        checked={isAddOnChecked["contour"]}
-                        readOnly
-                      />
-                      <span className="icon u-contour u-marginBottom--small" />
-                      <div className="flex flex-column u-marginLeft--15 u-marginTop--small">
-                        <div className="FormLabel"> Contour </div>
-                        <div className={`SelectVersion flex flex1 ${!isAddOnChecked["contour"] && "disabled"}`} style={{ width: "200px" }}>
-                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> {!isAddOnChecked["contour"] ? "Version None" : "Version"} </span>
-                          <Select
-                            isSearchable={false}
-                            options={versions.contour}
-                            getOptionLabel={this.getLabel("contour")}
-                            getOptionValue={(contour) => contour}
-                            value={selectedVersions.contour}
-                            onChange={this.onVersionChange("contour")}
-                            matchProp="value"
-                            isDisabled={!isAddOnChecked["contour"]}
-                            isOptionSelected={() => false} />
-                        </div>
-                      </div>
-                    </div>
-                    <div className="flex flex1 justifyContent--flexEnd alignItems--center">
-                      <div className="flex u-fontSize--small u-fontWeight--medium u-color--royalBlue u-marginTop--small u-cursor--pointer configDiv" onClick={() => this.onToggleShowAdvancedOptions("contour")}>
-                        {showAdvancedOptions["contour"] ? "Hide config" : "Show config"}
-                      </div>
-                    </div>
-                  </div>
-                  {showAdvancedOptions["contour"] && this.renderAdvancedOptions("contour")}
-                </div>
+                <AddOnWrapper
+                  addOnId="contour"
+                  addOnTitle="Contour"
+                  isAddOnChecked={isAddOnChecked["contour"]}
+                  options={versions.contour}
+                  getOptionLabel={this.getLabel("contour")}
+                  getOptionValue={(selected) => selected}
+                  value={selectedVersions.contour}
+                  onVersionChange={this.onVersionChange("contour")}
+                  handleIsAddOnSelected={(e) => this.handleIsAddOnSelected("contour", e)}
+                  showAdvancedOptions={showAdvancedOptions["contour"]}
+                  onToggleShowAdvancedOptions={() => this.onToggleShowAdvancedOptions("contour")}
+                  renderAdvancedOptions={() => this.renderAdvancedOptions("contour")}
+                  />
               </div>
 
               <div className="flex flex-column u-marginTop--40">
                 <span className="u-fontSize--normal u-fontWeight--medium u-color--bermudaGray"> Cluster Administration </span>
-                <div className={`AddOn--wrapper ${isAddOnChecked["ekco"] && "selected"} flex flex-column u-marginTop--15`} onClick={(e) => this.handleIsAddOnSelected("ekco", e)}>
-                  <div className="flex flex1">
-                    <div className="flex flex1 alignItems--center">
-                      <input
-                        type="checkbox"
-                        className="u-marginRight--normal"
-                        checked={isAddOnChecked["ekco"]}
-                        readOnly
-                      />
-                      <span className="icon u-kubernetes u-marginBottom--small" />
-                      <div className="flex flex-column u-marginLeft--15 u-marginTop--small">
-                        <div className="FormLabel"> EKCO </div>
-                        <div className={`SelectVersion flex flex1 ${!isAddOnChecked["ekco"] && "disabled"}`} style={{ width: "200px" }}>
-                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> {!isAddOnChecked["ekco"] ? "Version None" : "Version"} </span>
-                          <Select
-                            isSearchable={false}
-                            options={versions.ekco}
-                            getOptionLabel={this.getLabel("ekco")}
-                            getOptionValue={(ekco) => ekco}
-                            value={selectedVersions.ekco}
-                            onChange={this.onVersionChange("ekco")}
-                            matchProp="value"
-                            isDisabled={!isAddOnChecked["ekco"]}
-                            isOptionSelected={() => false} />
-                        </div>
-                      </div>
-                    </div>
-                    <div className="flex flex1 justifyContent--flexEnd alignItems--center">
-                      <div className="flex u-fontSize--small u-fontWeight--medium u-color--royalBlue u-marginTop--small u-cursor--pointer configDiv" onClick={() => this.onToggleShowAdvancedOptions("ekco")}>
-                        {showAdvancedOptions["ekco"] ? "Hide config" : "Show config"}
-                      </div>
-                    </div>
-                  </div>
-                  {showAdvancedOptions["ekco"] && this.renderAdvancedOptions("ekco")}
-                </div>
-
-                <div className={`AddOn--wrapper ${isAddOnChecked["sonobuoy"] && "selected"} flex flex-column u-marginTop--15`} onClick={(e) => this.handleIsAddOnSelected("sonobuoy", e)}>
-                  <div className="flex flex1">
-                    <div className="flex flex1 alignItems--center">
-                      <input
-                        type="checkbox"
-                        className="u-marginRight--normal"
-                        checked={isAddOnChecked["sonobuoy"]}
-                        readOnly
-                      />
-                      <span className="icon u-sonobuoy u-marginBottom--small" />
-                      <div className="flex flex-column u-marginLeft--15 u-marginTop--small">
-                        <div className="FormLabel"> Sonobuoy </div>
-                        <div className="flex flex1 alignItems--center">
-                          <div className={`SelectVersion flex flex1 ${!isAddOnChecked["sonobuoy"] && "disabled"}`}>
-                            <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> {!isAddOnChecked["sonobuoy"] ? "Version None" : "Version"} </span>
-                            <Select
-                              isSearchable={false}
-                              options={versions.sonobuoy}
-                              getOptionLabel={this.getLabel("sonobuoy")}
-                              getOptionValue={(sonobuoy) => sonobuoy}
-                              value={selectedVersions.sonobuoy}
-                              onChange={this.onVersionChange("sonobuoy")}
-                              matchProp="value"
-                              isDisabled={!isAddOnChecked["sonobuoy"]}
-                              isOptionSelected={() => false} />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <AddOnWrapper
+                  addOnId="ekco"
+                  addOnTitle="EKCO"
+                  addOnIcon="u-kubernetes"
+                  isAddOnChecked={isAddOnChecked["ekco"]}
+                  options={versions.ekco}
+                  getOptionLabel={this.getLabel("ekco")}
+                  getOptionValue={(selected) => selected}
+                  value={selectedVersions.ekco}
+                  onVersionChange={this.onVersionChange("ekco")}
+                  handleIsAddOnSelected={(e) => this.handleIsAddOnSelected("ekco", e)}
+                  showAdvancedOptions={showAdvancedOptions["ekco"]}
+                  onToggleShowAdvancedOptions={() => this.onToggleShowAdvancedOptions("ekco")}
+                  renderAdvancedOptions={() => this.renderAdvancedOptions("ekco")}
+                  />
+                <AddOnWrapper
+                  addOnId="sonobuoy"
+                  addOnTitle="Sonobuoy"
+                  isAddOnChecked={isAddOnChecked["sonobuoy"]}
+                  options={versions.sonobuoy}
+                  getOptionLabel={this.getLabel("sonobuoy")}
+                  getOptionValue={(selected) => selected}
+                  value={selectedVersions.sonobuoy}
+                  onVersionChange={this.onVersionChange("sonobuoy")}
+                  handleIsAddOnSelected={(e) => this.handleIsAddOnSelected("sonobuoy", e)}
+                  disableAdvancedOptions={true}
+                  />
               </div>
 
               <div className="flex flex-column u-marginTop--40">
                 <span className="u-fontSize--normal u-fontWeight--medium u-color--bermudaGray"> Logs </span>
-                <div className={`AddOn--wrapper ${isAddOnChecked["fluentd"] && "selected"} flex flex-column u-marginTop--15`} onClick={(e) => this.handleIsAddOnSelected("fluentd", e)}>
-                  <div className="flex flex1">
-                    <div className="flex flex1 alignItems--center">
-                      <input
-                        type="checkbox"
-                        className="u-marginRight--normal"
-                        checked={isAddOnChecked["fluentd"]}
-                        readOnly
-                      />
-                      <span className="icon u-fluentd u-marginBottom--small" />
-                      <div className="flex flex-column u-marginLeft--15 u-marginTop--small">
-                        <div className="FormLabel"> Fluentd </div>
-                        <div className={`SelectVersion flex flex1 ${!isAddOnChecked["fluentd"] && "disabled"}`} style={{ width: "200px" }}>
-                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> {!isAddOnChecked["fluentd"] ? "Version None" : "Version"} </span>
-                          <Select
-                            isSearchable={false}
-                            options={versions.fluentd}
-                            getOptionLabel={this.getLabel("fluentd")}
-                            getOptionValue={(fluentd) => fluentd}
-                            value={selectedVersions.fluentd}
-                            onChange={this.onVersionChange("fluentd")}
-                            matchProp="value"
-                            isDisabled={!isAddOnChecked["fluentd"]}
-                            isOptionSelected={() => false} />
-                        </div>
-                      </div>
-                    </div>
-                    <div className="flex flex1 justifyContent--flexEnd alignItems--center">
-                      <div className="flex u-fontSize--small u-fontWeight--medium u-color--royalBlue u-marginTop--small u-cursor--pointer configDiv" onClick={() => this.onToggleShowAdvancedOptions("fluentd")}>
-                        {showAdvancedOptions["fluentd"] ? "Hide config" : "Show config"}
-                      </div>
-                    </div>
-                  </div>
-                  {showAdvancedOptions["fluentd"] && this.renderAdvancedOptions("fluentd")}
-                </div>
+                <AddOnWrapper
+                  addOnId="fluentd"
+                  addOnTitle="Fluentd"
+                  isAddOnChecked={isAddOnChecked["fluentd"]}
+                  options={versions.fluentd}
+                  getOptionLabel={this.getLabel("fluentd")}
+                  getOptionValue={(selected) => selected}
+                  value={selectedVersions.fluentd}
+                  onVersionChange={this.onVersionChange("fluentd")}
+                  handleIsAddOnSelected={(e) => this.handleIsAddOnSelected("fluentd", e)}
+                  showAdvancedOptions={showAdvancedOptions["fluentd"]}
+                  onToggleShowAdvancedOptions={() => this.onToggleShowAdvancedOptions("fluentd")}
+                  renderAdvancedOptions={() => this.renderAdvancedOptions("fluentd")}
+                  />
               </div>
 
               <div className="flex flex-column u-marginTop--40">
                 <span className="u-fontSize--normal u-fontWeight--medium u-color--bermudaGray"> Application Management </span>
-                <div className={`AddOn--wrapper ${isAddOnChecked["kotsadm"] && "selected"} flex flex-column u-marginTop--15`} onClick={(e) => this.handleIsAddOnSelected("kotsadm", e)}>
-                  <div className="flex flex1">
-                    <div className="flex flex1 alignItems--center">
-                      <input
-                        type="checkbox"
-                        className="u-marginRight--normal"
-                        checked={isAddOnChecked["kotsadm"]}
-                        readOnly
-                      />
-                      <span className="icon u-kotsadm u-marginBottom--small" />
-                      <div className="flex flex-column u-marginLeft--15 u-marginTop--small">
-                        <div className="FormLabel"> KOTS </div>
-                        <div className={`SelectVersion flex flex1 ${!isAddOnChecked["kotsadm"] && "disabled"}`} style={{ width: "200px" }}>
-                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> {!isAddOnChecked["kotsadm"] ? "Version None" : "Version"} </span>
-                          <Select
-                            isSearchable={false}
-                            options={versions.kotsadm}
-                            getOptionLabel={this.getLabel("kotsadm")}
-                            getOptionValue={(kotsadm) => kotsadm}
-                            value={selectedVersions.kotsadm}
-                            onChange={this.onVersionChange("kotsadm")}
-                            matchProp="value"
-                            isDisabled={!isAddOnChecked["kotsadm"]}
-                            isOptionSelected={() => false} />
-                        </div>
-                      </div>
-                    </div>
-                    <div className="flex flex1 justifyContent--flexEnd alignItems--center">
-                      <div className="flex u-fontSize--small u-fontWeight--medium u-color--royalBlue u-marginTop--small u-cursor--pointer configDiv" onClick={() => this.onToggleShowAdvancedOptions("kotsadm")}>
-                        {showAdvancedOptions["kotsadm"] ? "Hide config" : "Show config"}
-                      </div>
-                    </div>
-                  </div>
-                  {showAdvancedOptions["kotsadm"] && this.renderAdvancedOptions("kotsadm")}
-                </div>
+                <AddOnWrapper
+                  addOnId="kotsadm"
+                  addOnTitle="KOTS"
+                  isAddOnChecked={isAddOnChecked["kotsadm"]}
+                  options={versions.kotsadm}
+                  getOptionLabel={this.getLabel("kotsadm")}
+                  getOptionValue={(selected) => selected}
+                  value={selectedVersions.kotsadm}
+                  onVersionChange={this.onVersionChange("kotsadm")}
+                  handleIsAddOnSelected={(e) => this.handleIsAddOnSelected("kotsadm", e)}
+                  showAdvancedOptions={showAdvancedOptions["kotsadm"]}
+                  onToggleShowAdvancedOptions={() => this.onToggleShowAdvancedOptions("kotsadm")}
+                  renderAdvancedOptions={() => this.renderAdvancedOptions("kotsadm")}
+                  />
               </div>
 
               <div className="flex flex-column u-marginTop--40">
                 <span className="u-fontSize--normal u-fontWeight--medium u-color--bermudaGray"> Object Store </span>
-                <div className={`AddOn--wrapper ${isAddOnChecked["minio"] && "selected"} flex flex-column u-marginTop--15`} onClick={(e) => this.handleIsAddOnSelected("minio", e)}>
-                  <div className="flex flex1">
-                    <div className="flex flex1 alignItems--center">
-                      <input
-                        type="checkbox"
-                        className="u-marginRight--normal"
-                        checked={isAddOnChecked["minio"]}
-                        readOnly
-                      />
-                      <span className="icon u-minio u-marginBottom--small" />
-                      <div className="flex flex-column u-marginLeft--15 u-marginTop--small">
-                        <div className="FormLabel"> Minio </div>
-                        <div className={`SelectVersion flex flex1 ${!isAddOnChecked["minio"] && "disabled"}`} style={{ width: "200px" }}>
-                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> {!isAddOnChecked["minio"] ? "Version None" : "Version"} </span>
-                          <Select
-                            isSearchable={false}
-                            options={versions.minio}
-                            getOptionLabel={this.getLabel("minio")}
-                            getOptionValue={(minio) => minio}
-                            value={selectedVersions.minio}
-                            onChange={this.onVersionChange("minio")}
-                            matchProp="value"
-                            isDisabled={!isAddOnChecked["minio"]}
-                            isOptionSelected={() => false} />
-                        </div>
-                      </div>
-                    </div>
-                    <div className="flex flex1 justifyContent--flexEnd alignItems--center">
-                      <div className="flex u-fontSize--small u-fontWeight--medium u-color--royalBlue u-marginTop--small u-cursor--pointer configDiv" onClick={() => this.onToggleShowAdvancedOptions("minio")}>
-                        {showAdvancedOptions["minio"] ? "Hide config" : "Show config"}
-                      </div>
-                    </div>
-                  </div>
-                  {showAdvancedOptions["minio"] && this.renderAdvancedOptions("minio")}
-                </div>
-
-                <div className={`AddOn--wrapper ${isAddOnChecked["rook"] && "selected"} flex flex-column u-marginTop--15`} onClick={(e) => this.handleIsAddOnSelected("rook", e)}>
-                  <div className="flex flex1">
-                    <div className="flex flex1 alignItems--center">
-                      <input
-                        type="checkbox"
-                        className="u-marginRight--normal"
-                        checked={isAddOnChecked["rook"]}
-                        readOnly
-                      />
-                      <span className="icon u-rook u-marginBottom--small" />
-                      <div className="flex flex-column u-marginLeft--15 u-marginTop--small">
-                        <div className="FormLabel"> Rook </div>
-                        <div className="flex flex1 alignItems--center">
-                          <div className={`SelectVersion flex flex1 ${!isAddOnChecked["rook"] && "disabled"}`}>
-                            <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> {!isAddOnChecked["rook"] ? "Version None" : "Version"} </span>
-                            <Select
-                              isSearchable={false}
-                              options={versions.rook}
-                              getOptionLabel={this.getLabel("rook")}
-                              getOptionValue={(rook) => rook}
-                              value={selectedVersions.rook}
-                              onChange={this.onVersionChange("rook")}
-                              matchProp="value"
-                              isDisabled={!isAddOnChecked["rook"]}
-                              isOptionSelected={() => false} />
-                          </div>
-                          {isAddOnChecked["rook"] && !isAddOnChecked.ekco &&
-                            <span className="u-fontSize--small u-fontWeight--medium u-color--fiord flex alignItems--center" style={{ lineHeight: "12px" }}> <span className="icon u-blueExclamationMark" style={{ marginRight: "6px" }} /> The EKCO add-on is recommended when installing Rook. </span>}
-                        </div>
-                      </div>
-                    </div>
-                    <div className="flex justifyContent--flexEnd alignItems--center">
-                      <div className="flex u-fontSize--small u-fontWeight--medium u-color--royalBlue u-marginTop--small u-cursor--pointer configDiv" onClick={() => this.onToggleShowAdvancedOptions("rook")}>
-                        {showAdvancedOptions["rook"] ? "Hide config" : "Show config"}
-                      </div>
-                    </div>
-                  </div>
-                  {showAdvancedOptions["rook"] && this.renderAdvancedOptions("rook")}
-                </div>
+                <AddOnWrapper
+                  addOnId="minio"
+                  addOnTitle="Minio"
+                  isAddOnChecked={isAddOnChecked["minio"]}
+                  options={versions.minio}
+                  getOptionLabel={this.getLabel("minio")}
+                  getOptionValue={(selected) => selected}
+                  value={selectedVersions.minio}
+                  onVersionChange={this.onVersionChange("minio")}
+                  handleIsAddOnSelected={(e) => this.handleIsAddOnSelected("minio", e)}
+                  showAdvancedOptions={showAdvancedOptions["minio"]}
+                  onToggleShowAdvancedOptions={() => this.onToggleShowAdvancedOptions("minio")}
+                  renderAdvancedOptions={() => this.renderAdvancedOptions("minio")}
+                  />
+                <AddOnWrapper
+                  addOnId="rook"
+                  addOnTitle="Rook"
+                  isAddOnChecked={isAddOnChecked["rook"]}
+                  options={versions.rook}
+                  getOptionLabel={this.getLabel("rook")}
+                  getOptionValue={(selected) => selected}
+                  value={selectedVersions.rook}
+                  onVersionChange={this.onVersionChange("rook")}
+                  handleIsAddOnSelected={(e) => this.handleIsAddOnSelected("rook", e)}
+                  showAdvancedOptions={showAdvancedOptions["rook"]}
+                  onToggleShowAdvancedOptions={() => this.onToggleShowAdvancedOptions("rook")}
+                  renderAdvancedOptions={() => this.renderAdvancedOptions("rook")}
+                  />
               </div>
 
               <div className="flex flex-column u-marginTop--40">
                 <span className="u-fontSize--normal u-fontWeight--medium u-color--bermudaGray"> PVC Provisioner </span>
-                <div className={`AddOn--wrapper ${isAddOnChecked["longhorn"] && "selected"} flex flex-column u-marginTop--15`} onClick={(e) => this.handleIsAddOnSelected("longhorn", e)}>
-                  <div className="flex flex1">
-                    <div className="flex flex1 alignItems--center">
-                      <input
-                        type="checkbox"
-                        className="u-marginRight--normal"
-                        checked={isAddOnChecked["longhorn"]}
-                        readOnly
-                      />
-                      <span className="icon u-longhorn u-marginBottom--small" />
-                      <div className="flex flex-column u-marginLeft--15 u-marginTop--small">
-                        <div className="FormLabel"> Longhorn </div>
-                        <div className={`SelectVersion flex flex1 ${!isAddOnChecked["longhorn"] && "disabled"}`} style={{ width: "200px" }}>
-                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> {!isAddOnChecked["longhorn"] ? "Version None" : "Version"} </span>
-                          <Select
-                            isSearchable={false}
-                            options={versions.longhorn}
-                            getOptionLabel={this.getLabel("longhorn")}
-                            getOptionValue={(longhorn) => longhorn}
-                            value={selectedVersions.longhorn}
-                            onChange={this.onVersionChange("longhorn")}
-                            matchProp="value"
-                            isDisabled={!isAddOnChecked["longhorn"]}
-                            isOptionSelected={() => false} />
-                        </div>
-                      </div>
-                    </div>
-                    <div className="flex flex1 justifyContent--flexEnd alignItems--center">
-                      <div className="flex u-fontSize--small u-fontWeight--medium u-color--royalBlue u-marginTop--small u-cursor--pointer configDiv" onClick={() => this.onToggleShowAdvancedOptions("longhorn")}>
-                        {showAdvancedOptions["longhorn"] ? "Hide config" : "Show config"}
-                      </div>
-                    </div>
-                  </div>
-                  {showAdvancedOptions["longhorn"] && this.renderAdvancedOptions("longhorn")}
-                </div>
-
-                <div className={`AddOn--wrapper ${isAddOnChecked["openebs"] && "selected"} flex flex-column u-marginTop--15`} onClick={(e) => this.handleIsAddOnSelected("openebs", e)}>
-                  <div className="flex flex1">
-                    <div className="flex flex1 alignItems--center">
-                      <input
-                        type="checkbox"
-                        className="u-marginRight--normal"
-                        checked={isAddOnChecked["openebs"]}
-                        readOnly
-                      />
-                      <span className="icon u-openebs u-marginBottom--small" />
-                      <div className="flex flex-column u-marginLeft--15 u-marginTop--small">
-                        <div className="FormLabel"> openEBS </div>
-                        <div className={`SelectVersion flex flex1 ${!isAddOnChecked["openebs"] && "disabled"}`} style={{ width: "200px" }}>
-                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> {!isAddOnChecked["openebs"] ? "Version None" : "Version"} </span>
-                          <Select
-                            isSearchable={false}
-                            options={versions.openebs}
-                            getOptionLabel={this.getLabel("openebs")}
-                            getOptionValue={(openebs) => openebs}
-                            value={selectedVersions.openebs}
-                            onChange={this.onVersionChange("openebs")}
-                            matchProp="value"
-                            isDisabled={!isAddOnChecked["openebs"]}
-                            isOptionSelected={() => false} />
-                        </div>
-                      </div>
-                    </div>
-                    <div className="flex flex1 justifyContent--flexEnd alignItems--center">
-                      <div className="flex u-fontSize--small u-fontWeight--medium u-color--royalBlue u-marginTop--small u-cursor--pointer configDiv" onClick={() => this.onToggleShowAdvancedOptions("openebs")}>
-                        {showAdvancedOptions["openebs"] ? "Hide config" : "Show config"}
-                      </div>
-                    </div>
-                  </div>
-                  {showAdvancedOptions["openebs"] && this.renderAdvancedOptions("openebs")}
-                </div>
+                <AddOnWrapper
+                  addOnId="longhorn"
+                  addOnTitle="Longhorn"
+                  isAddOnChecked={isAddOnChecked["longhorn"]}
+                  options={versions.longhorn}
+                  getOptionLabel={this.getLabel("longhorn")}
+                  getOptionValue={(selected) => selected}
+                  value={selectedVersions.longhorn}
+                  onVersionChange={this.onVersionChange("longhorn")}
+                  handleIsAddOnSelected={(e) => this.handleIsAddOnSelected("longhorn", e)}
+                  showAdvancedOptions={showAdvancedOptions["longhorn"]}
+                  onToggleShowAdvancedOptions={() => this.onToggleShowAdvancedOptions("longhorn")}
+                  renderAdvancedOptions={() => this.renderAdvancedOptions("longhorn")}
+                  />
+                <AddOnWrapper
+                  addOnId="openebs"
+                  addOnTitle="OpenEBS"
+                  isAddOnChecked={isAddOnChecked["openebs"]}
+                  options={versions.openebs}
+                  getOptionLabel={this.getLabel("openebs")}
+                  getOptionValue={(selected) => selected}
+                  value={selectedVersions.openebs}
+                  onVersionChange={this.onVersionChange("openebs")}
+                  handleIsAddOnSelected={(e) => this.handleIsAddOnSelected("openebs", e)}
+                  showAdvancedOptions={showAdvancedOptions["openebs"]}
+                  onToggleShowAdvancedOptions={() => this.onToggleShowAdvancedOptions("openebs")}
+                  renderAdvancedOptions={() => this.renderAdvancedOptions("openebs")}
+                  />
               </div>
 
               <div className="flex flex-column u-marginTop--40">
                 <span className="u-fontSize--normal u-fontWeight--medium u-color--bermudaGray"> Metrics & Monitoring </span>
-                <div className={`AddOn--wrapper ${isAddOnChecked["prometheus"] && "selected"} flex flex-column u-marginTop--15`} onClick={(e) => this.handleIsAddOnSelected("prometheus", e)}>
-                  <div className="flex flex1">
-                    <div className="flex flex1 alignItems--center">
-                      <input
-                        type="checkbox"
-                        className="u-marginRight--normal"
-                        checked={isAddOnChecked["prometheus"]}
-                        readOnly
-                      />
-                      <span className="icon u-prometheus u-marginBottom--small" />
-                      <div className="flex flex-column u-marginLeft--15 u-marginTop--small">
-                        <div className="FormLabel"> Prometheus </div>
-                        <div className={`SelectVersion flex flex1 ${!isAddOnChecked["prometheus"] && "disabled"}`} style={{ width: "200px" }}>
-                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> {!isAddOnChecked["prometheus"] ? "Version None" : "Version"} </span>
-                          <Select
-                            isSearchable={false}
-                            options={versions.prometheus}
-                            getOptionLabel={this.getLabel("prometheus")}
-                            getOptionValue={(prometheus) => prometheus}
-                            value={selectedVersions.prometheus}
-                            onChange={this.onVersionChange("prometheus")}
-                            matchProp="value"
-                            isDisabled={!isAddOnChecked["prometheus"]}
-                            isOptionSelected={() => false} />
-                        </div>
-                      </div>
-                    </div>
-                    <div className="flex flex1 justifyContent--flexEnd alignItems--center">
-                      <div className="flex u-fontSize--small u-fontWeight--medium u-color--royalBlue u-marginTop--small u-cursor--pointer configDiv" onClick={() => this.onToggleShowAdvancedOptions("prometheus")}>
-                        {showAdvancedOptions["prometheus"] ? "Hide config" : "Show config"}
-                      </div>
-                    </div>
-                  </div>
-                  {showAdvancedOptions["prometheus"] && this.renderAdvancedOptions("prometheus")}
-                </div>
-                <div className={`AddOn--wrapper ${isAddOnChecked["collectd"] && "selected"} flex flex-column u-marginTop--15`} onClick={(e) => this.handleIsAddOnSelected("collectd", e)}>
-                  <div className="flex flex1">
-                    <div className="flex flex1 alignItems--center">
-                      <input
-                        type="checkbox"
-                        className="u-marginRight--normal"
-                        checked={isAddOnChecked["collectd"]}
-                        readOnly
-                      />
-                      <span className="icon u-collectd u-marginBottom--small" />
-                      <div className="flex flex-column u-marginLeft--15 u-marginTop--small">
-                        <div className="FormLabel"> Collectd </div>
-                        <div className={`SelectVersion flex flex1 ${!isAddOnChecked["collectd"] && "disabled"}`} style={{ width: "200px" }}>
-                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> {!isAddOnChecked["collectd"] ? "Version None" : "Version"} </span>
-                          <Select
-                            isSearchable={false}
-                            options={versions.collectd}
-                            getOptionLabel={this.getLabel("collectd")}
-                            getOptionValue={(collectd) => collectd}
-                            value={selectedVersions.collectd}
-                            onChange={this.onVersionChange("collectd")}
-                            matchProp="value"
-                            isDisabled={!isAddOnChecked["collectd"]}
-                            isOptionSelected={() => false} />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className={`AddOn--wrapper ${isAddOnChecked["metricsServer"] && "selected"} flex flex-column u-marginTop--15`} onClick={(e) => this.handleIsAddOnSelected("metricsServer", e)}>
-                  <div className="flex flex1">
-                    <div className="flex flex1 alignItems--center">
-                      <input
-                        type="checkbox"
-                        className="u-marginRight--normal"
-                        checked={isAddOnChecked["metricsServer"]}
-                        readOnly
-                      />
-                      <span className="icon u-kubernetes u-marginBottom--small" />
-                      <div className="flex flex-column u-marginLeft--15 u-marginTop--small">
-                        <div className="FormLabel"> Metrics-server </div>
-                        <div className={`SelectVersion flex flex1 ${!isAddOnChecked["metricsServer"] && "disabled"}`} style={{ width: "200px" }}>
-                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> {!isAddOnChecked["metricsServer"] ? "Version None" : "Version"} </span>
-                          <Select
-                            isSearchable={false}
-                            options={versions["metricsServer"]}
-                            getOptionLabel={this.getLabel("metricsServer")}
-                            getOptionValue={(metricsServer) => metricsServer}
-                            value={selectedVersions.metricsServer}
-                            onChange={this.onVersionChange("metricsServer")}
-                            matchProp="value"
-                            isDisabled={!isAddOnChecked["metricsServer"]}
-                            isOptionSelected={() => false} />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className={`AddOn--wrapper ${isAddOnChecked["goldpinger"] && "selected"} flex flex-column u-marginTop--15`} onClick={(e) => this.handleIsAddOnSelected("goldpinger", e)}>
-                  <div className="flex flex1">
-                    <div className="flex flex1 alignItems--center">
-                      <input
-                        type="checkbox"
-                        className="u-marginRight--normal"
-                        checked={isAddOnChecked["goldpinger"]}
-                        readOnly
-                      />
-                      <span className="icon u-kubernetes u-marginBottom--small" />
-                      <div className="flex flex-column u-marginLeft--15 u-marginTop--small">
-                        <div className="FormLabel"> Goldpinger </div>
-                        <div className={`SelectVersion flex flex1 ${!isAddOnChecked["goldpinger"] && "disabled"}`} style={{ width: "200px" }}>
-                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> {!isAddOnChecked["goldpinger"] ? "Version None" : "Version"} </span>
-                          <Select
-                            isSearchable={false}
-                            options={versions["goldpinger"]}
-                            getOptionLabel={this.getLabel("goldpinger")}
-                            getOptionValue={(goldpinger) => goldpinger}
-                            value={selectedVersions.goldpinger}
-                            onChange={this.onVersionChange("goldpinger")}
-                            matchProp="value"
-                            isDisabled={!isAddOnChecked["goldpinger"]}
-                            isOptionSelected={() => false} />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <AddOnWrapper
+                  addOnId="prometheus"
+                  addOnTitle="Prometheus"
+                  isAddOnChecked={isAddOnChecked["prometheus"]}
+                  options={versions.prometheus}
+                  getOptionLabel={this.getLabel("prometheus")}
+                  getOptionValue={(selected) => selected}
+                  value={selectedVersions.prometheus}
+                  onVersionChange={this.onVersionChange("prometheus")}
+                  handleIsAddOnSelected={(e) => this.handleIsAddOnSelected("prometheus", e)}
+                  showAdvancedOptions={showAdvancedOptions["prometheus"]}
+                  onToggleShowAdvancedOptions={() => this.onToggleShowAdvancedOptions("prometheus")}
+                  renderAdvancedOptions={() => this.renderAdvancedOptions("prometheus")}
+                  />
+                <AddOnWrapper
+                  addOnId="collectd"
+                  addOnTitle="Collectd"
+                  isAddOnChecked={isAddOnChecked["collectd"]}
+                  options={versions.collectd}
+                  getOptionLabel={this.getLabel("collectd")}
+                  getOptionValue={(selected) => selected}
+                  value={selectedVersions.collectd}
+                  onVersionChange={this.onVersionChange("collectd")}
+                  handleIsAddOnSelected={(e) => this.handleIsAddOnSelected("collectd", e)}
+                  disableAdvancedOptions={true}
+                  />
+                <AddOnWrapper
+                  addOnId="metricsServer"
+                  addOnTitle="Metrics Server"
+                  addOnIcon="u-kubernetes"
+                  isAddOnChecked={isAddOnChecked["metricsServer"]}
+                  options={versions.metricsServer}
+                  getOptionLabel={this.getLabel("metricsServer")}
+                  getOptionValue={(selected) => selected}
+                  value={selectedVersions.metricsServer}
+                  onVersionChange={this.onVersionChange("metricsServer")}
+                  handleIsAddOnSelected={(e) => this.handleIsAddOnSelected("metricsServer", e)}
+                  disableAdvancedOptions={true}
+                  />
+                <AddOnWrapper
+                  addOnId="goldpinger"
+                  addOnTitle="Goldpinger"
+                  addOnIcon="u-kubernetes"
+                  isAddOnChecked={isAddOnChecked["goldpinger"]}
+                  options={versions.goldpinger}
+                  getOptionLabel={this.getLabel("goldpinger")}
+                  getOptionValue={(selected) => selected}
+                  value={selectedVersions.goldpinger}
+                  onVersionChange={this.onVersionChange("goldpinger")}
+                  handleIsAddOnSelected={(e) => this.handleIsAddOnSelected("goldpinger", e)}
+                  disableAdvancedOptions={true}
+                  />
               </div>
 
               <div className="flex flex-column u-marginTop--40">
                 <span className="u-fontSize--normal u-fontWeight--medium u-color--bermudaGray"> x509 Certificates </span>
-                <div className={`AddOn--wrapper ${isAddOnChecked["certManager"] && "selected"} flex flex-column u-marginTop--15`} onClick={(e) => this.handleIsAddOnSelected("certManager", e)}>
-                  <div className="flex flex1">
-                    <div className="flex flex1 alignItems--center">
-                      <input
-                        type="checkbox"
-                        className="u-marginRight--normal"
-                        checked={isAddOnChecked["certManager"]}
-                        readOnly
-                      />
-                      <span className="icon u-certManager u-marginBottom--small" />
-                      <div className="flex flex-column u-marginLeft--15 u-marginTop--small">
-                        <div className="FormLabel"> Cert manager </div>
-                        <div className={`SelectVersion flex flex1 ${!isAddOnChecked["certManager"] && "disabled"}`} style={{ width: "200px" }}>
-                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> {!isAddOnChecked["certManager"] ? "Version None" : "Version"} </span>
-                          <Select
-                            isSearchable={false}
-                            options={versions.certManager}
-                            getOptionLabel={this.getLabel("certManager")}
-                            getOptionValue={(certManager) => certManager}
-                            value={selectedVersions.certManager}
-                            onChange={this.onVersionChange("certManager")}
-                            matchProp="value"
-                            isDisabled={!isAddOnChecked["certManager"]}
-                            isOptionSelected={() => false} />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <AddOnWrapper
+                  addOnId="certManager"
+                  addOnTitle="Cert-manager"
+                  isAddOnChecked={isAddOnChecked["certManager"]}
+                  options={versions.certManager}
+                  getOptionLabel={this.getLabel("certManager")}
+                  getOptionValue={(selected) => selected}
+                  value={selectedVersions.certManager}
+                  onVersionChange={this.onVersionChange("certManager")}
+                  handleIsAddOnSelected={(e) => this.handleIsAddOnSelected("certManager", e)}
+                  disableAdvancedOptions={true}
+                  />
               </div>
 
               <div className="flex flex-column u-marginTop--40">
                 <span className="u-fontSize--normal u-fontWeight--medium u-color--bermudaGray"> Registry </span>
-                <div className={`AddOn--wrapper ${isAddOnChecked["registry"] && "selected"} flex flex-column u-marginTop--15`} onClick={(e) => this.handleIsAddOnSelected("registry", e)}>
-                  <div className="flex flex1">
-                    <div className="flex flex1 alignItems--center">
-                      <input
-                        type="checkbox"
-                        className="u-marginRight--normal"
-                        checked={isAddOnChecked["registry"]}
-                        readOnly
-                      />
-                      <span className="icon u-registry u-marginBottom--small" />
-                      <div className="flex flex-column u-marginLeft--15 u-marginTop--small">
-                        <div className="FormLabel"> Docker Registry </div>
-                        <div className={`SelectVersion flex flex1 ${!isAddOnChecked["registry"] && "disabled"}`} style={{ width: "200px" }}>
-                          <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> {!isAddOnChecked["registry"] ? "Version None" : "Version"} </span>
-                          <Select
-                            isSearchable={false}
-                            options={versions.registry}
-                            getOptionLabel={this.getLabel("registry")}
-                            getOptionValue={(registry) => registry}
-                            value={selectedVersions.registry}
-                            onChange={this.onVersionChange("registry")}
-                            matchProp="value"
-                            isDisabled={!isAddOnChecked["registry"]}
-                            isOptionSelected={() => false} />
-                        </div>
-                      </div>
-                    </div>
-                    <div className="flex flex1 justifyContent--flexEnd alignItems--center">
-                      <div className="flex u-fontSize--small u-fontWeight--medium u-color--royalBlue u-marginTop--small u-cursor--pointer configDiv" onClick={() => this.onToggleShowAdvancedOptions("registry")}>
-                        {showAdvancedOptions["registry"] ? "Hide config" : "Show config"}
-                      </div>
-                    </div>
-                  </div>
-                  {showAdvancedOptions["registry"] && this.renderAdvancedOptions("registry")}
-                </div>
+                <AddOnWrapper
+                  addOnId="registry"
+                  addOnTitle="Docker Registry"
+                  isAddOnChecked={isAddOnChecked["registry"]}
+                  options={versions.registry}
+                  getOptionLabel={this.getLabel("registry")}
+                  getOptionValue={(selected) => selected}
+                  value={selectedVersions.registry}
+                  onVersionChange={this.onVersionChange("registry")}
+                  handleIsAddOnSelected={(e) => this.handleIsAddOnSelected("registry", e)}
+                  showAdvancedOptions={showAdvancedOptions["registry"]}
+                  onToggleShowAdvancedOptions={() => this.onToggleShowAdvancedOptions("registry")}
+                  renderAdvancedOptions={() => this.renderAdvancedOptions("registry")}
+                  />
               </div>
 
               <div className="flex flex-column u-marginTop--40">
                 <span className="u-fontSize--normal u-fontWeight--medium u-color--bermudaGray"> Snapshots </span>
-                <div className={`AddOn--wrapper ${isAddOnChecked["velero"] && "selected"} flex flex-column u-marginTop--15`} onClick={(e) => this.handleIsAddOnSelected("velero", e)}>
-                  <div className="flex flex1">
-                    <div className="flex flex-auto alignItems--center">
-                      <input
-                        type="checkbox"
-                        className="u-marginRight--normal"
-                        checked={isAddOnChecked["velero"]}
-                        readOnly
-                      />
-                      <span className="icon u-velero u-marginBottom--small" />
-                      <div className="flex flex-column u-marginLeft--15 u-marginTop--small">
-                        <div className="FormLabel"> Velero </div>
-                        <div className="flex flex1 alignItems--center">
-                          <div className={`SelectVersion flex flex1 ${!isAddOnChecked["velero"] && "disabled"}`} style={{ width: "200px" }}>
-                            <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> {!isAddOnChecked["velero"] ? "Version None" : "Version"} </span>
-                            <Select
-                              isSearchable={false}
-                              options={versions.velero}
-                              getOptionLabel={this.getLabel("velero")}
-                              getOptionValue={(velero) => velero}
-                              value={selectedVersions.velero}
-                              onChange={this.onVersionChange("velero")}
-                              matchProp="value"
-                              isDisabled={!isAddOnChecked["velero"]}
-                              isOptionSelected={() => false} />
-                          </div>
-                          {this.checkKotsVeleroIncompatibility(selectedVersions.velero.version, selectedVersions.kotsadm.version) &&
-                            <span className="u-fontSize--small u-fontWeight--medium u-color--fiord flex alignItems--center" style={{ lineHeight: "12px" }}> <span className="icon u-blueExclamationMark" style={{ marginRight: "6px" }} /> Version {selectedVersions.velero.version} is not compatible with KOTS {selectedVersions.kotsadm.version} </span>}
-                        </div>
-                      </div>
-                    </div>
-                    <div className="flex flex1 justifyContent--flexEnd alignItems--center">
-                      <div className="flex u-fontSize--small u-fontWeight--medium u-fontWeight--medium u-color--royalBlue u-marginTop--small u-cursor--pointer configDiv" onClick={() => this.onToggleShowAdvancedOptions("velero")}>
-                        {showAdvancedOptions["velero"] ? "Hide config" : "Show config"}
-                      </div>
-                    </div>
-                  </div>
-                  {showAdvancedOptions["velero"] && this.renderAdvancedOptions("velero")}
-                </div>
+                <AddOnWrapper
+                  addOnId="velero"
+                  addOnTitle="Velero"
+                  isAddOnChecked={isAddOnChecked["velero"]}
+                  options={versions.velero}
+                  getOptionLabel={this.getLabel("velero")}
+                  getOptionValue={(selected) => selected}
+                  value={selectedVersions.velero}
+                  onVersionChange={this.onVersionChange("velero")}
+                  handleIsAddOnSelected={(e) => this.handleIsAddOnSelected("velero", e)}
+                  showAdvancedOptions={showAdvancedOptions["velero"]}
+                  onToggleShowAdvancedOptions={() => this.onToggleShowAdvancedOptions("velero")}
+                  renderAdvancedOptions={() => this.renderAdvancedOptions("velero")}
+                  />
               </div>
 
               <div className="flex flex-column u-marginTop--40">
                 <span className="u-fontSize--normal u-fontWeight--medium u-color--bermudaGray"> Cloud Provider </span>
-                <div className={`AddOn--wrapper ${isAddOnChecked["aws"] && "selected"} flex flex-column u-marginTop--15`} onClick={(e) => this.handleIsAddOnSelected("aws", e)}>
-                  <div className="flex flex1">
-                    <div className="flex flex-auto alignItems--center">
-                      <input
-                        type="checkbox"
-                        className="u-marginRight--normal"
-                        checked={isAddOnChecked["aws"]}
-                        readOnly
-                      />
-                      <span className="icon u-aws u-marginBottom--small" />
-                      <div className="flex flex-column u-marginLeft--15 u-marginTop--small">
-                        <div className="FormLabel"> AWS <span className="prerelease-tag sidebar beta">beta</span> </div>
-                        <div className="flex flex1 alignItems--center">
-                          <div className={`SelectVersion flex flex1 ${!isAddOnChecked["aws"] && "disabled"}`} style={{ width: "200px" }}>
-                            <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> {!isAddOnChecked["aws"] ? "Version None" : "Version"} </span>
-                            <Select
-                              isSearchable={false}
-                              options={versions.aws}
-                              getOptionLabel={this.getLabel("aws")}
-                              getOptionValue={(aws) => aws}
-                              value={selectedVersions.aws}
-                              onChange={this.onVersionChange("aws")}
-                              matchProp="value"
-                              isDisabled={!isAddOnChecked["aws"]}
-                              isOptionSelected={() => false} />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="flex flex1 justifyContent--flexEnd alignItems--center">
-                      <div className="flex u-fontSize--small u-fontWeight--medium u-fontWeight--medium u-color--royalBlue u-marginTop--small u-cursor--pointer configDiv" onClick={() => this.onToggleShowAdvancedOptions("aws")}>
-                        {showAdvancedOptions["aws"] ? "Hide config" : "Show config"}
-                      </div>
-                    </div>
-                  </div>
-                  {showAdvancedOptions["aws"] && this.renderAdvancedOptions("aws")}
-                </div>
+                <AddOnWrapper
+                  addOnId="aws"
+                  addOnTitle="AWS"
+                  isBeta={true}
+                  isAddOnChecked={isAddOnChecked["aws"]}
+                  options={versions.aws}
+                  getOptionLabel={this.getLabel("aws")}
+                  getOptionValue={(selected) => selected}
+                  value={selectedVersions.aws}
+                  onVersionChange={this.onVersionChange("aws")}
+                  handleIsAddOnSelected={(e) => this.handleIsAddOnSelected("aws", e)}
+                  showAdvancedOptions={showAdvancedOptions["aws"]}
+                  onToggleShowAdvancedOptions={() => this.onToggleShowAdvancedOptions("aws")}
+                  renderAdvancedOptions={() => this.renderAdvancedOptions("aws")}
+                  />
               </div>
 
             </div>
