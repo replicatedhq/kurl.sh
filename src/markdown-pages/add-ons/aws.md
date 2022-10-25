@@ -51,8 +51,6 @@ The AWS add-on is supported only:
 - When the cluster created by kURL is installed on an AWS EC2 instance.
 - With the Kubernetes (kubeadm) add-on. See [Kubernetes (kubeadm) add-on](/docs/addon-ons/kubernetes).
 
-The AWS add-on is **not** supported for the K3s or RKE2 add-ons. See [K3s](/docs/addon-ons/k3s) and [RKE2](/docs/addon-ons/rke2).
-
 ### AWS ELB and Kubernetes LoadBalancer Service Requirements
 
 There are additional requirements when creating a `LoadBalancer` service:
