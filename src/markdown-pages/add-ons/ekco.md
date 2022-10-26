@@ -29,6 +29,7 @@ spec:
     enableInternalLoadBalancer: true
     shouldDisableRestartFailedEnvoyPods: false
     envoyPodsNotReadyDuration: 5m
+    minioShouldDisableManagement: false
 ```
 
 flags-table
@@ -109,6 +110,18 @@ The EKCO operator will forcefully delete Envoy pods that change from a ready sta
 This has been added to work around a [known issue](https://github.com/projectcontour/contour/issues/3192) that may be caused by resource contention.
 This functionality can be disabled by setting the `ekco.shouldDisableRestartFailedEnvoyPods` property to `true`.
 The duration can be adjusted by changing the `ekco.envoyPodsNotReadyDuration` property.
+
+### Manage MinIO with EKCO
+
+When you install kURL with `ekco.minioShouldDisableManagement` set to `false`, the EKCO operator manages data in the MinIO deployment to ensure that the data is properly replicated and has high availability.
+
+To manage data in MinIO, the EKCO operator first enables a high availability six-replica StatefulSet when at least three nodes are healthy and the OpenEBS localpv storage class is available.
+
+Then, EKCO migrates data from the original MinIO deployment to the StatefulSet before deleting the data. MinIO is temporarily unavailable while the data migration is in progress.
+
+After the StatefulSet is running, EKCO ensures that replicas are evenly distributed across nodes.
+
+To disable EKCO's management of data in MinIO, set `ekco.minioShouldDisableManagement` to `true`.
 
 ### TLS Certificate Rotation
 
