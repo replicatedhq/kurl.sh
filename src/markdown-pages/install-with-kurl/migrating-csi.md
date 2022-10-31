@@ -6,7 +6,7 @@ linktitle: "Migrating CSI"
 title: "Migrating to Change kURL CSI Add-Ons"
 ---
 
-For kURL [v2022.10.28-0](https://kurl.sh/release-notes/v2022.10.28-0) and later, there is a suported data migration path from the Rook CSI add-on to either OpenEBS with Local PV, or Longhorn and MinIO as the new storage provider. 
+For kURL [v2022.10.28-0](https://kurl.sh/release-notes/v2022.10.28-0) and later, there is a supported data migration path from the Rook CSI add-on to either OpenEBS with Local PV, or Longhorn and MinIO as the new storage provider. 
 
 For information about how to migrate from Rook to a storage provider other than OpenEBS or Longhorn/MinIO, see [Migrating](/docs/install-with-kurl/migrating).
 
