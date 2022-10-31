@@ -6,8 +6,9 @@ linktitle: "Migrating CSI"
 title: "Migrating to Change kURL CSI Add-Ons"
 ---
 
-As of kURL [v2022.10.28-0](https://kurl.sh/release-notes/v2022.10.28-0), MinIO, Longhorn and OpenEBS support migrating data from Rook.
-If you need to migrate to a different storage provider than the aforementioned ones, check out [Migrating](/docs/install-with-kurl/migrating)
+For kURL [v2022.10.28-0](https://kurl.sh/release-notes/v2022.10.28-0) and later, MinIO, Longhorn, and OpenEBS support migrating data from Rook.
+
+For information about how to migrate from Rook to a storage provider other than MinIO, Longhorn, or OpenEBS, see [Migrating](/docs/install-with-kurl/migrating).
 
 When initially installing the following kURL spec:
 
@@ -66,7 +67,9 @@ spec:
     isLocalPVEnabled: true
 ```
 
-All PVCs created using Rook will be recreated (with the same name and contents) on Longhorn and OpenEBS, all data within the Rook object store will be copied to MinIO, and Rook will be uninstalled from the cluster.
-Moreover, if migrating Rook from a Kubernetes cluster that is highly available (more than two
-nodes), OpenEBS will attempt to create local volumes on the same nodes where the original Rook PVCs
-were referenced from.
+kURL does the following when you use the specs above to migrate data from Rook:
+
+* Recreates all PVCs that were originally created using Rook onto Longhorn and OpenEBS with the same name and contents. 
+* Copies all data within the Rook object store to MinIO. 
+* Uninstalls Rook from the cluster.
+* If you are migrating off Rook from a Kubernetes cluster that has more than two nodes, OpenEBS attempts to create local volumes on the same nodes where the original Rook PVCs were referenced.
