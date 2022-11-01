@@ -34,7 +34,7 @@ const defaultProps = {
 }
 
 describe("Kurl", () => {
-  describe("prepareVersions", () => {
+  describe("sortVersions", () => {
     it("keeps latest next to the expected version", () => {
       const input = [
         {version: "latest"},
@@ -54,7 +54,8 @@ describe("Kurl", () => {
         {version: "None"},
       ]
 
-      const res = new Kurl(defaultProps).prepareVersions(input);
+      const kurlsh = new Kurl(defaultProps);
+      const res = kurlsh.sortVersions(input, "1.0.0");
       expect(res).toEqual(output);
     });
 
@@ -77,7 +78,8 @@ describe("Kurl", () => {
         {version: "None"},
       ]
 
-      const res = new Kurl(defaultProps).prepareVersions(input);
+      const kurlsh = new Kurl(defaultProps);
+      const res = kurlsh.sortVersions(input, "1.0.0");
       expect(res).toEqual(output);
     });
 
@@ -100,7 +102,8 @@ describe("Kurl", () => {
         {version: "None"},
       ]
 
-      const res = new Kurl(defaultProps).prepareVersions(input);
+      const kurlsh = new Kurl(defaultProps);
+      const res = kurlsh.sortVersions(input, "5.0.0");
       expect(res).toEqual(output);
     });
 
@@ -137,7 +140,8 @@ describe("Kurl", () => {
         {version: "None"},
       ]
 
-      const res = new Kurl(defaultProps).prepareVersions(input);
+      const kurlsh = new Kurl(defaultProps);
+      const res = kurlsh.sortVersions(input, "5.0.0");
       expect(res).toEqual(output);
     });
 
@@ -156,7 +160,8 @@ describe("Kurl", () => {
         {version: "None"},
       ]
 
-      const res = new Kurl(defaultProps).prepareVersions(input);
+      const kurlsh = new Kurl(defaultProps);
+      const res = kurlsh.sortVersions(input, "stable");
       expect(res).toEqual(output);
     });
   });
@@ -185,6 +190,20 @@ describe("Kurl", () => {
     it("patch versions are taken into account", () => {
       const res = new Kurl(defaultProps).compareVersions({version:"2.3.5"},{version: "2.3.4"});
       expect(res).toBe(-1);
+    });
+  });
+
+  describe("prepareVersions", () => {
+    it("rook: sorts and adds dot x versions", () => {
+      const versions = ["latest", "1.0.4", "1.9.12", "1.8.10", "1.4.9", "1.4.3", "1.0.4-14.2.21"];
+      const finalVersions = new Kurl(defaultProps).prepareVersions("rook", versions);
+      expect(finalVersions).toEqual([{version: "1.9.x"}, {version: "1.9.12"}, {version: "1.8.x"}, {version: "1.8.10"}, {version: "1.4.x"}, {version: "1.4.9"}, {version: "1.4.3"}, {version: "1.0.x"}, {version: "1.0.4-14.2.21"}, {version: "latest"}, {version: "1.0.4"}, {version: "None"}]);
+    });
+
+    it("weave: sorts and adds dot x versions", () => {
+      const versions = ["latest", "2.6.5-20221025", "2.6.5-20221006", "2.6.5-20220825", "2.6.5-20220720", "2.6.5-20220616", "2.6.5", "2.6.4", "2.5.2", "2.8.1-20221025", "2.8.1-20221006", "2.8.1-20220825", "2.8.1-20220720", "2.8.1-20220616", "2.8.1", "2.7.0"];
+      const finalVersions = new Kurl(defaultProps).prepareVersions("weave", versions);
+      expect(finalVersions).toEqual([{version: "2.8.x"}, {version: "2.8.1-20221025"}, {version: "2.8.1-20221006"}, {version: "2.8.1-20220825"}, {version: "2.8.1-20220720"}, {version: "2.8.1-20220616"}, {version: "2.8.1"}, {version: "2.7.x"}, {version: "2.7.0"}, {version: "2.6.x"}, {version: "latest"}, {version: "2.6.5-20221025"}, {version: "2.6.5-20221006"}, {version: "2.6.5-20220825"}, {version: "2.6.5-20220720"}, {version: "2.6.5-20220616"}, {version: "2.6.5"}, {version: "2.6.4"}, {version: "2.5.x"}, {version: "2.5.2"}, {version: "None"}]);
     });
   });
 });
