@@ -26,7 +26,7 @@ flags-table
 
 If Rook was previously installed but is no longer specified in the kURL spec and MinIO is specified instead, MinIO will migrate data from Rook's object store to MinIO.
 
-If Longhorn is also specified in the new kURL spec and completes its migration process successfully, Rook will be removed to free up resources.
+If OpenEBS or Longhorn is also specified in the new kURL spec and completes its migration process successfully, Rook will be removed to free up resources.
 
 ## High Availability
 
