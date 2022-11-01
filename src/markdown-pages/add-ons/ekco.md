@@ -111,7 +111,7 @@ This has been added to work around a [known issue](https://github.com/projectcon
 This functionality can be disabled by setting the `ekco.shouldDisableRestartFailedEnvoyPods` property to `true`.
 The duration can be adjusted by changing the `ekco.envoyPodsNotReadyDuration` property.
 
-### Manage MinIO with EKCO
+### MinIO
 
 When you install kURL with `ekco.minioShouldDisableManagement` set to `false`, the EKCO operator manages data in the MinIO deployment to ensure that the data is properly replicated and has high availability.
 
