@@ -606,7 +606,7 @@
 		},
 		{
 			"flag": "minioShouldDisableManagement",
-			"description": "Prevent High Availability MinIO from being enabled and do not manage existing HA MinIO pods",
+			"description": "Prevent high availability (HA) MinIO from being enabled and do not manage existing HA MinIO pods",
 			"type": "boolean"
 		}
   ],
