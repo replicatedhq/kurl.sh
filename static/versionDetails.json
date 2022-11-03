@@ -603,6 +603,11 @@
 			"description": "A list of Pod container image overrides in the format \"[original]=[overridden]\"",
 			"type": "array[string]",
 			"hidden": true
+		},
+		{
+			"flag": "minioShouldDisableManagement",
+			"description": "Prevent high availability (HA) MinIO from being enabled and do not manage existing HA MinIO pods",
+			"type": "boolean"
 		}
   ],
   "fluentd": [
