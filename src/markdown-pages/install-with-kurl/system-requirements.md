@@ -24,9 +24,9 @@ title: "System Requirements"
 * 8 GB of RAM per machine
 * 40 GB of Disk Space per machine. 
     * **Note**: When [Rook](/docs/add-ons/rook) is enabled, 10GB of the total 40GB should be available to `/var/lib/rook`
-* TCP ports 2379, 2380, 10250, 10251 and 10252 open between cluster nodes
+* TCP ports 2379, 2380, 6443, 10250, 10251 and 10252 open between cluster nodes
     * **Note**: When [Flannel](/docs/add-ons/flannel) is enabled, UDP port 8472 open between cluster nodes
-    * **Note**: When [Weave](/docs/add-ons/weave) is enabled, TCP ports 6443 and 6783 and UDP ports 6783 and 6784 open between cluster nodes
+    * **Note**: When [Weave](/docs/add-ons/weave) is enabled, TCP port 6783 and UDP port 6783 and 6784 open between cluster nodes
 
 ## kURL Dependencies Directory
 

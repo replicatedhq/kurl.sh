@@ -218,11 +218,15 @@ cat install.sh | sudo bash -s airgap
                     </li>
                     {installerData && installerData.spec.flannel && installerData.spec.flannel.version &&
                     <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal">
+                      TCP ports 2379, 2380, 6443, 10250, 10251 and 10252 open between cluster nodes
+                    </li>}
+                    {installerData && installerData.spec.flannel && installerData.spec.flannel.version &&
+                    <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal">
                       UDP port 8472 open between cluster nodes
                     </li>}
                     {installerData && installerData.spec.weave && installerData.spec.weave.version &&
                     <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal">
-                      TCP ports 6443 and 6783 open between cluster nodes
+                      TCP ports 2379, 2380, 6443, 6783, 10250, 10251 and 10252 open between cluster nodes
                     </li>}
                     {installerData && installerData.spec.weave && installerData.spec.weave.version &&
                     <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal">
@@ -232,10 +236,10 @@ cat install.sh | sudo bash -s airgap
                     <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal">
                       {installerData.spec.antrea.isEncryptionDisabled ?
                       <span>
-                        TCP port 8091 open between cluster nodes
+                        TCP ports 2379, 2380, 6443, 8091, 10250, 10251 and 10252 open between cluster nodes
                       </span> :
                       <span>
-                        TCP ports 8091 and 51820 open between cluster nodes
+                        TCP ports 2379, 2380, 6443, 8091, 10250, 10251, 10252 and 51820 open between cluster nodes
                       </span>}
                     </li>}
                     {installerData && installerData.spec.antrea && installerData.spec.antrea.version &&
