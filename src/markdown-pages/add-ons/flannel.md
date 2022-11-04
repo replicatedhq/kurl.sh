@@ -25,6 +25,22 @@ spec:
 
 flags-table
 
+## System Requirements
+
+The following additional ports must be open between nodes for multi-node clusters:
+
+#### Primary Nodes:
+
+| Protocol | Direction | Port Range | Purpose                 | Used By |
+| -------  | --------- | ---------- | ----------------------- | ------- |
+| UDP      | Inbound   | 8472       | Flannel VXLAN           | All     |
+
+#### Secondary Nodes:
+
+| Protocol | Direction | Port Range | Purpose                 | Used By |
+| -------  | --------- | ---------- | ----------------------- | ------- |
+| UDP      | Inbound   | 8472       | Flannel VXLAN           | All     |
+
 ## Custom Pod Subnet
 
 The Pod subnet will default to `10.32.0.0/20` if available.
