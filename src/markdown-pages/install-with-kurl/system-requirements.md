@@ -23,9 +23,10 @@ title: "System Requirements"
 * 4 AMD64 CPUs or equivalent per machine
 * 8 GB of RAM per machine
 * 40 GB of Disk Space per machine. 
-    * **Note**: 10GB of the total 40GB should be available to `/var/lib/rook`. For more information see [Rook](/docs/add-ons/rook)
-* TCP ports 2379, 2380, 6443, 6783, 10250, 10251 and 10252 open between cluster nodes
-* UDP ports 6783 and 6784 open between cluster nodes
+    * **Note**: When [Rook](/docs/add-ons/rook) is enabled, 10GB of the total 40GB should be available to `/var/lib/rook`
+* TCP ports 2379, 2380, 6443, 10250, 10251 and 10252 open between cluster nodes
+    * **Note**: When [Flannel](/docs/add-ons/flannel) is enabled, UDP port 8472 open between cluster nodes
+    * **Note**: When [Weave](/docs/add-ons/weave) is enabled, TCP port 6783 and UDP port 6783 and 6784 open between cluster nodes
 
 ## kURL Dependencies Directory
 
@@ -64,6 +65,7 @@ The following ports must be open between nodes for multi-node clusters:
 | TCP      | Inbound   | 6443       | Kubernetes API server   | All     |
 | TCP      | Inbound   | 2379-2380  | etcd server client API  | Primary |
 | TCP      | Inbound   | 10250      | kubelet API             | Primary |
+| UDP      | Inbound   | 8472       | Flannel VXLAN           | All     |
 | TCP      | Inbound   | 6783       | Weave Net control       | All     |
 | UDP      | Inbound   | 6783-6784  | Weave Net data          | All     |
 
@@ -72,6 +74,7 @@ The following ports must be open between nodes for multi-node clusters:
 | Protocol | Direction | Port Range | Purpose                 | Used By |
 | -------  | --------- | ---------- | ----------------------- | ------- |
 | TCP      | Inbound   | 10250      | kubelet API             | Primary |
+| UDP      | Inbound   | 8472       | Flannel VXLAN           | All     |
 | TCP      | Inbound   | 6783       | Weave Net control       | All     |
 | UDP      | Inbound   | 6783-6784  | Weave Net data          | All     |
 

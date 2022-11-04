@@ -211,17 +211,41 @@ cat install.sh | sudo bash -s airgap
                       4 CPUs or equivalent per machine
                     </li>
                     <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal">
-                      30 GB of Disk Space per machine
-                    </li>
-                    <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal">
-                      UDP ports 6783 and 6784 open
-                    </li>
-                    <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal">
                       8 GB of RAM per machine
                     </li>
                     <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal">
-                      TCP ports 6443 and 6783 open
+                      30 GB of Disk Space per machine
                     </li>
+                    {installerData && installerData.spec.flannel && installerData.spec.flannel.version &&
+                    <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal">
+                      TCP ports 2379, 2380, 6443, 10250, 10251 and 10252 open between cluster nodes
+                    </li>}
+                    {installerData && installerData.spec.flannel && installerData.spec.flannel.version &&
+                    <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal">
+                      UDP port 8472 open between cluster nodes
+                    </li>}
+                    {installerData && installerData.spec.weave && installerData.spec.weave.version &&
+                    <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal">
+                      TCP ports 2379, 2380, 6443, 6783, 10250, 10251 and 10252 open between cluster nodes
+                    </li>}
+                    {installerData && installerData.spec.weave && installerData.spec.weave.version &&
+                    <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal">
+                      UDP ports 6783 and 6784 open between cluster nodes
+                    </li>}
+                    {installerData && installerData.spec.antrea && installerData.spec.antrea.version &&
+                    <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal">
+                      {installerData.spec.antrea.isEncryptionDisabled ?
+                      <span>
+                        TCP ports 2379, 2380, 6443, 8091, 10250, 10251 and 10252 open between cluster nodes
+                      </span> :
+                      <span>
+                        TCP ports 2379, 2380, 6443, 8091, 10250, 10251, 10252 and 51820 open between cluster nodes
+                      </span>}
+                    </li>}
+                    {installerData && installerData.spec.antrea && installerData.spec.antrea.version &&
+                    <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal">
+                      UDP port 6081 open between cluster nodes
+                    </li>}
                   </div>
                 </div>
               </div>

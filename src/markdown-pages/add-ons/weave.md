@@ -22,3 +22,21 @@ spec:
 ```
 
 flags-table
+
+## System Requirements
+
+The following additional ports must be open between nodes for multi-node clusters:
+
+#### Primary Nodes:
+
+| Protocol | Direction | Port Range | Purpose                 | Used By |
+| -------  | --------- | ---------- | ----------------------- | ------- |
+| TCP      | Inbound   | 6783       | Weave Net control       | All     |
+| UDP      | Inbound   | 6783-6784  | Weave Net data          | All     |
+
+#### Secondary Nodes:
+
+| Protocol | Direction | Port Range | Purpose                 | Used By |
+| -------  | --------- | ---------- | ----------------------- | ------- |
+| TCP      | Inbound   | 6783       | Weave Net control       | All     |
+| UDP      | Inbound   | 6783-6784  | Weave Net data          | All     |

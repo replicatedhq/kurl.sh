@@ -43,7 +43,7 @@ export default function Template({
           <h1>{frontmatter.title} {frontmatter.isAlpha && <span className="prerelease-tag alpha">alpha</span>} {frontmatter.isBeta && <span className="prerelease-tag beta">beta</span>}</h1>
           <div
             className="docs-content"
-            dangerouslySetInnerHTML={{ __html: html.replace("flags-table", buildHtmlTableFromJson(frontmatter.addOn)) }}
+            dangerouslySetInnerHTML={{ __html: html && html.replace("flags-table", buildHtmlTableFromJson(frontmatter.addOn)) }}
           />
         </div>
       </div>
