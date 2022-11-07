@@ -30,6 +30,7 @@ spec:
     shouldDisableRestartFailedEnvoyPods: false
     envoyPodsNotReadyDuration: 5m
     minioShouldDisableManagement: false
+    shouldDisableKotsadmManagement: false
 ```
 
 flags-table
@@ -122,6 +123,14 @@ Then, EKCO migrates data from the original MinIO deployment to the StatefulSet b
 After the StatefulSet is running, EKCO ensures that replicas are evenly distributed across nodes.
 
 To disable EKCO's management of data in MinIO, set `ekco.minioShouldDisableManagement` to `true`.
+
+### Kotsadm
+
+When you install kURL with `ekco.shouldDisableKotsadmManagement` set to `false`, the EKCO operator ensures that necessary KOTS components run with multiple replicas for high availability.
+
+For Kotsadm v1.89.0+, the EKCO operator enables a high availability three-replica StatefulSet for the database when at least three nodes are healthy and the OpenEBS localpv storage class is available.
+
+To disable EKCO's management of Kotsadm components, set `ekco.shouldDisableKotsadmManagement` to `true`.
 
 ### TLS Certificate Rotation
 
