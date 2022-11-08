@@ -360,11 +360,6 @@
       "flag": "disableS3",
       "description": "Migrate application archives and support bundles from S3 and use a local volume in the kotsadm statefulset instead. Also changes nfs and hostpath snapshots from using minio to using the local-volume-provider plugin. The migration process is irreversible and will replace the kotsadm deployment with a statefulset. While this reduces KOTS's dependency on an object store for the application archives and support bundles, an object store is still required to deploy KOTS. Defaults to 'false.'",
       "type": "boolean"
-    },
-    {
-      "flag": "kotsadmShouldDisableManagement",
-      "description": "Prevent high availability (HA) Kotsadm from being enabled and do not manage existing HA Kotsadm components",
-      "type": "boolean"
     }
   ],
   "firewalld": [
@@ -612,6 +607,11 @@
     {
       "flag": "minioShouldDisableManagement",
       "description": "Prevent high availability (HA) MinIO from being enabled and do not manage existing HA MinIO pods",
+      "type": "boolean"
+    },
+    {
+      "flag": "kotsadmShouldDisableManagement",
+      "description": "Prevent high availability (HA) Kotsadm from being enabled and do not manage existing HA Kotsadm components",
       "type": "boolean"
     }
   ],
