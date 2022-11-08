@@ -362,7 +362,7 @@
       "type": "boolean"
     },
 		{
-			"flag": "shouldDisableKotsadmManagement",
+			"flag": "kotsadmShouldDisableManagement",
 			"description": "Prevent high availability (HA) Kotsadm from being enabled and do not manage existing HA Kotsadm components",
 			"type": "boolean"
 		}

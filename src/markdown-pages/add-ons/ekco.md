@@ -30,7 +30,7 @@ spec:
     shouldDisableRestartFailedEnvoyPods: false
     envoyPodsNotReadyDuration: 5m
     minioShouldDisableManagement: false
-    shouldDisableKotsadmManagement: false
+    kotsadmShouldDisableManagement: false
 ```
 
 flags-table
@@ -126,11 +126,11 @@ To disable EKCO's management of data in MinIO, set `ekco.minioShouldDisableManag
 
 ### Kotsadm
 
-When you install kURL with `ekco.shouldDisableKotsadmManagement` set to `false`, the EKCO operator ensures that necessary KOTS components run with multiple replicas for high availability.
+When you install kURL with `ekco.kotsadmShouldDisableManagement` set to `false`, the EKCO operator ensures that necessary KOTS components run with multiple replicas for high availability.
 
 For Kotsadm v1.89.0+, the EKCO operator enables a high availability three-replica StatefulSet for the database when at least three nodes are healthy and the OpenEBS localpv storage class is available.
 
-To disable EKCO's management of Kotsadm components, set `ekco.shouldDisableKotsadmManagement` to `true`.
+To disable EKCO's management of Kotsadm components, set `ekco.kotsadmShouldDisableManagement` to `true`.
 
 ### TLS Certificate Rotation
 
