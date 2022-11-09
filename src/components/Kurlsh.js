@@ -841,7 +841,8 @@ class Kurlsh extends React.Component {
 
   postToKurlInstaller = async (yaml) => {
     this.setState({ installerErrMsg: "" })
-    const url = `${process.env.KURL_INSTALLER_URL}`
+    let url = new URL(`${process.env.KURL_INSTALLER_URL}`);
+    url.searchParams.append("austere", "true");
     try {
       const response = await fetch(url, {
         method: "POST",
