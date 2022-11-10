@@ -530,16 +530,6 @@
       "flag": "localPVStorageClassName",
       "description": "StorageClass name for local PV provisioner (Name it “default” to make it the cluster’s default provisioner).",
       "type": "string"
-    },
-    {
-      "flag": "isCstorEnabled",
-      "description": "Turn on cStor storage provisioning. cStor relies on block devices and supports replicating data between nodes.",
-      "type": "boolean"
-    },
-    {
-      "flag": "cstorStorageClassName",
-      "description": "The StorageClass name for cstor provisioner (Name it “default” to make it the cluster’s default provisioner).",
-      "type": "string"
     }
   ],
   "ekco": [
