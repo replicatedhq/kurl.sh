@@ -36,7 +36,7 @@ For Rook versions earlier than 1.4.3, block storage is recommended in production
 You can enable and disable block storage for Rook with the `isBlockStorageEnabled` field in the kURL spec.
 By default, the `isBlockStorageEnabled` field is set to `true` for Rook versions 1.4.3 and later.
 
-When the `isBlockStorageEnabled` field is set to `true`, Rook starts an OSD for each discovered disk.
+When the `isBlockStorageEnabled` field is set to `true`, or when using Rook versions 1.4.3 and later, Rook starts an OSD for each discovered disk.
 This can result in multiple OSDs running on a single node.
 Rook ignores block devices that already have a filesystem on them.
 
