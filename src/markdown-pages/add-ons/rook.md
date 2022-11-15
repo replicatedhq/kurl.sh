@@ -54,7 +54,8 @@ In the example above, the `isBlockStorageEnabled` field is set to `true`.
 Additionally, `blockDeviceFilter` instructs Rook to use only block devices that match the specified regex.
 For more information about the available options, see [Advanced Install Options](#advanced-install-options) above.
 
-The Rook add-on waits for a disk before continuing with installation. If you attached a disk to your node, but the installer is waiting at the Rook add-on installation step, see [OSD pods are not created on my devices](https://rook.io/docs/rook/v1.0/ceph-common-issues.html#osd-pods-are-not-created-on-my-devices) in the Rook documentation for troubleshooting information.
+The Rook add-on waits for a disk before continuing with installation.
+If you attached a disk to your node, but the installer is waiting at the Rook add-on installation step, see [OSD pods are not created on my devices](https://rook.io/docs/rook/v1.0/ceph-common-issues.html#osd-pods-are-not-created-on-my-devices) in the Rook documentation for troubleshooting information.
 
 ## Filesystem Storage
 
