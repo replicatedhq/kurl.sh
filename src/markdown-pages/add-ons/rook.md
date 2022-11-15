@@ -60,7 +60,8 @@ If you attached a disk to your node, but the installer is waiting at the Rook ad
 ## Filesystem Storage
 
 By default, for Rook versions earlier than 1.4.3, the cluster uses the filesystem for Rook storage.
-However, block storage is recommended for Rook in production clusters. For more information, see [Block Storage](#block-storage) above.
+However, block storage is recommended for Rook in production clusters.
+For more information, see [Block Storage](#block-storage) above.
 
 When using the filesystem for storage, each node in the cluster has a single OSD backed by a directory in `/opt/replicated/rook`.
 Nodes with a Ceph Monitor also use `/var/lib/rook`.
