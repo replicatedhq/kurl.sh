@@ -69,7 +69,8 @@ Nodes with a Ceph Monitor also use `/var/lib/rook`.
 At minimum, 10GB of disk space must be available to `/var/lib/rook` for the Ceph Monitors and other configs.
 We recommend a separate partition to prevent a disruption in Ceph's operation as a result of `/var` or the root partition running out of space.
 
-**Note**: All disks used for storage in the cluster should be of similar size. A cluster with large discrepancies in disk size may fail to replicate data to all available nodes.
+**Note**: All disks used for storage in the cluster should be of similar size.
+A cluster with large discrepancies in disk size may fail to replicate data to all available nodes.
 
 ## Shared Filesystem
 
