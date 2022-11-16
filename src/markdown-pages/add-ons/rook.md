@@ -10,12 +10,6 @@ addOn: "rook"
 The [Rook](https://rook.io/) add-on creates and manages a Ceph cluster along with a storage class for provisioning PVCs.
 It also runs the Ceph RGW object store to provide an S3-compatible store in the cluster.
 
-By default the cluster uses the filesystem for storage. Each node in the cluster will have a single OSD backed by a directory in `/opt/replicated/rook`. Nodes with a Ceph Monitor also utilize `/var/lib/rook`.
-
-**Note**: At minimum, 10GB of disk space should be available to `/var/lib/rook` for the Ceph Monitors and other configs. We recommend a separate partition to prevent a disruption in Ceph's operation as a result of `/var` or the root partition running out of space.
-
-**Note**: All disks used for storage in the cluster should be of similar size. A cluster with large discrepancies in disk size may fail to replicate data to all available nodes.
-
 The [EKCO](/docs/add-ons/ekco) add-on is recommended when installing Rook. EKCO is responsible for performing various operations to maintain the health of a Ceph cluster.
 
 ## Advanced Install Options
@@ -36,11 +30,16 @@ flags-table
 
 ## Block Storage
 
-For production clusters, Rook should be configured to use block devices rather than the filesystem.
-Enabling block storage is required with version 1.4.3+. Therefore, the `isBlockStorageEnabled` option will always be set to true when using version 1.4.3+.
-The following spec enables block storage for the Rook add-on and automatically uses disks matching the regex `/sd[b-z]/`.
-Rook will start an OSD for each discovered disk, which could result in multiple OSDs running on a single node.
-Rook will ignore block devices that already have a filesystem on them.
+For Rook versions 1.4.3 and later, block storage is required.
+For Rook versions earlier than 1.4.3, block storage is recommended in production clusters.
+
+You can enable and disable block storage for Rook versions earlier than 1.4.3 with the `isBlockStorageEnabled` field in the kURL spec.
+
+When the `isBlockStorageEnabled` field is set to `true`, or when using Rook versions 1.4.3 and later, Rook starts an OSD for each discovered disk.
+This can result in multiple OSDs running on a single node.
+Rook ignores block devices that already have a filesystem on them.
+
+The following provides an example of a kURL spec with block storage enabled for Rook:
 
 ```yaml
 spec:
@@ -50,8 +49,27 @@ spec:
     blockDeviceFilter: sd[b-z]
 ```
 
-The Rook add-on will wait for a disk before continuing.
-If you have attached a disk to your node but the installer is still waiting at the Rook add-on installation step, refer to the [troubleshooting guide](https://rook.io/docs/rook/v1.0/ceph-common-issues.html#osd-pods-are-not-created-on-my-devices) for help with diagnosing and fixing common issues.
+In the example above, the `isBlockStorageEnabled` field is set to `true`.
+Additionally, `blockDeviceFilter` instructs Rook to use only block devices that match the specified regex.
+For more information about the available options, see [Advanced Install Options](#advanced-install-options) above.
+
+The Rook add-on waits for a disk before continuing with installation.
+If you attached a disk to your node, but the installer is waiting at the Rook add-on installation step, see [OSD pods are not created on my devices](https://rook.io/docs/rook/v1.0/ceph-common-issues.html#osd-pods-are-not-created-on-my-devices) in the Rook documentation for troubleshooting information.
+
+## Filesystem Storage
+
+By default, for Rook versions earlier than 1.4.3, the cluster uses the filesystem for Rook storage.
+However, block storage is recommended for Rook in production clusters.
+For more information, see [Block Storage](#block-storage) above.
+
+When using the filesystem for storage, each node in the cluster has a single OSD backed by a directory in `/opt/replicated/rook`.
+Nodes with a Ceph Monitor also use `/var/lib/rook`.
+
+At minimum, 10GB of disk space must be available to `/var/lib/rook` for the Ceph Monitors and other configs.
+We recommend a separate partition to prevent a disruption in Ceph's operation as a result of `/var` or the root partition running out of space.
+
+**Note**: All disks used for storage in the cluster should be of similar size.
+A cluster with large discrepancies in disk size may fail to replicate data to all available nodes.
 
 ## Shared Filesystem
 

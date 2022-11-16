@@ -22,8 +22,9 @@ title: "System Requirements"
 
 * 4 AMD64 CPUs or equivalent per machine
 * 8 GB of RAM per machine
-* 40 GB of Disk Space per machine. 
-    * **Note**: When [Rook](/docs/add-ons/rook) is enabled, 10GB of the total 40GB should be available to `/var/lib/rook`
+* 40 GB of Disk Space per machine
+* The Rook add-on version 1.4.3 and later requires block storage on each node in the cluster.
+  For more information about how to enable block storage for Rook, see [Block Storage](/docs/add-ons/rook#block-storage) in _Rook Add-On_.
 * TCP ports 2379, 2380, 6443, 10250, 10251 and 10252 open between cluster nodes
     * **Note**: When [Flannel](/docs/add-ons/flannel) is enabled, UDP port 8472 open between cluster nodes
     * **Note**: When [Weave](/docs/add-ons/weave) is enabled, TCP port 6783 and UDP port 6783 and 6784 open between cluster nodes
@@ -38,7 +39,7 @@ For more information see [kURL Advanced Install Options](/docs/install-with-kurl
 ## Networking Requirements
 ### Firewall Openings for Online Installations
 
-The following domains need to be accessible from servers performing online kURL installs. 
+The following domains need to be accessible from servers performing online kURL installs.
 IP addresses for these services can be found in [replicatedhq/ips](https://github.com/replicatedhq/ips/blob/master/ip_addresses.json).
 
 | Host          | Description                                                                                                                                                                                                                                                                                      |
@@ -50,9 +51,9 @@ IP addresses for these services can be found in [replicatedhq/ips](https://githu
 No outbound internet access is required for airgapped installations.
 ### Host Firewall Rules
 
-The kURL install script will prompt to disable firewalld. 
+The kURL install script will prompt to disable firewalld.
 Note that firewall rules can affect communications between containers on the **same** machine, so it is recommended to disable these rules entirely for Kubernetes.
-Firewall rules can be added after or preserved during an install, but because installation parameters like pod and service CIDRs can vary based on local networking conditions, there is no general guidance available on default requirements. 
+Firewall rules can be added after or preserved during an install, but because installation parameters like pod and service CIDRs can vary based on local networking conditions, there is no general guidance available on default requirements.
 See [Advanced Options](/docs/install-with-kurl/advanced-options) for installer flags that can preserve these rules.
 
 The following ports must be open between nodes for multi-node clusters:
@@ -103,15 +104,15 @@ In addition to the networking requirements described in the previous section, op
 
 ### Control Plane HA
 
-To operate the Kubernetes control plane in HA mode, it is recommended to have a minimum of 3 primary nodes. 
-In the event that one of these nodes becomes unavailable, the remaining two will still be able to function with an etcd quorom. 
+To operate the Kubernetes control plane in HA mode, it is recommended to have a minimum of 3 primary nodes.
+In the event that one of these nodes becomes unavailable, the remaining two will still be able to function with an etcd quorom.
 As the cluster scales, dedicating these primary nodes to control-plane only workloads using the `noSchedule` taint should be considered.
 This will affect the number of nodes that need to be provisioned.
 
 ### Worker Node HA
 
 The number of required secondary nodes is primarily a function of the desired application availability and throughput.
-By default, primary nodes in kURL also run application workloads. 
+By default, primary nodes in kURL also run application workloads.
 At least 2 nodes should be used for data durability for applications that use persistent storage (i.e. databases) deployed in-cluster.
 
 ### Load Balancers
@@ -125,7 +126,7 @@ graph TB
     A -->|Port 6443| D[Primary Node]
 ```
 
-Highly available cluster setups that do not leverage EKCO's [internal load balancing capability](/docs/add-ons/ekco#internal-load-balancer) require a load balancer to route requests to healthy nodes. 
+Highly available cluster setups that do not leverage EKCO's [internal load balancing capability](/docs/add-ons/ekco#internal-load-balancer) require a load balancer to route requests to healthy nodes.
 The following requirements need to be met for load balancers used on the control plane (primary nodes):
 1. The load balancer must be able to route TCP traffic, as opposed to Layer 7/HTTP traffic.
 1. The load balancer must support hairpinning, i.e. nodes referring to eachother through the load balancer IP.
@@ -134,7 +135,7 @@ The following requirements need to be met for load balancers used on the control
 1. The load balancer should target each primary node on port 6443.
 1. In accordance with the above firewall rules, port 6443 should be open on each primary node.
 
-The IP or DNS name and port of the load balancer should be provided as an argument to kURL during the HA setup. 
+The IP or DNS name and port of the load balancer should be provided as an argument to kURL during the HA setup.
 See [Highly Available K8s](/docs/install-with-kurl/#highly-available-k8s-ha) for more install information.
 
 For more information on configuring load balancers in the public cloud for kURL installs see [Public Cloud Load Balancing](/docs/install-with-kurl/public-cloud-load-balancing).
