@@ -91,6 +91,14 @@ spec:
   storageClassName: rook-cephfs
 ```
 
+## System Requirements
+
+The following additional ports must be open between nodes for multi-node clusters:
+
+| Protocol | Direction | Port Range | Purpose                 | Used By |
+| -------  | --------- | ---------- | ----------------------- | ------- |
+| TCP      | Inbound   | 9090       | CSI RBD Plugin Metrics  | All     |
+
 ## Upgrades
 
 It is not possible to upgrade multiple minor versions of the Rook add-on at once.

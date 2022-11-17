@@ -246,6 +246,10 @@ cat install.sh | sudo bash -s airgap
                     <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal">
                       UDP port 6081 open between cluster nodes
                     </li>}
+                    {installerData && installerData.spec.rook && installerData.spec.rook.version &&
+                    <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal">
+                      TCP port 9090 open between cluster nodes
+                    </li>}
                   </div>
                 </div>
               </div>
