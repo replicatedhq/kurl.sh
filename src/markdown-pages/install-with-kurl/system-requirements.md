@@ -61,23 +61,25 @@ The following ports must be open between nodes for multi-node clusters:
 
 #### Primary Nodes:
 
-| Protocol | Direction | Port Range | Purpose                 | Used By |
-| -------  | --------- | ---------- | ----------------------- | ------- |
-| TCP      | Inbound   | 6443       | Kubernetes API server   | All     |
-| TCP      | Inbound   | 2379-2380  | etcd server client API  | Primary |
-| TCP      | Inbound   | 10250      | kubelet API             | Primary |
-| UDP      | Inbound   | 8472       | Flannel VXLAN           | All     |
-| TCP      | Inbound   | 6783       | Weave Net control       | All     |
-| UDP      | Inbound   | 6783-6784  | Weave Net data          | All     |
+| Protocol | Direction | Port Range | Purpose                      | Used By |
+| -------  | --------- | ---------- | ---------------------------- | ------- |
+| TCP      | Inbound   | 6443       | Kubernetes API server        | All     |
+| TCP      | Inbound   | 2379-2380  | etcd server client API       | Primary |
+| TCP      | Inbound   | 10250      | kubelet API                  | Primary |
+| UDP      | Inbound   | 8472       | Flannel VXLAN                | All     |
+| TCP      | Inbound   | 6783       | Weave Net control            | All     |
+| UDP      | Inbound   | 6783-6784  | Weave Net data               | All     |
+| TCP      | Inbound   | 9090       | Rook CSI RBD Plugin Metrics  | All     |
 
 #### Secondary Nodes:
 
-| Protocol | Direction | Port Range | Purpose                 | Used By |
-| -------  | --------- | ---------- | ----------------------- | ------- |
-| TCP      | Inbound   | 10250      | kubelet API             | Primary |
-| UDP      | Inbound   | 8472       | Flannel VXLAN           | All     |
-| TCP      | Inbound   | 6783       | Weave Net control       | All     |
-| UDP      | Inbound   | 6783-6784  | Weave Net data          | All     |
+| Protocol | Direction | Port Range | Purpose                      | Used By |
+| -------  | --------- | ---------- | ---------------------------- | ------- |
+| TCP      | Inbound   | 10250      | kubelet API                  | Primary |
+| UDP      | Inbound   | 8472       | Flannel VXLAN                | All     |
+| TCP      | Inbound   | 6783       | Weave Net control            | All     |
+| UDP      | Inbound   | 6783-6784  | Weave Net data               | All     |
+| TCP      | Inbound   | 9090       | Rook CSI RBD Plugin Metrics  | All     |
 
 These ports are required for [Kubernetes](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#control-plane-node-s) and [Weave Net](https://www.weave.works/docs/net/latest/faq/#ports).
 
@@ -95,7 +97,6 @@ In addition to the ports listed above that must be open between nodes, the follo
 | 9100 | [prometheus](/docs/add-ons/prometheus) node-exporter metrics server |
 | 10257 | kube-controller-manager health server |
 | 10259 | kube-scheduler health server |
-| 9090 | [rook-ceph](/docs/add-ons/rook) CSI driver (if rook add-on is installed) |
 
 
 ## High Availability Requirements
