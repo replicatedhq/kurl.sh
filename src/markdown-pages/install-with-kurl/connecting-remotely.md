@@ -16,7 +16,7 @@ sudo bash tasks.sh generate-admin-user
 ```
 
 This will use the load balancer or public address for the Kubernetes API server and generate a new user with full admin privileges, and save the configuration into a file `$USER.conf`.
-You can then copy to another machine and use with:
+You can then copy to another machine (i.e. `cat $USER.conf`) and use with:
 
 ```
 kubectl --kubeconfig=$USER.conf <command>
