@@ -29,13 +29,28 @@ title: "System Requirements"
     * **Note**: When [Flannel](/docs/add-ons/flannel) is enabled, UDP port 8472 open between cluster nodes
     * **Note**: When [Weave](/docs/add-ons/weave) is enabled, TCP port 6783 and UDP port 6783 and 6784 open between cluster nodes
 
-## kURL Dependencies Directory
+## Directory Disk Space Requirements
 
-kURL will install additional dependencies in the directory /var/lib/kurl/.
-These dependencies include utilities as well as system packages and container images.
-This directory must be writeable by the kURL installer and must have sufficient disk space (5 GB).
-This directory can be overridden with the flag `kurl-install-directory`.
-For more information see [kURL Advanced Install Options](/docs/install-with-kurl/advanced-options).
+kURL installs additional dependencies in the directory /var/lib/kurl/, including utilities, system packages, and container images.
+
+The following table lists information about the kURL directory requirements and other directories used by the kURL installer, depending on the options that you choose.
+
+|      Location        | Minimum Disk Space |                    Description                     |
+| -------------------  | ------------------ | -------------------------------------------------- |
+| /opt/replicated/rook | 10GiB and less than 80% full | See [Host Preflights](install-with-kurl/host-preflights) |
+| /var/lib/containerd/ |                    | See [Containerd Add-on](/docs/add-ons/containerd). |       
+| /var/lib/cni/        |                    |                                                    |
+| /var/lib/docker/     |  30 GiB total space and less than 80% full | See [Docker Add-on](/docs/add-ons/docker) and [Host Preflights](install-with-kurl/host-preflights). |
+| /var/lib/dockershim/ |                    |                                                    |
+| /var/lib/etcd/       | 8 GB ultra disk    | This minimum applies when using Azure D4ds_v4 with the ultra disk mounted at /var/lib/etcd provisioned with 2400 IOPS and 128 MB/s throughput. See [CLoud DIsk Performance](/docs/install-with-kurl/system-requirements#cloud-disk-performance). |                   |                                                    |
+| /var/lib/kurl/       | 5 GB               |  This directory must be writeable by the kURL installer and must have sufficient disk space. This directory can be overridden with the flag `kurl-install-directory`.
+See [kURL Advanced Install Options](/docs/install-with-kurl/advanced-options). |
+| /var/lib/kubelet/    | 30 GiB and less than 80% full| See [Host Preflights](install-with-kurl/host-preflights). |
+| /var/lib/longhorn/   |                     | This directory should have enough space to hold a complete copy of every PersistentVolumeClaim that will be in the cluster. See [Longhorn Add-on](/docs/add-ons/longhorn). For host preflights, it should have 50GiB total space and be less than 80% full. See [Host Preflights](install-with-kurl/host-preflights). |
+| /var/openebs/        |                     | See [OpenEBS Add-on](/docs/add-ons/openebs). |
+| /var/lib/rook/       | 40 GB               |                                                   |
+| /var/lib/weave/      |                     |                                                   |
+
 ## Networking Requirements
 ### Firewall Openings for Online Installations
 
