@@ -36,7 +36,7 @@ The following table lists information about the core directory requirements.
 | Name        |      Location        |                    Requirements                    |
 | ------------| -------------------  | -------------------------------------------------- |
 | etcd        | /var/lib/etcd/       | This directory has a high I/O requirement. See [Cloud Disk Performance](/docs/install-with-kurl/system-requirements#cloud-disk-performance). |
-| kURL        | /var/lib/kurl/       | <p>5 GB</p><p>kURL installs additional dependencies in the directory /var/lib/kurl/, including utilities, system packages, and container images.</p><p>This directory must be writeable by the kURL installer and must have sufficient disk space.</p><p>This directory can be overridden with the flag `kurl-install-directory`. See [kURL Advanced Install Options](/docs/install-with-kurl/advanced-options).</p> |
+| kURL        | /var/lib/kurl/       | <p>5 GB</p><p>kURL installs additional dependencies in the directory /var/lib/kurl/, including utilities, system packages, and container images. This directory must be writeable by the kURL installer and must have sufficient disk space.</p><p>This directory can be overridden with the flag `kurl-install-directory`. See [kURL Advanced Install Options](/docs/install-with-kurl/advanced-options).</p> |
 | kubelet     | /var/lib/kubelet/    | 30 GiB and less than 80% full. See [Host Preflights](/docs/install-with-kurl/host-preflights). |
 
 ## Add-on Directory Disk Space Requirements
