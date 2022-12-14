@@ -46,8 +46,7 @@ The following table lists the add-on directory locations and disk space requirem
 |     Name      |      Location        |          Requirements          |
 | --------------| -------------------  | ------------------------------|
 | Containerd    | /var/lib/containerd/ | N/A                           |       
-| Docker        | /var/lib/docker/     |  30 GB and less than 80% full |
-| Dockershim    | /var/lib/dockershim/ | N/A                           |
+| Docker        | <p>/var/lib/docker/</p><p>/var/lib/dockershim/</p> | <p>Docker: 30 GB and less than 80% full</p><p>Dockershim: N/A</p><p>See [Docker Add-on](/docs/add-ons/docker). |
 | Longhorn      | /var/lib/longhorn/   | <p>This directory should have enough space to hold a complete copy of every PersistentVolumeClaim that will be in the cluster. See [Longhorn Add-on](/docs/add-ons/longhorn).</p><p>For host preflights, it should have 50GiB total space and be less than 80% full. See [Host Preflights](/docs/install-with-kurl/host-preflights).</p> |
 | OpenEBS       | /var/openebs/        |  N/A                          |
 | Rook          | <p>Versions earlier than 1.0.4-x: /opt/replicated/rook</p><p>Versions 1.0.4-x and later: /var/lib/rook/</p> | <p>/opt/replicated/rook requires a minimum of 10GB and less than 80% full.</p><p>/var/lib/rook/ requires a 10 GB block device.</p><p>See [Rook Add-on](/docs/add-ons/rook).</p> |
