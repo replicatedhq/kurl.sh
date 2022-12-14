@@ -39,8 +39,7 @@ The following checks run on all nodes during installations and upgrades:
 * Firewalld is disabled.
 * SELinux is disabled.
 * At least one nameserver is accessible on a non-loopback address.
-* Minimum disk space for the /var/lib/kubelet directory. For information about disk space requirements, see [Core Directory Disk Space Requirements](/docs/install-with-kurl/system-requirements#core-directory-disk-space-requirements).
- (Warns when less than 10GiB available or when it is more than 60% full.)
+* Minimum disk space for the /var/lib/kubelet directory. (Warns when less than 10GiB available or when it is more than 60% full.) For information about disk space requirements, see [Core Directory Disk Space Requirements](/docs/install-with-kurl/system-requirements#core-directory-disk-space-requirements).
 * The system clock is synchronized and the time zone is set to UTC.
 
 #### Installations Only
