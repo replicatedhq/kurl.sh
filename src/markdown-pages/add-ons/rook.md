@@ -31,7 +31,7 @@ flags-table
 ## Block Storage
 
 For Rook versions 1.4.3 and later, block storage is required.
-For Rook versions earlier than 1.4.3, block storage is recommended in production clusters.
+For Rook versions earlier than 1.4.3, block storage is recommended in production clusters. For disk requirements, see [Add-on Directory Disk Space Requirements](/docs/install-with-kurl/system-requirements/#add-on-directory-disk-space-requirements).
 
 You can enable and disable block storage for Rook versions earlier than 1.4.3 with the `isBlockStorageEnabled` field in the kURL spec.
 
@@ -65,7 +65,8 @@ For more information, see [Block Storage](#block-storage) above.
 When using the filesystem for storage, each node in the cluster has a single OSD backed by a directory in `/opt/replicated/rook`.
 Nodes with a Ceph Monitor also use `/var/lib/rook`.
 
-At minimum, 10GB of disk space must be available to `/var/lib/rook` for the Ceph Monitors and other configs.
+Sufficient disk space must be available to `/var/lib/rook` for the Ceph Monitors and other configs. For disk requirements, see [Add-on Directory Disk Space Requirements](/docs/install-with-kurl/system-requirements/#add-on-directory-disk-space-requirements). 
+
 We recommend a separate partition to prevent a disruption in Ceph's operation as a result of `/var` or the root partition running out of space.
 
 **Note**: All disks used for storage in the cluster should be of similar size.

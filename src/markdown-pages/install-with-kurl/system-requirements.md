@@ -36,21 +36,21 @@ The following table lists information about the core directory requirements.
 | Name        |      Location        |                    Requirements                    |
 | ------------| -------------------  | -------------------------------------------------- |
 | etcd        | /var/lib/etcd/       | This directory has a high I/O requirement. See [Cloud Disk Performance](/docs/install-with-kurl/system-requirements#cloud-disk-performance). |
-| kURL        | /var/lib/kurl/       | 5 GB. kURL installs additional dependencies in the directory /var/lib/kurl/, including utilities, system packages, and container images. This directory must be writeable by the kURL installer and must have sufficient disk space. This directory can be overridden with the flag `kurl-install-directory`. See [kURL Advanced Install Options](/docs/install-with-kurl/advanced-options). |
+| kURL        | /var/lib/kurl/       | 5 GB <p>kURL installs additional dependencies in the directory /var/lib/kurl/, including utilities, system packages, and container images. This directory must be writeable by the kURL installer and must have sufficient disk space. This directory can be overridden with the flag `kurl-install-directory`. See [kURL Advanced Install Options](/docs/install-with-kurl/advanced-options).</p> |
 | kubelet     | /var/lib/kubelet/    | 30 GiB and less than 80% full. See [Host Preflights](/docs/install-with-kurl/host-preflights). |
 
 ## Add-on Directory Disk Space Requirements
 
-The following table lists the add-on directory locations and disk space requirements, if applicable.
+The following table lists the add-on directory locations and disk space requirements, if applicable. For additional requirements, see the specific topic for the add-on.
 
 |     Name      |      Location        |          Requirements          |
 | --------------| -------------------  | ------------------------------|
 | Containerd    | /var/lib/containerd/ | N/A                           |       
 | Docker        | /var/lib/docker/     |  30 GB and less than 80% full |
 | Dockershim    | /var/lib/dockershim/ | N/A                           |
-| Longhorn      | /var/lib/longhorn/   | This directory should have enough space to hold a complete copy of every PersistentVolumeClaim that will be in the cluster. See [Longhorn Add-on](/docs/add-ons/longhorn). For host preflights, it should have 50GiB total space and be less than 80% full. See [Host Preflights](/docs/install-with-kurl/host-preflights). |
+| Longhorn      | /var/lib/longhorn/   | This directory should have enough space to hold a complete copy of every PersistentVolumeClaim that will be in the cluster. See [Longhorn Add-on](/docs/add-ons/longhorn). <p>For host preflights, it should have 50GiB total space and be less than 80% full. See [Host Preflights](/docs/install-with-kurl/host-preflights).</p> |
 | OpenEBS       | /var/openebs/        |  N/A                          |
-| Rook          | Versions earlier than 1.0.4-x and earlier: /opt/replicated/rook, version 1.0.4-x and later: /var/lib/rook/ | /opt/replicated/rook requires a minimum of 10GB and less than 80% full. /var/lib/rook/ requires a 10 GB block device. For more information, see [Rook Add-on](/docs/add-ons/rook). |
+| Rook          | Versions earlier than 1.0.4-x: /opt/replicated/rook. <p>Version 1.0.4-x and later: /var/lib/rook/</p> | /opt/replicated/rook requires a minimum of 10GB and less than 80% full. <p>/var/lib/rook/ requires a 10 GB block device.</p><p>For more information, see [Rook Add-on](/docs/add-ons/rook).</p> |
 |Weave          | /var/lib/cni/ and /var/lib/weave/ |  N/A             |
 
 ## Networking Requirements
