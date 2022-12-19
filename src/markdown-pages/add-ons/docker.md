@@ -12,6 +12,8 @@ See [containerd documentation](/docs/add-ons/containerd) for more information.
 
 Kubenetes 1.24.0+ does not support Dockershim, therefore you must use an alternative CRI, such as [containerd](/docs/add-ons/containerd), instead.
 
+CentOS, RHEL and Oracle Linux 8.x do not support Docker.
+
 For disk requirements, see [Add-on Directory Disk Space Requirements](/docs/install-with-kurl/system-requirements/#add-on-directory-disk-space-requirements).
 
 ## Advanced Install Options
