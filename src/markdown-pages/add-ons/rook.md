@@ -101,7 +101,7 @@ The following additional ports must be open between nodes for multi-node cluster
 
 ## Upgrades
 
-It is now possible to upgrade multiple minor versions of the Rook add-on at once.
+It is now possible to upgrade multiple minor versions of the Rook add-on at once, up to version 1.7.x.
 This upgrade process will step through minor versions one at a time.
 For example, upgrades from Rook 1.0.x to 1.5.x will step through Rook versions 1.1.9, 1.2.7, 1.3.11 and 1.4.9 before installing 1.5.x.
 Upgrades without internet access may prompt the end-user to download supplemental packages.
@@ -111,7 +111,7 @@ This task requires the argument `to-version=[major]-[minor]`.
 
 For example:
 ```bash
-curl https://k8s.kurl.sh/latest/tasks.sh | sudo bash -s rook-upgrade to-version=1.10
+curl https://k8s.kurl.sh/latest/tasks.sh | sudo bash -s rook-upgrade to-version=1.7
 ```
 
 Rook upgrades from 1.0.x migrate data off of any hostpath-based OSDs in favor of block device-based OSDs.
