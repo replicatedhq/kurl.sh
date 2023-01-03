@@ -104,15 +104,21 @@ The following additional ports must be open between nodes for multi-node cluster
 
 ## Upgrades
 
-It is not possible to upgrade multiple minor versions of the Rook add-on at once.
-Individual upgrades from one version to the next are required for upgrading multiple minor versions.
-For example, to upgrade from `1.4.3` to `1.6.11`, you must first install `1.5.10`, `1.5.11` or `1.5.12`.
+It is now possible to upgrade multiple minor versions of the Rook add-on at once, up to version 1.7.x.
+This upgrade process will step through minor versions one at a time.
+For example, upgrades from Rook 1.0.x to 1.5.x will step through Rook versions 1.1.9, 1.2.7, 1.3.11 and 1.4.9 before installing 1.5.x.
+Upgrades without internet access may prompt the end-user to download supplemental packages.
 
-If the currently installed Rook version is `1.0.x`, upgrades to both `1.4.9` and `1.5.x` are supported through the main installer.
-Alternatively, the upgrade from `1.0.x` to `1.4.9` can be triggered independently with `curl https://k8s.kurl.sh/latest/tasks.sh | sudo bash -s rook_10_to_14`.
-This upgrade migrates data off of any hostpath-based OSDs in favor of block device-based OSDs and upgrades through Rook `1.1.9`, `1.2.7` and `1.3.11` before installing `1.4.9` (and then optionally `1.5.x`).
+Alternatively, a Rook upgrade can be triggered independently using the `rook-upgrade` task.
+This task requires the argument `to-version=[major]-[minor]`.
+
+For example:
+```bash
+curl https://k8s.kurl.sh/latest/tasks.sh | sudo bash -s rook-upgrade to-version=1.7
+```
+
+Rook upgrades from 1.0.x migrate data off of any hostpath-based OSDs in favor of block device-based OSDs.
 The upstream Rook project introduced a requirement for block storage in versions 1.3.x and later.
-In instances without internet access, this requires supplying an additional file when prompted.
 
 ## Monitor Rook Ceph
 
