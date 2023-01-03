@@ -23,7 +23,7 @@ title: "System Requirements"
 * 4 AMD64 CPUs or equivalent per machine
 * 8 GB of RAM per machine
 * 40 GB of Disk Space per machine
-* The Rook add-on version 1.4.3 and later requires block storage on each node in the cluster.
+* The Rook add-on version 1.4.3 and later requires a dedicated block device on each node in the cluster.
   For more information about how to enable block storage for Rook, see [Block Storage](/docs/add-ons/rook#block-storage) in _Rook Add-On_.
 * TCP ports 2379, 2380, 6443, 10250, 10251 and 10252 open between cluster nodes
     * **Note**: When [Flannel](/docs/add-ons/flannel) is enabled, UDP port 8472 open between cluster nodes

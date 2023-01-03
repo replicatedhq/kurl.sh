@@ -30,8 +30,10 @@ flags-table
 
 ## Block Storage
 
-For Rook versions 1.4.3 and later, block storage is required.
-For Rook versions earlier than 1.4.3, block storage is recommended in production clusters. For disk requirements, see [Add-on Directory Disk Space Requirements](/docs/install-with-kurl/system-requirements/#add-on-directory-disk-space-requirements).
+Rook versions 1.4.3 and later require a dedicated block device attached to each node in the cluster.
+To meet this block storage requirement, you must add an unformatted disk that is used only for Rook to each node.
+For Rook versions earlier than 1.4.3, a dedicated block device is recommended in production clusters.
+For disk requirements, see [Add-on Directory Disk Space Requirements](/docs/install-with-kurl/system-requirements/#add-on-directory-disk-space-requirements).
 
 You can enable and disable block storage for Rook versions earlier than 1.4.3 with the `isBlockStorageEnabled` field in the kURL spec.
 
@@ -53,7 +55,7 @@ In the example above, the `isBlockStorageEnabled` field is set to `true`.
 Additionally, `blockDeviceFilter` instructs Rook to use only block devices that match the specified regex.
 For more information about the available options, see [Advanced Install Options](#advanced-install-options) above.
 
-The Rook add-on waits for a disk before continuing with installation.
+The Rook add-on waits for the dedicated disk that you attached to your node before continuing with installation.
 If you attached a disk to your node, but the installer is waiting at the Rook add-on installation step, see [OSD pods are not created on my devices](https://rook.io/docs/rook/v1.0/ceph-common-issues.html#osd-pods-are-not-created-on-my-devices) in the Rook documentation for troubleshooting information.
 
 ## Filesystem Storage
