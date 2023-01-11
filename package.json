@@ -29,7 +29,7 @@
     "gatsby-remark-autolink-headers": "^2.11.0",
     "gatsby-remark-mermaid": "^2.1.0",
     "gatsby-source-filesystem": "^2.1.26",
-    "gatsby-transformer-remark": "^2.16.0",
+    "gatsby-transformer-remark": "^5.25.1",
     "json2yaml": "^1.1.0",
     "lodash": "^4.17.19",
     "monaco-editor": "^0.18.1",
