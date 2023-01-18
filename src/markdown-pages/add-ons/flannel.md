@@ -95,7 +95,7 @@ Please run the following command on each of the listed secondary nodes:
 <secondary node 2>
 <secondary node 3>
 
-	curl -fsSL https://kurl.sh/version/<version>/<installer>/tasks.sh | | sudo bash -s weave-to-flannel-secondary
+	curl -fsSL https://kurl.sh/version/<version>/<installer>/tasks.sh | sudo bash -s weave-to-flannel-secondary
 
 Once this has been run on all nodes, press enter to continue.
 ```
