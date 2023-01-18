@@ -49,8 +49,55 @@ This can be overridden using the `podCIDR` to specify a specific address space, 
 
 ## Limitations
 
-* Migrations from Weave CNI are not supported
+* Migrations from Weave CNI are only supported with the Containerd CRI runtime
 * Migrations from Antrea CNI are not supported
 * Network Policies are not supported
 * IPv6 and dual stack networks are not supported
 * Encryption is not supported
+
+## Migration from Weave
+
+Migrations from Weave to Flannel are only supported with the Containerd CRI runtime.
+The migration process will result in whole-cluster downtime as Weave must be removed before Flannel can be installed.
+Every pod in the cluster is also deleted and then recreated in order to receive new IP addresses allocated by Flannel.
+
+The migration from Weave to Flannel is performed by rerunning the installer with Flannel v0.20.2+ as the configured CNI.
+The user will be presented with a prompt to confirm the migration:
+
+```bash
+The migration from Weave to Flannel will require whole-cluster downtime.
+Would you like to continue? (Y/n)
+```
+
+If there are additional nodes in the cluster, the user will be prompted to run a command on each of them.
+
+For additional primary nodes, this will look something like the following:
+
+```bash
+Moving primary nodes from Weave to Flannel requires removing certain weave files and restarting kubelet.
+Please run the following command on each of the listed primary nodes:
+
+<additional primary node 1>
+<additional primary node 2>
+
+	curl -fsSL https://kurl.sh/version/<version>/<installer>/tasks.sh | sudo bash -s weave-to-flannel-primary cert-key=<generated>
+
+Once this has been run on all nodes, press enter to continue.
+```
+
+And for secondary nodes:
+
+```bash
+Moving from Weave to Flannel requires removing certain weave files and restarting kubelet.
+Please run the following command on each of the listed secondary nodes:
+
+<secondary node 1>
+<secondary node 2>
+<secondary node 3>
+
+	curl -fsSL https://kurl.sh/version/<version>/<installer>/tasks.sh | | sudo bash -s weave-to-flannel-secondary
+
+Once this has been run on all nodes, press enter to continue.
+```
+
+After these scripts have been run, the migration will take several more minutes to recreate the pods in the cluster.
