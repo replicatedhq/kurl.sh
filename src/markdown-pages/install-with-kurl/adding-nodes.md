@@ -21,7 +21,7 @@ Be aware that those commands to add new secondary nodes last 24 hours, and comma
 to get new commands, run `tasks.sh join_token` with the relevant parameters (`airgap` and `ha`) on a primary node such as the following examples.
 
 - **For single-primary online installation:** run `curl -sSL https://kurl.sh/latest/tasks.sh | sudo bash -s join_token`
-- **For instance, on an airgapped HA installation:** run `cat ./tasks.sh | sudo bash -s join_token ha airgap`
+- **For airgapped HA installation:** run `cat ./tasks.sh | sudo bash -s join_token ha airgap`
 
 ### Standard Installations
 The install script will print the command that can be run on **secondary** nodes to join them to your new cluster.
