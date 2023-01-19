@@ -49,7 +49,7 @@ This can be overridden using the `podCIDR` to specify a specific address space, 
 
 ## Limitations
 
-* Migrations from Weave CNI are only supported with the Containerd CRI runtime
+* Migrations from Weave CNI are supported only with the Containerd CRI runtime
 * Migrations from Antrea CNI are not supported
 * Network Policies are not supported
 * IPv6 and dual stack networks are not supported
@@ -57,21 +57,22 @@ This can be overridden using the `podCIDR` to specify a specific address space, 
 
 ## Migration from Weave
 
-Migrations from Weave to Flannel are only supported with the Containerd CRI runtime.
-The migration process will result in whole-cluster downtime as Weave must be removed before Flannel can be installed.
-Every pod in the cluster is also deleted and then recreated in order to receive new IP addresses allocated by Flannel.
+You must use the Containerd CRI runtime when migrating from Weave to Flannel. For more information about limitations, see [Limitations]9#limitations).
 
-The migration from Weave to Flannel is performed by rerunning the installer with Flannel v0.20.2+ as the configured CNI.
-The user will be presented with a prompt to confirm the migration:
+The migration process results in downtime for the entire cluster downtime because Weave must be removed before Flannel can be installed.
+Every pod in the cluster is also deleted and then recreated, to receive new IP addresses allocated by Flannel.
+
+The migration is performed by rerunning the installer with Flannel v0.20.2+ as the configured CNI.
+The user is presented with a prompt to confirm the migration:
 
 ```bash
 The migration from Weave to Flannel will require whole-cluster downtime.
 Would you like to continue? (Y/n)
 ```
 
-If there are additional nodes in the cluster, the user will be prompted to run a command on each of them.
+If there are additional nodes in the cluster, the user is prompted to run a command on each node.
 
-For additional primary nodes, this will look something like the following:
+For additional primary nodes, the command looks similar to the following example:
 
 ```bash
 Moving primary nodes from Weave to Flannel requires removing certain weave files and restarting kubelet.
@@ -85,7 +86,7 @@ Please run the following command on each of the listed primary nodes:
 Once this has been run on all nodes, press enter to continue.
 ```
 
-And for secondary nodes:
+For secondary nodes, the command looks similar to the following example:
 
 ```bash
 Moving from Weave to Flannel requires removing certain weave files and restarting kubelet.
@@ -100,4 +101,4 @@ Please run the following command on each of the listed secondary nodes:
 Once this has been run on all nodes, press enter to continue.
 ```
 
-After these scripts have been run, the migration will take several more minutes to recreate the pods in the cluster.
+After these scripts run, the migration takes several minutes to recreate the pods in the cluster.
