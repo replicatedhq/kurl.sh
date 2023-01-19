@@ -57,9 +57,9 @@ This can be overridden using the `podCIDR` to specify a specific address space, 
 
 ## Migration from Weave
 
-You must use the Containerd CRI runtime when migrating from Weave to Flannel. For more information about limitations, see [Limitations]9#limitations).
+You must use the Containerd CRI runtime when migrating from Weave to Flannel. For more information about limitations, see [Limitations](#limitations).
 
-The migration process results in downtime for the entire cluster downtime because Weave must be removed before Flannel can be installed.
+The migration process results in downtime for the entire cluster because Weave must be removed before Flannel can be installed.
 Every pod in the cluster is also deleted and then recreated, to receive new IP addresses allocated by Flannel.
 
 The migration is performed by rerunning the installer with Flannel v0.20.2+ as the configured CNI.
@@ -101,4 +101,4 @@ Please run the following command on each of the listed secondary nodes:
 Once this has been run on all nodes, press enter to continue.
 ```
 
-After these scripts run, the migration takes several minutes to recreate the pods in the cluster.
+After these scripts run, the migration takes several additional minutes to recreate the pods in the cluster.
