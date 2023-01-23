@@ -918,38 +918,9 @@ class Kurlsh extends React.Component {
   }
 
   handleOptionChange = (path, currentTarget, type) => {
-    let addOnData = {}
     let elementToFocus;
     const [field, key] = path.split('.');
-
-    if (currentTarget.type === "checkbox") {
-      if (type === "boolean") {
-        addOnData = {
-          inputValue: currentTarget.checked ? true : false,
-          isChecked: currentTarget.checked
-        }
-      } else {
-        if (type === "string") {
-          addOnData = {
-            inputValue: "",
-            isChecked: currentTarget.checked,
-          }
-        } else {
-          addOnData = {
-            inputValue: 0,
-            isChecked: currentTarget.checked,
-          }
-        }
-      }
-    } else if (currentTarget.type === "number") {
-      addOnData = {
-        inputValue: parseInt(currentTarget.value, 10) || 0
-      }
-    } else {
-      addOnData = {
-        inputValue: currentTarget.value
-      }
-    }
+    const addOnData = this.addOnDataFromInput(currentTarget, type);
 
     this.setState({
       advancedOptions: {
@@ -973,6 +944,56 @@ class Kurlsh extends React.Component {
         this.postToKurlInstaller(this.getYaml(this.state.installerSha));
       }
     });
+  }
+
+  addOnDataFromInput(targetInput, fieldType) {
+    let addOnData = {}
+
+    if (targetInput.type === "checkbox") {
+      if (fieldType === "boolean") {
+        addOnData = {
+          inputValue: targetInput.checked ? true : false,
+          isChecked: targetInput.checked
+        }
+      } else {
+        if (fieldType === "string") {
+          addOnData = {
+            inputValue: "",
+            isChecked: targetInput.checked,
+          }
+        } else if (fieldType === "array[string]") {
+          addOnData = {
+            inputValue: [],
+            isChecked: targetInput.checked,
+          }
+        } else {
+          addOnData = {
+            inputValue: 0,
+            isChecked: targetInput.checked,
+          }
+        }
+      }
+    } else if (targetInput.type === "number") {
+      addOnData = {
+        inputValue: parseInt(targetInput.value, 10) || 0
+      }
+    } else if (targetInput.type === "text") {
+      if (fieldType === "array[string]") {
+        addOnData = {
+          inputValue: targetInput.value.split(",")
+        }
+      } else {
+        addOnData = {
+          inputValue: targetInput.value
+        }
+      }
+    } else {
+      addOnData = {
+        inputValue: targetInput.value
+      }
+    }
+
+    return addOnData;
   }
 
   renderMonacoEditor = () => {
@@ -1077,12 +1098,12 @@ class Kurlsh extends React.Component {
                     </ReactTooltip>
                     <span data-tip data-for={`tt_${addOn}_${data.flag}`} className="icon clickable u-questionMarkCircle u-marginLeft--normal u-marginRight--normal"></span>
                   </div>
-                  {option.type === "string" || option.type === "number" ?
+                  {option.type === "string" || option.type === "array[string]" || option.type === "number" ?
                     <div>
                       <input
                         id={`${addOn}_${data.flag}`}
                         className="flex2 addOnOption"
-                        type={option.type === "string" ? "text" : "number"}
+                        type={option.type === "string" || option.type === "array[string]" ? "text" : "number"}
                         onChange={e => this.handleOptionChange(`${addOn}.${data.flag}`, e.currentTarget, option.type)}
                         disabled={!currentOption || (currentOption && !currentOption.isChecked)}
                         value={currentOption ? currentOption.inputValue : ""}

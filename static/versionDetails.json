@@ -323,6 +323,11 @@
       "flag": "resticTimeout",
       "description": "The time interval that backups/restores of pod volumes are allowed to run before timing out. Default is '4h0m0s'",
       "type": "string"
+    },
+    {
+      "flag": "serverFlags",
+      "description": "Additional flags to pass to the Velero server. This is a comma-separated list of arguments.",
+      "type": "array[string]"
     }
   ],
   "kotsadm": [
