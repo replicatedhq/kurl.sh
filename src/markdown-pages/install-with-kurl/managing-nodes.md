@@ -102,7 +102,7 @@ For example, to remove one node in a three-node cluster, first add a new node to
 
 Complete the following prerequisites before you remove one or more nodes from a Rook Ceph cluster:
 
-* Upgrade Rook Ceph to v1.4 or later. Attempting to remove a node in a host that uses a Rook Ceph version earlier than v1.4 can cause Ceph to enter an unhealthy state.  
+* Upgrade Rook Ceph to v1.4 or later. Attempting to remove a node in a host that uses a Rook Ceph version earlier than v1.4 can cause Ceph to enter an unhealthy state. For example, see [Rook Ceph v1.0.4 is Unhealthy with Mon Pods Not Rescheduled](#rook-ceph-v104-is-unhealthy-with-mon-pods-not-rescheduled) under _Troubleshoot Node Removal_ below.
 
 * In the kURL specification, set `isBlockStorageEnabled` to `true`. This is the default for Rook Ceph v1.4 and later.
 
@@ -139,6 +139,7 @@ Complete the following prerequisites before you remove one or more nodes from a 
       ```
       kubectl -n rook-ceph exec deployment/rook-ceph-operator -- ceph status
       ```
+      **Note**: It is not recommended to use versions of Rook Ceph earlier than v1.4.0.
 
       The output of the command shows `health: HEALTH_OK` if Ceph is in a healthy state.
 
