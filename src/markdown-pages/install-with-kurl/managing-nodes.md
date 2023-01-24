@@ -9,6 +9,18 @@ title: "Managing Nodes"
 This topic describes how to manage nodes on kURL clusters.
 It includes procedures for how to safely reset, reboot, and remove nodes when performing maintenance tasks.
 
+See the following sections:
+
+* [ECKO Add-On Prerequisite](#ecko-add-on-prerequisite)
+* [Reset a Node](#reset-a-node)
+* [Reboot a Node](#reboot-a-node)
+* [Remove a Node from Rook Ceph Clusters](#remove-a-node-from-rook-ceph-clusters)
+   * [Rook Ceph and etcd Node Removal Requirements](#rook-ceph-and-etcd-node-removal-requirements)
+   * [Rook Ceph Cluster Prerequisites](#rook-ceph-cluster-prerequisites)
+   * [(Recommended) Manually Rebalance Ceph and Remove a Node](#recommended-manually-rebalance-ceph-and-remove-a-node)
+   * [Remove Nodes with ECKO](#remove-nodes-with-ecko)
+* [Troubleshoot Node Removal](#troubleshoot-node-removal)
+
 ## ECKO Add-On Prerequisite
 
 Before you manage a node on a kURL cluster, you must install the Embedded kURL Cluster Operator (EKCO) add-on on the cluster.
@@ -90,7 +102,7 @@ For example, to remove one node in a three-node cluster, first add a new node to
 
 Complete the following prerequisites before you remove one or more nodes from a Rook Ceph cluster:
 
-* (Recommended) Upgrade Rook Ceph to v1.4 or later.
+* Upgrade Rook Ceph to v1.4 or later. Attempting to remove a node in a host that uses a Rook Ceph version earlier than v1.4 can cause Ceph to enter an unhealthy state.  
 
 * In the kURL specification, set `isBlockStorageEnabled` to `true`. This is the default for Rook Ceph v1.4 and later.
 
@@ -261,3 +273,32 @@ To use the EKCO add-on to remove a node:
    The EKCO purge script For information about the EKCO purge script, see [Purge Nodes](/docs/add-ons/ekco#purge-nodes) in _EKCO Add-on_.
 
 1. Remove the node from the cluster.
+
+## Troubleshoot Node Removal
+
+This section includes information about troubleshooting issues with node removal in Rook Ceph clusters.
+
+### Rook Ceph v1.0.4 is Unhealthy with Mon Pods Not Rescheduled
+
+#### Symptom
+
+When you run `kubectl -n rook-ceph exec deployment.apps/rook-ceph-operator -- ceph status` for a Rook Ceph v1.0.4 cluster, you see that Ceph is in an unhealthy state where failed mons are not rescheduled. 
+
+For example:
+
+```
+health: HEALTH_WARN
+        1/3 mons down, quorum a,c
+```
+
+#### Cause
+
+This is caused by a known issue in Rook Ceph v1.0.4 where failed mons are not removed during mon failover. For more information, see [Mon is never rescheduled](https://github.com/rook/rook/issues/2262#issuecomment-460898915) in the rook GitHub repository.
+
+#### Solution
+
+To resolve this issue, manually stop the Rook Ceph operator, remove the failed mon from the configmap, delete the failed mon, and then rescale the operator.  
+
+For more information about how to complete these steps, see [Managing nodes when the previous Rook version is in use might leave Ceph in an unhealthy state where mon pods are not rescheduled](https://community.replicated.com/t/managing-nodes-when-the-previous-rook-version-is-in-use-might-leave-ceph-in-an-unhealthy-state-where-mon-pods-are-not-rescheduled/1099/1) in _Replicated Community_.
+
+Replicated recommends that you upgrade Rook Ceph to v1.4 or later before attempting to remove nodes. For more information, see [Rook Ceph Cluster Prerequisites](#rook-ceph-cluster-prerequisites) above.
