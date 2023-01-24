@@ -102,7 +102,7 @@ For example, to remove one node in a three-node cluster, first add a new node to
 
 Complete the following prerequisites before you remove one or more nodes from a Rook Ceph cluster:
 
-* Upgrade Rook Ceph to v1.4 or later. Attempting to remove a node in a host that uses a Rook Ceph version earlier than v1.4 can cause Ceph to enter an unhealthy state. For example, see [Rook Ceph v1.0.4 is Unhealthy with Mon Pods Not Rescheduled](#rook-ceph-v104-is-unhealthy-with-mon-pods-not-rescheduled) under _Troubleshoot Node Removal_ below.
+* Upgrade Rook Ceph to v1.4 or later. Attempting to remove a node from a cluster that uses a Rook Ceph version earlier than v1.4 can cause Ceph to enter an unhealthy state. For example, see [Rook Ceph v1.0.4 is Unhealthy with Mon Pods Not Rescheduled](#rook-ceph-v104-is-unhealthy-with-mon-pods-not-rescheduled) under _Troubleshoot Node Removal_ below.
 
 * In the kURL specification, set `isBlockStorageEnabled` to `true`. This is the default for Rook Ceph v1.4 and later.
 
@@ -302,4 +302,4 @@ To resolve this issue, manually stop the Rook Ceph operator, remove the failed m
 
 For more information about how to complete these steps, see [Managing nodes when the previous Rook version is in use might leave Ceph in an unhealthy state where mon pods are not rescheduled](https://community.replicated.com/t/managing-nodes-when-the-previous-rook-version-is-in-use-might-leave-ceph-in-an-unhealthy-state-where-mon-pods-are-not-rescheduled/1099/1) in _Replicated Community_.
 
-Replicated recommends that you upgrade Rook Ceph to v1.4 or later before attempting to remove nodes. For more information, see [Rook Ceph Cluster Prerequisites](#rook-ceph-cluster-prerequisites) above.
+It is recommended that you upgrade Rook Ceph to v1.4 or later before attempting to remove nodes. For more information, see [Rook Ceph Cluster Prerequisites](#rook-ceph-cluster-prerequisites) above.
