@@ -29,6 +29,10 @@ spec:
     localBucket: "local"
     resticRequiresPrivileged: true
     resticTimeout: "12h0m0s"
+    serverFlags:
+      - --log-level
+      - debug
+      - --default-restic-prune-frequency=12h
 ```
 
 flags-table

@@ -265,6 +265,16 @@ The install scripts are idempotent. Re-run the scripts with different flags to c
   </td>
 </tr>
 <tr>
+  <td><code>velero-server-flags</code></td>
+  <td>Additional flags to pass to the Velero server. This is a comma-separated list of arguments.
+  <br/>
+  <br/>
+  <strong>Example:</strong>
+  <br/>
+  <code>curl https://kurl.sh/latest | sudo bash -s velero-server-flags=--log-level=debug,--default-restic-prune-frequency=12h</code>
+  </td>
+</tr>
+<tr>
   <td><code>ekco-enable-internal-load-balancer</code></td>
   <td>Run an internal load balanacer with HAProxy listening on localhost:6444 on all nodes.
   <br/>

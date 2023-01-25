@@ -206,4 +206,62 @@ describe("Kurl", () => {
       expect(finalVersions).toEqual([{version: "2.8.x"}, {version: "2.8.1-20221025"}, {version: "2.8.1-20221006"}, {version: "2.8.1-20220825"}, {version: "2.8.1-20220720"}, {version: "2.8.1-20220616"}, {version: "2.8.1"}, {version: "2.7.x"}, {version: "2.7.0"}, {version: "2.6.x"}, {version: "latest"}, {version: "2.6.5-20221025"}, {version: "2.6.5-20221006"}, {version: "2.6.5-20220825"}, {version: "2.6.5-20220720"}, {version: "2.6.5-20220616"}, {version: "2.6.5"}, {version: "2.6.4"}, {version: "2.5.x"}, {version: "2.5.2"}, {version: "None"}]);
     });
   });
+
+  describe("addOnDataFromInput", () => {
+    it("handles checkbox input changes for boolean fields", () => {
+      const kurlsh = new Kurl(defaultProps);
+      const actual = kurlsh.addOnDataFromInput({type: "checkbox", checked: true}, "boolean");
+      const expected = {inputValue: true, isChecked: true};
+      expect(actual).toEqual(expected);
+    });
+
+    it("handles checkbox input changes for string fields", () => {
+      const kurlsh = new Kurl(defaultProps);
+      const actual = kurlsh.addOnDataFromInput({type: "checkbox", checked: true}, "string");
+      const expected = {inputValue: "", isChecked: true};
+      expect(actual).toEqual(expected);
+    });
+
+    it("handles checkbox input changes for number fields", () => {
+      const kurlsh = new Kurl(defaultProps);
+      const actual = kurlsh.addOnDataFromInput({type: "checkbox", checked: true}, "number");
+      const expected = {inputValue: 0, isChecked: true};
+      expect(actual).toEqual(expected);
+    });
+
+    it("handles checkbox input changes for array[string] fields", () => {
+      const kurlsh = new Kurl(defaultProps);
+      const actual = kurlsh.addOnDataFromInput({type: "checkbox", checked: true}, "array[string]");
+      const expected = {inputValue: [], isChecked: true};
+      expect(actual).toEqual(expected);
+    });
+
+    it("handles number input changes for number fields", () => {
+      const kurlsh = new Kurl(defaultProps);
+      const actual = kurlsh.addOnDataFromInput({type: "number", value: 1}, "number");
+      const expected = {inputValue: 1};
+      expect(actual).toEqual(expected);
+    });
+
+    it("handles text input changes for array[string] fields", () => {
+      const kurlsh = new Kurl(defaultProps);
+      const actual = kurlsh.addOnDataFromInput({type: "text", value: "foo,bar"}, "array[string]");
+      const expected = {inputValue: ["foo", "bar"]};
+      expect(actual).toEqual(expected);
+    });
+
+    it("handles text input changes for string fields", () => {
+      const kurlsh = new Kurl(defaultProps);
+      const actual = kurlsh.addOnDataFromInput({type: "text", value: "foo"}, "string");
+      const expected = {inputValue: "foo"};
+      expect(actual).toEqual(expected);
+    });
+
+    it("handles all other input type changes", () => {
+      const kurlsh = new Kurl(defaultProps);
+      const actual = kurlsh.addOnDataFromInput({type: "foo", value: "bar"}, "baz");
+      const expected = {inputValue: "bar"};
+      expect(actual).toEqual(expected);
+    });
+  });
 });
