@@ -102,7 +102,11 @@ For example, to remove one node in a three-node cluster, first add a new node to
 
 Complete the following prerequisites before you remove one or more nodes from a Rook Ceph cluster:
 
-* Upgrade Rook Ceph to v1.4 or later. Attempting to remove a node from a cluster that uses a Rook Ceph version earlier than v1.4 can cause Ceph to enter an unhealthy state. For example, see [Rook Ceph v1.0.4 is Unhealthy with Mon Pods Not Rescheduled](#rook-ceph-v104-is-unhealthy-with-mon-pods-not-rescheduled) under _Troubleshoot Node Removal_ below.
+* Upgrade Rook Ceph to v1.4 or later.
+
+   The two latest minor releases of Rook Ceph are actively maintained. It is recommended to upgrade to the latest stable release available. For more information, see [Release Cycle](https://rook.io/docs/rook/latest/Getting-Started/release-cycle/) in the Rook Ceph documentation.
+
+   Attempting to remove a node from a cluster that uses a Rook Ceph version earlier than v1.4 can cause Ceph to enter an unhealthy state. For example, see [Rook Ceph v1.0.4 is Unhealthy with Mon Pods Not Rescheduled](#rook-ceph-v104-is-unhealthy-with-mon-pods-not-rescheduled) under _Troubleshoot Node Removal_ below.
 
 * In the kURL specification, set `isBlockStorageEnabled` to `true`. This is the default for Rook Ceph v1.4 and later.
 
@@ -279,11 +283,11 @@ To use the EKCO add-on to remove a node:
 
 This section includes information about troubleshooting issues with node removal in Rook Ceph clusters.
 
-### Rook Ceph v1.0.4 is Unhealthy with Mon Pods Not Rescheduled
+### Rook Ceph v1.0.4 is Unhealthy with Mon Pod Pending
 
 #### Symptom
 
-When you run `kubectl -n rook-ceph exec deployment.apps/rook-ceph-operator -- ceph status` for a Rook Ceph v1.0.4 cluster, you see that Ceph is in an unhealthy state where failed mons are not rescheduled. 
+After you remove a node from a Rook Ceph v1.0.4 cluster and you run `kubectl -n rook-ceph exec deployment.apps/rook-ceph-operator -- ceph status`, you see that Ceph is in an unhealthy state where a Ceph monitor (mon) is down. 
 
 For example:
 
@@ -292,14 +296,73 @@ health: HEALTH_WARN
         1/3 mons down, quorum a,c
 ```
 
+When you run `kubectl -n rook-ceph get pod -l app=rook-ceph-mon`, you see that the mon pod is in a Pending state. 
+
+For example:
+
+```
+NAME             READY  STATUS   RESTARTS  AGE
+rook-ceph-mon-a  1/1    Running  0         20m
+rook-ceph-mon-b  0/1    Pending  0         9m45s
+rook-ceph-mon-c  1/1    Running  0         13m
+```
+
 #### Cause
 
-This is caused by a known issue in Rook Ceph v1.0.4 where failed mons are not removed during mon failover. For more information, see [Mon is never rescheduled](https://github.com/rook/rook/issues/2262#issuecomment-460898915) in the rook GitHub repository.
+This is caused by a known issue in Rook Ceph v1.0.4 where the rook-ceph-mon-endpoints ConfigMap still maps a node that was removed. For more information, see [Mon is never rescheduled](https://github.com/rook/rook/issues/2262#issuecomment-460898915) in the rook GitHub repository.
 
 #### Solution
 
-To resolve this issue, manually stop the Rook Ceph operator, remove the failed mon from the configmap, delete the failed mon, and then rescale the operator.  
+To resolve this issue, you must manually delete the mapping to the removed node from the rook-ceph-mon-endpoints ConfigMap.
 
-For more information about how to complete these steps, see [Managing nodes when the previous Rook version is in use might leave Ceph in an unhealthy state where mon pods are not rescheduled](https://community.replicated.com/t/managing-nodes-when-the-previous-rook-version-is-in-use-might-leave-ceph-in-an-unhealthy-state-where-mon-pods-are-not-rescheduled/1099/1) in _Replicated Community_.
+For more information about these steps, see [Managing nodes when the previous Rook version is in use might leave Ceph in an unhealthy state where mon pods are not rescheduled](https://community.replicated.com/t/managing-nodes-when-the-previous-rook-version-is-in-use-might-leave-ceph-in-an-unhealthy-state-where-mon-pods-are-not-rescheduled/1099/1) in _Replicated Community_.
 
-It is recommended that you upgrade Rook Ceph to v1.4 or later before attempting to remove nodes. For more information, see [Rook Ceph Cluster Prerequisites](#rook-ceph-cluster-prerequisites) above.
+To delete the mapping for the removed node:
+
+1. Stop the Rook Ceph operator:
+
+   ```
+   kubectl -n rook-ceph scale --replicas=0 deployment.apps/rook-ceph-operator
+   ```
+
+1. Edit the rook-ceph-mon-endpoints ConfigMap to delete the mapping to the removed node:
+
+   ```
+   kubect -n rook-ceph edit configmaps rook-ceph-mon-endpoints
+   ```
+
+  _**Warning**_: Ensure that you remove the correct rook-ceph-mon-endpoint from the list. Removing the wrong rook-ceph-mon-endpoint can cause data loss.
+
+1. Find the name of the Pending mon pod:
+
+   ```
+   kubectl -n rook-ceph get pod -l app=rook-ceph-mon
+   ```
+
+1. Delete the Pending mon pod:
+
+   ```
+   kubectl -n rook-ceph delete pod MON_POD_NAME
+   ```
+   Replace `MON_POD_NAME` with the name of the mon pod that is in a Pending state from the previous step. 
+
+1. Rescale the operator:
+
+   ```
+   kubectl -n rook-ceph scale --replicas=1 deployment.apps/rook-ceph-operator
+   ```
+
+1. Verify that all mon pods are running:
+
+   ```
+   kubectl -n rook-ceph get pod -l app=rook-ceph-mon
+   ```
+   The output of this command shows that each mon pod has a `Status` of `Running`.
+
+1. Verify that Ceph is in a healthy state:
+
+   ```
+   kubectl -n rook-ceph exec deployment.apps/rook-ceph-operator -- ceph status
+   ```
+
+   The output of this command shows `health: HEALTH_OK` if Ceph is in a healthy state.
