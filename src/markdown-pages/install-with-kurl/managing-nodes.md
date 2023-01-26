@@ -309,15 +309,15 @@ rook-ceph-mon-c  1/1    Running  0         13m
 
 #### Cause
 
-This is caused by a known issue in Rook Ceph v1.0.4 where the rook-ceph-mon-endpoints ConfigMap still maps a node that was removed. For more information, see [Mon is never rescheduled](https://github.com/rook/rook/issues/2262#issuecomment-460898915) in the rook GitHub repository.
+This is caused by an issue in Rook Ceph v1.0.4 where the rook-ceph-mon-endpoints ConfigMap still maps a node that was removed.
 
 #### Solution
 
-To resolve this issue, you must manually delete the mapping to the removed node from the rook-ceph-mon-endpoints ConfigMap.
+To resolve this issue, you must return the Ceph cluster to a healthy state and upgrade to Rook Ceph v1.4 or later.
 
-For more information about these steps, see [Managing nodes when the previous Rook version is in use might leave Ceph in an unhealthy state where mon pods are not rescheduled](https://community.replicated.com/t/managing-nodes-when-the-previous-rook-version-is-in-use-might-leave-ceph-in-an-unhealthy-state-where-mon-pods-are-not-rescheduled/1099/1) in _Replicated Community_.
+To return Ceph to a healthy state so that you can upgrade, manually delete the mapping to the removed node from the rook-ceph-mon-endpoints ConfigMap then rescale the operator.
 
-To delete the mapping for the removed node:
+To return Ceph to a healthy state and upgrade:
 
 1. Stop the Rook Ceph operator:
 
@@ -325,13 +325,13 @@ To delete the mapping for the removed node:
    kubectl -n rook-ceph scale --replicas=0 deployment.apps/rook-ceph-operator
    ```
 
-1. Edit the rook-ceph-mon-endpoints ConfigMap to delete the mapping to the removed node:
+1. Edit the rook-ceph-mon-endpoints ConfigMap to delete the removed node from the `mapping`:
 
    ```
    kubect -n rook-ceph edit configmaps rook-ceph-mon-endpoints
    ```
 
-  _**Warning**_: Ensure that you remove the correct rook-ceph-mon-endpoint from the list. Removing the wrong rook-ceph-mon-endpoint can cause data loss.
+  _**Warning**_: Ensure that you remove the correct rook-ceph-mon-endpoint from the `mapping` field in the ConfigMap. Removing the wrong rook-ceph-mon-endpoint can cause unexpected behavior, including data loss.
 
 1. Find the name of the Pending mon pod:
 
@@ -366,3 +366,7 @@ To delete the mapping for the removed node:
    ```
 
    The output of this command shows `health: HEALTH_OK` if Ceph is in a healthy state.
+
+1. After confirming that Ceph is in a healthy state, upgrade Rook Ceph to v1.4 or later before attempting to managing nodes in the cluster.
+
+For more information about these steps, see [Managing nodes when the previous Rook version is in use might leave Ceph in an unhealthy state where mon pods are not rescheduled](https://community.replicated.com/t/managing-nodes-when-the-previous-rook-version-is-in-use-might-leave-ceph-in-an-unhealthy-state-where-mon-pods-are-not-rescheduled/1099/1) in _Replicated Community_.
