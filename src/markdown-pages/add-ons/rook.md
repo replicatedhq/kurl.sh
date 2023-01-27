@@ -31,8 +31,12 @@ flags-table
 ## Block Storage
 
 Rook versions 1.4.3 and later require a dedicated block device attached to each node in the cluster.
-To meet this block storage requirement, you must add an unformatted disk that is used only for Rook to each node.
+The block device must be unformatted and dedicated for use by Rook only.
+The device cannot be used for other purposes, such as being part of a Raid configuration.
+If the device is used for purposes other than Rook, then the installer fails, indicating that it cannot find an available block device for Rook.
+
 For Rook versions earlier than 1.4.3, a dedicated block device is recommended in production clusters.
+
 For disk requirements, see [Add-on Directory Disk Space Requirements](/docs/install-with-kurl/system-requirements/#add-on-directory-disk-space-requirements).
 
 You can enable and disable block storage for Rook versions earlier than 1.4.3 with the `isBlockStorageEnabled` field in the kURL spec.
