@@ -24,19 +24,21 @@ metadata:
   name: no-object-storage
 spec:
   kubernetes:
-    version: 1.21.x
+    version: 1.26.x
   containerd:
-    version: 1.4.x
-  weave:
-    version: 2.6.5
-  longhorn:
-    version: 1.2.x
+    version: 1.6.x
+  flannel:
+    version: 0.20.x
+  openebs:
+    version: 3.3.x
+    isLocalPVEnabled: true
+    localPVStorageClassName: default
   registry:
-    version: 2.5.7
+    version: 2.8.x
   velero:
-    version: 1.7.x
+    version: 1.9.x
   kotsadm:
-    version: 1.58.x
+    version: 1.93.x
     disableS3: true
 ```
 

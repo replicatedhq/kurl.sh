@@ -39,8 +39,8 @@ spec:
  kubernetes:
    version: "1.23.x"
    cisCompliance: true
- weave:
-   version: "2.6.x"
+ flannel:
+   version: "0.20.x"
  contour:
    version: "1.20.x"
  prometheus:

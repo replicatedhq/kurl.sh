@@ -30,12 +30,12 @@ kURL will perform the following steps on the host prior to delegating to `kubead
 * Configure Docker/containerd and Kubernetes to work behind a proxy if detected
 
 ## After kubeadm (Adding Add-Ons)
-Once kubeadm gets the cluster running, it’s not ready for an application yet. A cluster will need networking, storage and more. These services are provided by other open source components, including a lot of the CNCF ecosystem. In a kURL installation manifest, you can specify the additional add-ons that are installed after kubectl starts the cluster. For example, you can include Weave for a CNI plugin, Rook for distributed storage, Prometheus for monitoring and Fluentd for log aggregation. In addition to specifying the add-ons and versions, most add-ons include advanced options that allow you to specify the initial configuration.
+Once kubeadm gets the cluster running, it’s not ready for an application yet. A cluster will need networking, storage and more. These services are provided by other open source components, including a lot of the CNCF ecosystem. In a kURL installation manifest, you can specify the additional add-ons that are installed after kubectl starts the cluster. For example, you can include Flannel for a CNI plugin, Rook for distributed storage, Prometheus for monitoring and Fluentd for log aggregation. In addition to specifying the add-ons and versions, most add-ons include advanced options that allow you to specify the initial configuration.
 
 After `kubeadm init` has brought up the Kubernetes control plane, kURL will install add-ons into the cluster.
 The available add-ons are:
 
-* [Weave](https://www.weave.works/oss/net/)
+* [Flannel](https://github.com/flannel-io/flannel/releases)
 * [Contour](https://projectcontour.io/)
 * [OpenEBS](https://openebs.io/)
 * [Rook](https://rook.io/)
@@ -49,4 +49,4 @@ The available add-ons are:
 * [Velero](https://velero.io/)
 * [EKCO](https://github.com/replicatedhq/ekco)
 * [Sonobuoy](https://github.com/vmware-tanzu/sonobuoy/releases)
-* [Cert Mnager](https://github.com/cert-manager/cert-manager)
+* [Cert Manager](https://github.com/cert-manager/cert-manager)

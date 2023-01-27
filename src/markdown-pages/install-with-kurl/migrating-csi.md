@@ -22,8 +22,8 @@ spec:
     version: 1.19.12
   docker:
     version: 20.10.5
-  weave:
-    version: 2.6.5
+  flannel:
+    version: 0.20.2
   rook:
     version: 1.0.4
 ```
@@ -40,8 +40,8 @@ spec:
     version: 1.19.12
   docker:
     version: 20.10.5
-  weave:
-    version: 2.6.5
+  flannel:
+    version: 0.20.2
   openebs:
     version: 3.3.0
     isLocalPVEnabled: true
@@ -59,10 +59,12 @@ spec:
     version: 1.19.12
   docker:
     version: 20.10.5
-  weave:
-    version: 2.6.5
-  longhorn:
-    version: 1.1.2
+  flannel:
+    version: 0.20.2
+  openebs:
+    version: 3.3.0
+    isLocalPVEnabled: true
+    localPVStorageClassName: default
   minio:
     version: 2020-01-25T02-50-51Z
 ```

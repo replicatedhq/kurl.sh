@@ -56,7 +56,7 @@ spec:
     version: latest
   containerd:
     version: latest
-  weave:
+  flannel:
     version: latest
   rook:
     version: latest
@@ -78,7 +78,7 @@ spec:
     version: latest
   containerd:
     version: latest
-  weave:
+  flannel:
     version: latest
   openebs:
     version: latest
@@ -102,10 +102,12 @@ spec:
     version: latest
   docker:
     version: latest
-  weave:
+  flannel:
     version: latest
-  longhorn:
+  openebs:
     version: latest
+    isLocalPVEnabled: true
+    localPVStorageClassName: default
   registry:
     version: latest
   kotsadm:
