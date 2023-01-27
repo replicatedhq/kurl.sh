@@ -311,9 +311,9 @@ rook-ceph-mon-c  1/1    Running  0         13m
 
 This is caused by an issue in Rook Ceph v1.0.4 where the rook-ceph-mon-endpoints ConfigMap still maps a node that was removed.
 
-#### Solution
+#### Workaround
 
-To resolve this issue, you must return the Ceph cluster to a healthy state and upgrade to Rook Ceph v1.4 or later.
+To address this issue, you must return the Ceph cluster to a healthy state and upgrade to Rook Ceph v1.4 or later.
 
 To return Ceph to a healthy state so that you can upgrade, manually delete the mapping to the removed node from the rook-ceph-mon-endpoints ConfigMap then rescale the operator.
 
