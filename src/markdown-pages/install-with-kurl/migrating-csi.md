@@ -160,5 +160,5 @@ $ sudo systemctl restart kubelet
 To ensure a smooth migration process, when executed on a single node cluster, all Longhorn volumes are scaled down to 1 replica. This is done to make it easier to identify any issues that may arise during the migration, as scaling up the number of replicas can potentially mask the underlying problem. Despite the migration not being successful, the volumes will remain at 1 replica in order to identify the root cause of the failure. If necessary you can restore the original number of replicas by running the following command:
 
 ```
-$ sudo kurl longhorn rollback-migration-replicas
+$ kurl longhorn rollback-migration-replicas
 ```
