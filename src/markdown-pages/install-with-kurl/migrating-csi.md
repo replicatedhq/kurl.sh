@@ -75,34 +75,43 @@ kURL does the following when you use the specs above to migrate data from Rook:
 * Uninstalls Rook from the cluster.
 
 
-## Migrating from Longhorn to OpenEBS
+## Migrating from Longhorn
 
 ### Prerequisites
 
-To summarize, before considering migrating your data from Longhorn to OpenEBS, it is important to take the following factors into account:
+To summarize, before considering migrating your data from Longhorn to Rook or OpenEBS, it is important to take the following factors into account:
 
 - Taking a snapshot or backup of the relevant data before migrating is mandatory.
 - Adequate hardware resources are necessary to run both Storage Provisioners simultaneously during migration, failure to do so may result in migration failure (see _Hardware requirements_ section below).
 - Scheduling a downtime for the migration is crucial, the duration of the downtime will depend on the amount of data being migrated.
-- It is essential to ensure that the version of Kubernetes you are upgrading to supports both Longhorn and OpenEBS.
+- It is essential to ensure that the version of Kubernetes you are upgrading to supports both Longhorn and OpenEBS or Rook.
+- It is highly discouraged to run Rook on a single node cluster, as multi-node configurations are required for optimal performance. If you plan to migrate in a single-node installation then OpenEBS is the recommended provisioner.
+
 
 ### The migration process
 
-Starting from OpenEBS 3.3.0, Kurl simplifies the process of migrating data from Longhorn by automating the migration when a cluster running Longhorn is upgraded to a Kurl version that does not include Longhorn and has OpenEBS set as the storage provisioner.
-The data migration process from Longhorn to OpenEBS involves several steps to ensure a smooth transition while minimizing disruption to the application. One of these steps includes scaling down all Pods that are currently using Longhorn volumes. This is done to ensure that the data being migrated is not in use and can be safely copied to the new storage system. A PersistentVolumeClaim by PersistentVolumeClaim copy is executed in the background to transfer the data to the new storage system. This process, however, **does involve some level of downtime** for the application as the migration is being executed, which is why it is important to plan accordingly to minimize the impact on the end-users.
+Starting from Rook 1.10.8 and OpenEBS 3.3.0, Kurl simplifies the process of migrating data from Longhorn by automating the migration when a cluster running Longhorn is upgraded to a Kurl version that does not include Longhorn and has Rook or OpenEBS set as the storage provisioner.
 
-If you are operating Longhorn in a multi-node cluster, it is recommended to refer to the Rook documentation as Rook is the recommended storage provisioner for most multi-node clusters. OpenEBS, on the other hand, is recommended for single node installations.
+The data migration process from Longhorn involves several steps to ensure a smooth transition while minimizing disruption to the application. One of these steps includes scaling down all Pods that are currently using Longhorn volumes. This is done to ensure that the data being migrated is not in use and can be safely copied to the new storage system. A PersistentVolumeClaim by PersistentVolumeClaim copy is executed to transfer the data to the new storage provisioner. This process, however, does **involve some level of downtime for the application** as the migration is being executed, which is why it is important to plan accordingly to minimize the impact on the end-users.
 
-It is also important to keep in mind that for the migration to be successful, the cluster must **have adequate resources** to run both storage provisioners simultaneously during the migration process. For specific system requirements, it is recommended to refer to the add-on specific documentation. The **migration will result in a significant increase in storage consumption**, with the cluster using twice as much as during regular use due to duplicate volumes. It is imperative that sufficient disk space is available in the cluster to handle this increase. Upon completion of the migration, storage consumption will return to normal levels as the previous volumes are deleted.
+It is also important to keep in mind that for the migration to be successful, the cluster must **have adequate resources to run both storage provisioners simultaneously** during the migration process (Longhorn and OpenEBS or Longhorn and Rook). For other specific system requirements, it is recommended to refer to the add-on specific documentation. The **migration will result in a significant increase in storage consumption**, with the cluster using twice as much as during regular use due to duplicate volumes. It is imperative that sufficient disk space (in the Rook dedicated storage device or in the OpenEBS volume) is available in the cluster to handle this increase. Upon completion of the migration, storage consumption will return to normal levels as the previous volumes are deleted.
 
-Another important factor to consider before initiating the migration is ensuring that the Kubernetes version you are upgrading to is compatible with both provisioners (Longhorn and OpenEBS, in this case). It is crucial to ensure that both provisioners are supported on the specific version of Kubernetes you are using, as running incompatible versions will lead to an error during the migration.
+Another important factor to consider before initiating the migration is ensuring that the Kubernetes version you are upgrading to is compatible with both provisioners. It is crucial to ensure that both provisioners are supported on the specific version of Kubernetes you are using, as running incompatible versions will lead to an error during the migration.
 
-For a successful migration, it is recommended to ensure that the Longhorn version is at least 1.2.x or 1.3.x before proceeding
+_For a successful migration, it is recommended to ensure that the Longhorn version is at least 1.2.x or 1.3.x before proceeding, and it is known that these versions support Kubernetes up to version 1.24._
 
 
 ### Hardware requirements
 
-During the migration process, the cluster will run both Longhorn and OpenEBS simultaneously. If the cluster cannot handle this workload, the upgrade will be unsuccessful. As stated in the [OpenEBS official documentation](https://openebs.io/docs/additional-info/faqs#:~:text=You%20can%20run%20these%20using,nodes%20in%20the%20Kubernetes%20cluster.), OpenEBS requires 2G of memory and 2 CPUs, so it is crucial to ensure the cluster has these resources available prior to initiating the migration.
+It is imperative to note that the requirements listed below must be in addition to the resources already being utilized by the cluster. In other words, the cluster must have the listed resources as spare capacity or available to accommodate Rook or OpenEBS.
+
+#### Rook
+
+The Ceph community strongly advises against running Rook+Ceph in a single node cluster and mandates a minimum of three nodes. The concurrent operation of both Longhorn and Rook during the migration process will increase the overall hardware requirements of the cluster. If the cluster cannot handle this workload, the upgrade will be unsuccessful. For further information on Rook requirements please refer to Kurl’s [Rook](https://kurl.sh/docs/add-ons/rook) documentation. The official [Rook+Ceph documentation](https://docs.ceph.com/en/quincy/start/hardware-recommendations/) is another crucial source for obtaining information on hardware requirements. The dedicated block device attached to each node must have enough space to host all data being stored in Longhorn.
+
+#### OpenEBS
+
+As stated in the [OpenEBS official documentation](https://openebs.io/docs/additional-info/faqs#:~:text=You%20can%20run%20these%20using,nodes%20in%20the%20Kubernetes%20cluster), OpenEBS requires 2G of memory and 2 CPUs, so it is crucial to ensure the cluster has these spare resources available prior to initiating the migration. It is crucial to be aware that OpenEBS and Longhorn both utilize the node's filesystem for data storage, therefore, it is essential to ensure that the filesystem is adequately sized to accommodate twice the amount of data stored by Longhorn.
 
 ### Preparation
 
@@ -136,17 +145,17 @@ If any node is not reported as "Ready" and "Schedulable", you can obtain more in
 
 ### Known issues
 
-It is important to note that migrating to a different storage provisioner, such as OpenEBS and Rook, from Longhorn can come with its own set of challenges and difficulties. We have found that the Longhorn storage provisioner has caused several operational issues in the past, which is why we have chosen to prioritize other options.
+It is important to note that migrating to a different storage provisioner, such as Rook and OpenEBS, from Longhorn can come with its own set of challenges and difficulties. We have found that the Longhorn storage provisioner has caused several operational issues in the past, which is why we have chosen to prioritize other options.
 
 #### Pods stuck in Terminating or Creating state
 
-One of the most common problems that may arise during the migration process is Pods getting stuck in the Terminating or Creating state. This can happen when the Pods are trying to be scaled down or up but are not able to do so due to some underlying issue. In this case, it is recommended to restart the Kubelet service on all nodes. This can be done by opening new sessions to the nodes and running the command below to restart the Kubelet service.
+One of the most common problems that may arise during the migration process is Pods getting stuck in the Terminating or Creating state. This can happen when the Pods are trying to be scaled down or up but are not able to do so due to some underlying issue with Longhorn. In this case, it is recommended to restart the Kubelet service on all nodes. This can be done by opening new sessions to the nodes and running the command below to restart the Kubelet service.
 
 ```
 $ sudo systemctl restart kubelet
 ```
 
-#### Restore original number of Volume replicas
+#### How to restore the original number of Volume replicas
 
 To ensure a smooth migration process, when executed on a single node cluster, all Longhorn volumes are scaled down to 1 replica. This is done to make it easier to identify any issues that may arise during the migration, as scaling up the number of replicas can potentially mask the underlying problem. Despite the migration not being successful, the volumes will remain at 1 replica in order to identify the root cause of the failure. If necessary you can restore the original number of replicas by running the following command:
 
