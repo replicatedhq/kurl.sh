@@ -6,11 +6,18 @@ linktitle: "Migrating CSI"
 title: "Migrating to Change kURL CSI Add-Ons"
 ---
 
-For kURL [v2022.10.28-0](https://kurl.sh/release-notes/v2022.10.28-0) and later, there is a supported data migration path from the Rook CSI add-on to either OpenEBS with Local PV, or Longhorn and MinIO as the new storage provider. 
+It is crucial to acknowledge that Longhorn has caused several operational issues in the past so its support will be discontinued going forward. If you are currently utilizing Longhorn, it is imperative that you plan for migration to an alternative solution, that can be either OpenEBS or Rook. This table provides a complete and concise overview of the CSI migrations that are currently supported by the Kurl platform.
 
-For information about how to migrate from Rook to a storage provider other than OpenEBS or Longhorn/MinIO, see [Migrating](/docs/install-with-kurl/migrating).
+| From      | To        | Notes                                                                                                                                                                                                 |
+|-----------|-----------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Longhorn  | OpenEBS   | The support for Longhorn is being discontinued, and therefore, this is the recommended approach for single-node installations                                                                         |
+| Longhorn  | Rook      | Single-node installations of Rook are not recommended and therefore this migration is not supported. However, if you are running Kurl in a multi-node setup, this migration is the ideal option.      |
+| Rook      | OpenEBS   | Migrating to OpenEBS from Rook is strongly advised for single-node installations or for applications that do not require data replication, as OpenEBS requires significantly fewer hardware resources.|
 
-When initially installing the following kURL spec:
+
+If your application runs on a single-node setup or does not require data replication, then OpenEBS is the ideal solution as it requires significantly fewer hardware resources. Rook is specifically designed for multi-node clusters where data replication and availability are crucial requirements. However, it should be taken into consideration that Rook demands more resources from your cluster, including the need for a dedicated block device for its exclusive use. Be aware that the Kurl installer has the capability to detect the CSI provisioner that is currently installed and, in case a different one is installed during an upgrade, the data will be seamlessly migrated from the old provisioner to the new one. However, it is crucial to take into consideration that there may be a period of application unavailability during the migration process, therefore, proper planning and scheduling is necessary to minimize the impact to the application. The duration of the unavailability period will vary based on the amount of data that needs to be migrated.
+
+As an example, if the cluster has been installed with the following setup:
 
 ```
 apiVersion: cluster.kurl.sh/v1beta1
@@ -28,7 +35,7 @@ spec:
     version: 1.0.4
 ```
 
-You can then automatically migrate data _from_ Rook _to_ OpenEBS with Local PV using the following kURL spec. This requires OpenEBS 3.3.0 or newer. 
+You can then automatically migrate data _from_ Rook _to_ OpenEBS+Minio with Local PV using the following kURL spec. This requires OpenEBS 3.3.0 or newer. 
 
 ```
 apiVersion: cluster.kurl.sh/v1beta1
@@ -45,39 +52,26 @@ spec:
   openebs:
     version: 3.3.0
     isLocalPVEnabled: true
-```
-
-_Or_, you can then migrate data _from_ Rook _to_ Minio and Longhorn using the following kURL spec:
-
-```
-apiVersion: cluster.kurl.sh/v1beta1
-kind: Installer
-metadata:
-  name: new
-spec:
-  kubernetes:
-    version: 1.19.12
-  docker:
-    version: 20.10.5
-  flannel:
-    version: 0.20.2
-  openebs:
-    version: 3.3.0
-    isLocalPVEnabled: true
-    localPVStorageClassName: default
-  minio:
-    version: 2020-01-25T02-50-51Z
 ```
 
 kURL does the following when you use the specs above to migrate data from Rook:
 
-* Recreates all PVCs that were originally created using Rook onto OpenEBS or Longhorn with the same name and contents. 
-* Copies all data within the Rook object store to MinIO, if using MinIO. 
+* Recreates all PVCs that were originally created using Rook onto OpenEBS with the same name and contents. 
 * If you are migrating off of Rook from a Kubernetes cluster that has more than two nodes, OpenEBS attempts to create local volumes on the same nodes where the original Rook PVCs were referenced.
 * Uninstalls Rook from the cluster.
 
+It's important to keep in mind that this process also applies when migrating from Longhorn to either Rook or OpenEBS. Here's a step-by-step rundown of the process:
+
+1. Your cluster is initially installed with Longhorn.
+2. Your applications are using Longhorn volumes.
+3. You update your cluster with a Kurl specification that no longer includes Longhorn, but instead features either OpenEBS or Rook.
+4. All pods that were previously mounting Longhorn volumes will be temporarily shut down.
+5. The migration process will copy all data from Longhorn to the new target storage provisioner (either OpenEBS or Rook).
+6. Once the migration is complete, the pods will be restarted.
 
 ## Migrating from Longhorn
+
+It is imperative to take into consideration several crucial factors when migrating from Longhorn due to the operational challenges experienced in the past. Make sure to thoroughly read all the information provided below to ensure a seamless migration process.
 
 ### Prerequisites
 
