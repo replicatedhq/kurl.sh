@@ -8,14 +8,18 @@ title: "Migrating to Change kURL CSI Add-Ons"
 
 It is crucial to acknowledge that Longhorn has caused several operational issues in the past so its support will be discontinued going forward. If you are currently utilizing Longhorn, it is imperative that you plan for migration to an alternative solution, that can be either OpenEBS or Rook. This table provides a complete and concise overview of the CSI migrations that are currently supported by the Kurl platform.
 
-| From      | To        | Notes                                                                                                                                                                                                 |
-|-----------|-----------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Longhorn  | OpenEBS   | The support for Longhorn is being discontinued, and therefore, this is the recommended approach for single-node installations                                                                         |
-| Longhorn  | Rook      | Single-node installations of Rook are not recommended and therefore this migration is not supported. However, if you are running Kurl in a multi-node setup, this migration is the ideal option.      |
-| Rook      | OpenEBS   | Migrating to OpenEBS from Rook is strongly advised for single-node installations or for applications that do not require data replication, as OpenEBS requires significantly fewer hardware resources.|
+| From      | To        | Notes                                                                                                                                                                                                                  |
+|-----------|-----------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Longhorn  | OpenEBS   | The support for Longhorn is being discontinued, and therefore, this is the recommended approach for single-node installations                                                                                          |
+| Longhorn  | Rook      | Single-node installations of Rook are not recommended and therefore this migration is not supported on this scenario. However, if you are running Longhorn in a multi-node setup, this migration is the ideal option.  |
+| Rook      | OpenEBS   | Migrating to OpenEBS from Rook is strongly advised for single-node installations or for applications that do not require data replication, as OpenEBS requires significantly fewer hardware resources.                 |
 
 
-If your application runs on a single-node setup or does not require data replication, then OpenEBS is the ideal solution as it requires significantly fewer hardware resources. Rook is specifically designed for multi-node clusters where data replication and availability are crucial requirements. However, it should be taken into consideration that Rook demands more resources from your cluster, including the need for a dedicated block device for its exclusive use. Be aware that the Kurl installer has the capability to detect the CSI provisioner that is currently installed and, in case a different one is installed during an upgrade, the data will be seamlessly migrated from the old provisioner to the new one. However, it is crucial to take into consideration that there may be a period of application unavailability during the migration process, therefore, proper planning and scheduling is necessary to minimize the impact to the application. The duration of the unavailability period will vary based on the amount of data that needs to be migrated.
+If your application runs on a single-node setup or does not require data replication, then OpenEBS is the ideal solution as it requires significantly fewer hardware resources.
+
+Rook is specifically designed for multi-node clusters where data replication and availability are crucial requirements. However, it should be taken into consideration that Rook demands more resources from your cluster, including the need for a dedicated block device for its exclusive use.
+
+Be aware that the Kurl installer has the capability to detect the CSI provisioner that is currently installed and, in case a different one is installed during an upgrade, the data will be seamlessly migrated from the old provisioner to the new one. However, it is crucial to take into consideration that there may be a period of **application unavailability during the migration process**, therefore, proper planning and scheduling is necessary to minimize the impact to the application. The duration of the unavailability period will vary based on the amount of data that needs to be migrated.
 
 As an example, if the cluster has been installed with the following setup:
 
@@ -35,7 +39,7 @@ spec:
     version: 1.0.4
 ```
 
-You can then automatically migrate data _from_ Rook _to_ OpenEBS+Minio with Local PV using the following kURL spec. This requires OpenEBS 3.3.0 or newer. 
+You can then automatically migrate data _from_ Rook _to_ OpenEBS with Local PV using the following kURL spec. This requires OpenEBS 3.3.0 or newer. 
 
 ```
 apiVersion: cluster.kurl.sh/v1beta1
