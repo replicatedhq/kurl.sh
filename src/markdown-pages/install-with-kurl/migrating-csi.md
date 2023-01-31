@@ -121,10 +121,10 @@ It is crucial to ensure that the volumes being migrated are in a healthy state b
 $ kubectl get volumes.longhorn.io -A
 ```
 
-In many cases, volume health can be attributed to issues with volume replication. Specifically, when multiple replicas are configured for a volume but not all of them have been scheduled yet. To gain more insight, you can review the individual volumes by editing them.
+In many cases, volume health can be attributed to issues with volume replication. Specifically, when multiple replicas are configured for a volume but not all of them have been scheduled yet. To gain more insight, you can review the individual volumes by inspecting them.
 
 ```
-$ kubectl edit volumes.longhorn.io -n longhorn-system <volume name>
+$ kubectl get volumes.longhorn.io -n longhorn-system <volume name> -o yaml
 ```
 
 _During the migration process, when running on a single node cluster, the system will automatically scale down the number of replicas to 1 in all Longhorn volumes as a measure to ensure the volumes are in a healthy state before beginning the data transfer. This is done to minimize the risk of a migration failure._
@@ -137,7 +137,11 @@ To ensure a successful migration, it is crucial to verify that all Longhorn node
 $ kubectl get nodes.longhorn.io -A
 ```
 
-If any node is not reported as "Ready" and "Schedulable", you can obtain more information by individually editing the node and checking its "Status" property.
+If any node is not reported as "Ready" and "Schedulable", you can obtain more information by individually inspecting the node and checking its "Status" property.
+
+```
+$ kubectl get nodes.longhorn.io -n longhorn-system <node name> -o yaml
+```
 
 ### Known issues
 
