@@ -287,13 +287,20 @@ This section includes information about troubleshooting issues with node removal
 
 #### Symptom
 
-After you remove a node from a Rook Ceph v1.0.4 cluster and you run `kubectl -n rook-ceph exec deployment.apps/rook-ceph-operator -- ceph status`, you see that Ceph is in an unhealthy state where a Ceph monitor (mon) is down. 
+After you remove a node from a Rook Ceph v1.0.4 cluster and you run `kubectl -n rook-ceph exec deployment.apps/rook-ceph-operator -- ceph status`, you see that Ceph is in an unhealthy state where a Ceph monitor (mon) is down.
 
 For example:
 
 ```
 health: HEALTH_WARN
         1/3 mons down, quorum a,c
+```
+
+Additionally, under `services`, one or more are out of quorum:
+
+```
+services:
+  mon: 3 daemons, quorum a,c (age 5min), out of quorum: b
 ```
 
 When you run `kubectl -n rook-ceph get pod -l app=rook-ceph-mon`, you see that the mon pod is in a Pending state. 
