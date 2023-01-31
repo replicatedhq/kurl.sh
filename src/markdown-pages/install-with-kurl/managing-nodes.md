@@ -374,6 +374,6 @@ To return Ceph to a healthy state and upgrade:
 
    The output of this command shows `health: HEALTH_OK` if Ceph is in a healthy state.
 
-1. After confirming that Ceph is in a healthy state, upgrade Rook Ceph to v1.4 or later before attempting to managing nodes in the cluster.
+1. After confirming that Ceph is in a healthy state, upgrade Rook Ceph to v1.4 or later before attempting to manage nodes in the cluster.
 
 For more information about these steps, see [Managing nodes when the previous Rook version is in use might leave Ceph in an unhealthy state where mon pods are not rescheduled](https://community.replicated.com/t/managing-nodes-when-the-previous-rook-version-is-in-use-might-leave-ceph-in-an-unhealthy-state-where-mon-pods-are-not-rescheduled/1099/1) in _Replicated Community_.
