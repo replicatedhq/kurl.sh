@@ -30,7 +30,7 @@ This table describes the CSI add-on migration paths that kURL supports:
 | Longhorn  | Rook 1.10.8 and later | Migrating from Longhorn to Rook 1.10.8 or later is recommended for clusters with three or more nodes where data replication and availability are requirements. Compared to OpenEBS, Rook requires more resources from your cluster, including a dedicated block device. Single-node installations of Rook are not recommended. Migrating from Longhorn to Rook is not supported for single-node clusters.  |
 | Rook      | OpenEBS 3.3.0 and later  | Migrating from Rook to OpenEBS 3.3.0 or later is strongly recommended for single-node installations, or for applications that do not require data replication. Compared to Rook, OpenEBS requires significantly fewer hardware resources from your cluster. |
 
-For more information about how to choose between Rook or OpenEBS, see [Choosing a PV Provisioner](create-installer/choosing-a-pv-provisioner).
+For more information about how to choose between Rook or OpenEBS, see [Choosing a PV Provisioner](/create-installer/choosing-a-pv-provisioner).
 
 ## About Changing the CSI Add-on
 
