@@ -37,35 +37,20 @@ For more information about how to choose between Rook or OpenEBS, see [Choosing 
 You can change the CSI provisioner that your kURL cluster uses by updating the CSI add-on in your kURL specification file. Then, when you upgrade a kURL cluster using the new specification, the kURL installer detects the change that you made to the CSI add-on and begins automatically migrating data from the current provisioner to the new one.
 
 kURL supports data migration when you change your CSI provider from Rook to OpenEBS, or when you change from Longhorn to Rook or OpenEBS.
-For more information about how kURL automatically migrates data in either scenario, see the following sections:
-* [Rook to OpenEBS](#rook-to-openebs)
-* [Longhorn to Rook or OpenEBS](#longhorn-to-rook-or-openebs)
 
-### Rook to OpenEBS
+### Migration process overview
 
-The following describes the automatic data migration process when you change the CSI provisioner add-on from Rook to OpenEBS:
+The following describes the automatic data migration process when you change the CSI provisioner add-on (_source_ is the CSI provisioner currently installed in the cluster and _target_ is the desired CSI provisioner):
 
-1. kURL temporarily shuts down all pods mounting Rook volumes. This is done to ensure that the data being migrated is not in use and can be safely copied to the new storage system. 
+1. kURL installer temporarily shuts down all pods mounting volumes backed by the _source_ provisioner. This is done to ensure that the data being migrated is not in use and can be safely copied to the new storage system. 
 
-1. kURL recreates all PVCs that were originally created using Rook onto OpenEBS with the same name and contents. 
+1. kURL recreates all PVCs provided by the _source_ provisioner using the _target_ provisioner as backing storage. Data is then copied from the source PVC to the destination PVC.
 
-1. If you are migrating off Rook from a cluster that has more than two nodes, OpenEBS attempts to create local volumes on the same nodes where the original Rook PVCs were referenced.
+1. If you are migrating from Rook or Longhorn to OpenEBS in a cluster that has more than two nodes the kURL installer attempts to create local OpenEBS volumes on the same nodes where the original Rook or Longhorn volumes were referenced.
 
-1. When the data migration is complete, the pods are restarted.
+1. When the data migration is complete, the pods are restarted using the new PVCs.
 
-1. kURL uninstalls Rook from the cluster.
-
-### Longhorn to Rook or OpenEBS
-
-The following describes the automatic data migration process when you change the CSI provisioner add-on from Longhorn to Rook or OpenEBS:
-
-1. kURL temporarily shuts down all pods mounting Longhorn volumes. This is done to ensure that the data being migrated is not in use and can be safely copied to the new storage system. 
-
-1. kURL recreates all PVCs that were originally created using Longhorn onto Rook or OpenEBS with the same name and contents. 
-
-1. When the data migration is complete, the pods are restarted.
-
-1. kURL uninstalls Longhorn from the cluster.
+1. kURL uninstalls the _source_ provisioner from the cluster.
 
 ## Prerequisites
 
