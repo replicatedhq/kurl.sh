@@ -45,9 +45,13 @@ For more information about how kURL automatically migrates data in either scenar
 
 The following describes the automatic data migration process when you change the CSI provisioner add-on from Rook to OpenEBS:
 
+1. kURL temporarily shuts down all pods mounting Rook volumes. This is done to ensure that the data being migrated is not in use and can be safely copied to the new storage system. 
+
 1. kURL recreates all PVCs that were originally created using Rook onto OpenEBS with the same name and contents. 
 
 1. If you are migrating off Rook from a cluster that has more than two nodes, OpenEBS attempts to create local volumes on the same nodes where the original Rook PVCs were referenced.
+
+1. When the data migration is complete, the pods are restarted.
 
 1. kURL uninstalls Rook from the cluster.
 
@@ -57,9 +61,11 @@ The following describes the automatic data migration process when you change the
 
 1. kURL temporarily shuts down all pods mounting Longhorn volumes. This is done to ensure that the data being migrated is not in use and can be safely copied to the new storage system. 
 
-1. kURL copies all data from Longhorn to the new target storage provisioner (either OpenEBS or Rook). This is done by copying one PersistentVolumeClaim at a time.
+1. kURL recreates all PVCs that were originally created using Longhorn onto Rook or OpenEBS with the same name and contents. 
 
 1. When the data migration is complete, the pods are restarted.
+
+1. kURL uninstalls Longhorn from the cluster.
 
 ## Prerequisites
 
@@ -75,7 +81,7 @@ Before you attempt to change the CSI provisioner in your cluster, complete the f
 
 - Verify that the version of Kubernetes running in the cluster supports both the current CSI provisioner and the new provisioner that you want to use. Running incompatible versions causes an error during data migration.
 
-- Ensure that your cluster has adequate hardware resources to run both the current and the new CSI provisioner simultaneously. Your cluster must be able to run both provisioners simultaneously because, during the data migration process, the cluster uses twice as much storage capacity as usual due to duplicate volumes. So, the Rook dedicated storage device or the OpenEBS volume must have sufficient disk space available to handle this increase.
+- Ensure that your cluster has adequate hardware resources to run both the current and the new CSI provisioner simultaneously. Your cluster must be able to run both provisioners simultaneously. During the data migration process, the cluster uses twice as much storage capacity as usual due to duplicate volumes. So, the Rook dedicated storage device or the OpenEBS volume must have sufficient disk space available to handle this increase.
 
   After kURL completes the data migration, storage consumption in the cluster returns to normal because the volumes from the previous CSI provisioner are deleted.
 
