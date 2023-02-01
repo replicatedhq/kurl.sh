@@ -3,166 +3,206 @@ path: "/docs/install-with-kurl/migrating-csi"
 date: "2021-06-30"
 weight: 23
 linktitle: "Migrating CSI"
-title: "Migrating to Change kURL CSI Add-Ons"
+title: "Migrating to Change CSI Add-On"
 ---
 
-It is crucial to acknowledge that Longhorn has caused several operational issues in the past so its support will be discontinued going forward. If you are currently utilizing Longhorn, it is imperative that you plan for migration to an alternative solution, that can be either OpenEBS or Rook. This table provides a complete and concise overview of the CSI migrations that are currently supported by the Kurl platform.
+This topic describes how to change the Container Storage Interface (CSI) provisioner add-on in your kURL cluster. It includes information about how to use the kURL installer to automatically migrate data to the new provisioner during upgrade. It also includes prerequisites that you must complete before attempting to change CSI add-ons to reduce the risk of errors during data migration.
+
+* [Supported CSI Migrations](#supported-csi-migrations)
+* [About Changing the CSI Add-on](#about-changing-the-csi-add-on)
+  * [Rook to OpenEBS](#rook-to-openebs)
+  * [Longhorn to Rook or OpenEBS](#longhorn-to-rook-or-openebs)
+* [Prerequisites](#prerequisites)
+  * [General Prerequisites](#general-prerequisites)
+  * [Longhorn Prerequisites](#longhorn-prerequisites)
+* [Change the CSI Add-on in a Cluster](#change-the-csi-add-on-in-a-cluster)
+* [Troubleshoot Longhorn Data Migration](#troubleshoot-longhorn-data-migration)  
+
+## Supported CSI Migrations
+
+_**Important**_: kURL does not support Longhorn. If you are currently using Longhorn, you must migrate data from Longhorn to either OpenEBS or Rook.
+
+This table describes the CSI add-on migration paths that kURL supports:
 
 | From      | To        | Notes                                                                                                                                                                                                                  |
 |-----------|-----------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Longhorn  | OpenEBS   | The support for Longhorn is being discontinued, and therefore, this is the recommended approach for single-node installations                                                                                          |
-| Longhorn  | Rook      | Single-node installations of Rook are not recommended and therefore this migration is not supported on this scenario. However, if you are running Longhorn in a multi-node setup, this migration is the ideal option.  |
-| Rook      | OpenEBS   | Migrating to OpenEBS from Rook is strongly advised for single-node installations or for applications that do not require data replication, as OpenEBS requires significantly fewer hardware resources.                 |
+| Longhorn  | OpenEBS 3.3.0 and later  | Migrating from Longhorn to OpenEBS 3.3.0 or later is recommended for single-node installations. |
+| Longhorn  | Rook 1.10.8 and later | Migrating from Longhorn to Rook 1.10.8 or later is recommended for clusters with three or more nodes where data replication and availability are requirements. Compared to OpenEBS, Rook requires more resources from your cluster, including a dedicated block device. Single-node installations of Rook are not recommended. Migrating from Longhorn to Rook is not supported for single-node clusters.  |
+| Rook      | OpenEBS 3.3.0 and later  | Migrating from Rook to OpenEBS 3.3.0 or later is strongly recommended for single-node installations, or for applications that do not require data replication. Compared to Rook, OpenEBS requires significantly fewer hardware resources from your cluster. |
 
+For more information about how to choose between Rook or OpenEBS, see [Choosing a PV Provisioner](create-installer/choosing-a-pv-provisioner).
 
-If your application runs on a single-node setup or does not require data replication, then OpenEBS is the ideal solution as it requires significantly fewer hardware resources.
+## About Changing the CSI Add-on
 
-Rook is specifically designed for multi-node clusters where data replication and availability are crucial requirements. However, it should be taken into consideration that Rook demands more resources from your cluster, including the need for a dedicated block device for its exclusive use.
+You can change the CSI provisioner that your kURL cluster uses by updating the CSI add-on in your kURL specification file. Then, when you upgrade a kURL cluster using the new specification, the kURL installer detects the change that you made to the CSI add-on and begins automatically migrating data from the current provisioner to the new one.
 
-Be aware that the Kurl installer has the capability to detect the CSI provisioner that is currently installed and, in case a different one is installed during an upgrade, the data will be seamlessly migrated from the old provisioner to the new one. However, it is crucial to take into consideration that there may be a period of **application unavailability during the migration process**, therefore, proper planning and scheduling is necessary to minimize the impact to the application. The duration of the unavailability period will vary based on the amount of data that needs to be migrated.
+kURL supports data migration when you change your CSI provider from Rook to OpenEBS, or when you change from Longhorn to Rook or OpenEBS.
+For more information about how kURL automatically migrates data in either scenario, see the following sections:
+* [Rook to OpenEBS](#rook-to-openebs)
+* [Longhorn to Rook or OpenEBS](#longhorn-to-rook-or-openebs)
 
-As an example, if the cluster has been installed with the following setup:
+### Rook to OpenEBS
+
+The following describes the automatic data migration process when you change the CSI provisioner add-on from Rook to OpenEBS:
+
+1. kURL recreates all PVCs that were originally created using Rook onto OpenEBS with the same name and contents. 
+
+1. If you are migrating off Rook from a cluster that has more than two nodes, OpenEBS attempts to create local volumes on the same nodes where the original Rook PVCs were referenced.
+
+1. kURL uninstalls Rook from the cluster.
+
+### Longhorn to Rook or OpenEBS
+
+The following describes the automatic data migration process when you change the CSI provisioner add-on from Longhorn to Rook or OpenEBS:
+
+1. kURL temporarily shuts down all pods mounting Longhorn volumes. This is done to ensure that the data being migrated is not in use and can be safely copied to the new storage system. 
+
+1. kURL copies all data from Longhorn to the new target storage provisioner (either OpenEBS or Rook). This is done by copying one PersistentVolumeClaim at a time.
+
+1. When the data migration is complete, the pods are restarted.
+
+## Prerequisites
+
+This section includes prerequisites that you must complete before changing the CSI provisioner in your kURL cluster. These prerequisites help you identify and address the most common causes for a data migration failure so that you can reduce the risk of issues.
+
+### General Prerequisites
+
+Before you attempt to change the CSI provisioner in your cluster, complete the following prerequisites:
+
+- Take a snapshot or backup of the relevant data. This helps ensure you can recover your data if the data migration fails.
+
+- Schedule downtime for the migration. During the automated migration process, there is often a period of time where the application is unavailable. The duration of this downtime depends on the amount of data to migrate. Proper planning and scheduling is necessary to minimize the impact of downtime.  
+
+- Verify that the version of Kubernetes running in the cluster supports both the current CSI provisioner and the new provisioner that you want to use. Running incompatible versions causes an error during data migration.
+
+- Ensure that your cluster has adequate hardware resources to run both the current and the new CSI provisioner simultaneously. Your cluster must be able to run both provisioners simultaneously because, during the data migration process, the cluster uses twice as much storage capacity as usual due to duplicate volumes. So, the Rook dedicated storage device or the OpenEBS volume must have sufficient disk space available to handle this increase.
+
+  After kURL completes the data migration, storage consumption in the cluster returns to normal because the volumes from the previous CSI provisioner are deleted.
+
+  See the following for requirements specific to Rook or OpenEBS: 
+  - **Rook Ceph**: See [Rook Add-on](/add-ons/rook) in the kURL documentation and [Hardware Recommendations](https://docs.ceph.com/en/quincy/start/hardware-recommendations/) in the Ceph documentation.
+  - **OpenEBS**: See [OpenEBS Add-on](/add-ons/openebs) in the kURL documentation and [What are the minimum requirements and supported container orchestrators?](https://openebs.io/docs/faqs/general#what-are-the-minimum-requirements-and-supported-container-orchestrators) in the OpenEBS documentation.
+
+- If you are migrating from Longhorn, complete the additional [Longhorn Prerequisites](#longhorn-prerequisites) below.
+
+### Longhorn Prerequisites
+
+If you are migrating from Longhorn to a different CSI provisioner, you must complete the following prerequisites in addition to the [General Prerequisites](#general-prerequisites) above:
+
+- Ensure that the version of Longhorn installed in your cluster is 1.2.0 or later or 1.3.0 or later. Longhorn versions 1.2.x and 1.3.x support Kubernetes versions 1.24 and earlier.
+
+- Confirm that the Longhorn volumes are in a healthy state. Run the following command to check the status of the volumes:
+
+    ```
+    kubectl get volumes.longhorn.io -A
+    ```
+
+    If any volumes are reported as not healthy in the `Robustness` column in the ouput of this command, resolve the issue before proceeding.
+
+    To learn more about volume health, you can also inspect each volume individually:
+
+    ```
+    kubectl get volumes.longhorn.io -n longhorn-system <volume name> -o yaml
+    ```
+
+    In many cases, volume health is caused by issues with volume replication. Specifically, when multiple replicas are configured for a volume but not all have been scheduled. 
+
+    _**Note**_: During the data migration process in single-node clusters, the system automatically scales down the number of replicas to 1 in all Longhorn volumes to ensure the volumes are in a healthy state before beginning the data transfer. This is done to minimize the risk of a migration failure.
+
+- Confirm that Longhorn nodes are in a healthy state. The nodes must be healthy to ensure they are not over-provisioned and can handle scheduled workloads. Run the following command to check the status of the Longhorn nodes:
+
+    ```
+    kubectl get nodes.longhorn.io -A
+    ```
+
+    If any node is not reported as "Ready" and "Schedulable" in the output of this command, resolve the issue before proceeding.
+    
+    To learn more, you can also inspect each node individually and view its "Status" property:
+
+    ```
+    kubectl get nodes.longhorn.io -n longhorn-system <node name> -o yaml
+    ```
+
+- (OpenEBS Only) Before you migrate from Longhorn to OpenEBS:
+   - Ensure the filesystem on the node has adequate space to accommodate twice the amount of data currently stored by Longhorn. This is important because both OpenEBS and Longhorn use the node's filesystem for data storage.
+   - Ensure that there is an additional 2G of memory and 2 CPUs available for OpenEBS. For more information, see [What are the minimum requirements and supported container orchestrators?](https://openebs.io/docs/faqs/general#what-are-the-minimum-requirements-and-supported-container-orchestrators) in the OpenEBS documentation.
+
+- (Rook Only) Before you migrate from Longhorn to Rook, ensure that the dedicated block device for Rook attached to each node has enough space to host all data currently stored in Longhorn.
+
+## Change the CSI Add-on in a Cluster
+
+This procedure describes how to update the kURL specification file to use a new CSI provisioner add-on. Then, upgrade your kURL cluster to automatically migrate data to the new provisioner.
+
+For more information about the supported migration paths for CSI provisioners, see [Supported CSI Migrations](#supported-csi-migrations) above.
+
+_**Warning**_: When you change the CSI provisioner in your cluster, the data migration process causes some amount of downtime for the application. It is important to plan accordingly to minimize the impact on users.
+
+To migrate to a new CSI provisioner in a kURL cluster:
+
+1. Complete the [Prerequisites](#prerequisites) above.
+
+1. Update the kURL specification to remove the current CSI add-on and add the new CSI add-on that you want to use (either Rook or OpenEBS). For information about the options for the Rook or OpenEBS kURL add-ons, see [Rook Add-on](/add-ons/rook) or [OpenEBS Add-on](/add-ons/openebs).
+
+   **Example:**
+
+   This example shows how to update a kURL specification to change the CSI provisioner add-on from Rook to OpenEBS Local PV.
+
+   Given the following `my-current-installer` file, which specifies Rook as the CSI provisioner:
+
+    ```
+    apiVersion: cluster.kurl.sh/v1beta1
+    kind: Installer
+    metadata:
+      name: my-current-installer
+    spec:
+      kubernetes:
+        version: 1.19.12
+      docker:
+        version: 20.10.5
+      weave:
+        version: 2.6.5
+      rook:
+        version: 1.0.4
+    ```
+
+   You can remove `rook` and add `openebs` with `isLocalPVEnable: true` to migrate data from Rook to OpenEBS Local PV, as shown in the following `my-new-installer` file: 
+
+    ```
+    apiVersion: cluster.kurl.sh/v1beta1
+    kind: Installer
+    metadata:
+      name: my-new-installer
+    spec:
+      kubernetes:
+        version: 1.19.12
+      docker:
+        version: 20.10.5
+      weave:
+        version: 2.6.5
+      openebs:
+        version: 3.3.0
+        isLocalPVEnabled: true
+    ```
+
+1. Upgrade your kURL cluster to use the updated specification by rerunning the kURL installation script. For more information about how to upgrade a kURL cluster, see [Upgrading](/install-with-kurl/upgrading).
+
+   During the cluster upgrade, the kURL installer detects that the CSI add-on has changed. kURL automatically begins the process of migrating data from the current CSI provisioner to the provisioner in the updated specification. For more information about the data migration process, see [About Changing the CSI Add-on](#about-changing-the-csi-add-on) above.
+
+## Troubleshoot Longhorn Data Migration
+
+This section describes how to troubleshoot known issues in migrating data from Longhorn to Rook or OpenEBS.
+### Pods stuck in Terminating or Creating state
+
+One of the most common problems that may arise during the migration process is Pods getting stuck in the Terminating or Creating state. This can happen when the Pods are trying to be scaled down or up but are not able to do so due to some underlying issue with Longhorn. In this case, it is recommended to restart the kubelet service on all nodes. This can be done by opening new sessions to the nodes and running the command below to restart the kubelet service.
 
 ```
-apiVersion: cluster.kurl.sh/v1beta1
-kind: Installer
-metadata:
-  name: old
-spec:
-  kubernetes:
-    version: 1.19.12
-  docker:
-    version: 20.10.5
-  weave:
-    version: 2.6.5
-  rook:
-    version: 1.0.4
+sudo systemctl restart kubelet
 ```
 
-You can then automatically migrate data _from_ Rook _to_ OpenEBS with Local PV using the following kURL spec. This requires OpenEBS 3.3.0 or newer. 
-
-```
-apiVersion: cluster.kurl.sh/v1beta1
-kind: Installer
-metadata:
-  name: new
-spec:
-  kubernetes:
-    version: 1.19.12
-  docker:
-    version: 20.10.5
-  weave:
-    version: 2.6.5
-  openebs:
-    version: 3.3.0
-    isLocalPVEnabled: true
-```
-
-kURL does the following when you use the specs above to migrate data from Rook:
-
-* Recreates all PVCs that were originally created using Rook onto OpenEBS with the same name and contents. 
-* If you are migrating off of Rook from a Kubernetes cluster that has more than two nodes, OpenEBS attempts to create local volumes on the same nodes where the original Rook PVCs were referenced.
-* Uninstalls Rook from the cluster.
-
-It's important to keep in mind that this process also applies when migrating from Longhorn to either Rook or OpenEBS. Here's a step-by-step rundown of the process:
-
-1. Your cluster is initially installed with Longhorn.
-2. Your applications are using Longhorn volumes.
-3. You update your cluster with a Kurl specification that no longer includes Longhorn, but instead features either OpenEBS or Rook.
-4. All pods that were previously mounting Longhorn volumes will be temporarily shut down.
-5. The migration process will copy all data from Longhorn to the new target storage provisioner (either OpenEBS or Rook).
-6. Once the migration is complete, the pods will be restarted.
-
-## Migrating from Longhorn
-
-It is imperative to take into consideration several crucial factors when migrating from Longhorn due to the operational challenges experienced in the past. Make sure to thoroughly read all the information provided below to ensure a seamless migration process.
-
-### Prerequisites
-
-To summarize, before considering migrating your data from Longhorn to Rook or OpenEBS, it is important to take the following factors into account:
-
-- Taking a snapshot or backup of the relevant data before migrating is mandatory.
-- Adequate hardware resources are necessary to run both Storage Provisioners simultaneously during migration, failure to do so may result in migration failure (see _Hardware requirements_ section below).
-- Scheduling a downtime for the migration is crucial, the duration of the downtime will depend on the amount of data being migrated.
-- It is essential to ensure that the version of Kubernetes you are upgrading to supports both Longhorn and OpenEBS or Rook.
-- It is highly discouraged to run Rook on a single node cluster, as multi-node configurations are required for optimal performance. If you plan to migrate in a single-node installation then OpenEBS is the recommended provisioner.
-
-
-### The migration process
-
-Starting from Rook 1.10.8 and OpenEBS 3.3.0, Kurl simplifies the process of migrating data from Longhorn by automating the migration when a cluster running Longhorn is upgraded to a Kurl version that does not include Longhorn and has Rook or OpenEBS set as the storage provisioner.
-
-The data migration process from Longhorn involves several steps to ensure a smooth transition while minimizing disruption to the application. One of these steps includes scaling down all Pods that are currently using Longhorn volumes. This is done to ensure that the data being migrated is not in use and can be safely copied to the new storage system. A PersistentVolumeClaim by PersistentVolumeClaim copy is executed to transfer the data to the new storage provisioner. This process, however, does **involve some level of downtime for the application** as the migration is being executed, which is why it is important to plan accordingly to minimize the impact on the end-users.
-
-It is also important to keep in mind that for the migration to be successful, the cluster must **have adequate resources to run both storage provisioners simultaneously** during the migration process (Longhorn and OpenEBS or Longhorn and Rook). For other specific system requirements, it is recommended to refer to the add-on specific documentation. The **migration will result in a significant increase in storage consumption**, with the cluster using twice as much as during regular use due to duplicate volumes. It is imperative that sufficient disk space (in the Rook dedicated storage device or in the OpenEBS volume) is available in the cluster to handle this increase. Upon completion of the migration, storage consumption will return to normal levels as the previous volumes are deleted.
-
-Another important factor to consider before initiating the migration is ensuring that the Kubernetes version you are upgrading to is compatible with both provisioners. It is crucial to ensure that both provisioners are supported on the specific version of Kubernetes you are using, as running incompatible versions will lead to an error during the migration.
-
-_For a successful migration, it is recommended to ensure that the Longhorn version is at least 1.2.x or 1.3.x before proceeding, and it is known that these versions support Kubernetes up to version 1.24._
-
-
-### Hardware requirements
-
-It is imperative to note that the requirements listed below must be in addition to the resources already being utilized by the cluster. In other words, the cluster must have the listed resources as spare capacity or available to accommodate Rook or OpenEBS.
-
-#### Rook
-
-The Ceph community strongly advises against running Rook+Ceph in a single node cluster and mandates a minimum of three nodes. The concurrent operation of both Longhorn and Rook during the migration process will increase the overall hardware requirements of the cluster. If the cluster cannot handle this workload, the upgrade will be unsuccessful. For further information on Rook requirements please refer to Kurl’s [Rook](https://kurl.sh/docs/add-ons/rook) documentation. The official [Rook+Ceph documentation](https://docs.ceph.com/en/quincy/start/hardware-recommendations/) is another crucial source for obtaining information on hardware requirements. The dedicated block device attached to each node must have enough space to host all data being stored in Longhorn.
-
-#### OpenEBS
-
-As stated in the [OpenEBS official documentation](https://openebs.io/docs/additional-info/faqs#:~:text=You%20can%20run%20these%20using,nodes%20in%20the%20Kubernetes%20cluster), OpenEBS requires 2G of memory and 2 CPUs, so it is crucial to ensure the cluster has these spare resources available prior to initiating the migration. It is crucial to be aware that OpenEBS and Longhorn both utilize the node's filesystem for data storage, therefore, it is essential to ensure that the filesystem is adequately sized to accommodate twice the amount of data stored by Longhorn.
-
-### Preparation
-
-To ensure a smooth migration process, it is important to take certain steps before starting it. This includes identifying and addressing the most common causes for a migration failure. By doing so, you can minimize the risk of encountering issues during the migration and increase the chances of success.
-
-#### Check Longhorn Volumes health
-
-It is crucial to ensure that the volumes being migrated are in a healthy state before proceeding. The migration won’t proceed if the volumes are not healthy. You can check the status of the volumes using the provided command below. If any volumes are reported as not healthy in the "Robustness" column, it is recommended to address the issue before proceeding with the migration.
-
-```
-$ kubectl get volumes.longhorn.io -A
-```
-
-In many cases, volume health can be attributed to issues with volume replication. Specifically, when multiple replicas are configured for a volume but not all of them have been scheduled yet. To gain more insight, you can review the individual volumes by inspecting them.
-
-```
-$ kubectl get volumes.longhorn.io -n longhorn-system <volume name> -o yaml
-```
-
-_During the migration process, when running on a single node cluster, the system will automatically scale down the number of replicas to 1 in all Longhorn volumes as a measure to ensure the volumes are in a healthy state before beginning the data transfer. This is done to minimize the risk of a migration failure._
-
-#### Check Longhorn Nodes health
-
-To ensure a successful migration, it is crucial to verify that all Longhorn nodes are in a healthy state: able to handle scheduled workloads, and not over-provisioned. You can check the status of the Longhorn nodes by running the following command:
-
-```
-$ kubectl get nodes.longhorn.io -A
-```
-
-If any node is not reported as "Ready" and "Schedulable", you can obtain more information by individually inspecting the node and checking its "Status" property.
-
-```
-$ kubectl get nodes.longhorn.io -n longhorn-system <node name> -o yaml
-```
-
-### Known issues
-
-It is important to note that migrating to a different storage provisioner, such as Rook and OpenEBS, from Longhorn can come with its own set of challenges and difficulties. We have found that the Longhorn storage provisioner has caused several operational issues in the past, which is why we have chosen to prioritize other options.
-
-#### Pods stuck in Terminating or Creating state
-
-One of the most common problems that may arise during the migration process is Pods getting stuck in the Terminating or Creating state. This can happen when the Pods are trying to be scaled down or up but are not able to do so due to some underlying issue with Longhorn. In this case, it is recommended to restart the Kubelet service on all nodes. This can be done by opening new sessions to the nodes and running the command below to restart the Kubelet service.
-
-```
-$ sudo systemctl restart kubelet
-```
-
-#### How to restore the original number of Volume replicas
+### Restore the original number of Volume replicas
 
 To ensure a smooth migration process, when executed on a single node cluster, all Longhorn volumes are scaled down to 1 replica. This is done to make it easier to identify any issues that may arise during the migration, as scaling up the number of replicas can potentially mask the underlying problem. Despite the migration not being successful, the volumes will remain at 1 replica in order to identify the root cause of the failure. If necessary you can restore the original number of replicas by running the following command:
 
 ```
-$ kurl longhorn rollback-migration-replicas
+kurl longhorn rollback-migration-replicas
 ```
