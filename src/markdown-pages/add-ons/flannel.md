@@ -48,6 +48,7 @@ This can be overridden using the `podCIDR` to specify a specific address space, 
 
 ## Limitations
 
+* Flannel is not compatible with the Docker container runtime
 * Migrations from Antrea CNI are not supported
 * Network Policies are not supported
 * IPv6 and dual stack networks are not supported
