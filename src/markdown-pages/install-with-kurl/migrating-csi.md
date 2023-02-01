@@ -79,7 +79,7 @@ Before you attempt to change the CSI provisioner in your cluster, complete the f
 
 - Schedule downtime for the migration. During the automated migration process, there is often a period of time where the application is unavailable. The duration of this downtime depends on the amount of data to migrate. Proper planning and scheduling is necessary to minimize the impact of downtime.  
 
-- Verify that the version of Kubernetes running in the cluster supports both the current CSI provisioner and the new provisioner that you want to use. Running incompatible versions causes an error during data migration.
+- Verify that the version of Kubernetes you are upgrading to supports both the current CSI provisioner and the new provisioner that you want to use. Running incompatible versions causes an error during data migration.
 
 - Ensure that your cluster has adequate hardware resources to run both the current and the new CSI provisioner simultaneously. Your cluster must be able to run both provisioners simultaneously. During the data migration process, the cluster uses twice as much storage capacity as usual due to duplicate volumes. So, the Rook dedicated storage device or the OpenEBS volume must have sufficient disk space available to handle this increase.
 
