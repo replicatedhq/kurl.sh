@@ -178,6 +178,7 @@ To migrate to a new CSI provisioner in a kURL cluster:
 ## Troubleshoot Longhorn Data Migration
 
 This section describes how to troubleshoot known issues in migrating data from Longhorn to Rook or OpenEBS.
+
 ### Pods stuck in Terminating or Creating state
 
 One of the most common problems that may arise during the migration process is Pods getting stuck in the Terminating or Creating state. This can happen when the Pods are trying to be scaled down or up but are not able to do so due to some underlying issue with Longhorn. In this case, it is recommended to restart the kubelet service on all nodes. This can be done by opening new sessions to the nodes and running the command below to restart the kubelet service.
