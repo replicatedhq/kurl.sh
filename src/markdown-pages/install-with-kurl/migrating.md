@@ -56,6 +56,8 @@ spec:
     version: 2.6.5
   longhorn:
     version: 1.3.1
+  minio:
+    version: 2023-01-25T00-19-54Z
   registry:
     version: 2.7.1
   kotsadm:
