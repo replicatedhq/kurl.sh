@@ -38,7 +38,7 @@ If you're looking to make the move from one CSI provisioner (Longhorn, OpenEBS, 
 
 ## Example Old and New Specs
 
-In the new spec, the Kubernetes version has been upgraded to 1.21, Longhorn has been replaced with OpenEBS and Minio, Weave has been replaced with Flannel, and docker has been replaced with containerd.
+In the new spec, the Kubernetes version has been upgraded to 1.21, Longhorn has been replaced with OpenEBS, Weave has been replaced with Flannel, and docker has been replaced with containerd.
 
 ### Old
 
