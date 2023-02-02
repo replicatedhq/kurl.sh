@@ -1251,7 +1251,6 @@ class Kurlsh extends React.Component {
                   addOnId="flannel"
                   addOnTitle="Flannel"
                   addOnIcon="u-kubernetes"
-                  isBeta={true}
                   isAddOnChecked={isAddOnChecked["flannel"]}
                   options={versions.flannel}
                   getOptionLabel={this.getLabel("flannel")}

@@ -262,6 +262,8 @@ cat install.sh | sudo bash -s airgap
                   </p>
                   {installerData.spec.kubernetes &&
                     <AppVersionCard selectedSpec={selectedSpec} name={"kubernetes"} installerData={installerData.spec.kubernetes} whatYouGet={this.whatYouGet} />}
+                  {installerData.spec.flannel &&
+                    <AppVersionCard selectedSpec={selectedSpec} name={"flannel"} installerData={installerData.spec.flannel} whatYouGet={this.whatYouGet} />}
                   {installerData.spec.weave &&
                     <AppVersionCard selectedSpec={selectedSpec} name={"weave"} installerData={installerData.spec.weave} whatYouGet={this.whatYouGet} />}
                   {installerData.spec.contour &&

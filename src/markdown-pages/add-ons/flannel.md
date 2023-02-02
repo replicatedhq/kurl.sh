@@ -5,7 +5,6 @@ linktitle: "Flannel"
 weight: 38
 title: "Flannel Add-On"
 addOn: "flannel"
-isBeta: true
 ---
 
 [Flannel](https://github.com/flannel-io/flannel) implements the Container Network Interface (CNI) to enable pod networking in a Kubernetes cluster.
@@ -49,7 +48,7 @@ This can be overridden using the `podCIDR` to specify a specific address space, 
 
 ## Limitations
 
-* Migrations from Weave CNI are not supported
+* Flannel is not compatible with the Docker container runtime
 * Migrations from Antrea CNI are not supported
 * Network Policies are not supported
 * IPv6 and dual stack networks are not supported
