@@ -34,7 +34,7 @@ For more information about how to choose between Rook or OpenEBS, see [Choosing 
 
 You can change the CSI provisioner that your kURL cluster uses by updating the CSI add-on in your kURL specification file. Then, when you upgrade a kURL cluster using the new specification, the kURL installer detects the change that you made to the CSI add-on and begins automatically migrating data from the current provisioner to the new one.
 
-kURL supports data migration when you change your CSI provider from Rook to OpenEBS, or when you change from Longhorn to Rook or OpenEBS.
+kURL supports data migration when you change your CSI provisioner from Rook to OpenEBS, or when you change from Longhorn to Rook or OpenEBS.
 
 The following describes the automatic data migration process when you change the CSI provisioner add-on, where _source_ is the CSI provisioner currently installed in the cluster and _target_ is the desired CSI provisioner:
 
