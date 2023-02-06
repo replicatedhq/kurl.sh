@@ -104,7 +104,7 @@ Complete the following prerequisites before you remove one or more nodes from a 
 
 * Upgrade Rook Ceph to v1.4 or later.
 
-   The two latest minor releases of Rook Ceph are actively maintained. It is recommended to upgrade to the latest stable release available. For more information, see [Release Cycle](https://rook.io/docs/rook/latest/Getting-Started/release-cycle/) in the Rook Ceph documentation.
+   The two latest minor releases of Rook Ceph are actively maintained. It is recommended to upgrade to the latest stable release available. For more information, see [Release Cycle](https://rook.io/docs/rook/v1.10/Getting-Started/release-cycle/) in the Rook Ceph documentation.
 
    Attempting to remove a node from a cluster that uses a Rook Ceph version earlier than v1.4 can cause Ceph to enter an unhealthy state. For example, see [Rook Ceph v1.0.4 is Unhealthy with Mon Pods Not Rescheduled](#rook-ceph-v104-is-unhealthy-with-mon-pods-not-rescheduled) under _Troubleshoot Node Removal_ below.
 
@@ -115,7 +115,7 @@ Complete the following prerequisites before you remove one or more nodes from a 
   * (Recommended) Use the `rook-ceph-tools` Pod to access the ceph CLI.
   Use the same version of the Rook toolbox as the version of Rook Ceph that is installed in the cluster.
   By default, the `rook-ceph-tools` Pod is included on kURL clusters with Rook Ceph v1.4 and later.
-  For more information about `rook-ceph-tools` Pods, see [Rook Toolbox](https://rook.io/docs/rook/v1.5/ceph-toolbox.html) in the Rook Ceph documentation.
+  For more information about `rook-ceph-tools` Pods, see [Rook Toolbox](https://rook.io/docs/rook/v1.10/Troubleshooting/ceph-toolbox/) in the Rook Ceph documentation.
 
   * Use `kubectl exec` to enter the `rook-ceph-operator` Pod, where the ceph CLI is available.
 

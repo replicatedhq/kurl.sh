@@ -28,6 +28,16 @@ spec:
 
 flags-table
 
+## System Requirements
+
+The following ports must be open between nodes for multi-node clusters:
+
+| Protocol | Direction | Port Range | Purpose                 | Used By |
+| -------  | --------- | ---------- | ----------------------- | ------- |
+| TCP      | Inbound   | 9090       | CSI RBD Plugin Metrics  | All     |
+
+The `/var/lib/rook/` directory requires at least 10 GB space available for Ceph monitor metadata.
+
 ## Block Storage
 
 Rook versions 1.4.3 and later require a dedicated block device attached to each node in the cluster.
@@ -60,7 +70,7 @@ Additionally, `blockDeviceFilter` instructs Rook to use only block devices that 
 For more information about the available options, see [Advanced Install Options](#advanced-install-options) above.
 
 The Rook add-on waits for the dedicated disk that you attached to your node before continuing with installation.
-If you attached a disk to your node, but the installer is waiting at the Rook add-on installation step, see [OSD pods are not created on my devices](https://rook.io/docs/rook/v1.0/ceph-common-issues.html#osd-pods-are-not-created-on-my-devices) in the Rook documentation for troubleshooting information.
+If you attached a disk to your node, but the installer is waiting at the Rook add-on installation step, see [OSD pods are not created on my devices](https://rook.io/docs/rook/v1.10/Troubleshooting/ceph-common-issues/#osd-pods-are-not-created-on-my-devices) in the Rook documentation for troubleshooting information.
 
 ## Filesystem Storage
 
@@ -68,21 +78,17 @@ By default, for Rook versions earlier than 1.4.3, the cluster uses the filesyste
 However, block storage is recommended for Rook in production clusters.
 For more information, see [Block Storage](#block-storage) above.
 
-When using the filesystem for storage, each node in the cluster has a single OSD backed by a directory in `/opt/replicated/rook`.
-Nodes with a Ceph Monitor also use `/var/lib/rook`.
-
-Sufficient disk space must be available to `/var/lib/rook` for the Ceph Monitors and other configs. For disk requirements, see [Add-on Directory Disk Space Requirements](/docs/install-with-kurl/system-requirements/#add-on-directory-disk-space-requirements). 
-
-We recommend a separate partition to prevent a disruption in Ceph's operation as a result of `/var` or the root partition running out of space.
+When using the filesystem for storage, each node in the cluster has a single OSD backed by a directory in `/opt/replicated/rook/`.
+We recommend a separate partition at `/opt/replicated/rook/` to prevent a disruption in Ceph's operation as a result the root partition running out of space.
 
 **Note**: All disks used for storage in the cluster should be of similar size.
 A cluster with large discrepancies in disk size may fail to replicate data to all available nodes.
 
 ## Shared Filesystem
 
-The [Ceph filesystem](https://rook.io/docs/rook/v1.4/ceph-filesystem.html) is supported with version 1.4.3+.
+The [Ceph filesystem](https://rook.io/docs/rook/v1.10/Storage-Configuration/Shared-Filesystem-CephFS/filesystem-storage/) is supported with version 1.4.3+.
 This allows the use of PersistentVolumeClaims with access mode `ReadWriteMany`.
-Set the storage class to `rook-cephfs` in the pvc spec to use this feature.
+Set the storage class to `rook-cephfs` in the PVC spec to use this feature.
 
 ```yaml
 apiVersion: v1
@@ -97,14 +103,6 @@ spec:
       storage: 1Gi
   storageClassName: rook-cephfs
 ```
-
-## System Requirements
-
-The following additional ports must be open between nodes for multi-node clusters:
-
-| Protocol | Direction | Port Range | Purpose                 | Used By |
-| -------  | --------- | ---------- | ----------------------- | ------- |
-| TCP      | Inbound   | 9090       | CSI RBD Plugin Metrics  | All     |
 
 ## Upgrades
 
@@ -121,10 +119,10 @@ For example:
 curl https://k8s.kurl.sh/latest/tasks.sh | sudo bash -s rook-upgrade to-version=1.10
 ```
 
-Rook upgrades from 1.0.x migrate data off of any hostpath-based OSDs in favor of block device-based OSDs.
+Rook upgrades from 1.0.x migrate data off of any filesystem-based OSDs in favor of block device-based OSDs.
 The upstream Rook project introduced a requirement for block storage in versions 1.3.x and later.
 
-## Monitor Rook Ceph
+## Monitoring
 
 For Rook version 1.9.12 and later, when you install with both the Rook add-on and the Prometheus add-on, kURL enables Ceph metrics collection and creates a Ceph cluster statistics Grafana dashboard.
 
