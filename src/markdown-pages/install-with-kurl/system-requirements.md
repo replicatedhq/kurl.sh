@@ -33,15 +33,15 @@ title: "System Requirements"
 
 The following table lists information about the core directory requirements.
 
-| Name           | Location             | Requirements                 | Description |
-| -------------- | -------------------- | ---------------------------- | ----------- |
-| etcd           | /var/lib/etcd/       | 2 GB                         | Kubernetes etcd cluster data directory. See the [etcd documentation](https://etcd.io/docs/v3.5/op-guide/hardware/#disks) and [Cloud Disk Performance](#cloud-disk-performance) for more information and recommendations. |
-| kubelet        | /var/lib/kubelet/    | 30 GB *                      | Used for local disk volumes, emptyDir, log storage, and more. See the Kubernetes [Resource Management for Pods and Containers documentation](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#local-ephemeral-storage) for more information.  |
-| containerd     | /var/lib/containerd/ | 30 GB *                      | Snapshots, content, metadata for containers and image, as well as any plugin data will be kept in this location. See the [containerd documentation](https://github.com/containerd/containerd/blob/main/docs/ops.md#base-configuration) for more information. |
-| kube-apiserver | /var/log/apiserver/  | 1 GB                         | Kubernetes audit logs. See Kubernetes [Auditing documentation](https://kubernetes.io/docs/tasks/debug/debug-cluster/audit/) for mode information. |
-| kURL           | /var/lib/kurl/       | 10 GB **                     | kURL data directory used to store utilities, system packages, and container images. This directory can be overridden with the flag `kurl-install-directory` (see [kURL Advanced Install Options](/docs/install-with-kurl/advanced-options)) |
+| Name           | Location             | Requirements       | Description |
+| -------------- | -------------------- | ------------------ | ----------- |
+| etcd           | /var/lib/etcd/       | 2 GB               | Kubernetes etcd cluster data directory. See the [etcd documentation](https://etcd.io/docs/v3.5/op-guide/hardware/#disks) and [Cloud Disk Performance](#cloud-disk-performance) for more information and recommendations. |
+| kubelet        | /var/lib/kubelet/    | *30 GB &ast;*      | Used for local disk volumes, emptyDir, log storage, and more. See the Kubernetes [Resource Management for Pods and Containers documentation](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#local-ephemeral-storage) for more information.  |
+| containerd     | /var/lib/containerd/ | *30 GB &ast;*      | Snapshots, content, metadata for containers and image, as well as any plugin data will be kept in this location. See the [containerd documentation](https://github.com/containerd/containerd/blob/main/docs/ops.md#base-configuration) for more information. |
+| kube-apiserver | /var/log/apiserver/  | 1 GB               | Kubernetes audit logs. See Kubernetes [Auditing documentation](https://kubernetes.io/docs/tasks/debug/debug-cluster/audit/) for mode information. |
+| kURL           | /var/lib/kurl/       | *10 GB &ast;&ast;* | kURL data directory used to store utilities, system packages, and container images. This directory can be overridden with the flag `kurl-install-directory` (see [kURL Advanced Install Options](/docs/install-with-kurl/advanced-options)) |
 
-*&ast; This requirement depends on the size of the container images and the amout of ephemeral data used by your application containers.*
+*&ast; This requirement depends on the size of the container images and the amount of ephemeral data used by your application containers.*
 
 *&ast;&ast; This requirement can vary depending on your choice of kURL add-ons and can grow over time.*
 
@@ -53,15 +53,19 @@ For more information see the Kubernetes [Reclaiming node level resources](https:
 
 The following table lists the add-on directory locations and disk space requirements, if applicable. For any additional requirements, see the specific topic for the add-on.
 
-| Name   | Location             | Requirements | Description |
-| ------ | -------------------- | ------------ | ----------- |
-| Docker | /var/lib/docker/     | 30 GB *      | Images, containers and volumes, and more will be kept in this location. See the [Docker Storage documentation](https://docs.docker.com/storage/) for more information. When using the Docker runtime, /var/lib/containerd/ is not required. |
-| Docker | /var/lib/dockershim/ | N/A          | Kubernetes dockershim data directory |
-| Weave  | /var/lib/cni/        | N/A          | Container networking data directory |
-| Weave  | /var/lib/weave/      | N/A          | Weave data directory |
-| Rook   | /var/lib/rook/       | 10 GB        | Ceph monitor metadata directory. See the [ceph-mon Minimum Hardware Recommendations](https://docs.ceph.com/en/quincy/start/hardware-recommendations/#minimum-hardware-recommendations) for more information. |
+| Name     | Location             | Requirements  | Description |
+| -------- | -------------------- | ------------- | ----------- |
+| Docker   | /var/lib/docker/     | *30 GB &ast;* | Images, containers and volumes, and more will be kept in this location. See the [Docker Storage documentation](https://docs.docker.com/storage/) for more information. When using the Docker runtime, /var/lib/containerd/ is not required. |
+| Docker   | /var/lib/dockershim/ | N/A           | Kubernetes dockershim data directory |
+| Weave    | /var/lib/cni/        | N/A           | Container networking data directory |
+| Weave    | /var/lib/weave/      | N/A           | Weave data directory |
+| Rook     | /var/lib/rook/       | 10 GB         | Ceph monitor metadata directory. See the [ceph-mon Minimum Hardware Recommendations](https://docs.ceph.com/en/quincy/start/hardware-recommendations/#minimum-hardware-recommendations) for more information. |
+| Registry | *PVC &ast;&ast;*     | N/A           | Stores container images only in airgapped clusters. Data will be stored in Persistent Volumes. |
+| Velero   | *PVC &ast;&ast;*     | N/A           | Stores snapshot data. Data will be stored in Persistent Volumes. |
 
-*&ast; This requirement depends on the size of the container images and the amout of ephemeral data used by your application containers.*
+*&ast; This requirement depends on the size of the container images and the amount of ephemeral data used by your application containers.*
+
+*&ast;&ast; Data will be stored in Persistent Volumes. Requirements depend on the provisioner of choice. See [Persistent Volume Requirements](#persistent-volume-requirements) for more information.*
 
 ### Persistent Volume Requirements
 
@@ -144,7 +148,7 @@ In addition to the networking requirements described in the previous section, op
 ### Control Plane HA
 
 To operate the Kubernetes control plane in HA mode, it is recommended to have a minimum of 3 primary nodes.
-In the event that one of these nodes becomes unavailable, the remaining two will still be able to function with an etcd quorom.
+In the event that one of these nodes becomes unavailable, the remaining two will still be able to function with an etcd quorum.
 As the cluster scales, dedicating these primary nodes to control-plane only workloads using the `noSchedule` taint should be considered.
 This will affect the number of nodes that need to be provisioned.
 
