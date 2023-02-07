@@ -189,7 +189,7 @@ Load balancer requirements for application workloads vary depending on workload.
 
 The following example cloud VM instance/disk combinations are known to provide sufficient performance for etcd and will pass the write latency preflight.
 
-* AWS m4.xlarge with 80 GB standard EBS root device
+* AWS m4.xlarge with 100 GB standard EBS root device
 * Azure D4ds_v4 with 8 GB ultra disk mounted at /var/lib/etcd provisioned with 2400 IOPS and 128 MB/s throughput
-* Google Cloud Platform n1-standard-4 with 50 GB pd-ssd boot disk
+* Google Cloud Platform n1-standard-4 with 100 GB pd-ssd boot disk
 * Google Cloud Platform  n1-standard-4 with 500 GB pd-standard boot disk
