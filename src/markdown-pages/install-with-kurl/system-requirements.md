@@ -73,10 +73,10 @@ Depending on the amount of persistent data stored by your application, you will 
 
 | Name                 | Location              | Description |
 | -------------------- | --------------------- | ----------- |
-| OpenEBS              | /var/openebs/local/   | See [OpenEBS Add-on](/docs/add-ons/openebs)                          |
-| Rook (Block Storage) |                       | Rook add-on version 1.4.3 and later requires an unformatted storage device on each node in the cluster (see [Rook Block Storage](/docs/add-ons/rook#block-storage)) |
-| Rook (version 1.0.x) | /opt/replicated/rook/ | See [Rook Filesystem Storage](/docs/add-ons/rook#filesystem-storage) |
-| Longhorn             | /var/lib/longhorn/    | See [Longhorn Add-on](/docs/add-ons/longhorn)                        |
+| OpenEBS              | /var/openebs/local/   | OpenEBS Local PV Hostpath volumes will be created under this directory. See the [OpenEBS Add-on](/docs/add-ons/openebs) documentation for more information. |
+| Rook (Block Storage) |                       | Rook add-on version 1.4.3 and later requires an unformatted storage device on each node in the cluster for Ceph volumes. See the [Rook Block Storage](/docs/add-ons/rook#block-storage) documentation for more information. |
+| Rook (version 1.0.x) | /opt/replicated/rook/ | Rook Filesystem volumes will be created under this directory. See the [Rook Filesystem Storage](/docs/add-ons/rook#filesystem-storage) documentation for more information. |
+| Longhorn             | /var/lib/longhorn/    | Longhorn volumes will be created under this directory. See the [Longhorn Add-on](/docs/add-ons/longhorn) documentation for more information. |
 
 ## Networking Requirements
 
