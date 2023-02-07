@@ -24,7 +24,7 @@ title: "System Requirements"
 * 8 GB of RAM per machine
 * 100 GB of Disk Space per machine
   *(For more specific requirements see [Disk Space Requirements](#disk-space-requirements) below)*
-* TCP ports 2379, 2380, 6443, 10250, 10251 and 10252 and UDP port 8472 (Flannel VXLAN) open between cluster nodes
+* TCP ports 2379, 2380, 6443, 10250, 10257 and 10259 and UDP port 8472 (Flannel VXLAN) open between cluster nodes
   *(For more specific add-on requirements see [Networking Requirements](#networking-requirements) below)*
 
 ## Disk Space Requirements
