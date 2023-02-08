@@ -79,7 +79,7 @@ However, block storage is recommended for Rook in production clusters.
 For more information, see [Block Storage](#block-storage) above.
 
 When using the filesystem for storage, each node in the cluster has a single OSD backed by a directory in `/opt/replicated/rook/`.
-We recommend a separate partition at `/opt/replicated/rook/` to prevent a disruption in Ceph's operation as a result the root partition running out of space.
+We recommend a separate disk or partition at `/opt/replicated/rook/` to prevent a disruption in Ceph's operation as a result the root partition running out of space.
 
 **Note**: All disks used for storage in the cluster should be of similar size.
 A cluster with large discrepancies in disk size may fail to replicate data to all available nodes.
