@@ -40,6 +40,7 @@ The following table lists information about the core directory requirements.
 | containerd     | /var/lib/containerd/ | *30 GB &ast;*      | Snapshots, content, metadata for containers and image, as well as any plugin data will be kept in this location. See the [containerd documentation](https://github.com/containerd/containerd/blob/main/docs/ops.md#base-configuration) for more information. |
 | kube-apiserver | /var/log/apiserver/  | 1 GB               | Kubernetes audit logs. See Kubernetes [Auditing documentation](https://kubernetes.io/docs/tasks/debug/debug-cluster/audit/) for mode information. |
 | kURL           | /var/lib/kurl/       | *10 GB &ast;&ast;* | kURL data directory used to store utilities, system packages, and container images. This directory can be overridden with the flag `kurl-install-directory` (see [kURL Advanced Install Options](/docs/install-with-kurl/advanced-options)) |
+| Root Disk      | /                    | 100 GB             | Based on the aggregate requirements above and the fact that Kubernetes will start to reclaim space at 85% full disk, the minimum recommended root partition is 100 GB. See details above for each component. |
 
 *&ast; This requirement depends on the size of the container images and the amount of ephemeral data used by your application containers.*
 
