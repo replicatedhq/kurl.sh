@@ -161,7 +161,7 @@ At least 2 nodes should be used for data durability for applications that use pe
 
 ### Load Balancers
 
-```
+```mermaid
 %%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#f5f8fc'}}}%%
 graph TB
     A(TCP Load Balancer)
