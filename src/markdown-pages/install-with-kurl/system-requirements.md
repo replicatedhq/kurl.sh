@@ -81,6 +81,12 @@ Depending on the amount of persistent data stored by your application, you will 
 
 ## Networking Requirements
 
+### Hostnames, DNS, and IP Address
+
+The fully-qualified domain name (FQDN) of any host used with kURL [must be a valid DNS subdomain name](https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#dns-subdomain-names) and it's name must be resolvable by DNS.
+
+Once a host has been added to a Kubernetes cluster, [it is assumed that its hostname and IP address will not change](https://kubernetes.io/docs/concepts/architecture/nodes/#node-name-uniqueness).  If you must change the hostname or IP address of a node, it must be removed from the cluster first.  If this is not an HA cluster, build a new cluster and use [application snapshots](https://kurl.sh/docs/add-ons/velero) to move the application to the new cluster.
+
 ### Firewall Openings for Online Installations
 
 The following domains need to be accessible from servers performing online kURL installs.
