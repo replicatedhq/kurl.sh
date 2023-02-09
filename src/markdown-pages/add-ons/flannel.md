@@ -53,3 +53,51 @@ This can be overridden using the `podCIDR` to specify a specific address space, 
 * Network Policies are not supported
 * IPv6 and dual stack networks are not supported
 * Encryption is not supported
+
+## Migration from Weave
+
+You must use the Containerd CRI runtime when migrating from Weave to Flannel. For more information about limitations, see [Limitations](#limitations).
+
+The migration process results in downtime for the entire cluster because Weave must be removed before Flannel can be installed.
+Every pod in the cluster is also deleted and then recreated, to receive new IP addresses allocated by Flannel.
+
+The migration is performed by rerunning the installer with Flannel v0.20.2+ as the configured CNI.
+The user is presented with a prompt to confirm the migration:
+
+```bash
+The migration from Weave to Flannel will require whole-cluster downtime.
+Would you like to continue? (Y/n)
+```
+
+If there are additional nodes in the cluster, the user is prompted to run a command on each node.
+
+For additional primary nodes, the command looks similar to the following example:
+
+```bash
+Moving primary nodes from Weave to Flannel requires removing certain weave files and restarting kubelet.
+Please run the following command on each of the listed primary nodes:
+
+<additional primary node 1>
+<additional primary node 2>
+
+	curl -fsSL https://kurl.sh/version/<version>/<installer>/tasks.sh | sudo bash -s weave-to-flannel-primary cert-key=<generated>
+
+Once this has been run on all nodes, press enter to continue.
+```
+
+For secondary nodes, the command looks similar to the following example:
+
+```bash
+Moving from Weave to Flannel requires removing certain weave files and restarting kubelet.
+Please run the following command on each of the listed secondary nodes:
+
+<secondary node 1>
+<secondary node 2>
+<secondary node 3>
+
+	curl -fsSL https://kurl.sh/version/<version>/<installer>/tasks.sh | sudo bash -s weave-to-flannel-secondary
+
+Once this has been run on all nodes, press enter to continue.
+```
+
+After these scripts run, the migration takes several additional minutes to recreate the pods in the cluster.
