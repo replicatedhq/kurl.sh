@@ -138,8 +138,8 @@ An example of how `latest` can be used in a spec is:
   spec:
     kubernetes:
       version: "1.25.x"
-    weave:
-      version: "2.6.x"
+    flannel:
+      version: "0.20.x"
     contour:
       version: "1.22.x"
     minio:
@@ -261,7 +261,7 @@ If not available, the installer will attempt to find an available range with pre
   spec:
     kubernetes:
       serviceCIDR: "<your custom subnet>"
-    weave:     
+    flannel:     
       podCIDR: "<your custom subnet>"
 ```
 

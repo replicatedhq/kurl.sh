@@ -23,25 +23,23 @@ spec:
   kurl:
     ipv6: true
   kubernetes:
-    version: "1.23.x"
+    version: "1.26.x"
   kotsadm:
-    version: "latest"
+    version: "1.93.0"
   antrea:
-    version: "latest"
-  contour:
-    version: "1.20.x"
-  prometheus:
-    version: "0.53.x"
-  registry:
-    version: "2.7.x"
-  containerd:
     version: "1.4.x"
+  contour:
+    version: "1.23.x"
+  prometheus:
+    version: "0.60.x"
+  registry:
+    version: "2.8.x"
+  containerd:
+    version: "1.6.x"
   ekco:
     version: "latest"
-  minio:
-    version: "2020-01-25T02-50-51Z"
-  longhorn:
-    version: "1.2.x"
+  rook:
+    version: "1.10.x"
 ```
 
 There is no auto-detection of ipv6 or fall-back to ipv4 when ipv6 is not enabled on the host.
@@ -61,7 +59,7 @@ There is no auto-detection of ipv6 or fall-back to ipv4 when ipv6 is not enabled
 
 * IPv6 forwarding must be enabled and bridge-call-nf6tables must be enabled. The installer does this automatically and configures this to persist after reboots.
 
-* Using antrea, TCP 8091 and UDP 6081 have to be open between nodes instead of the ports used by weave (6784 and 6783). Antrea with encryption requires UDP port 51820 be open between nodes for wireguard and that the wireguard kernel module be available.
+* Using antrea, TCP 8091 and UDP 6081 have to be open between nodes instead of the ports used by Flannel (UDP 8472). Antrea with encryption requires UDP port 51820 be open between nodes for wireguard and that the wireguard kernel module be available.
 
 * The ip6_tables kernel module must be available. The installer configures this to be loaded automatically.
 

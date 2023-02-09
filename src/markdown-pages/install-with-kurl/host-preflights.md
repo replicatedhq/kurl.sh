@@ -69,6 +69,12 @@ These checks run on all primary and secondary nodes joining an existing cluster:
 
 Some checks only run when certain add-ons are enabled or configured in a certain way in the installer:
 
+#### Flannel
+
+These checks only run on installations with Flannel:
+
+* UDP port 8472 is available on the current host.
+
 #### Weave
 
 These checks only run on installations with Weave:

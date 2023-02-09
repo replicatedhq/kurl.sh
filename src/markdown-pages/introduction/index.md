@@ -6,7 +6,7 @@ linktitle: "Overview"
 title: "Introduction to kURL"
 ---
 
-The Kubernetes URL Creator is a framework for creating custom Kubernetes distributions. These distros can then be shared as URLs (to install via `curl` and `bash`) or as downloadable packages (to install in airgapped environments). kURL relies on [kubeadm](https://kubernetes.io/docs/reference/setup-tools/kubeadm/kubeadm/) to bring up the Kubernetes control plane, but there are a variety of tasks a system administrator must perform both before and after running kubeadm init in order to have a production-ready Kubernetes cluster. kURL is open source, with a growing list of [add-on components](/add-ons) (including Rook, Weave, Contour, Prometheus, and more) which is easily extensible by [contributing additional add-ons](/docs/add-on-author/).
+The Kubernetes URL Creator is a framework for creating custom Kubernetes distributions. These distros can then be shared as URLs (to install via `curl` and `bash`) or as downloadable packages (to install in airgapped environments). kURL relies on [kubeadm](https://kubernetes.io/docs/reference/setup-tools/kubeadm/kubeadm/) to bring up the Kubernetes control plane, but there are a variety of tasks a system administrator must perform both before and after running kubeadm init in order to have a production-ready Kubernetes cluster. kURL is open source, with a growing list of [add-on components](/add-ons) (including Rook, Flannel, Contour, Prometheus, and more) which is easily extensible by [contributing additional add-ons](/docs/add-on-author/).
 
 ## kURL vs. Standard Distros  
 ### Production Grade Upstream Kubernetes

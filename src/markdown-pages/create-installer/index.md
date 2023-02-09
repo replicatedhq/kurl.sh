@@ -16,8 +16,8 @@ metadata:
 spec:
   kubernetes:
     version: "1.25.x"
-  weave:
-    version: "2.6.x"
+  flannel:
+    version: "0.20.x"
   contour:
     version: "1.22.x"
   minio:
