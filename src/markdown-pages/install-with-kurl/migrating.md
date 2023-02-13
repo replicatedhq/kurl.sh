@@ -57,7 +57,7 @@ spec:
   longhorn:
     version: 1.3.1
   minio:
-    version: 2023-01-25T00-19-54Z
+    version: 2020-01-25T02-50-51Z
   registry:
     version: 2.7.1
   kotsadm:
@@ -77,7 +77,7 @@ spec:
   kubernetes:
     version: 1.21.14
   containerd:
-    version: 1.4.6
+    version: 1.6.15
   flannel:
     version: 0.20.2
   minio:

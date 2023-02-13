@@ -14,7 +14,7 @@ This topic describes how to change the Container Storage Interface (CSI) provisi
   * [General Prerequisites](#general-prerequisites)
   * [Longhorn Prerequisites](#longhorn-prerequisites)
 * [Change the CSI Add-on in a Cluster](#change-the-csi-add-on-in-a-cluster)
-* [Troubleshoot Longhorn Data Migration](#troubleshoot-longhorn-data-migration)  
+* [Troubleshoot Longhorn Data Migration](#troubleshoot-longhorn-data-migration)
 
 ## Supported CSI Migrations
 
@@ -38,7 +38,7 @@ kURL supports data migration when you change your CSI provisioner from Rook to O
 
 The following describes the automatic data migration process when you change the CSI provisioner add-on, where _source_ is the CSI provisioner currently installed in the cluster and _target_ is the desired CSI provisioner:
 
-1. kURL installer temporarily shuts down all pods mounting volumes backed by the _source_ provisioner. This is done to ensure that the data being migrated is not in use and can be safely copied to the new storage system. 
+1. kURL installer temporarily shuts down all pods mounting volumes backed by the _source_ provisioner. This is done to ensure that the data being migrated is not in use and can be safely copied to the new storage system.
 
 1. kURL recreates all PVCs provided by the _source_ provisioner using the _target_ provisioner as backing storage. Data is then copied from the source PVC to the destination PVC.
 
@@ -58,7 +58,7 @@ Before you attempt to change the CSI provisioner in your cluster, complete the f
 
 - Take a snapshot or backup of the relevant data. This helps ensure you can recover your data if the data migration fails.
 
-- Schedule downtime for the migration. During the automated migration process, there is often a period of time where the application is unavailable. The duration of this downtime depends on the amount of data to migrate. Proper planning and scheduling is necessary to minimize the impact of downtime.  
+- Schedule downtime for the migration. During the automated migration process, there is often a period of time where the application is unavailable. The duration of this downtime depends on the amount of data to migrate. Proper planning and scheduling is necessary to minimize the impact of downtime.
 
 - Verify that the version of Kubernetes you are upgrading to supports both the current CSI provisioner and the new provisioner that you want to use. Running incompatible versions causes an error during data migration.
 
@@ -66,7 +66,7 @@ Before you attempt to change the CSI provisioner in your cluster, complete the f
 
   After kURL completes the data migration, storage consumption in the cluster returns to normal because the volumes from the previous CSI provisioner are deleted.
 
-  To ensure that your cluster has adequate resources, review the following for requirements specific to Rook or OpenEBS: 
+  To ensure that your cluster has adequate resources, review the following for requirements specific to Rook or OpenEBS:
   - **Rook Ceph**: See [Rook Add-on](/add-ons/rook) in the kURL documentation and [Hardware Recommendations](https://docs.ceph.com/en/quincy/start/hardware-recommendations/) in the Ceph documentation.
   - **OpenEBS**: See [OpenEBS Add-on](/add-ons/openebs) in the kURL documentation and [What are the minimum requirements and supported container orchestrators?](https://openebs.io/docs/faqs/general#what-are-the-minimum-requirements-and-supported-container-orchestrators) in the OpenEBS documentation.
 
@@ -92,7 +92,7 @@ If you are migrating from Longhorn to a different CSI provisioner, you must comp
     kubectl get volumes.longhorn.io -n longhorn-system <volume name> -o yaml
     ```
 
-    In many cases, volume health is caused by issues with volume replication. Specifically, when multiple replicas are configured for a volume but not all have been scheduled. 
+    In many cases, volume health is caused by issues with volume replication. Specifically, when multiple replicas are configured for a volume but not all have been scheduled.
 
     _**Note**_: During the data migration process in single-node clusters, the system automatically scales down the number of replicas to 1 in all Longhorn volumes to ensure the volumes are in a healthy state before beginning the data transfer. This is done to minimize the risk of a migration failure.
 
@@ -103,7 +103,7 @@ If you are migrating from Longhorn to a different CSI provisioner, you must comp
     ```
 
     If any node is not reported as "Ready" and "Schedulable" in the output of this command, resolve the issue before proceeding.
-    
+
     To learn more, you can also inspect each node individually and view its "Status" property:
 
     ```
@@ -146,13 +146,13 @@ To migrate to a new CSI provisioner in a kURL cluster:
         version: 1.19.12
       docker:
         version: 20.10.5
-      weave:
-        version: 2.6.5
+      flannel:
+        version: 0.20.2
       rook:
         version: 1.0.4
     ```
 
-   You can remove `rook` and add `openebs` with `isLocalPVEnable: true` to migrate data from Rook to OpenEBS Local PV, as shown in the following `my-new-installer` file: 
+   You can remove `rook` and add `openebs` with `isLocalPVEnable: true` to migrate data from Rook to OpenEBS Local PV, as shown in the following `my-new-installer` file:
 
     ```
     apiVersion: cluster.kurl.sh/v1beta1
@@ -164,11 +164,12 @@ To migrate to a new CSI provisioner in a kURL cluster:
         version: 1.19.12
       docker:
         version: 20.10.5
-      weave:
-        version: 2.6.5
+      flannel:
+        version: 0.20.2
       openebs:
         version: 3.3.0
         isLocalPVEnabled: true
+	localPVStorageClassName: default
     ```
 
 1. Upgrade your kURL cluster to use the updated specification by rerunning the kURL installation script. For more information about how to upgrade a kURL cluster, see [Upgrading](/install-with-kurl/upgrading).
