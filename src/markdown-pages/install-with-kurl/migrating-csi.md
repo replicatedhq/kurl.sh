@@ -72,6 +72,8 @@ Before you attempt to change the CSI provisioner in your cluster, complete the f
 
 - If you are migrating from Longhorn, complete the additional [Longhorn Prerequisites](#longhorn-prerequisites) below.
 
+- The add-ons Kots and Registry require an Object Storage API (similar to AWS S3) to be available in the cluster. This API can be provided either by Rook (directly) or by the OpenEBS+Minio duo (OpenEBS provides the storage and Minio the Object Storage API). If you are using Kots or Registry add-ons in your cluster then the available migration paths are to migrate to Rook or to OpenEBS+Minio.
+
 ### Longhorn Prerequisites
 
 If you are migrating from Longhorn to a different CSI provisioner, you must complete the following prerequisites in addition to the [General Prerequisites](#general-prerequisites) above:
