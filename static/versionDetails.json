@@ -560,7 +560,7 @@
     },
     {
       "flag": "rookShouldUseAllNodes",
-      "description": "This will disable management of nodes in the CephCluster resource. If false, ekco will add nodes to the storage list and remove them when a node is purged.",
+      "description": "Enabling this will configure Rook to use all nodes for storage rather than EKCO managing a list of nodes. Additionally, this will disable EKCO scaling of Ceph mgr and mon counts and pool replication levels when additional nodes are added to the cluster.",
       "type": "boolean"
     },
     {
