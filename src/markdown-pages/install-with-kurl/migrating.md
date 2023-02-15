@@ -8,7 +8,7 @@ title: "Migrating to Change kURL Add-Ons"
 
 Changing the CRI, CSI, or CNI provider on a kURL install is possible by migrating a [KOTS](https://kots.io/) application to a new cluster.
 
-For information about how to change the CSI from Rook to Longhorn or OpenEBS, see [Migrating CSI](/docs/install-with-kurl/migrating-csi).
+If you're looking to make the move from one CSI provisioner (Longhorn, OpenEBS, or Rook) to another, be sure to consult the [Migrating CSI](/docs/install-with-kurl/migrating-csi) page.
 
 ## Requirements
 
@@ -80,12 +80,12 @@ spec:
     version: 1.6.15
   flannel:
     version: 0.20.2
+  minio:
+    version: 2023-01-25T00-19-54Z
   openebs:
     version: 3.3.0
     isLocalPVEnabled: true
     localPVStorageClassName: default
-  minio:
-    version: 2023-01-25T00-19-54Z
   registry:
     version: 2.8.1
   kotsadm:
