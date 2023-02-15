@@ -40,6 +40,20 @@ The following additional ports must be open between nodes for multi-node cluster
 | -------  | --------- | ---------- | ----------------------- | ------- |
 | UDP      | Inbound   | 8472       | Flannel VXLAN           | All     |
 
+## Firewalls
+
+When using a stateless packet filtering firewall, to allow for outgoing TCP connections, it is common to configure the firewall to allow packets with TCP flags "ack" with destination port range 32768-65535 as this is the default range specified by the kernel /proc/sys/net/ipv4/ip_local_port_range.
+
+Flannel uses a larger range when doing SNAT, thus this range must be expanded to 1024-65535.
+
+An example rule is as follows:
+
+```
+| Name               | Source IP   | Destination IP | Source port | Destination port | Protocol | TCP flags | Action |
+| ----               | ---------   | -------------- | ----------- | ---------------- | -------- | --------- | ------ |
+| Allow outgoing TCP | 0.0.0.0/0   | 0.0.0.0/0      | 0-65535     | 1024-65535       | tcp      | ack       | accept |
+```
+
 ## Custom Pod Subnet
 
 The Pod subnet will default to `10.32.0.0/20` if available.

@@ -153,6 +153,17 @@ In addition to the ports listed above that must be open between nodes, the follo
 | 10257 | kube-controller-manager health server |
 | 10259 | kube-scheduler health server |
 
+### Additional Firewall Rules
+
+When using the Flannel CNI, to allow for outgoing TCP connections from pods, you must configure stateless packet filtering firewalls to allow all packets with TCP flags "ack" with destination port range 1024-65535.
+For more information see the Flannel [Firewalls](/docs/add-ons/flannel#firewalls) add-on documentation.
+
+```
+| Name               | Source IP   | Destination IP | Source port | Destination port | Protocol | TCP flags | Action |
+| ----               | ---------   | -------------- | ----------- | ---------------- | -------- | --------- | ------ |
+| Allow outgoing TCP | 0.0.0.0/0   | 0.0.0.0/0      | 0-65535     | 1024-65535       | tcp      | ack       | accept |
+```
+
 
 ## High Availability Requirements
 
