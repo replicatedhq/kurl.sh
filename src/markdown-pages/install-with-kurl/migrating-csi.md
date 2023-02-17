@@ -18,7 +18,7 @@ This topic describes how to change the Container Storage Interface (CSI) provisi
 
 ## Supported CSI Migrations
 
-_**Important**_: kURL does not support Longhorn. If you are currently using Longhorn, you must migrate data from Longhorn to either OpenEBS or Rook.
+_**Important**_: kURL does not support Longhorn. If you are currently using Longhorn, you must migrate data from Longhorn to either OpenEBS or Rook. kURL v2023.02.17-0 and later supports automatic data migration from Longhorn to OpenEBS or Rook. For more information, see [Longhorn Prerequisites](#longhorn-prerequisites) below.
 
 This table describes the CSI add-on migration paths that kURL supports:
 
@@ -78,7 +78,9 @@ Before you attempt to change the CSI provisioner in your cluster, complete the f
 
 If you are migrating from Longhorn to a different CSI provisioner, you must complete the following prerequisites in addition to the [General Prerequisites](#general-prerequisites) above:
 
-- Ensure that the version of Longhorn installed in your cluster is 1.2.0 or later or 1.3.0 or later. Longhorn versions 1.2.x and 1.3.x support Kubernetes versions 1.24 and earlier.
+- Upgrade your cluster to kURL [v2023.02.17-0](https://github.com/replicatedhq/kurl/tree/v2023.02.17-0) or later. Automatic data migration from Longhorn to Rook or OpenEBS is not available in kURL versions earlier than v2023.02.17-0.
+
+- Upgrade the version of Longhorn installed in your cluster to 1.2.0 or later or 1.3.0 or later. Longhorn versions 1.2.x and 1.3.x support Kubernetes versions 1.24 and earlier.
 
 - Confirm that the Longhorn volumes are in a healthy state. Run the following command to check the status of the volumes:
 
