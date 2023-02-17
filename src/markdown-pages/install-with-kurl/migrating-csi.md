@@ -20,6 +20,8 @@ This topic describes how to change the Container Storage Interface (CSI) provisi
 
 _**Important**_: kURL does not support Longhorn. If you are currently using Longhorn, you must migrate data from Longhorn to either OpenEBS or Rook.
 
+> Migrations from Longhorn to OpenEBS or Rook are available in kURL versions greater or equal to [v2023.02.16-0](https://github.com/replicatedhq/kurl/tree/v2023.02.16-0).
+
 This table describes the CSI add-on migration paths that kURL supports:
 
 | From      | To        | Notes                                                                                                                                                                                                                  |
