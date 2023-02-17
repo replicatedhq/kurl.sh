@@ -78,7 +78,7 @@ Before you attempt to change the CSI provisioner in your cluster, complete the f
 
 If you are migrating from Longhorn to a different CSI provisioner, you must complete the following prerequisites in addition to the [General Prerequisites](#general-prerequisites) above:
 
-- Upgrade your cluster to kURL [v2023.02.17-0](https://github.com/replicatedhq/kurl/tree/v2023.02.17-0) or later. Automatic data migration from Longhorn to Rook or OpenEBS is not supported in kURL versions earlier than v2023.02.17-0.
+- Upgrade your cluster to kURL [v2023.02.17-0](https://github.com/replicatedhq/kurl/tree/v2023.02.17-0) or later. Automatic data migration from Longhorn to Rook or OpenEBS is not available in kURL versions earlier than v2023.02.17-0.
 
 - Upgrade the version of Longhorn installed in your cluster to 1.2.0 or later or 1.3.0 or later. Longhorn versions 1.2.x and 1.3.x support Kubernetes versions 1.24 and earlier.
 
