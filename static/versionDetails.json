@@ -533,7 +533,7 @@
     },
     {
       "flag": "localPVStorageClassName",
-      "description": "StorageClass name for local PV provisioner (Name it “default” to make it the cluster’s default provisioner).",
+      "description": "StorageClass name for local PV provisioner.",
       "type": "string"
     }
   ],

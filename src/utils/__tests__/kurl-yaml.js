@@ -27,7 +27,7 @@ spec:
   openebs:
     version: 3.3.x
     isLocalPVEnabled: true
-    localPVStorageClassName: default
+    localPVStorageClassName: local
 `;
         const expected = `apiVersion: cluster.kurl.sh/v1beta1
 kind: Installer
@@ -62,7 +62,7 @@ spec:
   openebs:
     version: 3.3.x
     isLocalPVEnabled: true
-    localPVStorageClassName: default
+    localPVStorageClassName: local
 `;
     const actual = injectYamlOpenebsComment(yaml);
     expect(actual).to.equal(expected);

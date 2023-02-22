@@ -17,7 +17,7 @@ spec:
     version: latest
     namespace: openebs
     isLocalPVEnabled: true
-    localPVStorageClassName: openebs
+    localPVStorageClassName: local
 ```
 
 flags-table
@@ -34,17 +34,11 @@ Additionally, Local Volumes are typically preferred for workloads like Cassandra
 
 ### Storage Class
 
-The OpenEBS Storage Class can be set as the default by setting the `openebs.localPVStorageClassName` property to `"default"` or when no other storage provisioner add-on is included in the spec.
+The OpenEBS Storage Class will be set as the default if:
 
-In this example, the Local PV provisioner would be used as the default provisioner for any Persistent Volume Claims that do not explicitly specify a `storageClassName`.
-
-```yaml
-spec:
-  openebs:
-    version: latest
-    isLocalPVEnabled: true
-    localPVStorageClassName: default
-```
+1. Rook is not included in the spec.
+2. There is no existing default Storage Class in the cluster.
+3. Longhorn is not included in the spec OR the `openebs.localPVStorageClassName` property is set to `"default"`.
 
 ### Limitations
 

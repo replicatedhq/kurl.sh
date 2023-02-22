@@ -173,7 +173,7 @@ To migrate to a new CSI provisioner in a kURL cluster:
       openebs:
         version: 3.3.0
         isLocalPVEnabled: true
-	localPVStorageClassName: default
+        localPVStorageClassName: local
     ```
 
 1. Upgrade your kURL cluster to use the updated specification by rerunning the kURL installation script. For more information about how to upgrade a kURL cluster, see [Upgrading](/install-with-kurl/upgrading).

@@ -83,7 +83,7 @@ spec:
   openebs:
     version: latest
     isLocalPVEnabled: true
-    localPVStorageClassName: default
+    localPVStorageClassName: local
   minio:
     version: latest
   registry:
@@ -107,7 +107,7 @@ spec:
   openebs:
     version: latest
     isLocalPVEnabled: true
-    localPVStorageClassName: default
+    localPVStorageClassName: local
   registry:
     version: latest
   kotsadm:

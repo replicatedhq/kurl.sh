@@ -85,7 +85,7 @@ spec:
   openebs:
     version: 3.3.0
     isLocalPVEnabled: true
-    localPVStorageClassName: default
+    localPVStorageClassName: local
   registry:
     version: 2.8.1
   kotsadm:
