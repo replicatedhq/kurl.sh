@@ -92,7 +92,7 @@ Global Flags:
       --log_level string   Log level (default "info")
 ```
 
-⚠️ _**Warning**:_ Purging a node is an irrevocable operation and is meant to permanently remove the node from the cluster with the expectation that it will never become a member again.
+⚠️ _**Warning**:_ Purging a node is intended to be an irrevocable operation and is meant to permanently remove the node from the cluster with the expectation that it will never become a member again.
 
 ### Rook
 
