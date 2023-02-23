@@ -22,7 +22,7 @@ For example, it is possible to upgrade directly from Kubernetes 1.22 to 1.24, bu
 ## Container Runtimes
 
 If the install script detects an upgrade of a container runtime (`Docker` or `Containerd`) is required, then the new versions provided will be installed.
-For exmaple, if you have a cluster using Containerd version `1.6.4` and then you run an installer defining that the version of Containerd should be `1.6.18` the installer will configure it.
+For example, if you have a cluster using Containerd version `1.6.4` and then you modify the version in your spec to `1.6.18` and re-run the kURL script, the installer will upgrade Containerd to the newly specified version.
 
 Also, be aware that `Docker is not supported with Kubernetes versions 1.24+`. Therefore, it is recommended to use `Containerd` instead. You can upgrade your installation by replacing Docker definition in the installer with Containerd. If the install script detects an upgrade of `Docker` to `Containerd`, it will install Containerd and load the images found and exported from Docker. In this case, Docker will be also removed from the host.
 
