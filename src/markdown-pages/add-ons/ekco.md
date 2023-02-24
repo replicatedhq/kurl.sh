@@ -92,6 +92,8 @@ Global Flags:
       --log_level string   Log level (default "info")
 ```
 
+⚠️ _**Warning**:_ Purging a node is intended to be an irrevocable operation and is meant to permanently remove the node from the cluster with the expectation that it will never become a member again.
+
 ### Rook
 
 The EKCO operator is responsible for appending nodes to the CephCluster `storage.nodes` setting to include the node in the list of nodes used by Ceph for storage. This operation only appends nodes. Removing nodes is done during the purge.
