@@ -12,6 +12,12 @@ It also runs the Ceph RGW object store to provide an S3-compatible store in the 
 
 The [EKCO](/docs/add-ons/ekco) add-on is recommended when installing Rook. EKCO is responsible for performing various operations to maintain the health of a Ceph cluster.
 
+## Host Package Requirements
+
+The following host packages are required for Red Hat Enterprise Linux 9 and Rocky Linux 9:
+
+- lvm2
+
 ## Advanced Install Options
 
 ```yaml
