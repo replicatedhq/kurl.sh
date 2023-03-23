@@ -5,6 +5,7 @@ linktitle: "Antrea"
 weight: 30
 title: "Antrea Add-On"
 addOn: "antrea"
+isDeprecated: true
 ---
 
 [Antrea](https://antrea.io/) implements the Container Network Interface (CNI) to enable pod networking in a Kubernetes cluster.

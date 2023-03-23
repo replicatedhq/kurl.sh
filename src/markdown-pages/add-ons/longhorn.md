@@ -5,6 +5,7 @@ linktitle: "Longhorn"
 weight: 46
 title: "Longhorn Add-On"
 addOn: "longhorn"
+isDeprecated: true
 ---
 
 [Longhorn](https://longhorn.io/) is a CNCF Sandbox Project originally developed by Rancher labs as a “lightweight, reliable and easy-to-use distributed block storage system for Kubernetes”. Longhorn uses a microservice-based architecture to create a pod for every Custom Resource in the Longhorn ecosystem: Volumes, Replicas, a control plane, a data plane, etc.

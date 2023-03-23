@@ -1221,6 +1221,7 @@ class Kurlsh extends React.Component {
                 <AddOnWrapper
                   addOnId="docker"
                   addOnTitle="Docker"
+                  isDeprecated={true}
                   isAddOnChecked={isAddOnChecked["docker"]}
                   options={versions.docker}
                   getOptionLabel={this.getLabel("docker")}
@@ -1267,6 +1268,7 @@ class Kurlsh extends React.Component {
                 <AddOnWrapper
                   addOnId="weave"
                   addOnTitle="Weave"
+                  isDeprecated={true}
                   isAddOnChecked={isAddOnChecked["weave"]}
                   options={versions.weave}
                   getOptionLabel={this.getLabel("weave")}
@@ -1281,6 +1283,7 @@ class Kurlsh extends React.Component {
                 <AddOnWrapper
                   addOnId="antrea"
                   addOnTitle="Antrea"
+                  isDeprecated={true}
                   isAddOnChecked={isAddOnChecked["antrea"]}
                   options={versions.antrea}
                   getOptionLabel={this.getLabel("antrea")}
@@ -1416,6 +1419,7 @@ class Kurlsh extends React.Component {
                 <AddOnWrapper
                   addOnId="longhorn"
                   addOnTitle="Longhorn"
+                  isDeprecated={true}
                   isAddOnChecked={isAddOnChecked["longhorn"]}
                   options={versions.longhorn}
                   getOptionLabel={this.getLabel("longhorn")}
