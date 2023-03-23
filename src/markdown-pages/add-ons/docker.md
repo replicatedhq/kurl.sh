@@ -7,6 +7,15 @@ title: "Docker Add-On"
 addOn: "docker"
 isDeprecated: true
 ---
+## Deprecation Notice
+
+### This add-on is deprecated.
+
+kURL will not be moving forward with support of this add-on in kURL starting March 23, 2023 and may remove it in future kURL releases after September 1st 2023.  Support for existing installs will continue to be best effort.  To migrate to [Containerd](https://kurl.sh/docs/add-ons/containerd) please change your kURL spec to containerd to migrate existing installs.
+
+## Summary
+
+
 Docker is a CRI (Container Runtime Interface).
 If Docker is not used, an alternative CRI must be used in its place.
 See [containerd documentation](/docs/add-ons/containerd) for more information.

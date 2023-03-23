@@ -8,6 +8,14 @@ addOn: "antrea"
 isDeprecated: true
 ---
 
+## Deprecation Notice
+
+### This add-on is deprecated.
+
+kURL will not be moving forward with support of this add-on and may remove it in future kURL releases after June 1st 2023.  Support for existing installs will continue to be best effort.  Please consider using the [Flannel](https://kurl.sh/docs/add-ons/flannel) for your CNI needs moving forward.
+
+## Summary
+
 [Antrea](https://antrea.io/) implements the Container Network Interface (CNI) to enable pod networking in a Kubernetes cluster.
 It also functions as a NetworkPolicy controller to optionally enforce security at the network layer.
 Antrea is implemented with Open vSwitch and IPSec.

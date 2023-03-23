@@ -8,6 +8,14 @@ addOn: "aws"
 isDeprecated: true
 ---
 
+## Deprecation Notice
+
+### This add-on is deprecated.
+
+kURL will not be moving forward with support of this add-on in kURL starting March 23, 2023 and may remove it in future kURL releases after May 1st 2023.
+
+## Summary
+
 The AWS add-on enables the Kubernetes control plane to be configured to use the [Amazon Web Services (AWS) cloud provider integration](https://cloud-provider-aws.sigs.k8s.io/). For more information about these components, see the [Kubernetes `cloud-provider-aws`](https://github.com/kubernetes/cloud-provider-aws/#components) repository. For information about the kubeadm add-on, see [Kubernetes (kubeadm) Add-On](/docs/addon-ons/kubernetes).
 
 This integration, provided by Kubernetes, creates an interface between the Kubernetes cluster and specific AWS APIs. This enables the:

@@ -8,6 +8,14 @@ addOn: "longhorn"
 isDeprecated: true
 ---
 
+## Deprecation Notice
+
+### This add-on is deprecated.
+
+kURL will not be moving forward with support of this add-on starting in kURL March 23, 2023 and may remove it in future kURL releases after September 1st, 2023.  Support for existing installs will continue to be best effort.  Please consider using the [OpenEBS](https://kurl.sh/docs/add-ons/openebs) or [Rook](https://kurl.sh/docs/add-ons/rook) add-on for your CSI needs moving forward.  We offer a migration path for existing customer installs as describe [here](https://kurl.sh/docs/install-with-kurl/migrating-csi).
+
+## Summary
+
 [Longhorn](https://longhorn.io/) is a CNCF Sandbox Project originally developed by Rancher labs as a “lightweight, reliable and easy-to-use distributed block storage system for Kubernetes”. Longhorn uses a microservice-based architecture to create a pod for every Custom Resource in the Longhorn ecosystem: Volumes, Replicas, a control plane, a data plane, etc.
 
 Longhorn uses the `/var/lib/longhorn` directory for storage on all nodes. For disk requirements, see [Add-on Directory Disk Space Requirements](/docs/install-with-kurl/system-requirements/#add-on-directory-disk-space-requirements).

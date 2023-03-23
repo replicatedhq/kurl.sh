@@ -8,6 +8,14 @@ addOn: "weave"
 isDeprecated: true
 ---
 
+## Deprecation Notice
+
+### This add-on is deprecated.
+
+kURL will not be moving forward with support of this add-on in kURL starting March 23, 2023 and may remove it in future kURL releases after September 1st 2023.  Support for existing installs will continue to be best effort.  Please consider using the [Flannel](https://kurl.sh/docs/add-ons/flannel) for your CNI needs moving forward.  We offer a migration path for existing customer installs as describe [here](https://kurl.sh/docs/add-ons/flannel#migration-from-weave).
+
+## Summary
+
 Weave Net creates a virtual network that connects containers across multiple hosts and enables their automatic discovery. With Weave Net, portable microservices-based applications consisting of multiple containers can run anywhere: on one host, multiple hosts or even across cloud providers and data centers.
 
 ## Advanced Install Options
