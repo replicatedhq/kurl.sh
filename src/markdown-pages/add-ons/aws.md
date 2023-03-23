@@ -5,7 +5,7 @@ linktitle: "AWS"
 weight: 31
 title: "AWS Add-On"
 addOn: "aws"
-isBeta: true
+isDeprecated: true
 ---
 
 The AWS add-on enables the Kubernetes control plane to be configured to use the [Amazon Web Services (AWS) cloud provider integration](https://cloud-provider-aws.sigs.k8s.io/). For more information about these components, see the [Kubernetes `cloud-provider-aws`](https://github.com/kubernetes/cloud-provider-aws/#components) repository. For information about the kubeadm add-on, see [Kubernetes (kubeadm) Add-On](/docs/addon-ons/kubernetes).

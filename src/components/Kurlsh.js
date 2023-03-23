@@ -1556,7 +1556,7 @@ class Kurlsh extends React.Component {
                 <AddOnWrapper
                   addOnId="aws"
                   addOnTitle="AWS"
-                  isBeta={true}
+                  isDeprecated={true}
                   isAddOnChecked={isAddOnChecked["aws"]}
                   options={versions.aws}
                   getOptionLabel={this.getLabel("aws")}

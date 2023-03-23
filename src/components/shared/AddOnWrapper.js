@@ -4,7 +4,7 @@ import Select from "react-select";
 class AddOnWrapper extends React.Component {
 
   render() {
-    const { addOnId, addOnTitle, addOnIcon, isBeta, options, getOptionLabel, getOptionValue, value, isAddOnChecked, disableAdvancedOptions, showAdvancedOptions, handleIsAddOnSelected, onVersionChange, onToggleShowAdvancedOptions, renderAdvancedOptions } = this.props;
+    const { addOnId, addOnTitle, addOnIcon, isBeta, isDeprecated, options, getOptionLabel, getOptionValue, value, isAddOnChecked, disableAdvancedOptions, showAdvancedOptions, handleIsAddOnSelected, onVersionChange, onToggleShowAdvancedOptions, renderAdvancedOptions } = this.props;
 
     return (
       <div className={`AddOn--wrapper ${isAddOnChecked && "selected"} flex flex-column u-marginTop--15`} onClick={handleIsAddOnSelected}>
@@ -18,7 +18,7 @@ class AddOnWrapper extends React.Component {
             />
             <span className={`icon ${addOnIcon ? addOnIcon : `u-${addOnId}`} u-marginBottom--small`} />
             <div className="flex flex-column u-marginLeft--15 u-marginTop--small">
-              <div className="FormLabel"> {addOnTitle} { isBeta && <span className="prerelease-tag sidebar beta">beta</span> } </div>
+              <div className="FormLabel"> {addOnTitle} { isBeta && <span className="prerelease-tag sidebar beta">beta</span> } { isDeprecated && <span className="prerelease-tag sidebar deprecated">deprecated</span> } </div>
               <div className={`SelectVersion flex flex1 ${!isAddOnChecked && "disabled"}`} style={{ width: "200px" }}>
                 <span className="flex alignItems--center u-color--fiord u-fontSize--normal versionLabel"> {!isAddOnChecked ? "Version None" : "Version"} </span>
                 <Select
