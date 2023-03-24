@@ -4,8 +4,16 @@ date: "2021-12-14"
 weight: 26
 linktitle: "IPv6"
 title: "IPv6"
-isAlpha: true
+isDeprecated: true
 ---
+## Deprecation Notice
+
+### This feature is deprecated.
+
+kURL will not be moving forward with support of ipv6 in kURL starting March 23, 2023 and will be fully deprecated after June 31st 2023.  Existing installs that use this add-on will continue to be best-effort supported until the deprecation date.  This is due to the deprecation of the Antrea add-on.
+
+## Summary
+
 kURL can be installed on IPv6 enabled hosts by passing the `ipv6` flag to the installer or by setting the `kurl.ipv6` field to `true` in the yaml spec.
 
 ```

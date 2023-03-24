@@ -12,7 +12,7 @@ isDeprecated: true
 
 ### This add-on is deprecated.
 
-kURL will not be moving forward with support of this add-on and may remove it in future kURL releases after June 1st 2023.  Support for existing installs will continue to be best effort.  Please consider using the [Flannel](https://kurl.sh/docs/add-ons/flannel) for your CNI needs moving forward.
+kURL will not be moving forward with support of this add-on in kURL starting March 23, 2023 and will be fully deprecated after June 31st 2023.  Existing installs that use this add-on will continue to be best-effort supported until the deprecation date.  Please consider using the [Flannel](https://kurl.sh/docs/add-ons/flannel) for your CNI needs moving forward.
 
 ## Summary
 

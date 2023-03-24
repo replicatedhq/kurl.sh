@@ -12,7 +12,7 @@ isDeprecated: true
 
 ### This add-on is deprecated.
 
-kURL will not be moving forward with support of this add-on in kURL starting March 23, 2023 and may remove it in future kURL releases after May 1st 2023.
+kURL will not be moving forward with support of this add-on in kURL starting March 23, 2023 and will be fully deprecated after April 31st 2023.
 
 ## Summary
 
