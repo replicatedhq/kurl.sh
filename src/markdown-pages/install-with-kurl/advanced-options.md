@@ -82,16 +82,6 @@ The install scripts are idempotent. Re-run the scripts with different flags to c
   </td>
 </tr>
 <tr>
-  <td><code>force-reapply-addons</code></td>
-  <td>Reinstall add-ons, whether or not they have changed since the last time kurl was run.
-  <br/>
-  <br/>
-  <strong>Example:</strong>
-  <br/>
-  <code>curl https://kurl.sh/latest | sudo bash -s force-reapply-addons</code>
-  </td>
-</tr>
-<tr>
   <td><code>ha</code></td>
   <td>Install will require a load balancer to allow for a highly available Kubernetes Control Plane.
   <br/>
