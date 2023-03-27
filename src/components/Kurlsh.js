@@ -1556,7 +1556,7 @@ class Kurlsh extends React.Component {
                 <AddOnWrapper
                   addOnId="aws"
                   addOnTitle="AWS"
-                  isBeta={true}
+                  isDeprecated={true}
                   isAddOnChecked={isAddOnChecked["aws"]}
                   options={versions.aws}
                   getOptionLabel={this.getLabel("aws")}
@@ -1578,7 +1578,6 @@ class Kurlsh extends React.Component {
           <div className={`${isMobile ? "u-marginTop--30 u-display--block " : "AbsoluteFixedWrapper flex flex-column"}`} id="fixed-wrapper">
             <span className="u-fontSize--24 u-fontWeight--bold u-color--mineShaft"> Installer YAML </span>
             <div className="MonacoEditor--wrapper flex u-width--full u-marginTop--20 u-position--relative">
-              {installerErrMsg && this.renderVersionError(installerErrMsg)}
               <div className="flex u-width--full u-overflow--auto" id="monaco">
                 {isEditorLoading &&
                   <div className="flex-column flex-1-auto u-overflow--hidden justifyContent--center alignItems--center">
@@ -1588,6 +1587,7 @@ class Kurlsh extends React.Component {
                   </div>}
               </div>
             </div>
+            {installerErrMsg && this.renderVersionError(installerErrMsg)}
             <div className="flex-column installationForm u-marginTop--30">
               <div className="FormLabel u-marginBottom--normal"> Installation URL </div>
               <div className="u-fontSize--small u-fontWeight--normal u-color--scorpion u-lineHeight--normal">

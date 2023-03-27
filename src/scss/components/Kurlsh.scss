@@ -160,7 +160,7 @@
 .AbsoluteErrorWrapper {
   position: absolute;
   left: 20px;
-  top: 340px;
+  top: 370px;
   display: flex;
   background: #FBECEA;
   border: 1px solid #BC4752;
@@ -191,6 +191,9 @@
     right: 80px;
     height: 450px;
   }
+  .AbsoluteErrorWrapper {
+    top: 142px;
+  }
 }
 
 @media screen and (min-width: 35.5em) and (max-height: 850px) {
@@ -199,6 +202,9 @@
     top: 142px;
     right: 80px;
     height: 450px;
+  }
+  .AbsoluteErrorWrapper {
+    top: 142px;
   }
 }
 
@@ -226,6 +232,9 @@
     right: 80px;
     height: 450px;
   }
+  .AbsoluteErrorWrapper {
+    top: 142px;
+  }
 }
 
 @media screen and (min-width: 48em) and (max-height: 700px) {
@@ -234,6 +243,9 @@
     top: 142px;
     right: 80px;
     height: 450px;
+  }
+  .AbsoluteErrorWrapper {
+    top: 142px;
   }
 }
 /* ≥ 960px */
@@ -253,6 +265,9 @@
     right: 80px;
     height: 450px;
   }
+  .AbsoluteErrorWrapper {
+    top: 142px;
+  }
 }
 
 @media screen and (min-width: 60em) and (max-height: 700px) {
@@ -261,6 +276,9 @@
     top: 142px;
     right: 80px;
     height: 450px;
+  }
+  .AbsoluteErrorWrapper {
+    top: 142px;
   }
 }
 
