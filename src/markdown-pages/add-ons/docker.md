@@ -11,7 +11,7 @@ isDeprecated: true
 
 ### This add-on is deprecated.
 
-kURL will not be moving forward with support of this add-on in kURL starting March 23, 2023 and will be fully deprecated after September 31st 2023.  Existing installs that use this add-on will continue to be best-effort supported until the deprecation date.  To migrate to [Containerd](https://kurl.sh/docs/add-ons/containerd) please change your kURL spec to containerd to migrate existing installs.
+kURL will not be moving forward with support of this add-on in kURL and is deprecated starting March 23, 2023.  This add-on will be EOL after September 31st 2023.  Existing installs that use this add-on will continue to be best-effort supported until the EOL date.  To migrate to [Containerd](https://kurl.sh/docs/add-ons/containerd) please change your kURL spec to containerd to migrate existing installs.
 
 ## Summary
 
