@@ -12,7 +12,9 @@ isDeprecated: true
 
 ### This add-on is deprecated.
 
-kURL will not be moving forward with support of this add-on in kURL and is deprecated starting March 23, 2023.  This add-on will be EOL after September 31st, 2023.  Existing installs that use this add-on will continue to be best-effort supported until the EOL date.  Please consider using the [OpenEBS](https://kurl.sh/docs/add-ons/openebs) or [Rook](https://kurl.sh/docs/add-ons/rook) add-on for your CSI needs moving forward.  We offer a migration path for existing customer installs as described [here](https://kurl.sh/docs/install-with-kurl/migrating-csi).
+As of March 27, 2023, kURL no longer intends to continue to offer this add-on as part of the ongoing kURL project. This add-on is now considered deprecated, and may no longer be offered by the project after September 31st, 2023. Existing installs that use this add-on will be best effort supported during this deprecation window. Please consider using the [OpenEBS](https://kurl.sh/docs/add-ons/openebs) or [Rook](https://kurl.sh/docs/add-ons/rook) add-on for your CSI needs moving forward. We offer a migration path for existing customer installs as described [here](https://kurl.sh/docs/install-with-kurl/migrating-csi).
+
+kURL will not be moving forward with support of this add-on starting March 23, 2023 and will be fully removed after .  Existing installs that use this add-on will continue to be best-effort supported until the removal date.  
 
 ## Summary
 
