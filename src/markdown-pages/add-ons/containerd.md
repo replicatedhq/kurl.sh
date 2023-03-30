@@ -13,6 +13,10 @@ As CentOS, RHEL and Oracle Linux 8.x do not support Docker, the Containerd CRI i
 
 Containerd 1.4.8+ has dropped support for Ubuntu 16.04.
 
+### About Containerd upgrades
+
+If you are planning to upgrade your Containerd installation, it is highly recommended that you refer to the relevant [documentation page](/docs/install-with-kurl/upgrading#about-containerd-upgrades) for guidance and best practices.
+
 ## Advanced Install Options
 
 ```yaml
