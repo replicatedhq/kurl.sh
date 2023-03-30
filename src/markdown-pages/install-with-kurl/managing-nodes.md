@@ -158,7 +158,7 @@ Rebalancing your data is critical for preventing data loss that can occur when r
 To manually remove a node, you first use the Ceph CLI to reweight the Ceph OSD to `0` on the node that you want to remove and wait for Ceph to rebalance the data across OSDs.
 Then, you can remove the OSD from the node, and finally remove the node.
 
-**Note**: The commands in this procedure assume that you created an interactive shell in the `rook-ceph-tools` or `rook-ceph-operator` Pod.
+**Note**: The commands in this procedure assume that you created an interactive shell in the `rook-ceph-tools` or `rook-ceph-operator` Pod.  It also helps to have another shell to use `kubectl` commands at the same time.
 For more information, see [Rook Ceph Cluster Prerequisites](#rook-ceph-cluster-prerequisites) above.
 
 To manually rebalance data and remove a node:
@@ -252,7 +252,7 @@ For example, if you intend to remove a total of two nodes, add two new nodes.
 
    Replace `OSD_DEPLOYMENT` with the name of the Ceph OSD deployment. For example, `kubectl scale deployment -n rook-ceph rook-ceph-osd-1 --replicas 0`.
 
-1. Run the following command to ensure that the OSD is safe to remove:
+1. Back in the `rook-ceph-tools` pod, run the following command to ensure that the OSD is safe to remove:
 
    ```
    ceph osd safe-to-destroy osd.OSD_ID
@@ -280,10 +280,15 @@ For example, if you intend to remove a total of two nodes, add two new nodes.
    purged osd.1
    ```
 
-1. Remove the node.
+1. Outside of the `rook-ceph-tools` pod, delete the OSD deployment:
 
-   After the node is removed, Ceph replicates its data to OSDs on remaining nodes.
-   Check `ceph status` for HEALTH_OK before proceeding to adding nodes.
+   ```
+   kubectl delete deployment -n rook-ceph OSD_DEPLOYMENT
+   ```
+
+   Replace `OSD_DEPLOYMENT` with the name of the Ceph OSD deployment. For example, `kubectl delete deployment -n rook-ceph rook-ceph-osd-1`.
+
+1. Remove the node.
 
 Repeat the steps in this procedure for any remaining nodes that you want to remove. Always verify that Ceph is in a HEALTH_OK state before making changes to Ceph.
 
