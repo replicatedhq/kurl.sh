@@ -74,7 +74,7 @@ Before you attempt to change the CSI provisioner in your cluster, complete the f
 
 - The add-ons Kots and Registry require an Object Storage API (similar to AWS S3) to be available in the cluster. This API can be provided either by Rook (directly) or by the OpenEBS+Minio duo (OpenEBS provides the storage and Minio the Object Storage API). If you are using Kots or Registry add-ons in your cluster then the available migration paths are to migrate to Rook or to OpenEBS+Minio.
 
-- Ensure that cluster is a healthy state prior to perform any migration. Check if the Nodes are Ready and if all Pods are running. Also, if you are migrating from an storage solution to another please ensure that it is healthy. To do perform this checks see:
+- Ensure that cluster is a healthy state prior to perform any migration. Check if the Nodes are Ready and if all Pods are running. Also, if you are migrating from an storage solution to another please ensure that it is healthy. To perform these checks see:
 
   - If you are migrating from Rook Ceph then, see [Health Verification](https://rook.io/docs/rook/v1.11/Upgrade/health-verification/#upgrading-an-unhealthy-cluster) in the Rook Ceph documentation.
   - If you are migration from OpenEBS then, see [How to verify whether cStor volume is running fine?](https://openebs.io/docs/additional-info/kb#how-to-verify-whether-cstor-volume-is-running-fine) to know how to verify the volumes.
