@@ -13,6 +13,15 @@ As CentOS, RHEL and Oracle Linux 8.x do not support Docker, the Containerd CRI i
 
 Containerd 1.4.8+ has dropped support for Ubuntu 16.04.
 
+## Host Package Requirements
+
+The following host packages are required for Red Hat Enterprise Linux 9 and Rocky Linux 9:
+
+- bash
+- libseccomp
+- libzstd
+- systemd
+
 ## Advanced Install Options
 
 ```yaml

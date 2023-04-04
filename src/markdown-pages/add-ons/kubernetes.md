@@ -10,6 +10,18 @@ addOn: "kubernetes"
 [Kubernetes](https://kubernetes.io/) is installed using [`kubeadm`](https://kubernetes.io/docs/reference/setup-tools/kubeadm/kubeadm/), the cluster management tool built by the core Kubernetes team and owned by `sig-cluster-lifecycle`.
 `kubeadm` brings up the Kubernetes control plane before other add-ons are applied.
 
+## Host Package Requirements
+
+The following host packages are required for Red Hat Enterprise Linux 9 and Rocky Linux 9:
+
+- conntrack-tools
+- ethtool
+- glibc
+- iproute
+- iptables-nft
+- socat
+- util-linux
+
 ## Advanced Install Options
 
 flags-table
