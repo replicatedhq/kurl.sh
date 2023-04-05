@@ -15,10 +15,10 @@ See the following sections:
 * [Reset a Node](#reset-a-node)
 * [Reboot a Node](#reboot-a-node)
 * [Remove a Node from Rook Ceph Clusters](#remove-a-node-from-rook-ceph-clusters)
-   * [Rook Ceph and etcd Node Removal Requirements](#rook-ceph-and-etcd-node-removal-requirements)
-   * [Rook Ceph Cluster Prerequisites](#rook-ceph-cluster-prerequisites)
-   * [(Recommended) Manually Rebalance Ceph and Remove a Node](#recommended-manually-rebalance-ceph-and-remove-a-node)
-   * [Remove Nodes with ECKO](#remove-nodes-with-ecko)
+  * [Rook Ceph and etcd Node Removal Requirements](#rook-ceph-and-etcd-node-removal-requirements)
+  * [Rook Ceph Cluster Prerequisites](#rook-ceph-cluster-prerequisites)
+  * [(Recommended) Manually Rebalance Ceph and Remove a Node](#recommended-manually-rebalance-ceph-and-remove-a-node)
+  * [Remove Nodes with ECKO](#remove-nodes-with-ecko)
 * [Troubleshoot Node Removal](#troubleshoot-node-removal)
 
 ## ECKO Add-On Prerequisite
@@ -34,7 +34,7 @@ Resetting a node is the process of attempting to remove all Kubernetes packages 
 
 Resetting a node can be useful if you are creating and testing a kURL specification in a non-production environment.
 Some larger changes to a kURL specification cannot be deployed for testing by rerunning the kURL installation script on an existing node.
-In this case, you can attempt to reset the node so that you can reinstall kURL to test the change to the kURL specification.   
+In this case, you can attempt to reset the node so that you can reinstall kURL to test the change to the kURL specification.
 
 _**Warning**_: Do not attempt to reset a node on a cluster in a production environment.
 Attempting to reset a node can permanently damage the cluster, which makes any data from the cluster irretrievable.
@@ -56,6 +56,7 @@ The kURL reset script first runs the ECKO shutdown script to cordon the node. Th
       ```bash
       cat ./tasks.sh | sudo bash -s reset
       ```
+
 1. If the reset does not complete, delete the host VM and provision a new VM.
 
    The reset script might not complete successfully if the removal of the Kubernetes packages and host files from the node also damages the cluster itself.
@@ -91,8 +92,8 @@ For information about how to remove a node from a cluster that does not use Rook
 Review the following requirements and considerations before you remove one or more nodes from Rook Ceph and etcd clusters:
 
 * **etcd cluster health**: To remove a primary node from etcd clusters, you must meet the following requirements to maintain etcd quorum:
-   * You must have at least one primary node.
-   * If you scale the etcd cluster to three primary nodes, you must then maintain a minimum of three primary nodes to maintain quorum.
+  * You must have at least one primary node.
+  * If you scale the etcd cluster to three primary nodes, you must then maintain a minimum of three primary nodes to maintain quorum.
 * **Rook Ceph cluster health**: When you scale a Ceph Storage Cluster to three or more Ceph Object Storage Daemons (OSDs), such as when you add additional manager or worker nodes to the cluster, the Ceph Storage Cluster can no longer have fewer than three OSDs. If you reduce the number of OSDs to less than three in this case, then the Ceph Storage Cluster loses quorum.
 * **Add a node before removing a node**: To remove and replace a node, it is recommended that you add a new node before removing the node.
 For example, to remove one node in a three-node cluster, first add a new node to scale the cluster to four nodes. Then, remove the desired node to scale the cluster back down to three nodes.
@@ -110,7 +111,7 @@ Complete the following prerequisites before you remove one or more nodes from a 
 
 * In the kURL specification, set `isBlockStorageEnabled` to `true`. This is the default for Rook Ceph v1.4 and later.
 
-* Ensure that you can access the ceph CLI from a Pod that can communicate with the Ceph Storage Cluster. To access the ceph CLI, you can do one of the following:      
+* Ensure that you can access the ceph CLI from a Pod that can communicate with the Ceph Storage Cluster. To access the ceph CLI, you can do one of the following:
 
   * (Recommended) Use the `rook-ceph-tools` Pod to access the ceph CLI.
   Use the same version of the Rook toolbox as the version of Rook Ceph that is installed in the cluster.
@@ -133,16 +134,18 @@ Complete the following prerequisites before you remove one or more nodes from a 
 
 * Verify that Ceph is in a healthy state by running one of the following `ceph status` commands in the `rook-ceph-tools` Pod in the `rook-ceph` namespace:
 
-    * **Rook Ceph v1.4.0 or later**:
+  * **Rook Ceph v1.4.0 or later**:
 
       ```
       kubectl -n rook-ceph exec deployment/rook-ceph-tools -- ceph status
       ```
-    * **Rook Ceph v1.0.0 or later**:
+
+  * **Rook Ceph v1.0.0 to 1.3.0**:
 
       ```
       kubectl -n rook-ceph exec deployment/rook-ceph-operator -- ceph status
       ```
+
       **Note**: It is not recommended to use versions of Rook Ceph earlier than v1.4.0.
 
       The output of the command shows `health: HEALTH_OK` if Ceph is in a healthy state.
@@ -155,7 +158,7 @@ Rebalancing your data is critical for preventing data loss that can occur when r
 To manually remove a node, you first use the Ceph CLI to reweight the Ceph OSD to `0` on the node that you want to remove and wait for Ceph to rebalance the data across OSDs.
 Then, you can remove the OSD from the node, and finally remove the node.
 
-**Note**: The commands in this procedure assume that you created an interactive shell in the `rook-ceph-tools` or `rook-ceph-operator` Pod.
+**Note**: The commands in this procedure assume that you created an interactive shell in the `rook-ceph-tools` or `rook-ceph-operator` Pod.  It also helps to have another shell to use `kubectl` commands at the same time.
 For more information, see [Rook Ceph Cluster Prerequisites](#rook-ceph-cluster-prerequisites) above.
 
 To manually rebalance data and remove a node:
@@ -174,17 +177,58 @@ For example, if you intend to remove a total of two nodes, add two new nodes.
    ```
    ceph status
    ```
-   Replace `OSD_NAME` with the name of the Ceph OSD on the given node.
+
+1. Run the following command to display a list of all the OSDs in the cluster and their associated nodes:
+
+   ```
+   ceph osd tree
+   ```
+
+   **Example output**:
+
+   ```
+   [root@rook-ceph-tools-54ff78f9b6-gqsfm /]# ceph osd tree
+
+   ID   CLASS  WEIGHT   TYPE NAME                       STATUS  REWEIGHT  PRI-AFF
+   -1         0.97649  root default
+   -3         0.19530      host node00.foo.com
+   0    hdd  0.19530          osd.0                       up   1.00000  1.00000
+   -7         0.19530      host node01.foo.com
+   2    hdd  0.19530          osd.1                       up   1.00000  1.00000
+   -5         0.19530      host node02.foo.com
+   1    hdd  0.19530          osd.2                       up   1.00000  1.00000
+   -9         0.19530      host node03.foo.com
+   3    hdd  0.19530          osd.3                       up   1.00000  1.00000
+   -11         0.19530      host node04.foo.com
+   4    hdd  0.19530          osd.4                       up   1.00000  1.00000
+   ```
 
 1. Run the following command to reweight the OSD to `0` on the first node that you intend to remove:
 
    ```
    ceph osd reweight OSD_ID 0
    ```
+
    Replace `OSD_ID` with the Ceph OSD on the node that you intend to remove. For example, `ceph osd reweight 1 0`.
 
    Ceph rebalances the placement groups off the OSD that you specify in the `ceph osd reweight` command.
-   To view progress, run `ceph status`.
+   To view progress, run `ceph status`, or `watch ceph status`.  Ceph may display a HEALTH_WARN state during the rebalance, but will return to HEALTH_OK once complete.
+
+   **Example output**:
+
+   ```
+   [root@rook-ceph-tools-54ff78f9b6-gqsfm /]# watch ceph status
+   cluster:
+      id:     5f0d6e3f-7388-424d-942b-4bab37f94395
+      health: HEALTH_WARN
+               Degraded data redundancy: 1280/879 objects degraded (145.620%), 53 pgs degraded
+   ...
+   progress:
+      Rebalancing after osd.2 marked out (15s)
+         [=====================.......] (remaining: 4s)
+      Rebalancing after osd.1 marked out (5s)
+         [=============...............] (remaining: 5s)
+   ```
 
 1. After the `ceph osd reweight` command completes, run the following command to verify that Ceph is in a healthy state:
 
@@ -192,23 +236,28 @@ For example, if you intend to remove a total of two nodes, add two new nodes.
    ceph status
    ```
 
-1. On the first node that you intend to remove, run the following command to mark the OSD as `down`:
+1. Then, run the following command to mark the OSD as `down`:
 
    ```
-   ceph osd down OSD_NAME
+   ceph osd down OSD_ID
    ```
 
-1. On the first node that you intend to remove, run the following kubectl command to scale the OSD deployments to 0 replicas:
+   Replace `OSD_ID` with the Ceph OSD on the node that you intend to remove. For example, `ceph osd down 1`.  Note: it may not report as down until after the next step.
+
+1. In another terminal, outside of the `rook-ceph-tools` pod run the following kubectl command to scale the corresponding OSD deployment to 0 replicas:
 
    ```
-   kubectl scale deployment -n rook-ceph rook-ceph-osd-1 --replicas 0
-   ```   
+   kubectl scale deployment -n rook-ceph OSD_DEPLOYMENT --replicas 0
+   ```
 
-1. Run the following command to ensure that the OSD is safe to remove:
+   Replace `OSD_DEPLOYMENT` with the name of the Ceph OSD deployment. For example, `kubectl scale deployment -n rook-ceph rook-ceph-osd-1 --replicas 0`.
+
+1. Back in the `rook-ceph-tools` pod, run the following command to ensure that the OSD is safe to remove:
 
    ```
    ceph osd safe-to-destroy osd.OSD_ID
    ```
+
    Replace `OSD_ID` with the ID of the OSD. For example, `ceph osd safe-to-destroy osd.1`.
 
    **Example output**:
@@ -217,19 +266,39 @@ For example, if you intend to remove a total of two nodes, add two new nodes.
    OSD(s) 1 are safe to destroy without reducing data durability.
    ```
 
+1. Purge the OSD from the Ceph cluster:
+
+   ```
+   ceph osd purge OSD_ID --yes-i-really-mean-it
+   ```
+
+   Replace `OSD_ID` with the ID of the OSD. For example, `ceph osd purge 1 --yes-i-really-mean-it`.
+
+   **Example output**:
+
+   ```
+   purged osd.1
+   ```
+
+1. Outside of the `rook-ceph-tools` pod, delete the OSD deployment:
+
+   ```
+   kubectl delete deployment -n rook-ceph OSD_DEPLOYMENT
+   ```
+
+   Replace `OSD_DEPLOYMENT` with the name of the Ceph OSD deployment. For example, `kubectl delete deployment -n rook-ceph rook-ceph-osd-1`.
+
 1. Remove the node.
 
-   After the node is removed, Ceph replicates its data to OSDs on remaining nodes.
-   If a Ceph OSD was scheduled on the node that you removed, verify that Ceph is in a healthy state.
-
-Repeat the steps in this procedure for any remaining nodes that you want to remove. Verify that Ceph is in a healthy state before you remove any additional nodes.
+Repeat the steps in this procedure for any remaining nodes that you want to remove. Always verify that Ceph is in a HEALTH_OK state before making changes to Ceph.
 
 ### Remove Nodes with ECKO
 
 You can use EKCO add-on scripts to programmatically cordon and purge a node so that you can then remove the node from the cluster.
 
 _**Warnings**_: Consider the following warnings about data loss before you proceed with this procedure:
-  * **Ceph health**: The EKCO scripts in this procedure provide a quick method for cordoning a node and purging Ceph OSDs so that you can remove the node. This procedure is _not_ recommended unless you are able to confirm that Ceph is in a healthy state. If Ceph is not in a healthy state before you remove a node, you risk data loss.
+
+* **Ceph health**: The EKCO scripts in this procedure provide a quick method for cordoning a node and purging Ceph OSDs so that you can remove the node. This procedure is _not_ recommended unless you are able to confirm that Ceph is in a healthy state. If Ceph is not in a healthy state before you remove a node, you risk data loss.
 
      To verify that Ceph is in a healthy state, run the following `ceph status` command in the `rook-ceph-tools` or `rook-ceph-operator` Pod in the `rook-ceph` namespace for Rook Ceph v1.4 or later:
 
@@ -237,7 +306,7 @@ _**Warnings**_: Consider the following warnings about data loss before you proce
      kubectl -n rook-ceph exec deploy/rook-ceph-tools -- ceph status
      ```
 
-  * **Data replication**: A common Ceph configuration is three data replicas across three Ceph OSDs.
+* **Data replication**: A common Ceph configuration is three data replicas across three Ceph OSDs.
   It is possible for Ceph to report a healthy status without data being replicated properly across all OSDs.
   For example, in a single-node cluster, there are not multiple machines where Ceph can replicate data.
   In this case, even if Ceph reports healthy, removing a node results in data loss because the data was not properly replicated across multiple OSDs on multiple machines.
@@ -273,6 +342,7 @@ To use the EKCO add-on to remove a node:
    ```
    ekco-purge-node NODE_NAME
    ```
+
    Replace `NODE_NAME` with the name of the node that you powered down in the previous step.
 
    The EKCO purge script For information about the EKCO purge script, see [Purge Nodes](/docs/add-ons/ekco#purge-nodes) in _EKCO Add-on_.
@@ -303,7 +373,7 @@ services:
   mon: 3 daemons, quorum a,c (age 5min), out of quorum: b
 ```
 
-When you run `kubectl -n rook-ceph get pod -l app=rook-ceph-mon`, you see that the mon pod is in a Pending state. 
+When you run `kubectl -n rook-ceph get pod -l app=rook-ceph-mon`, you see that the mon pod is in a Pending state.
 
 For example:
 
@@ -351,7 +421,8 @@ To return Ceph to a healthy state and upgrade:
    ```
    kubectl -n rook-ceph delete pod MON_POD_NAME
    ```
-   Replace `MON_POD_NAME` with the name of the mon pod that is in a Pending state from the previous step. 
+
+   Replace `MON_POD_NAME` with the name of the mon pod that is in a Pending state from the previous step.
 
 1. Rescale the operator:
 
@@ -364,6 +435,7 @@ To return Ceph to a healthy state and upgrade:
    ```
    kubectl -n rook-ceph get pod -l app=rook-ceph-mon
    ```
+
    The output of this command shows that each mon pod has a `Status` of `Running`.
 
 1. Verify that Ceph is in a healthy state:

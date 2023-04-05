@@ -9,6 +9,12 @@ addOn: "openebs"
 
 The [OpenEBS](https://openebs.io) add-on creates a Storage Class which provisions [Local](https://openebs.io/docs#local-volumes) Persistent Volumes to Stateful workloads.
 
+## Host Package Requirements
+
+The following host packages are required for Red Hat Enterprise Linux 9 and Rocky Linux 9 for versions 1.x and 2.x of the OpenEBS add-on:
+
+- iscsi-initiator-utils
+
 ## Advanced Install Options
 
 ```yaml

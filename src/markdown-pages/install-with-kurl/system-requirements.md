@@ -12,7 +12,8 @@ title: "System Requirements"
 * Ubuntu 20.04 (Docker version >= 19.03.10)
 * Ubuntu 22.04 (Requires Containerd version >= 1.5.10 or Docker version >= 20.10.17. Collectd add-ons are not supported.)
 * CentOS 7.4<sup>\*</sup>, 7.5<sup>\*</sup>, 7.6<sup>\*</sup>, 7.7<sup>\*</sup>, 7.8<sup>\*</sup>, 7.9, 8.0<sup>\*</sup>, 8.1<sup>\*</sup>, 8.2<sup>\*</sup>, 8.3<sup>\*</sup>, 8.4<sup>\*</sup> (CentOS 8.x requires Containerd)
-* RHEL 7.4<sup>\*</sup>, 7.5<sup>\*</sup>, 7.6<sup>\*</sup>, 7.7<sup>\*</sup>, 7.8<sup>\*</sup>, 7.9, 8.0<sup>\*</sup>, 8.1, 8.2, 8.3, 8.4, 8.5, 8.6, 8.7 (RHEL 8.x requires Containerd)
+* RHEL 7.4<sup>\*</sup>, 7.5<sup>\*</sup>, 7.6<sup>\*</sup>, 7.7<sup>\*</sup>, 7.8<sup>\*</sup>, 7.9, 8.0<sup>\*</sup>, 8.1, 8.2, 8.3, 8.4, 8.5, 8.6, 8.7, 9.0, 9.1 (RHEL 8.x and 9.x require Containerd)
+* Rocky Linux 9.0, 9.1 (Rocky Linux 9.x requires Containerd)
 * Oracle Linux 7.4<sup>\*</sup>, 7.5<sup>\*</sup>, 7.6<sup>\*</sup>, 7.7<sup>\*</sup>, 7.8<sup>\*</sup>, 7.9, 8.0<sup>\*</sup>, 8.1, 8.2, 8.3, 8.4, 8.5, 8.6, 8.7 (OL 8.x requires Containerd)
 * Amazon Linux 2
 
@@ -26,6 +27,23 @@ title: "System Requirements"
   *(For more specific requirements see [Disk Space Requirements](#disk-space-requirements) below)*
 * TCP ports 2379, 2380, 6443, 10250, 10257 and 10259 and UDP port 8472 (Flannel VXLAN) open between cluster nodes
   *(For more specific add-on requirements see [Networking Requirements](#networking-requirements) below)*
+
+## Host Package Requirements
+
+Host packages are bundled and installed by kURL without the need for external package repositories except for in the case of Red Hat Enterprise Linux 9 and Rocky Linux 9.
+
+For these OSes, the following packages are required per add-on:
+
+| Add-on                           | Packages |
+| -------------------------------- | -------- |
+| * kURL Core                      | curl openssl tar |
+| Collectd                         | bash glibc libcurl libcurl-minimal libgcrypt libgpg-error libmnl openssl-libs rrdtool systemd systemd-libs yajl |
+| Containerd                       | bash libseccomp libzstd systemd |
+| Kubernetes                       | conntrack-tools ethtool glibc iproute iptables-nft socat util-linux                     |
+| Longhorn                         | iscsi-initiator-utils nfs-utils |
+| OpenEBS *\*versions 1.x and 2.x* | iscsi-initiator-utils |
+| Rook                             | lvm2 |
+| Velero                           | nfs-utils |
 
 ## Disk Space Requirements
 

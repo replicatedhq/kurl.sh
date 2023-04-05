@@ -17,6 +17,15 @@ Containerd 1.4.8+ has dropped support for Ubuntu 16.04.
 
 If you are planning to upgrade your Containerd installation, it is highly recommended that you refer to the relevant [documentation page](/docs/install-with-kurl/upgrading#about-containerd-upgrades) for guidance and best practices.
 
+## Host Package Requirements
+
+The following host packages are required for Red Hat Enterprise Linux 9 and Rocky Linux 9:
+
+- bash
+- libseccomp
+- libzstd
+- systemd
+
 ## Advanced Install Options
 
 ```yaml

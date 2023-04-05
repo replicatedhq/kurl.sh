@@ -13,6 +13,13 @@ Longhorn uses the `/var/lib/longhorn` directory for storage on all nodes. For di
 
 For production installs, an SSD should be mounted at `/var/lib/longhorn`.
 
+## Host Package Requirements
+
+The following host packages are required for Red Hat Enterprise Linux 9 and Rocky Linux 9:
+
+- iscsi-initiator-utils
+- nfs-utils
+
 ## Advanced Install Options
 
 ```yaml
