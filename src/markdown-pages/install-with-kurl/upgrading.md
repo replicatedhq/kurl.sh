@@ -28,7 +28,7 @@ Also, be aware that Docker is not supported with Kubernetes versions 1.24+. Ther
 
 ### About Containerd upgrades
 
-The Kurl installers offers a practical solution to the challenge of upgrading Containerd installations that span more than one minor release, despite Containerd not providing official support for this upgrade path. With its automated processes that facilitate such upgrades, Kurl enables users to upgrade their Containerd installations seamlessly, even if spanning two minor releases. This ensures that the upgrade process is streamlined, enabling a smoother transition to the latest version of Containerd.
+The Kurl installer offers a practical solution to the challenge of upgrading Containerd installations that span more than one minor release, despite Containerd not providing official support for this upgrade path. With its automated processes that facilitate such upgrades, Kurl enables users to upgrade their Containerd installations seamlessly, even if spanning two minor releases. This ensures that the upgrade process is streamlined, enabling a smoother transition to the latest version of Containerd.
 
 It is worth noting that while it is possible to upgrade Containerd directly from version 1.3.x to 1.5.x, attempting to upgrade across more than two minor releases, such as upgrading from version 1.3.x to 1.6.x, will result in an upgrade error. Therefore, it is highly recommended that users follow the supported upgrade paths to ensure a successful upgrade of their cluster. By adhering to the supported upgrade paths, you can avoid potential issues and successfully upgrade your Containerd installation.
 
