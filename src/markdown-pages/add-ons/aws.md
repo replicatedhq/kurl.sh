@@ -3,7 +3,7 @@ path: "/docs/add-ons/aws"
 date: "2022-05-10"
 linktitle: "AWS"
 weight: 31
-title: "AWS Add-On"
+title: "AWS Add-On (BETA)"
 addOn: "aws"
 isDeprecated: true
 ---
@@ -16,7 +16,7 @@ As of March 27, 2023, kURL no longer intends to continue to offer this add-on as
 
 ## Summary
 
-The AWS add-on enables the Kubernetes control plane to be configured to use the [Amazon Web Services (AWS) cloud provider integration](https://cloud-provider-aws.sigs.k8s.io/). For more information about these components, see the [Kubernetes `cloud-provider-aws`](https://github.com/kubernetes/cloud-provider-aws/#components) repository. For information about the kubeadm add-on, see [Kubernetes (kubeadm) Add-On](/docs/addon-ons/kubernetes).
+The AWS add-on (BETA) enables the Kubernetes control plane to be configured to use the [Amazon Web Services (AWS) cloud provider integration](https://cloud-provider-aws.sigs.k8s.io/). For more information about these components, see the [Kubernetes `cloud-provider-aws`](https://github.com/kubernetes/cloud-provider-aws/#components) repository. For information about the kubeadm add-on, see [Kubernetes (kubeadm) Add-On](/docs/addon-ons/kubernetes).
 
 This integration, provided by Kubernetes, creates an interface between the Kubernetes cluster and specific AWS APIs. This enables the:
 
@@ -54,7 +54,7 @@ These resources must have a tag with the key of `kubernetes.io/cluster/<cluster-
 ## Requirements and Limitations
 ### Supported Configurations
 
-The AWS add-on is supported only:
+The AWS add-on (BETA) is supported only:
 
 - When the cluster created by kURL is installed on an AWS EC2 instance.
 - With the Kubernetes (kubeadm) add-on. See [Kubernetes (kubeadm) add-on](/docs/addon-ons/kubernetes).
