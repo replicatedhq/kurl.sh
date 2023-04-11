@@ -11,9 +11,7 @@ isDeprecated: true
 
 ### This add-on is deprecated.
 
-As of March 27, 2023, kURL no longer intends to continue to offer this add-on as part of the ongoing kURL project. This add-on is now considered deprecated, and may no longer be offered by the project after September 31st, 2023. Existing installs that use this add-on will be best effort supported during this deprecation window. Kubenetes 1.24.0+ no loner supports Dockershim, therefore you must use an alternative CRI such as [containerd](/docs/add-ons/containerd).  Please remove Docker from your spec and replace it with [Containerd](https://kurl.sh/docs/add-ons/containerd) to migrate existing installs.
-
-
+As of March 27, 2023, the Docker add-on is deprecated. The Docker add-on might be removed from kURL after September 31st, 2023. Existing installations that use the Docker add-on are supported during this deprecation window. Kubernetes 1.24.0 and later does not support Docker. We recommend that you remove the Docker add-on on or before September 31st, 2023 and instead use the [Containerd](https://kurl.sh/docs/add-ons/containerd) add-on.
 
 ## Summary
 
