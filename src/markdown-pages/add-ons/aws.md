@@ -12,7 +12,7 @@ isDeprecated: true
 
 ### This add-on is deprecated.
 
-As of March 27, 2023, kURL no longer intends to continue to offer this add-on as part of the ongoing kURL project. This add-on is now considered deprecated, and may no longer be offered by the project after April 31st, 2023. Existing installs that use this add-on will be best effort supported during this deprecation window.
+As of March 27, 2023, the AWS add-on is deprecated. The AWS add-on might be removed from kURL after April 31st, 2023. Existing installations that use the AWS add-on are supported during this deprecation window.
 
 ## Summary
 
