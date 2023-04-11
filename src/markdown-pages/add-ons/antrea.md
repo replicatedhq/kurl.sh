@@ -12,7 +12,7 @@ isDeprecated: true
 
 ### This add-on is deprecated.
 
-As of March 27, 2023, the Antrea add-on is deprecated. The Antrea add-on is scheduled to be removed from kURL after June 31st, 2023. Existing installations that use the Antrea add-on are supported during this deprecation window. We recommend that you remove the Antrea add-on and instead use the [Flannel](https://kurl.sh/docs/add-ons/flannel) add-on on or before June 31st, 2023.
+As of March 27, 2023, the Antrea add-on is deprecated. The Antrea add-on might be removed from kURL after June 31st, 2023. Existing installations that use the Antrea add-on are supported during this deprecation window. We recommend that you remove the Antrea add-on and instead use the [Flannel](https://kurl.sh/docs/add-ons/flannel) add-on on or before June 31st, 2023.
 
 ## Summary
 
