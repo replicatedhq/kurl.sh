@@ -9,7 +9,7 @@ addOn: "ekco"
 
 The [EKCO](https://github.com/replicatedhq/ekco) add-on is a utility tool to perform maintenance operations on a kURL cluster.
 
-The kURL add-on installs the EKCO operator into the kURL namespace.
+The latest version of EKCO is installed for every kURL cluster since v2023.04.10-0, even if it is not included in the spec, or if an older version is specified.
 
 ## Advanced Install Options
 
