@@ -12,7 +12,7 @@ isDeprecated: true
 
 ### This add-on is deprecated.
 
-As of March 27, 2023, the Longhorn add-on is deprecated. The Longhorn add-on might be removed from kURL after September 31st, 2023. Existing installations that use the Longhorn add-on are supported during this deprecation window. We recommend that you migrate from the Longhorn add-on to either the [OpenEBS](https://kurl.sh/docs/add-ons/openebs) or [Rook](https://kurl.sh/docs/add-ons/rook) add-on on or before June 31st, 2023. For more information about migrating from Longhorn, see [Migrating to Change CSI Add-On](https://kurl.sh/docs/install-with-kurl/migrating-csi).
+As of March 27, 2023, the Longhorn add-on is deprecated. The Longhorn add-on might be removed from kURL after September 31st, 2023. Existing installations that use the Longhorn add-on are supported during this deprecation window. We recommend that you migrate from the Longhorn add-on to either the [OpenEBS](https://kurl.sh/docs/add-ons/openebs) or [Rook](https://kurl.sh/docs/add-ons/rook) add-on on or before September 31st, 2023. For more information about migrating from Longhorn, see [Migrating to Change CSI Add-On](https://kurl.sh/docs/install-with-kurl/migrating-csi).
 
 
 ## Summary
