@@ -12,7 +12,7 @@ isDeprecated: true
 
 ### This add-on is deprecated.
 
-As of March 27, 2023, kURL no longer intends to continue to offer this add-on as part of the ongoing kURL project. This add-on is now considered deprecated, and may no longer be offered by the project after September 31st, 2023. Existing installs that use this add-on will be best effort supported during this deprecation window. Please consider using the [Flannel](https://kurl.sh/docs/add-ons/flannel) add-on for your CNI needs moving forward. We offer a migration path for existing customer installs as described [here](https://kurl.sh/docs/add-ons/flannel#migration-from-weave).
+As of March 27, 2023, the Weave add-on is deprecated. The Weave add-on might be removed from kURL after September 31st, 2023. Existing installations that use the Weave add-on are supported during this deprecation window. We recommend that you remove the Weave add-on and use the [Flannel](https://kurl.sh/docs/add-ons/flannel) add-on instead on or before September 31, 2023. For more information about how to migrate from Weave, see [Migration from Weave](https://kurl.sh/docs/add-ons/flannel#migration-from-weave).
 
 ## Summary
 
