@@ -12,7 +12,7 @@ isDeprecated: true
 
 ### This add-on is deprecated.
 
-As of March 27, 2023, kURL no longer intends to continue to offer this add-on as part of the ongoing kURL project. This add-on is now considered deprecated, and may no longer be offered by the project after June 31st, 2023. Existing installs that use this add-on will be best effort supported during this deprecation window. Please consider using the [Flannel](https://kurl.sh/docs/add-ons/flannel) add-on for your CNI needs moving forward.
+As of March 27, 2023, the Antrea add-on is deprecated. The Antrea add-on is scheduled to be removed from kURL after June 31st, 2023. Existing installations that use the Antrea add-on are supported during this deprecation window. We recommend that you remove the Antrea add-on and instead use the [Flannel](https://kurl.sh/docs/add-ons/flannel) add-on on or before June 31st, 2023.
 
 ## Summary
 
