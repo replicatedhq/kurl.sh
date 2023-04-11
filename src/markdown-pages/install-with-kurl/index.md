@@ -131,29 +131,29 @@ While the `latest` specification can be suitable for some situations, Replicated
 
 An example of how `latest` can be used in a spec is:  
 ```yaml
-  apiVersion: "cluster.kurl.sh/v1beta1"
-  kind: "Installer"
-  metadata:
-    name: ""
-  spec:
-    kubernetes:
-      version: "1.25.x"
-    flannel:
-      version: "0.20.x"
-    contour:
-      version: "1.22.x"
-    minio:
-      version: "latest"
-    registry:
-      version: "latest"
-    prometheus:
-      version: "latest"
-    containerd:
-      version: "1.5.x"
-    longhorn:
-      version: "1.3.x"
-    ekco:
-      version: "latest"
+apiVersion: "cluster.kurl.sh/v1beta1"
+kind: "Installer"
+metadata: 
+  name: "my-installer"
+spec: 
+  kubernetes: 
+    version: "1.26.x"
+  flannel: 
+    version: "0.21.x"
+  contour: 
+    version: "1.24.x"
+  prometheus: 
+    version: "0.63.x"
+  registry: 
+    version: "2.8.x"
+  containerd: 
+    version: "1.6.x"
+  ekco: 
+    version: "latest"
+  openebs: 
+    version: "3.5.x"
+    isLocalPVEnabled: true
+    localPVStorageClassName: "local"
 ```
 
 ## Using the kURL Installer CRD

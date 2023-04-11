@@ -43,6 +43,7 @@ exports.createSchemaCustomization = ({ actions }) => {
       version: String
       isBeta: Boolean
       isAlpha: Boolean
+      isDeprecated: Boolean
     }
   `
   createTypes(typeDefs)
@@ -87,6 +88,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
               version
               isBeta
               isAlpha
+              isDeprecated
             }
           }
         }
