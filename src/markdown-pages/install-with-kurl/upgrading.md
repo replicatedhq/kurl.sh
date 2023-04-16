@@ -15,9 +15,10 @@ Then if there are any remote primaries to upgrade, the script will drain each se
 The script will detect when Kubernetes has been upgraded on the remote node and proceed to drain the next node.
 After upgrading all primaries the same operation will be performed sequentially on all remote secondaries.
 
-The install script supports upgrading at most two minor versions of Kubernetes.
-When upgrading two minor versions, the skipped minor version will be installed before proceeding to the desired version.
-For example, it is possible to upgrade directly from Kubernetes 1.22 to 1.24, but the install script completes the installation of 1.23 before proceeding to 1.24.
+It is possible to upgrade from any Kubernetes minor versions to the latest supported Kubernetes version using a single spec.
+This upgrade process will step through minor versions one at a time.
+For example, upgrades from Kubernetes 1.19.x to 1.26.x will step through versions 1.20.x, 1.21x, 1.22.x, 1.23.x, 1.24.x, and 1.25.x before installing 1.26.x.
+Upgrades without internet access may prompt the end-user to download supplemental packages.
 
 ## Container Runtimes
 
