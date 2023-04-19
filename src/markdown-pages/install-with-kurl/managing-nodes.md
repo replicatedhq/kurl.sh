@@ -11,17 +11,17 @@ It includes procedures for how to safely reset, reboot, and remove nodes when pe
 
 See the following sections:
 
-* [ECKO Add-On Prerequisite](#ecko-add-on-prerequisite)
+* [EKCO Add-On Prerequisite](#ekco-add-on-prerequisite)
 * [Reset a Node](#reset-a-node)
 * [Reboot a Node](#reboot-a-node)
 * [Remove a Node from Rook Ceph Clusters](#remove-a-node-from-rook-ceph-clusters)
   * [Rook Ceph and etcd Node Removal Requirements](#rook-ceph-and-etcd-node-removal-requirements)
   * [Rook Ceph Cluster Prerequisites](#rook-ceph-cluster-prerequisites)
   * [(Recommended) Manually Rebalance Ceph and Remove a Node](#recommended-manually-rebalance-ceph-and-remove-a-node)
-  * [Remove Nodes with ECKO](#remove-nodes-with-ecko)
+  * [Remove Nodes with EKCO](#remove-nodes-with-ekco)
 * [Troubleshoot Node Removal](#troubleshoot-node-removal)
 
-## ECKO Add-On Prerequisite
+## EKCO Add-On Prerequisite
 
 Before you manage a node on a kURL cluster, you must install the Embedded kURL Cluster Operator (EKCO) add-on on the cluster.
 The EKCO add-on is a utility tool used to perform maintenance operations on a kURL cluster.
@@ -43,7 +43,7 @@ Reset a node on a cluster only if you are able to delete the host VM and provisi
 To reset a node on a cluster managed by kURL:
 
 1. Run the kURL reset script on a VM that you are able to delete if the script is unsuccessful.
-The kURL reset script first runs the ECKO shutdown script to cordon the node. Then, it attempts to remove all Kubernetes packages and host files from the node.
+The kURL reset script first runs the EKCO shutdown script to cordon the node. Then, it attempts to remove all Kubernetes packages and host files from the node.
 
    * **Online**:
 
@@ -292,7 +292,7 @@ For example, if you intend to remove a total of two nodes, add two new nodes.
 
 Repeat the steps in this procedure for any remaining nodes that you want to remove. Always verify that Ceph is in a HEALTH_OK state before making changes to Ceph.
 
-### Remove Nodes with ECKO
+### Remove Nodes with EKCO
 
 You can use EKCO add-on scripts to programmatically cordon and purge a node so that you can then remove the node from the cluster.
 
