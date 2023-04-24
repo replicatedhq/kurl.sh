@@ -19,8 +19,7 @@ It is possible to upgrade from any Kubernetes minor versions to the latest suppo
 This upgrade process will step through minor versions one at a time.
 For example, upgrades from Kubernetes 1.19.x to 1.26.x will step through versions 1.20.x, 1.21x, 1.22.x, 1.23.x, 1.24.x, and 1.25.x before installing 1.26.x.
 
-Airgapped upgrades without internet access may prompt the end-user to download supplemental packages.
-These packages can be downloaded in advance and placed in the `/var/lib/kurl/assets/` directory to avoid the prompt.
+To upgrade Kubernetes by more than one minor version in air gapped instances without internet access, the end-user must provide a supplemental package that includes the assets required for the upgrade. The script prompts the user to provide the required package during upgrade. For example:
 
 ```bash
 ⚙  Upgrading Kubernetes from 1.23.17 to 1.26.3
@@ -38,6 +37,8 @@ You can download them with the following command:
 Please provide the path to the file on the server.
 Absolute path to file:
 ```
+
+Alternatively, to avoid this prompt, end-users can download the required Kubernetes package before beginning the upgrade process and move it to the `/var/lib/kurl/assets/` directory.
 
 ## Container Runtimes
 
