@@ -117,14 +117,6 @@ This upgrade process will step through minor versions one at a time.
 For example, upgrades from Rook 1.0.x to 1.5.x will step through Rook versions 1.1.9, 1.2.7, 1.3.11 and 1.4.9 before installing 1.5.x.
 Upgrades without internet access may prompt the end-user to download supplemental packages.
 
-Alternatively, a Rook upgrade can be triggered independently using the `rook-upgrade` task.
-This task requires the argument `to-version=[major]-[minor]`.
-
-For example:
-```bash
-curl https://k8s.kurl.sh/latest/tasks.sh | sudo bash -s rook-upgrade to-version=1.10
-```
-
 Rook upgrades from 1.0.x migrate data off of any filesystem-based OSDs in favor of block device-based OSDs.
 The upstream Rook project introduced a requirement for block storage in versions 1.3.x and later.
 
