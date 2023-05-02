@@ -274,4 +274,14 @@ The install scripts are idempotent. Re-run the scripts with different flags to c
   <code>curl https://kurl.sh/latest | sudo bash -s ekco-enable-internal-load-balancer</code>
   </td>
 </tr>
+<tr>
+  <td><code>kubernetes-upgrade-ignore-preflight-errors</code></td>
+  <td>Bypass kubeadm upgrade preflight errors and warnings. See the <a href="https://kubernetes.io/docs/reference/setup-tools/kubeadm/kubeadm-upgrade/#cmd-upgrade-plan">kubeadm upgrade</a> documentation for more information.
+  <br/>
+  <br/>
+  <strong>Example:</strong>
+  <br/>
+  <code>curl https://kurl.sh/latest | sudo bash -s kubernetes-upgrade-ignore-preflight-errors=CoreDNSUnsupportedPlugins</code>
+  </td>
+</tr>
 </table>
