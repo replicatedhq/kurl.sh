@@ -284,4 +284,14 @@ The install scripts are idempotent. Re-run the scripts with different flags to c
   <code>curl https://kurl.sh/latest | sudo bash -s kubernetes-upgrade-ignore-preflight-errors=CoreDNSUnsupportedPlugins</code>
   </td>
 </tr>
+<tr>
+  <td><code>kubernetes-max-pods-per-node</code></td>
+  <td>The maximum number of Pods that can run on each node (default 110).
+  <br/>
+  <br/>
+  <strong>Example:</strong>
+  <br/>
+  <code>curl https://kurl.sh/latest | sudo bash -s kubernetes-max-pods-per-node=200</code>
+  </td>
+</tr>
 </table>
