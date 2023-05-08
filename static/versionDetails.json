@@ -235,6 +235,11 @@
       "flag": "bypassUpgradeWarning",
       "description": "Bypass upgrade warning prompt.",
       "type": "boolean"
+    },
+    {
+      "flag": "nodes",
+      "description": "Override default settings to use all nodes and devices with individual settings per node. Must be a CephCluster CRD nodes array as described in the <a target=\"blank\" href=\"https://rook.io/docs/rook/v1.11/CRDs/Cluster/ceph-cluster-crd/#node-settings\">Node Settings</a> section of the CephCluster CRD Rook documentation.",
+      "type": "string"
     }
   ],
   "docker": [

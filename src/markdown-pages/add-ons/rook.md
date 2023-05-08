@@ -110,6 +110,34 @@ spec:
   storageClassName: rook-cephfs
 ```
 
+## Per-Node Storage Configuration
+
+By default, Rook is configured to consume all [nodes](https://rook.io/docs/rook/v1.11/CRDs/Cluster/ceph-cluster-crd/#cluster-settings:~:text=for%20specific%20nodes.-,useAllNodes,-%3A%20true%20or) and [devices](https://rook.io/docs/rook/v1.11/CRDs/Cluster/ceph-cluster-crd/#node-settings:~:text=in%20the%20cluster.-,useAllDevices,-%3A%20true%20or) found on those nodes for Ceph storage.
+This can be overridden with configuration per-node using the `rook.nodes` property of the spec.
+This string must adhere to the `nodes` storage configuration spec in the CephCluster CRD.
+See the Rook CephCluster CRD [Node Settings](https://rook.io/docs/rook/v1.11/CRDs/Cluster/ceph-cluster-crd/#node-settings) documentation for more information.
+
+For example:
+
+```yaml
+spec:
+  rook:
+    nodes: |
+      - name: node-01
+        devices:
+        - name: sdb
+      - name: node-02
+        devices:
+        - name: sdb
+        - name: sdc
+      - name: node-03
+        devices:
+        - name: sdb
+        - name: sdc
+```
+
+To override this property at install time, see [Modifying an Install Using a YAML Patch File](/docs/install-with-kurl#modifying-an-install-using-a-yaml-patch-file-at-runtime) for more details on using patch files.
+
 ## Upgrades
 
 It is now possible to upgrade multiple minor versions of the Rook add-on at once.
