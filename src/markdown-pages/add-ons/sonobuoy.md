@@ -13,6 +13,10 @@ It is a customizable, extendable, and cluster-agnostic way to generate clear, in
 This makes Sonobuoy assets available in the cluster, but does not run conformance tests.
 The `sonobuoy` binary will be installed in the directory `/usr/local/bin`.
 
+## Limitations
+
+This add-on does not work if Kubernetes 1.27.x and Prometheus is installed as `sonobuoy` will panic with the error: `panic: runtime error: invalid memory address or nil pointer dereference`. This problem is being [addressed](https://github.com/vmware-tanzu/sonobuoy/pull/1909) in the upstream Sonobuoy project.
+
 ## Advanced Install Options
 
 ```yaml
