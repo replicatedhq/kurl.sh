@@ -64,7 +64,7 @@ The following table lists information about the core directory requirements.
 
 *&ast;&ast; This requirement can vary depending on your choice of kURL add-ons and can grow over time.*
 
-In addition to the storage requirements, the Kubernetes [garbage collection](https://kubernetes.io/docs/concepts/architecture/garbage-collection/) process attempts to ensure that the Node and Image filesystems do not reach their minimum available disk space [thresholds](https://kubernetes.io/docs/concepts/scheduling-eviction/node-pressure-eviction/#hard-eviction-thresholds) of 10% and 15% reqpectively.
+In addition to the storage requirements, the Kubernetes [garbage collection](https://kubernetes.io/docs/concepts/architecture/garbage-collection/) process attempts to ensure that the Node and Image filesystems do not reach their minimum available disk space [thresholds](https://kubernetes.io/docs/concepts/scheduling-eviction/node-pressure-eviction/#hard-eviction-thresholds) of 10% and 15% respectively.
 For this reason, kURL recommends an additional 20% overhead on top of these disk space requirements for the volume or volumes containing the directories /var/lib/kubelet/ and /var/lib/containerd/.
 For more information see the Kubernetes [Reclaiming node level resources](https://kubernetes.io/docs/concepts/scheduling-eviction/node-pressure-eviction/#reclaim-node-resources) documentation.
 
