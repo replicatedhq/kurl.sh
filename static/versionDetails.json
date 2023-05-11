@@ -223,7 +223,7 @@
     },
     {
       "flag": "blockDeviceFilter",
-      "description": "Only use block devices matching this regex.",
+      "description": "Only use block devictestunges matching this regex.",
       "type": "string"
     },
     {
