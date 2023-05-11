@@ -1,0 +1,21 @@
+---
+version: 2
+updates:
+  # - package-ecosystem: "npm"
+  #   directory: "/"
+  #   labels:
+  #     - "dependencies"
+  #     - "javascript"
+  #     - "type::chore"
+  #   schedule:
+  #     interval: "monthly"
+  #   open-pull-requests-limit: 25
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    labels:
+      - "dependencies"
+      - "github-actions"
+      - "type::chore"
+    schedule:
+      interval: "weekly"
