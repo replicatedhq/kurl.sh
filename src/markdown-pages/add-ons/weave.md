@@ -18,7 +18,7 @@ As of March 27, 2023, the Weave add-on is deprecated. The Weave add-on might be 
 
 Weave Net creates a virtual network that connects containers across multiple hosts and enables their automatic discovery. With Weave Net, portable microservices-based applications consisting of multiple containers can run anywhere: on one host, multiple hosts or even across cloud providers and data centers.
 
-_**Warning**_: Using symbolic links with Weave can cause inconsistencies in network interface naming, leading to disruptions in network connectivity. Symbolic links introduce ambiguity, making it difficult for Weave to establish reliable connections. This can result in errors or improper functioning of Weave. To avoid networks connective issues, it is recommended to avoid using symbolic links for network-related configurations with Weave.
+_**Warning**_: The use of symbolic links in conjunction with the Weave Addon could potentially cause inconsistencies, potentially hindering Weave's ability to establish reliable connections. This might result in operational errors or malfunctions. To minimize network connectivity issues, it is generally recommended to avoid symbolic links in Weave's network-related configurations.
 
 ## Advanced Install Options
 
