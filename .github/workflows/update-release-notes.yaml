@@ -15,8 +15,8 @@ jobs:
         KURL_VERSION: ${{ github.event.client_payload.version }}
       run: |
         KURL_VERSION=$( echo $KURL_VERSION | sed -E -e 's/v(.*)/\1/g' )
-        echo "::set-output name=parsed_kurl_version::$KURL_VERSION"
-        
+        echo "parsed_kurl_version=$KURL_VERSION" >> "$GITHUB_OUTPUT"
+
         cp ./hack/release-notes.md.tmpl ./src/release-notes/${KURL_VERSION}.md
         DATE=$(date +%F)
         WEIGHT=$(echo $KURL_VERSION | tr -d "v\.\-")
