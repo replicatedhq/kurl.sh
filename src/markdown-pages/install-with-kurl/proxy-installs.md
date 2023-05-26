@@ -28,6 +28,8 @@ If a `proxyAddress` is not configured in the installer spec, the following envir
 
 Any addresses set in either the `NO_PROXY` or `no_proxy` environment variable will be added to the list of no proxy addresses.
 
+_**WARNIN**_: You must to call the script with -E in order to allow the script use the environment variables (i.e. `curl https://kurl.sh/latest | sudo -E bash` )
+
 ## No Proxy Addresses
 
 All addresses set in the `additionalNoProxyAddresses` list will be added to the default set of no proxy addresses.
