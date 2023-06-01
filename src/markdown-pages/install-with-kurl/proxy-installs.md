@@ -20,13 +20,18 @@ spec:
 ```
 
 The proxy configuration will be used to download packages required for the installation script to complete and will be applied to the docker and KOTS add-ons.
+The provided proxy will be configured and used for HTTP and HTTPS access.
 See [Modifying an Install Using a YAML Patch File](/docs/install-with-kurl#modifying-an-install-using-a-yaml-patch-file-at-runtime) for more details on using patch files.
 
 ## Proxy Environment Variables
 
-If a `proxyAddress` is not configured in the installer spec, the following environment variables will be checked in order: `HTTP_PROXY`, `http_proxy`, `HTTPS_PROXY`, `https_proxy`.
+If a `proxyAddress` is not configured in the installer spec, the following environment variables will be used instead:
 
-Any addresses set in either the `NO_PROXY` or `no_proxy` environment variable will be added to the list of no proxy addresses.
+| Environment variable        | Description                                                             |
+|-----------------------------|-------------------------------------------------------------------------|
+| `HTTP_PROXY`/`http_proxy`   | Will be configured and used for HTTP access                             |
+| `HTTPS_PROXY`/`https_proxy` | Will be configured and used for HTTPS access                            |
+| `NO_PROXY`/`no_proxy`       | Defines the host names/IP addresses that shouldn't go through the proxy |
 
 ## No Proxy Addresses
 
