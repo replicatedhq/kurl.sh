@@ -46,7 +46,7 @@ jobs:
 
     - name: Slack Notification
       id: slack
-      uses: slackapi/slack-github-action@v1.23.0
+      uses: slackapi/slack-github-action@v1.24.0
       with: 
         payload: "{\"message\":\"Pull request #${{steps.cpr.outputs.pull-request-number }} is ready for kURL.sh release notes: ${{steps.cpr.outputs.pull-request-url}}\",\"version\":\"${{ steps.release-notes.outputs.parsed_kurl_version }}\"}" 
       env:
