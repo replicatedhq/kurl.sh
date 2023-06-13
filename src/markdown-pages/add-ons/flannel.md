@@ -115,3 +115,9 @@ Once this has been run on all nodes, press enter to continue.
 ```
 
 After these scripts run, the migration takes several additional minutes to recreate the pods in the cluster.
+
+**Important:** Migrating from Weave to Flannel requires careful attention. There will be a period during the migration when the cluster operates without a Container Network Interface.
+In the event of an unexpected error leading to the migration's interruption, the cluster may end up in an unhealthy state.
+In such cases, users have the option to reattempt the installation, which will ensure the completion of any pending tasks.
+If the migration encounters failures and re-running the installation process fails during initial cluster health assessment, users can utilize the `-s host-preflight-ignore` option.
+This option instructs the installer to disregard host preflight failures and warnings, offering a potential workaround for overcoming migration obstacles.
