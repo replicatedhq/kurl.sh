@@ -172,7 +172,19 @@ class SupportedAddOns extends React.Component {
               <span className="u-fontSize--largest u-fontWeight--medium u-color--tuna  u-marginLeft--10">
                 {this.generateVersionName(addOn.name)}
                 {addOn.name === "aws" && (
-                  <span className="prerelease-tag sidebar beta">beta</span>
+                  <span className="prerelease-tag sidebar deprecated">deprecated</span>
+                )}
+                {addOn.name === "flannel" && (
+                  <span className="prerelease-tag sidebar deprecated">deprecated</span>
+                )}
+                {addOn.name === "antrea" && (
+                  <span className="prerelease-tag sidebar deprecated">deprecated</span>
+                )}
+                {addOn.name === "longhorn" && (
+                  <span className="prerelease-tag sidebar deprecated">deprecated</span>
+                )}
+                {addOn.name === "docker" && (
+                  <span className="prerelease-tag sidebar deprecated">deprecated</span>
                 )}
               </span>
               <div className="flex flex1 u-marginTop--small">
@@ -189,7 +201,7 @@ class SupportedAddOns extends React.Component {
             </div>
           </div>
           <div className="flex justifyContent--flexEnd">
-            <a href={`https://github.com/replicatedhq/kURL/tree/master/addons/${addOn.name}`} target="_blank" rel="noopener noreferrer"> <i className="icon u-externalLinkIcon clickable"></i> </a>
+            <a href={`https://github.com/replicatedhq/kURL/tree/master/addons/${(addOn.name == "OpenEBS") ? 'openebs' : addOn.name}`} target="_blank" rel="noopener noreferrer"> <i className="icon u-externalLinkIcon clickable"></i> </a>
           </div>
         </div>
         {categoryVersionsToShow && activeSupportedVersionCategory && categoryVersionsToShow.length > 0 ?
