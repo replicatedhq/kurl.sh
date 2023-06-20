@@ -8,7 +8,7 @@ on:
 jobs:
 
   deploy-staging-netlify:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
@@ -30,4 +30,4 @@ jobs:
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: 9cc8b96a-2c23-4f71-bb0f-cbdc19ccbf76
-        timeout-minutes: 1
+        timeout-minutes: 5
