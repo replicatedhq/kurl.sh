@@ -189,7 +189,7 @@ class SupportedAddOns extends React.Component {
             </div>
           </div>
           <div className="flex justifyContent--flexEnd">
-            <a href={`https://github.com/replicatedhq/kURL/tree/master/addons/${addOn.name}`} target="_blank" rel="noopener noreferrer"> <i className="icon u-externalLinkIcon clickable"></i> </a>
+            <a href={`https://github.com/replicatedhq/kURL/tree/main/addons/${addOn.name.toLowerCase()}`} target="_blank" rel="noopener noreferrer"> <i className="icon u-externalLinkIcon clickable"></i> </a>
           </div>
         </div>
         {categoryVersionsToShow && activeSupportedVersionCategory && categoryVersionsToShow.length > 0 ?
