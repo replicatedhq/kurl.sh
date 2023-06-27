@@ -180,6 +180,43 @@ To migrate to a new CSI provisioner in a kURL cluster:
 
    During the cluster upgrade, the kURL installer detects that the CSI add-on has changed. kURL automatically begins the process of migrating data from the current CSI provisioner to the provisioner in the updated specification. For more information about the data migration process, see [About Changing the CSI Add-on](#about-changing-the-csi-add-on) above.
 
+## Automated Local to Distributed Storage Migrations
+
+kURL is able to migrate clusters from local (Non-HA) storage to distributed (HA) storage when it reaches n number of nodes. After a node greater than or equal to n join the cluster, the join script will prompt to perform the migration. This migration is also available as a task within task.sh.  Please note the following requirements when choosing to have customers on both local and distributed storage.
+
+1. Distributed storage requires a node count equal to or greater than 3.  This means that “n” can be 3 or larger.
+
+2. Automated local to distributed storage migrations require the following prerequisites:
+
+  - Rook 1.11.7 or Greater
+  - OpenEBS 3.7.0 or Greater
+  - Block storage devices for rook
+
+3. During the migration process there will be downtime as the migration moves the data.
+
+### Implementation
+
+The following spec implements a spec that will run OpenEBS until 3 nodes where it will then prompt to migrate to Rook. Customers on 1 and 2 nodes will run local storage and customers with 3+ nodes will run Rook using this spec:
+
+```
+ rook: 
+    version: "1.11.x"
+    minimumnodecount: 3
+  openebs: 
+    version: "3.7.x"
+    isLocalPVEnabled: true
+    localPVStorageClassName: "local"
+```
+
+When the minimum node count is met, one of the following must occur for a migration to take place:
+
+- The user joins the third(+) node to the cluster, and accepts a prompt to migrate storage.
+
+- The user runs install.sh on a primary node, and accepts a prompt to migrate storage.
+
+- The user runs the migrate-multinode-storage command in tasks.sh from a primary node.
+
+
 ## Troubleshoot Longhorn Data Migration
 
 This section describes how to troubleshoot known issues in migrating data from Longhorn to Rook or OpenEBS.
