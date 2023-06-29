@@ -182,14 +182,14 @@ To migrate to a new CSI provisioner in a kURL cluster:
 
 ## Automated Local to Distributed Storage Migrations
 
-kURL is able to migrate clusters from local (Non-HA) storage to distributed (HA) storage when it reaches n number of nodes. After a node greater than or equal to n join the cluster, the join script will prompt to perform the migration. This migration is also available as a task within task.sh.  Please note the following requirements when choosing to have customers on both local and distributed storage.
+kURL is able to migrate clusters from local (Non-HA) storage to distributed (HA) storage when the cluster expands to a minimum of _three_ nodes. When the Kubernetes cluster size is met, after a node is added to the cluster, the join script will prompt to perform the migration. This migration is also available as a task within task.sh.  Please note the following requirements when choosing to have customers on both local and distributed storage.
 
 1. Distributed storage requires a node count equal to or greater than 3.  This means that “n” can be 3 or larger.
 
 2. Automated local to distributed storage migrations require the following prerequisites:
 
   - Rook 1.11.7 or Greater
-  - OpenEBS 3.7.0 or Greater
+  - OpenEBS 3.6.0 or Greater
   - Block storage devices for rook
 
 3. During the migration process there will be downtime as the migration moves the data.
