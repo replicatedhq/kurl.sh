@@ -30,6 +30,7 @@ spec:
     storageClassName: "storage"
     hostpathRequiresPrivileged: false
     bypassUpgradeWarning: false
+    minimumNodeCount: 3
 ```
 
 flags-table
