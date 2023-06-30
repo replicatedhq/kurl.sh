@@ -213,7 +213,7 @@
     },
     {
       "flag": "minimumNodeCount",
-      "description": "The number of nodes required in a CephCluster to trigger a distributed storage migraton. Must be set to a value greater than 3.",
+      "description": "The number of nodes required in a CephCluster to trigger a distributed storage migration. Must be set to a value greater than 3.",
       "type": "number"
     },
     {
