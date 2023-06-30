@@ -13,6 +13,7 @@ This topic describes how to change the Container Storage Interface (CSI) provisi
 * [Prerequisites](#prerequisites)
   * [General Prerequisites](#general-prerequisites)
   * [Longhorn Prerequisites](#longhorn-prerequisites)
+* [Automated Local to Distributed Storage Migrations](#automated-local-to-distributed-storage-migrations)
 * [Change the CSI Add-on in a Cluster](#change-the-csi-add-on-in-a-cluster)
 * [Troubleshoot Longhorn Data Migration](#troubleshoot-longhorn-data-migration)
 
@@ -182,21 +183,19 @@ To migrate to a new CSI provisioner in a kURL cluster:
 
 ## Automated Local to Distributed Storage Migrations
 
-kURL is able to migrate clusters from local (Non-HA) storage to distributed (HA) storage when the cluster expands to a minimum of _three_ nodes. When the Kubernetes cluster size is met, after a node is added to the cluster, the join script will prompt to perform the migration. This migration is also available as a task within task.sh.  Please note the following requirements when choosing to have customers on both local and distributed storage.
+You can use the `minimumnodecount` field to configure kURL to automatically migrate clusters from local (non-HA) storage to distributed (HA) storage when the node count increases to a minimum of _three_ nodes.
 
-1. Distributed storage requires a node count equal to or greater than 3.  This means that “n” can be 3 or larger.
+When you include the `minimumnodecount` field and the cluster meets the minimum node count specified, one of the following must occur for kURL to migrate to distributed storage:
 
-2. Automated local to distributed storage migrations require the following prerequisites:
+- The user joins the third(+) node to the cluster using the kURL join script, and accepts a prompt to migrate storage.
 
-  - Rook 1.11.7 or Greater
-  - OpenEBS 3.6.0 or Greater
-  - Block storage devices for rook
+- The user runs the kURL install.sh script on a primary node, and accepts a prompt to migrate storage.
 
-3. During the migration process there will be downtime as the migration moves the data.
+- The user runs the `migrate-multinode-storage` command in the kURL tasks.sh script from a primary node.
 
 ### Implementation
 
-The following spec implements a spec that will run OpenEBS until 3 nodes where it will then prompt to migrate to Rook. Customers on 1 and 2 nodes will run local storage and customers with 3+ nodes will run Rook using this spec:
+The following example spec uses the `minimumnodecount` field to configure kURL to run local storage with OpenEBS until the cluster increases to three nodes. When the cluster increases to three nodes, kURL automatically migrates to distributed storage with Rook:
 
 ```
  rook: 
@@ -208,14 +207,21 @@ The following spec implements a spec that will run OpenEBS until 3 nodes where i
     localPVStorageClassName: "local"
 ```
 
-When the minimum node count is met, one of the following must occur for a migration to take place:
+### Requirements
 
-- The user joins the third(+) node to the cluster, and accepts a prompt to migrate storage.
+The `minimumnodecount` field has the following requirements:
 
-- The user runs install.sh on a primary node, and accepts a prompt to migrate storage.
+* Distributed storage requires a node count equal to or greater than three. This means that you can set the `minimumnodecount` field to `3` or greater.
 
-- The user runs the migrate-multinode-storage command in tasks.sh from a primary node.
+* Automated local to distributed storage migrations require the following:
 
+  - Rook 1.11.7 or later
+  - OpenEBS 3.6.0 or later
+  - Block storage devices for Rook
+
+### Limitation  
+
+There is downtime while kURL migrates data from local to distributed storage.
 
 ## Troubleshoot Longhorn Data Migration
 
