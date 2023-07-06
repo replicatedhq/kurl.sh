@@ -13,6 +13,7 @@ This topic describes how to change the Container Storage Interface (CSI) provisi
 * [Prerequisites](#prerequisites)
   * [General Prerequisites](#general-prerequisites)
   * [Longhorn Prerequisites](#longhorn-prerequisites)
+* [Automated Local to Distributed Storage Migrations](#automated-local-to-distributed-storage-migrations)
 * [Change the CSI Add-on in a Cluster](#change-the-csi-add-on-in-a-cluster)
 * [Troubleshoot Longhorn Data Migration](#troubleshoot-longhorn-data-migration)
 
@@ -179,6 +180,48 @@ To migrate to a new CSI provisioner in a kURL cluster:
 1. Upgrade your kURL cluster to use the updated specification by rerunning the kURL installation script. For more information about how to upgrade a kURL cluster, see [Upgrading](/install-with-kurl/upgrading).
 
    During the cluster upgrade, the kURL installer detects that the CSI add-on has changed. kURL automatically begins the process of migrating data from the current CSI provisioner to the provisioner in the updated specification. For more information about the data migration process, see [About Changing the CSI Add-on](#about-changing-the-csi-add-on) above.
+
+## Automated Local to Distributed Storage Migrations
+
+You can use the `minimumnodecount` field to configure kURL to automatically migrate clusters from local (non-HA) storage to distributed (HA) storage when the node count increases to a minimum of _three_ nodes.
+
+When you include the `minimumnodecount` field and the cluster meets the minimum node count specified, one of the following must occur for kURL to migrate to distributed storage:
+
+- The user joins the third(+) node to the cluster using the kURL join script, and accepts a prompt to migrate storage.
+
+- The user runs the kURL install.sh script on a primary node, and accepts a prompt to migrate storage.
+
+- The user runs the `migrate-multinode-storage` command in the kURL tasks.sh script from a primary node.
+
+### Implementation
+
+The following example spec uses the `minimumnodecount` field to configure kURL to run local storage with OpenEBS until the cluster increases to three nodes. When the cluster increases to three nodes, kURL automatically migrates to distributed storage with Rook:
+
+```
+ rook: 
+    version: "1.11.x"
+    minimumnodecount: 3
+  openebs: 
+    version: "3.7.x"
+    isLocalPVEnabled: true
+    localPVStorageClassName: "local"
+```
+
+### Requirements
+
+The `minimumnodecount` field has the following requirements:
+
+* Distributed storage requires a node count equal to or greater than three. This means that you can set the `minimumnodecount` field to `3` or greater.
+
+* Automated local to distributed storage migrations require the following:
+
+  - Rook 1.11.7 or later
+  - OpenEBS 3.6.0 or later
+  - Block storage devices for Rook
+
+### Limitation  
+
+There is downtime while kURL migrates data from local to distributed storage.
 
 ## Troubleshoot Longhorn Data Migration
 
