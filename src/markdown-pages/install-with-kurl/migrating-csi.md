@@ -183,9 +183,9 @@ To migrate to a new CSI provisioner in a kURL cluster:
 
 ## Automated Local to Distributed Storage Migrations
 
-You can use the `minimumnodecount` field to configure kURL to automatically migrate clusters from local (non-HA) storage to distributed (HA) storage when the node count increases to a minimum of _three_ nodes.
+You can use the `minimumNodeCount` field to configure kURL to automatically migrate clusters from local (non-HA) storage to distributed (HA) storage when the node count increases to a minimum of _three_ nodes.
 
-When you include the `minimumnodecount` field and the cluster meets the minimum node count specified, one of the following must occur for kURL to migrate to distributed storage:
+When you include the `minimumNodeCount` field and the cluster meets the minimum node count specified, one of the following must occur for kURL to migrate to distributed storage:
 
 - The user joins the third(+) node to the cluster using the kURL join script, and accepts a prompt to migrate storage.
 
@@ -195,12 +195,12 @@ When you include the `minimumnodecount` field and the cluster meets the minimum 
 
 ### Implementation
 
-The following example spec uses the `minimumnodecount` field to configure kURL to run local storage with OpenEBS until the cluster increases to three nodes. When the cluster increases to three nodes, kURL automatically migrates to distributed storage with Rook:
+The following example spec uses the `minimumNodeCount` field to configure kURL to run local storage with OpenEBS until the cluster increases to three nodes. When the cluster increases to three nodes, kURL automatically migrates to distributed storage with Rook:
 
 ```
  rook: 
     version: "1.11.x"
-    minimumnodecount: 3
+    minimumNodeCount: 3
   openebs: 
     version: "3.7.x"
     isLocalPVEnabled: true
@@ -209,9 +209,9 @@ The following example spec uses the `minimumnodecount` field to configure kURL t
 
 ### Requirements
 
-The `minimumnodecount` field has the following requirements:
+The `minimumNodeCount` field has the following requirements:
 
-* Distributed storage requires a node count equal to or greater than three. This means that you can set the `minimumnodecount` field to `3` or greater.
+* Distributed storage requires a node count equal to or greater than three. This means that you can set the `minimumNodeCount` field to `3` or greater.
 
 * Automated local to distributed storage migrations require the following:
 
