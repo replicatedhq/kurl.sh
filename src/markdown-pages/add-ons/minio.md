@@ -34,3 +34,4 @@ By default, and upon initial installation, MinIO runs as a single replica and re
 
 When there is non-distributed storage available on at least three nodes, [EKCO](/docs/add-ons/ekco#minio) will upgrade MinIO to run 6 replicas in a highly-available fashion.
 While this upgrade is in process, MinIO will temporarily go offline.
+If this migration fails, it will be retried but MinIO will remain offline until it succeeds.

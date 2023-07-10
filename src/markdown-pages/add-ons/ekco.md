@@ -120,9 +120,11 @@ When you install kURL with `ekco.minioShouldDisableManagement` set to `false`, t
 
 To manage data in MinIO, the EKCO operator first enables a high availability six-replica StatefulSet when at least three nodes are healthy and the OpenEBS localpv storage class is available.
 
-Then, EKCO migrates data from the original MinIO deployment to the StatefulSet before deleting the data. MinIO is temporarily unavailable while the data migration is in progress.
+Then, EKCO migrates data from the original MinIO deployment to the StatefulSet before deleting the data.
+MinIO is temporarily unavailable while the data migration is in progress.
+If this migration fails, it will be retried but MinIO will remain offline until it succeeds.
 
-After the StatefulSet is running, EKCO ensures that replicas are evenly distributed across nodes.
+After data has been migrated to the StatefulSet, EKCO ensures that replicas are evenly distributed across nodes.
 
 To disable EKCO's management of data in MinIO, set `ekco.minioShouldDisableManagement` to `true`.
 
