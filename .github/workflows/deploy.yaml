@@ -23,7 +23,7 @@ jobs:
         run: make deps build-staging
 
       - name: release
-        uses: nwtgck/actions-netlify@v2.0
+        uses: nwtgck/actions-netlify@v2.1
         with:
           publish-dir: public
           production-branch: main
@@ -51,7 +51,7 @@ jobs:
         run: make deps build-production
 
       - name: release
-        uses: nwtgck/actions-netlify@v2.0
+        uses: nwtgck/actions-netlify@v2.1
         with:
           publish-dir: public
           production-branch: main
