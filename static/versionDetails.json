@@ -94,16 +94,6 @@
       "flag": "clusterName",
       "description": "The name of the Kubernetes cluster (default \"kubernetes\").",
       "type": "string"
-    },
-    {
-      "flag": "upgradeIgnorePreflightErrors",
-      "description": "Bypass kubeadm upgrade preflight errors and warnings as described in <a target=\"blank\" href=\"https://kubernetes.io/docs/reference/setup-tools/kubeadm/kubeadm-upgrade/#cmd-upgrade-plan\">kubeadm upgrade</a> section of the Kubernetes documentation.",
-      "type": "string"
-    },
-    {
-      "flag": "maxPodsPerNode",
-      "description": "The maximum number of Pods that can run on each node (default 110).",
-      "type": "string"
     }
   ],
   "flannel": [
