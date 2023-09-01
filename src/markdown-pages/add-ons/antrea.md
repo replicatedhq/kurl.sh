@@ -20,10 +20,10 @@ As of March 27, 2023, the Antrea add-on is deprecated. The Antrea add-on might b
 It also functions as a NetworkPolicy controller to optionally enforce security at the network layer.
 Antrea is implemented with Open vSwitch and IPSec.
 
-By default, Antrea [encrypts traffic](https://antrea.io/docs/v1.4.0/docs/traffic-encryption/) between nodes.
+By default, Antrea [encrypts traffic](https://antrea.io/docs/v1.4.0/docs/traffic-encryption/) between nodes. 
 kURL does not install the necessary kernel modules to enable traffic encryption.
 An installer is blocked if encryption is enabled and the host does not have the required `wireguard` module installed.
-If you do not want to install `wireguard` manually, you can disable encryption by setting `isEncryptionDisabled` to `true`.
+If you do not want to install `wireguard` manually, you can disable encryption by setting `isEncryptionDisabled` to `true`. 
 
 ## Advanced Install Options
 
