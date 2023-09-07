@@ -3,8 +3,6 @@ import Kurl from "../Kurlsh";
 const defaultProps = {
   supportedVersions: {
     "kubernetes": [ "latest", "1.19.16", "1.19.15", "1.19.13" ],
-    "antrea": [ "latest", "1.4.0", "1.2.1", "1.2.0" ],
-    "aws": [ "latest", "0.1.0" ],
     "calico": [ "latest", "3.9.1" ],
     "collectd": [ "latest", "v5", "0.0.1" ],
     "containerd": [ "latest", "1.6.8", "1.6.7", "1.6.6" ],
