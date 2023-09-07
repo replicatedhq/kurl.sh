@@ -22,7 +22,6 @@ const NIL_VERSIONS = {
   kubernetes: { version: "None" },
   flannel: { version: "None" },
   weave: { version: "None" },
-  antrea: { version: "None" },
   contour: { version: "None" },
   rook: { version: "None" },
   docker: { version: "None" },
@@ -41,9 +40,8 @@ const NIL_VERSIONS = {
   certManager: { version: "None" },
   sonobuoy: { version: "None" },
   goldpinger: { version: "None" },
-  aws: { version: "None" },
 }
-const hasAdvancedOptions = ["kubernetes", "flannel", "weave", "antrea", "contour", "rook", "registry", "docker", "velero", "kotsadm", "ekco", "fluentd", "minio", "openebs", "longhorn", "prometheus", "aws"];
+const hasAdvancedOptions = ["kubernetes", "flannel", "weave", "contour", "rook", "registry", "docker", "velero", "kotsadm", "ekco", "fluentd", "minio", "openebs", "longhorn", "prometheus"];
 function versionToState(version) {
   return {
     version
@@ -66,7 +64,6 @@ class Kurlsh extends React.Component {
     const contourVersions = this.prepareVersions("contour", supportedVersions.contour);
     const flannelVersions = this.prepareVersions("flannel", supportedVersions.flannel);
     const weaveVersions = this.prepareVersions("weave", supportedVersions.weave);
-    const antreaVersions = this.prepareVersions("antrea", supportedVersions.antrea);
     const rookVersions = this.prepareVersions("rook", supportedVersions.rook);
     const dockerVersions = this.prepareVersions("docker", supportedVersions.docker);
     const prometheusVersions = this.prepareVersions("prometheus", supportedVersions.prometheus);
@@ -84,14 +81,12 @@ class Kurlsh extends React.Component {
     const certManagerVersions = this.prepareVersions("cert-manager", supportedVersions["cert-manager"]);
     const sonobuoyVersions = this.prepareVersions("sonobuoy", supportedVersions.sonobuoy);
     const goldpingerVersions = this.prepareVersions("goldpinger", supportedVersions.goldpinger);
-    const awsVersions = this.prepareVersions("aws", supportedVersions.aws);
 
     this.state = {
       versions: {
         kubernetes: kubernetesVersions,
         flannel: flannelVersions,
         weave: weaveVersions,
-        antrea: antreaVersions,
         contour: contourVersions,
         rook: rookVersions,
         docker: dockerVersions,
@@ -110,7 +105,6 @@ class Kurlsh extends React.Component {
         certManager: certManagerVersions,
         sonobuoy: sonobuoyVersions,
         goldpinger: goldpingerVersions,
-        aws: awsVersions,
       },
       selectedVersions: NIL_VERSIONS,
       installerSha: "",
@@ -118,7 +112,6 @@ class Kurlsh extends React.Component {
         "kubernetes": false,
         "flannel": false,
         "weave": false,
-        "antrea": false,
         "contour": false,
         "rook": false,
         "prometheus": false,
@@ -135,13 +128,11 @@ class Kurlsh extends React.Component {
         "certManager": false,
         "sonobuoy": false,
         "goldpinger": false,
-        "aws": false,
       },
       advancedOptions: {
         kubernetes: {},
         flannel: {},
         weave: {},
-        antrea: {},
         contour: {},
         rook: {},
         registry: {},
@@ -159,13 +150,11 @@ class Kurlsh extends React.Component {
         sonobuoy: {},
         goldpinger: {},
         prometheus: {},
-        aws: {},
       },
       isAddOnChecked: {
         kubernetes: false,
         flannel: false, 
         weave: false,
-        antrea: false,
         contour: false,
         rook: false,
         docker: false,
@@ -184,7 +173,6 @@ class Kurlsh extends React.Component {
         certManager: false,
         sonobuoy: false,
         goldpinger: false,
-        aws: false,
       },
       optionDefaults: {},
       installerErrMsg: "",
@@ -421,20 +409,6 @@ class Kurlsh extends React.Component {
       if (Object.keys(diff).length) {
         generatedInstaller.spec.weave = {
           ...generatedInstaller.spec.weave,
-          ...diff
-        };
-      }
-    }
-
-    if (isAddOnChecked.antrea) {
-      const diff = getDiff(optionDefaults["antrea"], options.antrea);
-      generatedInstaller.spec.antrea = {
-        version: selectedVersions.antrea.version
-      };
-
-      if (Object.keys(diff).length) {
-        generatedInstaller.spec.antrea = {
-          ...generatedInstaller.spec.antrea,
           ...diff
         };
       }
@@ -684,20 +658,6 @@ class Kurlsh extends React.Component {
       }
     }
 
-    if (isAddOnChecked.aws) {
-      const diff = getDiff(optionDefaults["aws"], options.aws);
-      generatedInstaller.spec.aws = {
-        version: selectedVersions.aws.version
-      };
-
-      if (Object.keys(diff).length) {
-        generatedInstaller.spec.aws = {
-          ...generatedInstaller.spec.aws,
-          ...diff
-        };
-      }
-    }
-
     let renderedYaml = json2yaml.stringify(generatedInstaller).replace("---\n", "").replace(/^ {2}/gm, "");
 
     if (sha === "latest") {
@@ -728,11 +688,9 @@ class Kurlsh extends React.Component {
       this.checkIncompatibleSelection({ containerd: value });
     } else if (name === "docker" && value.version !== "None" && this.state.isAddOnChecked.containerd) {
       this.checkIncompatibleSelection({ docker: value });
-    } else if (name === "flannel" && value.version !== "None" && (this.state.isAddOnChecked.weave || this.state.isAddOnChecked.antrea)) {
+    } else if (name === "flannel" && value.version !== "None" && this.state.isAddOnChecked.weave) {
       this.checkIncompatibleSelection({ flannel: value });
-    } else if (name === "antrea" && value.version !== "None" && (this.state.isAddOnChecked.weave || this.state.isAddOnChecked.flannel)) {
-      this.checkIncompatibleSelection({ antrea: value });
-    } else if (name === "weave" && value.version !== "None" && (this.state.isAddOnChecked.antrea || this.state.isAddOnChecked.flannel)) {
+    } else if (name === "weave" && value.version !== "None" && this.state.isAddOnChecked.flannel) {
       this.checkIncompatibleSelection({ weave: value });
     } else {
       this.setState({ selectedVersions: { ...this.state.selectedVersions, [name]: value } }, () => {
@@ -789,12 +747,10 @@ class Kurlsh extends React.Component {
             this.checkIncompatibleSelection({ containerd: { version: selectedVersion } });
           } else if (name === "docker" && this.state.isAddOnChecked.containerd) {
             this.checkIncompatibleSelection({ docker: { version: selectedVersion } });
-          } else if (name === "flannel" && (this.state.isAddOnChecked.weave || this.state.isAddOnChecked.antrea)) {
+          } else if (name === "flannel" && this.state.isAddOnChecked.weave) {
             this.checkIncompatibleSelection({ flannel: { version: selectedVersion } });
-          } else if (name === "weave" && (this.state.isAddOnChecked.antrea || this.state.isAddOnChecked.flannel)) {
+          } else if (name === "weave" && this.state.isAddOnChecked.flannel) {
             this.checkIncompatibleSelection({ weave: { version: selectedVersion } });
-          } else if (name === "antrea" && (this.state.isAddOnChecked.weave || this.state.isAddOnChecked.flannel)) {
-            this.checkIncompatibleSelection({ antrea: { version: selectedVersion } });
           } else {
             this.setState({ selectedVersions: { ...nextSelectedVersions, [name]: { version: selectedVersion } } }, () => {
               this.postToKurlInstaller(this.getYaml(this.state.installerSha));
@@ -1280,21 +1236,6 @@ class Kurlsh extends React.Component {
                   onToggleShowAdvancedOptions={() => this.onToggleShowAdvancedOptions("weave")}
                   renderAdvancedOptions={() => this.renderAdvancedOptions("weave")}
                   />
-                <AddOnWrapper
-                  addOnId="antrea"
-                  addOnTitle="Antrea"
-                  isDeprecated={true}
-                  isAddOnChecked={isAddOnChecked["antrea"]}
-                  options={versions.antrea}
-                  getOptionLabel={this.getLabel("antrea")}
-                  getOptionValue={(selected) => selected}
-                  value={selectedVersions.antrea}
-                  onVersionChange={this.onVersionChange("antrea")}
-                  handleIsAddOnSelected={(e) => this.handleIsAddOnSelected("antrea", e)}
-                  showAdvancedOptions={showAdvancedOptions["antrea"]}
-                  onToggleShowAdvancedOptions={() => this.onToggleShowAdvancedOptions("antrea")}
-                  renderAdvancedOptions={() => this.renderAdvancedOptions("antrea")}
-                  />
               </div>
 
               <div className="flex flex-column u-marginTop--40">
@@ -1554,26 +1495,6 @@ class Kurlsh extends React.Component {
                   renderAdvancedOptions={() => this.renderAdvancedOptions("velero")}
                   />
               </div>
-
-              <div className="flex flex-column u-marginTop--40">
-                <span className="u-fontSize--normal u-fontWeight--medium u-color--bermudaGray"> Cloud Provider </span>
-                <AddOnWrapper
-                  addOnId="aws"
-                  addOnTitle="AWS"
-                  isDeprecated={true}
-                  isAddOnChecked={isAddOnChecked["aws"]}
-                  options={versions.aws}
-                  getOptionLabel={this.getLabel("aws")}
-                  getOptionValue={(selected) => selected}
-                  value={selectedVersions.aws}
-                  onVersionChange={this.onVersionChange("aws")}
-                  handleIsAddOnSelected={(e) => this.handleIsAddOnSelected("aws", e)}
-                  showAdvancedOptions={showAdvancedOptions["aws"]}
-                  onToggleShowAdvancedOptions={() => this.onToggleShowAdvancedOptions("aws")}
-                  renderAdvancedOptions={() => this.renderAdvancedOptions("aws")}
-                  />
-              </div>
-
             </div>
           </div>
 

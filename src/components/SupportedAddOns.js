@@ -150,8 +150,6 @@ class SupportedAddOns extends React.Component {
         return "OpenEBS";
       case "iptables":
         return "iptables"
-      case "aws":
-        return "AWS";
       default:
         return name.charAt(0).toUpperCase() + name.slice(1);
     }
@@ -171,9 +169,6 @@ class SupportedAddOns extends React.Component {
             <div className="flex-column">
               <span className="u-fontSize--largest u-fontWeight--medium u-color--tuna  u-marginLeft--10">
                 {this.generateVersionName(addOn.name)}
-                {addOn.name === "aws" && (
-                  <span className="prerelease-tag sidebar beta">beta</span>
-                )}
               </span>
               <div className="flex flex1 u-marginTop--small">
                 {addOn.fulfills.map((category, i) => {
