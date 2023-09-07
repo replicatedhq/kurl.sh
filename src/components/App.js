@@ -269,6 +269,8 @@ cat install.sh | sudo bash -s airgap
                     <AppVersionCard selectedSpec={selectedSpec} name={"flannel"} installerData={installerData.spec.flannel} whatYouGet={this.whatYouGet} />}
                   {installerData.spec.weave &&
                     <AppVersionCard selectedSpec={selectedSpec} name={"weave"} installerData={installerData.spec.weave} whatYouGet={this.whatYouGet} />}
+                  {installerData.spec.antrea &&
+                    <AppVersionCard selectedSpec={selectedSpec} name={"antrea"} installerData={installerData.spec.antrea} whatYouGet={this.whatYouGet} />}
                   {installerData.spec.contour &&
                     <AppVersionCard selectedSpec={selectedSpec} name={"contour"} installerData={installerData.spec.contour} whatYouGet={this.whatYouGet} />}
                   {installerData.spec.rook &&
@@ -304,7 +306,9 @@ cat install.sh | sudo bash -s airgap
                   {installerData.spec.sonobuoy &&
                     <AppVersionCard selectedSpec={selectedSpec} name={"sonobuoy"} installerData={installerData.spec.sonobuoy} whatYouGet={this.whatYouGet} />}
                   {installerData.spec.localPathProvisioner &&
-                    <AppVersionCard selectedSpec={selectedSpec} name={"sonobuoy"} installerData={installerData.spec.localPathProvisioner} whatYouGet={this.whatYouGet} />}
+                    <AppVersionCard selectedSpec={selectedSpec} name={"localPathProvisioner"} installerData={installerData.spec.localPathProvisioner} whatYouGet={this.whatYouGet} />}
+                  {installerData.spec.aws &&
+                    <AppVersionCard selectedSpec={selectedSpec} name={"aws"} installerData={installerData.spec.aws} whatYouGet={this.whatYouGet} />}
                 </div>
               }
               {installerData &&
