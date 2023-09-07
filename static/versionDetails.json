@@ -141,6 +141,28 @@
       "defaultValue": true
     }
   ],
+  "antrea": [
+    {
+      "flag": "version",
+      "description": "The version of antrea to be installed.",
+      "type": "string"
+    },
+    {
+      "flag": "isEncryptionDisabled",
+      "description": "Encrypt network communication between nodes in the cluster.",
+      "type": "boolean"
+    },
+    {
+      "flag": "podCIDR",
+      "description": "The subnet used by Pods.",
+      "type": "string"
+    },
+    {
+      "flag": "podCidrRange",
+      "description": "The size of the subnet used by Pods.",
+      "type": "string"
+    }
+  ],
   "contour": [
     {
       "flag": "version",
@@ -733,6 +755,19 @@
       "flag": "version",
       "description": "The version of Goldpinger to be installed.",
       "type": "string"
+    }
+  ],
+  "aws": [
+    {
+      "flag": "version",
+      "description": "The version of aws to be installed.",
+      "type": "string"
+    },
+    {
+      "flag": "excludeStorageClass",
+      "description": "Exclude AWS-EBS provisioner storage class provided by the AWS add-on. When `true`, another storage provisioner, such as <a href=\"https://kurl.sh/docs/add-ons/longhorn\">Longhorn</a>, must be used.",
+      "type": "boolean",
+      "defaultValue": false
     }
   ]
 }
