@@ -60,8 +60,8 @@ When you re-install or upgrade using the updated installer spec (see the [New In
 
 To fully remove object storage from the cluster, the current provider must be removed from your installer spec.
 In the case of MinIO, it is a straightforward removal of the add-on.
-For clusters using the Rook add-on, another CSI such as Longhorn or OpenEBS is required for storage.
-Data can be migrated to Longhorn automatically using existing [CSI Migrations](/docs/install-with-kurl/migrating-csi). If you want to use another storage provider like OpenEBS, read about [migrating with snapshots](/docs/install-with-kurl/migrating).
+For clusters using the Rook add-on, another CSI such as OpenEBS is required for storage.
+Data can be migrated to OpenEBS automatically using existing [CSI Migrations](/docs/install-with-kurl/migrating-csi). 
 
 When you re-install or upgrade using the new updated spec (see the [New Installations](/docs/install-with-kurl/removing-object-storage#new-installations) section for a sample), you should expect:
 1. **Registry**: A persistent volume (PV) will be added for storage. In order to trigger a migration from object storage into the attached PV, see [Setting `disableS3` to `true` in the KOTS Add-On](/docs/install-with-kurl/removing-object-storage#setting-disables3-to-true-in-the-kots-add-on).
