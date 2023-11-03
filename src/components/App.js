@@ -185,6 +185,9 @@ cat install.sh | sudo bash -s airgap
                       Ubuntu 18.04
                     </li>
                     <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal">
+                      Ubuntu 20.04 (Docker version {'>'}= 19.03.10)
+                    </li>
+                    <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal">
                       CentOS 7.4, 7.5, 7.6, 7.7, 7.8, 7.9, 8.1, 8.2, 8.3, 8.4 (CentOS 8.x requires Containerd)
                     </li>
                     <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal">
@@ -224,6 +227,14 @@ cat install.sh | sudo bash -s airgap
                     <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal">
                       UDP port 8472 open between cluster nodes
                     </li>}
+                    {installerData && installerData.spec.weave && installerData.spec.weave.version &&
+                    <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal">
+                      TCP ports 2379, 2380, 6443, 6783, 10250, 10257 and 10259 open between cluster nodes
+                    </li>}
+                    {installerData && installerData.spec.weave && installerData.spec.weave.version &&
+                    <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal">
+                      UDP ports 6783 and 6784 open between cluster nodes
+                    </li>}
                     {installerData && installerData.spec.antrea && installerData.spec.antrea.version &&
                     <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal">
                       {installerData.spec.antrea.isEncryptionDisabled ?
@@ -256,6 +267,8 @@ cat install.sh | sudo bash -s airgap
                     <AppVersionCard selectedSpec={selectedSpec} name={"kubernetes"} installerData={installerData.spec.kubernetes} whatYouGet={this.whatYouGet} />}
                   {installerData.spec.flannel &&
                     <AppVersionCard selectedSpec={selectedSpec} name={"flannel"} installerData={installerData.spec.flannel} whatYouGet={this.whatYouGet} />}
+                  {installerData.spec.weave &&
+                    <AppVersionCard selectedSpec={selectedSpec} name={"weave"} installerData={installerData.spec.weave} whatYouGet={this.whatYouGet} />}
                   {installerData.spec.antrea &&
                     <AppVersionCard selectedSpec={selectedSpec} name={"antrea"} installerData={installerData.spec.antrea} whatYouGet={this.whatYouGet} />}
                   {installerData.spec.contour &&
@@ -266,6 +279,8 @@ cat install.sh | sudo bash -s airgap
                     <AppVersionCard selectedSpec={selectedSpec} name={"minio"} installerData={installerData.spec.minio} whatYouGet={this.whatYouGet} />}
                   {installerData.spec.registry &&
                     <AppVersionCard selectedSpec={selectedSpec} name={"registry"} installerData={installerData.spec.registry} whatYouGet={this.whatYouGet} />}
+                  {installerData.spec.docker &&
+                    <AppVersionCard selectedSpec={selectedSpec} name={"docker"} installerData={installerData.spec.docker} whatYouGet={this.whatYouGet} />}
                   {installerData.spec.prometheus &&
                     <AppVersionCard selectedSpec={selectedSpec} name={"prometheus"} installerData={installerData.spec.prometheus} whatYouGet={this.whatYouGet} />}
                   {installerData.spec.containerd &&
@@ -278,6 +293,8 @@ cat install.sh | sudo bash -s airgap
                     <AppVersionCard selectedSpec={selectedSpec} name={"fluentd"} installerData={installerData.spec.fluentd} whatYouGet={this.whatYouGet} />}
                   {installerData.spec.openebs &&
                     <AppVersionCard selectedSpec={selectedSpec} name={"openebs"} installerData={installerData.spec.openebs} whatYouGet={this.whatYouGet} />}
+                  {installerData.spec.longhorn &&
+                    <AppVersionCard selectedSpec={selectedSpec} name={"longhorn"} installerData={installerData.spec.longhorn} whatYouGet={this.whatYouGet} />}
                   {installerData.spec.ekco &&
                     <AppVersionCard selectedSpec={selectedSpec} name={"ekco"} installerData={installerData.spec.ekco} whatYouGet={this.whatYouGet} />}
                   {installerData.spec.collectd &&
