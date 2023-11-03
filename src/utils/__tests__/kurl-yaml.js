@@ -10,8 +10,8 @@ metadata:
 spec:
   kubernetes:
     version: 1.24.x
-  weave:
-    version: 2.6.x
+  flannel:
+    version: 0.23.x
   contour:
     version: 1.22.x
   registry:
@@ -36,8 +36,8 @@ metadata:
 spec:
   kubernetes:
     version: 1.24.x
-  weave:
-    version: 2.6.x
+  flannel:
+    version: 0.23.x
   contour:
     version: 1.22.x
   registry:
@@ -76,8 +76,8 @@ metadata:
 spec:
   kubernetes:
     version: 1.24.x
-  weave:
-    version: 2.6.x
+  flannel:
+    version: 0.23.x
   contour:
     version: 1.22.x
   registry:
