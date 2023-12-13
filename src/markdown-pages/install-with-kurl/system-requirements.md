@@ -56,7 +56,7 @@ Important to note that disk usage can vary based on container image sizes, ephem
 
 **OpenEBS** is configured to allocate its Persistent Volumes within the `/var/openebs/local/` directory, signifying that this specific location is utilized for the storage of data by applications that are actively running on the Kurl platform.
 
-In the case of the **Rook** add-on, starting from version 1.4.3 and in subsequent versions, there is a requirement for each node within the cluster to be equipped with an unformatted storage device, which is designated for the storage of Ceph volumes.
+**Rook** add-on, starting from version 1.4.3, requires each node within the cluster to be equipped with an unformatted storage device, which is designated for the storage of Ceph volumes.
 Comprehensive information and guidelines regarding this setup are available in the [Rook Block Storage](https://kurl.sh/docs/add-ons/rook#block-storage) documentation.
 For **Rook** versions 1.0.x Persistent Volumes are provisioned on `/opt/replicated/rook/` directory.
 
@@ -67,7 +67,7 @@ Experience has shown that utilizing distinct partitions for directories, such as
 Usage of *symbolic links* **is not recommended** in any scenario.
 
 Should it be required, the directories utilized by the selected Storage Provisioner (for example, `/var/openebs/local` in the case of OpenEBS) can be set up to mount from a separate partition.
-This configuration should be established **prior to the installation**.
+This configuration should be established **prior to the installation**. It's important to emphasize that Storage Provisioners are not compatible with *symbolic links*.
 
 ## Networking Requirements
 
