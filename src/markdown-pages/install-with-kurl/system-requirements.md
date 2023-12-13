@@ -50,7 +50,7 @@ For these OSes, the following packages are required per add-on:
 ### Overall Disk Space Requirements
 
 Kurl requires a **minimum of 100 GB** of disk space per node, with a recommendation for disks of **at least 256 GB** to accommodate growth and optimal performance.
-Important to note that disk usage can vary based on container image sizes, ephemeral data, and specific application requirements.
+It is important to note that disk usage can vary based on container image sizes, ephemeral data, and specific application requirements.
 
 ### Storage Provisioner Add-Ons
 
