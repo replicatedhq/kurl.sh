@@ -47,55 +47,27 @@ For these OSes, the following packages are required per add-on:
 
 ## Disk Space Requirements
 
-### Core Requirements
+### Overall Disk Space Requirements
 
-The following table lists information about the core directory requirements.
+Kurl requires a **minimum of 100 GB** of disk space per node, with a recommendation for disks of **at least 256 GB** to accommodate growth and optimal performance.
+Important to note that disk usage can vary based on container image sizes, ephemeral data, and specific application requirements.
 
-| Name           | Location             | Requirements       | Description |
-| -------------- | -------------------- | ------------------ | ----------- |
-| etcd           | /var/lib/etcd/       | 2 GB               | Kubernetes etcd cluster data directory. See the [etcd documentation](https://etcd.io/docs/v3.5/op-guide/hardware/#disks) and [Cloud Disk Performance](#cloud-disk-performance) for more information and recommendations. |
-| kubelet        | /var/lib/kubelet/    | *30 GB &ast;*      | Used for local disk volumes, emptyDir, log storage, and more. See the Kubernetes [Resource Management for Pods and Containers documentation](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#local-ephemeral-storage) for more information.  |
-| containerd     | /var/lib/containerd/ | *30 GB &ast;*      | Snapshots, content, metadata for containers and image, as well as any plugin data will be kept in this location. See the [containerd documentation](https://github.com/containerd/containerd/blob/main/docs/ops.md#base-configuration) for more information. |
-| kube-apiserver | /var/log/apiserver/  | 1 GB               | Kubernetes audit logs. See Kubernetes [Auditing documentation](https://kubernetes.io/docs/tasks/debug/debug-cluster/audit/) for mode information. |
-| kURL           | /var/lib/kurl/       | *10 GB &ast;&ast;* | kURL data directory used to store utilities, system packages, and container images. This directory can be overridden with the flag `kurl-install-directory` (see [kURL Advanced Install Options](/docs/install-with-kurl/advanced-options)) |
-| Root Disk      | /                    | 100 GB             | Based on the aggregate requirements above and the fact that Kubernetes will start to reclaim space at 85% full disk, the minimum recommended root partition is 100 GB. See details above for each component. |
+### Storage Provisioner Add-Ons
 
-*&ast; This requirement depends on the size of the container images and the amount of ephemeral data used by your application containers.*
+**OpenEBS** is configured to allocate its Persistent Volumes within the `/var/openebs/local/` directory, signifying that this specific location is utilized for the storage of data by applications that are actively running on the Kurl platform.
 
-*&ast;&ast; This requirement can vary depending on your choice of kURL add-ons and can grow over time.*
+In the case of the **Rook** add-on, starting from version 1.4.3 and in subsequent versions, there is a requirement for each node within the cluster to be equipped with an unformatted storage device, which is designated for the storage of Ceph volumes.
+Comprehensive information and guidelines regarding this setup are available in the [Rook Block Storage](https://kurl.sh/docs/add-ons/rook#block-storage) documentation.
+For **Rook** versions 1.0.x Persistent Volumes are provisioned on `/opt/replicated/rook/` directory.
 
-In addition to the storage requirements, the Kubernetes [garbage collection](https://kubernetes.io/docs/concepts/architecture/garbage-collection/) process attempts to ensure that the Node and Image filesystems do not reach their minimum available disk space [thresholds](https://kubernetes.io/docs/concepts/scheduling-eviction/node-pressure-eviction/#hard-eviction-thresholds) of 10% and 15% respectively.
-For this reason, kURL recommends an additional 20% overhead on top of these disk space requirements for the volume or volumes containing the directories /var/lib/kubelet/ and /var/lib/containerd/.
-For more information see the Kubernetes [Reclaiming node level resources](https://kubernetes.io/docs/concepts/scheduling-eviction/node-pressure-eviction/#reclaim-node-resources) documentation.
+### On Disk Partitioning
 
-### Add-on Requirements
+We advise against configuring the system with multiple mount points.
+Experience has shown that utilizing distinct partitions for directories, such as `/var`, often leads to unnecessary complications.
+Usage of *symbolic links* **is not recommended** in any scenario.
 
-The following table lists the add-on directory locations and disk space requirements, if applicable. For any additional requirements, see the specific topic for the add-on.
-
-| Name     | Location             | Requirements  | Description |
-| -------- | -------------------- | ------------- | ----------- |
-| Docker   | /var/lib/docker/     | *30 GB &ast;* | Images, containers and volumes, and more will be kept in this location. See the [Docker Storage documentation](https://docs.docker.com/storage/) for more information. When using the Docker runtime, /var/lib/containerd/ is not required. |
-| Docker   | /var/lib/dockershim/ | N/A           | Kubernetes dockershim data directory |
-| Weave    | /var/lib/cni/        | N/A           | Container networking data directory |
-| Weave    | /var/lib/weave/      | N/A           | Weave data directory |
-| Rook     | /var/lib/rook/       | 10 GB         | Ceph monitor metadata directory. See the [ceph-mon Minimum Hardware Recommendations](https://docs.ceph.com/en/quincy/start/hardware-recommendations/#minimum-hardware-recommendations) for more information. |
-| Registry | *PVC &ast;&ast;*     | N/A           | Stores container images only in airgapped clusters. Data will be stored in Persistent Volumes. |
-| Velero   | *PVC &ast;&ast;*     | N/A           | Stores snapshot data. Data will be stored in Persistent Volumes. |
-
-*&ast; This requirement depends on the size of the container images and the amount of ephemeral data used by your application containers.*
-
-*&ast;&ast; Data will be stored in Persistent Volumes. Requirements depend on the provisioner of choice. See [Persistent Volume Requirements](#persistent-volume-requirements) for more information.*
-
-### Persistent Volume Requirements
-
-Depending on the amount of persistent data stored by your application, you will need to allocate enough disk space at the following location dependent on your PVC provisioner or provisioners.
-
-| Name                 | Location              | Description |
-| -------------------- | --------------------- | ----------- |
-| OpenEBS              | /var/openebs/local/   | OpenEBS Local PV Hostpath volumes will be created under this directory. See the [OpenEBS Add-on](/docs/add-ons/openebs) documentation for more information. |
-| Rook (Block Storage) |                       | Rook add-on version 1.4.3 and later requires an unformatted storage device on each node in the cluster for Ceph volumes. See the [Rook Block Storage](/docs/add-ons/rook#block-storage) documentation for more information. |
-| Rook (version 1.0.x) | /opt/replicated/rook/ | Rook Filesystem volumes will be created under this directory. See the [Rook Filesystem Storage](/docs/add-ons/rook#filesystem-storage) documentation for more information. |
-| Longhorn             | /var/lib/longhorn/    | Longhorn volumes will be created under this directory. See the [Longhorn Add-on](/docs/add-ons/longhorn) documentation for more information. |
+Should it be required, the directories utilized by the selected Storage Provisioner (for example, `/var/openebs/local` in the case of OpenEBS) can be set up to mount from a separate partition.
+This configuration should be established **prior to the installation**.
 
 ## Networking Requirements
 
