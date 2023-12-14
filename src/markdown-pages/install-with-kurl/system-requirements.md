@@ -23,7 +23,7 @@ title: "System Requirements"
 
 * 4 AMD64 CPUs or equivalent per machine
 * 8 GB of RAM per machine
-* 100 GB of Disk Space per machine
+* 256 GB of Disk Space per machine
   *(For more specific requirements see [Disk Space Requirements](#disk-space-requirements) below)*
 * TCP ports 2379, 2380, 6443, 10250, 10257 and 10259 and UDP port 8472 (Flannel VXLAN) open between cluster nodes
   *(For more specific add-on requirements see [Networking Requirements](#networking-requirements) below)*
@@ -47,18 +47,18 @@ For these OSes, the following packages are required per add-on:
 
 ## Disk Space Requirements
 
-### Overall Disk Space Requirements
+### Per Node Disk Space
 
-Kurl requires a **minimum of 100 GB** of disk space per node, with a recommendation for disks of **at least 256 GB** to accommodate growth and optimal performance.
+256 GB of disk space per node is strongly recommended to accommodate growth and optimal performance. At minimum, kURL requires 100 GB of disk space per node.
 It is important to note that disk usage can vary based on container image sizes, ephemeral data, and specific application requirements.
 
 ### Storage Provisioner Add-Ons
 
-**OpenEBS** is configured to allocate its Persistent Volumes within the `/var/openebs/local/` directory, signifying that this specific location is utilized for the storage of data by applications that are actively running on the Kurl platform.
+Informational Note: **OpenEBS** is configured to allocate its Persistent Volumes within the `/var/openebs/local/` directory, signifying that this specific location is utilized for the storage of data by applications that are actively running on the Kurl platform.
 
 **Rook** add-on, starting from version 1.4.3, requires each node within the cluster to be equipped with an unformatted storage device, which is designated for the storage of Ceph volumes.
 Comprehensive information and guidelines regarding this setup are available in the [Rook Block Storage](https://kurl.sh/docs/add-ons/rook#block-storage) documentation.
-For **Rook** versions 1.0.x Persistent Volumes are provisioned on `/opt/replicated/rook/` directory.
+For Rook versions 1.0.x Persistent Volumes are provisioned on `/opt/replicated/rook/` directory.
 
 ### On Disk Partitioning
 
