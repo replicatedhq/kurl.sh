@@ -38,7 +38,7 @@ spec:
     serverFlags:
       - --log-level
       - debug
-      - --default-restic-prune-frequency=12h
+      - --default-repo-maintain-frequency=12h
 ```
 
 flags-table

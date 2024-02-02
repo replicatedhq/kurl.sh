@@ -261,7 +261,7 @@ The install scripts are idempotent. Re-run the scripts with different flags to c
   <br/>
   <strong>Example:</strong>
   <br/>
-  <code>curl https://kurl.sh/latest | sudo bash -s velero-server-flags=--log-level=debug,--default-restic-prune-frequency=12h</code>
+  <code>curl https://kurl.sh/latest | sudo bash -s velero-server-flags=--log-level=debug,--default-repo-maintain-frequency=12h</code>
   </td>
 </tr>
 <tr>
