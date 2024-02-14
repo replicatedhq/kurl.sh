@@ -12,7 +12,7 @@ title: "System Requirements"
 * Ubuntu 20.04 (Docker version >= 19.03.10)
 * Ubuntu 22.04 (Requires Containerd version >= 1.5.10 or Docker version >= 20.10.17. Collectd add-ons are not supported.)
 * CentOS 7.4<sup>\*</sup>, 7.5<sup>\*</sup>, 7.6<sup>\*</sup>, 7.7<sup>\*</sup>, 7.8<sup>\*</sup>, 7.9, 8.0<sup>\*</sup>, 8.1<sup>\*</sup>, 8.2<sup>\*</sup>, 8.3<sup>\*</sup>, 8.4<sup>\*</sup> (CentOS 8.x requires Containerd)
-* RHEL 7.4<sup>\*</sup>, 7.5<sup>\*</sup>, 7.6<sup>\*</sup>, 7.7<sup>\*</sup>, 7.8<sup>\*</sup>, 7.9, 8.0<sup>\*</sup>, 8.1<sup>\*</sup>, 8.2<sup>\*</sup>, 8.3<sup>\*</sup>, 8.4<sup>\*</sup>, 8.5<sup>\*</sup>, 8.6, 8.7<sup>\*</sup>, 8.8, 8.9, 9.0, 9.1<sup>\*</sup>, 9.2 (RHEL 8.x and 9.x require Containerd)
+* RHEL 7.4<sup>\*</sup>, 7.5<sup>\*</sup>, 7.6<sup>\*</sup>, 7.7<sup>\*</sup>, 7.8<sup>\*</sup>, 7.9, 8.0<sup>\*</sup>, 8.1<sup>\*</sup>, 8.2<sup>\*</sup>, 8.3<sup>\*</sup>, 8.4<sup>\*</sup>, 8.5<sup>\*</sup>, 8.6, 8.7<sup>\*</sup>, 8.8, 8.9, 9.0, 9.1<sup>\*</sup>, 9.2, 9.3 (RHEL 8.x and 9.x require Containerd)
 * Rocky Linux 9.0<sup>\*</sup>, 9.1<sup>\*</sup>, 9.2 (Rocky Linux 9.x requires Containerd)
 * Oracle Linux 7.4<sup>\*</sup>, 7.5<sup>\*</sup>, 7.6<sup>\*</sup>, 7.7<sup>\*</sup>, 7.8<sup>\*</sup>, 7.9, 8.0, 8.1, 8.2, 8.3, 8.4, 8.5, 8.6, 8.7, 8.8, 8.9 (OL 8.x requires Containerd)
 * Amazon Linux 2
