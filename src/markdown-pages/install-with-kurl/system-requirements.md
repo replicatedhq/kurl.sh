@@ -97,7 +97,7 @@ For more information about the requirements for naming nodes, see [Node naming u
 
 #### All hosts in the cluster must not occupy Kubernetes Pod or Service CIDR ranges
 
-Kubernetes also requires exclusive use of two IP subnets (also known as CIDR ranges) for Pod-to-Pod traffic within the cluster.  These subnets **must not** overlap with the subnets used in your local network or else routing errors will result.
+Kubernetes also requires exclusive use of two IP subnets (also known as CIDR ranges) for Pod-to-Pod traffic within the cluster.  These subnets **must not** overlap with the subnets used in your local network or routing errors will result.
 
 | Subnet       | Description                         |
 |--------------|-------------------------------------|
@@ -114,7 +114,7 @@ spec:
       podCIDR: "<your custom subnet>"
 ```
 
-or via a [patch file](https://kurl.sh/docs/install-with-kurl/#select-examples-of-using-a-patch-yaml-file)
+Alternatively, the ranges can be customized with a [patch file](https://kurl.sh/docs/install-with-kurl/#select-examples-of-using-a-patch-yaml-file).
 
 ### Firewall Openings for Online Installations
 
