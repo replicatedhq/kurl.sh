@@ -73,7 +73,7 @@ This configuration should be established **prior to the installation**. It's imp
 
 ### Hostnames, DNS, and IP Address
 
-#### 1. All hosts in the cluster must have valid DNS records and hostnames.
+#### All hosts in the cluster must have valid DNS records and hostnames
 
 The fully-qualified domain name (FQDN) of any host used with kURL **must** be a valid DNS subdomain name, and its name records **must** be resolvable by DNS.
 
@@ -86,7 +86,7 @@ A valid DNS name must:
 For more information, see [DNS Subdomain Names](https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#dns-subdomain-names) in the Kubernetes documentation.
 
 
-#### 2. All hosts in the cluster must have static IP address assignments.
+#### All hosts in the cluster must have static IP address assignments
 
 After a host is added to a Kubernetes cluster, Kubernetes assumes that the hostname and IP address of the host **will not change.**
 If you need to change the hostname or IP address of a node, you must first remove the node from the cluster.
@@ -95,7 +95,7 @@ To change the hostname or IP address of a node in clusters that do not have thre
 
 For more information about the requirements for naming nodes, see [Node naming uniqueness](https://kubernetes.io/docs/concepts/architecture/nodes/#node-name-uniqueness) in the Kubernetes documentation.
 
-#### 3. All hosts in the cluster must not occupy Kubernetes Pod or Service CIDR ranges
+#### All hosts in the cluster must not occupy Kubernetes Pod or Service CIDR ranges
 
 Kubernetes also requires exclusive use of two IP subnets (also known as CIDR ranges) for Pod-to-Pod traffic within the cluster.  These subnets *must not* overlap with the subnets used in your local network or else routing errors will result.
 
