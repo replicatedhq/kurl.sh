@@ -10,13 +10,13 @@ addOn: "rook"
 The [Rook](https://rook.io/) add-on creates and manages a Ceph cluster along with a storage class for provisioning PVCs.
 It also runs the Ceph RGW object store to provide an S3-compatible store in the cluster.
 
-By default the cluster uses the filesystem for storage. Each node in the cluster will have a single OSD backed by a directory in `/opt/replicated/rook`. Nodes with a Ceph Monitor also utilize `/var/lib/rook`.
-
-**Note**: At minimum, 10GB of disk space should be available to `/var/lib/rook` for the Ceph Monitors and other configs. We recommend a separate partition to prevent a disruption in Ceph's operation as a result of `/var` or the root partition running out of space.
-
-**Note**: All disks used for storage in the cluster should be of similar size. A cluster with large discrepancies in disk size may fail to replicate data to all available nodes.
-
 The [EKCO](/docs/add-ons/ekco) add-on is recommended when installing Rook. EKCO is responsible for performing various operations to maintain the health of a Ceph cluster.
+
+## Host Package Requirements
+
+The following host packages are required for Red Hat Enterprise Linux 9 and Rocky Linux 9:
+
+- lvm2
 
 ## Advanced Install Options
 
@@ -30,17 +30,39 @@ spec:
     storageClassName: "storage"
     hostpathRequiresPrivileged: false
     bypassUpgradeWarning: false
+    minimumNodeCount: 3
 ```
 
 flags-table
 
+## System Requirements
+
+The following ports must be open between nodes for multi-node clusters:
+
+| Protocol | Direction | Port Range | Purpose                 | Used By |
+| -------  | --------- | ---------- | ----------------------- | ------- |
+| TCP      | Inbound   | 9090       | CSI RBD Plugin Metrics  | All     |
+
+The `/var/lib/rook/` directory requires at least 10 GB space available for Ceph monitor metadata.
+
 ## Block Storage
 
-For production clusters, Rook should be configured to use block devices rather than the filesystem.
-Enabling block storage is required with version 1.4.3+. Therefore, the `isBlockStorageEnabled` option will always be set to true when using version 1.4.3+.
-The following spec enables block storage for the Rook add-on and automatically uses disks matching the regex `/sd[b-z]/`.
-Rook will start an OSD for each discovered disk, which could result in multiple OSDs running on a single node.
-Rook will ignore block devices that already have a filesystem on them.
+Rook versions 1.4.3 and later require a dedicated block device attached to each node in the cluster.
+The block device must be unformatted and dedicated for use by Rook only.
+The device cannot be used for other purposes, such as being part of a Raid configuration.
+If the device is used for purposes other than Rook, then the installer fails, indicating that it cannot find an available block device for Rook.
+
+For Rook versions earlier than 1.4.3, a dedicated block device is recommended in production clusters.
+
+For disk requirements, see [Add-on Directory Disk Space Requirements](/docs/install-with-kurl/system-requirements/#add-on-directory-disk-space-requirements).
+
+You can enable and disable block storage for Rook versions earlier than 1.4.3 with the `isBlockStorageEnabled` field in the kURL spec.
+
+When the `isBlockStorageEnabled` field is set to `true`, or when using Rook versions 1.4.3 and later, Rook starts an OSD for each discovered disk.
+This can result in multiple OSDs running on a single node.
+Rook ignores block devices that already have a filesystem on them.
+
+The following provides an example of a kURL spec with block storage enabled for Rook:
 
 ```yaml
 spec:
@@ -50,14 +72,30 @@ spec:
     blockDeviceFilter: sd[b-z]
 ```
 
-The Rook add-on will wait for a disk before continuing.
-If you have attached a disk to your node but the installer is still waiting at the Rook add-on installation step, refer to the [troubleshooting guide](https://rook.io/docs/rook/v1.0/ceph-common-issues.html#osd-pods-are-not-created-on-my-devices) for help with diagnosing and fixing common issues.
+In the example above, the `isBlockStorageEnabled` field is set to `true`.
+Additionally, `blockDeviceFilter` instructs Rook to use only block devices that match the specified regex.
+For more information about the available options, see [Advanced Install Options](#advanced-install-options) above.
+
+The Rook add-on waits for the dedicated disk that you attached to your node before continuing with installation.
+If you attached a disk to your node, but the installer is waiting at the Rook add-on installation step, see [OSD pods are not created on my devices](https://rook.io/docs/rook/v1.10/Troubleshooting/ceph-common-issues/#osd-pods-are-not-created-on-my-devices) in the Rook documentation for troubleshooting information.
+
+## Filesystem Storage
+
+By default, for Rook versions earlier than 1.4.3, the cluster uses the filesystem for Rook storage.
+However, block storage is recommended for Rook in production clusters.
+For more information, see [Block Storage](#block-storage) above.
+
+When using the filesystem for storage, each node in the cluster has a single OSD backed by a directory in `/opt/replicated/rook/`.
+We recommend a separate disk or partition at `/opt/replicated/rook/` to prevent a disruption in Ceph's operation as a result the root partition running out of space.
+
+**Note**: All disks used for storage in the cluster should be of similar size.
+A cluster with large discrepancies in disk size may fail to replicate data to all available nodes.
 
 ## Shared Filesystem
 
-The [Ceph filesystem](https://rook.io/docs/rook/v1.4/ceph-filesystem.html) is supported with version 1.4.3+.
+The [Ceph filesystem](https://rook.io/docs/rook/v1.10/Storage-Configuration/Shared-Filesystem-CephFS/filesystem-storage/) is supported with version 1.4.3+.
 This allows the use of PersistentVolumeClaims with access mode `ReadWriteMany`.
-Set the storage class to `rook-cephfs` in the pvc spec to use this feature.
+Set the storage class to `rook-cephfs` in the PVC spec to use this feature.
 
 ```yaml
 apiVersion: v1
@@ -73,14 +111,54 @@ spec:
   storageClassName: rook-cephfs
 ```
 
+## Per-Node Storage Configuration
+
+By default, Rook is configured to consume all [nodes](https://rook.io/docs/rook/v1.11/CRDs/Cluster/ceph-cluster-crd/#cluster-settings:~:text=for%20specific%20nodes.-,useAllNodes,-%3A%20true%20or) and [devices](https://rook.io/docs/rook/v1.11/CRDs/Cluster/ceph-cluster-crd/#node-settings:~:text=in%20the%20cluster.-,useAllDevices,-%3A%20true%20or) found on those nodes for Ceph storage.
+This can be overridden with configuration per-node using the `rook.nodes` property of the spec.
+This string must adhere to the `nodes` storage configuration spec in the CephCluster CRD.
+See the Rook CephCluster CRD [Node Settings](https://rook.io/docs/rook/v1.11/CRDs/Cluster/ceph-cluster-crd/#node-settings) documentation for more information.
+
+For example:
+
+```yaml
+spec:
+  rook:
+    nodes: |
+      - name: node-01
+        devices:
+        - name: sdb
+      - name: node-02
+        devices:
+        - name: sdb
+        - name: sdc
+      - name: node-03
+        devices:
+        - name: sdb
+        - name: sdc
+```
+
+To override this property at install time, see [Modifying an Install Using a YAML Patch File](/docs/install-with-kurl#modifying-an-install-using-a-yaml-patch-file-at-runtime) for more details on using patch files.
+
 ## Upgrades
 
-It is not possible to upgrade multiple minor versions of the Rook add-on at once.
-Individual upgrades from one version to the next are required for upgrading multiple minor versions.
-For example, to upgrade from `1.4.3` to `1.6.11`, you must first install `1.5.10`, `1.5.11` or `1.5.12`.
+It is now possible to upgrade multiple minor versions of the Rook add-on at once.
+This upgrade process will step through minor versions one at a time.
+For example, upgrades from Rook 1.0.x to 1.5.x will step through Rook versions 1.1.9, 1.2.7, 1.3.11 and 1.4.9 before installing 1.5.x.
+Upgrades without internet access may prompt the end-user to download supplemental packages.
 
-If the currently installed Rook version is `1.0.x`, upgrades to both `1.4.9` and `1.5.x` are supported through the main installer.
-Alternatively, the upgrade from `1.0.x` to `1.4.9` can be triggered independently with `curl https://k8s.kurl.sh/latest/tasks.sh | sudo bash -s rook_10_to_14`.
-This upgrade migrates data off of any hostpath-based OSDs in favor of block device-based OSDs and upgrades through Rook `1.1.9`, `1.2.7` and `1.3.11` before installing `1.4.9` (and then optionally `1.5.x`).
+Rook upgrades from 1.0.x migrate data off of any filesystem-based OSDs in favor of block device-based OSDs.
 The upstream Rook project introduced a requirement for block storage in versions 1.3.x and later.
-In instances without internet access, this requires supplying an additional file when prompted.
+
+## Monitoring
+
+For Rook version 1.9.12 and later, when you install with both the Rook add-on and the Prometheus add-on, kURL enables Ceph metrics collection and creates a Ceph cluster statistics Grafana dashboard.
+
+The Ceph cluster statistics dashboard in Grafana displays metrics that help you monitor the health of the Rook Ceph cluster, including the status of the Ceph object storage daemons (OSDs), the available cluster capacity, the OSD commit and apply latency, and more.
+
+The following shows an example of the Ceph cluster dashboard in Grafana:
+
+![Graphs and metrics on the Ceph Grafana dashboard](/ceph-grafana-dashboard.png)
+
+To access the Ceph cluster dashboard, log in to Grafana in the `monitoring` namespace of the kURL cluster using your Grafana admin credentials.
+
+For more information about installing with the Prometheus add-on and updating the Grafana credentials, see [Prometheus Add-on](/docs/add-ons/prometheus).

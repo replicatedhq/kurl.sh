@@ -131,29 +131,29 @@ While the `latest` specification can be suitable for some situations, Replicated
 
 An example of how `latest` can be used in a spec is:  
 ```yaml
-  apiVersion: "cluster.kurl.sh/v1beta1"
-  kind: "Installer"
-  metadata:
-    name: ""
-  spec:
-    kubernetes:
-      version: "1.25.x"
-    weave:
-      version: "2.6.x"
-    contour:
-      version: "1.22.x"
-    minio:
-      version: "latest"
-    registry:
-      version: "latest"
-    prometheus:
-      version: "latest"
-    containerd:
-      version: "1.5.x"
-    longhorn:
-      version: "1.3.x"
-    ekco:
-      version: "latest"
+apiVersion: "cluster.kurl.sh/v1beta1"
+kind: "Installer"
+metadata: 
+  name: "my-installer"
+spec: 
+  kubernetes: 
+    version: "1.26.x"
+  flannel: 
+    version: "0.21.x"
+  contour: 
+    version: "1.24.x"
+  prometheus: 
+    version: "0.63.x"
+  registry: 
+    version: "2.8.x"
+  containerd: 
+    version: "1.6.x"
+  ekco: 
+    version: "latest"
+  openebs: 
+    version: "3.5.x"
+    isLocalPVEnabled: true
+    localPVStorageClassName: "local"
 ```
 
 ## Using the kURL Installer CRD
@@ -164,14 +164,14 @@ install, the install time options can be easily viewed via kubectl.
 For example, if the install was done using the following command:
 
 ```
-curl https://kurl.sh/latest
+curl https://kurl.sh/latest | sudo bash
 ```
 
 Once the install is complete you can view the current state of the cluster and every option that was
 changed in the kURL YAML spec with the following command.
 
 ```
-kubectl get installer latest
+kubectl get installer latest -n default
 ```
 
 ## Modifying an Install Using a YAML Patch File at Runtime.
@@ -211,7 +211,7 @@ Once the install is finished, the merged YAML that represents the install can be
 viewed by running the following command to show the current state of the cluster. 
 
 ```
-kubectl get installer merged
+kubectl get installer merged -n default
 ```
 
 ## Select Examples of Using a Patch YAML File
@@ -249,10 +249,9 @@ replace, not add to commands that may exist on the base YAML.
         - ["-A", "INPUT", "-s", "1.1.1.1", "-j", "DROP"]
 ```
 
-The following patch YAML can be used to configure the IP adddress ranges
-of Pods and Services. Note that the installer will attempt to default to `10.32.0.0/16`
-for Pods and `10.96.0.0/16` for Services. If those ranges aren't available per the routing table, 
-the installer will fallback to searching for available subnets in `10.0.0.0/8`.
+The following patch YAML can be used to configure the IP adddress ranges of Pods and Services.
+Note that the installer will attempt to default to `10.32.0.0/20` for Pods and `10.96.0.0/22` for Services.
+If not available, the installer will attempt to find an available range with prefix bits of 20 and 22 respectively in the `10.32.0.0/16` or `10.0.0.0/8` address spaces.
 
 ```yaml
   apiVersion: cluster.kurl.sh/v1beta1
@@ -262,7 +261,7 @@ the installer will fallback to searching for available subnets in `10.0.0.0/8`.
   spec:
     kubernetes:
       serviceCIDR: "<your custom subnet>"
-    weave:     
+    flannel:     
       podCIDR: "<your custom subnet>"
 ```
 

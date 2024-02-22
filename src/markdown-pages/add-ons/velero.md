@@ -14,8 +14,14 @@ The Kurl add-on installs:
 * The velero CLI onto the host
 * CRDs for configuring backups and restores
 
+## Host Package Requirements
+
+The following host packages are required for Red Hat Enterprise Linux 9 and Rocky Linux 9:
+
+- nfs-utils
+
 ## Limitations
-The limitations of Velero apply to this add-on. For more information, see [Limitations](https://github.com/vmware-tanzu/velero/blob/master/site/docs/master/restic.md#limitations) in the Velero GitHub repository.  
+The limitations of Velero apply to this add-on. For more information, see [Limitations](https://github.com/vmware-tanzu/velero/blob/master/site/docs/master/restic.md#limitations) in the Velero GitHub repository.
 
 ## Advanced Install Options
 
@@ -29,6 +35,10 @@ spec:
     localBucket: "local"
     resticRequiresPrivileged: true
     resticTimeout: "12h0m0s"
+    serverFlags:
+      - --log-level
+      - debug
+      - --default-repo-maintain-frequency=12h
 ```
 
 flags-table

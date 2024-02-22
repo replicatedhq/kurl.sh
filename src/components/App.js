@@ -185,16 +185,19 @@ cat install.sh | sudo bash -s airgap
                       Ubuntu 18.04
                     </li>
                     <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal">
-                      Ubuntu 20.04 (Docker version >= 19.03.10)
+                      Ubuntu 20.04 (Docker version {'>'}= 19.03.10)
                     </li>
                     <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal">
-                      CentOS 7.4, 7.5, 7.6, 7.7, 7.8, 7.9, 8.1, 8.2, 8.3 (CentOS 8.x requires Containerd)
+                      CentOS 7.4, 7.5, 7.6, 7.7, 7.8, 7.9, 8.1, 8.2, 8.3, 8.4 (CentOS 8.x requires Containerd)
                     </li>
                     <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal">
-                      RHEL 7.4, 7.5, 7.6, 7.7, 7.8, 7.9, 8.1, 8.2, 8.3, 8.4, 8.5, 8.6 (RHEL 8.x requires Containerd)
+                      RHEL 7.4, 7.5, 7.6, 7.7, 7.8, 7.9, 8.1, 8.2, 8.3, 8.4, 8.5, 8.6, 8.7, 8.8, 9.0, 9.1, 9.2 (RHEL 8.x and 9.x require Containerd)
                     </li>
                     <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal">
-                      Oracle Linux 7.4, 7.5, 7.6, 7.7, 7.8, 7.9, 8.1, 8.2, 8.3, 8.4, 8.5, 8.6 (OL 8.x requires Containerd)
+                      Rocky Linux 9.0, 9.1, 9.2 (Rocky Linux 9.x requires Containerd)
+                    </li>
+                    <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal">
+                      Oracle Linux 7.4, 7.5, 7.6, 7.7, 7.8, 7.9, 8.1, 8.2, 8.3, 8.4, 8.5, 8.6, 8.7, 8.8 (OL 8.x requires Containerd)
                     </li>
                     <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal">
                       Amazon Linux 2
@@ -211,17 +214,45 @@ cat install.sh | sudo bash -s airgap
                       4 CPUs or equivalent per machine
                     </li>
                     <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal">
-                      30 GB of Disk Space per machine
-                    </li>
-                    <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal">
-                      UDP ports 6783 and 6784 open
-                    </li>
-                    <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal">
                       8 GB of RAM per machine
                     </li>
                     <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal">
-                      TCP ports 6443 and 6783 open
+                      30 GB of Disk Space per machine
                     </li>
+                    {installerData && installerData.spec.flannel && installerData.spec.flannel.version &&
+                    <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal">
+                      TCP ports 2379, 2380, 6443, 10250, 10257 and 10259 open between cluster nodes
+                    </li>}
+                    {installerData && installerData.spec.flannel && installerData.spec.flannel.version &&
+                    <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal">
+                      UDP port 8472 open between cluster nodes
+                    </li>}
+                    {installerData && installerData.spec.weave && installerData.spec.weave.version &&
+                    <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal">
+                      TCP ports 2379, 2380, 6443, 6783, 10250, 10257 and 10259 open between cluster nodes
+                    </li>}
+                    {installerData && installerData.spec.weave && installerData.spec.weave.version &&
+                    <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal">
+                      UDP ports 6783 and 6784 open between cluster nodes
+                    </li>}
+                    {installerData && installerData.spec.antrea && installerData.spec.antrea.version &&
+                    <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal">
+                      {installerData.spec.antrea.isEncryptionDisabled ?
+                      <span>
+                        TCP ports 2379, 2380, 6443, 8091, 10250, 10257 and 10259 open between cluster nodes
+                      </span> :
+                      <span>
+                        TCP ports 2379, 2380, 6443, 8091, 10250, 10257, 10259 and 51820 open between cluster nodes
+                      </span>}
+                    </li>}
+                    {installerData && installerData.spec.antrea && installerData.spec.antrea.version &&
+                    <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal">
+                      UDP port 6081 open between cluster nodes
+                    </li>}
+                    {installerData && installerData.spec.rook && installerData.spec.rook.version &&
+                    <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal">
+                      TCP port 9090 open between cluster nodes
+                    </li>}
                   </div>
                 </div>
               </div>
@@ -234,8 +265,12 @@ cat install.sh | sudo bash -s airgap
                   </p>
                   {installerData.spec.kubernetes &&
                     <AppVersionCard selectedSpec={selectedSpec} name={"kubernetes"} installerData={installerData.spec.kubernetes} whatYouGet={this.whatYouGet} />}
+                  {installerData.spec.flannel &&
+                    <AppVersionCard selectedSpec={selectedSpec} name={"flannel"} installerData={installerData.spec.flannel} whatYouGet={this.whatYouGet} />}
                   {installerData.spec.weave &&
                     <AppVersionCard selectedSpec={selectedSpec} name={"weave"} installerData={installerData.spec.weave} whatYouGet={this.whatYouGet} />}
+                  {installerData.spec.antrea &&
+                    <AppVersionCard selectedSpec={selectedSpec} name={"antrea"} installerData={installerData.spec.antrea} whatYouGet={this.whatYouGet} />}
                   {installerData.spec.contour &&
                     <AppVersionCard selectedSpec={selectedSpec} name={"contour"} installerData={installerData.spec.contour} whatYouGet={this.whatYouGet} />}
                   {installerData.spec.rook &&
@@ -271,7 +306,9 @@ cat install.sh | sudo bash -s airgap
                   {installerData.spec.sonobuoy &&
                     <AppVersionCard selectedSpec={selectedSpec} name={"sonobuoy"} installerData={installerData.spec.sonobuoy} whatYouGet={this.whatYouGet} />}
                   {installerData.spec.localPathProvisioner &&
-                    <AppVersionCard selectedSpec={selectedSpec} name={"sonobuoy"} installerData={installerData.spec.localPathProvisioner} whatYouGet={this.whatYouGet} />}
+                    <AppVersionCard selectedSpec={selectedSpec} name={"localPathProvisioner"} installerData={installerData.spec.localPathProvisioner} whatYouGet={this.whatYouGet} />}
+                  {installerData.spec.aws &&
+                    <AppVersionCard selectedSpec={selectedSpec} name={"aws"} installerData={installerData.spec.aws} whatYouGet={this.whatYouGet} />}
                 </div>
               }
               {installerData &&

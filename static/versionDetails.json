@@ -96,6 +96,23 @@
       "type": "string"
     }
   ],
+  "flannel": [
+    {
+      "flag": "version",
+      "description": "The version of Flannel to be installed.",
+      "type": "string"
+    },
+    {
+      "flag": "podCIDR",
+      "description": "The subnet used by Pods.",
+      "type": "string"
+    },
+    {
+      "flag": "podCIDRRange",
+      "description": "The size of the subnet used by Pods.",
+      "type": "string"
+    }
+  ],
   "weave": [
     {
       "flag": "version",
@@ -109,12 +126,12 @@
     },
     {
       "flag": "podCIDR",
-      "description": "The subnet where pods will be found.",
+      "description": "The subnet used by Pods.",
       "type": "string"
     },
     {
       "flag": "podCidrRange",
-      "description": "The size of the CIDR where pods can be found.",
+      "description": "The size of the subnet used by Pods.",
       "type": "string"
     },
     {
@@ -137,12 +154,12 @@
     },
     {
       "flag": "podCIDR",
-      "description": "The subnet where pods will be found.",
+      "description": "The subnet used by Pods.",
       "type": "string"
     },
     {
       "flag": "podCidrRange",
-      "description": "The size of the CIDR where pods can be found.",
+      "description": "The size of the subnet used by Pods.",
       "type": "string"
     }
   ],
@@ -185,6 +202,11 @@
       "type": "number"
     },
     {
+      "flag": "minimumNodeCount",
+      "description": "The number of nodes required in a CephCluster to trigger a distributed storage migration. Must be set to a value greater than 3.",
+      "type": "number"
+    },
+    {
       "flag": "isBlockStorageEnabled",
       "description": "Use block devices instead of the filesystem for storage in the Ceph cluster. This flag will automatically be set to true for version 1.4.3+ because block storage must be enabled for these versions.",
       "type": "boolean"
@@ -208,6 +230,11 @@
       "flag": "bypassUpgradeWarning",
       "description": "Bypass upgrade warning prompt.",
       "type": "boolean"
+    },
+    {
+      "flag": "nodes",
+      "description": "Override default settings to use all nodes and devices with individual settings per node. Must be a CephCluster CRD nodes array as described in the <a target=\"blank\" href=\"https://rook.io/docs/rook/v1.11/CRDs/Cluster/ceph-cluster-crd/#node-settings\">Node Settings</a> section of the CephCluster CRD Rook documentation.",
+      "type": "string"
     }
   ],
   "docker": [
@@ -306,6 +333,11 @@
       "flag": "resticTimeout",
       "description": "The time interval that backups/restores of pod volumes are allowed to run before timing out. Default is '4h0m0s'",
       "type": "string"
+    },
+    {
+      "flag": "serverFlags",
+      "description": "Additional flags to pass to the Velero server. This is a comma-separated list of arguments.",
+      "type": "array[string]"
     }
   ],
   "kotsadm": [
@@ -341,7 +373,7 @@
     },
     {
       "flag": "disableS3",
-      "description": "Migrate application archives and support bundles from S3 and use a local volume in the kotsadm statefulset instead. Also changes nfs and hostpath snapshots from using minio to using the local-volume-provider plugin. The migration process is irreversible and will replace the kotsadm deployment with a statefulset. While this reduces KOTS's dependency on an object store for the application archives and support bundles, an object store is still required to deploy KOTS. Defaults to 'false.'",
+      "description": "Migrate application archives and support bundles from S3 and use a local volume in the kotsadm statefulset instead. Also changes nfs and hostpath snapshots from using minio to using the local-volume-provider plugin. The migration process is irreversible and will replace the kotsadm deployment with a statefulset. This reduces KOTS's dependency to an object store for the application archives and support bundle archives. Defaults to 'false.'",
       "type": "boolean"
     }
   ],
@@ -511,17 +543,7 @@
     },
     {
       "flag": "localPVStorageClassName",
-      "description": "StorageClass name for local PV provisioner (Name it “default” to make it the cluster’s default provisioner).",
-      "type": "string"
-    },
-    {
-      "flag": "isCstorEnabled",
-      "description": "Turn on cStor storage provisioning. cStor relies on block devices and supports replicating data between nodes.",
-      "type": "boolean"
-    },
-    {
-      "flag": "cstorStorageClassName",
-      "description": "The StorageClass name for cstor provisioner (Name it “default” to make it the cluster’s default provisioner).",
+      "description": "StorageClass name for local PV provisioner.",
       "type": "string"
     }
   ],
@@ -548,7 +570,7 @@
     },
     {
       "flag": "rookShouldUseAllNodes",
-      "description": "This will disable management of nodes in the CephCluster resource. If false, ekco will add nodes to the storage list and remove them when a node is purged.",
+      "description": "Enabling this will configure Rook to use all nodes for storage rather than EKCO managing a list of nodes. Additionally, this will disable EKCO scaling of Ceph mgr and mon counts and pool replication levels when additional nodes are added to the cluster.",
       "type": "boolean"
     },
     {
@@ -566,27 +588,37 @@
       "description": "Do not install the systemd shutdown service that cordons a node and deletes pods with PVC and Shared FS volumes mounted.",
       "type": "boolean"
     },
-		{
-			"flag": "shouldDisableClearNodes",
-			"description": "Do not force-delete pods stuck in terminating state on unreachable nodes",
-			"type": "boolean"
-		},
-		{
-			"flag": "shouldEnablePurgeNodes",
-			"description": "Automatically delete and cleanup unreachable nodes",
-			"type": "boolean"
-		},
-		{
-			"flag": "enableInternalLoadBalancer",
-			"description": "Run an internal load balanacer with HAProxy listening on localhost:6444 on all nodes",
-			"type": "boolean"
-		},
-		{
-			"flag": "podImageOverrides",
-			"description": "A list of Pod container image overrides in the format \"[original]=[overridden]\"",
-			"type": "array[string]",
-			"hidden": true
-		}
+    {
+      "flag": "shouldDisableClearNodes",
+      "description": "Do not force-delete pods stuck in terminating state on unreachable nodes",
+      "type": "boolean"
+    },
+    {
+      "flag": "shouldEnablePurgeNodes",
+      "description": "Automatically delete and cleanup unreachable nodes",
+      "type": "boolean"
+    },
+    {
+      "flag": "enableInternalLoadBalancer",
+      "description": "Run an internal load balanacer with HAProxy listening on localhost:6444 on all nodes",
+      "type": "boolean"
+    },
+    {
+      "flag": "podImageOverrides",
+      "description": "A list of Pod container image overrides in the format \"[original]=[overridden]\"",
+      "type": "array[string]",
+      "hidden": true
+    },
+    {
+      "flag": "minioShouldDisableManagement",
+      "description": "Prevent high availability (HA) MinIO from being enabled and do not manage existing HA MinIO pods",
+      "type": "boolean"
+    },
+    {
+      "flag": "kotsadmShouldDisableManagement",
+      "description": "Prevent high availability (HA) Kotsadm from being enabled and do not manage existing HA Kotsadm components",
+      "type": "boolean"
+    }
   ],
   "fluentd": [
     {
@@ -689,10 +721,10 @@
       "type": "number"
     },
     {
-        "flag": "version",
-        "description": "The version of Longhorn to be installed.",
-        "type": "string"
-      }
+      "flag": "version",
+      "description": "The version of Longhorn to be installed.",
+      "type": "string"
+    }
   ],
   "ufw": [
     {
