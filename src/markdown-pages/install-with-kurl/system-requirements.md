@@ -73,15 +73,48 @@ This configuration should be established **prior to the installation**. It's imp
 
 ### Hostnames, DNS, and IP Address
 
-The fully-qualified domain name (FQDN) of any host used with kURL must be a valid DNS subdomain name, and its name must be resolvable by DNS.
+#### 1. All hosts in the cluster must have valid DNS records and hostnames.
+
+The fully-qualified domain name (FQDN) of any host used with kURL **must** be a valid DNS subdomain name, and its name records **must** be resolvable by DNS.
+
+A valid DNS name must:
+- contain no more than 253 characters
+- contain only lowercase alphanumeric characters, '-' or '.'
+- start with an alphanumeric character
+- end with an alphanumeric character
+
 For more information, see [DNS Subdomain Names](https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#dns-subdomain-names) in the Kubernetes documentation.
 
-After a host is added to a Kubernetes cluster, Kubernetes assumes that the hostname and IP address of the host will not change.
+
+#### 2. All hosts in the cluster must have static IP address assignments.
+
+After a host is added to a Kubernetes cluster, Kubernetes assumes that the hostname and IP address of the host **will not change.**
 If you need to change the hostname or IP address of a node, you must first remove the node from the cluster.
 
 To change the hostname or IP address of a node in clusters that do not have three or more nodes, use snapshots to move the application to a new cluster before you attempt to remove the node. For more information about using snapshots, see [Velero Add-on](/add-ons/velero).
 
 For more information about the requirements for naming nodes, see [Node naming uniqueness](https://kubernetes.io/docs/concepts/architecture/nodes/#node-name-uniqueness) in the Kubernetes documentation.
+
+#### 3. All hosts in the cluster must not occupy Kubernetes Pod or Service CIDR ranges
+
+Kubernetes also requires exclusive use of two IP subnets (also known as CIDR ranges) for Pod-to-Pod traffic within the cluster.  These subnets *must not* overlap with the subnets used in your local network or else routing errors will result.
+
+| Subnet       | Description                         |
+|--------------|-------------------------------------|
+| 10.96.0.0/16 | Kubernetes Service IPs              |
+| 10.32.0.0/20 | [Flannel CNI Pod IPs](https://kurl.sh/docs/add-ons/flannel#custom-pod-subnet)                 |
+| 10.10.0.0/16 | [Weave CNI (deprecated) Pod IPs](https://kurl.sh/docs/add-ons/weave#advanced-install-options)      |
+
+These ranges can be customized by setting the appropriate add-on options directly in a kURL spec:
+```yaml
+spec:
+    kubernetes:
+      serviceCIDR: "<your custom subnet>"
+    flannel:     
+      podCIDR: "<your custom subnet>"
+```
+
+or via a [patch file](https://kurl.sh/docs/install-with-kurl/#select-examples-of-using-a-patch-yaml-file)
 
 ### Firewall Openings for Online Installations
 
