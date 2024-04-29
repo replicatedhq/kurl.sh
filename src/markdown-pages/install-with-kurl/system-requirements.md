@@ -90,7 +90,7 @@ For more information, see [DNS Subdomain Names](https://kubernetes.io/docs/conce
 
 A host in a Kubernetes cluster must have a network interface that can be used for bridging traffic to Kubernetes pods.  In order for Pod traffic to work, the host must act as a Layer 3 router to route and switch packets to the right destination.  Therefore, a network interface should exist on the host (common names are `eth0`, `enp0s1`, etc.) with an IPv4 address & subnet in a publicly-routable or [private network ranges](https://en.wikipedia.org/wiki/Private_network), and [must be non-overlapping with the subnets used by Kubernetes](https://kubernetes.io/docs/concepts/cluster-administration/networking/#kubernetes-ip-address-ranges).  It must *not* be a [link-local address](https://en.wikipedia.org/wiki/Link-local_address#IPv4).
 
-> Note: Removing the primary network interface on a node is *not* a supported configuration for deploying an airgap cluster.  An interface must exist for routing, so airgaps should be implemented "on the wire" - in the switch/router/VLAN configuration, or by firewalls or network ACLs, or physical disconnection.
+> Note: Removing the primary network interface on a node is *not* a supported configuration for deploying an airgap cluster.  An interface must exist for routing, so airgaps should be implemented "on the wire" - in the switch/router/VLAN configuration, by firewalls or network ACLs, or by physical disconnection.
 
 After a host is added to a Kubernetes cluster, Kubernetes assumes that the hostname and IP address of the host **will not change.**
 If you need to change the hostname or IP address of a node, you must first remove the node from the cluster.
