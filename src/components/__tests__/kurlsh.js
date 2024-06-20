@@ -3,17 +3,15 @@ import Kurl from "../Kurlsh";
 const defaultProps = {
   supportedVersions: {
     "kubernetes": [ "latest", "1.19.16", "1.19.15", "1.19.13" ],
-    "antrea": [ "latest", "1.4.0", "1.2.1", "1.2.0" ],
-    "aws": [ "latest", "0.1.0" ],
     "calico": [ "latest", "3.9.1" ],
     "collectd": [ "latest", "v5", "0.0.1" ],
     "containerd": [ "latest", "1.6.8", "1.6.7", "1.6.6" ],
     "contour": [ "latest", "1.22.1", "1.22.0", "1.21.1" ],
     "ekco": [ "latest", "0.21.0", "0.20.0", "0.19.9" ],
+    "flannel": [ "latest", "0.20.0" ],
     "fluentd": [ "latest", "1.7.4" ],
     "goldpinger": [ "latest", "3.5.1-5.2.0", "3.3.0-5.1.0", "3.2.0-5.0.0" ],
     "kotsadm": [ "latest", "1.85.0", "1.84.0", "1.83.0", "1.82.0" ],
-    "longhorn": [ "latest", "1.3.1", "1.2.4", "1.2.2" ],
     "metrics-server": [ "latest", "0.4.1", "0.3.7" ],
     "cert-manager": [ "latest", "1.9.1", "1.0.3" ],
     "minio": [ "latest", "2022-09-17T00-09-45Z", "2022-09-07T22-25-02Z", "2022-09-01T23-53-36Z" ],
@@ -25,17 +23,13 @@ const defaultProps = {
     "rookupgrade": [ "latest", "10to14" ],
     "sonobuoy": [ "latest", "0.56.10", "0.56.8", "0.56.7", "0.55.1" ],
     "velero": [ "latest", "1.9.1", "1.9.0", "1.8.1", "1.7.1" ],
-    "weave": [ "latest", "2.6.5-20220825", "2.6.5-20220720", "2.6.5-20220616" ],
-    "rke2": [ "latest", "v1.22.6+rke2r1", "v1.19.7+rke2r1", "v1.18.13+rke2r1" ],
-    "k3s": [ "latest", "v1.23.3+k3s1", "v1.19.7+k3s1" ],
-    "docker": [ "latest", "20.10.17", "20.10.5", "19.03.15" ],
     "certManager": [ "latest", "1.9.1", "1.0.3" ],
     "metricsServer": [ "latest", "0.4.1", "0.3.7" ]
   }
 }
 
 describe("Kurl", () => {
-  describe("prepareVersions", () => {
+  describe("sortVersions", () => {
     it("keeps latest next to the expected version", () => {
       const input = [
         {version: "latest"},
@@ -55,7 +49,8 @@ describe("Kurl", () => {
         {version: "None"},
       ]
 
-      const res = new Kurl(defaultProps).prepareVersions(input);
+      const kurlsh = new Kurl(defaultProps);
+      const res = kurlsh.sortVersions(input, "1.0.0");
       expect(res).toEqual(output);
     });
 
@@ -78,7 +73,8 @@ describe("Kurl", () => {
         {version: "None"},
       ]
 
-      const res = new Kurl(defaultProps).prepareVersions(input);
+      const kurlsh = new Kurl(defaultProps);
+      const res = kurlsh.sortVersions(input, "1.0.0");
       expect(res).toEqual(output);
     });
 
@@ -101,7 +97,8 @@ describe("Kurl", () => {
         {version: "None"},
       ]
 
-      const res = new Kurl(defaultProps).prepareVersions(input);
+      const kurlsh = new Kurl(defaultProps);
+      const res = kurlsh.sortVersions(input, "5.0.0");
       expect(res).toEqual(output);
     });
 
@@ -138,7 +135,8 @@ describe("Kurl", () => {
         {version: "None"},
       ]
 
-      const res = new Kurl(defaultProps).prepareVersions(input);
+      const kurlsh = new Kurl(defaultProps);
+      const res = kurlsh.sortVersions(input, "5.0.0");
       expect(res).toEqual(output);
     });
 
@@ -157,7 +155,8 @@ describe("Kurl", () => {
         {version: "None"},
       ]
 
-      const res = new Kurl(defaultProps).prepareVersions(input);
+      const kurlsh = new Kurl(defaultProps);
+      const res = kurlsh.sortVersions(input, "stable");
       expect(res).toEqual(output);
     });
   });
@@ -186,6 +185,72 @@ describe("Kurl", () => {
     it("patch versions are taken into account", () => {
       const res = new Kurl(defaultProps).compareVersions({version:"2.3.5"},{version: "2.3.4"});
       expect(res).toBe(-1);
+    });
+  });
+
+  describe("prepareVersions", () => {
+    it("rook: sorts and adds dot x versions", () => {
+      const versions = ["latest", "1.0.4", "1.9.12", "1.8.10", "1.4.9", "1.4.3", "1.0.4-14.2.21"];
+      const finalVersions = new Kurl(defaultProps).prepareVersions("rook", versions);
+      expect(finalVersions).toEqual([{version: "1.9.x"}, {version: "1.9.12"}, {version: "1.8.x"}, {version: "1.8.10"}, {version: "1.4.x"}, {version: "1.4.9"}, {version: "1.4.3"}, {version: "1.0.x"}, {version: "1.0.4-14.2.21"}, {version: "latest"}, {version: "1.0.4"}, {version: "None"}]);
+    });
+  });
+
+  describe("addOnDataFromInput", () => {
+    it("handles checkbox input changes for boolean fields", () => {
+      const kurlsh = new Kurl(defaultProps);
+      const actual = kurlsh.addOnDataFromInput({type: "checkbox", checked: true}, "boolean");
+      const expected = {inputValue: true, isChecked: true};
+      expect(actual).toEqual(expected);
+    });
+
+    it("handles checkbox input changes for string fields", () => {
+      const kurlsh = new Kurl(defaultProps);
+      const actual = kurlsh.addOnDataFromInput({type: "checkbox", checked: true}, "string");
+      const expected = {inputValue: "", isChecked: true};
+      expect(actual).toEqual(expected);
+    });
+
+    it("handles checkbox input changes for number fields", () => {
+      const kurlsh = new Kurl(defaultProps);
+      const actual = kurlsh.addOnDataFromInput({type: "checkbox", checked: true}, "number");
+      const expected = {inputValue: 0, isChecked: true};
+      expect(actual).toEqual(expected);
+    });
+
+    it("handles checkbox input changes for array[string] fields", () => {
+      const kurlsh = new Kurl(defaultProps);
+      const actual = kurlsh.addOnDataFromInput({type: "checkbox", checked: true}, "array[string]");
+      const expected = {inputValue: [], isChecked: true};
+      expect(actual).toEqual(expected);
+    });
+
+    it("handles number input changes for number fields", () => {
+      const kurlsh = new Kurl(defaultProps);
+      const actual = kurlsh.addOnDataFromInput({type: "number", value: 1}, "number");
+      const expected = {inputValue: 1};
+      expect(actual).toEqual(expected);
+    });
+
+    it("handles text input changes for array[string] fields", () => {
+      const kurlsh = new Kurl(defaultProps);
+      const actual = kurlsh.addOnDataFromInput({type: "text", value: "foo,bar"}, "array[string]");
+      const expected = {inputValue: ["foo", "bar"]};
+      expect(actual).toEqual(expected);
+    });
+
+    it("handles text input changes for string fields", () => {
+      const kurlsh = new Kurl(defaultProps);
+      const actual = kurlsh.addOnDataFromInput({type: "text", value: "foo"}, "string");
+      const expected = {inputValue: "foo"};
+      expect(actual).toEqual(expected);
+    });
+
+    it("handles all other input type changes", () => {
+      const kurlsh = new Kurl(defaultProps);
+      const actual = kurlsh.addOnDataFromInput({type: "foo", value: "bar"}, "baz");
+      const expected = {inputValue: "bar"};
+      expect(actual).toEqual(expected);
     });
   });
 });

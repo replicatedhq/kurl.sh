@@ -24,6 +24,7 @@ export default class Sidebar extends Component {
                 title
                 isAlpha
                 isBeta
+                isDeprecated
               }
             }
           }

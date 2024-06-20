@@ -5,13 +5,30 @@ linktitle: "Longhorn"
 weight: 46
 title: "Longhorn Add-On"
 addOn: "longhorn"
+isDeprecated: true
 ---
+
+## Deprecation Notice
+
+### This add-on is deprecated.
+
+As of March 27, 2023, the Longhorn add-on is deprecated. The Longhorn add-on might be removed from kURL after September 31st, 2023. Existing installations that use the Longhorn add-on are supported during this deprecation window. We recommend that you migrate from the Longhorn add-on to either the [OpenEBS](https://kurl.sh/docs/add-ons/openebs) or [Rook](https://kurl.sh/docs/add-ons/rook) add-on on or before September 31st, 2023. For more information about migrating from Longhorn, see [Migrating to Change CSI Add-On](https://kurl.sh/docs/install-with-kurl/migrating-csi).
+
+
+## Summary
 
 [Longhorn](https://longhorn.io/) is a CNCF Sandbox Project originally developed by Rancher labs as a “lightweight, reliable and easy-to-use distributed block storage system for Kubernetes”. Longhorn uses a microservice-based architecture to create a pod for every Custom Resource in the Longhorn ecosystem: Volumes, Replicas, a control plane, a data plane, etc.
 
-Longhorn uses the `/var/lib/longhorn` directory for storage on all nodes.
-This directory should have enough space to hold a complete copy of every PersistentVolumeClaim that will be in the cluster.
+Longhorn uses the `/var/lib/longhorn` directory for storage on all nodes. For disk requirements, see [Add-on Directory Disk Space Requirements](/docs/install-with-kurl/system-requirements/#add-on-directory-disk-space-requirements).
+
 For production installs, an SSD should be mounted at `/var/lib/longhorn`.
+
+## Host Package Requirements
+
+The following host packages are required for Red Hat Enterprise Linux 9 and Rocky Linux 9:
+
+- iscsi-initiator-utils
+- nfs-utils
 
 ## Advanced Install Options
 

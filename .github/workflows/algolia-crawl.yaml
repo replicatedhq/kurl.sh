@@ -3,12 +3,13 @@ on:
   push:
     branches:
       release
+  workflow_dispatch:
 jobs:
   scrape:
     runs-on: ubuntu-latest
     steps:
       - name: check out code 🛎d
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       # when scraping the site, inject secrets as environment variables
       # then pass their values into the Docker container using "-e" syntax
       # and inject config.json contents as another variable
