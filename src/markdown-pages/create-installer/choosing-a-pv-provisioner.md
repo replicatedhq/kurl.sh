@@ -26,7 +26,7 @@ spec:
   openebs:
     version: "3.3.x"
     isLocalPVEnabled: true
-    localPVStorageClassName: "default"
+    localPVStorageClassName: "local"
 ```
 
 Conversely, [Rook](/docs/add-ons/rook) provides dynamic PV provisioning of distributed [Ceph](https://ceph.io/) storage.
@@ -62,7 +62,7 @@ spec:
   openebs:
     version: "3.3.x"
     isLocalPVEnabled: true
-    localPVStorageClassName: "default"
+    localPVStorageClassName: "local"
   minio:
     version: "2022-09-07T22-25-02Z"
 ```

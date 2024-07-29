@@ -10,8 +10,8 @@ metadata:
 spec:
   kubernetes:
     version: 1.24.x
-  weave:
-    version: 2.6.x
+  flannel:
+    version: 0.23.x
   contour:
     version: 1.22.x
   registry:
@@ -27,7 +27,7 @@ spec:
   openebs:
     version: 3.3.x
     isLocalPVEnabled: true
-    localPVStorageClassName: default
+    localPVStorageClassName: local
 `;
         const expected = `apiVersion: cluster.kurl.sh/v1beta1
 kind: Installer
@@ -36,8 +36,8 @@ metadata:
 spec:
   kubernetes:
     version: 1.24.x
-  weave:
-    version: 2.6.x
+  flannel:
+    version: 0.23.x
   contour:
     version: 1.22.x
   registry:
@@ -62,7 +62,7 @@ spec:
   openebs:
     version: 3.3.x
     isLocalPVEnabled: true
-    localPVStorageClassName: default
+    localPVStorageClassName: local
 `;
     const actual = injectYamlOpenebsComment(yaml);
     expect(actual).to.equal(expected);
@@ -76,8 +76,8 @@ metadata:
 spec:
   kubernetes:
     version: 1.24.x
-  weave:
-    version: 2.6.x
+  flannel:
+    version: 0.23.x
   contour:
     version: 1.22.x
   registry:

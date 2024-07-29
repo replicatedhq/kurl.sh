@@ -1,13 +1,14 @@
 ---
 path: "/docs/install-with-kurl/migrating"
 date: "2021-06-30"
-weight: 21
+weight: 22
 linktitle: "Migrating"
 title: "Migrating to Change kURL Add-Ons"
 ---
 
 Changing the CRI, CSI, or CNI provider on a kURL install is possible by migrating a [KOTS](https://kots.io/) application to a new cluster.
-If you are only changing the CSI from Rook to Longhorn, check out [Migrating CSI](/docs/install-with-kurl/migrating-csi).
+
+If you're looking to make the move from one CSI provisioner (Longhorn, OpenEBS, or Rook) to another, be sure to consult the [Migrating CSI](/docs/install-with-kurl/migrating-csi) page.
 
 ## Requirements
 
@@ -37,7 +38,7 @@ If you are only changing the CSI from Rook to Longhorn, check out [Migrating CSI
 
 ## Example Old and New Specs
 
-In the new spec, the Kubernetes version has been upgraded to 1.21, Rook has been replaced with Longhorn and Minio, Weave has been replaced with Antrea, and docker has been replaced with containerd.
+In the new spec, the Kubernetes version has been upgraded to 1.21, Longhorn has been replaced with OpenEBS, Weave has been replaced with Flannel, and docker has been replaced with containerd.
 
 ### Old
 
@@ -53,8 +54,10 @@ spec:
     version: 20.10.5
   weave:
     version: 2.6.5
-  rook:
-    version: 1.0.4
+  longhorn:
+    version: 1.3.1
+  minio:
+    version: 2020-01-25T02-50-51Z
   registry:
     version: 2.7.1
   kotsadm:
@@ -72,19 +75,21 @@ metadata:
   name: new
 spec:
   kubernetes:
-    version: 1.21.2
+    version: 1.21.14
   containerd:
-    version: 1.4.6
-  antrea:
-    version: 1.1.0
-  longhorn:
-    version: 1.1.1
+    version: 1.6.15
+  flannel:
+    version: 0.20.2
   minio:
-    version: 2020-01-25T02-50-51Z
+    version: 2023-01-25T00-19-54Z
+  openebs:
+    version: 3.3.0
+    isLocalPVEnabled: true
+    localPVStorageClassName: local
   registry:
-    version: 2.7.1
+    version: 2.8.1
   kotsadm:
-    version: 1.45.0
+    version: 1.93.0
   velero:
-    version: 1.6.1
+    version: 1.9.5
 ```

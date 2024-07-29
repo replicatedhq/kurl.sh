@@ -6,7 +6,7 @@ weight: 45
 title: "Kurl Add-On"
 addOn: "kurl"
 ---
-
+For disk space requirements, see [Core Directory Disk Space Requirements](/docs/install-with-kurl/system-requirements#core-directory-disk-space-requirements).
 
 ## Advanced Install Options
 

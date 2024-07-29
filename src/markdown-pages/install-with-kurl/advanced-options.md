@@ -82,16 +82,6 @@ The install scripts are idempotent. Re-run the scripts with different flags to c
   </td>
 </tr>
 <tr>
-  <td><code>force-reapply-addons</code></td>
-  <td>Reinstall add-ons, whether or not they have changed since the last time kurl was run.
-  <br/>
-  <br/>
-  <strong>Example:</strong>
-  <br/>
-  <code>curl https://kurl.sh/latest | sudo bash -s force-reapply-addons</code>
-  </td>
-</tr>
-<tr>
   <td><code>ha</code></td>
   <td>Install will require a load balancer to allow for a highly available Kubernetes Control Plane.
   <br/>
@@ -265,6 +255,16 @@ The install scripts are idempotent. Re-run the scripts with different flags to c
   </td>
 </tr>
 <tr>
+  <td><code>velero-server-flags</code></td>
+  <td>Additional flags to pass to the Velero server. This is a comma-separated list of arguments.
+  <br/>
+  <br/>
+  <strong>Example:</strong>
+  <br/>
+  <code>curl https://kurl.sh/latest | sudo bash -s velero-server-flags=--log-level=debug,--default-repo-maintain-frequency=12h</code>
+  </td>
+</tr>
+<tr>
   <td><code>ekco-enable-internal-load-balancer</code></td>
   <td>Run an internal load balanacer with HAProxy listening on localhost:6444 on all nodes.
   <br/>
@@ -272,6 +272,26 @@ The install scripts are idempotent. Re-run the scripts with different flags to c
   <strong>Example:</strong>
   <br/>
   <code>curl https://kurl.sh/latest | sudo bash -s ekco-enable-internal-load-balancer</code>
+  </td>
+</tr>
+<tr>
+  <td><code>kubernetes-upgrade-ignore-preflight-errors</code></td>
+  <td>Bypass kubeadm upgrade preflight errors and warnings. See the <a href="https://kubernetes.io/docs/reference/setup-tools/kubeadm/kubeadm-upgrade/#cmd-upgrade-plan">kubeadm upgrade</a> documentation for more information.
+  <br/>
+  <br/>
+  <strong>Example:</strong>
+  <br/>
+  <code>curl https://kurl.sh/latest | sudo bash -s kubernetes-upgrade-ignore-preflight-errors=CoreDNSUnsupportedPlugins</code>
+  </td>
+</tr>
+<tr>
+  <td><code>kubernetes-max-pods-per-node</code></td>
+  <td>The maximum number of Pods that can run on each node (default 110).
+  <br/>
+  <br/>
+  <strong>Example:</strong>
+  <br/>
+  <code>curl https://kurl.sh/latest | sudo bash -s kubernetes-max-pods-per-node=200</code>
   </td>
 </tr>
 </table>

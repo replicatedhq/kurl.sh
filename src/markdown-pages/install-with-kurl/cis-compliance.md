@@ -1,7 +1,7 @@
 ---
 path: "/docs/install-with-kurl/cis-compliance"
 date: "2022-03-23"
-weight: 26
+weight: 27
 linktitle: "CIS Compliance"
 title: "CIS Compliance"
 isAlpha: false
@@ -39,8 +39,8 @@ spec:
  kubernetes:
    version: "1.23.x"
    cisCompliance: true
- weave:
-   version: "2.6.x"
+ flannel:
+   version: "0.20.x"
  contour:
    version: "1.20.x"
  prometheus:
