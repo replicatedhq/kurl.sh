@@ -6,7 +6,7 @@ linktitle: "Upgrading"
 title: "Upgrading"
 ---
 
-To upgrade Kubernetes or an add-on in a kURL cluster, increase the versions in the installer script and run it on any primary in the cluster.
+To upgrade Kubernetes or an add-on in a kURL cluster, increase the versions in the kURL installer spec as desired and then re-run the install script and on any primary node in the cluster.
 
 ## Kubernetes
 
