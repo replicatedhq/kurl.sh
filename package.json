@@ -18,7 +18,7 @@
     "@docsearch/react": "3",
     "classnames": "^2.2.6",
     "core-js": "^2.6.5",
-    "gatsby": "^2.15.22",
+    "gatsby": "^4.25.7",
     "gatsby-cli": "^2.7.50",
     "gatsby-plugin-create-client-paths": "^2.1.11",
     "gatsby-plugin-env-variables": "^1.0.1",
