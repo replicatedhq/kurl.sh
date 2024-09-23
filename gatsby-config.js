@@ -46,7 +46,7 @@ module.exports = {
     {
       resolve: `gatsby-plugin-env-variables`,
       options: {
-        whitelist: ["KURL_INSTALLER_URL", "KURL_BUNDLE_URL"]
+        allowList: ["KURL_INSTALLER_URL", "KURL_BUNDLE_URL"]
       },
     },
     {
@@ -62,21 +62,7 @@ module.exports = {
             options: {
               offsetY: `100`
             }
-          }
-        ],
-      },
-    },
-    {
-      resolve: `gatsby-plugin-google-analytics`,
-      options: {
-        trackingId: process.env.GOOGLE_ANALYTICS_TRACKING_ID,
-      },
-    },
-    {
-      resolve: 'gatsby-transformer-remark',
-      options: {
-        plugins: [
-          `gatsby-remark-autolink-headers`,
+          },
           {
             resolve: 'gatsby-remark-mermaid',
             options: {
@@ -87,8 +73,14 @@ module.exports = {
               }
             }
           }
-        ]
-      }
+        ],
+      },
+    },
+    {
+      resolve: `gatsby-plugin-google-analytics`,
+      options: {
+        trackingId: process.env.GOOGLE_ANALYTICS_TRACKING_ID,
+      },
     }
   ],
 }

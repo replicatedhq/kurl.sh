@@ -40,6 +40,10 @@ exports.createSchemaCustomization = ({ actions }) => {
       frontmatter: Frontmatter
     }
     type Frontmatter {
+      path: String
+      linktitle: String
+      title: String
+      addOn: String
       version: String
       isBeta: Boolean
       isAlpha: Boolean
@@ -67,14 +71,9 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
 exports.createPages = async ({ actions, graphql, reporter }) => {
   const { createPage, createRedirect } = actions
   const docsTemplate = path.resolve(__dirname, 'src/templates/DocsTemplate.js/');
-  const releaseNotesTemplate = path.resolve(__dirname, 'src/templates/ReleaseNotesTemplate.js/');
-  const releaseNotesListTemplate = path.resolve(__dirname, 'src/templates/ReleaseNotesListTemplate.js');
   const results = await graphql(`
     {
-      allMarkdownRemark(
-        sort: { order: DESC, fields: [frontmatter___weight] }
-        limit: 1000
-      ) {
+      allMarkdownRemark(sort: {frontmatter: {weight: DESC}}, limit: 1000) {
         edges {
           node {
             fields {
@@ -121,6 +120,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
   docEdges.forEach(({ node }) => {
     const { path, linktitle, title } = node.frontmatter;
     const { html } = node;
+    console.log("++++ path", path)
     createPage({
       path,
       linktitle,
