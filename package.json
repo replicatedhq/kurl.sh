@@ -77,5 +77,15 @@
     "webpack": "^4.39.3",
     "webpack-cli": "^3.3.8",
     "webpack-dev-server": "^3.8.0"
+  },
+  "resolutions": {
+    "minimist": "^1.2.8",
+    "flat": "^5.0.2",
+    "socket.io-parser": "^3.4.2",
+    "loader-utils": "^1.4.1",
+    "parse-url": "^8.1.0",
+    "shell-quote": "^1.7.3",
+    "eventsource": "^1.1.1",
+    "xmlhttprequest-ssl": "^1.6.1"
   }
 }
