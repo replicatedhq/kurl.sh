@@ -9,7 +9,7 @@ addOn: "ekco"
 
 The [EKCO](https://github.com/replicatedhq/ekco) add-on is a utility tool to perform maintenance operations on a kURL cluster.
 
-The kURL add-on installs the EKCO operator into the kURL namespace.
+The latest version of EKCO is installed for every kURL cluster since v2023.04.10-0, even if it is not included in the spec, or if an older version is specified.
 
 ## Advanced Install Options
 
@@ -29,6 +29,8 @@ spec:
     enableInternalLoadBalancer: true
     shouldDisableRestartFailedEnvoyPods: false
     envoyPodsNotReadyDuration: 5m
+    minioShouldDisableManagement: false
+    kotsadmShouldDisableManagement: false
 ```
 
 flags-table
@@ -90,6 +92,8 @@ Global Flags:
       --log_level string   Log level (default "info")
 ```
 
+⚠️ _**Warning**:_ Purging a node is intended to be an irrevocable operation and is meant to permanently remove the node from the cluster with the expectation that it will never become a member again.
+
 ### Rook
 
 The EKCO operator is responsible for appending nodes to the CephCluster `storage.nodes` setting to include the node in the list of nodes used by Ceph for storage. This operation only appends nodes. Removing nodes is done during the purge.
@@ -110,9 +114,31 @@ This has been added to work around a [known issue](https://github.com/projectcon
 This functionality can be disabled by setting the `ekco.shouldDisableRestartFailedEnvoyPods` property to `true`.
 The duration can be adjusted by changing the `ekco.envoyPodsNotReadyDuration` property.
 
+### MinIO
+
+When you install kURL with `ekco.minioShouldDisableManagement` set to `false`, the EKCO operator manages data in the MinIO deployment to ensure that the data is properly replicated and has high availability.
+
+To manage data in MinIO, the EKCO operator first enables a high availability six-replica StatefulSet when at least three nodes are healthy and the OpenEBS localpv storage class is available.
+
+Then, EKCO migrates data from the original MinIO deployment to the StatefulSet before deleting the data.
+MinIO is temporarily unavailable while the data migration is in progress.
+If this migration fails, it will be retried but MinIO will remain offline until it succeeds.
+
+After data has been migrated to the StatefulSet, EKCO ensures that replicas are evenly distributed across nodes.
+
+To disable EKCO's management of data in MinIO, set `ekco.minioShouldDisableManagement` to `true`.
+
+### Kotsadm
+
+When you install kURL with `ekco.kotsadmShouldDisableManagement` set to `false`, the EKCO operator ensures that necessary KOTS components run with multiple replicas for high availability.
+
+For Kotsadm v1.89.0+, the EKCO operator enables a high availability three-replica StatefulSet for the database when at least three nodes are healthy and the OpenEBS localpv storage class is available.
+
+To disable EKCO's management of Kotsadm components, set `ekco.kotsadmShouldDisableManagement` to `true`.
+
 ### TLS Certificate Rotation
 
-EKCO supports automatic certificate rotation for the [registry add-on](/docs/install-with-kurl/setup-tls-certs#registry) and the [Kubernetes control plane](/docs/install-with-kurl/setup-tls-certs#kubernetes-control-plane) since version 0.5.0 and for the [KOTS add-on](/docs/install-with-kurl/setup-tls-certs#kots-tls-certificate-renewal) since version 0.7.0.
+EKCO supports automatic certificate rotation for the [registry add-on](/docs/install-with-kurl/setup-tls-certs#registry) and the [Kubernetes control plane](/docs/install-with-kurl/setup-tls-certs#kubernetes-control-plane) since version 0.5.0 and for the KOTS add-on since version 0.7.0. For more information about automatic certificate rotation for the KOTS add-on, which is used by the Replicated app manager, see [Using TLS Certificates](https://docs.replicated.com/vendor/packaging-using-tls-certs) in the Replicated documentation.
 
 ### Internal Load Balancer
 

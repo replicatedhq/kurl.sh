@@ -40,10 +40,10 @@ export default function Template({
     <DocumentationLayout location={location}>
       <div className="flex-column flex1 u-height--auto">
         <div className="u-padding--20 markdown-body">
-          <h1>{frontmatter.title} {frontmatter.isAlpha && <span className="prerelease-tag alpha">alpha</span>} {frontmatter.isBeta && <span className="prerelease-tag beta">beta</span>}</h1>
+          <h1>{frontmatter.title} {frontmatter.isAlpha && <span className="prerelease-tag alpha">alpha</span>} {frontmatter.isBeta && <span className="prerelease-tag beta">beta</span>} {frontmatter.isDeprecated && <span className="prerelease-tag deprecated">deprecated</span>}</h1>
           <div
             className="docs-content"
-            dangerouslySetInnerHTML={{ __html: html.replace("flags-table", buildHtmlTableFromJson(frontmatter.addOn)) }}
+            dangerouslySetInnerHTML={{ __html: html && html.replace("flags-table", buildHtmlTableFromJson(frontmatter.addOn)) }}
           />
         </div>
       </div>
@@ -62,6 +62,7 @@ export const pageQuery = graphql`
         addOn
         isBeta
         isAlpha
+        isDeprecated
       }
     }
   }

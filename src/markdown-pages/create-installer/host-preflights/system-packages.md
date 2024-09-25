@@ -47,6 +47,14 @@ An array of the names of packages to collect information about if the operating 
 
 An array of the names of packages to collect information about if the operating system is `RHEL` version `8.x`.
 
+#### `rhel9` (Optional)
+
+An array of the names of packages to collect information about if the operating system is `RHEL` version `9.x`.
+
+#### `rocky9` (Optional)
+
+An array of the names of packages to collect information about if the operating system is `Rocky Linux` version `9.x`.
+
 #### `centos` (Optional)
 
 An array of the names of packages to collect information about if the operating system is `CentOS`, regardless of the version.

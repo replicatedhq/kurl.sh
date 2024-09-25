@@ -56,7 +56,7 @@ spec:
     version: latest
   containerd:
     version: latest
-  weave:
+  flannel:
     version: latest
   rook:
     version: latest
@@ -78,12 +78,12 @@ spec:
     version: latest
   containerd:
     version: latest
-  weave:
+  flannel:
     version: latest
   openebs:
     version: latest
     isLocalPVEnabled: true
-    localPVStorageClassName: default
+    localPVStorageClassName: local
   minio:
     version: latest
   registry:
@@ -102,10 +102,12 @@ spec:
     version: latest
   docker:
     version: latest
-  weave:
+  flannel:
     version: latest
-  longhorn:
+  openebs:
     version: latest
+    isLocalPVEnabled: true
+    localPVStorageClassName: local
   registry:
     version: latest
   kotsadm:

@@ -44,6 +44,7 @@ For each of the add-ons that you are using that have default host preflight chec
 
 For example, if your installer includes KOTS version 1.59.0, you would find the host preflight file at this link: https://github.com/replicatedhq/kURL/blob/main/addons/kotsadm/1.59.0/host-preflight.yaml.
 
+Flannel: https://github.com/replicatedhq/kURL/tree/main/addons/flannel<br>
 Weave: https://github.com/replicatedhq/kURL/tree/main/addons/weave<br>
 Rook: https://github.com/replicatedhq/kURL/tree/main/addons/rook<br>
 OpenEBS: https://github.com/replicatedhq/kURL/tree/main/addons/openebs<br>
