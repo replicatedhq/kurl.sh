@@ -6,7 +6,7 @@ linktitle: "CIS Compliance"
 title: "CIS Compliance"
 isAlpha: false
 ---
-You can configure the kURL installer to be Center for Internet Security (CIS) compliant for versions up to CIS 1.8. Opt-in to this feature by setting the `kurl.cisCompliance` field to `true` in the kURL specification. For information about known limitations, see [Known Limitations](#known-limitations). For more information about CIS security compliance for Kubernetes, see the [CIS benchmark information](https://www.cisecurity.org/benchmark/kubernetes).
+You can configure the kURL installer to be Center for Internet Security (CIS) compliant for CIS 1.8 or earlier. Opt-in to this feature by setting the `kurl.cisCompliance` field to `true` in the kURL specification. For information about known limitations, see [Known Limitations](#known-limitations). For more information about CIS security compliance for Kubernetes, see the [CIS benchmark information](https://www.cisecurity.org/benchmark/kubernetes).
 
 When you set `cisCompliance` is set to `true`, the following settings are changed from the default settings:
 
