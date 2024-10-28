@@ -38,9 +38,9 @@ For these OSes, the following packages are required per add-on:
 
 | Add-on                           | Packages |
 | -------------------------------- | -------- |
-| * kURL Core                      | curl openssl tar |
+| * kURL Core                      | curl openssl tar fio |
 | Collectd                         | bash glibc libcurl libcurl-minimal libgcrypt libgpg-error libmnl openssl-libs rrdtool systemd systemd-libs yajl |
-| Containerd                       | bash libseccomp libzstd systemd |
+| Containerd                       | container-selinux bash libseccomp libzstd systemd |
 | Kubernetes                       | conntrack-tools ethtool glibc iproute iptables-nft socat util-linux                     |
 | Longhorn                         | iscsi-initiator-utils nfs-utils |
 | OpenEBS *\*versions 1.x and 2.x* | iscsi-initiator-utils |
