@@ -5,23 +5,24 @@ PROJECT_NAME ?= kurl-sh
 clean:
 	rm -rf node_modules
 	rm -rf dist
+	rm -rf .cache
 
 .PHONY: deps
 deps:
-	yarn --silent --frozen-lockfile
+	npm ci
 
 .PHONY: test
 test:
-	yarn run test
+	npm run test
 
 .PHONY: serve
 serve: deps
-	yarn start
+	npm run start
 
 .PHONY: build-staging
 build-staging: 
-	yarn build-staging
+	npm run build-staging
 
 .PHONY: build-production
 build-production: 
-	yarn build
+	npm run build

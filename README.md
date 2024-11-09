@@ -11,6 +11,7 @@ Before you are able to run this locally you need to have NodeJS above v.8.12.
 
 1. And then run the project
    ```bash
+   export GOOGLE_ANALYTICS_TRACKING_ID=dummy
    make serve
    ```
 
