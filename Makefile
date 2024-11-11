@@ -9,6 +9,7 @@ clean:
 
 .PHONY: deps
 deps:
+	PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
 	npm ci
 
 .PHONY: test
@@ -17,6 +18,7 @@ test:
 
 .PHONY: serve
 serve: deps
+	GOOGLE_ANALYTICS_TRACKING_ID=dummy \
 	npm run start
 
 .PHONY: build-staging
