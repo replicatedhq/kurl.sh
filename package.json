@@ -124,6 +124,7 @@
     "terser": "^4.8.1",
     "trim": "^0.0.3",
     "websocket-extensions": "^0.1.4",
-    "y18n": "^5.0.5"
+    "y18n": "^5.0.5",
+    "dompurify": "2.4.2"
   }
 }

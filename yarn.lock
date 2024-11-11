@@ -6362,10 +6362,10 @@ domhandler@^5.0.2, domhandler@^5.0.3:
   dependencies:
     domelementtype "^2.3.0"
 
-dompurify@2.3.5:
-  version "2.3.5"
-  resolved "https://registry.yarnpkg.com/dompurify/-/dompurify-2.3.5.tgz#c83ed5a3ae5ce23e52efe654ea052ffb358dd7e3"
-  integrity sha512-kD+f8qEaa42+mjdOpKeztu9Mfx5bv9gVLO6K9jRx4uGvh6Wv06Srn4jr1wPNY2OOUGGSKHNFN+A8MA3v0E0QAQ==
+dompurify@2.3.5, dompurify@2.4.2:
+  version "2.4.2"
+  resolved "https://registry.yarnpkg.com/dompurify/-/dompurify-2.4.2.tgz#c3409b49357804c9b00e1fbebea81f26514c5bc3"
+  integrity sha512-ckbbxcGpfTJ7SNHC2yT2pHSCYxo2oQgSfdoDHQANzMzQyGzVmalF9W/B+X97Cdik5xFwWtwJP232gIP2+1kNEA==
 
 domutils@1.5.1:
   version "1.5.1"
