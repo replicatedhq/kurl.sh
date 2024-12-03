@@ -209,7 +209,7 @@ cat install.sh | sudo bash -s airgap
                       Amazon Linux 2
                     </li>
                     <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal">
-                      Amazon Linux 2023 (Amazon Linux 2023 requires the Containerd package preinstalled on the host)
+                      Amazon Linux 2023 (requires the Containerd package preinstalled on the host)
                     </li>
                   </div>
                 </div>
