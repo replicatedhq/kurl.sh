@@ -191,7 +191,7 @@ cat install.sh | sudo bash -s airgap
                       Ubuntu 22.04 (Requires Containerd version {'>'}= 1.5.10 or Docker version {'>'}= 20.10.17)
                     </li>
                     <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal">
-                      Ubuntu 24.04 (Requires Containerd package preinstalled on the host)
+                      Ubuntu 24.04 (Requires that the Containerd package be preinstalled on the host)
                     </li>
                     <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal">
                       CentOS 7.4, 7.5, 7.6, 7.7, 7.8, 7.9, 8.1, 8.2, 8.3, 8.4 (CentOS 8.x requires Containerd)
@@ -209,7 +209,7 @@ cat install.sh | sudo bash -s airgap
                       Amazon Linux 2
                     </li>
                     <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal">
-                      Amazon Linux 2023 (requires the Containerd package preinstalled on the host)
+                      Amazon Linux 2023 (Requires that the Containerd package be preinstalled on the host)
                     </li>
                   </div>
                 </div>
