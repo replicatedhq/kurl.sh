@@ -188,19 +188,28 @@ cat install.sh | sudo bash -s airgap
                       Ubuntu 20.04 (Docker version {'>'}= 19.03.10)
                     </li>
                     <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal">
+                      Ubuntu 22.04 (Requires Containerd version {'>'}= 1.5.10 or Docker version {'>'}= 20.10.17)
+                    </li>
+                    <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal">
+                      Ubuntu 24.04 (Requires that the Containerd package be preinstalled on the host)
+                    </li>
+                    <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal">
                       CentOS 7.4, 7.5, 7.6, 7.7, 7.8, 7.9, 8.1, 8.2, 8.3, 8.4 (CentOS 8.x requires Containerd)
                     </li>
                     <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal">
-                      RHEL 7.4, 7.5, 7.6, 7.7, 7.8, 7.9, 8.1, 8.2, 8.3, 8.4, 8.5, 8.6, 8.7, 8.8, 9.0, 9.1, 9.2 (RHEL 8.x and 9.x require Containerd)
+                      RHEL 7.4, 7.5, 7.6, 7.7, 7.8, 7.9, 8.1, 8.2, 8.3, 8.4, 8.5, 8.6, 8.7, 8.8, 8.9, 8.10, 9.0, 9.1, 9.2, 9.3, 9.4, 9.5 (RHEL 8.x and 9.x require Containerd)
                     </li>
                     <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal">
-                      Rocky Linux 9.0, 9.1, 9.2 (Rocky Linux 9.x requires Containerd)
+                      Rocky Linux 9.0, 9.1, 9.2, 9.3, 9.4, 9.5 (Rocky Linux 9.x requires Containerd {'>'}= 1.6.28)
                     </li>
                     <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal">
-                      Oracle Linux 7.4, 7.5, 7.6, 7.7, 7.8, 7.9, 8.1, 8.2, 8.3, 8.4, 8.5, 8.6, 8.7, 8.8 (OL 8.x requires Containerd)
+                      Oracle Linux 7.4, 7.5, 7.6, 7.7, 7.8, 7.9, 8.1, 8.2, 8.3, 8.4, 8.5, 8.6, 8.7, 8.8, 8.9, 8.10 (OL 8.x requires Containerd)
                     </li>
                     <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal">
                       Amazon Linux 2
+                    </li>
+                    <li className="u-fontSize--small u-color--dustyGray u-fontWeight--medium u-lineHeight--normal">
+                      Amazon Linux 2023 (Requires that the Containerd package be preinstalled on the host)
                     </li>
                   </div>
                 </div>
