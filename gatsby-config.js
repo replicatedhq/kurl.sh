@@ -47,7 +47,7 @@ module.exports = {
     {
       resolve: `gatsby-plugin-env-variables`,
       options: {
-        whitelist: ["KURL_INSTALLER_URL", "KURL_BUNDLE_URL"]
+        allowList: ["KURL_INSTALLER_URL", "KURL_BUNDLE_URL"]
       },
     },
     {
