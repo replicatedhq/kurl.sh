@@ -100,7 +100,7 @@ export default class SidebarFileTree extends Component {
   }
 
   render() {
-    const { depth = 0, data, type, className, open, children, path, isReleaseNotes } = this.props;
+    const { depth = 0, data, type, className, open, children, path, isReleaseNotes, pathname } = this.props;
     const { treeState } = this.state;
 
     if (treeState.length === 0 && depth === 0) {
@@ -127,10 +127,11 @@ export default class SidebarFileTree extends Component {
                 key={`${depth}-${idx}`}
                 depth={depth + 1}
                 type="directory"
-                open={entry.open}
+                open={pathname?.includes(entry.path)}
                 path={entry.path}
                 onDirectoryClick={onDirectoryClick}
                 data={entry.links}
+                pathname={pathname}
               >
                 <span className={classNames({ "sub-directory": depth > 0 })}>
                   {titleize(entry.directory)}

@@ -16,7 +16,7 @@ test: deps
 
 .PHONY: serve
 serve: deps
-	yarn start
+	GOOGLE_ANALYTICS_TRACKING_ID=fake_token yarn start
 
 .PHONY: build-staging
 build-staging: 
