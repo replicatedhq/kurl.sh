@@ -7913,11 +7913,6 @@ domhandler@^5.0.2, domhandler@^5.0.3:
   dependencies:
     domelementtype "^2.3.0"
 
-dompurify@2.5.5:
-  version "2.5.5"
-  resolved "https://registry.yarnpkg.com/dompurify/-/dompurify-2.5.5.tgz#0540a05b8020d4691ee9c6083fb23b2c919276fc"
-  integrity sha512-FgbqnEPiv5Vdtwt6Mxl7XSylttCC03cqP5ldNT2z+Kj0nLxPHJH4+1Cyf5Jasxhw93Rl4Oo11qRoUV72fmya2Q==
-
 dompurify@^3.2.1:
   version "3.2.2"
   resolved "https://registry.yarnpkg.com/dompurify/-/dompurify-3.2.2.tgz#6c0518745e81686c74a684f5af1e5613e7cc0246"
