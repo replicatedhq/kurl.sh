@@ -11,7 +11,7 @@ deps:
 	yarn --silent --frozen-lockfile
 
 .PHONY: test
-test:
+test: deps
 	yarn run test
 
 .PHONY: serve

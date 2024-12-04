@@ -10,6 +10,7 @@ module.exports = {
     title: "kURL.sh",
     apiUrl: process.env.API_URL
   },
+  trailingSlash: "ignore",
   plugins: [
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-netlify`,
@@ -48,10 +49,6 @@ module.exports = {
       options: {
         whitelist: ["KURL_INSTALLER_URL", "KURL_BUNDLE_URL"]
       },
-    },
-    {
-      resolve: `gatsby-plugin-create-client-paths`,
-      options: { prefixes: [`/index/*`, `/download/*`, `/docs/*`, `/add-ons/*`] },
     },
     {
       resolve: `gatsby-transformer-remark`,
