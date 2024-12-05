@@ -4,7 +4,7 @@ import { Link } from "gatsby";
 import GitHubButton from "react-github-button";
 
 import "../../scss/components/shared/NavBar.scss";
-require("react-github-button/assets/style.css");
+import("react-github-button/assets/style.css");
 
 export default class MobileNavBar extends React.Component {
   static propTypes = {

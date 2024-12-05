@@ -71,10 +71,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
   const releaseNotesListTemplate = path.resolve(__dirname, 'src/templates/ReleaseNotesListTemplate.js');
   const results = await graphql(`
     {
-      allMarkdownRemark(
-        sort: { order: DESC, fields: [frontmatter___weight] }
-        limit: 1000
-      ) {
+      allMarkdownRemark(sort: {frontmatter: {weight: DESC}}, limit: 1000) {
         edges {
           node {
             fields {
