@@ -32,7 +32,6 @@
     "lodash": "^4.17.19",
     "monaco-editor": "^0.52.0",
     "monaco-editor-webpack-plugin": "^7.1.0",
-    "playwright": "^1.49.0",
     "prop-types": "^15.7.2",
     "puppeteer": "^7.0.4",
     "query-string": "^6.12.1",
