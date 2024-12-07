@@ -15,7 +15,8 @@ jobs:
         with:
           node-version: 20
           cache: yarn
-
+      - name: playwright
+        run: npx playwright install --with-deps
       - name: build
         run: make deps build-staging
 
