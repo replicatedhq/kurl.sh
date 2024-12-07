@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Link } from "@reach/router";
+import { Link } from "gatsby";
 
 import CodeSnippet from "./shared/CodeSnippet";
 import Loader from "./shared/Loader";

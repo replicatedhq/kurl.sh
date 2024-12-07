@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Link } from "@reach/router";
+import { Link } from "gatsby";
 
 import ReactTooltip from "react-tooltip";
 import json2yaml from "json2yaml";

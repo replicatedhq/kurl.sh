@@ -11,12 +11,12 @@ deps:
 	yarn --silent --frozen-lockfile
 
 .PHONY: test
-test:
+test: deps
 	yarn run test
 
 .PHONY: serve
 serve: deps
-	yarn start
+	GOOGLE_ANALYTICS_TRACKING_ID=fake_token yarn start
 
 .PHONY: build-staging
 build-staging: 
