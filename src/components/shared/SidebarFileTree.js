@@ -68,7 +68,6 @@ export default class SidebarFileTree extends Component {
         if (!item.directory) {
           return item;
         }
-      console.dir(this)
         return {
           ...item,
           open: item.directory.includes(this.props.pathname.split("/")[2]),
