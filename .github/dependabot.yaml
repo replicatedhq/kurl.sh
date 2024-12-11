@@ -9,7 +9,7 @@ updates:
      - "type::chore"
     schedule:
       interval: "daily"
-      open-pull-requests-limit: 25
+    open-pull-requests-limit: 25
 
   - package-ecosystem: "github-actions"
     directory: "/"
