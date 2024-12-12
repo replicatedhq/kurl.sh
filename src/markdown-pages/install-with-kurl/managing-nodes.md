@@ -36,10 +36,6 @@ Resetting a node can be useful if you are creating and testing a kURL specificat
 Some larger changes to a kURL specification cannot be deployed for testing by rerunning the kURL installation script on an existing node.
 In this case, you can attempt to reset the node so that you can reinstall kURL to test the change to the kURL specification.
 
-_**Warning**_: Do not attempt to reset a node on a cluster in a production environment.
-Attempting to reset a node can permanently damage the cluster, which makes any data from the cluster irretrievable.
-Reset a node on a cluster only if you are able to delete the host VM and provision a new VM if the reset script does not successfully complete.
-
 To reset a node on a cluster managed by kURL:
 
 1. Run the kURL reset script on a VM that you are able to delete if the script is unsuccessful.
