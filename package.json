@@ -15,7 +15,7 @@
     "@bugsnag/js": "^7.1.0",
     "@bugsnag/plugin-react": "^7.16.2",
     "@docsearch/react": "3",
-    "classnames": "^2.2.6",
+    "classnames": "^2.5.1",
     "core-js": "^2.6.5",
     "eslint-config-react-app": "7.0.1",
     "gatsby": "5.14.0",
