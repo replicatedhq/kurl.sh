@@ -13,7 +13,7 @@
   "license": "MIT",
   "dependencies": {
     "@bugsnag/js": "^7.1.0",
-    "@bugsnag/plugin-react": "^7.16.2",
+    "@bugsnag/plugin-react": "^8.1.1",
     "@docsearch/react": "3",
     "classnames": "^2.2.6",
     "core-js": "^2.6.5",
