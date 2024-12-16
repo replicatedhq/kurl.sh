@@ -61,7 +61,7 @@
     "chai": "^4.3.6",
     "copy-webpack-plugin": "6.4.1",
     "css-hot-loader": "^1.4.4",
-    "css-loader": "^3.2.0",
+    "css-loader": "^7.1.2",
     "file-loader": "^4.2.0",
     "gatsby-cli": "5.14.0",
     "html-loader": "^0.5.5",
