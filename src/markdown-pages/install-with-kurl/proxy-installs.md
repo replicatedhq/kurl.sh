@@ -26,9 +26,11 @@ See [Modifying an Install Using a YAML Patch File](/docs/install-with-kurl#modif
 
 ## Parameters
 
-- `proxyAddress`: string - a URL, including http:// or https:// protocol, of the forward proxy.  Both HTTP_PROXY and HTTPS_PROXY will be set to `proxyAddress` in kURL.
-- `additionalNoProxyAddresses`: string - a YAML list of all domains, IPs, and CIDR blocks that will be added to the list of NO_PROXY addresses.
-- `noProxy`: boolean - If `noProxy` is set to `true` then the other proxy fields in the spec are ignored and the installer does not attempt to do any proxy configuration and will ignore the `HTTP_PROXY`, `HTTPS_PROXY`, and `NO_PROXY` variables that are set in the shell.  Defaults to `false`.
+| Parameter                  | Type | Description |
+|----------------------------|------|-------------|
+`proxyAddress` | string | a URL, including http:// or https:// protocol, of the forward proxy.  Both HTTP_PROXY and HTTPS_PROXY will be set to `proxyAddress` in kURL |
+`additionalNoProxyAddresses` | string | a YAML list of all domains, IPs, and CIDR blocks that will be added to the list of NO_PROXY addresses |
+`noProxy` | boolean | if `noProxy` is set to `true` then the other proxy fields in the spec are ignored and the installer does not attempt to do any proxy configuration and will ignore the `HTTP_PROXY`, `HTTPS_PROXY`, and `NO_PROXY` variables that are set in the shell.  Defaults to `false` |
 
 ## Proxy Environment Variables
 
