@@ -16,12 +16,19 @@ spec:
     proxyAddress: http://10.128.0.70:3128
     additionalNoProxyAddresses:
     - .corporate.internal
+    - 172.28.16.0/24
     noProxy: false
 ```
 
 The proxy configuration will be used to download packages required for the installation script to complete and will be applied to the docker and KOTS add-ons.
 The provided proxy will be configured and used for HTTP and HTTPS access.
 See [Modifying an Install Using a YAML Patch File](/docs/install-with-kurl#modifying-an-install-using-a-yaml-patch-file-at-runtime) for more details on using patch files.
+
+## Parameters
+
+- `proxyAddress`: string - a URL, including http:// or https:// protocol, of the forward proxy.  Both HTTP_PROXY and HTTPS_PROXY will be set to `proxyAddress` in kURL.
+- `additionalNoProxyAddresses`: string - a YAML list of all domains, IPs, and CIDR blocks that will be added to the list of NO_PROXY addresses.
+- `noProxy`: boolean - If `noProxy` is set to `true` then the other proxy fields in the spec are ignored and the installer does not attempt to do any proxy configuration and will ignore the `HTTP_PROXY`, `HTTPS_PROXY`, and `NO_PROXY` variables that are set in the shell.  Defaults to `false`.
 
 ## Proxy Environment Variables
 
