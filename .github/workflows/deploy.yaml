@@ -8,7 +8,7 @@ on:
 jobs:
 
   deploy-staging-netlify:
-    environment: 
+    environment:
       name: staging
       url: https://staging.kurl.sh
     runs-on: ubuntu-20.04
@@ -18,11 +18,13 @@ jobs:
         with:
           node-version: 20
           cache: yarn
-          
+
+      - name: dependencies
+        run: make deps
       - name: playwright
         run: npx playwright install --with-deps
       - name: build
-        run: make deps build-staging
+        run: make build-staging
 
       - name: release
         uses: nwtgck/actions-netlify@v3.0
@@ -38,7 +40,7 @@ jobs:
         timeout-minutes: 1
 
   deploy-production-netlify:
-    environment: 
+    environment:
       name: production
       url: https://kurl.sh
     runs-on: ubuntu-20.04
@@ -49,10 +51,12 @@ jobs:
           node-version: 20
           cache: yarn
 
+      - name: dependencies
+        run: make deps
       - name: playwright
         run: npx playwright install --with-deps
       - name: build
-        run: make deps build-production
+        run: make build-production
 
       - name: release
         uses: nwtgck/actions-netlify@v3.0
