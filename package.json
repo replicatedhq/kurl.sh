@@ -78,7 +78,7 @@
     "sass-loader": "^11.1.1",
     "style-loader": "^1.0.0",
     "webpack": "5.97.0",
-    "webpack-dev-server": "^3.8.0"
+    "webpack-dev-server": "^5.2.0"
   },
   "resolutions": {
     "mkdirp": "^0.5.6"
