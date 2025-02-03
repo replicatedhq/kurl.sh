@@ -15,10 +15,12 @@ jobs:
         with:
           node-version: 20
           cache: yarn
+      - name: dependencies
+        run: make deps
       - name: playwright
         run: npx playwright install --with-deps
       - name: build
-        run: make deps build-staging
+        run: make build-staging
 
       - name: release
         uses: nwtgck/actions-netlify@v3.0
