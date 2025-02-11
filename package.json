@@ -12,7 +12,7 @@
   "author": "Jelena <jelena.gruica@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "@bugsnag/js": "^7.1.0",
+    "@bugsnag/js": "^8.2.0",
     "@bugsnag/plugin-react": "^7.16.2",
     "@docsearch/react": "3",
     "classnames": "^2.2.6",
