@@ -25,6 +25,7 @@ The following host packages are required for Red Hat Enterprise Linux 9 and Rock
 - libseccomp
 - libzstd
 - systemd
+- container-selinux
 
 The following host packages are required for Amazon Linux 2023 and Ubuntu 24.04:
 
@@ -32,6 +33,7 @@ The following host packages are required for Amazon Linux 2023 and Ubuntu 24.04:
 - libseccomp2
 - libzstd1
 - systemd
+- container-selinux
 - containerd
 
 The `containerd` package does not need to match the version of the containerd add-on.
