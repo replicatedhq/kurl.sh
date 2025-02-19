@@ -32,7 +32,7 @@ title: "System Requirements"
 
 ## Host Package Requirements
 
-Host packages are bundled and installed by kURL without the need for external package repositories except for in the case of Red Hat Enterprise Linux 9 and Rocky Linux 9.
+Host packages are bundled and installed by kURL without the need for external package repositories except for in the case of Red Hat Enterprise Linux 9, Rocky Linux 9, Amazon Linux 2023, and Ubuntu 24.04.
 
 For these OSes, the following packages are required per add-on:
 
@@ -46,6 +46,11 @@ For these OSes, the following packages are required per add-on:
 | OpenEBS *\*versions 1.x and 2.x* | iscsi-initiator-utils |
 | Rook                             | lvm2 |
 | Velero                           | nfs-utils |
+
+Additionally, the `containerd` package is required for Containerd add-on installations on Amazon Linux 2023 and Ubuntu 24.04.
+
+In general, the latest versions of the packages listed above are recommended for installation.
+For instance, you do not need to match the version of the containerd package to the version of the containerd add-on.
 
 ## Disk Space Requirements
 
