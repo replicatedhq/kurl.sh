@@ -33,7 +33,7 @@
     "monaco-editor": "^0.52.0",
     "monaco-editor-webpack-plugin": "^7.1.0",
     "playwright": "^1.49.0",
-    "prop-types": "^15.7.2",
+    "prop-types": "^15.8.1",
     "puppeteer": "^7.0.4",
     "query-string": "^6.12.1",
     "react": "18.3.1",
