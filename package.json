@@ -30,7 +30,7 @@
     "gatsby-transformer-remark": "6.14.0",
     "json2yaml": "^1.1.0",
     "lodash": "^4.17.19",
-    "monaco-editor": "^0.52.0",
+    "monaco-editor": "^0.52.2",
     "monaco-editor-webpack-plugin": "^7.1.0",
     "nanoid": "^3.3.8",
     "playwright": "^1.49.0",
