@@ -82,6 +82,7 @@
     "webpack-dev-server": "^5.2.0"
   },
   "resolutions": {
-    "mkdirp": "^0.5.6"
+    "mkdirp": "^0.5.6",
+    "path-to-regexp": "^0.1.12"
   }
 }
