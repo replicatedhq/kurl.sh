@@ -21,7 +21,7 @@ title: "System Requirements"
 
 *&ast; This version is deprecated since it is no longer supported by its creator. We continue to support it, but support will be removed in the future.*
 
-> Note: Using Kurl to install a cluster on virtual machines using different Linux distributions (e.g. RHEL for the control plane nodes and Ubuntu for worker nodes) is not supported and can lead to unrecoverable situations.
+> Note: All nodes in a multi-node kURL cluster must use the same Linux distribution. Using different distributions across nodes is unsupported.
 
 ## Minimum System Requirements
 
