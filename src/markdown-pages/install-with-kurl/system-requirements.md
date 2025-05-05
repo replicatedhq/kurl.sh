@@ -21,6 +21,8 @@ title: "System Requirements"
 
 *&ast; This version is deprecated since it is no longer supported by its creator. We continue to support it, but support will be removed in the future.*
 
+> Note: All nodes in a multi-node kURL cluster must use the same Linux distribution. Using different distributions across nodes is unsupported.
+
 ## Minimum System Requirements
 
 * 4 AMD64 CPUs or equivalent per machine
