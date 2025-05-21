@@ -42,7 +42,7 @@
     "react-github-button": "^0.1.11",
     "react-helmet": "^5.2.1",
     "react-modal": "^3.11.2",
-    "react-monaco-editor": "^0.56.2",
+    "react-monaco-editor": "^0.58.0",
     "react-router-dom": "7.0.2",
     "react-select": "^3.0.5",
     "react-tooltip": "^3.11.1",

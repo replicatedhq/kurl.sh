@@ -12565,12 +12565,10 @@ react-modal@^3.11.2:
     react-lifecycles-compat "^3.0.0"
     warning "^4.0.3"
 
-react-monaco-editor@^0.56.2:
-  version "0.56.2"
-  resolved "https://registry.yarnpkg.com/react-monaco-editor/-/react-monaco-editor-0.56.2.tgz#9703424b7d956085c4b74450345cc83c8de9176c"
-  integrity sha512-Tp5U3QF9h92Cuf0eIhGd8Jyef8tPMlEJC2Dk1GeuR/hj6WoFn8AgjVX/2dv+3l5DvpMUpAECcFarc3eFKTBZ5w==
-  dependencies:
-    prop-types "^15.8.1"
+react-monaco-editor@^0.58.0:
+  version "0.58.0"
+  resolved "https://registry.yarnpkg.com/react-monaco-editor/-/react-monaco-editor-0.58.0.tgz#da2285d27d29be1080b7558c25e0fc5050e3fdfb"
+  integrity sha512-e8JH0TQEzO96Wd/EXgzc9M9tQK1pxBECD+8GNob9slMURcCM36TiVrgc4topWCDGYxRuMj8IEkaX+s3eQcUUqw==
 
 react-refresh@^0.14.0:
   version "0.14.2"
