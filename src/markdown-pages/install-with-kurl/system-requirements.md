@@ -49,7 +49,7 @@ For these OSes, the following packages are required per add-on:
 | Rook                             | lvm2 |
 | Velero                           | nfs-utils |
 
-Additionally, the `containerd` package is required for Containerd add-on installations on Amazon Linux 2023 and Ubuntu 24.04.
+Additionally, the containerd package is required for Containerd add-on installations on Amazon Linux 2023, Ubuntu 24.04, and any RHEL 9 version.
 
 In general, the latest versions of the packages listed above are recommended for installation.
 For instance, you do not need to match the version of the containerd package to the version of the containerd add-on.
