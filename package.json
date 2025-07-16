@@ -45,8 +45,7 @@
     "react-router-dom": "^7.5.2",
     "react-select": "^3.0.5",
     "react-tooltip": "^3.11.1",
-    "semver": "^7.5.2",
-    "sharp": "^0.33.5"
+    "semver": "^7.5.2"
   },
   "devDependencies": {
     "@babel/core": "^7.26.8",
@@ -84,6 +83,6 @@
   "resolutions": {
     "mkdirp": "^0.5.6",
     "path-to-regexp": "^0.1.12",
-    "sharp": "0.33.5"
+    "sharp": "^0.33.5"
   }
 }
