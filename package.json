@@ -41,7 +41,7 @@
     "react-modal": "^3.11.2",
     "react-select": "^3.2.0",
     "react-tooltip": "^3.11.1",
-    "semver": "^7.5.2"
+    "semver": "^7.7.2"
   },
   "devDependencies": {
     "@babel/core": "^7.26.8",
