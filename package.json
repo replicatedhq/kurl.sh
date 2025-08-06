@@ -39,7 +39,7 @@
     "react-github-button": "^0.1.11",
     "react-helmet": "^6.1.0",
     "react-modal": "^3.11.2",
-    "react-select": "^3.2.0",
+    "react-select": "^5.10.2",
     "react-tooltip": "^3.11.1",
     "semver": "^7.5.2"
   },
