@@ -31,7 +31,7 @@
     "json2yaml": "^1.1.0",
     "lodash": "^4.17.19",
     "monaco-editor": "^0.52.0",
-    "playwright": "^1.49.0",
+    "playwright": "^1.54.2",
     "prop-types": "^15.7.2",
     "query-string": "^9.2.0",
     "react": "18.3.1",
