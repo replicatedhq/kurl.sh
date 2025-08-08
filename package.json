@@ -52,7 +52,7 @@
     "@babel/plugin-transform-runtime": "^7.28.0",
     "autoprefixer": "^10.4.21",
     "babel-preset-gatsby": "^3.14.0",
-    "chai": "^4.3.6",
+    "chai": "^5.2.1",
     "dotenv": "^17.2.1",
     "gatsby-cli": "5.14.0",
     "identity-obj-proxy": "^3.0.0",
