@@ -4418,10 +4418,10 @@ babel-preset-fbjs@^3.4.0:
     "@babel/plugin-transform-template-literals" "^7.0.0"
     babel-plugin-syntax-trailing-function-commas "^7.0.0-beta.0"
 
-babel-preset-gatsby@^3.14.0:
-  version "3.14.0"
-  resolved "https://registry.yarnpkg.com/babel-preset-gatsby/-/babel-preset-gatsby-3.14.0.tgz#17bb148e91c93735c056c8030c34f1477dfd2926"
-  integrity sha512-yE/1gmohqy+Y/v8RYWMyJ1WLrACSkblS8LRcByeNqqBPrDAaG5T/bU1Lhc75BW8j9iLDOkLilun3fGZRu5nacA==
+babel-preset-gatsby@^3.14.0, babel-preset-gatsby@^3.15.0:
+  version "3.15.0"
+  resolved "https://registry.yarnpkg.com/babel-preset-gatsby/-/babel-preset-gatsby-3.15.0.tgz#4a816374fb468b83e056f0189b19402a6da406ad"
+  integrity sha512-09DpFsY1sN3FF44fJJLAfLqj1mLCVylbuspogUoQsnZtulqZ50UZWnK22ztrYNSjICYO1DTGe77jsu/Skj4ZKw==
   dependencies:
     "@babel/plugin-proposal-class-properties" "^7.18.6"
     "@babel/plugin-proposal-nullish-coalescing-operator" "^7.18.6"
@@ -4436,8 +4436,8 @@ babel-preset-gatsby@^3.14.0:
     babel-plugin-dynamic-import-node "^2.3.3"
     babel-plugin-macros "^3.1.0"
     babel-plugin-transform-react-remove-prop-types "^0.4.24"
-    gatsby-core-utils "^4.14.0"
-    gatsby-legacy-polyfills "^3.14.0"
+    gatsby-core-utils "^4.15.0"
+    gatsby-legacy-polyfills "^3.15.0"
 
 babel-preset-jest@30.0.1:
   version "30.0.1"
@@ -7300,10 +7300,10 @@ gatsby-graphiql-explorer@^3.14.1:
   resolved "https://registry.yarnpkg.com/gatsby-graphiql-explorer/-/gatsby-graphiql-explorer-3.14.1.tgz#592d81f64a17d429386b3dd21e026e22e7800d39"
   integrity sha512-QC6XSIIrg4wp5Tb4qE7dkMpC+XDQDDIkQ3dkxajLn8P02tHHAUDLYlJGVHKILp5QQRlTXCPqk4AFZwh21NtJBw==
 
-gatsby-legacy-polyfills@^3.14.0:
-  version "3.14.0"
-  resolved "https://registry.yarnpkg.com/gatsby-legacy-polyfills/-/gatsby-legacy-polyfills-3.14.0.tgz#45531260454c5e77f38cd1162a746ee1da4edd2d"
-  integrity sha512-CsNguwA88GgLgENx6WEuT8DDl+dus8FdedU1h43Xh9XtD8g/EjJGZk/N458+aZ32ulhuacJEexe3d9ASuEQxMQ==
+gatsby-legacy-polyfills@^3.14.0, gatsby-legacy-polyfills@^3.15.0:
+  version "3.15.0"
+  resolved "https://registry.yarnpkg.com/gatsby-legacy-polyfills/-/gatsby-legacy-polyfills-3.15.0.tgz#0e4037f4611da2720c2cdec3d3086799986f1be2"
+  integrity sha512-JbB33TyrWEoe84QvRDsMv85Y5ScPbpvJSp7E48bKXIN5peRDG+h6WVwmyo4paxSeyaajYgyRtnfP9UQaRgh2DQ==
   dependencies:
     "@babel/runtime" "^7.20.13"
     core-js-compat "3.31.0"
