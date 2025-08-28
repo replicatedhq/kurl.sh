@@ -2272,15 +2272,7 @@
   resolved "https://registry.yarnpkg.com/@jridgewell/sourcemap-codec/-/sourcemap-codec-1.5.4.tgz#7358043433b2e5da569aa02cbc4c121da3af27d7"
   integrity sha512-VT2+G1VQs/9oz078bLrYbecdZKs912zQlkelYpuf+SXF+QvZDYJlbx/LSx+meSAwdDFnF8FVXW92AVjjkVmgFw==
 
-"@jridgewell/trace-mapping@^0.3.12", "@jridgewell/trace-mapping@^0.3.18", "@jridgewell/trace-mapping@^0.3.24", "@jridgewell/trace-mapping@^0.3.25", "@jridgewell/trace-mapping@^0.3.28":
-  version "0.3.29"
-  resolved "https://registry.yarnpkg.com/@jridgewell/trace-mapping/-/trace-mapping-0.3.29.tgz#a58d31eaadaf92c6695680b2e1d464a9b8fbf7fc"
-  integrity sha512-uw6guiW/gcAGPDhLmd77/6lW8QLeiV5RUTsAX46Db6oLhGaVj4lhnPwb184s1bkc8kdVg/+h988dro8GRDpmYQ==
-  dependencies:
-    "@jridgewell/resolve-uri" "^3.1.0"
-    "@jridgewell/sourcemap-codec" "^1.4.14"
-
-"@jridgewell/trace-mapping@^0.3.23":
+"@jridgewell/trace-mapping@^0.3.12", "@jridgewell/trace-mapping@^0.3.18", "@jridgewell/trace-mapping@^0.3.23", "@jridgewell/trace-mapping@^0.3.24", "@jridgewell/trace-mapping@^0.3.25", "@jridgewell/trace-mapping@^0.3.28":
   version "0.3.30"
   resolved "https://registry.yarnpkg.com/@jridgewell/trace-mapping/-/trace-mapping-0.3.30.tgz#4a76c4daeee5df09f5d3940e087442fb36ce2b99"
   integrity sha512-GQ7Nw5G2lTu/BtHTKfXhKHok2WGetd4XYcVKGx00SjAk8GMwgJM3zr6zORiPGuOE+/vkc90KtTosSSvaCjKb2Q==
@@ -5313,10 +5305,10 @@ cosmiconfig@^7.0.0:
     path-type "^4.0.0"
     yaml "^1.10.0"
 
-create-gatsby@^3.14.0:
-  version "3.14.0"
-  resolved "https://registry.yarnpkg.com/create-gatsby/-/create-gatsby-3.14.0.tgz#5934709d48b6d3a7ca32466b15349ba5de3359a2"
-  integrity sha512-HR90NlcTIAeo7OwcFfGubKa35+/Aj7lEfgcV4n4IIPCMy3A+gYwOEQcLIGtmPCVIl1C9AhT3/0XaWbnhAcbyGQ==
+create-gatsby@^3.15.0:
+  version "3.15.0"
+  resolved "https://registry.yarnpkg.com/create-gatsby/-/create-gatsby-3.15.0.tgz#58ead0d77025eda59e72c3d1e9dbdbc090ed470c"
+  integrity sha512-EjScC6GRDvL/mgbURFxv7gCkJmNqU1q+pptKx2ry11JbSzx1vvFIFXpiID3JxuM3fCzPcqh2GnCPUk+PU7lvLg==
   dependencies:
     "@babel/runtime" "^7.20.13"
 
@@ -7235,10 +7227,10 @@ functions-have-names@^1.2.3:
   resolved "https://registry.yarnpkg.com/functions-have-names/-/functions-have-names-1.2.3.tgz#0404fe4ee2ba2f607f0e0ec3c80bae994133b834"
   integrity sha512-xckBUXyTIqT97tq2x2AMb+g163b5JFysYk0x4qxNFwbfQkmNZoiRHb6sPzI9/QV33WeuvVYBUIiD4NzNIyqaRQ==
 
-gatsby-cli@5.14.0, gatsby-cli@^5.14.0:
-  version "5.14.0"
-  resolved "https://registry.yarnpkg.com/gatsby-cli/-/gatsby-cli-5.14.0.tgz#dee48b233b1686be7fa27b0f6f9d71c7748a88be"
-  integrity sha512-NvsWsuZdpNRStmDsNZaYveifFrFqFNy4rnFCLAWWghyxUks8qhGwy6wrz2kcUK+Y2sRJJn1eIjgwzi1AyFn5fQ==
+gatsby-cli@5.15.0, gatsby-cli@^5.14.0:
+  version "5.15.0"
+  resolved "https://registry.yarnpkg.com/gatsby-cli/-/gatsby-cli-5.15.0.tgz#5aef86de91c7afbdfa185802fd9c2c1ef9e0fc63"
+  integrity sha512-wTUAc2rNr39s7PDO1EaFOBbFmgfuEJ4hdJfh0b/0zd5FMHep+8Z7Kp6/B9KWhHOhHFkFasL7jgZozin4y3QGdg==
   dependencies:
     "@babel/code-frame" "^7.18.6"
     "@babel/core" "^7.20.12"
@@ -7256,12 +7248,12 @@ gatsby-cli@5.14.0, gatsby-cli@^5.14.0:
     clipboardy "^4.0.0"
     common-tags "^1.8.2"
     convert-hrtime "^3.0.0"
-    create-gatsby "^3.14.0"
+    create-gatsby "^3.15.0"
     envinfo "^7.10.0"
     execa "^5.1.1"
     fs-exists-cached "^1.0.0"
     fs-extra "^11.2.0"
-    gatsby-core-utils "^4.14.0"
+    gatsby-core-utils "^4.15.0"
     hosted-git-info "^3.0.8"
     is-valid-path "^0.1.1"
     joi "^17.9.2"
@@ -7281,10 +7273,10 @@ gatsby-cli@5.14.0, gatsby-cli@^5.14.0:
     yoga-layout-prebuilt "^1.10.0"
     yurnalist "^2.1.0"
 
-gatsby-core-utils@^4.0.0, gatsby-core-utils@^4.14.0:
-  version "4.14.0"
-  resolved "https://registry.yarnpkg.com/gatsby-core-utils/-/gatsby-core-utils-4.14.0.tgz#d044327b9399f0449674f8abf1037d1a3ab4e84e"
-  integrity sha512-h0v20gB213PmhKjioCJ93SrUb7Hihnqxd6X6Iur4u1eiWTUDsGeV9g1bkquiuDl2qovUnjj7mOoHdWiu/Ax/9Q==
+gatsby-core-utils@^4.0.0, gatsby-core-utils@^4.14.0, gatsby-core-utils@^4.15.0:
+  version "4.15.0"
+  resolved "https://registry.yarnpkg.com/gatsby-core-utils/-/gatsby-core-utils-4.15.0.tgz#7c644f1587a47b14a0209e7d2894451e14a7514c"
+  integrity sha512-fxzHbCvQm1u74DSjy7G4PVqEcWb7sOCFg3kFFVUqVKe3hDCm6s1M/gRSvpm3/3fm74HhgLsmQ54Qaf54Ckyn9w==
   dependencies:
     "@babel/runtime" "^7.20.13"
     ci-info "2.0.0"
