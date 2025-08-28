@@ -10,6 +10,27 @@ updates:
     schedule:
       interval: "daily"
     open-pull-requests-limit: 25
+    groups:
+      security:
+        update-types:
+          - "patch"
+      gatsby:
+        patterns:
+          - "gatsby"
+          - "gatsby-*"
+      bugsnag:
+        patterns:
+          - "@bugsnag/*"
+      docsearch:
+        patterns:
+          - "docsearch*"
+      react:
+        patterns:
+          - "react"
+          - "react-dom"
+      "babel":
+        patterns:
+          - "@babel/*"
 
   - package-ecosystem: "github-actions"
     directory: "/"
