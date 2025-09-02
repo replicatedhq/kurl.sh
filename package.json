@@ -56,7 +56,7 @@
     "dotenv": "^17.2.1",
     "gatsby-cli": "5.15.0",
     "identity-obj-proxy": "^3.0.0",
-    "jest": "^30.1.1",
+    "jest": "^30.1.2",
     "sass": "^1.91.0"
   },
   "resolutions": {
