@@ -57,7 +57,7 @@
     "gatsby-cli": "5.15.0",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^30.1.3",
-    "sass": "^1.91.0"
+    "sass": "^1.92.0"
   },
   "resolutions": {
     "mkdirp": "^0.5.6",
