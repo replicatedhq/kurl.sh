@@ -1480,27 +1480,23 @@
   resolved "https://registry.yarnpkg.com/@chevrotain/utils/-/utils-11.0.3.tgz#e39999307b102cff3645ec4f5b3665f5297a2224"
   integrity sha512-YslZMgtJUyuMbZ+aKvfF3x1f5liK4mWNxghFRv7jqRR9C3R3fAOGTTKvxXDa2Y1s9zSbcpuO0cAxDYsc9SrXoQ==
 
-"@docsearch/css@4.0.0":
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/@docsearch/css/-/css-4.0.0.tgz#0b1324e487204ade7e8eba9cb03e65a119618052"
-  integrity sha512-IH5bLEJCbrsHdWUswddMziv3ejGGpADuvnn6dpIXJC6aglZT3qIeQzZmEcENj3yz8VNLSXpIXlb7u1J1zT4iFw==
-
-"@docsearch/css@^4.0.1":
+"@docsearch/css@4.0.1", "@docsearch/css@^4.0.1":
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/@docsearch/css/-/css-4.0.1.tgz#970436628cf03ba816ed6e4269cc866e9853bb0d"
   integrity sha512-ouRI2SEwAg8qBqX4S3zfm4OJ/07o9Is7TzivNGkqP7FtYU4W0qgigumWkPbYvDwtG0koZw2ZebpcQiEpkCyv+g==
 
 "@docsearch/react@4":
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/@docsearch/react/-/react-4.0.0.tgz#b17dada4a1b5d5eab01cc72048e699e563b182d5"
-  integrity sha512-930rwFziMrtAvycvSGx+HtE/5DzZfxin/NhDH+UQiIjmAFxGFX1W19iXwrWAXooeINF3TXr9Zlv57tZDYZ231g==
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/@docsearch/react/-/react-4.0.1.tgz#337bc73a00e20036aa989af4c00869104195d672"
+  integrity sha512-X/0mSdAt2/8el0sTBpSQJM8XKRlCLmITaWYZf9gLLqiN3eXdglOtt3cH7RjTQDS75REwmhadKzQIjFF8mbmf+A==
   dependencies:
     "@ai-sdk/react" "^2.0.30"
     "@algolia/autocomplete-core" "1.19.2"
-    "@docsearch/css" "4.0.0"
+    "@docsearch/css" "4.0.1"
     ai "^5.0.30"
     algoliasearch "^5.28.0"
     marked "^15.0.12"
+    zod "^4.1.8"
 
 "@emnapi/core@^1.4.3":
   version "1.4.5"
@@ -14192,6 +14188,11 @@ yurnalist@^2.1.0:
     is-ci "^2.0.0"
     read "^1.0.7"
     strip-ansi "^5.2.0"
+
+zod@^4.1.8:
+  version "4.1.9"
+  resolved "https://registry.yarnpkg.com/zod/-/zod-4.1.9.tgz#c03a0ddb10f5578f13f8f70f1959f89fd09c1c06"
+  integrity sha512-HI32jTq0AUAC125z30E8bQNz0RQ+9Uc+4J7V97gLYjZVKRjeydPgGt6dvQzFrav7MYOUGFqqOGiHpA/fdbd0cQ==
 
 zwitch@^1.0.0:
   version "1.0.5"
