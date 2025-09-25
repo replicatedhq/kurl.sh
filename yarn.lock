@@ -1390,17 +1390,17 @@
   resolved "https://registry.yarnpkg.com/@braintree/sanitize-url/-/sanitize-url-7.1.1.tgz#15e19737d946559289b915e5dad3b4c28407735e"
   integrity sha512-i1L7noDNxtFyL5DmZafWy1wRVhGehQmzZaz1HiN5e7iylJMSZR7ekOV7NsIqa5qBldlLrsKv4HbgFUVlQrz8Mw==
 
-"@bugsnag/browser@^8.4.0":
-  version "8.4.0"
-  resolved "https://registry.yarnpkg.com/@bugsnag/browser/-/browser-8.4.0.tgz#0d8bb0a6ab8b9dc56ded0338341d292a9a1e3668"
-  integrity sha512-5ZzGZtCwvhQbrMCAPAH9ruQGjVmSzjiE6qNNP2mD/8q0Yi45TWBtG/0MdlUYpDwx2lxVVHaGHqI3GBeD7B4Hqg==
+"@bugsnag/browser@^8.6.0":
+  version "8.6.0"
+  resolved "https://registry.yarnpkg.com/@bugsnag/browser/-/browser-8.6.0.tgz#2914fa32846f6e3140bf3f0626ad689325db662b"
+  integrity sha512-7UGqTGnQqXUQ09gOlWbDTFUSbeLIIrP+hML3kTOq8Zdc8nP/iuOEflXGLV2TxWBWW8xIUPc928caFPr9EcaDuw==
   dependencies:
-    "@bugsnag/core" "^8.4.0"
+    "@bugsnag/core" "^8.6.0"
 
-"@bugsnag/core@^8.4.0":
-  version "8.4.0"
-  resolved "https://registry.yarnpkg.com/@bugsnag/core/-/core-8.4.0.tgz#ae534215dc0a058cd0d7e7b8fc82f7e6022b233b"
-  integrity sha512-vmGNO5gQ2qP5CE6/RzIzO2X/5oJCQGrhdUc6OwpEf4CytPidpk9LNCkscvOx9iT9Ym3USKSo7DeZhtnhFP0KKQ==
+"@bugsnag/core@^8.6.0":
+  version "8.6.0"
+  resolved "https://registry.yarnpkg.com/@bugsnag/core/-/core-8.6.0.tgz#b621927215862d610b8b4509b284cf9b0e143438"
+  integrity sha512-94Jo443JegaiKV8z8NXMFdyTGubiUnwppWhq3kG2ldlYKtEvrmIaO5+JA58B6oveySvoRu3cCe2W9ysY7G7mDw==
   dependencies:
     "@bugsnag/cuid" "^3.0.0"
     "@bugsnag/safe-json-stringify" "^6.0.0"
@@ -1413,20 +1413,20 @@
   resolved "https://registry.yarnpkg.com/@bugsnag/cuid/-/cuid-3.2.1.tgz#e0b2ec12bfeb51ed9c85900b12f58d5b8c253249"
   integrity sha512-zpvN8xQ5rdRWakMd/BcVkdn2F8HKlDSbM3l7duueK590WmI1T0ObTLc1V/1e55r14WNjPd5AJTYX4yPEAFVi+Q==
 
-"@bugsnag/js@^8.4.0":
-  version "8.4.0"
-  resolved "https://registry.yarnpkg.com/@bugsnag/js/-/js-8.4.0.tgz#442ada56991a129a7d72700f08b3ca7f88abebd5"
-  integrity sha512-r8M+kgNts3ebR7g9Kct2wuaipcxDEvrBwnBugJfHFRwelyysz5ZBkFAvpatSm71LyLTv/9FyvWKEVgXwV7dTBQ==
+"@bugsnag/js@^8.6.0":
+  version "8.6.0"
+  resolved "https://registry.yarnpkg.com/@bugsnag/js/-/js-8.6.0.tgz#e631daf0ad4d332385598a3ad85189feee4567ec"
+  integrity sha512-U+ofNTTMA2Z6tCrOhK/QhHBhLoQHoalk8Y82WWc7FAcVSoJZYadND/QuXUriNRZpC4YgJ/s/AxPeQ2y+WvMxzw==
   dependencies:
-    "@bugsnag/browser" "^8.4.0"
-    "@bugsnag/node" "^8.4.0"
+    "@bugsnag/browser" "^8.6.0"
+    "@bugsnag/node" "^8.6.0"
 
-"@bugsnag/node@^8.4.0":
-  version "8.4.0"
-  resolved "https://registry.yarnpkg.com/@bugsnag/node/-/node-8.4.0.tgz#a0db04d33cd714e20bb555b27089cfd38adb98ab"
-  integrity sha512-yqlFTvJNRwnp8jQczfgBztAhSKFc5vr9CHTUDbB72gBgCzQVQ7q16MX0tIHZVeL1Mo1Zywr9rvcPG/HBAPTuOw==
+"@bugsnag/node@^8.6.0":
+  version "8.6.0"
+  resolved "https://registry.yarnpkg.com/@bugsnag/node/-/node-8.6.0.tgz#02734f1cb9a57dd1cbb0a4a1a16375bf1f7fe66e"
+  integrity sha512-O91sELo6zBjflVeP3roRC9l68iYaafVs5lz2N0FDkrT08mP2UljtNWpjjoR/0h1so5Ny1OxHgnZ1IrsXhz5SMQ==
   dependencies:
-    "@bugsnag/core" "^8.4.0"
+    "@bugsnag/core" "^8.6.0"
     byline "^5.0.0"
     error-stack-parser "^2.0.3"
     iserror "^0.0.2"
