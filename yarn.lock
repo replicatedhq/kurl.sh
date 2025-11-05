@@ -1485,10 +1485,15 @@
   resolved "https://registry.yarnpkg.com/@chevrotain/utils/-/utils-11.0.3.tgz#e39999307b102cff3645ec4f5b3665f5297a2224"
   integrity sha512-YslZMgtJUyuMbZ+aKvfF3x1f5liK4mWNxghFRv7jqRR9C3R3fAOGTTKvxXDa2Y1s9zSbcpuO0cAxDYsc9SrXoQ==
 
-"@docsearch/css@4.2.0", "@docsearch/css@^4.0.1":
+"@docsearch/css@4.2.0":
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/@docsearch/css/-/css-4.2.0.tgz#473bb4c51f4b2b037a71f423e569907ab19e6d72"
   integrity sha512-65KU9Fw5fGsPPPlgIghonMcndyx1bszzrDQYLfierN+Ha29yotMHzVS94bPkZS6On9LS8dE4qmW4P/fGjtCf/g==
+
+"@docsearch/css@^4.3.1":
+  version "4.3.1"
+  resolved "https://registry.yarnpkg.com/@docsearch/css/-/css-4.3.1.tgz#bcb1115f3b65d41b61d30df0c9465b735c1fb28d"
+  integrity sha512-Jnct7LKOi/+Oxbmq215YPYASkMdZqtyyDCkma8Cj4sCcbBuybL6fvyBaX7uJoM6kVF7aIpBA38RhHAyN5ByCHg==
 
 "@docsearch/react@4":
   version "4.2.0"
