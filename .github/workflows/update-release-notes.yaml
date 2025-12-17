@@ -24,7 +24,7 @@ jobs:
         sed -i "s/__VERSION__/$KURL_VERSION/g" ./content/release-notes/${KURL_VERSION}.md
 
     - name: Create Pull Request # creates a PR if there are differences
-      uses: peter-evans/create-pull-request@v7
+      uses: peter-evans/create-pull-request@v8
       id: cpr
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
