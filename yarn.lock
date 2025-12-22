@@ -1490,10 +1490,15 @@
   resolved "https://registry.yarnpkg.com/@docsearch/core/-/core-4.3.1.tgz#88a97a6fe4d4025269b6dee8b9d070b76758ad82"
   integrity sha512-ktVbkePE+2h9RwqCUMbWXOoebFyDOxHqImAqfs+lC8yOU+XwEW4jgvHGJK079deTeHtdhUNj0PXHSnhJINvHzQ==
 
-"@docsearch/css@4.3.2", "@docsearch/css@^4.3.2":
+"@docsearch/css@4.3.2":
   version "4.3.2"
   resolved "https://registry.yarnpkg.com/@docsearch/css/-/css-4.3.2.tgz#d47d25336c9516b419245fa74e8dd5ae84a17492"
   integrity sha512-K3Yhay9MgkBjJJ0WEL5MxnACModX9xuNt3UlQQkDEDZJZ0+aeWKtOkxHNndMRkMBnHdYvQjxkm6mdlneOtU1IQ==
+
+"@docsearch/css@^4.4.0":
+  version "4.4.0"
+  resolved "https://registry.yarnpkg.com/@docsearch/css/-/css-4.4.0.tgz#b8eebd21a1f79720bf037fda5242b910367f157e"
+  integrity sha512-e9vPgtih6fkawakmYo0Y6V4BKBmDV7Ykudn7ADWXUs5b6pmtBRwDbpSG/WiaUG63G28OkJDEnsMvgIAnZgGwYw==
 
 "@docsearch/react@4":
   version "4.3.2"
