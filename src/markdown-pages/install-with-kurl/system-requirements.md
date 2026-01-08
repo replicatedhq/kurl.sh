@@ -13,8 +13,8 @@ title: "System Requirements"
 * Ubuntu 22.04 (Requires Containerd version >= 1.5.10 or Docker version >= 20.10.17)
 * Ubuntu 24.04 (Requires that the Containerd package be preinstalled on the host)
 * CentOS 7.4<sup>\*</sup>, 7.5<sup>\*</sup>, 7.6<sup>\*</sup>, 7.7<sup>\*</sup>, 7.8<sup>\*</sup>, 7.9<sup>\*</sup>, 8.0<sup>\*</sup>, 8.1<sup>\*</sup>, 8.2<sup>\*</sup>, 8.3<sup>\*</sup>, 8.4<sup>\*</sup> (CentOS 8.x requires Containerd)
-* RHEL 7.4<sup>\*</sup>, 7.5<sup>\*</sup>, 7.6<sup>\*</sup>, 7.7<sup>\*</sup>, 7.8<sup>\*</sup>, 7.9<sup>\*</sup>, 8.0<sup>\*</sup>, 8.1<sup>\*</sup>, 8.2<sup>\*</sup>, 8.3<sup>\*</sup>, 8.4<sup>\*</sup>, 8.5<sup>\*</sup>, 8.6, 8.7<sup>\*</sup>, 8.8, 8.9, 8.10, 9.0, 9.1<sup>\*</sup>, 9.2, 9.3, 9.4, 9.5, 9.6 (RHEL 8.x and 9.x require Containerd)
-* Rocky Linux 9.0<sup>\*</sup>, 9.1<sup>\*</sup>, 9.2, 9.3, 9.4, 9.5, 9.6 (Rocky Linux 9.x requires Containerd)
+* RHEL 7.4<sup>\*</sup>, 7.5<sup>\*</sup>, 7.6<sup>\*</sup>, 7.7<sup>\*</sup>, 7.8<sup>\*</sup>, 7.9<sup>\*</sup>, 8.0<sup>\*</sup>, 8.1<sup>\*</sup>, 8.2<sup>\*</sup>, 8.3<sup>\*</sup>, 8.4<sup>\*</sup>, 8.5<sup>\*</sup>, 8.6, 8.7<sup>\*</sup>, 8.8, 8.9, 8.10, 9.0, 9.1<sup>\*</sup>, 9.2, 9.3, 9.4, 9.5, 9.6, 9.7 (RHEL 8.x and 9.x require Containerd)
+* Rocky Linux 9.0<sup>\*</sup>, 9.1<sup>\*</sup>, 9.2, 9.3, 9.4, 9.5, 9.6, 9.7 (Rocky Linux 9.x requires Containerd)
 * Oracle Linux 7.4<sup>\*</sup>, 7.5<sup>\*</sup>, 7.6<sup>\*</sup>, 7.7<sup>\*</sup>, 7.8<sup>\*</sup>, 7.9, 8.0<sup>\*</sup>, 8.1<sup>\*</sup>, 8.2<sup>\*</sup>, 8.3<sup>\*</sup>, 8.4<sup>\*</sup>, 8.5<sup>\*</sup>, 8.6<sup>\*</sup>, 8.7<sup>\*</sup>, 8.8<sup>\*</sup>, 8.9<sup>\*</sup>, 8.10 (OL 8.x requires Containerd)
 * Amazon Linux 2
 * Amazon Linux 2023 (Requires that the Containerd package be preinstalled on the host)
