@@ -1,7 +1,8 @@
 import * as React from "react";
 import { Link } from "gatsby";
 
-import ReactTooltip from "react-tooltip";
+import { Tooltip } from "react-tooltip";
+import "react-tooltip/dist/react-tooltip.css";
 import json2yaml from "json2yaml";
 import isEmpty from "lodash/isEmpty";
 import find from "lodash/find";
@@ -970,10 +971,10 @@ class Kurlsh extends React.Component {
                         {data.flag !== "version" && data.flag}
                       </span>
                     </label>
-                    <ReactTooltip id={`tt_${addOn}_${data.flag}`}>
+                    <Tooltip id={`tt_${addOn}_${data.flag}`}>
                       {option.description}
-                    </ReactTooltip>
-                    <span data-tip data-for={`tt_${addOn}_${data.flag}`} className="icon clickable u-questionMarkCircle u-marginLeft--normal u-marginRight--normal"></span>
+                    </Tooltip>
+                    <span data-tooltip-id={`tt_${addOn}_${data.flag}`} className="icon clickable u-questionMarkCircle u-marginLeft--normal u-marginRight--normal"></span>
                   </div>
                   {option.type === "string" || option.type === "array[string]" || option.type === "number" ?
                     <div>
