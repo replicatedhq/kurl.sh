@@ -5,22 +5,28 @@ on:
     branches:
       - main
 
+permissions:
+  pull-requests: write
+
 jobs:
 
   deploy-staging-netlify:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
         with:
-          node-version: 16
+          node-version: 20
           cache: yarn
-
+      - name: dependencies
+        run: make deps
+      - name: playwright
+        run: npx playwright install --with-deps
       - name: build
-        run: make deps build-staging
+        run: make build-staging
 
       - name: release
-        uses: nwtgck/actions-netlify@v2.0
+        uses: nwtgck/actions-netlify@v3.0
         with:
           publish-dir: public
           production-branch: main

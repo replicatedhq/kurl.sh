@@ -8,48 +8,58 @@ title: "System Requirements"
 
 ## Supported Operating Systems
 
-* Ubuntu 18.04
-* Ubuntu 20.04 (Docker version >= 19.03.10)
-* Ubuntu 22.04 (Requires Containerd version >= 1.5.10 or Docker version >= 20.10.17. Collectd add-ons are not supported.)
-* CentOS 7.4<sup>\*</sup>, 7.5<sup>\*</sup>, 7.6<sup>\*</sup>, 7.7<sup>\*</sup>, 7.8<sup>\*</sup>, 7.9, 8.0<sup>\*</sup>, 8.1<sup>\*</sup>, 8.2<sup>\*</sup>, 8.3<sup>\*</sup>, 8.4<sup>\*</sup> (CentOS 8.x requires Containerd)
-* RHEL 7.4<sup>\*</sup>, 7.5<sup>\*</sup>, 7.6<sup>\*</sup>, 7.7<sup>\*</sup>, 7.8<sup>\*</sup>, 7.9, 8.0<sup>\*</sup>, 8.1, 8.2, 8.3, 8.4, 8.5, 8.6, 8.7, 8.8, 9.0, 9.1, 9.2 (RHEL 8.x and 9.x require Containerd)
-* Rocky Linux 9.0, 9.1, 9.2 (Rocky Linux 9.x requires Containerd)
-* Oracle Linux 7.4<sup>\*</sup>, 7.5<sup>\*</sup>, 7.6<sup>\*</sup>, 7.7<sup>\*</sup>, 7.8<sup>\*</sup>, 7.9, 8.0<sup>\*</sup>, 8.1, 8.2, 8.3, 8.4, 8.5, 8.6, 8.7, 8.8 (OL 8.x requires Containerd)
+* Ubuntu 18.04<sup>\*</sup>
+* Ubuntu 20.04 (Requires Docker version >= 19.03.10)
+* Ubuntu 22.04 (Requires Containerd version >= 1.5.10 or Docker version >= 20.10.17)
+* Ubuntu 24.04 (Requires that the Containerd package be preinstalled on the host)
+* CentOS 7.4<sup>\*</sup>, 7.5<sup>\*</sup>, 7.6<sup>\*</sup>, 7.7<sup>\*</sup>, 7.8<sup>\*</sup>, 7.9<sup>\*</sup>, 8.0<sup>\*</sup>, 8.1<sup>\*</sup>, 8.2<sup>\*</sup>, 8.3<sup>\*</sup>, 8.4<sup>\*</sup> (CentOS 8.x requires Containerd)
+* RHEL 7.4<sup>\*</sup>, 7.5<sup>\*</sup>, 7.6<sup>\*</sup>, 7.7<sup>\*</sup>, 7.8<sup>\*</sup>, 7.9<sup>\*</sup>, 8.0<sup>\*</sup>, 8.1<sup>\*</sup>, 8.2<sup>\*</sup>, 8.3<sup>\*</sup>, 8.4<sup>\*</sup>, 8.5<sup>\*</sup>, 8.6, 8.7<sup>\*</sup>, 8.8, 8.9, 8.10, 9.0, 9.1<sup>\*</sup>, 9.2, 9.3, 9.4, 9.5, 9.6, 9.7 (RHEL 8.x and 9.x require Containerd)
+* Rocky Linux 9.0<sup>\*</sup>, 9.1<sup>\*</sup>, 9.2, 9.3, 9.4, 9.5, 9.6, 9.7 (Rocky Linux 9.x requires Containerd)
+* Oracle Linux 7.4<sup>\*</sup>, 7.5<sup>\*</sup>, 7.6<sup>\*</sup>, 7.7<sup>\*</sup>, 7.8<sup>\*</sup>, 7.9, 8.0<sup>\*</sup>, 8.1<sup>\*</sup>, 8.2<sup>\*</sup>, 8.3<sup>\*</sup>, 8.4<sup>\*</sup>, 8.5<sup>\*</sup>, 8.6<sup>\*</sup>, 8.7<sup>\*</sup>, 8.8<sup>\*</sup>, 8.9<sup>\*</sup>, 8.10 (OL 8.x requires Containerd)
 * Amazon Linux 2
+* Amazon Linux 2023 (Requires that the Containerd package be preinstalled on the host)
 
 *&ast; This version is deprecated since it is no longer supported by its creator. We continue to support it, but support will be removed in the future.*
+
+> Note: All nodes in a multi-node kURL cluster must use the same Linux distribution. Using different distributions across nodes is unsupported.
 
 ## Minimum System Requirements
 
 * 4 AMD64 CPUs or equivalent per machine
 * 8 GB of RAM per machine
-* 100 GB of Disk Space per machine
+* 256 GB of Disk Space per machine
   *(For more specific requirements see [Disk Space Requirements](#disk-space-requirements) below)*
 * TCP ports 2379, 2380, 6443, 10250, 10257 and 10259 and UDP port 8472 (Flannel VXLAN) open between cluster nodes
   *(For more specific add-on requirements see [Networking Requirements](#networking-requirements) below)*
 
 ## Host Package Requirements
 
-Host packages are bundled and installed by kURL without the need for external package repositories except for in the case of Red Hat Enterprise Linux 9 and Rocky Linux 9.
+Host packages are bundled and installed by kURL without the need for external package repositories except for in the case of Red Hat Enterprise Linux 9, Rocky Linux 9, Amazon Linux 2023, and Ubuntu 24.04.
 
 For these OSes, the following packages are required per add-on:
 
 | Add-on                           | Packages |
 | -------------------------------- | -------- |
-| * kURL Core                      | curl openssl tar |
+| * kURL Core                      | curl openssl tar fio |
 | Collectd                         | bash glibc libcurl libcurl-minimal libgcrypt libgpg-error libmnl openssl-libs rrdtool systemd systemd-libs yajl |
-| Containerd                       | bash libseccomp libzstd systemd |
+| Containerd                       | container-selinux bash libseccomp libzstd systemd |
 | Kubernetes                       | conntrack-tools ethtool glibc iproute iptables-nft socat util-linux                     |
 | Longhorn                         | iscsi-initiator-utils nfs-utils |
 | OpenEBS *\*versions 1.x and 2.x* | iscsi-initiator-utils |
 | Rook                             | lvm2 |
 | Velero                           | nfs-utils |
 
+Additionally, the containerd package is required for Containerd add-on installations on Amazon Linux 2023, Ubuntu 24.04, and any RHEL 9 version.
+
+In general, the latest versions of the packages listed above are recommended for installation.
+For instance, you do not need to match the version of the containerd package to the version of the containerd add-on.
+
 ## Disk Space Requirements
 
-### Core Requirements
+### Per Node Disk Space
 
-The following table lists information about the core directory requirements.
+256 GB of disk space per node is strongly recommended to accommodate growth and optimal performance. At minimum, kURL requires 100 GB of disk space per node.
+It is important to note that disk usage can vary based on container image sizes, ephemeral data, and specific application requirements.
 
 | Name           | Location             | Requirements       | Description |
 | -------------- | -------------------- | ------------------ | ----------- |
@@ -61,56 +71,73 @@ The following table lists information about the core directory requirements.
 | Root Disk      | /                    | 100 GB             | Based on the aggregate requirements above and the fact that Kubernetes will start to reclaim space at 85% full disk, the minimum recommended root partition is 100 GB. See details above for each component. |
 | Temp storage   | /tmp                 | Variable           | In an airgapped installation, the temp directory `/tmp` is used to unpack the airgap image bundle before uploading to a registry.  The temp directory must be sized accordingly; we recommend twice the size of the airgap bundle size containing application images. The temp directory can be overridden by setting the `TMPDIR` environment variable before installing your application with `kots install`.  E.g. `TMPDIR=/mnt/bigdisk/tmp kubectl kots install APP_NAME --license-file PATH_TO_LICENSE --airgap-bundle PATH_TO_AIRGAP_BUNDLE` |
 
-*&ast; This requirement depends on the size of the container images and the amount of ephemeral data used by your application containers.*
+### Storage Provisioner Add-Ons
 
-*&ast;&ast; This requirement can vary depending on your choice of kURL add-ons and can grow over time.*
+Informational Note: **OpenEBS** is configured to allocate its Persistent Volumes within the `/var/openebs/local/` directory, signifying that this specific location is utilized for the storage of data by applications that are actively running on the Kurl platform.
 
-In addition to the storage requirements, the Kubernetes [garbage collection](https://kubernetes.io/docs/concepts/architecture/garbage-collection/) process attempts to ensure that the Node and Image filesystems do not reach their minimum available disk space [thresholds](https://kubernetes.io/docs/concepts/scheduling-eviction/node-pressure-eviction/#hard-eviction-thresholds) of 10% and 15% respectively.
-For this reason, kURL recommends an additional 20% overhead on top of these disk space requirements for the volume or volumes containing the directories /var/lib/kubelet/ and /var/lib/containerd/.
-For more information see the Kubernetes [Reclaiming node level resources](https://kubernetes.io/docs/concepts/scheduling-eviction/node-pressure-eviction/#reclaim-node-resources) documentation.
+**Rook** add-on, starting from version 1.4.3, requires each node within the cluster to be equipped with an unformatted storage device, which is designated for the storage of Ceph volumes.
+Comprehensive information and guidelines regarding this setup are available in the [Rook Block Storage](https://kurl.sh/docs/add-ons/rook#block-storage) documentation.
+For Rook versions 1.0.x Persistent Volumes are provisioned on `/opt/replicated/rook/` directory.
 
-### Add-on Requirements
+### On Disk Partitioning
 
-The following table lists the add-on directory locations and disk space requirements, if applicable. For any additional requirements, see the specific topic for the add-on.
+We advise against configuring the system with multiple mount points.
+Experience has shown that utilizing distinct partitions for directories, such as `/var`, often leads to unnecessary complications.
+Usage of *symbolic links* **is not recommended** in any scenario.
 
-| Name     | Location             | Requirements  | Description |
-| -------- | -------------------- | ------------- | ----------- |
-| Docker   | /var/lib/docker/     | *30 GB &ast;* | Images, containers and volumes, and more will be kept in this location. See the [Docker Storage documentation](https://docs.docker.com/storage/) for more information. When using the Docker runtime, /var/lib/containerd/ is not required. |
-| Docker   | /var/lib/dockershim/ | N/A           | Kubernetes dockershim data directory |
-| Weave    | /var/lib/cni/        | N/A           | Container networking data directory |
-| Weave    | /var/lib/weave/      | N/A           | Weave data directory |
-| Rook     | /var/lib/rook/       | 10 GB         | Ceph monitor metadata directory. See the [ceph-mon Minimum Hardware Recommendations](https://docs.ceph.com/en/quincy/start/hardware-recommendations/#minimum-hardware-recommendations) for more information. |
-| Registry | *PVC &ast;&ast;*     | N/A           | Stores container images only in airgapped clusters. Data will be stored in Persistent Volumes. |
-| Velero   | *PVC &ast;&ast;*     | N/A           | Stores snapshot data. Data will be stored in Persistent Volumes. |
-
-*&ast; This requirement depends on the size of the container images and the amount of ephemeral data used by your application containers.*
-
-*&ast;&ast; Data will be stored in Persistent Volumes. Requirements depend on the provisioner of choice. See [Persistent Volume Requirements](#persistent-volume-requirements) for more information.*
-
-### Persistent Volume Requirements
-
-Depending on the amount of persistent data stored by your application, you will need to allocate enough disk space at the following location dependent on your PVC provisioner or provisioners.
-
-| Name                 | Location              | Description |
-| -------------------- | --------------------- | ----------- |
-| OpenEBS              | /var/openebs/local/   | OpenEBS Local PV Hostpath volumes will be created under this directory. See the [OpenEBS Add-on](/docs/add-ons/openebs) documentation for more information. |
-| Rook (Block Storage) |                       | Rook add-on version 1.4.3 and later requires an unformatted storage device on each node in the cluster for Ceph volumes. See the [Rook Block Storage](/docs/add-ons/rook#block-storage) documentation for more information. |
-| Rook (version 1.0.x) | /opt/replicated/rook/ | Rook Filesystem volumes will be created under this directory. See the [Rook Filesystem Storage](/docs/add-ons/rook#filesystem-storage) documentation for more information. |
-| Longhorn             | /var/lib/longhorn/    | Longhorn volumes will be created under this directory. See the [Longhorn Add-on](/docs/add-ons/longhorn) documentation for more information. |
+Should it be required, the directories utilized by the selected Storage Provisioner (for example, `/var/openebs/local` in the case of OpenEBS) can be set up to mount from a separate partition.
+This configuration should be established **prior to the installation**. It's important to emphasize that Storage Provisioners are not compatible with *symbolic links*.
 
 ## Networking Requirements
 
 ### Hostnames, DNS, and IP Address
 
-The fully-qualified domain name (FQDN) of any host used with kURL must be a valid DNS subdomain name, and its name must be resolvable by DNS.
+#### All hosts in the cluster must have valid DNS records and hostnames
+
+The fully-qualified domain name (FQDN) of any host used with kURL **must** be a valid DNS subdomain name, and its name records **must** be resolvable by DNS.
+
+A valid DNS name must:
+- contain no more than 253 characters
+- contain only lowercase alphanumeric characters, '-' or '.'
+- start with an alphanumeric character
+- end with an alphanumeric character
+
 For more information, see [DNS Subdomain Names](https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#dns-subdomain-names) in the Kubernetes documentation.
 
-After a host is added to a Kubernetes cluster, Kubernetes assumes that the hostname and IP address of the host will not change.
+
+#### All hosts in the cluster must have static IP address assignments on a network interface that will be used for routing to containers
+
+A host in a Kubernetes cluster must have a network interface that can be used for bridging traffic to Kubernetes pods.  In order for Pod traffic to work, the host must act as a Layer 3 router to route and switch packets to the right destination.  Therefore, a network interface should exist on the host (common names are `eth0`, `enp0s1`, etc.) with an IPv4 address & subnet in a publicly-routable or [private network ranges](https://en.wikipedia.org/wiki/Private_network), and [must be non-overlapping with the subnets used by Kubernetes](https://kubernetes.io/docs/concepts/cluster-administration/networking/#kubernetes-ip-address-ranges).  It must *not* be a [link-local address](https://en.wikipedia.org/wiki/Link-local_address#IPv4).
+
+> Note: Removing the primary network interface on a node is *not* a supported configuration for deploying an airgap cluster.  An interface must exist for routing, so airgaps should be implemented "on the wire" - in the switch/router/VLAN configuration, by firewalls or network ACLs, or by physical disconnection.
+
+After a host is added to a Kubernetes cluster, Kubernetes assumes that the hostname and IP address of the host **will not change.**
 If you need to change the hostname or IP address of a node, you must first remove the node from the cluster.
 
 To change the hostname or IP address of a node in clusters that do not have three or more nodes, use snapshots to move the application to a new cluster before you attempt to remove the node. For more information about using snapshots, see [Velero Add-on](/add-ons/velero).
 
 For more information about the requirements for naming nodes, see [Node naming uniqueness](https://kubernetes.io/docs/concepts/architecture/nodes/#node-name-uniqueness) in the Kubernetes documentation.
+
+#### All hosts in the cluster must not occupy Kubernetes Pod or Service CIDR ranges
+
+Kubernetes also requires exclusive use of two IP subnets (also known as CIDR ranges) for Pod-to-Pod traffic within the cluster.  These subnets **must not** overlap with the subnets used in your local network or routing errors will result.
+
+| Subnet       | Description                         |
+|--------------|-------------------------------------|
+| 10.96.0.0/16 | Kubernetes Service IPs              |
+| 10.32.0.0/20 | [Flannel CNI Pod IPs](https://kurl.sh/docs/add-ons/flannel#custom-pod-subnet)                 |
+| 10.10.0.0/16 | [Weave CNI (deprecated) Pod IPs](https://kurl.sh/docs/add-ons/weave#advanced-install-options)      |
+
+These ranges can be customized by setting the appropriate add-on options directly in a kURL spec:
+```yaml
+spec:
+    kubernetes:
+      serviceCIDR: "<your custom subnet>"
+    flannel:     
+      podCIDR: "<your custom subnet>"
+```
+
+Alternatively, the ranges can be customized with a [patch file](https://kurl.sh/docs/install-with-kurl/#select-examples-of-using-a-patch-yaml-file).
 
 ### Firewall Openings for Online Installations
 

@@ -13,8 +13,8 @@ export default class Sidebar extends Component {
         query={graphql`
       {
         allMarkdownRemark(
-          filter: { fields: { collection: { eq: "release-notes" } } }
-          sort: { fields: [frontmatter___weight], order: DESC }
+          filter: {fields: {collection: {eq: "release-notes"}}}
+          sort: {frontmatter: {weight: DESC}}
         ) {
           edges {
             node {

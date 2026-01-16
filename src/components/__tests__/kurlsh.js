@@ -3,8 +3,6 @@ import Kurl from "../Kurlsh";
 const defaultProps = {
   supportedVersions: {
     "kubernetes": [ "latest", "1.19.16", "1.19.15", "1.19.13" ],
-    "antrea": [ "latest", "1.4.0", "1.2.1", "1.2.0" ],
-    "aws": [ "latest", "0.1.0" ],
     "calico": [ "latest", "3.9.1" ],
     "collectd": [ "latest", "v5", "0.0.1" ],
     "containerd": [ "latest", "1.6.8", "1.6.7", "1.6.6" ],
@@ -14,7 +12,6 @@ const defaultProps = {
     "fluentd": [ "latest", "1.7.4" ],
     "goldpinger": [ "latest", "3.5.1-5.2.0", "3.3.0-5.1.0", "3.2.0-5.0.0" ],
     "kotsadm": [ "latest", "1.85.0", "1.84.0", "1.83.0", "1.82.0" ],
-    "longhorn": [ "latest", "1.3.1", "1.2.4", "1.2.2" ],
     "metrics-server": [ "latest", "0.4.1", "0.3.7" ],
     "cert-manager": [ "latest", "1.9.1", "1.0.3" ],
     "minio": [ "latest", "2022-09-17T00-09-45Z", "2022-09-07T22-25-02Z", "2022-09-01T23-53-36Z" ],
@@ -26,8 +23,6 @@ const defaultProps = {
     "rookupgrade": [ "latest", "10to14" ],
     "sonobuoy": [ "latest", "0.56.10", "0.56.8", "0.56.7", "0.55.1" ],
     "velero": [ "latest", "1.9.1", "1.9.0", "1.8.1", "1.7.1" ],
-    "weave": [ "latest", "2.6.5-20220825", "2.6.5-20220720", "2.6.5-20220616" ],
-    "docker": [ "latest", "20.10.17", "20.10.5", "19.03.15" ],
     "certManager": [ "latest", "1.9.1", "1.0.3" ],
     "metricsServer": [ "latest", "0.4.1", "0.3.7" ]
   }
@@ -198,12 +193,6 @@ describe("Kurl", () => {
       const versions = ["latest", "1.0.4", "1.9.12", "1.8.10", "1.4.9", "1.4.3", "1.0.4-14.2.21"];
       const finalVersions = new Kurl(defaultProps).prepareVersions("rook", versions);
       expect(finalVersions).toEqual([{version: "1.9.x"}, {version: "1.9.12"}, {version: "1.8.x"}, {version: "1.8.10"}, {version: "1.4.x"}, {version: "1.4.9"}, {version: "1.4.3"}, {version: "1.0.x"}, {version: "1.0.4-14.2.21"}, {version: "latest"}, {version: "1.0.4"}, {version: "None"}]);
-    });
-
-    it("weave: sorts and adds dot x versions", () => {
-      const versions = ["latest", "2.6.5-20221025", "2.6.5-20221006", "2.6.5-20220825", "2.6.5-20220720", "2.6.5-20220616", "2.6.5", "2.6.4", "2.5.2", "2.8.1-20221025", "2.8.1-20221006", "2.8.1-20220825", "2.8.1-20220720", "2.8.1-20220616", "2.8.1", "2.7.0"];
-      const finalVersions = new Kurl(defaultProps).prepareVersions("weave", versions);
-      expect(finalVersions).toEqual([{version: "2.8.x"}, {version: "2.8.1-20221025"}, {version: "2.8.1-20221006"}, {version: "2.8.1-20220825"}, {version: "2.8.1-20220720"}, {version: "2.8.1-20220616"}, {version: "2.8.1"}, {version: "2.7.x"}, {version: "2.7.0"}, {version: "2.6.x"}, {version: "latest"}, {version: "2.6.5-20221025"}, {version: "2.6.5-20221006"}, {version: "2.6.5-20220825"}, {version: "2.6.5-20220720"}, {version: "2.6.5-20220616"}, {version: "2.6.5"}, {version: "2.6.4"}, {version: "2.5.x"}, {version: "2.5.2"}, {version: "None"}]);
     });
   });
 

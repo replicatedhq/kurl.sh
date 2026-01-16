@@ -1,7 +1,8 @@
 import * as React from "react";
-import { Link } from "@reach/router";
+import { Link } from "gatsby";
 
-import ReactTooltip from "react-tooltip";
+import { Tooltip } from "react-tooltip";
+import "react-tooltip/dist/react-tooltip.css";
 import json2yaml from "json2yaml";
 import isEmpty from "lodash/isEmpty";
 import find from "lodash/find";
@@ -21,11 +22,8 @@ import _ from "lodash";
 const NIL_VERSIONS = {
   kubernetes: { version: "None" },
   flannel: { version: "None" },
-  weave: { version: "None" },
-  antrea: { version: "None" },
   contour: { version: "None" },
   rook: { version: "None" },
-  docker: { version: "None" },
   prometheus: { version: "None" },
   registry: { version: "None" },
   containerd: { version: "None" },
@@ -35,15 +33,13 @@ const NIL_VERSIONS = {
   fluentd: { version: "None" },
   minio: { version: "None" },
   openebs: { version: "None" },
-  longhorn: { version: "None" },
   collectd: { version: "None" },
   metricsServer: { version: "None" },
   certManager: { version: "None" },
   sonobuoy: { version: "None" },
   goldpinger: { version: "None" },
-  aws: { version: "None" },
 }
-const hasAdvancedOptions = ["kubernetes", "flannel", "weave", "antrea", "contour", "rook", "registry", "docker", "velero", "kotsadm", "ekco", "fluentd", "minio", "openebs", "longhorn", "prometheus", "aws"];
+const hasAdvancedOptions = ["kubernetes", "flannel", "contour", "rook", "registry", "velero", "kotsadm", "ekco", "fluentd", "minio", "openebs", "prometheus"];
 function versionToState(version) {
   return {
     version
@@ -53,7 +49,6 @@ function versionToState(version) {
 // replace problematic versions that do not sort because of semver pre-release
 const replaceVersions = {
   "rook": {"1.0.4": "1.0.4-0.0.0"},
-  "weave": {"2.6.5": "2.6.5-0.0.0", "2.8.1": "2.8.1-0.0.0"},
   "prometheus": {"0.46.0": "0.46.0-0.0.0"},
 };
 
@@ -65,10 +60,7 @@ class Kurlsh extends React.Component {
     const kubernetesVersions = this.prepareVersions("kubernetes", supportedVersions.kubernetes);
     const contourVersions = this.prepareVersions("contour", supportedVersions.contour);
     const flannelVersions = this.prepareVersions("flannel", supportedVersions.flannel);
-    const weaveVersions = this.prepareVersions("weave", supportedVersions.weave);
-    const antreaVersions = this.prepareVersions("antrea", supportedVersions.antrea);
     const rookVersions = this.prepareVersions("rook", supportedVersions.rook);
-    const dockerVersions = this.prepareVersions("docker", supportedVersions.docker);
     const prometheusVersions = this.prepareVersions("prometheus", supportedVersions.prometheus);
     const registryVersions = this.prepareVersions("registry", supportedVersions.registry);
     const containerdVersions = this.prepareVersions("containerd", supportedVersions.containerd);
@@ -78,23 +70,18 @@ class Kurlsh extends React.Component {
     const fluentdVersions = this.prepareVersions("fluentd", supportedVersions.fluentd);
     const minioVersions = this.prepareVersions("minio", supportedVersions.minio);
     const openebsVersions = this.prepareVersions("openebs", supportedVersions.openebs);
-    const longhornVersions = this.prepareVersions("longhorn", supportedVersions.longhorn);
     const collectdVersions = this.prepareVersions("collectd", supportedVersions.collectd);
     const metricsServerVersions = this.prepareVersions("metrics-server", supportedVersions["metrics-server"]);
     const certManagerVersions = this.prepareVersions("cert-manager", supportedVersions["cert-manager"]);
     const sonobuoyVersions = this.prepareVersions("sonobuoy", supportedVersions.sonobuoy);
     const goldpingerVersions = this.prepareVersions("goldpinger", supportedVersions.goldpinger);
-    const awsVersions = this.prepareVersions("aws", supportedVersions.aws);
 
     this.state = {
       versions: {
         kubernetes: kubernetesVersions,
         flannel: flannelVersions,
-        weave: weaveVersions,
-        antrea: antreaVersions,
         contour: contourVersions,
         rook: rookVersions,
-        docker: dockerVersions,
         prometheus: prometheusVersions,
         registry: registryVersions,
         containerd: containerdVersions,
@@ -104,71 +91,56 @@ class Kurlsh extends React.Component {
         fluentd: fluentdVersions,
         minio: minioVersions,
         openebs: openebsVersions,
-        longhorn: longhornVersions,
         collectd: collectdVersions,
         metricsServer: metricsServerVersions,
         certManager: certManagerVersions,
         sonobuoy: sonobuoyVersions,
         goldpinger: goldpingerVersions,
-        aws: awsVersions,
       },
       selectedVersions: NIL_VERSIONS,
       installerSha: "",
       showAdvancedOptions: {
         "kubernetes": false,
         "flannel": false,
-        "weave": false,
-        "antrea": false,
         "contour": false,
         "rook": false,
         "prometheus": false,
         "registry": false,
-        "docker": false,
         "velero": false,
         "kotsadm": false,
         "ekco": false,
         "fluentd": false,
         "minio": false,
         "openebs": false,
-        "longhorn": false,
         "metricsServer": false,
         "certManager": false,
         "sonobuoy": false,
         "goldpinger": false,
-        "aws": false,
       },
       advancedOptions: {
         kubernetes: {},
         flannel: {},
-        weave: {},
-        antrea: {},
         contour: {},
         rook: {},
         registry: {},
-        docker: {},
         velero: {},
         kotsadm: {},
         ekco: {},
         fluentd: {},
         minio: {},
         openebs: {},
-        longhorn: {},
         collectd: {},
         metricsServer: {},
         certManager: {},
         sonobuoy: {},
         goldpinger: {},
         prometheus: {},
-        aws: {},
       },
       isAddOnChecked: {
         kubernetes: false,
         flannel: false, 
-        weave: false,
-        antrea: false,
         contour: false,
         rook: false,
-        docker: false,
         prometheus: false,
         registry: false,
         containerd: false,
@@ -178,13 +150,11 @@ class Kurlsh extends React.Component {
         fluentd: false,
         minio: false,
         openebs: false,
-        longhorn: false,
         collectd: false,
         metricsServer: false,
         certManager: false,
         sonobuoy: false,
         goldpinger: false,
-        aws: false,
       },
       optionDefaults: {},
       installerErrMsg: "",
@@ -411,35 +381,6 @@ class Kurlsh extends React.Component {
       }
     }
 
-    if (isAddOnChecked.weave) {
-      const diff = getDiff(optionDefaults["weave"], options.weave);
-
-      generatedInstaller.spec.weave = {
-        version: selectedVersions.weave.version
-      };
-
-      if (Object.keys(diff).length) {
-        generatedInstaller.spec.weave = {
-          ...generatedInstaller.spec.weave,
-          ...diff
-        };
-      }
-    }
-
-    if (isAddOnChecked.antrea) {
-      const diff = getDiff(optionDefaults["antrea"], options.antrea);
-      generatedInstaller.spec.antrea = {
-        version: selectedVersions.antrea.version
-      };
-
-      if (Object.keys(diff).length) {
-        generatedInstaller.spec.antrea = {
-          ...generatedInstaller.spec.antrea,
-          ...diff
-        };
-      }
-    }
-
     if (isAddOnChecked.rook) {
       const diff = getDiff(optionDefaults["rook"], options.rook);
       generatedInstaller.spec.rook = {
@@ -463,20 +404,6 @@ class Kurlsh extends React.Component {
       if (Object.keys(diff).length) {
         generatedInstaller.spec.contour = {
           ...generatedInstaller.spec.contour,
-          ...diff
-        };
-      }
-    }
-
-    if (isAddOnChecked.docker) {
-      const diff = getDiff(optionDefaults["docker"], options.docker);
-      generatedInstaller.spec.docker = {
-        version: selectedVersions.docker.version
-      };
-
-      if (Object.keys(diff).length) {
-        generatedInstaller.spec.docker = {
-          ...generatedInstaller.spec.docker,
           ...diff
         };
       }
@@ -600,20 +527,6 @@ class Kurlsh extends React.Component {
       }
     }
 
-    if (isAddOnChecked.longhorn) {
-      const diff = getDiff(optionDefaults["longhorn"], options.longhorn);
-      generatedInstaller.spec.longhorn = {
-        version: selectedVersions.longhorn.version
-      };
-
-      if (Object.keys(diff).length) {
-        generatedInstaller.spec.longhorn = {
-          ...generatedInstaller.spec.longhorn,
-          ...diff
-        };
-      }
-    }
-
     if (isAddOnChecked.collectd) {
       const diff = getDiff(optionDefaults["collectd"], options.collectd);
       generatedInstaller.spec.collectd = {
@@ -684,20 +597,6 @@ class Kurlsh extends React.Component {
       }
     }
 
-    if (isAddOnChecked.aws) {
-      const diff = getDiff(optionDefaults["aws"], options.aws);
-      generatedInstaller.spec.aws = {
-        version: selectedVersions.aws.version
-      };
-
-      if (Object.keys(diff).length) {
-        generatedInstaller.spec.aws = {
-          ...generatedInstaller.spec.aws,
-          ...diff
-        };
-      }
-    }
-
     let renderedYaml = json2yaml.stringify(generatedInstaller).replace("---\n", "").replace(/^ {2}/gm, "");
 
     if (sha === "latest") {
@@ -724,24 +623,12 @@ class Kurlsh extends React.Component {
         return;
       }
     }
-    if (name === "containerd" && value.version !== "None" && this.state.isAddOnChecked.docker) {
-      this.checkIncompatibleSelection({ containerd: value });
-    } else if (name === "docker" && value.version !== "None" && this.state.isAddOnChecked.containerd) {
-      this.checkIncompatibleSelection({ docker: value });
-    } else if (name === "flannel" && value.version !== "None" && (this.state.isAddOnChecked.weave || this.state.isAddOnChecked.antrea)) {
-      this.checkIncompatibleSelection({ flannel: value });
-    } else if (name === "antrea" && value.version !== "None" && (this.state.isAddOnChecked.weave || this.state.isAddOnChecked.flannel)) {
-      this.checkIncompatibleSelection({ antrea: value });
-    } else if (name === "weave" && value.version !== "None" && (this.state.isAddOnChecked.antrea || this.state.isAddOnChecked.flannel)) {
-      this.checkIncompatibleSelection({ weave: value });
-    } else {
-      this.setState({ selectedVersions: { ...this.state.selectedVersions, [name]: value } }, () => {
-        if (value.version === "None") {
-          this.setState({ isAddOnChecked: { ...this.state.isAddOnChecked, [name]: !this.state.isAddOnChecked[name] } })
-        }
-        this.postToKurlInstaller(this.getYaml(this.state.installerSha));
-      })
-    }
+    this.setState({ selectedVersions: { ...this.state.selectedVersions, [name]: value } }, () => {
+      if (value.version === "None") {
+        this.setState({ isAddOnChecked: { ...this.state.isAddOnChecked, [name]: !this.state.isAddOnChecked[name] } })
+      }
+      this.postToKurlInstaller(this.getYaml(this.state.installerSha));
+    })
   }
 
   handleIsAddOnSelected = (name, e) => {
@@ -785,21 +672,10 @@ class Kurlsh extends React.Component {
             selectedVersion = this.state.versions[name][1].version;
           }
 
-          if (name === "containerd" && this.state.isAddOnChecked.docker) {
-            this.checkIncompatibleSelection({ containerd: { version: selectedVersion } });
-          } else if (name === "docker" && this.state.isAddOnChecked.containerd) {
-            this.checkIncompatibleSelection({ docker: { version: selectedVersion } });
-          } else if (name === "flannel" && (this.state.isAddOnChecked.weave || this.state.isAddOnChecked.antrea)) {
-            this.checkIncompatibleSelection({ flannel: { version: selectedVersion } });
-          } else if (name === "weave" && (this.state.isAddOnChecked.antrea || this.state.isAddOnChecked.flannel)) {
-            this.checkIncompatibleSelection({ weave: { version: selectedVersion } });
-          } else if (name === "antrea" && (this.state.isAddOnChecked.weave || this.state.isAddOnChecked.flannel)) {
-            this.checkIncompatibleSelection({ antrea: { version: selectedVersion } });
-          } else {
-            this.setState({ selectedVersions: { ...nextSelectedVersions, [name]: { version: selectedVersion } } }, () => {
-              this.postToKurlInstaller(this.getYaml(this.state.installerSha));
-            });
-          }
+          this.setState({ selectedVersions: { ...nextSelectedVersions, [name]: { version: selectedVersion } } }, () => {
+            this.postToKurlInstaller(this.getYaml(this.state.installerSha));
+          });
+
         } else {
           this.setState({ selectedVersions: { ...this.state.selectedVersions, [name]: { version: "None" } } }, () => {
             this.postToKurlInstaller(this.getYaml(this.state.installerSha));
@@ -1095,10 +971,10 @@ class Kurlsh extends React.Component {
                         {data.flag !== "version" && data.flag}
                       </span>
                     </label>
-                    <ReactTooltip id={`tt_${addOn}_${data.flag}`}>
+                    <Tooltip id={`tt_${addOn}_${data.flag}`}>
                       {option.description}
-                    </ReactTooltip>
-                    <span data-tip data-for={`tt_${addOn}_${data.flag}`} className="icon clickable u-questionMarkCircle u-marginLeft--normal u-marginRight--normal"></span>
+                    </Tooltip>
+                    <span data-tooltip-id={`tt_${addOn}_${data.flag}`} className="icon clickable u-questionMarkCircle u-marginLeft--normal u-marginRight--normal"></span>
                   </div>
                   {option.type === "string" || option.type === "array[string]" || option.type === "number" ?
                     <div>
@@ -1219,21 +1095,6 @@ class Kurlsh extends React.Component {
               <div className="flex flex-column u-marginTop--40">
                 <span className="u-fontSize--normal u-fontWeight--medium u-color--bermudaGray"> CRI </span>
                 <AddOnWrapper
-                  addOnId="docker"
-                  addOnTitle="Docker"
-                  isDeprecated={true}
-                  isAddOnChecked={isAddOnChecked["docker"]}
-                  options={versions.docker}
-                  getOptionLabel={this.getLabel("docker")}
-                  getOptionValue={(selected) => selected}
-                  value={selectedVersions.docker}
-                  onVersionChange={this.onVersionChange("docker")}
-                  handleIsAddOnSelected={(e) => this.handleIsAddOnSelected("docker", e)}
-                  showAdvancedOptions={showAdvancedOptions["docker"]}
-                  onToggleShowAdvancedOptions={() => this.onToggleShowAdvancedOptions("docker")}
-                  renderAdvancedOptions={() => this.renderAdvancedOptions("docker")}
-                  />
-                <AddOnWrapper
                   addOnId="containerd"
                   addOnTitle="Containerd"
                   isAddOnChecked={isAddOnChecked["containerd"]}
@@ -1265,36 +1126,6 @@ class Kurlsh extends React.Component {
                   onToggleShowAdvancedOptions={() => this.onToggleShowAdvancedOptions("flannel")}
                   renderAdvancedOptions={() => this.renderAdvancedOptions("flannel")}
                   /> }
-                <AddOnWrapper
-                  addOnId="weave"
-                  addOnTitle="Weave"
-                  isDeprecated={true}
-                  isAddOnChecked={isAddOnChecked["weave"]}
-                  options={versions.weave}
-                  getOptionLabel={this.getLabel("weave")}
-                  getOptionValue={(selected) => selected}
-                  value={selectedVersions.weave}
-                  onVersionChange={this.onVersionChange("weave")}
-                  handleIsAddOnSelected={(e) => this.handleIsAddOnSelected("weave", e)}
-                  showAdvancedOptions={showAdvancedOptions["weave"]}
-                  onToggleShowAdvancedOptions={() => this.onToggleShowAdvancedOptions("weave")}
-                  renderAdvancedOptions={() => this.renderAdvancedOptions("weave")}
-                  />
-                <AddOnWrapper
-                  addOnId="antrea"
-                  addOnTitle="Antrea"
-                  isDeprecated={true}
-                  isAddOnChecked={isAddOnChecked["antrea"]}
-                  options={versions.antrea}
-                  getOptionLabel={this.getLabel("antrea")}
-                  getOptionValue={(selected) => selected}
-                  value={selectedVersions.antrea}
-                  onVersionChange={this.onVersionChange("antrea")}
-                  handleIsAddOnSelected={(e) => this.handleIsAddOnSelected("antrea", e)}
-                  showAdvancedOptions={showAdvancedOptions["antrea"]}
-                  onToggleShowAdvancedOptions={() => this.onToggleShowAdvancedOptions("antrea")}
-                  renderAdvancedOptions={() => this.renderAdvancedOptions("antrea")}
-                  />
               </div>
 
               <div className="flex flex-column u-marginTop--40">
@@ -1416,21 +1247,6 @@ class Kurlsh extends React.Component {
 
               <div className="flex flex-column u-marginTop--40">
                 <span className="u-fontSize--normal u-fontWeight--medium u-color--bermudaGray"> PVC Provisioner </span>
-                <AddOnWrapper
-                  addOnId="longhorn"
-                  addOnTitle="Longhorn"
-                  isDeprecated={true}
-                  isAddOnChecked={isAddOnChecked["longhorn"]}
-                  options={versions.longhorn}
-                  getOptionLabel={this.getLabel("longhorn")}
-                  getOptionValue={(selected) => selected}
-                  value={selectedVersions.longhorn}
-                  onVersionChange={this.onVersionChange("longhorn")}
-                  handleIsAddOnSelected={(e) => this.handleIsAddOnSelected("longhorn", e)}
-                  showAdvancedOptions={showAdvancedOptions["longhorn"]}
-                  onToggleShowAdvancedOptions={() => this.onToggleShowAdvancedOptions("longhorn")}
-                  renderAdvancedOptions={() => this.renderAdvancedOptions("longhorn")}
-                  />
                 <AddOnWrapper
                   addOnId="openebs"
                   addOnTitle="OpenEBS"
@@ -1554,26 +1370,6 @@ class Kurlsh extends React.Component {
                   renderAdvancedOptions={() => this.renderAdvancedOptions("velero")}
                   />
               </div>
-
-              <div className="flex flex-column u-marginTop--40">
-                <span className="u-fontSize--normal u-fontWeight--medium u-color--bermudaGray"> Cloud Provider </span>
-                <AddOnWrapper
-                  addOnId="aws"
-                  addOnTitle="AWS"
-                  isDeprecated={true}
-                  isAddOnChecked={isAddOnChecked["aws"]}
-                  options={versions.aws}
-                  getOptionLabel={this.getLabel("aws")}
-                  getOptionValue={(selected) => selected}
-                  value={selectedVersions.aws}
-                  onVersionChange={this.onVersionChange("aws")}
-                  handleIsAddOnSelected={(e) => this.handleIsAddOnSelected("aws", e)}
-                  showAdvancedOptions={showAdvancedOptions["aws"]}
-                  onToggleShowAdvancedOptions={() => this.onToggleShowAdvancedOptions("aws")}
-                  renderAdvancedOptions={() => this.renderAdvancedOptions("aws")}
-                  />
-              </div>
-
             </div>
           </div>
 

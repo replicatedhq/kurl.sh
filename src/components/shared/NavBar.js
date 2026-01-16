@@ -4,7 +4,7 @@ import MobileNavBar from "./MobileNavBar";
 import Search from "../Search";
 
 import "../../scss/components/shared/NavBar.scss";
-require("react-github-button/assets/style.css");
+import("react-github-button/assets/style.css");
 
 export class NavBar extends React.Component {
   state = {
