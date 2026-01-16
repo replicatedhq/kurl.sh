@@ -61,6 +61,16 @@ For instance, you do not need to match the version of the containerd package to 
 256 GB of disk space per node is strongly recommended to accommodate growth and optimal performance. At minimum, kURL requires 100 GB of disk space per node.
 It is important to note that disk usage can vary based on container image sizes, ephemeral data, and specific application requirements.
 
+| Name           | Location             | Requirements       | Description |
+| -------------- | -------------------- | ------------------ | ----------- |
+| etcd           | /var/lib/etcd/       | 2 GB               | Kubernetes etcd cluster data directory. See the [etcd documentation](https://etcd.io/docs/v3.5/op-guide/hardware/#disks) and [Cloud Disk Performance](#cloud-disk-performance) for more information and recommendations. |
+| kubelet        | /var/lib/kubelet/    | *30 GB &ast;*      | Used for local disk volumes, emptyDir, log storage, and more. See the Kubernetes [Resource Management for Pods and Containers documentation](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#local-ephemeral-storage) for more information.  |
+| containerd     | /var/lib/containerd/ | *30 GB &ast;*      | Snapshots, content, metadata for containers and image, as well as any plugin data will be kept in this location. See the [containerd documentation](https://github.com/containerd/containerd/blob/main/docs/ops.md#base-configuration) for more information. |
+| kube-apiserver | /var/log/apiserver/  | 1 GB               | Kubernetes audit logs. See Kubernetes [Auditing documentation](https://kubernetes.io/docs/tasks/debug/debug-cluster/audit/) for mode information. |
+| kURL           | /var/lib/kurl/       | *10 GB &ast;&ast;* | kURL data directory used to store utilities, system packages, and container images. This directory can be overridden with the flag `kurl-install-directory` (see [kURL Advanced Install Options](/docs/install-with-kurl/advanced-options)) |
+| Root Disk      | /                    | 100 GB             | Based on the aggregate requirements above and the fact that Kubernetes will start to reclaim space at 85% full disk, the minimum recommended root partition is 100 GB. See details above for each component. |
+| Temp storage   | /tmp                 | Variable           | In an airgapped installation, the temp directory `/tmp` is used to unpack the airgap image bundle before uploading to a registry.  The temp directory must be sized accordingly; we recommend twice the size of the airgap bundle size containing application images. The temp directory can be overridden by setting the `TMPDIR` environment variable before installing your application with `kots install`.  E.g. `TMPDIR=/mnt/bigdisk/tmp kubectl kots install APP_NAME --license-file PATH_TO_LICENSE --airgap-bundle PATH_TO_AIRGAP_BUNDLE` |
+
 ### Storage Provisioner Add-Ons
 
 Informational Note: **OpenEBS** is configured to allocate its Persistent Volumes within the `/var/openebs/local/` directory, signifying that this specific location is utilized for the storage of data by applications that are actively running on the Kurl platform.
