@@ -5390,10 +5390,10 @@ cosmiconfig@^7.0.0:
     path-type "^4.0.0"
     yaml "^1.10.0"
 
-create-gatsby@^3.15.0:
-  version "3.15.0"
-  resolved "https://registry.yarnpkg.com/create-gatsby/-/create-gatsby-3.15.0.tgz#58ead0d77025eda59e72c3d1e9dbdbc090ed470c"
-  integrity sha512-EjScC6GRDvL/mgbURFxv7gCkJmNqU1q+pptKx2ry11JbSzx1vvFIFXpiID3JxuM3fCzPcqh2GnCPUk+PU7lvLg==
+create-gatsby@^3.16.0:
+  version "3.16.0"
+  resolved "https://registry.yarnpkg.com/create-gatsby/-/create-gatsby-3.16.0.tgz#e6718f7234582b95521f973c056cbd7334eb24b3"
+  integrity sha512-F2gzKq1Pl3wFzHOIZdA2XEiynt0sPxnq0ccwzbz4YFZxGf5vLG16ijTvnmZjJzm/LSSP+szedX5cA0c6a+mnjg==
   dependencies:
     "@babel/runtime" "^7.20.13"
 
@@ -7316,10 +7316,10 @@ functions-have-names@^1.2.3:
   resolved "https://registry.yarnpkg.com/functions-have-names/-/functions-have-names-1.2.3.tgz#0404fe4ee2ba2f607f0e0ec3c80bae994133b834"
   integrity sha512-xckBUXyTIqT97tq2x2AMb+g163b5JFysYk0x4qxNFwbfQkmNZoiRHb6sPzI9/QV33WeuvVYBUIiD4NzNIyqaRQ==
 
-gatsby-cli@5.15.0, gatsby-cli@^5.15.0:
-  version "5.15.0"
-  resolved "https://registry.yarnpkg.com/gatsby-cli/-/gatsby-cli-5.15.0.tgz#5aef86de91c7afbdfa185802fd9c2c1ef9e0fc63"
-  integrity sha512-wTUAc2rNr39s7PDO1EaFOBbFmgfuEJ4hdJfh0b/0zd5FMHep+8Z7Kp6/B9KWhHOhHFkFasL7jgZozin4y3QGdg==
+gatsby-cli@5.16.0, gatsby-cli@^5.15.0:
+  version "5.16.0"
+  resolved "https://registry.yarnpkg.com/gatsby-cli/-/gatsby-cli-5.16.0.tgz#4a668bd4649d011beaff62a3cf96a17f026c2ad9"
+  integrity sha512-O+2ouCR0Yex04AllxPMIWxlwcj2GiGsvK8sC6AfVL092j0rQJAfwEEBhgVNhFrniPnEanaADRKbgjj2k6vPaBw==
   dependencies:
     "@babel/code-frame" "^7.18.6"
     "@babel/core" "^7.20.12"
@@ -7337,12 +7337,12 @@ gatsby-cli@5.15.0, gatsby-cli@^5.15.0:
     clipboardy "^4.0.0"
     common-tags "^1.8.2"
     convert-hrtime "^3.0.0"
-    create-gatsby "^3.15.0"
+    create-gatsby "^3.16.0"
     envinfo "^7.10.0"
     execa "^5.1.1"
     fs-exists-cached "^1.0.0"
     fs-extra "^11.2.0"
-    gatsby-core-utils "^4.15.0"
+    gatsby-core-utils "^4.16.0"
     hosted-git-info "^3.0.8"
     is-valid-path "^0.1.1"
     joi "^17.9.2"
@@ -7362,10 +7362,10 @@ gatsby-cli@5.15.0, gatsby-cli@^5.15.0:
     yoga-layout-prebuilt "^1.10.0"
     yurnalist "^2.1.0"
 
-gatsby-core-utils@^4.0.0, gatsby-core-utils@^4.15.0:
-  version "4.15.0"
-  resolved "https://registry.yarnpkg.com/gatsby-core-utils/-/gatsby-core-utils-4.15.0.tgz#7c644f1587a47b14a0209e7d2894451e14a7514c"
-  integrity sha512-fxzHbCvQm1u74DSjy7G4PVqEcWb7sOCFg3kFFVUqVKe3hDCm6s1M/gRSvpm3/3fm74HhgLsmQ54Qaf54Ckyn9w==
+gatsby-core-utils@^4.0.0, gatsby-core-utils@^4.15.0, gatsby-core-utils@^4.16.0:
+  version "4.16.0"
+  resolved "https://registry.yarnpkg.com/gatsby-core-utils/-/gatsby-core-utils-4.16.0.tgz#31ec88ab51272bb8a58535505633a57e8c069899"
+  integrity sha512-QCZ9BmQp3YyYxH0Wf4bofayL3vJnayqSvsBUAhKXGh/Os0fn1KMNyAjPLnW+zrGFQaK05Vjdlp99I/Wnc3M33A==
   dependencies:
     "@babel/runtime" "^7.20.13"
     ci-info "2.0.0"
