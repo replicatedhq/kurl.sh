@@ -7443,10 +7443,10 @@ gatsby-plugin-env-variables@^2.3.0:
   resolved "https://registry.yarnpkg.com/gatsby-plugin-env-variables/-/gatsby-plugin-env-variables-2.3.0.tgz#bc47617bd78f8f68ff72b3c4c7a2ae7ae464fbc1"
   integrity sha512-HvVzuapa1jZ0fHtvw4hRlu3Zi5boPLYejVkULnzSmzpSz6UrIj88eEk8WaiKrxkp0CDK9VmXweAdx6U3AwgCog==
 
-gatsby-plugin-google-analytics@^5.15.0:
-  version "5.15.0"
-  resolved "https://registry.yarnpkg.com/gatsby-plugin-google-analytics/-/gatsby-plugin-google-analytics-5.15.0.tgz#eb306d9bfbf2aafed86b5816ccf36b7b5a68dd44"
-  integrity sha512-OSd6l2v3LLVap+h7td3TNhTNFM0JHzztSHcw8lM0YCKzmKur30vZG2qyqbZb7XlTHgcAfXvViGwzB9P2SaqH2A==
+gatsby-plugin-google-analytics@^5.16.0:
+  version "5.16.0"
+  resolved "https://registry.yarnpkg.com/gatsby-plugin-google-analytics/-/gatsby-plugin-google-analytics-5.16.0.tgz#47d780c4f75be3a30233b10b24a71d1120f70175"
+  integrity sha512-S+RCYDWgwJiKmr6hzjohyeNpAY/ryKW2R4DIoH/TGM03eJdMW5kstQdKHIUOOTc/PJQU3sRRL42YEu0KTZqWSg==
   dependencies:
     "@babel/runtime" "^7.20.13"
     minimatch "^3.1.2"

@@ -20,7 +20,7 @@
     "classnames": "^2.2.6",
     "gatsby": "^5.15.0",
     "gatsby-plugin-env-variables": "^2.3.0",
-    "gatsby-plugin-google-analytics": "^5.15.0",
+    "gatsby-plugin-google-analytics": "^5.16.0",
     "gatsby-plugin-netlify": "^5.1.1",
     "gatsby-plugin-react-helmet": "6.15.0",
     "gatsby-plugin-sass": "6.15.0",
