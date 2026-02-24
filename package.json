@@ -24,7 +24,7 @@
     "gatsby-plugin-netlify": "^5.1.1",
     "gatsby-plugin-react-helmet": "6.15.0",
     "gatsby-plugin-sass": "6.15.0",
-    "gatsby-remark-autolink-headers": "6.15.0",
+    "gatsby-remark-autolink-headers": "6.16.0",
     "gatsby-remark-mermaid": "^5.0.0",
     "gatsby-source-filesystem": "^5.15.0",
     "gatsby-transformer-remark": "6.15.0",
