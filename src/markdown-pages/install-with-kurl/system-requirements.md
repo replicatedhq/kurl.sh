@@ -13,7 +13,7 @@ title: "System Requirements"
 * Ubuntu 22.04 (Requires Containerd version >= 1.5.10 or Docker version >= 20.10.17)
 * Ubuntu 24.04 (Requires that the Containerd package be preinstalled on the host)
 * CentOS 7.4<sup>\*</sup>, 7.5<sup>\*</sup>, 7.6<sup>\*</sup>, 7.7<sup>\*</sup>, 7.8<sup>\*</sup>, 7.9<sup>\*</sup>, 8.0<sup>\*</sup>, 8.1<sup>\*</sup>, 8.2<sup>\*</sup>, 8.3<sup>\*</sup>, 8.4<sup>\*</sup> (CentOS 8.x requires Containerd)
-* RHEL 7.4<sup>\*</sup>, 7.5<sup>\*</sup>, 7.6<sup>\*</sup>, 7.7<sup>\*</sup>, 7.8<sup>\*</sup>, 7.9<sup>\*</sup>, 8.0<sup>\*</sup>, 8.1<sup>\*</sup>, 8.2<sup>\*</sup>, 8.3<sup>\*</sup>, 8.4<sup>\*</sup>, 8.5<sup>\*</sup>, 8.6, 8.7<sup>\*</sup>, 8.8, 8.9, 8.10, 9.0, 9.1<sup>\*</sup>, 9.2, 9.3, 9.4, 9.5, 9.6, 9.7 (RHEL 8.x and 9.x require Containerd)
+* RHEL 7.4<sup>\*</sup>, 7.5<sup>\*</sup>, 7.6<sup>\*</sup>, 7.7<sup>\*</sup>, 7.8<sup>\*</sup>, 7.9<sup>\*</sup>, 8.0<sup>\*</sup>, 8.1<sup>\*</sup>, 8.2<sup>\*</sup>, 8.3<sup>\*</sup>, 8.4<sup>\*</sup>, 8.5<sup>\*</sup>, 8.6, 8.7<sup>\*</sup>, 8.8, 8.9, 8.10, 9.0, 9.1<sup>\*</sup>, 9.2, 9.3, 9.4, 9.5, 9.6, 9.7, 10.0 (RHEL 8.x, 9.x, and 10.x require Containerd)
 * Rocky Linux 9.0<sup>\*</sup>, 9.1<sup>\*</sup>, 9.2, 9.3, 9.4, 9.5, 9.6, 9.7 (Rocky Linux 9.x requires Containerd)
 * Oracle Linux 7.4<sup>\*</sup>, 7.5<sup>\*</sup>, 7.6<sup>\*</sup>, 7.7<sup>\*</sup>, 7.8<sup>\*</sup>, 7.9, 8.0<sup>\*</sup>, 8.1<sup>\*</sup>, 8.2<sup>\*</sup>, 8.3<sup>\*</sup>, 8.4<sup>\*</sup>, 8.5<sup>\*</sup>, 8.6<sup>\*</sup>, 8.7<sup>\*</sup>, 8.8<sup>\*</sup>, 8.9<sup>\*</sup>, 8.10 (OL 8.x requires Containerd)
 * Amazon Linux 2
@@ -34,22 +34,22 @@ title: "System Requirements"
 
 ## Host Package Requirements
 
-Host packages are bundled and installed by kURL without the need for external package repositories except for in the case of Red Hat Enterprise Linux 9, Rocky Linux 9, Amazon Linux 2023, and Ubuntu 24.04.
+Host packages are bundled and installed by kURL without the need for external package repositories except for in the case of Red Hat Enterprise Linux 9 and 10, Rocky Linux 9, Amazon Linux 2023, and Ubuntu 24.04.
 
 For these OSes, the following packages are required per add-on:
 
 | Add-on                           | Packages |
 | -------------------------------- | -------- |
-| * kURL Core                      | curl openssl tar fio |
+| * kURL Core                      | curl git openssl tar fio |
 | Collectd                         | bash glibc libcurl libcurl-minimal libgcrypt libgpg-error libmnl openssl-libs rrdtool systemd systemd-libs yajl |
 | Containerd                       | container-selinux bash libseccomp libzstd systemd |
-| Kubernetes                       | conntrack-tools ethtool glibc iproute iptables-nft socat util-linux                     |
+| Kubernetes                       | conntrack-tools ethtool glibc iproute iptables-nft kernel-modules-extra socat util-linux                     |
 | Longhorn                         | iscsi-initiator-utils nfs-utils |
 | OpenEBS *\*versions 1.x and 2.x* | iscsi-initiator-utils |
 | Rook                             | lvm2 |
 | Velero                           | nfs-utils |
 
-Additionally, the containerd package is required for Containerd add-on installations on Amazon Linux 2023, Ubuntu 24.04, and any RHEL 9 version.
+Additionally, the containerd package is required for Containerd add-on installations on Amazon Linux 2023, Ubuntu 24.04, and any RHEL 9 or RHEL 10 version.
 
 In general, the latest versions of the packages listed above are recommended for installation.
 For instance, you do not need to match the version of the containerd package to the version of the containerd add-on.
