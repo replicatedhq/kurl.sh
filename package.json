@@ -29,7 +29,7 @@
     "gatsby-source-filesystem": "^5.15.0",
     "gatsby-transformer-remark": "6.15.0",
     "json2yaml": "^1.1.0",
-    "lodash": "^4.17.23",
+    "lodash": "^4.18.0",
     "monaco-editor": "^0.55.1",
     "playwright": "^1.57.0",
     "prop-types": "^15.7.2",
@@ -61,14 +61,14 @@
   },
   "resolutions": {
     "mkdirp": "^0.5.6",
-    "path-to-regexp": "^0.1.12",
+    "path-to-regexp": "^0.1.13",
     "sharp": "^0.33.5",
     "postcss": "^8.5.6",
     "@expo/devcert/glob": "^10.5.0",
     "@jest/reporters/glob": "^10.5.0",
     "jest-config/glob": "^10.5.0",
     "jest-runtime/glob": "^10.5.0",
-    "qs": "^6.14.1",
+    "qs": "^6.14.2",
     "on-headers": "^1.1.0",
     "tmp": "^0.2.4",
     "minimatch": "^9.0.7",
@@ -78,6 +78,15 @@
     "multer": "^2.1.1",
     "svgo": "^3.3.2",
     "picomatch": "^2.3.2",
-    "cookie": ">=0.7.0"
+    "cookie": ">=0.7.0",
+    "axios": "^1.15.0",
+    "brace-expansion": "^2.0.3",
+    "dompurify": "^3.3.2",
+    "lodash-es": "^4.18.0",
+    "immutable": "^5.1.5",
+    "@ardatan/relay-compiler/immutable": "3.8.3",
+    "yaml": "^2.8.3",
+    "webpack": "^5.104.1",
+    "ai": "^5.0.52"
   }
 }
