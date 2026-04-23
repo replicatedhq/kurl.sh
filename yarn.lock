@@ -1412,43 +1412,43 @@
   resolved "https://registry.yarnpkg.com/@braintree/sanitize-url/-/sanitize-url-7.1.1.tgz#15e19737d946559289b915e5dad3b4c28407735e"
   integrity sha512-i1L7noDNxtFyL5DmZafWy1wRVhGehQmzZaz1HiN5e7iylJMSZR7ekOV7NsIqa5qBldlLrsKv4HbgFUVlQrz8Mw==
 
-"@bugsnag/browser@^8.6.0":
-  version "8.6.0"
-  resolved "https://registry.yarnpkg.com/@bugsnag/browser/-/browser-8.6.0.tgz#2914fa32846f6e3140bf3f0626ad689325db662b"
-  integrity sha512-7UGqTGnQqXUQ09gOlWbDTFUSbeLIIrP+hML3kTOq8Zdc8nP/iuOEflXGLV2TxWBWW8xIUPc928caFPr9EcaDuw==
+"@bugsnag/browser@^8.9.0":
+  version "8.9.0"
+  resolved "https://registry.yarnpkg.com/@bugsnag/browser/-/browser-8.9.0.tgz#2c2ad858e2004aea4d3dc2fa0eee4b391c3423f2"
+  integrity sha512-lsreEdlIQxEzJxFzp1T2yKH4Jzzm5YiXez0UK734XXfBRx8ZR2SDcNljo2EqctrRIqVrCM6wp6RvEo9hzlpeBg==
   dependencies:
-    "@bugsnag/core" "^8.6.0"
+    "@bugsnag/core" "^8.9.0"
 
-"@bugsnag/core@^8.6.0":
-  version "8.6.0"
-  resolved "https://registry.yarnpkg.com/@bugsnag/core/-/core-8.6.0.tgz#b621927215862d610b8b4509b284cf9b0e143438"
-  integrity sha512-94Jo443JegaiKV8z8NXMFdyTGubiUnwppWhq3kG2ldlYKtEvrmIaO5+JA58B6oveySvoRu3cCe2W9ysY7G7mDw==
+"@bugsnag/core@^8.9.0":
+  version "8.9.0"
+  resolved "https://registry.yarnpkg.com/@bugsnag/core/-/core-8.9.0.tgz#a6d488b337f1e69481c69da43b8ef350a4f25f97"
+  integrity sha512-SrXO0isIZfrCem06/WDvC5MSd1Tj6Yjm4Wqdlv6jyjTvsow+cppvt7rS9Bps3qOeXfYCqWHN4ev02OdwnfZ1PQ==
   dependencies:
-    "@bugsnag/cuid" "^3.0.0"
+    "@bugsnag/cuid" "^3.2.1"
     "@bugsnag/safe-json-stringify" "^6.0.0"
     error-stack-parser "^2.0.3"
     iserror "^0.0.2"
     stack-generator "^2.0.3"
 
-"@bugsnag/cuid@^3.0.0":
-  version "3.2.1"
-  resolved "https://registry.yarnpkg.com/@bugsnag/cuid/-/cuid-3.2.1.tgz#e0b2ec12bfeb51ed9c85900b12f58d5b8c253249"
-  integrity sha512-zpvN8xQ5rdRWakMd/BcVkdn2F8HKlDSbM3l7duueK590WmI1T0ObTLc1V/1e55r14WNjPd5AJTYX4yPEAFVi+Q==
+"@bugsnag/cuid@^3.2.1":
+  version "3.2.2"
+  resolved "https://registry.yarnpkg.com/@bugsnag/cuid/-/cuid-3.2.2.tgz#a910339ee4cc8c156d12de13f7c6822891391f37"
+  integrity sha512-7onuYLTMqMmHE9BBPG0YER4nFsU1rB+me1/YIeMusqcLbVbKKuG9u9+BDVDpje5e0llkkrVNOKYwmzM9DRIo7A==
 
-"@bugsnag/js@^8.6.0":
-  version "8.6.0"
-  resolved "https://registry.yarnpkg.com/@bugsnag/js/-/js-8.6.0.tgz#e631daf0ad4d332385598a3ad85189feee4567ec"
-  integrity sha512-U+ofNTTMA2Z6tCrOhK/QhHBhLoQHoalk8Y82WWc7FAcVSoJZYadND/QuXUriNRZpC4YgJ/s/AxPeQ2y+WvMxzw==
+"@bugsnag/js@^8.9.0":
+  version "8.9.0"
+  resolved "https://registry.yarnpkg.com/@bugsnag/js/-/js-8.9.0.tgz#13682c6572a8b4fc57ba39090a5ecf57ea250262"
+  integrity sha512-ChjKFVBF2CgepDXfMBkbEdcFUniJNN8py5V+tinaB8+vpJbr/fD1+VLFhkruSEn3jOafXrc1XJe9WHtsu9ht0g==
   dependencies:
-    "@bugsnag/browser" "^8.6.0"
-    "@bugsnag/node" "^8.6.0"
+    "@bugsnag/browser" "^8.9.0"
+    "@bugsnag/node" "^8.9.0"
 
-"@bugsnag/node@^8.6.0":
-  version "8.6.0"
-  resolved "https://registry.yarnpkg.com/@bugsnag/node/-/node-8.6.0.tgz#02734f1cb9a57dd1cbb0a4a1a16375bf1f7fe66e"
-  integrity sha512-O91sELo6zBjflVeP3roRC9l68iYaafVs5lz2N0FDkrT08mP2UljtNWpjjoR/0h1so5Ny1OxHgnZ1IrsXhz5SMQ==
+"@bugsnag/node@^8.9.0":
+  version "8.9.0"
+  resolved "https://registry.yarnpkg.com/@bugsnag/node/-/node-8.9.0.tgz#a1769a53015602f8d53633a3e90f10b87759970e"
+  integrity sha512-WpogbMCY8/Rmg+1nsetp3GcPnXj5rpK1YxSmgEfiBM8B2nr/riYqrzuXIkrb1FZN1ti+Hfn1IecRAyGx3rUBBA==
   dependencies:
-    "@bugsnag/core" "^8.6.0"
+    "@bugsnag/core" "^8.9.0"
     byline "^5.0.0"
     error-stack-parser "^2.0.3"
     iserror "^0.0.2"
@@ -14175,11 +14175,6 @@ yaml-loader@^0.8.0:
     javascript-stringify "^2.0.1"
     loader-utils "^2.0.0"
     yaml "^2.0.0"
-
-yaml@1.10.3:
-  version "1.10.3"
-  resolved "https://registry.yarnpkg.com/yaml/-/yaml-1.10.3.tgz#76e407ed95c42684fb8e14641e5de62fe65bbcb3"
-  integrity sha512-vIYeF1u3CjlhAFekPPAk2h/Kv4T3mAkMox5OymRiJQB0spDP10LHvt+K7G9Ny6NuuMAb25/6n1qyUjAcGNf/AA==
 
 yaml@^1.10.0, yaml@^1.10.2, yaml@^1.7.2, yaml@^2.0.0, yaml@^2.8.3:
   version "2.8.3"
