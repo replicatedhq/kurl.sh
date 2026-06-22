@@ -4,6 +4,7 @@ pdf-work
 kurl.pdf
 
 .idea
+.vscode
 
 # gatsby files
 .cache/

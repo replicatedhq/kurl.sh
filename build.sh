@@ -1,10 +1,10 @@
 #!/bin/bash
 set -euo pipefail
 
-# Install Playwright Chromium browser required by gatsby-remark-mermaid.
+# Install Playwright headless Chromium browser required by gatsby-remark-mermaid.
 # System dependencies are not installed here because Netlify's build
 # environment does not permit root access for apt-get.
-npx playwright install chromium
+npx playwright install chromium-headless-shell
 
 # Determine which build to run based on the Netlify site URL.
 # URL is the canonical site URL (e.g. https://staging.kurl.sh or https://kurl.sh)
