@@ -50,7 +50,7 @@
     "@babel/plugin-proposal-object-rest-spread": "^7.6.2",
     "@babel/plugin-proposal-private-methods": "^7.18.6",
     "@babel/plugin-transform-runtime": "^7.29.7",
-    "autoprefixer": "^10.4.24",
+    "autoprefixer": "^10.5.0",
     "babel-preset-gatsby": "^3.16.0",
     "chai": "^4.3.6",
     "dotenv": "^17.4.2",
