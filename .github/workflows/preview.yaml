@@ -36,7 +36,8 @@ jobs:
             --site="$NETLIFY_SITE_ID" \
             --auth="$NETLIFY_AUTH_TOKEN" \
             --message="Deploy preview staging.kurl.sh from GitHub Actions" \
-            --json)
+            --json \
+            --debug)
           URL=$(node -pe "JSON.parse(process.argv[1]).deploy_url" "$OUTPUT")
           echo "url=$URL" >> "$GITHUB_OUTPUT"
         env:

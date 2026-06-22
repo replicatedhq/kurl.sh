@@ -36,7 +36,8 @@ jobs:
             --dir=public \
             --site="$NETLIFY_SITE_ID" \
             --auth="$NETLIFY_AUTH_TOKEN" \
-            --message="Deploy staging.kurl.sh from GitHub Actions"
+            --message="Deploy staging.kurl.sh from GitHub Actions" \
+            --debug
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: 9cc8b96a-2c23-4f71-bb0f-cbdc19ccbf76
@@ -71,7 +72,8 @@ jobs:
             --dir=public \
             --site="$NETLIFY_SITE_ID" \
             --auth="$NETLIFY_AUTH_TOKEN" \
-            --message="Deploy kurl.sh from GitHub Actions"
+            --message="Deploy kurl.sh from GitHub Actions" \
+            --debug
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: 7e8d8070-273a-45a3-9c84-885a52d8ab69
