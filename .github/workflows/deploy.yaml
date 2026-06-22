@@ -27,7 +27,7 @@ jobs:
         run: make build-staging
 
       - name: release
-        uses: nwtgck/actions-netlify@v3.0
+        uses: nwtgck/actions-netlify@v4.0
         with:
           publish-dir: public
           production-branch: main
@@ -59,7 +59,7 @@ jobs:
         run: make build-production
 
       - name: release
-        uses: nwtgck/actions-netlify@v3.0
+        uses: nwtgck/actions-netlify@v4.0
         with:
           publish-dir: public
           production-branch: main
