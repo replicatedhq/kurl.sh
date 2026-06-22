@@ -1,2 +1,6 @@
+[build]
+  command = "./build.sh"
+  publish = "public"
+
 [build.environment]
   NODE_VERSION = "22"
