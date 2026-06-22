@@ -52,6 +52,25 @@ If your kURL spec requests a newer version of Containerd than can be installed f
 
 For instance, if you attempt to install Containerd `1.7.25` on a RHEL 7 system, kURL will instead install Containerd `1.6.33`.
 
+## Containerd 2.x Configuration
+
+Containerd 2.x uses configuration schema version 3 and splits the CRI plugin into separate runtime and image tables. When using Containerd 2.x, kURL writes its default settings to a drop-in file at `/etc/containerd/conf.d/50-replicated.toml` instead of editing `/etc/containerd/config.toml` directly.
+
+Custom settings supplied via `tomlConfig` are written to `/etc/containerd/conf.d/99-user.toml`. Containerd merges drop-in files in `/etc/containerd/conf.d/` in sorted filename order, with later files winning, so `99-user.toml` overrides kURL's defaults in `50-replicated.toml`.
+
+Because the CRI plugin tables changed in Containerd 2.x, custom settings that target the 1.x table path `io.containerd.grpc.v1.cri` are silently ignored. For Containerd 2.x, use the new table paths:
+
+- `io.containerd.cri.v1.runtime` for runtime settings
+- `io.containerd.cri.v1.images` for image and registry settings
+
+When upgrading an existing cluster from Containerd 1.x to 2.x, kURL backs up the previous `/etc/containerd/config.toml` to a `.bak` file before regenerating it for the new schema. The old configuration is preserved as a recovery artifact but is not reused, because the CRI plugin tables differ between schema versions.
+
+### Supported upgrade path to Containerd 2.x
+
+Before upgrading to Containerd 2.x, the cluster must already be running Containerd 1.7.x. Upgrades from Containerd 1.6.x or earlier directly to 2.x are not supported.
+
+Containerd 2.x is not supported with Kubernetes 1.26. Upgrade Kubernetes to 1.27 or later before upgrading to Containerd 2.x.
+
 ## Advanced Install Options
 
 ```yaml
