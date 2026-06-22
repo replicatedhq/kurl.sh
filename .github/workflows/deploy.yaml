@@ -26,18 +26,21 @@ jobs:
       - name: build
         run: make build-staging
 
-      - name: release
-        uses: nwtgck/actions-netlify@v4.0.0
-        with:
-          publish-dir: public
-          production-branch: main
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          deploy-message: "Deploy staging.kurl.sh from GitHub Actions"
-          github-deployment-environment: staging
+      - name: install Netlify CLI
+        run: npm install -g netlify-cli@latest
+
+      - name: deploy to Netlify
+        run: |
+          netlify deploy \
+            --prod \
+            --dir=public \
+            --site="$NETLIFY_SITE_ID" \
+            --auth="$NETLIFY_AUTH_TOKEN" \
+            --message="Deploy staging.kurl.sh from GitHub Actions"
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: 9cc8b96a-2c23-4f71-bb0f-cbdc19ccbf76
-        timeout-minutes: 1
+        timeout-minutes: 5
 
   deploy-production-netlify:
     environment:
@@ -58,15 +61,18 @@ jobs:
       - name: build
         run: make build-production
 
-      - name: release
-        uses: nwtgck/actions-netlify@v4.0.0
-        with:
-          publish-dir: public
-          production-branch: main
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          deploy-message: "Deploy kurl.sh from GitHub Actions"
-          github-deployment-environment: production
+      - name: install Netlify CLI
+        run: npm install -g netlify-cli@latest
+
+      - name: deploy to Netlify
+        run: |
+          netlify deploy \
+            --prod \
+            --dir=public \
+            --site="$NETLIFY_SITE_ID" \
+            --auth="$NETLIFY_AUTH_TOKEN" \
+            --message="Deploy kurl.sh from GitHub Actions"
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: 7e8d8070-273a-45a3-9c84-885a52d8ab69
-        timeout-minutes: 1
+        timeout-minutes: 5
