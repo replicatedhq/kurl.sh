@@ -193,6 +193,8 @@ When you include the `minimumNodeCount` field and the cluster meets the minimum 
 
 - The user runs the `migrate-multinode-storage` command in the kURL tasks.sh script from a primary node.
 
+_**Note**_: To orchestrate the migration, kURL communicates with the EKCO operator over its NodePort service on port `31880`. The `migrate-multinode-storage` command defaults to reaching the operator at `localhost:31880`, so it must be run from a node where this port is accessible (typically a primary node). Ensure that port `31880/TCP` is not blocked by a firewall or otherwise unavailable, or the migration cannot start.
+
 ### Implementation
 
 The following example spec uses the `minimumNodeCount` field to configure kURL to run local storage with OpenEBS until the cluster increases to three nodes. When the cluster increases to three nodes, kURL automatically migrates to distributed storage with Rook:
@@ -218,6 +220,7 @@ The `minimumNodeCount` field has the following requirements:
   - Rook 1.11.7 or later
   - OpenEBS 3.6.0 or later
   - Block storage devices for Rook
+  - NodePort `31880/TCP` accessible on the node where the migration is run, so that kURL can reach the EKCO operator to orchestrate the migration
 
 ### Limitation  
 
