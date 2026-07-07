@@ -195,9 +195,11 @@ In addition to the ports listed above that must be open between nodes, the follo
 | 6782 | [weave](/docs/add-ons/weave) metrics server |
 | 10248 | kubelet health server |
 | 10249 | kube-proxy metrics server |
+| 10256 | kube-proxy health check server |
 | 9100 | [prometheus](/docs/add-ons/prometheus) node-exporter metrics server |
 | 10257 | kube-controller-manager health server |
 | 10259 | kube-scheduler health server |
+| 31880 | [EKCO](/docs/add-ons/ekco) operator NodePort, used by kURL to orchestrate [local-to-distributed storage migrations](/docs/install-with-kurl/migrating-csi) |
 
 ### Additional Firewall Rules
 
