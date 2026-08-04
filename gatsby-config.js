@@ -75,10 +75,10 @@ module.exports = {
         plugins: [
           `gatsby-remark-autolink-headers`,
           {
-            resolve: 'gatsby-remark-mermaid',
+            resolve: 'gatsby-remark-mermaid-jsdom',
             options: {
               language: 'mermaid',
-              theme: "default", 
+              theme: "default",
               themeVariables: {
                 "primaryColor":"#f5f8fc"
               }
