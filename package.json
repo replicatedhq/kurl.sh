@@ -43,7 +43,7 @@
     "react-select": "^3.2.0",
     "react-tooltip": "^6.0.8",
     "semver": "^7.8.5",
-    "serialize-javascript": "^7.0.3"
+    "serialize-javascript": "^7.1.1"
   },
   "devDependencies": {
     "@babel/core": "^7.29.7",
@@ -60,7 +60,7 @@
     "identity-obj-proxy": "^3.0.0",
     "jest": "^30.4.2",
     "jest-environment-jsdom": "^30.4.1",
-    "sass": "^1.101.0"
+    "sass": "^1.103.1"
   },
   "resolutions": {
     "path-to-regexp": "^0.1.13",
@@ -75,7 +75,7 @@
     "qs": "^6.14.2",
     "on-headers": "^1.1.0",
     "tmp": "^0.2.4",
-    "serialize-javascript": "^7.0.3",
+    "serialize-javascript": "^7.1.1",
     "socket.io-parser": "^4.2.6",
     "svgo": "^3.3.2",
     "dompurify": "^3.4.0",
