@@ -34,7 +34,7 @@
     "monaco-editor": "^0.55.1",
     "playwright": "1.61.1",
     "prop-types": "^15.7.2",
-    "query-string": "^9.4.0",
+    "query-string": "^9.5.1",
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "react-github-button": "^0.1.11",
@@ -58,8 +58,8 @@
     "dotenv": "^17.4.2",
     "gatsby-cli": "^5.16.0",
     "identity-obj-proxy": "^3.0.0",
-    "jest": "^30.4.2",
-    "jest-environment-jsdom": "^30.4.1",
+    "jest": "^30.5.1",
+    "jest-environment-jsdom": "^30.5.1",
     "sass": "^1.101.0"
   },
   "resolutions": {
