@@ -4223,10 +4223,10 @@ auto-bind@~4.0.0:
   resolved "https://registry.yarnpkg.com/auto-bind/-/auto-bind-4.0.0.tgz#e3589fc6c2da8f7ca43ba9f84fa52a744fc997fb"
   integrity sha512-Hdw8qdNiqdJ8LqT0iK0sVzkFbzg6fhnQqqfWhBDxcHZvU75+B+ayzTy8x+k5Ix0Y92XOhOUlx74ps+bA6BeYMQ==
 
-autoprefixer@^10.4.14, autoprefixer@^10.5.0:
-  version "10.5.5"
-  resolved "https://registry.yarnpkg.com/autoprefixer/-/autoprefixer-10.5.5.tgz#c2d2c2ccadda1d88536a4ff0e3e8d1417dbca388"
-  integrity sha512-uiRYvQYe/nNSzBJ7OUnd2/TZVsAdob3blml44teEpee9Cc1f4rGZFewO+JT3Wo8mgFOSzNqes4FHZn/Qz8WOuw==
+autoprefixer@^10.4.14, autoprefixer@^10.5.6:
+  version "10.5.6"
+  resolved "https://registry.yarnpkg.com/autoprefixer/-/autoprefixer-10.5.6.tgz#b613978f41eb58f0b3719ff1e21f993875e86a75"
+  integrity sha512-HiH4oYNc5+DQEx/b8FPfMj+WHH/WWUBmbN5r1Uf/ixtfyFkk+wGIlfJT/RD5eAyzlwkeYRtZUCI8qrEi26pl2g==
   dependencies:
     browserslist "^4.28.9"
     caniuse-lite "^1.0.30001810"
