@@ -53,7 +53,7 @@ Refer to the [Velero documentation](https://velero.io/docs/) for more advanced t
 Velero requires a backend object store where it will save your backups. It can alternatively be set up to use a persistent volume for storage.
 
 For the initial install, a storage location inside the cluster will be used as the default. The storage location will be determined in this order of precedence:
-1. If the `kotsadm.disableS3` flag is set to `true` in the installer spec, a persistent volume (PV) will be used as the storage backend. (Velero versions earlier than 1.17 only. On Velero 1.17 and later, the Local-Volume-Provider snapshot destinations are not supported and the install stops with an error.)
+1. If the `kotsadm.disableS3` flag is set to `true` in the installer spec, a persistent volume (PV) will be used as the storage backend. (Velero versions earlier than 1.17 only. On Velero 1.17 and later, the `disableS3` flag is not supported — it configures Velero with the Local Volume Provider plugin — and the install stops with an error.)
 1. If present, an object storage provider in the cluster will be used as the storage backend. This can be satisfied by the Rook or MinIO add-ons.
 1. Otherwise, no default storage location will be configured.
 
@@ -169,7 +169,7 @@ kubectl -n velero create secret generic google-credentials --from-file=cloud=./c
 
 The [local-volume-provider](https://github.com/replicatedhq/local-volume-provider) plugin can be used to store snapshots directly on the host machine (hostpath) or to a Network File Share (NFS) location.
 
-> **Note**: The Local-Volume-Provider snapshot destinations are supported on Velero versions earlier than 1.17 only. Velero 1.17 and later uses Kopia and requires an S3-compatible object store.
+> **Note**: The Local Volume Provider plugin is supported on Velero versions earlier than 1.17 only; Velero 1.17 and later uses Kopia and requires an S3-compatible object store. On Velero 1.17 and later, the Host Path and NFS destinations are instead backed by a KOTS-deployed MinIO instance (`kotsadm-fs-minio`) that stores data on the host path or NFS share, and the `velero backup-location create` commands below do not apply.
 
 Hostpath backups are only recommended for SINGLE NODE clusters that will never be extended with more nodes. To create a hostpath backup location:
 
