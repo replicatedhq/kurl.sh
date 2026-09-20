@@ -79,7 +79,8 @@ Velero 1.17.0 replaced the restic uploader with Kopia. Kopia cannot read existin
 When you upgrade a cluster that is using an Internal Storage, Host Path, or NFS snapshot destination to Velero 1.17 or later:
 
 - If an in-cluster object store (the MinIO add-on, or a healthy Rook Ceph RGW) is running in the cluster and the kotsadm version in the installer spec is 1.131.6 or later, the installer migrates Velero to the in-cluster object store automatically and then creates an `aws` BackupStorageLocation backed by it. kotsadm 1.131.6 or later is required because older versions of KOTS re-configure Velero back onto the Local Volume Provider even when an object store is present.
-- Otherwise, the upgrade stops before making any changes and prints the snapshot destination in use along with the available options: add the MinIO or Rook add-on to the installer, configure an external S3-compatible object store, or keep Velero at a version earlier than 1.17.
+- If no in-cluster object store is running, the upgrade stops before making any changes to Velero and prints the snapshot destination in use along with the available options: add the MinIO or Rook add-on to the installer, configure an external S3-compatible object store, or keep Velero at a version earlier than 1.17.
+- If the kotsadm version in the installer spec is older than 1.131.6, the upgrade stops before making any changes to Velero and directs you to re-run the installer with kotsadm 1.131.6 or later, or keep Velero at a version earlier than 1.17.
 
 The automated migration is a configuration cutover, not a data migration:
 
