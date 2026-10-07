@@ -1439,31 +1439,26 @@
   resolved "https://registry.yarnpkg.com/@csstools/css-tokenizer/-/css-tokenizer-3.0.4.tgz#333fedabc3fd1a8e5d0100013731cf19e6a8c5d3"
   integrity sha512-Vd/9EVDiu6PPJt9yAh6roZP6El1xHrdvIVGjyBsHR0RYwNHgL7FJPyIIW4fANJNG6FtyZfvlRPpFI4ZM/lubvw==
 
-"@docsearch/core@5.1.0":
-  version "5.1.0"
-  resolved "https://registry.yarnpkg.com/@docsearch/core/-/core-5.1.0.tgz#36038b0be13acfdd9af59e3832f6d262e744b4ae"
-  integrity sha512-cKss7ExN86ICPeJDNgWHJgYOCFXfklWTWTuMGMJH+CK7ctf2Irhr2xpB0YwaRXyfWKev/QHo0GSxHwVBWv/VvQ==
+"@docsearch/core@5.1.1":
+  version "5.1.1"
+  resolved "https://registry.yarnpkg.com/@docsearch/core/-/core-5.1.1.tgz#e01a986575ebbf4de5db2085f3de667c557e77be"
+  integrity sha512-/WlSUS5hrTIsmqbx+l7YU3zECHXV1cb6plH9/ZybCSIDIUl/FKeDZUKUlg901qiZIJwSUtuQDhmddkili8P37g==
 
-"@docsearch/css@5.1.0":
-  version "5.1.0"
-  resolved "https://registry.yarnpkg.com/@docsearch/css/-/css-5.1.0.tgz#725c400777bf40ee3f5536e4da81f620f2aa10fb"
-  integrity sha512-8+4N7h0MbW4wuPpjVBry3jvqnkBk8ZmBP5EeXrX+b6ysdUeWFt8/OWzriZ9vrHjdkdhMihWxRDYT5+GsHXLWGg==
-
-"@docsearch/css@^5.1.0":
+"@docsearch/css@5.1.1", "@docsearch/css@^5.1.0":
   version "5.1.1"
   resolved "https://registry.yarnpkg.com/@docsearch/css/-/css-5.1.1.tgz#5dbb305230a8642ca44ab00c0b4de18703371222"
   integrity sha512-+sPTcGV9QVTB7m9KRl2uym1lY3N3lwV2Y4KRttdZF7MPrS3Wd/Dkp5LarZTk81IpqF3hXxxyxhkl5vwQZGuGUQ==
 
-"@docsearch/react@5.1.0":
-  version "5.1.0"
-  resolved "https://registry.yarnpkg.com/@docsearch/react/-/react-5.1.0.tgz#d5fffc457f930873d109457de3a455f90b82c010"
-  integrity sha512-roWVIS3nGdXGIYg4OnKx4hny6+7VJYvOEtk9WaoHkVsPgZJWYZuyLsSVboQI1e9AiWNa9vT3DDAmAH6s2ZdaqA==
+"@docsearch/react@5.1.1":
+  version "5.1.1"
+  resolved "https://registry.yarnpkg.com/@docsearch/react/-/react-5.1.1.tgz#294ad0d0f5219b19da6461185faae4afe735fb55"
+  integrity sha512-Awh49X+8YJc7nGND5bHBML83JT1khGW9sgCy5kSxTcMLSngNQp8z+l7YTEkyGB7ZkPrIrKRYLNQp2RDguYYGrA==
   dependencies:
     "@ai-sdk/react" "^3.0.259"
     "@algolia/autocomplete-core" "1.19.2"
     "@base-ui/react" "^1.5.0"
-    "@docsearch/core" "5.1.0"
-    "@docsearch/css" "5.1.0"
+    "@docsearch/core" "5.1.1"
+    "@docsearch/css" "5.1.1"
     ai "^6.0.256"
     algoliasearch "^5.28.0"
     marked "^16.3.0"
