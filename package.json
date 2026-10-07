@@ -91,6 +91,7 @@
     "yaml": "^2.8.3",
     "webpack": "^5.104.1",
     "webpack-dev-middleware": "^7.4.6",
+    "http-cache-semantics": "^4.3.0",
     "gatsby/eslint": "^8.57.0"
   }
 }
