@@ -1,0 +1,19 @@
+src/components/SupportedAddOns.js
+  s_919ba0319bff29::t_a4dd134017a5e8 35,37-38
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "cb2edca5dbae795093d1a4055a1d897d8f6eb7e4",
+  "prompts": {},
+  "sessions": {
+    "s_919ba0319bff29": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "s_919ba0319bff29",
+        "model": "unknown"
+      },
+      "human_author": "Amber Alston <amber@replicated.com>"
+    }
+  }
+}
