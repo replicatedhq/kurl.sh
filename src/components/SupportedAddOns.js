@@ -13,7 +13,7 @@ import intersection from "lodash/intersection";
 import "../scss/components/SupportedAddOns.scss";
 
 // deprecated add-ons that should not be listed
-const HIDDEN_ADDONS = ["antrea", "calico", "longhorn", "weave"];
+const HIDDEN_ADDONS = ["antrea", "aws", "calico", "longhorn", "weave"];
 
 class SupportedAddOns extends React.Component {
   state = {
