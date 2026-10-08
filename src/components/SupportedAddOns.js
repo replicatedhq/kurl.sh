@@ -12,6 +12,9 @@ import intersection from "lodash/intersection";
 
 import "../scss/components/SupportedAddOns.scss";
 
+// deprecated add-ons that should not be listed
+const HIDDEN_ADDONS = ["antrea", "aws", "calico", "longhorn", "weave"];
+
 class SupportedAddOns extends React.Component {
   state = {
     kubernetesVersions: [{ version: "" }],
@@ -29,10 +32,10 @@ class SupportedAddOns extends React.Component {
     try {
       const resp = await fetch(url);
       const addOns = await resp.json();
+      const supportedAddOns = addOns.addOns.filter(a => !HIDDEN_ADDONS.includes(a.name));
       this.setState({
-        // hiding calico add on
-        supportedAddOns: addOns.addOns.filter(a => a.name !== "calico"),
-        categories: [...new Set(addOns.addOns.map(add => chunk(add.fulfills, 1)[0].join("")))]
+        supportedAddOns,
+        categories: [...new Set(supportedAddOns.map(add => chunk(add.fulfills, 1)[0].join("")))]
       });
     } catch (error) {
       throw error;
@@ -353,15 +356,6 @@ class SupportedAddOns extends React.Component {
               <div className={`flex flexWrap--wrap u-width--full ${isMobile ? "justifyContent--center u-marginTop--15" : "u-marginLeft--50"}`}>
                 {this.renderCategories(supportedAddOns, filteredCategoriesToShow)}
               </div>
-            </div>
-          </div>
-        </div>
-        <div className="AddOns--footer flex flex-1-auto">
-          <div className="AddOns--background flex flex-1-auto">
-            <div className="flex1 flex-column u-marginTop--40 u-marginBottom--40 justifyContent--center alignItems--center u-textAlign--center">
-              <div className="flex title"> Want more Add-ons? </div>
-              <p className="flex u-width--half u-lineHeight--more"> We’re working to always add more add-ons to kURL. If there is a particular service you want check out our contributing guide and submit a PR. </p>
-              <a href="https://github.com/replicatedhq/kurl" target="_blank" rel="noopener noreferrer" className="Button secondary-white u-marginTop--normal u-marginBottom--more"> Contribute to kURL </a>
             </div>
           </div>
         </div>
