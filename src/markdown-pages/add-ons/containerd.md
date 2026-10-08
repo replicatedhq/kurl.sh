@@ -69,7 +69,9 @@ When upgrading an existing cluster from Containerd 1.x to 2.x, kURL backs up the
 
 Before upgrading to Containerd 2.x, the cluster must already be running Containerd 1.7.x. Upgrades from Containerd 1.6.x or earlier directly to 2.x are not supported.
 
-Containerd 2.x is not supported with Kubernetes 1.26. Upgrade Kubernetes to 1.27 or later before upgrading to Containerd 2.x.
+Containerd 2.x requires Kubernetes 1.26 or later. Containerd 2.x removed the CRI v1alpha2 API in favor of CRI v1, which is the same API version Kubernetes itself required starting with 1.26. Upgrade Kubernetes to 1.26 or later before upgrading to Containerd 2.x.
+
+Kubernetes 1.37 and later require Containerd 2.x. Kubernetes 1.37 dropped upstream support for Containerd 1.x, so installs and upgrades to Kubernetes 1.37+ must already be on, or upgrade to, Containerd 2.x.
 
 ## Advanced Install Options
 
