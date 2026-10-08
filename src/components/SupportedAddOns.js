@@ -32,9 +32,10 @@ class SupportedAddOns extends React.Component {
     try {
       const resp = await fetch(url);
       const addOns = await resp.json();
+      const supportedAddOns = addOns.addOns.filter(a => !HIDDEN_ADDONS.includes(a.name));
       this.setState({
-        supportedAddOns: addOns.addOns.filter(a => !HIDDEN_ADDONS.includes(a.name)),
-        categories: [...new Set(addOns.addOns.map(add => chunk(add.fulfills, 1)[0].join("")))]
+        supportedAddOns,
+        categories: [...new Set(supportedAddOns.map(add => chunk(add.fulfills, 1)[0].join("")))]
       });
     } catch (error) {
       throw error;
