@@ -15,6 +15,11 @@ The following host packages are required for Red Hat Enterprise Linux 9 and Rock
 
 - iscsi-initiator-utils
 
+## Compatibility
+
+* When Rook and OpenEBS are both in the spec, OpenEBS must be 3.6.0 or later. See [Rook](/docs/add-ons/rook).
+* OpenEBS 4.x is not supported upstream with Kubernetes versions earlier than 1.23.
+
 ## Advanced Install Options
 
 ```yaml

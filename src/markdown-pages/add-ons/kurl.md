@@ -8,6 +8,10 @@ addOn: "kurl"
 ---
 For disk space requirements, see [Core Directory Disk Space Requirements](/docs/install-with-kurl/system-requirements#core-directory-disk-space-requirements).
 
+## Compatibility
+
+* `airgap: true` cannot be used with `licenseURL`, or with a Helm add-on that sets `helmfileSpec`.
+
 ## Advanced Install Options
 
 ```yaml
