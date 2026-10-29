@@ -63,6 +63,7 @@ This can be overridden using the `podCIDR` to specify a specific address space, 
 ## Limitations
 
 * Flannel is not compatible with the Docker container runtime
+* Flannel requires Kubernetes 1.17 or later.
 * Network Policies are not supported
 * IPv6 and dual stack networks are not supported
 * Encryption is not supported

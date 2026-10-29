@@ -10,6 +10,10 @@ addOn: "registry"
 [Docker registry](https://github.com/docker/distribution) is an OCI compatible image registry.
 This add-on deploys it to the `kurl` namespace.
 
+## Compatibility
+
+* The Registry add-on requires an object store (MinIO or Rook) or a storage provisioner (OpenEBS or Longhorn).
+
 ## Advanced Install Options
 
 ```yaml

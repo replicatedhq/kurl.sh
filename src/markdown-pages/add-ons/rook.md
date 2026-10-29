@@ -18,6 +18,16 @@ The following host packages are required for Red Hat Enterprise Linux 9 and Rock
 
 - lvm2
 
+## Compatibility
+
+* Rook 1.5.12 and earlier are not compatible with Kubernetes 1.22 or later.
+* Rook 1.9.12 and later require Kubernetes 1.17 or later.
+* Rook 1.10 and later require Kubernetes 1.18 or later.
+* Rook 1.13 and later require Kubernetes 1.23 or later.
+* Rook 1.18 and later require Kubernetes 1.31 or later.
+* When Rook and OpenEBS are both in the spec, Rook must be 1.11.7 or later, OpenEBS must be 3.6.0 or later, and `minimumNodeCount`, if set, must be 3 or more.
+* The Vendor Portal linter warns when a Rook version is paired with a Kubernetes version outside the range that Rook tests upstream.
+
 ## Advanced Install Options
 
 ```yaml

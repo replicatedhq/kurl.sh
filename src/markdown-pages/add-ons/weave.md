@@ -18,6 +18,10 @@ As of March 27, 2023, the Weave add-on is deprecated. The Weave add-on might be 
 
 Weave Net creates a virtual network that connects containers across multiple hosts and enables their automatic discovery. With Weave Net, portable microservices-based applications consisting of multiple containers can run anywhere: on one host, multiple hosts or even across cloud providers and data centers.
 
+## Compatibility
+
+* Weave is not compatible with Containerd 1.6.0 through 1.6.4.
+
 ## Advanced Install Options
 
 ```yaml

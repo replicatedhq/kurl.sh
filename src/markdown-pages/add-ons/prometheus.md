@@ -9,6 +9,10 @@ addOn: "prometheus"
 
 Prometheus is an open-source instrumentation framework. Prometheus can absorb massive amounts of data every second, making it well suited for complex workloads.
 
+## Compatibility
+
+* Prometheus 0.87.1-80.14.4 and later require Kubernetes 1.25 or later.
+
 ## Advanced Install Options
 
 ```yaml
