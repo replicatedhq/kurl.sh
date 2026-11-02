@@ -13,6 +13,7 @@ Contour is an Ingress controller for Kubernetes that works by deploying the Envo
 
 * Contour 1.15.1 and earlier are not compatible with Kubernetes 1.22 or later.
 * Contour 1.16.0 and later require Kubernetes 1.19 or later.
+* Contour 1.29.0 and later require Kubernetes 1.21 or later.
 
 ## Advanced Install Options
 

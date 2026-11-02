@@ -13,7 +13,7 @@ As CentOS, RHEL and Oracle Linux 8.x do not support Docker, the Containerd CRI i
 
 Containerd 1.4.8+ has dropped support for Ubuntu 16.04.
 
-Kubernetes 1.24 and later require a container runtime. Without Containerd, kURL falls back to Docker, which does not support Kubernetes 1.24 or later.
+Kubernetes 1.24 and later require Containerd. Docker, whether set in the spec or used as the fallback when no container runtime is set, does not support Kubernetes 1.24 or later.
 
 ### About Containerd upgrades
 
@@ -71,9 +71,11 @@ When upgrading an existing cluster from Containerd 1.x to 2.x, kURL backs up the
 
 Before upgrading to Containerd 2.x, the cluster must already be running Containerd 1.7.x. Upgrades from Containerd 1.6.x or earlier directly to 2.x are not supported.
 
-Containerd 2.x requires Kubernetes 1.26 or later. Upgrade Kubernetes to 1.26 or later before upgrading to Containerd 2.x.
+Containerd versions earlier than 1.6.0 are not compatible with Kubernetes 1.26 or later.
 
-Kubernetes 1.37 and later require Containerd 2.x. Containerd 2.1.x is not supported upstream with Kubernetes 1.36 or later.
+Containerd 2.x requires Kubernetes 1.26 or later. Upgrade Kubernetes to 1.26 or later before upgrading to Containerd 2.x. Upstream containerd lists Containerd 2.x as tested only with Kubernetes 1.30 and later.
+
+Kubernetes 1.36 and later require Containerd 2.x. Upstream Kubernetes supports Containerd 1.x only up to Kubernetes 1.35. Containerd 2.1.x is not supported upstream with Kubernetes 1.36 or later.
 
 ## Advanced Install Options
 

@@ -16,7 +16,7 @@ This will install KOTS as a StatefulSet using a persistent volume (PV) for stora
 
 ## Compatibility
 
-* KOTS 1.96.2 and earlier are not compatible with Kubernetes 1.29 or later.
+* KOTS 1.105.1 and earlier are not compatible with Kubernetes 1.29 or later.
 * KOTS versions earlier than 1.100.0 do not support native Helm applications on Kubernetes 1.27 or later.
 
 ## Advanced Install Options

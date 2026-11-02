@@ -11,6 +11,8 @@ Prometheus is an open-source instrumentation framework. Prometheus can absorb ma
 
 ## Compatibility
 
+* Prometheus 0.49.0-17.1.3 and earlier are not compatible with Kubernetes 1.22 or later.
+* Prometheus 0.59.0 and earlier are not compatible with Kubernetes 1.25 or later.
 * Prometheus 0.87.1-80.14.4 and later require Kubernetes 1.25 or later.
 
 ## Advanced Install Options

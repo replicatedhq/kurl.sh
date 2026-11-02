@@ -10,7 +10,7 @@ For disk space requirements, see [Core Directory Disk Space Requirements](/docs/
 
 ## Compatibility
 
-* `airgap: true` cannot be used with `licenseURL`, or with a Helm add-on that sets `helmfileSpec`.
+* Airgap installs do not support `licenseURL` or the `helm` add-on (`helm.helmfileSpec`). This applies to every airgap install, including installs run with the `airgap` flag from a spec that does not set `airgap: true`.
 
 ## Advanced Install Options
 
