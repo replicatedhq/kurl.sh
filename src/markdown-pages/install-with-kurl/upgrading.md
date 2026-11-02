@@ -57,7 +57,7 @@ It is worth noting that while it is possible to upgrade Containerd directly from
 
 Upgrading to Containerd 2.x is a cross-major upgrade and is only supported from Containerd 1.7.x. If the cluster is currently on Containerd 1.6.x or earlier, you must upgrade to Containerd 1.7.x first.
 
-Containerd 2.x requires Kubernetes 1.26 or later. Upgrade Kubernetes to 1.26 or later before upgrading to Containerd 2.x. Kubernetes 1.36 and later require Containerd 2.x, so upgrade to Containerd 2.x before upgrading Kubernetes to 1.36 or later.
+Containerd 2.x requires Kubernetes 1.26 or later. Upgrade Kubernetes to 1.26 or later before upgrading to Containerd 2.x. Kubernetes 1.37 and later require Containerd 2.x, so upgrade to Containerd 2.x before upgrading Kubernetes to 1.37 or later.
 
 Containerd 2.x uses configuration schema version 3. During the upgrade from Containerd 1.x to 2.x, kURL backs up the existing `/etc/containerd/config.toml` to a `.bak` file before regenerating it for the new schema. The previous 1.x configuration is preserved as a recovery artifact but is not reused, because the CRI plugin tables differ between schema versions. In 2.x, kURL defaults are written to `/etc/containerd/conf.d/50-replicated.toml` and any custom `tomlConfig` settings are written to `/etc/containerd/conf.d/99-user.toml`.
 

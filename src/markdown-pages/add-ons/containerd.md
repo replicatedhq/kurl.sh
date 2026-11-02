@@ -75,7 +75,7 @@ Containerd versions earlier than 1.6.0 are not compatible with Kubernetes 1.26 o
 
 Containerd 2.x requires Kubernetes 1.26 or later. Upgrade Kubernetes to 1.26 or later before upgrading to Containerd 2.x. Upstream containerd lists Containerd 2.x as tested only with Kubernetes 1.30 and later.
 
-Kubernetes 1.36 and later require Containerd 2.x. Upstream Kubernetes supports Containerd 1.x only up to Kubernetes 1.35. Containerd 2.1.x is not supported upstream with Kubernetes 1.36 or later.
+Kubernetes 1.37 and later require Containerd 2.x. Upstream Kubernetes supports Containerd 1.x only up to Kubernetes 1.35. Containerd 2.1.x is not supported upstream with Kubernetes 1.36 or later.
 
 ## Advanced Install Options
 
