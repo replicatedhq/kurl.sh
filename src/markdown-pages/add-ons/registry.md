@@ -12,7 +12,7 @@ This add-on deploys it to the `kurl` namespace.
 
 ## Compatibility
 
-* The Registry add-on requires an object store (MinIO or Rook) or a storage provisioner (OpenEBS or Longhorn).
+* Without an object store (MinIO or Rook), the Registry add-on stores images on a persistent volume from the default StorageClass, so the cluster needs one.
 
 ## Advanced Install Options
 

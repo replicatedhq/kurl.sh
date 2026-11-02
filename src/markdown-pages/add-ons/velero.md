@@ -26,7 +26,7 @@ The limitations of Velero apply to this add-on. For more information, see [Limit
 ## Compatibility
 
 * Velero 1.16.2 and later require Kubernetes 1.25 or later.
-* Velero requires the MinIO or Rook add-on, unless `kotsadm.disableS3` is set to `true`.
+* Without the MinIO or Rook add-on, Velero is installed without a default backup location. KOTS configures the backup destination after the install.
 * Velero 1.17 and later cannot be used with `kotsadm.disableS3` set to `true`, even when MinIO or Rook is present.
 
 ## Advanced Install Options
