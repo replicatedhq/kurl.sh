@@ -22,6 +22,10 @@ The following host packages are required for Red Hat Enterprise Linux 9 and Rock
 - socat
 - util-linux
 
+## Compatibility
+
+* The AWS add-on is not compatible with Kubernetes 1.27 or later, because the in-tree AWS cloud provider was removed.
+
 ## Advanced Install Options
 
 flags-table
