@@ -8,6 +8,10 @@ addOn: "kurl"
 ---
 For disk space requirements, see [Core Directory Disk Space Requirements](/docs/install-with-kurl/system-requirements#core-directory-disk-space-requirements).
 
+## Compatibility
+
+* Airgap installs do not support `licenseURL` or the `helm` add-on (`helm.helmfileSpec`). This applies to every airgap install, including installs run with the `airgap` flag from a spec that does not set `airgap: true`.
+
 ## Advanced Install Options
 
 ```yaml

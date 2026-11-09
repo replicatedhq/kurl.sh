@@ -23,6 +23,12 @@ The following host packages are required for Red Hat Enterprise Linux 9 and Rock
 ## Limitations
 The limitations of Velero apply to this add-on. For more information, see [Limitations](https://github.com/vmware-tanzu/velero/blob/master/site/docs/master/restic.md#limitations) in the Velero GitHub repository.
 
+## Compatibility
+
+* Velero 1.16.2 and later require Kubernetes 1.25 or later.
+* Without the MinIO or Rook add-on, Velero is installed without a default backup location. KOTS configures the backup destination after the install.
+* Velero 1.17 and later cannot be used with `kotsadm.disableS3` set to `true`, even when MinIO or Rook is present.
+
 ## Advanced Install Options
 
 ```yaml

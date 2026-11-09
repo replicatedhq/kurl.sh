@@ -30,6 +30,12 @@ The following host packages are required for Red Hat Enterprise Linux 9 and Rock
 - iscsi-initiator-utils
 - nfs-utils
 
+## Compatibility
+
+* Longhorn versions earlier than 1.2.0 are not compatible with Kubernetes 1.22 or later.
+* Longhorn 1.2.0 and later require Kubernetes 1.18 or later.
+* Longhorn 1.4.0 and earlier are not compatible with Kubernetes 1.25 or later.
+
 ## Advanced Install Options
 
 ```yaml

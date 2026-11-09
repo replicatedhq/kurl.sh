@@ -8,6 +8,10 @@ addOn: "certManager"
 ---
 [cert-manager](https://cert-manager.io/) is a tool to issue and renew x509 certificates for a Kubernetes cluster.
 
+## Compatibility
+
+* cert-manager versions earlier than 1.5.0 are not compatible with Kubernetes 1.22 or later.
+
 ## Advanced Install Options
 
 ```yaml
