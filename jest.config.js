@@ -11,7 +11,7 @@ module.exports = {
     "/node_modules/.+\\.m?js$": [`babel-jest`, { babelrc: false, configFile: false, plugins: [`@babel/plugin-transform-modules-commonjs`] }],
     "\\.[jt]sx?$": `babel-jest`,
   },
-  transformIgnorePatterns: [`node_modules/(?!(gatsby|gatsby-script|gatsby-link|@docsearch|@base-ui|@algolia|algoliasearch|@ai-sdk|ai|marked|zod)/)`],
+  transformIgnorePatterns: [`node_modules/(?!(gatsby|gatsby-script|gatsby-link|@docsearch|marked)/)`],
   globals: {
     __PATH_PREFIX__: ``,
   },

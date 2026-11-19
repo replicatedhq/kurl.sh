@@ -15,6 +15,18 @@ window.matchMedia = (query) => ({
 });
 window.scrollTo = () => {};
 
+// Render the real DocSearch, and record the props Search passes to it.
+jest.mock("@docsearch/react", () => {
+  const actual = jest.requireActual("@docsearch/react");
+  const React = jest.requireActual("react");
+  const receivedProps = [];
+  const DocSearch = React.forwardRef((props, ref) => {
+    receivedProps.push(props);
+    return React.createElement(actual.DocSearch, { ...props, ref });
+  });
+  return { ...actual, DocSearch, receivedProps };
+});
+
 const React = require("react");
 const { act } = React;
 const { createRoot } = require("react-dom/client");
@@ -39,10 +51,14 @@ it("opens the DocSearch modal without crashing", async () => {
     button.click();
   });
 
-  // DocSearch 5 throws while rendering the modal when `indices` is missing,
-  // which unmounts the page and leaves it blank.
+  // Without `indices`, DocSearch 5 throws while rendering the modal and act()
+  // rethrows it, so the test fails above. In production the same error
+  // unmounts the page and leaves it blank.
   expect(document.querySelector(".DocSearch-Modal")).not.toBeNull();
   expect(container.querySelector(".DocSearch-Button")).not.toBeNull();
+
+  const { receivedProps } = require("@docsearch/react");
+  expect(receivedProps.at(-1).indices).toEqual(["kurl-algolia-config"]);
 
   await act(async () => {
     root.unmount();
