@@ -36,6 +36,8 @@ title: "System Requirements"
 
 Host packages are bundled and installed by kURL without the need for external package repositories except for in the case of Red Hat Enterprise Linux 9 and 10, Rocky Linux 9, Amazon Linux 2023, and Ubuntu 24.04.
 
+On Red Hat Enterprise Linux 7, the bundled packages are built from CentOS 7. On Red Hat Enterprise Linux 8, the bundled packages are built from Rocky Linux 8. If your organization requires packages from Red Hat repositories, install the required packages before you install kURL, and then run the installer with the `skip-system-package-install` flag. For more information, see [kURL Advanced Install Options](/docs/install-with-kurl/advanced-options).
+
 For these OSes, the following packages are required per add-on:
 
 | Add-on                           | Packages |
