@@ -7,7 +7,7 @@ function Search() {
   return (
     <DocSearch
       appId={process.env.GATSBY_ALGOLIA_APP_ID}
-      indexName="kurl-algolia-config"
+      indices={["kurl-algolia-config"]}
       apiKey={process.env.GATSBY_ALGOLIA_API_KEY}
   />
   );
